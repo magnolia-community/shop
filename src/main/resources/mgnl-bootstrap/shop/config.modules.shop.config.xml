@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sv:node sv:name="config" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <sv:property sv:name="jcr:primaryType" sv:type="Name">
+    <sv:value>mgnl:content</sv:value>
+  </sv:property>
+  <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+    <sv:value>mix:lockable</sv:value>
+  </sv:property>
+  <sv:property sv:name="jcr:uuid" sv:type="String">
+    <sv:value>3d50f965-c2b5-4958-8e2a-0a8132990649</sv:value>
+  </sv:property>
+  <sv:property sv:name="cartClassQualifiedName" sv:type="String">
+    <sv:value>info.magnolia.module.shop.beans.DefaultShoppingCart</sv:value>
+  </sv:property>
+  <sv:node sv:name="MetaData">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>mgnl:metaData</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:activated" sv:type="Boolean">
+      <sv:value>false</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:activatorid" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:authorid" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:creationdate" sv:type="Date">
+      <sv:value>2008-06-27T12:50:32.411+02:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastaction" sv:type="Date">
+      <sv:value>2008-06-27T12:50:40.393+02:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+      <sv:value>2010-06-28T11:32:33.781+02:00</sv:value>
+    </sv:property>
+  </sv:node>
+  <sv:node sv:name="shops">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>mgnl:content</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+      <sv:value>mix:lockable</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:uuid" sv:type="String">
+      <sv:value>9a30595a-db04-478d-9944-719a479a1fad</sv:value>
+    </sv:property>
+    <sv:node sv:name="MetaData">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:metaData</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:activated" sv:type="Boolean">
+        <sv:value>false</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:activatorid" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:authorid" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:creationdate" sv:type="Date">
+        <sv:value>2008-06-27T13:31:22.943+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastaction" sv:type="Date">
+        <sv:value>2008-06-27T13:31:26.274+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+        <sv:value>2008-06-27T13:31:26.282+02:00</sv:value>
+      </sv:property>
+    </sv:node>
+    <sv:node sv:name="sampleShop">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+        <sv:value>mix:lockable</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>3616d157-3c0f-4e75-bdb5-e6d0fb65a7ef</sv:value>
+      </sv:property>
+      <sv:property sv:name="cartBeanType" sv:type="String">
+        <sv:value>sampleShopCart</sv:value>
+      </sv:property>
+      <sv:property sv:name="cartSessionVariable" sv:type="String">
+        <sv:value>shoppingCart</sv:value>
+      </sv:property>
+      <sv:property sv:name="confirmationMailTemplate" sv:type="String">
+        <sv:value>shop-confirmation</sv:value>
+      </sv:property>
+      <sv:property sv:name="defaultPriceCategoryKey" sv:type="String">
+        <sv:value>standard-price</sv:value>
+      </sv:property>
+      <sv:property sv:name="savedCartUUIDSessionVariable" sv:type="String">
+        <sv:value>lastCartUUID</sv:value>
+      </sv:property>
+      <sv:property sv:name="shopAdminMailAddress" sv:type="String">
+        <sv:value>your@mail.com</sv:value>
+      </sv:property>
+      <sv:property sv:name="shopDataRootPath" sv:type="String">
+        <sv:value>/sampleShop</sv:value>
+      </sv:property>
+      <sv:property sv:name="shopMailsFromAddress" sv:type="String">
+        <sv:value>your@mail.com</sv:value>
+      </sv:property>
+      <sv:node sv:name="MetaData">
+        <sv:property sv:name="jcr:primaryType" sv:type="Name">
+          <sv:value>mgnl:metaData</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:activated" sv:type="Boolean">
+          <sv:value>false</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:activatorid" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:authorid" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
+          <sv:value>2008-06-27T12:51:37.189+02:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastaction" sv:type="Date">
+          <sv:value>2010-03-11T11:43:46.821+01:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+          <sv:value>2010-06-28T12:40:34.060+02:00</sv:value>
+        </sv:property>
+      </sv:node>
+    </sv:node>
+  </sv:node>
+</sv:node>
