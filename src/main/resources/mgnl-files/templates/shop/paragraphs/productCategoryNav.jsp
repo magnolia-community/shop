@@ -35,7 +35,7 @@
 				<a href="${pageContext.request.contextPath}${shopPagePath}.html?prodCat=${currProductCategory.UUID}"><cms:out nodeDataName="title_${language}" contentNode="${currProductCategory}" /></a></li>
 				<c:if test="${liClass eq 'active' or liClass eq 'path'}">
 					<!-- get second level product categories -->
-					<cms:query repository="data" query="/jcr:root${currProductCategory.handle}/*" type="xpath" nodeType="shopProductCategory" var="secondLevelProductCategores" />
+					<cms:query repository="data" query="select * from nt:base where jcr:path like '${currProductCategory.handle}/%'" type="sql" nodeType="shopProductCategory" var="secondLevelProductCategores" />
 					<c:if test="${fn:length(secondLevelProductCategores) gt 1}">
 						<ul>
 							<c:forEach items="${secondLevelProductCategores}" begin="1" var="currProductCategory" >
