@@ -24,28 +24,27 @@
 				<div id="body">
 					<div class="leftcol">
 						<c:set var="paragraphs" value="shopProdCatNav" />
-						<cms:newBar contentNodeCollectionName="navColParagraphs" paragraph="${paragraphs}" />
 						<cms:contentNodeIterator contentNodeCollectionName="navColParagraphs" varStatus="navColStatus">
 							<cms:editBar adminOnly="true" />
 							<c:set var="paragraphIndex" value="${navColStatus.index}" scope="request" />
 							<cms:includeTemplate />
 						</cms:contentNodeIterator>
-						<cms:newBar contentNodeCollectionName="navColParagraphs" paragraph="${paragraphs}" />
 						<div style="height: 50px;"><!-- --></div>
+						<cms:newBar contentNodeCollectionName="navColParagraphs" paragraph="${paragraphs}" />
 					</div>
 					<div class="centercol">
 						<c:set var="paragraphs" value="shopText, shopProdCatBreadcrumb, shopProductListing, shopCart, shopCheckoutBreadcrumb, shopAddressForm, shopOrderValidation, shopOrderConfirmation" />
-						<cms:newBar contentNodeCollectionName="mainColParagraphs" paragraph="${paragraphs}" />
 						<cms:contentNodeIterator contentNodeCollectionName="mainColParagraphs" varStatus="mainColStatus">
 							<cms:editBar adminOnly="true" />
 							<c:set var="paragraphIndex" value="${mainColStatus.index}" scope="request" />
 							<cms:includeTemplate />
 						</cms:contentNodeIterator>
-						<cms:newBar contentNodeCollectionName="mainColParagraphs" paragraph="${paragraphs}" />
+						<div style="clear:both;">
+							<cms:newBar contentNodeCollectionName="mainColParagraphs" paragraph="${paragraphs}" />
+						</div>
 					</div>
 					<div class="rightcol">
 						<c:set var="paragraphs" value="shopServiceCart, shopCheckoutSteps" />
-						<cms:newBar contentNodeCollectionName="serviceColParagraphs" paragraph="${paragraphs}" />
 						<cms:contentNodeIterator contentNodeCollectionName="serviceColParagraphs" varStatus="serviceColStatus">
 							<cms:editBar adminOnly="true" />
 							<c:set var="paragraphIndex" value="${serviceColStatus.index}" scope="request" />
