@@ -5,9 +5,9 @@
 	xmlns:cmsfn="http://www.magnolia.info/tlds/cmsfn-taglib.tld"
 	xmlns:c="urn:jsptld:http://java.sun.com/jsp/jstl/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
-	xmlns:fmt="urn:jsptld:http://java.sun.com/jsp/jstl/fmt"
-	xmlns:ffu="urn:jsptld:ff-util-taglib">
+	xmlns:fmt="urn:jsptld:http://java.sun.com/jsp/jstl/fmt">
 	<jsp:directive.page contentType="text/html; charset=UTF-8" />
+	<jsp:directive.page import="info.magnolia.module.shop.ShopModule" />
 
 	<c:import url="/templates/shop/pages/inc/pageSetup.jsp" />
 	<c:import url="/templates/shop/pages/inc/shopPageSetup.jsp" />

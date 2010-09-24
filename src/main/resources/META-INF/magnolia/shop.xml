@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module SYSTEM "module.dtd" >
 <module>
-  <name>${project.name}</name>
+  <name>shop</name>
   <displayName>Magnolia module : magnolia-module-shop</displayName>
   <class>info.magnolia.module.shop.ShopModule</class>
   <versionHandler>info.magnolia.module.shop.ShopModuleVersionHandler</versionHandler>

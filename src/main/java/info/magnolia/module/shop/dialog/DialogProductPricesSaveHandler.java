@@ -33,7 +33,6 @@
  */
 package info.magnolia.module.shop.dialog;
 
-import ch.fastforward.magnolia.module.utils.content2bean.SimpleBean2ContentProcessorImpl;
 import info.magnolia.cms.beans.runtime.MultipartForm;
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.core.ItemType;
@@ -44,6 +43,7 @@ import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.content2bean.Bean2ContentProcessor;
 import info.magnolia.content2bean.Content2BeanException;
 import info.magnolia.module.admininterface.FieldSaveHandler;
+import info.magnolia.module.shop.util.SimpleBean2ContentProcessorImpl;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;

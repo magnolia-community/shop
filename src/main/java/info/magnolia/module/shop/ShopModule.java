@@ -49,6 +49,10 @@ public class ShopModule {
 
   private String cartClassQualifiedName;
 
+  public static final String DEFAULT_CART_SESSION_VARIABLE_NAME = "shoppingCart";
+  public static final String DEFAULT_CART_CLASS_NAME = "info.magnolia.module.shop.beans.DefaultShoppingCart";
+  public static final String CARTS_FOLDER_NAME = "shoppingCarts";
+
   /*
    * Required default constructor
    */

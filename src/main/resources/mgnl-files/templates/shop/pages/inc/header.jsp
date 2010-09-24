@@ -4,7 +4,6 @@
 	xmlns:cmsu="urn:jsptld:cms-util-taglib" 
 	xmlns:cmsfn="http://www.magnolia.info/tlds/cmsfn-taglib.tld"
 	xmlns:c="urn:jsptld:http://java.sun.com/jsp/jstl/core"
-	xmlns:ffu="urn:jsptld:ff-util-taglib"
 	xmlns:fmt="urn:jsptld:http://java.sun.com/jsp/jstl/fmt" 
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 	

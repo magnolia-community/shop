@@ -33,10 +33,10 @@
  */
 package info.magnolia.module.shop.beans;
 
-import ch.fastforward.magnolia.crud.MgnlDataBean;
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.NodeDataUtil;
+import info.magnolia.module.ocm.beans.OCMBean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -59,7 +59,7 @@ import org.slf4j.LoggerFactory;
  * 
  * @author will
  */
-public class ShoppingCartItem extends MgnlDataBean implements Serializable {
+public class ShoppingCartItem extends OCMBean implements Serializable {
 
   private static final long serialVersionUID = 1L;
   private static Logger log = LoggerFactory.getLogger(ShoppingCartItem.class);
@@ -113,7 +113,7 @@ public class ShoppingCartItem extends MgnlDataBean implements Serializable {
           Content taxCategory = ContentUtil
               .getContentByUUID("data", product.getNodeData("taxCategoryUUID").getString());
           if (taxCategory != null && taxCategory.getNodeData("tax").isExist()) {
-            itemTaxRate = new BigDecimal(taxCategory.getNodeData("tax").getString());
+                        setItemTaxRate(new BigDecimal(taxCategory.getNodeData("tax").getString()));
           }
         }
       } else {
@@ -171,24 +171,12 @@ public class ShoppingCartItem extends MgnlDataBean implements Serializable {
     this.shoppingCartUUID = shoppingCartUUID;
   }
 
-  @Override
-  public Map validate() {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
-
-  @Override
-  public Map validate(String key) {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
-
   public DefaultShoppingCart getCart() {
     return cart;
   }
 
   public void setCart(DefaultShoppingCart cart) {
     this.cart = cart;
-    cart.addCartItem(this);
-    this.setShoppingCartUUID(cart.getCartUUID());
   }
 
   public String getProductTitle() {
@@ -227,8 +215,8 @@ public class ShoppingCartItem extends MgnlDataBean implements Serializable {
   public BigDecimal getItemTotalBigDecimal() {
     if (unitPrice != null) {
       BigDecimal total = unitPrice.multiply(new BigDecimal("" + quantity));
-      if (itemDiscountRate != null && itemDiscountRate.floatValue() > 0 && itemDiscountRate.floatValue() <= 100) {
-        total = total.multiply(new BigDecimal("100").subtract(itemDiscountRate)).divide(new BigDecimal("100"));
+      if (  getItemDiscountRate() != null && getItemDiscountRate().floatValue() > 0 && getItemDiscountRate().floatValue() <= 100) {
+        total = total.multiply(new BigDecimal("100").subtract(getItemDiscountRate())).divide(new BigDecimal("100"));
       }
       return total;
     } else {
@@ -238,15 +226,15 @@ public class ShoppingCartItem extends MgnlDataBean implements Serializable {
 
   public BigDecimal getItemTaxBigDecimal() {
     BigDecimal total = getItemTotalBigDecimal();
-    if (total != null && itemTaxRate != null) {
+    if (total != null && getItemTaxRate() != null) {
       BigDecimal oneHundred = new BigDecimal("100");
       if (getCart().getTaxIncluded()) {
         // total = price including tax
-        BigDecimal taxFactor = oneHundred.divide(itemTaxRate.add(oneHundred), 10, RoundingMode.HALF_UP);
+        BigDecimal taxFactor = oneHundred.divide(getItemTaxRate().add(oneHundred), 10, RoundingMode.HALF_UP);
         return total.subtract(total.multiply(taxFactor));
       } else {
         // toal = price excluding tax
-        BigDecimal taxFactor = itemTaxRate.add(oneHundred).divide(oneHundred, 10, RoundingMode.HALF_UP);
+        BigDecimal taxFactor = getItemTaxRate().add(oneHundred).divide(oneHundred, 10, RoundingMode.HALF_UP);
         return total.multiply(taxFactor).subtract(total);
       }
     }
@@ -305,4 +293,32 @@ public class ShoppingCartItem extends MgnlDataBean implements Serializable {
     }
     return 0;
   }
+
+    /**
+     * @return the itemDiscountRate
+     */
+    public BigDecimal getItemDiscountRate() {
+        return itemDiscountRate;
+    }
+
+    /**
+     * @param itemDiscountRate the itemDiscountRate to set
+     */
+    public void setItemDiscountRate(BigDecimal itemDiscountRate) {
+        this.itemDiscountRate = itemDiscountRate;
+    }
+
+    /**
+     * @return the itemTaxRate
+     */
+    public BigDecimal getItemTaxRate() {
+        return itemTaxRate;
+    }
+
+    /**
+     * @param itemTaxRate the itemTaxRate to set
+     */
+    public void setItemTaxRate(BigDecimal itemTaxRate) {
+        this.itemTaxRate = itemTaxRate;
+    }
 }

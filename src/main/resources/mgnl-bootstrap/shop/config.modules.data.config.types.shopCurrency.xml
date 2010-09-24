@@ -16,7 +16,7 @@
     <sv:value>true</sv:value>
   </sv:property>
   <sv:property sv:name="rootPath" sv:type="String">
-    <sv:value>/shop</sv:value>
+    <sv:value>/sampleShop</sv:value>
   </sv:property>
   <sv:property sv:name="sortByName" sv:type="String">
     <sv:value>true</sv:value>

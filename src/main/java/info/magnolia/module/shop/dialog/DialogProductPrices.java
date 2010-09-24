@@ -33,7 +33,6 @@
  */
 package info.magnolia.module.shop.dialog;
 
-import ch.fastforward.magnolia.module.utils.control.GridEdit;
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.gui.control.ControlImpl;
 import info.magnolia.cms.gui.dialog.DialogBox;

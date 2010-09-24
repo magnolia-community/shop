@@ -19,7 +19,7 @@
     <sv:value>Products</sv:value>
   </sv:property>
   <sv:property sv:name="rootPath" sv:type="String">
-    <sv:value>/prolumaProducts</sv:value>
+    <sv:value>/sampleShop/products</sv:value>
   </sv:property>
   <sv:property sv:name="sortByName" sv:type="String">
     <sv:value>true</sv:value>

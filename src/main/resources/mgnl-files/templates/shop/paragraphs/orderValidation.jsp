@@ -4,8 +4,7 @@
     xmlns:cmsu="urn:jsptld:cms-util-taglib" 
     xmlns:c="urn:jsptld:http://java.sun.com/jsp/jstl/core" 
 	xmlns:fmt="urn:jsptld:http://java.sun.com/jsp/jstl/fmt" 
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	xmlns:ffu="urn:jsptld:ff-util-taglib">
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<cms:ifNotEmpty nodeDataName="title">
 		<h1><cms:out nodeDataName="title" /></h1>
@@ -84,10 +83,13 @@
 				</tr>
 				<c:forEach items="${shoppingCart.cartItems}" var="currentCartItem">
 					<c:set var="imagesUUID" value="" />
-					<c:set var="productImagesList" value="" />
+					<c:set var="productImagesList" value="" scope="request" />
 					<cms:out nodeDataName="imagesUUID" contentNode="${currentCartItem.product}" var="imagesUUID" />
 					<c:if test="${not empty imagesUUID}">
-						<ffu:dmsFileList uuid="${imagesUUID}" repository="dms" var="productImagesList" />
+						<c:import url="/templates/shop/global/documentList.jsp">
+							<c:param name="dmsNodeUUID" value="${imagesUUID}" />
+							<c:param name="varName" value="productImagesList" />
+						</c:import>
 					</c:if>
 					<tr>
 						<td>

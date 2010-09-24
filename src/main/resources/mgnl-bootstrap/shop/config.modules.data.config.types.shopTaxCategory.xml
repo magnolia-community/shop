@@ -19,7 +19,7 @@
     <sv:value>Tax Categories</sv:value>
   </sv:property>
   <sv:property sv:name="rootPath" sv:type="String">
-    <sv:value>/shop/taxcategories</sv:value>
+    <sv:value>/sampleShop/taxcategories</sv:value>
   </sv:property>
   <sv:property sv:name="sortByName" sv:type="Boolean">
     <sv:value>true</sv:value>

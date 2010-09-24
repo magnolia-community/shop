@@ -33,11 +33,11 @@
  */
 package info.magnolia.module.shop.beans;
 
-import ch.fastforward.magnolia.crud.MgnlDataBean;
-import ch.fastforward.magnolia.crud.util.ValidationUtil;
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.QueryUtil;
+import info.magnolia.module.ocm.beans.OCMNumberedBean;
+import info.magnolia.module.shop.util.ValidationUtil;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -57,11 +57,11 @@ import org.slf4j.LoggerFactory;
  * 
  * @author will
  */
-public class DefaultShoppingCart extends MgnlDataBean implements ShoppingCart, Serializable {
+public class DefaultShoppingCart extends OCMNumberedBean implements ShoppingCart, Serializable {
 
   private static final long serialVersionUID = 1L;
   private static Logger log = LoggerFactory.getLogger(DefaultShoppingCart.class);
-  private String cartUUID;
+//  private String cartUUID;
   private String language;
   private Date orderDate;
   private Date targetDeliveryDate;
@@ -156,7 +156,7 @@ public class DefaultShoppingCart extends MgnlDataBean implements ShoppingCart, S
             price = priceNode.getNodeData("price").getDouble();
           }
         }
-        ShoppingCartItem newCartItem = new ShoppingCartItem(this, productUUID, quantity, price);
+        this.getCartItems().add(new ShoppingCartItem(this, productUUID, quantity, price));
       }
       quantityAdded = quantity;
     }
@@ -193,9 +193,9 @@ public class DefaultShoppingCart extends MgnlDataBean implements ShoppingCart, S
     return -1;
   }
 
-  public String getCartUUID() {
+/*  public String getCartUUID() {
     return cartUUID;
-  }
+  }*/
 
   public ArrayList getCartItems() {
     return cartItems;
@@ -474,27 +474,12 @@ public class DefaultShoppingCart extends MgnlDataBean implements ShoppingCart, S
   }
 
   /**
-   * Sets the uuid of the corresponding content node and at the same time also
-   * sets this uuid in all cart items.
-   * 
-   * @param uuid
-   */
-  @Override
-  public void setUUID(String uuid) {
-    super.setUUID(uuid);
-    for (int i = 0; i < cartItems.size(); i++) {
-      ((ShoppingCartItem) cartItems.get(i)).setShoppingCartUUID(uuid);
-    }
-  }
-
-  /**
    * Validates the whole shopping cart. In the DefaultShoppingCart class nothing
    * is validated. Overwrite this method to implement your own validation.
    * 
    * @return
    * @todo Use the validate(String key) method.
    */
-  @Override
   public Map validate() {
     // Map errors = validateOrderAddress();
     // return errors;
@@ -517,7 +502,6 @@ public class DefaultShoppingCart extends MgnlDataBean implements ShoppingCart, S
    *       node data for the validation type (or maybe even the validation class
    *       which which the value should be validated, e.g. EmailValidation)
    */
-  @Override
   public Map validate(String key) {
     if (StringUtils.isBlank(key)) {
       return null;

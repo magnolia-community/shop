@@ -36,7 +36,7 @@ a:hover {
 	position: relative;
 	background-color: black;
 	color: white;
-	height: 100px;
+	height: 150px;
 	position: relative;
 }
 #logo {
@@ -76,8 +76,6 @@ div#mainnav ul {
 	padding: 0;
 	list-style-type: none;
 	font-size: 12px;
-	width: 764px;
-	overflow: hidden;
 }
 div#mainnav li {
 	float: left;
@@ -261,11 +259,14 @@ a.button {
 	text-align: left;
 }
 a.refresh {
-	background-image: url("../../shop/images/Button-Refresh_256.png");
+	background-image: url("../../shop/images/refresh.png");
 	background-position: 3px 1px;
 }
 a.button:hover {
 	color: #cccccc;
+}
+a.refresh:hover {
+	background-image: url("../../shop/images/refresh_hover.png");
 }
 /* product details ********************************************************************************/
 div.productdetails {

@@ -4,8 +4,7 @@
     xmlns:cmsu="urn:jsptld:cms-util-taglib" 
     xmlns:c="urn:jsptld:http://java.sun.com/jsp/jstl/core" 
 	xmlns:fmt="urn:jsptld:http://java.sun.com/jsp/jstl/fmt" 
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	xmlns:ffu="urn:jsptld:ff-util-taglib">
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<cms:out nodeDataName="step" var="step" />
 	<ul class="checkout_steps">

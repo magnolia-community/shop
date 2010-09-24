@@ -5,8 +5,7 @@
 	xmlns:cmsfn="http://www.magnolia.info/tlds/cmsfn-taglib.tld"
     xmlns:c="urn:jsptld:http://java.sun.com/jsp/jstl/core" 
 	xmlns:fmt="urn:jsptld:http://java.sun.com/jsp/jstl/fmt" 
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	xmlns:ffu="urn:jsptld:ff-util-taglib">
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<c:choose>
 		<c:when test="${not empty selectedProductCategory}">
@@ -23,7 +22,10 @@
 									<!-- look for product images -->
 									<cms:out nodeDataName="imagesUUID" contentNode="${currProduct}" var="imagesUUID" />
 									<c:if test="${not empty imagesUUID}">
-										<ffu:dmsFileList uuid="${imagesUUID}" repository="dms" var="productImagesList" />
+										<c:import url="/templates/shop/global/documentList.jsp">
+											<c:param name="dmsNodeUUID" value="${imagesUUID}" />
+											<c:param name="varName" value="productImagesList" />
+										</c:import>
 									</c:if>
 									<li>
 										<c:choose>
@@ -90,7 +92,10 @@
 						<!-- look for product images -->
 						<cms:out nodeDataName="imagesUUID" contentNode="${selectedProduct}" var="imagesUUID" />
 						<c:if test="${not empty imagesUUID}">
-							<ffu:dmsFileList uuid="${imagesUUID}" repository="dms" var="productImagesList" />
+							<c:import url="/templates/shop/global/documentList.jsp">
+								<c:param name="dmsNodeUUID" value="${imagesUUID}" />
+								<c:param name="varName" value="productImagesList" />
+							</c:import>
 						</c:if>
 						<c:choose>
 							<c:when test="${fn:length(productImagesList) gt 0}">
