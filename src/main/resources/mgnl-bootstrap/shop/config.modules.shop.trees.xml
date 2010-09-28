@@ -76,7 +76,7 @@
         <sv:value>3b3c2d88-d4e6-4c40-8745-6fb57081f3ec</sv:value>
       </sv:property>
       <sv:property sv:name="class" sv:type="String">
-        <sv:value>ch.fastforward.magnolia.module.utils.trees.ConfigurableTreeConfiguration</sv:value>
+        <sv:value>info.magnolia.module.shop.trees.ConfigurableTreeConfiguration</sv:value>
       </sv:property>
       <sv:property sv:name="onIconDoubleClick" sv:type="String">
         <sv:value>mgnl.data.DataTree.edit(${tree}, ${tree}.selectedNode.itemType);</sv:value>
@@ -101,7 +101,7 @@
           <sv:value>2010-03-07T19:11:05.802+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-03-18T11:33:10.926+01:00</sv:value>
+          <sv:value>2010-09-28T22:18:13.656+02:00</sv:value>
         </sv:property>
       </sv:node>
       <sv:node sv:name="nodeTypes">
@@ -1564,7 +1564,7 @@
         <sv:value>18be3c93-3b81-4c23-b966-249360bf13bd</sv:value>
       </sv:property>
       <sv:property sv:name="class" sv:type="String">
-        <sv:value>ch.fastforward.magnolia.module.utils.trees.ConfigurableTreeConfiguration</sv:value>
+        <sv:value>info.magnolia.module.shop.trees.ConfigurableTreeConfiguration</sv:value>
       </sv:property>
       <sv:property sv:name="onIconDoubleClick" sv:type="String">
         <sv:value>mgnl.data.DataTree.edit(${tree}, ${tree}.selectedNode.itemType);</sv:value>
@@ -1589,7 +1589,7 @@
           <sv:value>2010-03-07T19:10:55.791+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-03-18T11:34:43.830+01:00</sv:value>
+          <sv:value>2010-09-28T22:18:26.138+02:00</sv:value>
         </sv:property>
       </sv:node>
       <sv:node sv:name="nodeTypes">
@@ -2926,7 +2926,7 @@
         <sv:value>9dd5c219-c51f-4d28-9145-6d0d8d86b46a</sv:value>
       </sv:property>
       <sv:property sv:name="class" sv:type="String">
-        <sv:value>ch.fastforward.magnolia.module.utils.trees.ConfigurableTreeConfiguration</sv:value>
+        <sv:value>info.magnolia.module.shop.trees.ConfigurableTreeConfiguration</sv:value>
       </sv:property>
       <sv:property sv:name="onIconDoubleClick" sv:type="String">
         <sv:value>mgnl.data.DataTree.edit(${tree}, ${tree}.selectedNode.itemType);</sv:value>
@@ -2951,7 +2951,7 @@
           <sv:value>2010-03-07T19:10:49.165+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-03-18T11:38:17.975+01:00</sv:value>
+          <sv:value>2010-09-28T22:18:35.469+02:00</sv:value>
         </sv:property>
       </sv:node>
       <sv:node sv:name="nodeTypes">
@@ -4291,7 +4291,7 @@
         <sv:value>bae3b34a-430e-4696-a707-a8453f97ca0d</sv:value>
       </sv:property>
       <sv:property sv:name="class" sv:type="String">
-        <sv:value>ch.fastforward.magnolia.module.utils.trees.ConfigurableTreeConfiguration</sv:value>
+        <sv:value>info.magnolia.module.shop.trees.ConfigurableTreeConfiguration</sv:value>
       </sv:property>
       <sv:property sv:name="onIconDoubleClick" sv:type="String">
         <sv:value>mgnl.data.DataTree.edit(${tree}, ${tree}.selectedNode.itemType);</sv:value>
@@ -4316,7 +4316,7 @@
           <sv:value>2010-03-07T19:10:42.030+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-03-18T11:39:02.579+01:00</sv:value>
+          <sv:value>2010-09-28T22:18:48.166+02:00</sv:value>
         </sv:property>
       </sv:node>
       <sv:node sv:name="nodeTypes">
@@ -5656,7 +5656,7 @@
         <sv:value>9b41c44e-659d-4272-bea8-600722dd0dc1</sv:value>
       </sv:property>
       <sv:property sv:name="class" sv:type="String">
-        <sv:value>ch.fastforward.magnolia.module.utils.trees.ConfigurableTreeConfiguration</sv:value>
+        <sv:value>info.magnolia.module.shop.trees.ConfigurableTreeConfiguration</sv:value>
       </sv:property>
       <sv:property sv:name="onIconDoubleClick" sv:type="String">
         <sv:value>mgnl.data.DataTree.edit(${tree}, ${tree}.selectedNode.itemType);</sv:value>
@@ -5681,7 +5681,7 @@
           <sv:value>2010-03-07T19:10:34.218+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-03-18T11:39:59.565+01:00</sv:value>
+          <sv:value>2010-09-28T22:18:56.717+02:00</sv:value>
         </sv:property>
       </sv:node>
       <sv:node sv:name="nodeTypes">
@@ -7021,7 +7021,7 @@
         <sv:value>acc7f53d-19f1-4bf9-b976-659f67adc0f0</sv:value>
       </sv:property>
       <sv:property sv:name="class" sv:type="String">
-        <sv:value>ch.fastforward.magnolia.module.utils.trees.ConfigurableTreeConfiguration</sv:value>
+        <sv:value>info.magnolia.module.shop.trees.ConfigurableTreeConfiguration</sv:value>
       </sv:property>
       <sv:property sv:name="onIconDoubleClick" sv:type="String">
         <sv:value>mgnl.data.DataTree.edit(${tree}, ${tree}.selectedNode.itemType);</sv:value>
@@ -7046,7 +7046,7 @@
           <sv:value>2010-03-11T11:43:59.525+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-03-18T11:45:59.400+01:00</sv:value>
+          <sv:value>2010-09-28T22:19:08.139+02:00</sv:value>
         </sv:property>
       </sv:node>
       <sv:node sv:name="nodeTypes">
@@ -8632,7 +8632,7 @@
         <sv:value>52d25b3d-d32b-4e92-9a67-1b0f028afde6</sv:value>
       </sv:property>
       <sv:property sv:name="class" sv:type="String">
-        <sv:value>ch.fastforward.magnolia.module.utils.trees.ConfigurableTreeConfiguration</sv:value>
+        <sv:value>info.magnolia.module.shop.trees.ConfigurableTreeConfiguration</sv:value>
       </sv:property>
       <sv:property sv:name="onIconDoubleClick" sv:type="String">
         <sv:value>mgnl.data.DataTree.edit(${tree}, ${tree}.selectedNode.itemType);</sv:value>
@@ -8657,7 +8657,7 @@
           <sv:value>2010-03-16T15:54:34.549+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-03-18T11:47:53.133+01:00</sv:value>
+          <sv:value>2010-09-28T22:19:20.100+02:00</sv:value>
         </sv:property>
       </sv:node>
       <sv:node sv:name="nodeTypes">
