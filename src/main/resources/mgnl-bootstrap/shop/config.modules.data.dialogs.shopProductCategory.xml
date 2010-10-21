@@ -10,7 +10,7 @@
     <sv:value>2bda1f04-897b-483b-87dd-3d936332d180</sv:value>
   </sv:property>
   <sv:property sv:name="class" sv:type="String">
-    <sv:value>ch.fastforward.magnolia.module.utils.dialog.RootSpecificConfigurableTreeDialog</sv:value>
+    <sv:value>info.magnolia.module.shop.dialog.RootSpecificConfigurableTreeDialog</sv:value>
   </sv:property>
   <sv:property sv:name="i18nBasename" sv:type="String">
     <sv:value>info.magnolia.module.data.messages</sv:value>
