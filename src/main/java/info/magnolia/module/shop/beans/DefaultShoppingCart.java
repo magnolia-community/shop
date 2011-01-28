@@ -164,7 +164,7 @@ public class DefaultShoppingCart extends OCMNumberedBean implements ShoppingCart
   }
 
   /**
-   * Removes the cart item containing the product with the passed in UUID
+   * Removes the cart item containing the product with the passed in UUID.
    * 
    * @param productUUID
    * @todo When multiple items with the same product should be allowed this will

@@ -36,7 +36,7 @@ package info.magnolia.module.shop.beans;
 import java.util.ArrayList;
 
 /**
- * 
+ * Shoping cart.
  * @author will
  */
 public interface ShoppingCart {

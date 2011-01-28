@@ -44,7 +44,6 @@ import info.magnolia.content2bean.Bean2ContentProcessor;
 import info.magnolia.content2bean.Content2BeanException;
 import info.magnolia.module.admininterface.FieldSaveHandler;
 import info.magnolia.module.shop.util.SimpleBean2ContentProcessorImpl;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -54,7 +53,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 
+ * Save handler.
  * @author will
  */
 public class DialogProductPricesSaveHandler implements FieldSaveHandler {

@@ -51,7 +51,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * 
+ * Product prices.
  * @author will
  */
 public class DialogProductPrices extends DialogBox {
