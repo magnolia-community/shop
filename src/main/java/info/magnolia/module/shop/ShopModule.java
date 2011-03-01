@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2003-2009 Magnolia International
+ * This file Copyright (c) 2003-2011 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -33,6 +33,9 @@
  */
 package info.magnolia.module.shop;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This is the configuration bean of your Magnolia module. It has to be
  * registered in the module descriptor file under
@@ -48,6 +51,8 @@ public class ShopModule {
   private static ShopModule instance;
 
   private String cartClassQualifiedName;
+  private List<ShopConfiguration> shops = new ArrayList<ShopConfiguration>();
+  
 
   public static final String DEFAULT_CART_SESSION_VARIABLE_NAME = "shoppingCart";
   public static final String DEFAULT_CART_CLASS_NAME = "info.magnolia.module.shop.beans.DefaultShoppingCart";
@@ -71,5 +76,26 @@ public class ShopModule {
   public void setCartClassQualifiedName(String cartClassQualifiedName) {
     this.cartClassQualifiedName = cartClassQualifiedName;
   }
+
+	public List<ShopConfiguration> getShops() {
+		return shops;
+	}
+	
+	public void setShops(List<ShopConfiguration> shops) {
+		this.shops = shops;
+	}
+	
+	public void addShop(ShopConfiguration shop) {
+		this.shops.add(shop);
+	}
+	
+	public ShopConfiguration getCurrentShopConfiguration(String shopName) {
+		for (ShopConfiguration shopConfiguration : getShops()) {
+			if(shopConfiguration.getName().equals(shopName)) {
+				return shopConfiguration;
+			}
+		}
+		return null;
+	}
 
 }

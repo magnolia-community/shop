@@ -125,6 +125,40 @@
           <sv:value>2010-06-28T12:40:34.060+02:00</sv:value>
         </sv:property>
       </sv:node>
+      <sv:node sv:name="priceCategoryManager">
+        <sv:property sv:name="jcr:primaryType" sv:type="Name">
+          <sv:value>mgnl:contentNode</sv:value>
+        </sv:property>
+        <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+          <sv:value>mix:lockable</sv:value>
+        </sv:property>
+        <sv:property sv:name="jcr:uuid" sv:type="String">
+          <sv:value>6d179eb5-07ac-4352-9e4a-db39ba2a2eb6</sv:value>
+        </sv:property>
+        <sv:property sv:name="class" sv:type="String">
+          <sv:value>info.magnolia.module.shop.PriceCategoryManagerImpl</sv:value>
+        </sv:property>
+        <sv:property sv:name="defaultPriceCategory" sv:type="String">
+          <sv:value>standard-price</sv:value>
+        </sv:property>
+        <sv:property sv:name="shopName" sv:type="String">
+          <sv:value>sampleShop</sv:value>
+        </sv:property>
+        <sv:node sv:name="MetaData">
+          <sv:property sv:name="jcr:primaryType" sv:type="Name">
+            <sv:value>mgnl:metaData</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:authorid" sv:type="String">
+            <sv:value>superuser</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:creationdate" sv:type="Date">
+            <sv:value>2011-03-01T12:57:33.468+01:00</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+            <sv:value>2011-03-01T15:20:53.435+01:00</sv:value>
+          </sv:property>
+        </sv:node>
+      </sv:node>
     </sv:node>
   </sv:node>
 </sv:node>
