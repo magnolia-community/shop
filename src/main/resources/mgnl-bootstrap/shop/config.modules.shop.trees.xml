@@ -62,7 +62,7 @@
         <sv:value>2010-03-07T19:11:05.801+01:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-        <sv:value>2010-03-18T11:33:32.351+01:00</sv:value>
+        <sv:value>2011-02-25T14:52:27.658+01:00</sv:value>
       </sv:property>
     </sv:node>
     <sv:node sv:name="configuration">
@@ -10028,6 +10028,49 @@
           </sv:node>
         </sv:node>
       </sv:node>
+    </sv:node>
+  </sv:node>
+  <sv:node sv:name="shopProductMultiSelect">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>mgnl:contentNode</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:uuid" sv:type="String">
+      <sv:value>5be8997f-3de2-4267-bcc8-d5f2d6371c27</sv:value>
+    </sv:property>
+    <sv:property sv:name="class" sv:type="String">
+      <sv:value>info.magnolia.module.shop.trees.ProductListDataTree</sv:value>
+    </sv:property>
+    <sv:property sv:name="repository" sv:type="String">
+      <sv:value>data</sv:value>
+    </sv:property>
+    <sv:property sv:name="rootPath" sv:type="String">
+      <sv:value>/sampleShop/products</sv:value>
+    </sv:property>
+    <sv:node sv:name="MetaData">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:metaData</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:Data" sv:type="String">
+        <sv:value>MetaData</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:activated" sv:type="Boolean">
+        <sv:value>false</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:activatorid" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:authorid" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:creationdate" sv:type="Date">
+        <sv:value>2005-05-06T16:18:38.686+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastaction" sv:type="Date">
+        <sv:value>2006-09-14T19:51:30.121+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+        <sv:value>2011-02-28T14:10:36.532+01:00</sv:value>
+      </sv:property>
     </sv:node>
   </sv:node>
 </sv:node>
