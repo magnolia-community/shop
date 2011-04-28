@@ -9,6 +9,9 @@
   <sv:property sv:name="jcr:uuid" sv:type="String">
     <sv:value>1b659d19-730b-455b-bf08-df203b6a01fb</sv:value>
   </sv:property>
+  <sv:property sv:name="i18nBasename" sv:type="String">
+    <sv:value>info.magnolia.module.shop.messages</sv:value>
+  </sv:property>
   <sv:property sv:name="saveHandler" sv:type="String">
     <sv:value>info.magnolia.module.data.save.DataSaveHandler</sv:value>
   </sv:property>
@@ -32,7 +35,7 @@
       <sv:value>2010-03-16T15:57:05.606+01:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2011-02-28T12:17:47.023+01:00</sv:value>
+      <sv:value>2011-04-28T12:46:38.146+02:00</sv:value>
     </sv:property>
   </sv:node>
   <sv:node sv:name="tabMain">
