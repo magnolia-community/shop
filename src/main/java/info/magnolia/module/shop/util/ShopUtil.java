@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2003-2009 Magnolia International
+ * This file Copyright (c) 2003-2011 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -39,41 +39,96 @@ import info.magnolia.cms.core.Content;
 import info.magnolia.cms.i18n.I18nContentSupportFactory;
 import info.magnolia.cms.i18n.Messages;
 import info.magnolia.cms.i18n.MessagesManager;
+import info.magnolia.cms.util.NodeDataUtil;
+import info.magnolia.context.Context;
+import info.magnolia.context.MgnlContext;
+import info.magnolia.module.shop.ShopModule;
+import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
+import info.magnolia.module.shop.beans.ShoppingCart;
 import info.magnolia.module.templating.MagnoliaTemplatingUtilities;
 import info.magnolia.module.templatingkit.util.STKUtil;
+import info.magnolia.objectfactory.Classes;
 
 import javax.jcr.RepositoryException;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ShopUtil {
-	
-	private static Logger log = LoggerFactory.getLogger(ShopUtil.class);
-	
-	/**
-	 * Gets the shop current node, assumes one shop per site.
-	 */
-	public static Content getShopRoot(Content siteRoot) {
-		Content shopRoot = null;
-		try {
-			shopRoot = STKUtil.getContentByTemplateCategorySubCategory(siteRoot, "feature", "shopHome");
-		} catch (RepositoryException e) {
-			log.error("No template found with category feature, subcategory shopHome");
-		}
-		
-		return shopRoot;
-	}
-	
-	public static String getCategoryLink(Content category, Content siteRoot) {
-		String link = MagnoliaTemplatingUtilities.getInstance().createLink(getShopRoot(siteRoot));
-	    return link.replace(".html", "." + category.getUUID() + ".html");
-	}
-	
-	public static Messages getMessages() {
-	      Locale currentLocale = I18nContentSupportFactory.getI18nSupport().getLocale();
-	      final Messages msg = MessagesManager.getMessages("info.magnolia.module.shop.messages", currentLocale);
-	      return msg;
-	    }
+
+  private static Logger log = LoggerFactory.getLogger(ShopUtil.class);
+
+  /**
+   * Gets the shop current node, assumes one shop per site.
+   */
+  public static Content getShopRoot(Content siteRoot) {
+    Content shopRoot = null;
+    try {
+      shopRoot = STKUtil.getContentByTemplateCategorySubCategory(siteRoot,
+          "feature", "shopHome");
+    } catch (RepositoryException e) {
+      log.error("No template found with category feature, subcategory shopHome");
+    }
+
+    return shopRoot;
+  }
+
+  public static String getCategoryLink(Content category, Content siteRoot) {
+    String link = MagnoliaTemplatingUtilities.getInstance().createLink(
+        getShopRoot(siteRoot));
+    return link.replace(".html", "." + category.getUUID() + ".html");
+  }
+
+  public static Messages getMessages() {
+    Locale currentLocale = I18nContentSupportFactory.getI18nSupport()
+        .getLocale();
+    final Messages msg = MessagesManager.getMessages(
+        "info.magnolia.module.shop.messages", currentLocale);
+    return msg;
+  }
+
+  public static void setShoppingCart() {
+    String shopName = getShopName();
+
+    if (StringUtils.isNotEmpty(shopName)) {
+
+      DefaultShoppingCartImpl cart = (DefaultShoppingCartImpl) getShoppingCart();
+      if (cart == null) {
+        Content priceCategory = ShopModule.getInstance()
+            .getCurrentShopConfiguration(shopName).getPriceCategoryManager()
+            .getPriceCategoryInUse();
+        cart = Classes.quietNewInstance(ShopModule.getInstance().getCartClassQualifiedName(), priceCategory);
+        cart.setLanguage(getLanguage());
+        MgnlContext.setAttribute("shoppingCart", cart, Context.SESSION_SCOPE);
+      }
+    }
+  }
+
+  public static String getLanguage() {
+    return I18nContentSupportFactory.getI18nSupport()
+    .getLocale().getLanguage();
+  }
+
+  public static String getShopName() {
+    return (String) MgnlContext.getAttribute("shopName");
+  }
+
+  public static ShoppingCart getShoppingCart() {
+    
+    return (ShoppingCart) MgnlContext.getAttribute("shoppingCart");
+  }
+  
+  /**
+   * Gets localized string from data repository.
+   * 
+   */
+  public String getString(Content node, String nodeDataName) {
+    Locale currentLocale = I18nContentSupportFactory.getI18nSupport()
+        .getLocale();
+    return NodeDataUtil.getString(node, nodeDataName + "_"
+        + currentLocale.getLanguage(), NodeDataUtil.getString(node,
+        nodeDataName));
+  }
 
 }

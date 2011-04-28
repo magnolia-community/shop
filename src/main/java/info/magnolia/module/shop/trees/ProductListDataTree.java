@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2003-2009 Magnolia International
+ * This file Copyright (c) 2003-2011 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -52,129 +52,144 @@ import info.magnolia.module.admininterface.trees.ConfigTreeConfiguration;
 import info.magnolia.module.data.DataConsts;
 
 /**
- * Product list tree, to be used with multiselect control, it just displays the 
- * products for selection
+ * Product list tree, to be used with multiselect control, it just displays the
+ * products for selection.
+ * 
  * @author tmiyar
- *
+ * 
  */
 public class ProductListDataTree extends AdminTreeMVCHandler {
-	
-	
-	public ProductListDataTree(String name, HttpServletRequest request,
-			HttpServletResponse response) {
-		super(name, request, response);
-	}
-	
-	public void init() {
-        super.init();
-        this.setConfiguration(new ConfigTreeConfiguration() {
-        	final Messages msgs = getMessages();
-            public void prepareTree(Tree tree, boolean browseMode, HttpServletRequest request) {
-                
-                tree.addItemType(DataConsts.FOLDER_ITEMTYPE, DataConsts.FOLDER_ICON, false);
-                tree.addItemType("dataItem", DataConsts.FOLDER_ICON, false);
-                tree.addItemType("dataItemNode", Tree.DEFAULT_ICON_CONTENTNODE, false);
-                
-                TreeColumn column0 = new TreeColumn(tree.getJavascriptTree(), request);
-                column0.setHtmlEdit();
-                column0.setIsLabel(true);
-                column0.setWidth(3);
 
-                TreeColumn column1 = new TreeColumn(tree.getJavascriptTree(), request);
-                column1.setName(StringUtils.EMPTY);
-                column1.setTitle(msgs.get("tree.config.value")); //$NON-NLS-1$
-                column1.setIsNodeDataValue(true);
-                column1.setWidth(3);
-                column1.setHtmlEdit();
+  public ProductListDataTree(String name, HttpServletRequest request,
+      HttpServletResponse response) {
+    super(name, request, response);
+  }
 
-                TreeColumn column2 = new TreeColumn(tree.getJavascriptTree(), request);
-                column2.setName(StringUtils.EMPTY);
-                column2.setTitle(msgs.get("tree.config.type")); //$NON-NLS-1$
-                column2.setIsNodeDataType(true);
-                column2.setWidth(1);
-                Select typeSelect = new Select();
-                typeSelect.setName(tree.getJavascriptTree() + TreeColumn.EDIT_NAMEADDITION);
-                typeSelect.setSaveInfo(false);
-                typeSelect.setCssClass(TreeColumn.EDIT_CSSCLASS_SELECT);
-                typeSelect.setEvent(
-                    "onblur", tree.getJavascriptTree() + ".saveNodeData(this.value,this.options[this.selectedIndex].text)"); //$NON-NLS-1$
-                typeSelect.setOptions(PropertyType.TYPENAME_STRING, Integer.toString(PropertyType.STRING));
-                typeSelect.setOptions(PropertyType.TYPENAME_BOOLEAN, Integer.toString(PropertyType.BOOLEAN));
-                typeSelect.setOptions(PropertyType.TYPENAME_LONG, Integer.toString(PropertyType.LONG));
-                typeSelect.setOptions(PropertyType.TYPENAME_DOUBLE, Integer.toString(PropertyType.DOUBLE));
-                // todo: typeSelect.setOptions(PropertyType.TYPENAME_DATE,Integer.toString(PropertyType.DATE));
-                column2.setHtmlEdit(typeSelect.getHtml());
+  public void init() {
+    super.init();
+    this.setConfiguration(new ConfigTreeConfiguration() {
+      final Messages msgs = getMessages();
 
-                TreeColumn columnIcons = new TreeColumn(tree.getJavascriptTree(), request);
-                columnIcons.setCssClass(StringUtils.EMPTY);
-                columnIcons.setTitle(msgs.get("tree.config.status")); //$NON-NLS-1$
-                columnIcons.setWidth(1);
-                columnIcons.setIsIcons(true);
-                columnIcons.setIconsActivation(true);
-                columnIcons.setIconsPermission(true);
+      public void prepareTree(Tree tree, boolean browseMode,
+          HttpServletRequest request) {
 
-                TreeColumn column4 = new TreeColumn(tree.getJavascriptTree(), request);
-                column4.setName(MetaData.LAST_MODIFIED);
-                column4.setIsMeta(true);
-                column4.setDateFormat("yy-MM-dd, HH:mm"); //$NON-NLS-1$
-                column4.setWidth(2);
-                column4.setTitle(msgs.get("tree.config.date")); //$NON-NLS-1$
+        tree.addItemType(DataConsts.FOLDER_ITEMTYPE, DataConsts.FOLDER_ICON,
+            false);
+        tree.addItemType("dataItem", DataConsts.FOLDER_ICON, false);
+        tree.addItemType("dataItemNode", Tree.DEFAULT_ICON_CONTENTNODE, false);
 
-                tree.addColumn(column0);
+        TreeColumn column0 = new TreeColumn(tree.getJavascriptTree(), request);
+        column0.setHtmlEdit();
+        column0.setIsLabel(true);
+        column0.setWidth(3);
 
-                if (!browseMode) {
-                    tree.addColumn(column1);
-                    tree.addColumn(column2);
+        TreeColumn column1 = new TreeColumn(tree.getJavascriptTree(), request);
+        column1.setName(StringUtils.EMPTY);
+        column1.setTitle(msgs.get("tree.config.value")); //$NON-NLS-1$
+        column1.setIsNodeDataValue(true);
+        column1.setWidth(3);
+        column1.setHtmlEdit();
 
-                    if (isAdminInstance() || hasAnyActiveSubscriber()) {
-                        tree.addColumn(columnIcons);
-                    }
-                    tree.addColumn(column4);
-                }
+        TreeColumn column2 = new TreeColumn(tree.getJavascriptTree(), request);
+        column2.setName(StringUtils.EMPTY);
+        column2.setTitle(msgs.get("tree.config.type")); //$NON-NLS-1$
+        column2.setIsNodeDataType(true);
+        column2.setWidth(1);
+        Select typeSelect = new Select();
+        typeSelect.setName(tree.getJavascriptTree()
+            + TreeColumn.EDIT_NAMEADDITION);
+        typeSelect.setSaveInfo(false);
+        typeSelect.setCssClass(TreeColumn.EDIT_CSSCLASS_SELECT);
+        typeSelect
+            .setEvent(
+                "onblur", tree.getJavascriptTree() + ".saveNodeData(this.value,this.options[this.selectedIndex].text)"); //$NON-NLS-1$
+        typeSelect.setOptions(PropertyType.TYPENAME_STRING, Integer
+            .toString(PropertyType.STRING));
+        typeSelect.setOptions(PropertyType.TYPENAME_BOOLEAN, Integer
+            .toString(PropertyType.BOOLEAN));
+        typeSelect.setOptions(PropertyType.TYPENAME_LONG, Integer
+            .toString(PropertyType.LONG));
+        typeSelect.setOptions(PropertyType.TYPENAME_DOUBLE, Integer
+            .toString(PropertyType.DOUBLE));
+        // todo:
+        // typeSelect.setOptions(PropertyType.TYPENAME_DATE,Integer.toString(PropertyType.DATE));
+        column2.setHtmlEdit(typeSelect.getHtml());
 
-            }
-            public void prepareContextMenu(Tree tree, boolean browseMode, HttpServletRequest request) {
-                super.prepareContextMenu(tree, browseMode, request);
-                if(!browseMode){
-                    List menu = tree.getMenu().getMenuItems();
-                    menu.remove(0);
-                    menu.remove(0);
-                    menu.remove(0);
+        TreeColumn columnIcons = new TreeColumn(tree.getJavascriptTree(),
+            request);
+        columnIcons.setCssClass(StringUtils.EMPTY);
+        columnIcons.setTitle(msgs.get("tree.config.status")); //$NON-NLS-1$
+        columnIcons.setWidth(1);
+        columnIcons.setIsIcons(true);
+        columnIcons.setIconsActivation(true);
+        columnIcons.setIconsPermission(true);
 
-                    ContextMenuItem menuNewFolder = new ContextMenuItem("newFolder");
-                    menuNewFolder.setLabel(msgs.get("module.data.tree.data.menu.newFolder"));
-                    menuNewFolder.setIcon(request.getContextPath() + Tree.ICONDOCROOT + "folder_add.gif");
-                    menuNewFolder.setOnclick(tree.getJavascriptTree() + ".createNode('" + DataConsts.FOLDER_ITEMTYPE + "');");
-                    menuNewFolder.addJavascriptCondition("new mgnlTreeMenuItemConditionSelectedNotNodeData(" //$NON-NLS-1$
-                        + tree.getJavascriptTree()
-                        + ")"); //$NON-NLS-1$
+        TreeColumn column4 = new TreeColumn(tree.getJavascriptTree(), request);
+        column4.setName(MetaData.LAST_MODIFIED);
+        column4.setIsMeta(true);
+        column4.setDateFormat("yy-MM-dd, HH:mm"); //$NON-NLS-1$
+        column4.setWidth(2);
+        column4.setTitle(msgs.get("tree.config.date")); //$NON-NLS-1$
 
-                    menu.add(0, menuNewFolder);
-                }
-            }
+        tree.addColumn(column0);
 
-        });
-    }
+        if (!browseMode) {
+          tree.addColumn(column1);
+          tree.addColumn(column2);
 
-	@Override
-	public String copy() {
-		return VIEW_TREE;
-	}
+          if (isAdminInstance() || hasAnyActiveSubscriber()) {
+            tree.addColumn(columnIcons);
+          }
+          tree.addColumn(column4);
+        }
 
-	@Override
-	public String move() {
-		return VIEW_TREE;
-	}
+      }
 
-	@Override
-	public String renameNode(String newLabel) {
-		return VIEW_TREE;
-	}
+      public void prepareContextMenu(Tree tree, boolean browseMode,
+          HttpServletRequest request) {
+        super.prepareContextMenu(tree, browseMode, request);
+        if (!browseMode) {
+          List menu = tree.getMenu().getMenuItems();
+          menu.remove(0);
+          menu.remove(0);
+          menu.remove(0);
 
-	@Override
-	public String saveValue() {
-		return VIEW_TREE;
-	}
-	
+          ContextMenuItem menuNewFolder = new ContextMenuItem("newFolder");
+          menuNewFolder.setLabel(msgs
+              .get("module.data.tree.data.menu.newFolder"));
+          menuNewFolder.setIcon(request.getContextPath() + Tree.ICONDOCROOT
+              + "folder_add.gif");
+          menuNewFolder.setOnclick(tree.getJavascriptTree() + ".createNode('"
+              + DataConsts.FOLDER_ITEMTYPE + "');");
+          menuNewFolder
+              .addJavascriptCondition("new mgnlTreeMenuItemConditionSelectedNotNodeData(" //$NON-NLS-1$
+                  + tree.getJavascriptTree() + ")"); //$NON-NLS-1$
+
+          menu.add(0, menuNewFolder);
+        }
+      }
+
+    });
+  }
+
+  @Override
+  public String copy() {
+    return VIEW_TREE;
+  }
+
+  @Override
+  public String move() {
+    return VIEW_TREE;
+  }
+
+  @Override
+  public String renameNode(String newLabel) {
+    return VIEW_TREE;
+  }
+
+  @Override
+  public String saveValue() {
+    return VIEW_TREE;
+  }
 
 }

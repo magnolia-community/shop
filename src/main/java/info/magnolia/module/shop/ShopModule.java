@@ -52,11 +52,6 @@ public class ShopModule {
 
   private String cartClassQualifiedName;
   private List<ShopConfiguration> shops = new ArrayList<ShopConfiguration>();
-  
-
-  public static final String DEFAULT_CART_SESSION_VARIABLE_NAME = "shoppingCart";
-  public static final String DEFAULT_CART_CLASS_NAME = "info.magnolia.module.shop.beans.DefaultShoppingCart";
-  public static final String CARTS_FOLDER_NAME = "shoppingCarts";
 
   /*
    * Required default constructor
@@ -77,25 +72,25 @@ public class ShopModule {
     this.cartClassQualifiedName = cartClassQualifiedName;
   }
 
-	public List<ShopConfiguration> getShops() {
-		return shops;
-	}
-	
-	public void setShops(List<ShopConfiguration> shops) {
-		this.shops = shops;
-	}
-	
-	public void addShop(ShopConfiguration shop) {
-		this.shops.add(shop);
-	}
-	
-	public ShopConfiguration getCurrentShopConfiguration(String shopName) {
-		for (ShopConfiguration shopConfiguration : getShops()) {
-			if(shopConfiguration.getName().equals(shopName)) {
-				return shopConfiguration;
-			}
-		}
-		return null;
-	}
+  public List<ShopConfiguration> getShops() {
+    return shops;
+  }
+
+  public void setShops(List<ShopConfiguration> shops) {
+    this.shops = shops;
+  }
+
+  public void addShop(ShopConfiguration shop) {
+    this.shops.add(shop);
+  }
+
+  public ShopConfiguration getCurrentShopConfiguration(String shopName) {
+    for (ShopConfiguration shopConfiguration : getShops()) {
+      if (shopConfiguration.getName().equals(shopName)) {
+        return shopConfiguration;
+      }
+    }
+    return null;
+  }
 
 }

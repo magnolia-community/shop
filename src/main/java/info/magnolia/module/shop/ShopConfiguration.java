@@ -35,95 +35,77 @@ package info.magnolia.module.shop;
 
 public class ShopConfiguration {
 
-	private String name;
-	private String cartBeanType;
-	private String cartSessionVariable;
-	private String confirmationMailTemplate;
-	private String defaultPriceCategoryKey;
-	private String savedCartUUIDSessionVariable;
-	private String shopAdminMailAddress;
-	private String shopDataRootPath;
-	private String shopMailsFromAddress;
-	private PriceCategoryManager priceCategoryManager;
-	
-	
-	public String getName() {
-		return name;
-	}
+  private String name;
+  private String cartBeanType;
+  private String cartSessionVariable;
+  private String defaultPriceCategoryKey;
+  private String savedCartUUIDSessionVariable;
+  private String shopDataRootPath;
+  private String cartsFolderName;
+  private PriceCategoryManager priceCategoryManager;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public String getCartBeanType() {
-		return cartBeanType;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	public void setCartBeanType(String cartBeanType) {
-		this.cartBeanType = cartBeanType;
-	}
+  public String getCartBeanType() {
+    return cartBeanType;
+  }
 
-	public String getCartSessionVariable() {
-		return cartSessionVariable;
-	}
+  public void setCartBeanType(String cartBeanType) {
+    this.cartBeanType = cartBeanType;
+  }
 
-	public void setCartSessionVariable(String cartSessionVariable) {
-		this.cartSessionVariable = cartSessionVariable;
-	}
+  public String getCartSessionVariable() {
+    return cartSessionVariable;
+  }
 
-	public String getConfirmationMailTemplate() {
-		return confirmationMailTemplate;
-	}
+  public void setCartSessionVariable(String cartSessionVariable) {
+    this.cartSessionVariable = cartSessionVariable;
+  }
 
-	public void setConfirmationMailTemplate(String confirmationMailTemplate) {
-		this.confirmationMailTemplate = confirmationMailTemplate;
-	}
+  public String getDefaultPriceCategoryKey() {
+    return defaultPriceCategoryKey;
+  }
 
-	public String getDefaultPriceCategoryKey() {
-		return defaultPriceCategoryKey;
-	}
+  public void setDefaultPriceCategoryKey(String defaultPriceCategoryKey) {
+    this.defaultPriceCategoryKey = defaultPriceCategoryKey;
+  }
 
-	public void setDefaultPriceCategoryKey(String defaultPriceCategoryKey) {
-		this.defaultPriceCategoryKey = defaultPriceCategoryKey;
-	}
+  public String getSavedCartUUIDSessionVariable() {
+    return savedCartUUIDSessionVariable;
+  }
 
-	public String getSavedCartUUIDSessionVariable() {
-		return savedCartUUIDSessionVariable;
-	}
+  public void setSavedCartUUIDSessionVariable(
+      String savedCartUUIDSessionVariable) {
+    this.savedCartUUIDSessionVariable = savedCartUUIDSessionVariable;
+  }
 
-	public void setSavedCartUUIDSessionVariable(String savedCartUUIDSessionVariable) {
-		this.savedCartUUIDSessionVariable = savedCartUUIDSessionVariable;
-	}
+  public String getShopDataRootPath() {
+    return shopDataRootPath;
+  }
 
-	public String getShopAdminMailAddress() {
-		return shopAdminMailAddress;
-	}
+  public void setShopDataRootPath(String shopDataRootPath) {
+    this.shopDataRootPath = shopDataRootPath;
+  }
 
-	public void setShopAdminMailAddress(String shopAdminMailAddress) {
-		this.shopAdminMailAddress = shopAdminMailAddress;
-	}
+  public PriceCategoryManager getPriceCategoryManager() {
+    return priceCategoryManager;
+  }
 
-	public String getShopDataRootPath() {
-		return shopDataRootPath;
-	}
+  public void setPriceCategoryManager(PriceCategoryManager priceCategoryManager) {
+    this.priceCategoryManager = priceCategoryManager;
+  }
 
-	public void setShopDataRootPath(String shopDataRootPath) {
-		this.shopDataRootPath = shopDataRootPath;
-	}
+  public String getCartsFolderName() {
+    return cartsFolderName;
+  }
 
-	public String getShopMailsFromAddress() {
-		return shopMailsFromAddress;
-	}
-
-	public void setShopMailsFromAddress(String shopMailsFromAddress) {
-		this.shopMailsFromAddress = shopMailsFromAddress;
-	}
-
-	public PriceCategoryManager getPriceCategoryManager() {
-		return priceCategoryManager;
-	}
-
-	public void setPriceCategoryManager(PriceCategoryManager priceCategoryManager) {
-		this.priceCategoryManager = priceCategoryManager;
-	}
+  public void setCartsFolderName(String cartsFolderName) {
+    this.cartsFolderName = cartsFolderName;
+  }  
 }

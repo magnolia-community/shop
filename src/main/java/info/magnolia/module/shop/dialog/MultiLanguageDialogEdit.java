@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2003-2009 Magnolia International
+ * This file Copyright (c) 2003-2011 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -38,11 +38,16 @@ import info.magnolia.cms.gui.dialog.DialogEdit;
 import info.magnolia.cms.gui.misc.CssConstants;
 import info.magnolia.cms.security.AccessDeniedException;
 import info.magnolia.cms.util.ContentUtil;
+import info.magnolia.module.templatingkit.util.STKUtil;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
+
 import javax.jcr.PathNotFoundException;
 import javax.jcr.PropertyType;
 import javax.jcr.RepositoryException;
@@ -146,18 +151,17 @@ public class MultiLanguageDialogEdit extends DialogEdit implements MultiLanguage
 
     private void initLanguages() {
         // set the languages for the site key by assuming that the languages are
-        // defined at config:/server/i18n/content/[siteKey]
+        // defined at default site definition
+       //TODO: get current site languages, if in data, how?
         if (getConfigValue("siteKey") != null) {
-            Content siteLanguagesRootNode = ContentUtil.getContent("config", "/server/i18n/content/" + getConfigValue("siteKey") + "/locales");
-            if (siteLanguagesRootNode != null) {
-                Iterator<Content> languageNodes = siteLanguagesRootNode.getChildren().iterator();
+            Collection<Locale> locales = STKUtil.getSite().getI18n().getLocales();
+                Iterator<Locale> localesIterator = locales.iterator();
                 ArrayList<String> languageList = new ArrayList<String>();
-                while (languageNodes.hasNext()) {
-                    languageList.add(languageNodes.next().getNodeData("language").getString());
+                while (localesIterator.hasNext()) {
+                    languageList.add(localesIterator.next().getLanguage());
                 }
                 this.languages = languageList;
             }
-        }
     }
 
     public List<String> getLanguages() {

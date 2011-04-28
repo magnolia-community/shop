@@ -37,34 +37,36 @@ import info.magnolia.cms.core.Content;
 import info.magnolia.cms.util.ContentUtil;
 
 /**
- * Implement this class to get the category price used by i.e. user selected shop
+ * Implement this class to get the category price used by i.e. user selected
+ * shop
+ * 
  * @author tmiyar
- *
+ * 
  */
 public class DefaultPriceCategoryManagerImpl implements PriceCategoryManager {
-	
-	private String shopName;
-	private String defaultPriceCategory;
-	
-	public Content getPriceCategoryInUse() {
-		return ContentUtil.getContent("data", "/" + getShopName() + "/pricecategories/" + getDefaultPriceCategory());
-	}
-	
-	public String getShopName() {
-		return shopName;
-	}
 
-	public void setShopName(String shopName) {
-		this.shopName = shopName;
-	}
+  private String shopName;
+  private String defaultPriceCategory;
 
+  public Content getPriceCategoryInUse() {
+    return ContentUtil.getContent("data", "/" + getShopName()
+        + "/pricecategories/" + getDefaultPriceCategory());
+  }
 
-	public String getDefaultPriceCategory() {
-		return defaultPriceCategory;
-	}
+  public String getShopName() {
+    return shopName;
+  }
 
-	public void setDefaultPriceCategory(String defaultPriceCategory) {
-		this.defaultPriceCategory = defaultPriceCategory;
-	}
+  public void setShopName(String shopName) {
+    this.shopName = shopName;
+  }
+
+  public String getDefaultPriceCategory() {
+    return defaultPriceCategory;
+  }
+
+  public void setDefaultPriceCategory(String defaultPriceCategory) {
+    this.defaultPriceCategory = defaultPriceCategory;
+  }
 
 }

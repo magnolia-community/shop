@@ -41,7 +41,7 @@
       <sv:value>2010-03-16T15:52:38.948+01:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2010-03-15T09:41:52.693+01:00</sv:value>
+      <sv:value>2011-04-25T15:20:33.157+02:00</sv:value>
     </sv:property>
   </sv:node>
   <sv:node sv:name="mainTab">
@@ -249,34 +249,31 @@
         </sv:property>
       </sv:node>
     </sv:node>
-    <sv:node sv:name="imagesUUID">
+    <sv:node sv:name="image">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
         <sv:value>mgnl:contentNode</sv:value>
       </sv:property>
       <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>6ac2c76c-5594-43c7-92aa-f23f82b29428</sv:value>
+        <sv:value>c47addf0-9c65-4c62-a809-0781f1000a28</sv:value>
       </sv:property>
       <sv:property sv:name="controlType" sv:type="String">
-        <sv:value>uuidLink</sv:value>
+        <sv:value>shopDam</sv:value>
       </sv:property>
-      <sv:property sv:name="description" sv:type="String">
-        <sv:value>Folder or single product image in the "Documents" area</sv:value>
+      <sv:property sv:name="i18nBasename" sv:type="String">
+        <sv:value>info.magnolia.module.templatingkit.messages</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>Images</sv:value>
-      </sv:property>
-      <sv:property sv:name="repository" sv:type="String">
-        <sv:value>dms</sv:value>
-      </sv:property>
-      <sv:property sv:name="type" sv:type="String">
-        <sv:value>String</sv:value>
+        <sv:value>dialogs.generic.controls.tabImage.image.label</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
           <sv:value>mgnl:metaData</sv:value>
         </sv:property>
+        <sv:property sv:name="mgnl:Data" sv:type="String">
+          <sv:value>MetaData</sv:value>
+        </sv:property>
         <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-          <sv:value>true</sv:value>
+          <sv:value>false</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:activatorid" sv:type="String">
           <sv:value>superuser</sv:value>
@@ -284,14 +281,14 @@
         <sv:property sv:name="mgnl:authorid" sv:type="String">
           <sv:value>superuser</sv:value>
         </sv:property>
-        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-          <sv:value>2006-03-16T16:46:25.999+01:00</sv:value>
+        <sv:property sv:name="mgnl:creationdate" sv:type="String">
+          <sv:value>2004-11-03T08:48:09.632+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastaction" sv:type="Date">
-          <sv:value>2010-03-16T15:52:38.955+01:00</sv:value>
+          <sv:value>2006-05-01T21:47:58.230+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-03-04T22:23:55.048+01:00</sv:value>
+          <sv:value>2011-04-27T12:09:17.195+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>

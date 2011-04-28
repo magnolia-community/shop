@@ -36,16 +36,18 @@ package info.magnolia.module.shop;
 import info.magnolia.cms.core.Content;
 
 /**
- * Implement this class to get the category price used by i.e. user selected shop
+ * Implement this class to get the category price used by i.e. user selected
+ * shop.
+ * 
  * @author tmiyar
- *
+ * 
  */
 public interface PriceCategoryManager {
-	
-	public Content getPriceCategoryInUse();
 
-	public String getDefaultPriceCategory();
+  public Content getPriceCategoryInUse();
 
-	public void setDefaultPriceCategory(String defaultPriceCategory);
+  public String getDefaultPriceCategory();
+
+  public void setDefaultPriceCategory(String defaultPriceCategory);
 
 }

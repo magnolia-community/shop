@@ -13,13 +13,13 @@
     <sv:value>org.apache.jackrabbit.ocm.mapper.model.ClassDescriptor</sv:value>
   </sv:property>
   <sv:property sv:name="className" sv:type="String">
-    <sv:value>info.magnolia.module.shop.beans.DefaultShoppingCart</sv:value>
+    <sv:value>info.magnolia.module.shop.beans.DefaultShoppingCartImpl</sv:value>
   </sv:property>
   <sv:property sv:name="jcrType" sv:type="String">
     <sv:value>shopCart</sv:value>
   </sv:property>
   <sv:property sv:name="nextBeanID" sv:type="Long">
-    <sv:value>10005</sv:value>
+    <sv:value>100</sv:value>
   </sv:property>
   <sv:property sv:name="parentJcrType" sv:type="String">
     <sv:value>dataFolder</sv:value>
@@ -44,7 +44,7 @@
       <sv:value>2010-08-24T07:38:51.181+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2010-09-29T08:32:02.312+02:00</sv:value>
+      <sv:value>2011-04-27T15:04:02.304+02:00</sv:value>
     </sv:property>
   </sv:node>
   <sv:node sv:name="fieldDescriptors">
@@ -510,7 +510,7 @@
         </sv:property>
       </sv:node>
     </sv:node>
-    <sv:node sv:name="orderAddressCompany">
+    <sv:node sv:name="billingAddressCompany">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
         <sv:value>mgnl:contentNode</sv:value>
       </sv:property>
@@ -524,10 +524,10 @@
         <sv:value>org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor</sv:value>
       </sv:property>
       <sv:property sv:name="fieldName" sv:type="String">
-        <sv:value>orderAddressCompany</sv:value>
+        <sv:value>billingAddressCompany</sv:value>
       </sv:property>
       <sv:property sv:name="jcrName" sv:type="String">
-        <sv:value>orderAddressCompany</sv:value>
+        <sv:value>billingAddressCompany</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -549,54 +549,11 @@
           <sv:value>2010-08-24T07:38:51.394+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-09-17T10:33:24.398+02:00</sv:value>
+          <sv:value>2011-04-25T14:48:07.633+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
-    <sv:node sv:name="orderAddressCompany2">
-      <sv:property sv:name="jcr:primaryType" sv:type="Name">
-        <sv:value>mgnl:contentNode</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
-        <sv:value>mix:lockable</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>78e21fa9-e4d9-42cf-b15c-e9e5239d2cfa</sv:value>
-      </sv:property>
-      <sv:property sv:name="class" sv:type="String">
-        <sv:value>org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor</sv:value>
-      </sv:property>
-      <sv:property sv:name="fieldName" sv:type="String">
-        <sv:value>orderAddressCompany2</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcrName" sv:type="String">
-        <sv:value>orderAddressCompany2</sv:value>
-      </sv:property>
-      <sv:node sv:name="MetaData">
-        <sv:property sv:name="jcr:primaryType" sv:type="Name">
-          <sv:value>mgnl:metaData</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-          <sv:value>false</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:activatorid" sv:type="String">
-          <sv:value>superuser</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:authorid" sv:type="String">
-          <sv:value>superuser</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-          <sv:value>2010-06-27T11:03:03.250+02:00</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:lastaction" sv:type="Date">
-          <sv:value>2010-08-24T07:38:51.412+02:00</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-09-17T10:33:46.384+02:00</sv:value>
-        </sv:property>
-      </sv:node>
-    </sv:node>
-    <sv:node sv:name="orderAddressFirstname">
+    <sv:node sv:name="billingAddressFirstname">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
         <sv:value>mgnl:contentNode</sv:value>
       </sv:property>
@@ -610,10 +567,10 @@
         <sv:value>org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor</sv:value>
       </sv:property>
       <sv:property sv:name="fieldName" sv:type="String">
-        <sv:value>orderAddressFirstname</sv:value>
+        <sv:value>billingAddressFirstname</sv:value>
       </sv:property>
       <sv:property sv:name="jcrName" sv:type="String">
-        <sv:value>orderAddressFirstname</sv:value>
+        <sv:value>billingAddressFirstname</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -635,11 +592,11 @@
           <sv:value>2010-08-24T07:38:51.472+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-09-17T10:34:02.537+02:00</sv:value>
+          <sv:value>2011-04-25T14:48:15.350+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
-    <sv:node sv:name="orderAddressLastname">
+    <sv:node sv:name="billingAddressLastname">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
         <sv:value>mgnl:contentNode</sv:value>
       </sv:property>
@@ -653,10 +610,10 @@
         <sv:value>org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor</sv:value>
       </sv:property>
       <sv:property sv:name="fieldName" sv:type="String">
-        <sv:value>orderAddressLastname</sv:value>
+        <sv:value>billingAddressLastname</sv:value>
       </sv:property>
       <sv:property sv:name="jcrName" sv:type="String">
-        <sv:value>orderAddressLastname</sv:value>
+        <sv:value>billingAddressLastname</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -678,97 +635,11 @@
           <sv:value>2010-08-24T07:38:51.503+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-09-17T10:34:35.291+02:00</sv:value>
+          <sv:value>2011-04-25T14:48:28.666+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
-    <sv:node sv:name="orderAddressSex">
-      <sv:property sv:name="jcr:primaryType" sv:type="Name">
-        <sv:value>mgnl:contentNode</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
-        <sv:value>mix:lockable</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>59607028-7bd5-4813-91d4-cc33835a9ee4</sv:value>
-      </sv:property>
-      <sv:property sv:name="class" sv:type="String">
-        <sv:value>org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor</sv:value>
-      </sv:property>
-      <sv:property sv:name="fieldName" sv:type="String">
-        <sv:value>orderAddressSex</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcrName" sv:type="String">
-        <sv:value>orderAddressSex</sv:value>
-      </sv:property>
-      <sv:node sv:name="MetaData">
-        <sv:property sv:name="jcr:primaryType" sv:type="Name">
-          <sv:value>mgnl:metaData</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-          <sv:value>false</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:activatorid" sv:type="String">
-          <sv:value>superuser</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:authorid" sv:type="String">
-          <sv:value>superuser</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-          <sv:value>2010-06-27T11:03:03.250+02:00</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:lastaction" sv:type="Date">
-          <sv:value>2010-08-24T07:38:51.548+02:00</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-09-17T10:34:50.178+02:00</sv:value>
-        </sv:property>
-      </sv:node>
-    </sv:node>
-    <sv:node sv:name="orderAddressTitle">
-      <sv:property sv:name="jcr:primaryType" sv:type="Name">
-        <sv:value>mgnl:contentNode</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
-        <sv:value>mix:lockable</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>2f9ea715-b1ec-4df5-aaaa-3d28fcea0f55</sv:value>
-      </sv:property>
-      <sv:property sv:name="class" sv:type="String">
-        <sv:value>org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor</sv:value>
-      </sv:property>
-      <sv:property sv:name="fieldName" sv:type="String">
-        <sv:value>orderAddressTitle</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcrName" sv:type="String">
-        <sv:value>orderAddressTitle</sv:value>
-      </sv:property>
-      <sv:node sv:name="MetaData">
-        <sv:property sv:name="jcr:primaryType" sv:type="Name">
-          <sv:value>mgnl:metaData</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-          <sv:value>false</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:activatorid" sv:type="String">
-          <sv:value>superuser</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:authorid" sv:type="String">
-          <sv:value>superuser</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-          <sv:value>2010-06-27T11:03:03.250+02:00</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:lastaction" sv:type="Date">
-          <sv:value>2010-08-24T07:38:51.548+02:00</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-09-17T11:46:46.325+02:00</sv:value>
-        </sv:property>
-      </sv:node>
-    </sv:node>
-    <sv:node sv:name="orderAddressStreet">
+    <sv:node sv:name="billingAddressStreet">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
         <sv:value>mgnl:contentNode</sv:value>
       </sv:property>
@@ -782,10 +653,10 @@
         <sv:value>org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor</sv:value>
       </sv:property>
       <sv:property sv:name="fieldName" sv:type="String">
-        <sv:value>orderAddressStreet</sv:value>
+        <sv:value>billingAddressStreet</sv:value>
       </sv:property>
       <sv:property sv:name="jcrName" sv:type="String">
-        <sv:value>orderAddressStreet</sv:value>
+        <sv:value>billingAddressStreet</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -807,54 +678,11 @@
           <sv:value>2010-08-24T07:38:51.548+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-09-17T11:47:05.989+02:00</sv:value>
+          <sv:value>2011-04-25T14:48:38.748+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
-    <sv:node sv:name="orderAddressStreet2">
-      <sv:property sv:name="jcr:primaryType" sv:type="Name">
-        <sv:value>mgnl:contentNode</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
-        <sv:value>mix:lockable</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>eff57dec-93f4-4d07-80f9-f08f7a77cb32</sv:value>
-      </sv:property>
-      <sv:property sv:name="class" sv:type="String">
-        <sv:value>org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor</sv:value>
-      </sv:property>
-      <sv:property sv:name="fieldName" sv:type="String">
-        <sv:value>orderAddressStreet2</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcrName" sv:type="String">
-        <sv:value>orderAddressStreet2</sv:value>
-      </sv:property>
-      <sv:node sv:name="MetaData">
-        <sv:property sv:name="jcr:primaryType" sv:type="Name">
-          <sv:value>mgnl:metaData</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-          <sv:value>false</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:activatorid" sv:type="String">
-          <sv:value>superuser</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:authorid" sv:type="String">
-          <sv:value>superuser</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-          <sv:value>2010-06-27T11:03:03.250+02:00</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:lastaction" sv:type="Date">
-          <sv:value>2010-08-24T07:38:51.548+02:00</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-09-17T11:47:29.718+02:00</sv:value>
-        </sv:property>
-      </sv:node>
-    </sv:node>
-    <sv:node sv:name="orderAddressZip">
+    <sv:node sv:name="billingAddressZip">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
         <sv:value>mgnl:contentNode</sv:value>
       </sv:property>
@@ -868,10 +696,10 @@
         <sv:value>org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor</sv:value>
       </sv:property>
       <sv:property sv:name="fieldName" sv:type="String">
-        <sv:value>orderAddressZip</sv:value>
+        <sv:value>billingAddressZip</sv:value>
       </sv:property>
       <sv:property sv:name="jcrName" sv:type="String">
-        <sv:value>orderAddressZip</sv:value>
+        <sv:value>billingAddressZip</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -893,11 +721,11 @@
           <sv:value>2010-08-24T07:38:51.548+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-09-17T11:47:53.495+02:00</sv:value>
+          <sv:value>2011-04-25T14:48:46.842+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
-    <sv:node sv:name="orderAddressCity">
+    <sv:node sv:name="billingAddressCity">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
         <sv:value>mgnl:contentNode</sv:value>
       </sv:property>
@@ -911,10 +739,10 @@
         <sv:value>org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor</sv:value>
       </sv:property>
       <sv:property sv:name="fieldName" sv:type="String">
-        <sv:value>orderAddressCity</sv:value>
+        <sv:value>billingAddressCity</sv:value>
       </sv:property>
       <sv:property sv:name="jcrName" sv:type="String">
-        <sv:value>orderAddressCity</sv:value>
+        <sv:value>billingAddressCity</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -936,97 +764,11 @@
           <sv:value>2010-08-24T07:38:51.548+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-09-17T11:48:11.105+02:00</sv:value>
+          <sv:value>2011-04-25T14:48:57.631+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
-    <sv:node sv:name="orderAddressState">
-      <sv:property sv:name="jcr:primaryType" sv:type="Name">
-        <sv:value>mgnl:contentNode</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
-        <sv:value>mix:lockable</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>7b51979b-3ec0-4c32-aa02-f53914139eac</sv:value>
-      </sv:property>
-      <sv:property sv:name="class" sv:type="String">
-        <sv:value>org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor</sv:value>
-      </sv:property>
-      <sv:property sv:name="fieldName" sv:type="String">
-        <sv:value>orderAddressState</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcrName" sv:type="String">
-        <sv:value>orderAddressState</sv:value>
-      </sv:property>
-      <sv:node sv:name="MetaData">
-        <sv:property sv:name="jcr:primaryType" sv:type="Name">
-          <sv:value>mgnl:metaData</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-          <sv:value>false</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:activatorid" sv:type="String">
-          <sv:value>superuser</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:authorid" sv:type="String">
-          <sv:value>superuser</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-          <sv:value>2010-06-27T11:03:03.250+02:00</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:lastaction" sv:type="Date">
-          <sv:value>2010-08-24T07:38:51.548+02:00</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-09-17T11:48:38.047+02:00</sv:value>
-        </sv:property>
-      </sv:node>
-    </sv:node>
-    <sv:node sv:name="orderAddressCountry">
-      <sv:property sv:name="jcr:primaryType" sv:type="Name">
-        <sv:value>mgnl:contentNode</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
-        <sv:value>mix:lockable</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>b9379d51-5903-4440-9780-aa81384d8afd</sv:value>
-      </sv:property>
-      <sv:property sv:name="class" sv:type="String">
-        <sv:value>org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor</sv:value>
-      </sv:property>
-      <sv:property sv:name="fieldName" sv:type="String">
-        <sv:value>orderAddressCountry</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcrName" sv:type="String">
-        <sv:value>orderAddressCountry</sv:value>
-      </sv:property>
-      <sv:node sv:name="MetaData">
-        <sv:property sv:name="jcr:primaryType" sv:type="Name">
-          <sv:value>mgnl:metaData</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-          <sv:value>false</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:activatorid" sv:type="String">
-          <sv:value>superuser</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:authorid" sv:type="String">
-          <sv:value>superuser</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-          <sv:value>2010-06-27T11:03:03.250+02:00</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:lastaction" sv:type="Date">
-          <sv:value>2010-08-24T07:38:51.548+02:00</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-09-17T11:48:57.847+02:00</sv:value>
-        </sv:property>
-      </sv:node>
-    </sv:node>
-    <sv:node sv:name="orderAddressPhone">
+    <sv:node sv:name="billingAddressPhone">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
         <sv:value>mgnl:contentNode</sv:value>
       </sv:property>
@@ -1040,10 +782,10 @@
         <sv:value>org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor</sv:value>
       </sv:property>
       <sv:property sv:name="fieldName" sv:type="String">
-        <sv:value>orderAddressPhone</sv:value>
+        <sv:value>billingAddressPhone</sv:value>
       </sv:property>
       <sv:property sv:name="jcrName" sv:type="String">
-        <sv:value>orderAddressPhone</sv:value>
+        <sv:value>billingAddressPhone</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -1065,54 +807,11 @@
           <sv:value>2010-08-24T07:38:51.548+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-09-17T11:49:19.519+02:00</sv:value>
+          <sv:value>2011-04-25T14:49:06.297+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
-    <sv:node sv:name="orderAddressMobile">
-      <sv:property sv:name="jcr:primaryType" sv:type="Name">
-        <sv:value>mgnl:contentNode</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
-        <sv:value>mix:lockable</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>fb3b5b3c-02f8-4313-a8c8-22b21d564b38</sv:value>
-      </sv:property>
-      <sv:property sv:name="class" sv:type="String">
-        <sv:value>org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor</sv:value>
-      </sv:property>
-      <sv:property sv:name="fieldName" sv:type="String">
-        <sv:value>orderAddressMobile</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcrName" sv:type="String">
-        <sv:value>orderAddressMobile</sv:value>
-      </sv:property>
-      <sv:node sv:name="MetaData">
-        <sv:property sv:name="jcr:primaryType" sv:type="Name">
-          <sv:value>mgnl:metaData</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-          <sv:value>false</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:activatorid" sv:type="String">
-          <sv:value>superuser</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:authorid" sv:type="String">
-          <sv:value>superuser</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-          <sv:value>2010-06-27T11:03:03.250+02:00</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:lastaction" sv:type="Date">
-          <sv:value>2010-08-24T07:38:51.548+02:00</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-09-17T11:49:42.672+02:00</sv:value>
-        </sv:property>
-      </sv:node>
-    </sv:node>
-    <sv:node sv:name="orderAddressMail">
+    <sv:node sv:name="billingAddressMail">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
         <sv:value>mgnl:contentNode</sv:value>
       </sv:property>
@@ -1126,10 +825,10 @@
         <sv:value>org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor</sv:value>
       </sv:property>
       <sv:property sv:name="fieldName" sv:type="String">
-        <sv:value>orderAddressMail</sv:value>
+        <sv:value>billingAddressMail</sv:value>
       </sv:property>
       <sv:property sv:name="jcrName" sv:type="String">
-        <sv:value>orderAddressMail</sv:value>
+        <sv:value>billingAddressMail</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -1151,7 +850,351 @@
           <sv:value>2010-08-24T07:38:51.548+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-09-17T11:50:15.595+02:00</sv:value>
+          <sv:value>2011-04-25T14:49:17.498+02:00</sv:value>
+        </sv:property>
+      </sv:node>
+    </sv:node>
+    <sv:node sv:name="shippingAddressCompany">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+        <sv:value>mix:lockable</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>3f22247e-cd27-4b38-9dd2-3920d8782f2a</sv:value>
+      </sv:property>
+      <sv:property sv:name="class" sv:type="String">
+        <sv:value>org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor</sv:value>
+      </sv:property>
+      <sv:property sv:name="fieldName" sv:type="String">
+        <sv:value>shippingAddressCompany</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcrName" sv:type="String">
+        <sv:value>shippingAddressCompany</sv:value>
+      </sv:property>
+      <sv:node sv:name="MetaData">
+        <sv:property sv:name="jcr:primaryType" sv:type="Name">
+          <sv:value>mgnl:metaData</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:activated" sv:type="Boolean">
+          <sv:value>false</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:activatorid" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:authorid" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
+          <sv:value>2010-06-27T11:03:03.250+02:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastaction" sv:type="Date">
+          <sv:value>2010-08-24T07:38:51.394+02:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+          <sv:value>2011-04-25T14:49:27.011+02:00</sv:value>
+        </sv:property>
+      </sv:node>
+    </sv:node>
+    <sv:node sv:name="shippingAddressFirstname">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+        <sv:value>mix:lockable</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>7e5b3917-0970-4ff5-bb0f-7d3e664acf59</sv:value>
+      </sv:property>
+      <sv:property sv:name="class" sv:type="String">
+        <sv:value>org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor</sv:value>
+      </sv:property>
+      <sv:property sv:name="fieldName" sv:type="String">
+        <sv:value>shippingAddressFirstname</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcrName" sv:type="String">
+        <sv:value>shippingAddressFirstname</sv:value>
+      </sv:property>
+      <sv:node sv:name="MetaData">
+        <sv:property sv:name="jcr:primaryType" sv:type="Name">
+          <sv:value>mgnl:metaData</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:activated" sv:type="Boolean">
+          <sv:value>false</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:activatorid" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:authorid" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
+          <sv:value>2010-06-27T11:03:03.250+02:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastaction" sv:type="Date">
+          <sv:value>2010-08-24T07:38:51.472+02:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+          <sv:value>2011-04-25T14:49:37.447+02:00</sv:value>
+        </sv:property>
+      </sv:node>
+    </sv:node>
+    <sv:node sv:name="shippingAddressLastname">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+        <sv:value>mix:lockable</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>cba48603-15d6-4e24-be86-7ad4f60a9afc</sv:value>
+      </sv:property>
+      <sv:property sv:name="class" sv:type="String">
+        <sv:value>org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor</sv:value>
+      </sv:property>
+      <sv:property sv:name="fieldName" sv:type="String">
+        <sv:value>shippingAddressLastname</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcrName" sv:type="String">
+        <sv:value>shippingAddressLastname</sv:value>
+      </sv:property>
+      <sv:node sv:name="MetaData">
+        <sv:property sv:name="jcr:primaryType" sv:type="Name">
+          <sv:value>mgnl:metaData</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:activated" sv:type="Boolean">
+          <sv:value>false</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:activatorid" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:authorid" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
+          <sv:value>2010-06-27T11:03:03.250+02:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastaction" sv:type="Date">
+          <sv:value>2010-08-24T07:38:51.503+02:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+          <sv:value>2011-04-25T14:49:47.513+02:00</sv:value>
+        </sv:property>
+      </sv:node>
+    </sv:node>
+    <sv:node sv:name="shippingAddressStreet">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+        <sv:value>mix:lockable</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>78d2207e-0cc6-4c5d-84ce-140226526ec5</sv:value>
+      </sv:property>
+      <sv:property sv:name="class" sv:type="String">
+        <sv:value>org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor</sv:value>
+      </sv:property>
+      <sv:property sv:name="fieldName" sv:type="String">
+        <sv:value>shippingAddressStreet</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcrName" sv:type="String">
+        <sv:value>shippingAddressStreet</sv:value>
+      </sv:property>
+      <sv:node sv:name="MetaData">
+        <sv:property sv:name="jcr:primaryType" sv:type="Name">
+          <sv:value>mgnl:metaData</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:activated" sv:type="Boolean">
+          <sv:value>false</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:activatorid" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:authorid" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
+          <sv:value>2010-06-27T11:03:03.250+02:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastaction" sv:type="Date">
+          <sv:value>2010-08-24T07:38:51.548+02:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+          <sv:value>2011-04-25T14:49:57.068+02:00</sv:value>
+        </sv:property>
+      </sv:node>
+    </sv:node>
+    <sv:node sv:name="shippingAddressZip">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+        <sv:value>mix:lockable</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>3781b690-b708-44c0-b273-2904ff2ee075</sv:value>
+      </sv:property>
+      <sv:property sv:name="class" sv:type="String">
+        <sv:value>org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor</sv:value>
+      </sv:property>
+      <sv:property sv:name="fieldName" sv:type="String">
+        <sv:value>shippingAddressZip</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcrName" sv:type="String">
+        <sv:value>shippingAddressZip</sv:value>
+      </sv:property>
+      <sv:node sv:name="MetaData">
+        <sv:property sv:name="jcr:primaryType" sv:type="Name">
+          <sv:value>mgnl:metaData</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:activated" sv:type="Boolean">
+          <sv:value>false</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:activatorid" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:authorid" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
+          <sv:value>2010-06-27T11:03:03.250+02:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastaction" sv:type="Date">
+          <sv:value>2010-08-24T07:38:51.548+02:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+          <sv:value>2011-04-25T14:50:08.031+02:00</sv:value>
+        </sv:property>
+      </sv:node>
+    </sv:node>
+    <sv:node sv:name="shippingAddressCity">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+        <sv:value>mix:lockable</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>bfc038c4-eb53-4828-b511-d261026575d1</sv:value>
+      </sv:property>
+      <sv:property sv:name="class" sv:type="String">
+        <sv:value>org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor</sv:value>
+      </sv:property>
+      <sv:property sv:name="fieldName" sv:type="String">
+        <sv:value>shippingAddressCity</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcrName" sv:type="String">
+        <sv:value>shippingAddressCity</sv:value>
+      </sv:property>
+      <sv:node sv:name="MetaData">
+        <sv:property sv:name="jcr:primaryType" sv:type="Name">
+          <sv:value>mgnl:metaData</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:activated" sv:type="Boolean">
+          <sv:value>false</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:activatorid" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:authorid" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
+          <sv:value>2010-06-27T11:03:03.250+02:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastaction" sv:type="Date">
+          <sv:value>2010-08-24T07:38:51.548+02:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+          <sv:value>2011-04-25T14:50:17.829+02:00</sv:value>
+        </sv:property>
+      </sv:node>
+    </sv:node>
+    <sv:node sv:name="shippingAddressPhone">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+        <sv:value>mix:lockable</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>c3515919-cd6b-41d8-8a39-7989ef01877b</sv:value>
+      </sv:property>
+      <sv:property sv:name="class" sv:type="String">
+        <sv:value>org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor</sv:value>
+      </sv:property>
+      <sv:property sv:name="fieldName" sv:type="String">
+        <sv:value>shippingAddressPhone</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcrName" sv:type="String">
+        <sv:value>shippingAddressPhone</sv:value>
+      </sv:property>
+      <sv:node sv:name="MetaData">
+        <sv:property sv:name="jcr:primaryType" sv:type="Name">
+          <sv:value>mgnl:metaData</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:activated" sv:type="Boolean">
+          <sv:value>false</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:activatorid" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:authorid" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
+          <sv:value>2010-06-27T11:03:03.250+02:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastaction" sv:type="Date">
+          <sv:value>2010-08-24T07:38:51.548+02:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+          <sv:value>2011-04-25T14:50:26.395+02:00</sv:value>
+        </sv:property>
+      </sv:node>
+    </sv:node>
+    <sv:node sv:name="shippingAddressMail">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+        <sv:value>mix:lockable</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>0cd0d36f-082f-41b5-8081-07739b114f33</sv:value>
+      </sv:property>
+      <sv:property sv:name="class" sv:type="String">
+        <sv:value>org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor</sv:value>
+      </sv:property>
+      <sv:property sv:name="fieldName" sv:type="String">
+        <sv:value>shippingAddressMail</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcrName" sv:type="String">
+        <sv:value>shippingAddressMail</sv:value>
+      </sv:property>
+      <sv:node sv:name="MetaData">
+        <sv:property sv:name="jcr:primaryType" sv:type="Name">
+          <sv:value>mgnl:metaData</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:activated" sv:type="Boolean">
+          <sv:value>false</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:activatorid" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:authorid" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
+          <sv:value>2010-06-27T11:03:03.250+02:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastaction" sv:type="Date">
+          <sv:value>2010-08-24T07:38:51.548+02:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+          <sv:value>2011-04-25T14:50:35.335+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>

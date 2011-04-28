@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2003-2009 Magnolia International
+ * This file Copyright (c) 2003-2011 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -42,6 +42,7 @@ import javax.jcr.RepositoryException;
 import org.apache.commons.lang.StringUtils;
 
 import info.magnolia.cms.core.Content;
+import info.magnolia.cms.i18n.I18nContentWrapper;
 import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.SelectorUtil;
 import info.magnolia.module.shop.util.ShopUtil;
@@ -54,7 +55,7 @@ public class ProductCategoryNavigationItem {
   private String uuid;
 
   public ProductCategoryNavigationItem(Content content, Content siteRoot) {
-      this.content = content;
+      this.content = new I18nContentWrapper(content);
       this.siteRoot = siteRoot;
       this.uuid = SelectorUtil.getSelector(0);
   }
@@ -117,10 +118,10 @@ public class ProductCategoryNavigationItem {
   }
 
   public String getTitle() {
-      return content.getName();
+      return content.getTitle();
   }
 
   public String getNavigationTitle() {
-      return content.getName();
+      return content.getTitle();
   }
 }

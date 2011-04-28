@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2003-2009 Magnolia International
+ * This file Copyright (c) 2003-2011 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -34,6 +34,7 @@
 package info.magnolia.module.shop.beans;
 
 import info.magnolia.cms.core.Content;
+import info.magnolia.cms.i18n.I18nContentWrapper;
 import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.NodeDataUtil;
 import info.magnolia.module.ocm.beans.OCMBean;
@@ -69,12 +70,12 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
   private BigDecimal itemDiscountRate;
   private BigDecimal itemTaxRate;
   private String shoppingCartUUID;
-  private DefaultShoppingCart cart;
+  private DefaultShoppingCartImpl cart;
   private String productTitle;
   private String productSubTitle;
   private String productDescription;
 
-  public ShoppingCartItem(DefaultShoppingCart cart, Content product, int quantity, Content productPrice) {
+  public ShoppingCartItem(DefaultShoppingCartImpl cart, Content product, int quantity, Content productPrice) {
     super();
     this.setCart(cart);
     this.setProduct(product);
@@ -82,10 +83,10 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
     this.setProductPrice(productPrice);
   }
 
-  public ShoppingCartItem(DefaultShoppingCart cart, String productUUID, int quantity, double unitPrice) {
+  public ShoppingCartItem(DefaultShoppingCartImpl cart, String productUUID, int quantity, double unitPrice) {
     super();
     this.setCart(cart);
-    Content product = ContentUtil.getContentByUUID("data", productUUID);
+    Content product = new I18nContentWrapper(ContentUtil.getContentByUUID("data", productUUID));
     this.setProduct(product);
     this.setQuantity(quantity);
     this.setUnitPrice(unitPrice);
@@ -104,10 +105,10 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
       log.debug("setting product " + product + " in cart item");
       log.debug("product number: " + NodeDataUtil.getString(product, "name"));
       setProductNumber(NodeDataUtil.getString(product, "name"));
-      if (cart.getLanguage() != null) {
-        setProductTitle(NodeDataUtil.getString(product, "title_" + cart.getLanguage()));
-        setProductSubTitle(NodeDataUtil.getString(product, "productDescription1_" + cart.getLanguage()));
-        setProductDescription(NodeDataUtil.getString(product, "productDescription2_" + cart.getLanguage()));
+      
+        setProductTitle(NodeDataUtil.getString(product, "title"));
+        setProductSubTitle(NodeDataUtil.getString(product, "productDescription1"));
+        setProductDescription(NodeDataUtil.getString(product, "productDescription2" ));
         if (product.getNodeData("taxCategoryUUID").isExist()) {
           Content taxCategory = ContentUtil
               .getContentByUUID("data", product.getNodeData("taxCategoryUUID").getString());
@@ -115,9 +116,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
                         setItemTaxRate(new BigDecimal(taxCategory.getNodeData("tax").getString()));
           }
         }
-      } else {
-        log.error("Could not copy product description to cart item since no language was set in cart!");
-      }
+      
     } else {
       this.productUUID = null;
     }
@@ -170,11 +169,11 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
     this.shoppingCartUUID = shoppingCartUUID;
   }
 
-  public DefaultShoppingCart getCart() {
+  public DefaultShoppingCartImpl getCart() {
     return cart;
   }
 
-  public void setCart(DefaultShoppingCart cart) {
+  public void setCart(DefaultShoppingCartImpl cart) {
     this.cart = cart;
   }
 

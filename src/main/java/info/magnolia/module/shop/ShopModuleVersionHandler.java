@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2003-2009 Magnolia International
+ * This file Copyright (c) 2003-2011 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -33,13 +33,26 @@
  */
 package info.magnolia.module.shop;
 
+import static info.magnolia.nodebuilder.Ops.addProperty;
+import static info.magnolia.nodebuilder.Ops.getNode;
+import info.magnolia.cms.core.Content;
+import info.magnolia.cms.core.ItemType;
 import info.magnolia.module.DefaultModuleVersionHandler;
 import info.magnolia.module.InstallContext;
 import info.magnolia.module.data.setup.RegisterNodeTypeTask;
 
 import info.magnolia.module.delta.Task;
+import info.magnolia.module.delta.TaskExecutionException;
+import info.magnolia.module.templatingkit.setup.UpdateAllSiteDefinitions;
+import info.magnolia.nodebuilder.NodeBuilder;
+import info.magnolia.nodebuilder.task.TaskLogErrorHandler;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.jcr.RepositoryException;
+
+import static info.magnolia.nodebuilder.Ops.*;
 
 /*
  * This class is used to handle installation and updates of your module.
@@ -76,7 +89,28 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
   @Override
   protected List getExtraInstallTasks(InstallContext installContext) {
     final List installTasks = new ArrayList();
-    // no exta install tasks needed for now
+    installTasks.addAll(super.getExtraInstallTasks(installContext));
+    installTasks.add(new UpdateAllSiteDefinitions("Add new templates to Availability", "") {
+      protected void updateSiteDefinition(InstallContext ctx, Content siteDefinition) throws RepositoryException, TaskExecutionException {
+          new NodeBuilder(new TaskLogErrorHandler(ctx), siteDefinition,
+              getNode("templates/availability/templates").then(
+                  addNode("shopCheckoutForm", ItemType.CONTENTNODE).then(
+                      addProperty("name", "shopCheckoutForm")),
+                  addNode("shopConfirmationPage", ItemType.CONTENTNODE).then(
+                      addProperty("name", "shopConfirmationPage")),
+                  addNode("shopFormStep", ItemType.CONTENTNODE).then(
+                      addProperty("name", "shopFormStep")),
+                  addNode("shopFormStepConfirmOrder", ItemType.CONTENTNODE).then(
+                      addProperty("name", "shopFormStepConfirmOrder")),
+                  addNode("shopHome", ItemType.CONTENTNODE).then(
+                      addProperty("name", "shopHome")),
+                  addNode("shopProductDetail", ItemType.CONTENTNODE).then(
+                      addProperty("name", "shopProductDetail")),
+                  addNode("shopShoppingCart", ItemType.CONTENTNODE).then(
+                      addProperty("name", "shopShoppingCart"))
+              )).exec();
+      }
+    });
     return installTasks;
   }
 }

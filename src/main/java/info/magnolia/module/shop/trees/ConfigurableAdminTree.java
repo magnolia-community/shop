@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2003-2009 Magnolia International
+ * This file Copyright (c) 2003-2011 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -36,8 +36,9 @@ package info.magnolia.module.shop.trees;
 import info.magnolia.cms.beans.config.ContentRepository;
 import info.magnolia.cms.core.ItemType;
 import info.magnolia.cms.exchange.Syndicator;
-import info.magnolia.cms.util.FactoryUtil;
 import info.magnolia.module.admininterface.AdminTreeMVCHandler;
+import info.magnolia.objectfactory.Classes;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import info.magnolia.cms.util.Rule;
@@ -57,24 +58,6 @@ public class ConfigurableAdminTree extends AdminTreeMVCHandler {
     public ConfigurableAdminTree(String name, HttpServletRequest request, HttpServletResponse response) {
         super(name, request, response);
     }
-
-    /*    protected Context getCommandContext(String commandName) {
-    Context context = MgnlContext.getInstance();
-
-    // set general parameters (repository, path, ..)
-    context.put(Context.ATTRIBUTE_REPOSITORY, this.getRepository());
-    if (this.pathSelected != null) {
-    // pathSelected is null in case of delete operation, it should be the responsibility of the caller
-    // to set the context attributes properly
-    context.put(Context.ATTRIBUTE_PATH, this.pathSelected);
-    }
-
-    if (commandName.equals("activate")) {
-    context.put(BaseActivationCommand.ATTRIBUTE_SYNDICATOR, getActivationSyndicator(this.pathSelected));
-    }
-
-    return context;
-    }*/
 
     @Override
     public Syndicator getActivationSyndicator(String path) {
@@ -98,9 +81,15 @@ public class ConfigurableAdminTree extends AdminTreeMVCHandler {
 //                rule.addAllowType(DataConsts.MODULE_DATA_CONTENT_NODE_TYPE);
         }
 
-        Syndicator syndicator = (Syndicator) FactoryUtil.newInstance(Syndicator.class);
-        syndicator.init(MgnlContext.getUser(), this.getRepository(), ContentRepository.getDefaultWorkspace(this.getRepository()), rule);
+        Syndicator syndicator;
+        try {
+          syndicator = (Syndicator) Classes.newInstance(Syndicator.class.getName());
+        
+          syndicator.init(MgnlContext.getUser(), this.getRepository(), ContentRepository.getDefaultWorkspace(this.getRepository()), rule);
 
-        return syndicator;
+          return syndicator;
+        } catch (ClassNotFoundException e) {
+          return null;
+        }
     }
 }

@@ -3,9 +3,9 @@
     <ol>
 	    [#list model.breadcrumb as item]
 	        [#if item_has_next]
-	            <li><a href="${item.href!model.getCategoryLink(item)}">${item.navigationTitle!item.name}</a></li>
+	            <li><a href="${item.href!model.getCategoryLink(item)}">${item.navigationTitle!item.title!item.name}</a></li>
 	        [#else]
-	            <li><strong>${item.navigationTitle!item.name}</strong></li>
+	            <li><strong>${item.navigationTitle!item.title}</strong></li>
 	        [/#if]
 	    [/#list]
     </ol>

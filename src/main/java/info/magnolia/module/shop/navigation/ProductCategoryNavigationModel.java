@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2003-2009 Magnolia International
+ * This file Copyright (c) 2003-2011 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -42,26 +42,27 @@ import info.magnolia.cms.core.Content;
 import info.magnolia.cms.util.ContentUtil;
 
 public class ProductCategoryNavigationModel {
-  
-    private Content siteRoot;
-    private String currentShop;
 
-    public ProductCategoryNavigationModel(Content siteRoot, String currentShop) {
-      this.siteRoot = siteRoot;
-      this.currentShop = currentShop;
+  private Content siteRoot;
+  private String currentShop;
+
+  public ProductCategoryNavigationModel(Content siteRoot, String currentShop) {
+    this.siteRoot = siteRoot;
+    this.currentShop = currentShop;
   }
 
-    public List<ProductCategoryNavigationItem> getItems() throws RepositoryException {
-      
-      List<ProductCategoryNavigationItem> items = new ArrayList<ProductCategoryNavigationItem>();
-      Content productCategoryNode = ContentUtil.getContent("data", "/" + currentShop+ "/productcategories");
-      for (Content child : productCategoryNode.getChildren("shopProductCategory")) {
-    	  
-        items.add(new ProductCategoryNavigationItem(child, siteRoot));
-           
-      }
-      return items;
-    }
-    
-}
+  public List<ProductCategoryNavigationItem> getItems()
+      throws RepositoryException {
 
+    List<ProductCategoryNavigationItem> items = new ArrayList<ProductCategoryNavigationItem>();
+    Content productCategoryNode = ContentUtil.getContent("data", "/"
+        + currentShop + "/productcategories");
+    for (Content child : productCategoryNode.getChildren("shopProductCategory")) {
+
+      items.add(new ProductCategoryNavigationItem(child, siteRoot));
+
+    }
+    return items;
+  }
+
+}
