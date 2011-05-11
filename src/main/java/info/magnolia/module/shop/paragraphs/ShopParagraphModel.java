@@ -196,7 +196,15 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
   }
 
   public String getSelectedCategoryUUID() {
-    return SelectorUtil.getSelector(0);
+    String name = SelectorUtil.getSelector(0);
+    if(StringUtils.isNotEmpty(name)) {
+      Content category = ShopUtil.getProductCategoryNode(name);
+      if(category != null) {
+        return category.getUUID();
+       
+      }
+    }
+    return "";
   }
 
   /**
@@ -204,14 +212,19 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
    * 
    */
   public Content getProduct() {
-    String productUUID = SelectorUtil.getSelector(1);
+    String productName = SelectorUtil.getSelector(1);
     // if is displaying current offers there is no category selected
-    if (StringUtils.isEmpty(productUUID)) {
-      productUUID = SelectorUtil.getSelector(0);
+    if (StringUtils.isEmpty(productName)) {
+      productName = SelectorUtil.getSelector(0);
     }
 
-    if (StringUtils.isNotEmpty(productUUID)) {
-      return new I18nContentWrapper(ContentUtil.getContentByUUID("data", productUUID));
+    if (StringUtils.isNotEmpty(productName)) {
+      String sql = "select * from shopProduct where jcr:path like '%/" + productName + "'";
+      Collection<Content> products = QueryUtil.query("data", sql);
+      if(!products.isEmpty()) {
+        Content product = products.iterator().next();
+        return new I18nContentWrapper(product);
+      }
     }
     return null;
   }
@@ -229,11 +242,11 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
       String categoryUUID = getSelectedCategoryUUID();
       if (StringUtils.isEmpty(categoryUUID)) {
         return MagnoliaTemplatingUtilities.getInstance().createLink(detailPage)
-            .replace(".html", "." + product.getUUID() + ".html");
+            .replace(".html", "." + product.getName() + ".html");
       } else {
         return MagnoliaTemplatingUtilities.getInstance().createLink(detailPage)
             .replace(".html",
-                "." + categoryUUID + "." + product.getUUID() + ".html");
+                "." + ContentUtil.getContentByUUID("data", categoryUUID).getName() + "." + product.getName() + ".html");
       }
     }
     return "";

@@ -33,6 +33,7 @@
  */
 package info.magnolia.module.shop.util;
 
+import java.util.Collection;
 import java.util.Locale;
 
 import info.magnolia.cms.core.Content;
@@ -40,6 +41,7 @@ import info.magnolia.cms.i18n.I18nContentSupportFactory;
 import info.magnolia.cms.i18n.Messages;
 import info.magnolia.cms.i18n.MessagesManager;
 import info.magnolia.cms.util.NodeDataUtil;
+import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.shop.ShopModule;
@@ -77,7 +79,7 @@ public class ShopUtil {
   public static String getCategoryLink(Content category, Content siteRoot) {
     String link = MagnoliaTemplatingUtilities.getInstance().createLink(
         getShopRoot(siteRoot));
-    return link.replace(".html", "." + category.getUUID() + ".html");
+    return link.replace(".html", "." + category.getName() + ".html");
   }
 
   public static Messages getMessages() {
@@ -124,11 +126,26 @@ public class ShopUtil {
    * 
    */
   public String getString(Content node, String nodeDataName) {
-    Locale currentLocale = I18nContentSupportFactory.getI18nSupport()
-        .getLocale();
+    Locale currentLocale = I18nContentSupportFactory.getI18nSupport().getLocale();
     return NodeDataUtil.getString(node, nodeDataName + "_"
         + currentLocale.getLanguage(), NodeDataUtil.getString(node,
         nodeDataName));
   }
-
+  
+  protected static Content getDataNodeByName(String nodeTypeName, String name) {
+    String sql = "select * from " + nodeTypeName + " where jcr:path like '/" + getShopName() + "/%/" + name + "'";
+    Collection<Content> nodeCollection = QueryUtil.query("data", sql);
+    if(!nodeCollection.isEmpty()) {
+      return nodeCollection.iterator().next();
+    }
+    return null;
+  }
+  
+  public static Content getProductCategoryNode(String name) {
+    return getDataNodeByName("shopProductCategory", name);
+  }
+  
+  public static Content getProductNode(String name) {
+    return getDataNodeByName("shopProduct", name);
+  }
 }

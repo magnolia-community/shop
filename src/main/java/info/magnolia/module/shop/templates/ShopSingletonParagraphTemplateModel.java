@@ -97,11 +97,11 @@ public class ShopSingletonParagraphTemplateModel extends
     List items = new ArrayList();
 
     // add categories
-    String categoryUUID = SelectorUtil.getSelector(0);
-    if (StringUtils.isNotEmpty(categoryUUID)) {
+    String name = SelectorUtil.getSelector(0);
+    if (StringUtils.isNotEmpty(name)) {
       // Check it is not a product
-      Content dataNode = ContentUtil.getContentByUUID("data", categoryUUID);
-      if (!dataNode.isNodeType("shopProduct")) {
+      Content dataNode = ShopUtil.getProductCategoryNode(name);
+      if (dataNode != null) {
         Content node = new I18nContentWrapper(dataNode);
         while (node.getLevel() > 2) {
           items.add(node);

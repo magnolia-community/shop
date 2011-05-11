@@ -164,11 +164,6 @@ public class QueryDialogButtonSet extends DialogButtonSet {
         }
         Collection items = QueryUtil.query(repository, queryString, type, itemType);
         return items;
-
-/*        Content optionsNode = null;
-        String queryString = "select * from coachFeature where jcr:path like '/coach/features/%'";
-        Collection features = QueryUtil.query("data", queryString, "sql", "coachFeature");
-        return features;*/
     }
     
     @Override

@@ -74,7 +74,6 @@ public class ShoppingCartParagraphModel extends ShopParagraphModel {
 
   protected void updateItemQuantity(String productUUID, String command) {
     ShoppingCart shoppingCart = getShoppingCart();
-    // TODO: dont call indexOfProduct method nor use DefaultShoppingCart
     int indexOfProductInCart = ((DefaultShoppingCartImpl) shoppingCart)
         .indexOfProduct(productUUID);
     if (indexOfProductInCart >= 0) {

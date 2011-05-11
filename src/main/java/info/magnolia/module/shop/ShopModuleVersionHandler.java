@@ -41,10 +41,13 @@ import info.magnolia.module.DefaultModuleVersionHandler;
 import info.magnolia.module.InstallContext;
 import info.magnolia.module.data.setup.RegisterNodeTypeTask;
 
+import info.magnolia.module.delta.IsModuleInstalledOrRegistered;
 import info.magnolia.module.delta.Task;
 import info.magnolia.module.delta.TaskExecutionException;
 import info.magnolia.module.templatingkit.setup.UpdateAllSiteDefinitions;
 import info.magnolia.nodebuilder.NodeBuilder;
+import info.magnolia.nodebuilder.task.ErrorHandling;
+import info.magnolia.nodebuilder.task.NodeBuilderTask;
 import info.magnolia.nodebuilder.task.TaskLogErrorHandler;
 
 import java.util.ArrayList;
@@ -111,6 +114,20 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
               )).exec();
       }
     });
+    
+    installTasks.add(new IsModuleInstalledOrRegistered("Tag product Categores", 
+        "Adds control to product categories dialog for taging this categories.", "extended-templating-kit", 
+        new NodeBuilderTask("","", ErrorHandling.strict, "config",
+            getNode("modules/data/dialogs/shopProductCategory/mainTab").then(
+                addNode("tags", ItemType.CONTENTNODE).then(
+                    addProperty("controlType", "categorizationUUIDMultiSelect"),
+                    addProperty("saveHandler", "info.magnolia.module.categorization.controls.CategorizationSaveHandler"),
+                    addProperty("tree", "category"),
+                    addProperty("type", "String"),
+                    addProperty("i18nBasename", "info.magnolia.module.shop.messages"),
+                    addProperty("label", "dialogs.generic.tabCategorization.categories.label"),
+                    addProperty("description", "dialogs.generic.tabCategorization.categories.description")))
+            )));
     return installTasks;
   }
 }

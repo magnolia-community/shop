@@ -43,7 +43,6 @@ import org.apache.commons.lang.StringUtils;
 
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.i18n.I18nContentWrapper;
-import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.SelectorUtil;
 import info.magnolia.module.shop.util.ShopUtil;
 
@@ -52,12 +51,12 @@ public class ProductCategoryNavigationItem {
 
   private Content content;
   private Content siteRoot;
-  private String uuid;
+  private String name;
 
   public ProductCategoryNavigationItem(Content content, Content siteRoot) {
       this.content = new I18nContentWrapper(content);
       this.siteRoot = siteRoot;
-      this.uuid = SelectorUtil.getSelector(0);
+      this.name = SelectorUtil.getSelector(0);
   }
   
   public Content getContent() {
@@ -84,12 +83,17 @@ public class ProductCategoryNavigationItem {
   
   public boolean isOpen(){
     
-    if(StringUtils.isEmpty(uuid)) {
+    if(StringUtils.isEmpty(name)) {
       return false;
     }
-    final String selectedPath = ContentUtil.getContentByUUID("data", uuid).getHandle();
-    final String currentHandle = this.content.getHandle();
-    return selectedPath.startsWith(currentHandle + "/") || selectedPath.equals(currentHandle);
+    Content productCategory = ShopUtil.getProductCategoryNode(name);
+    if(productCategory != null) {
+      final String selectedPath = productCategory.getHandle();
+      final String currentHandle = this.content.getHandle();
+      return selectedPath.startsWith(currentHandle + "/") || selectedPath.equals(currentHandle);
+    } else {
+      return false;
+    }
 }
 
   public String getId(){
@@ -106,7 +110,7 @@ public class ProductCategoryNavigationItem {
 
   public boolean isSelected(){
       
-      if(content.getUUID().equals(uuid)) {
+      if(content.getName().equals(name)) {
           return true;
       } else {
           return false;
