@@ -8,8 +8,9 @@
 [#-- Rendering: Shopping Cart --]
 <div class="${divClass}" ${divID} >
     <${headingLevel}>${i18n['confirmationPage.title']!}</${headingLevel}>
-
-    <p>${i18n.get('confirmationPage.text', [ctx.cartId])}</p>
+	[#if ctx.cartId?has_content]
+      <p>${i18n.get('confirmationPage.text', [ctx.cartId])}</p>
+    [/#if]
     
 </div><!-- end ${divClass} -->
 
