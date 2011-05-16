@@ -33,6 +33,7 @@
  */
 package info.magnolia.module.shop.util;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
@@ -40,6 +41,7 @@ import java.util.Locale;
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.core.search.Query;
 import info.magnolia.cms.i18n.I18nContentSupportFactory;
+import info.magnolia.cms.i18n.I18nContentWrapper;
 import info.magnolia.cms.i18n.Messages;
 import info.magnolia.cms.i18n.MessagesManager;
 import info.magnolia.cms.util.NodeDataUtil;
@@ -218,4 +220,26 @@ public class ShopUtil {
         Collection<Content> productCategories = QueryUtil.query("data", query);
       return productCategories;
   }
+  
+  public static List<Content> transformIntoI18nContentList(List<Content> productList) {
+      List<Content> i18nProductList = new ArrayList<Content>();
+      for (Content content : productList) {
+        i18nProductList.add(new I18nContentWrapper(content));
+      }
+      return i18nProductList;
+  }
+  
+  public static String getProductListSearchLink(Content siteRoot) {
+      String link = "";
+      Content productListPage = ShopUtil.getShopRoot(siteRoot);
+      if(productListPage != null) {
+          link = MagnoliaTemplatingUtilities.getInstance().createLink(productListPage)
+          .replace(".html",
+              "." + ParamType.SEARCH + ".html");
+      }
+      
+      return link;
+  
+  }
+
 }

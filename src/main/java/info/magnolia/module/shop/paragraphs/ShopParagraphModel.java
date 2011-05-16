@@ -76,10 +76,14 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
   private static Logger log = LoggerFactory.getLogger(ShopParagraphModel.class);
 
   private Content siteRoot = null;
+  private RenderingModel parent = null;
+  /* used for search only */
+  private ProductSearchResultModel productSearchResultModel = null;
 
   public ShopParagraphModel(Content content, RenderableDefinition definition,
       RenderingModel parent) {
     super(content, definition, parent);
+    this.parent = parent;
     if(parent instanceof STKTemplateModel) {
         this.siteRoot = ((STKTemplateModel) parent).getSiteRoot();
     }
@@ -140,62 +144,58 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
    * @return
    */
   public List<Content> getProductList() {
-      List<Content> productList = new ArrayList<Content>();
-    if(ShopUtil.isParamOfType(ParamType.CATEGORY)) {
-        
-        String productCategory = getSelectedCategoryUUID();
-        if (StringUtils.isNotEmpty(productCategory)) {
-          productList = ShopUtil.getProductsByProductCategory(productCategory);
-          return transformIntoI18nContentList(productList);
-        } 
-    } else if(ShopUtil.isParamOfType(ParamType.SEARCH)){
-        
-        
-    } else if(ShopUtil.isParamOfType(ParamType.TAG)){
-        String tagName = ShopUtil.getParamValue(ParamType.TAG);
-        Content tagNode = ShopUtil.getTagNode(tagName);
-        Collection<Content> productCategories = ShopUtil.getTaggedProductCategories(tagNode.getUUID());
-        //for each category, get all products
-        for (Iterator<Content> iterator = productCategories.iterator(); iterator
-                .hasNext();) {
-            Content productCategoryNode = iterator.next();
-            productList.addAll(ShopUtil.getProductsByProductCategory(productCategoryNode.getUUID()));
-            
-        }
-        return transformIntoI18nContentList(productList);
-        
-    } else {
-        Content currentOffers = ContentUtil.getContent(content, "currentOffers");
-        if (currentOffers != null) {
-          Collection<NodeData> offers = currentOffers.getNodeDataCollection();
-          for (Iterator<NodeData> iterator = offers.iterator(); iterator.hasNext();) {
-            NodeData productPathNodeData = (NodeData) iterator.next();
-            Content productNode = ContentUtil.getContent("data",
-                productPathNodeData.getString());
-            try {
-              if (productNode != null
-                      && productNode.getItemType().getSystemName().equals("shopProduct")) {
-                  productList.add(new I18nContentWrapper(productNode));
-              }
-            } catch (RepositoryException e) {
-  
-            }
-          } //end for
-        } //end else
-        MgnlContext.setAttribute("type", "offers");
-        return productList;
       
-    }
-    return null;
+      List<Content> productList = new ArrayList<Content>();
+      if(ShopUtil.isParamOfType(ParamType.CATEGORY)) {
+          
+          String productCategory = getSelectedCategoryUUID();
+          if (StringUtils.isNotEmpty(productCategory)) {
+            productList = ShopUtil.getProductsByProductCategory(productCategory);
+            return ShopUtil.transformIntoI18nContentList(productList);
+          } 
+      } else if(ShopUtil.isParamOfType(ParamType.SEARCH)){
+          productSearchResultModel = new ProductSearchResultModel(content, definition, parent);
+          return (List<Content>)productSearchResultModel.getResult();
+          
+      } else if(ShopUtil.isParamOfType(ParamType.TAG)){
+          String tagName = ShopUtil.getParamValue(ParamType.TAG);
+          Content tagNode = ShopUtil.getTagNode(tagName);
+          Collection<Content> productCategories = ShopUtil.getTaggedProductCategories(tagNode.getUUID());
+          //for each category, get all products
+          for (Iterator<Content> iterator = productCategories.iterator(); iterator
+                  .hasNext();) {
+              Content productCategoryNode = iterator.next();
+              productList.addAll(ShopUtil.getProductsByProductCategory(productCategoryNode.getUUID()));
+              
+          }
+          return ShopUtil.transformIntoI18nContentList(productList);
+          
+      } else {
+          Content currentOffers = ContentUtil.getContent(content, "currentOffers");
+          if (currentOffers != null) {
+            Collection<NodeData> offers = currentOffers.getNodeDataCollection();
+            for (Iterator<NodeData> iterator = offers.iterator(); iterator.hasNext();) {
+              NodeData productPathNodeData = (NodeData) iterator.next();
+              Content productNode = ContentUtil.getContent("data",
+                  productPathNodeData.getString());
+              try {
+                if (productNode != null
+                        && productNode.getItemType().getSystemName().equals("shopProduct")) {
+                    productList.add(new I18nContentWrapper(productNode));
+                }
+              } catch (RepositoryException e) {
+    
+              }
+            } //end for
+          } //end else
+          MgnlContext.setAttribute("type", "offers");
+          return productList;
+        
+      }
+      return null;
   }
 
-private List<Content> transformIntoI18nContentList(List<Content> productList) {
-    List<Content> i18nProductList = new ArrayList<Content>();
-    for (Content content : productList) {
-      i18nProductList.add(new I18nContentWrapper(content));
-    }
-    return i18nProductList;
-}
+
 
   /**
    * Gets the category selected from the url, using selector.
@@ -368,4 +368,12 @@ private List<Content> transformIntoI18nContentList(List<Content> productList) {
     return keys;
   }
 
+  public RenderingModel getProductSearchResultModel() {
+      if(productSearchResultModel == null) {
+          return this;
+      } 
+      return productSearchResultModel;
+  }
+  
+  
 }
