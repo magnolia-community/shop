@@ -42,13 +42,13 @@ import javax.jcr.RepositoryException;
 
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.i18n.I18nContentWrapper;
-import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.NodeDataUtil;
 import info.magnolia.cms.util.SelectorUtil;
 import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.shop.navigation.ProductCategoryNavigationModel;
 import info.magnolia.module.shop.util.ShopUtil;
+import info.magnolia.module.shop.util.ShopUtil.ParamType;
 import info.magnolia.module.templating.RenderingModel;
 import info.magnolia.module.templatingkit.navigation.LinkImpl;
 import info.magnolia.module.templatingkit.templates.STKTemplate;
@@ -61,8 +61,8 @@ import org.slf4j.LoggerFactory;
 public class ShopSingletonParagraphTemplateModel extends
     SingletonParagraphTemplateModel {
 
-  private static Logger log = LoggerFactory
-      .getLogger(ShopSingletonParagraphTemplateModel.class);
+  private static Logger log = LoggerFactory.getLogger(ShopSingletonParagraphTemplateModel.class);
+  
   private String currentShopName = "";
 
   public ShopSingletonParagraphTemplateModel(Content content,
@@ -79,7 +79,7 @@ public class ShopSingletonParagraphTemplateModel extends
   public String execute() {
     MgnlContext.setAttribute("shopName", getCurrentShop(),
         Context.SESSION_SCOPE);
-    ShopUtil.setShoppingCart();
+    ShopUtil.setShoppingCartInSession();
     return super.execute();
   }
 
@@ -96,13 +96,13 @@ public class ShopSingletonParagraphTemplateModel extends
   public Collection getBreadcrumb() throws RepositoryException {
     List items = new ArrayList();
 
-    // add categories
-    String name = SelectorUtil.getSelector(0);
+    // add categorie
+    String name = ShopUtil.getParamValue(ParamType.CATEGORY);
     if (StringUtils.isNotEmpty(name)) {
-      // Check it is not a product
       Content dataNode = ShopUtil.getProductCategoryNode(name);
       if (dataNode != null) {
         Content node = new I18nContentWrapper(dataNode);
+        //TODO: level mustchange
         while (node.getLevel() > 2) {
           items.add(node);
           node = node.getParent();
@@ -110,7 +110,7 @@ public class ShopSingletonParagraphTemplateModel extends
 
       }
     }
-
+    
     // add website nodes
     Content root = getSiteRoot();
     Content current = content;

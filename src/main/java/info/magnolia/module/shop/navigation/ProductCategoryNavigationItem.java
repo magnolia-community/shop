@@ -43,8 +43,8 @@ import org.apache.commons.lang.StringUtils;
 
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.i18n.I18nContentWrapper;
-import info.magnolia.cms.util.SelectorUtil;
 import info.magnolia.module.shop.util.ShopUtil;
+import info.magnolia.module.shop.util.ShopUtil.ParamType;
 
 
 public class ProductCategoryNavigationItem {
@@ -56,7 +56,7 @@ public class ProductCategoryNavigationItem {
   public ProductCategoryNavigationItem(Content content, Content siteRoot) {
       this.content = new I18nContentWrapper(content);
       this.siteRoot = siteRoot;
-      this.name = SelectorUtil.getSelector(0);
+      this.name = ShopUtil.getParamValue(ParamType.CATEGORY);
   }
   
   public Content getContent() {
@@ -65,7 +65,7 @@ public class ProductCategoryNavigationItem {
 
   public int getLevel(){
       try {
-        //2 is shop name/ folder name of data module
+        //TODO: MUSTCHANGE2 is shop name/ folder name of data module
         return  content.getLevel() - 2;
       } catch (PathNotFoundException e) {
       } catch (RepositoryException e) {

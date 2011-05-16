@@ -23,10 +23,10 @@
 <div class="${divClass}" ${divID} >
 	[@cms.editBar /]
     <${headingLevel}>
-    	[#if category?has_content]
-    		${productList?size} ${i18n['productList.products.found']}
-    	[#else]
+    	[#if ctx.type?has_content && ctx.type = "offers"]
     		${i18n['productList.currentOffers']}
+    	[#else]
+    		${productList?size} ${i18n['productList.products.found']}
     	[/#if]
     </${headingLevel}>
 	[#if productList?size > 0]

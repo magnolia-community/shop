@@ -100,7 +100,7 @@ public class SaveAndConfirmFormProcessor extends AbstractFormProcessor {
         log.debug("Path of newly inserted shopping cart: " + cart.getPath());
     }
     MgnlContext.getWebContext().getRequest().getSession().removeAttribute("shoppingCart");
-    ShopUtil.setShoppingCart();
+    ShopUtil.setShoppingCartInSession();
   }
   protected void loadCustomerData(DefaultShoppingCartImpl cart, Map<String, Object> parameters ) {
     //billing address
