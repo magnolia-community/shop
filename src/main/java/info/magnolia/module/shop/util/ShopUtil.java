@@ -34,14 +34,17 @@
 package info.magnolia.module.shop.util;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 
 import info.magnolia.cms.core.Content;
+import info.magnolia.cms.core.search.Query;
 import info.magnolia.cms.i18n.I18nContentSupportFactory;
 import info.magnolia.cms.i18n.Messages;
 import info.magnolia.cms.i18n.MessagesManager;
 import info.magnolia.cms.util.NodeDataUtil;
 import info.magnolia.cms.util.QueryUtil;
+import info.magnolia.cms.util.SelectorUtil;
 import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.shop.ShopModule;
@@ -60,7 +63,14 @@ import org.slf4j.LoggerFactory;
 public class ShopUtil {
 
   private static Logger log = LoggerFactory.getLogger(ShopUtil.class);
-
+  
+  public static enum ParamType {
+      SEARCH,  
+      CATEGORY,
+      PRODUCT,
+      TAG,
+  }
+  
   /**
    * Gets the shop current node, assumes one shop per site.
    */
@@ -79,9 +89,9 @@ public class ShopUtil {
   public static String getCategoryLink(Content category, Content siteRoot) {
     String link = MagnoliaTemplatingUtilities.getInstance().createLink(
         getShopRoot(siteRoot));
-    return link.replace(".html", "." + category.getName() + ".html");
+    return link.replace(".html", "." + ParamType.CATEGORY.name() + "." +category.getName() + ".html");
   }
-
+  
   public static Messages getMessages() {
     Locale currentLocale = I18nContentSupportFactory.getI18nSupport()
         .getLocale();
@@ -90,7 +100,7 @@ public class ShopUtil {
     return msg;
   }
 
-  public static void setShoppingCart() {
+  public static void setShoppingCartInSession() {
     String shopName = getShopName();
 
     if (StringUtils.isNotEmpty(shopName)) {
@@ -132,7 +142,7 @@ public class ShopUtil {
         nodeDataName));
   }
   
-  protected static Content getDataNodeByName(String nodeTypeName, String name) {
+  protected static Content getShopDataNodeByName(String nodeTypeName, String name) {
     String sql = "select * from " + nodeTypeName + " where jcr:path like '/" + getShopName() + "/%/" + name + "'";
     Collection<Content> nodeCollection = QueryUtil.query("data", sql);
     if(!nodeCollection.isEmpty()) {
@@ -141,11 +151,71 @@ public class ShopUtil {
     return null;
   }
   
+  protected static Content getDataNodeByName(String nodeTypeName, String name) {
+      String sql = "select * from " + nodeTypeName + " where name='" + name + "'";
+      Collection<Content> nodeCollection = QueryUtil.query("data", sql);
+      if(!nodeCollection.isEmpty()) {
+        return nodeCollection.iterator().next();
+      }
+      return null;
+    }
   public static Content getProductCategoryNode(String name) {
-    return getDataNodeByName("shopProductCategory", name);
+    return getShopDataNodeByName("shopProductCategory", name);
   }
   
   public static Content getProductNode(String name) {
-    return getDataNodeByName("shopProduct", name);
+    return getShopDataNodeByName("shopProduct", name);
+  }
+  
+  public static Content getTagNode(String name) {
+      return getDataNodeByName("category", name);
+    }
+  
+  public static List<Content> getProductsByProductCategory(String productCategory) {
+    String xpath = "/jcr:root/"
+        + ShopUtil.getShopName()
+        + "/products//element(*,shopProduct)[jcr:contains(productCategoryUUIDs/., '"
+        + productCategory + "')]";
+    List<Content> productList = (List<Content>) QueryUtil.query("data", xpath, Query.XPATH);
+    return productList;
+  }
+  
+  public static boolean isParamOfType(ParamType paramType) {
+      String selectorName = SelectorUtil.getSelector(2);
+      if(StringUtils.isEmpty(selectorName)) {
+          selectorName = SelectorUtil.getSelector(0);
+      }
+      
+      if(StringUtils.isNotEmpty(selectorName) && selectorName.equalsIgnoreCase(paramType.name())) {
+          return true;
+      }
+      return false;
+  }
+  
+  public static String getParamValue(ParamType paramType) {
+      String[] selectors = StringUtils.split(SelectorUtil.getSelector(), ".");
+      int index = 0;
+      for (int i = 0; i < selectors.length; i++) {
+        String selector = selectors[i];
+        if(selector.equalsIgnoreCase(paramType.name())) {
+            index = i + 1;
+            break;
+        }
+      }
+      if(selectors.length > index) {
+          return selectors[index];
+      } else {
+          return "";
+      }
+  }
+  
+  public static Collection<Content> getTaggedProductCategories(String categoryUUID) {
+      String shopDataRootPath = ShopModule.getInstance().getCurrentShopConfiguration(ShopUtil.getShopName()).getShopDataRootPath();
+        
+        String query = "select * from shopProductCategory where  jcr:path like '%" + shopDataRootPath 
+          + "/%' and contains(tags, '" + categoryUUID + "')";
+        
+        Collection<Content> productCategories = QueryUtil.query("data", query);
+      return productCategories;
   }
 }
