@@ -89,9 +89,9 @@ public class ShopUtil {
   }
 
   public static String getCategoryLink(Content category, Content siteRoot) {
-    String link = MagnoliaTemplatingUtilities.getInstance().createLink(
-        getShopRoot(siteRoot));
-    return link.replace(".html", "." + ParamType.CATEGORY.name() + "." +category.getName() + ".html");
+    Content shopRootPage = getShopRoot(siteRoot);
+    String selector = ParamType.CATEGORY.name() + "." +category.getName();
+    return ShopUtil.createLinkFromContentWithSelectors(shopRootPage, selector);
   }
   
   public static Messages getMessages() {
@@ -231,15 +231,24 @@ public class ShopUtil {
   
   public static String getProductListSearchLink(Content siteRoot) {
       String link = "";
+      String selector = "" + ParamType.SEARCH;
       Content productListPage = ShopUtil.getShopRoot(siteRoot);
       if(productListPage != null) {
-          link = MagnoliaTemplatingUtilities.getInstance().createLink(productListPage)
-          .replace(".html",
-              "." + ParamType.SEARCH + ".html");
+          link = ShopUtil.createLinkFromContentWithSelectors(productListPage, selector);
       }
       
       return link;
   
+  }
+  
+  public static String createLinkFromContentWithSelectors(Content content, String selector) {
+      String link = MagnoliaTemplatingUtilities.getInstance().createLink(content);
+      String extension = StringUtils.substringAfterLast(link, ".");
+      if(StringUtils.isNotEmpty(selector)) {
+          selector += ".";
+      }
+      String linkWithSelectors = StringUtils.substringBeforeLast(link, extension) + selector + extension;
+      return linkWithSelectors;
   }
 
 }

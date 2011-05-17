@@ -136,17 +136,5 @@ public class ProductSearchResultModel extends SearchResultModel {
         return "";
 
     }
-    
-    public String getPosition() {
-        try {
-            if(content.hasNodeData("position")) {
-                return content.getNodeData("position").getString();
-            }
-        } catch (Exception e) {
-            log.debug("no pagination position found");
-        }
-        return "";
-
-    }
 
 }

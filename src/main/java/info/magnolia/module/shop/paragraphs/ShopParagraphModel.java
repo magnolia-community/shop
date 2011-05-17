@@ -50,6 +50,7 @@ import info.magnolia.cms.core.NodeData;
 import info.magnolia.cms.i18n.I18nContentWrapper;
 import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.NodeDataUtil;
+import info.magnolia.cms.util.SelectorUtil;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.dms.beans.Document;
 import info.magnolia.module.shop.ShopConfiguration;
@@ -63,6 +64,7 @@ import info.magnolia.module.templating.RenderingModel;
 import info.magnolia.module.templatingkit.navigation.LinkImpl;
 import info.magnolia.module.templatingkit.paragraphs.ImageGalleryParagraphModel;
 import info.magnolia.module.templatingkit.templates.STKTemplateModel;
+import info.magnolia.module.templatingkit.util.STKPager;
 import info.magnolia.module.templatingkit.util.STKUtil;
 
 /**
@@ -77,8 +79,6 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
 
   private Content siteRoot = null;
   private RenderingModel parent = null;
-  /* used for search only */
-  private ProductSearchResultModel productSearchResultModel = null;
 
   public ShopParagraphModel(Content content, RenderableDefinition definition,
       RenderingModel parent) {
@@ -154,7 +154,7 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
             return ShopUtil.transformIntoI18nContentList(productList);
           } 
       } else if(ShopUtil.isParamOfType(ParamType.SEARCH)){
-          productSearchResultModel = new ProductSearchResultModel(content, definition, parent);
+          ProductSearchResultModel productSearchResultModel = new ProductSearchResultModel(content, definition, parent);
           return (List<Content>)productSearchResultModel.getResult();
           
       } else if(ShopUtil.isParamOfType(ParamType.TAG)){
@@ -250,16 +250,16 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
     if (product != null) {
       Content detailPage = STKUtil.getContentByTemplateCategorySubCategory(
           siteRoot, "feature", "productDetail");
+      
       String categoryUUID = getSelectedCategoryUUID();
-      if (StringUtils.isEmpty(categoryUUID)) {
-        return MagnoliaTemplatingUtilities.getInstance().createLink(detailPage)
-            .replace(".html", "." + ParamType.PRODUCT + "." + product.getName() + ".html");
-      } else {
-        return MagnoliaTemplatingUtilities.getInstance().createLink(detailPage)
-            .replace(".html",
-                "." + ParamType.CATEGORY + "." + ContentUtil.getContentByUUID("data", categoryUUID).getName() 
-                + "." + ParamType.PRODUCT + "."  + product.getName() + ".html");
-      }
+      String selector = ParamType.PRODUCT + "." + product.getName();
+      
+      if (StringUtils.isNotEmpty(categoryUUID)) {
+          Content category = ContentUtil.getContentByUUID("data", categoryUUID);
+          selector = ParamType.CATEGORY + "." + category.getName() 
+              + "." + ParamType.PRODUCT + "."  + product.getName();
+      } 
+      return ShopUtil.createLinkFromContentWithSelectors(detailPage, selector);
     }
     return "";
   }
@@ -367,13 +367,11 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
     }
     return keys;
   }
-
-  public RenderingModel getProductSearchResultModel() {
-      if(productSearchResultModel == null) {
-          return this;
-      } 
-      return productSearchResultModel;
-  }
   
+  public STKPager getPager() {
+      Content currentPage = MgnlContext.getAggregationState().getMainContent();
+      String linkWithSelectors = ShopUtil.createLinkFromContentWithSelectors(currentPage, SelectorUtil.getSelector());
+      return new STKPager(linkWithSelectors, getProductList(), content);
+  }
   
 }

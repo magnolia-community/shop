@@ -4,8 +4,10 @@
 [#include "/shop/paragraphs/macros/productListMacro.ftl"]
 [#include "/templating-kit/paragraphs/macros/pagination.ftl"]
 
-[#assign productList = model.productList!]
+
 [#assign category=model.category!]
+[#assign pager=model.pager!]
+[#assign productList = pager.pageItems!]
 
 [#-- Rendering Part --]
 
@@ -18,7 +20,10 @@
     		${productList?size} ${i18n['productList.products.found']}
     	[/#if]
     </${headingLevel}>
+    [#-- Macro: Pager --]
+	[@pagination pager "top" /]
 	[@productListMacro productList=productList/]
 </div>
 
-
+[#-- Macro: Pager --]
+[@pagination pager "bottom" /]
