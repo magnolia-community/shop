@@ -46,13 +46,11 @@ import info.magnolia.cms.i18n.Messages;
 import info.magnolia.cms.i18n.MessagesManager;
 import info.magnolia.cms.util.NodeDataUtil;
 import info.magnolia.cms.util.QueryUtil;
-import info.magnolia.cms.util.SelectorUtil;
 import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.shop.ShopModule;
 import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
 import info.magnolia.module.shop.beans.ShoppingCart;
-import info.magnolia.module.templating.MagnoliaTemplatingUtilities;
 import info.magnolia.module.templatingkit.util.STKUtil;
 import info.magnolia.objectfactory.Classes;
 
@@ -65,13 +63,6 @@ import org.slf4j.LoggerFactory;
 public class ShopUtil {
 
   private static Logger log = LoggerFactory.getLogger(ShopUtil.class);
-  
-  public static enum ParamType {
-      SEARCH,  
-      CATEGORY,
-      PRODUCT,
-      TAG,
-  }
   
   /**
    * Gets the shop current node, assumes one shop per site.
@@ -86,12 +77,6 @@ public class ShopUtil {
     }
 
     return shopRoot;
-  }
-
-  public static String getCategoryLink(Content category, Content siteRoot) {
-    Content shopRootPage = getShopRoot(siteRoot);
-    String selector = ParamType.CATEGORY.name() + "." +category.getName();
-    return ShopUtil.createLinkFromContentWithSelectors(shopRootPage, selector);
   }
   
   public static Messages getMessages() {
@@ -182,35 +167,6 @@ public class ShopUtil {
     return productList;
   }
   
-  public static boolean isParamOfType(ParamType paramType) {
-      String selectorName = SelectorUtil.getSelector(2);
-      if(StringUtils.isEmpty(selectorName)) {
-          selectorName = SelectorUtil.getSelector(0);
-      }
-      
-      if(StringUtils.isNotEmpty(selectorName) && selectorName.equalsIgnoreCase(paramType.name())) {
-          return true;
-      }
-      return false;
-  }
-  
-  public static String getParamValue(ParamType paramType) {
-      String[] selectors = StringUtils.split(SelectorUtil.getSelector(), ".");
-      int index = 0;
-      for (int i = 0; i < selectors.length; i++) {
-        String selector = selectors[i];
-        if(selector.equalsIgnoreCase(paramType.name())) {
-            index = i + 1;
-            break;
-        }
-      }
-      if(selectors.length > index) {
-          return selectors[index];
-      } else {
-          return "";
-      }
-  }
-  
   public static Collection<Content> getTaggedProductCategories(String categoryUUID) {
       String shopDataRootPath = ShopModule.getInstance().getCurrentShopConfiguration(ShopUtil.getShopName()).getShopDataRootPath();
         
@@ -227,28 +183,6 @@ public class ShopUtil {
         i18nProductList.add(new I18nContentWrapper(content));
       }
       return i18nProductList;
-  }
-  
-  public static String getProductListSearchLink(Content siteRoot) {
-      String link = "";
-      String selector = "" + ParamType.SEARCH;
-      Content productListPage = ShopUtil.getShopRoot(siteRoot);
-      if(productListPage != null) {
-          link = ShopUtil.createLinkFromContentWithSelectors(productListPage, selector);
-      }
-      
-      return link;
-  
-  }
-  
-  public static String createLinkFromContentWithSelectors(Content content, String selector) {
-      String link = MagnoliaTemplatingUtilities.getInstance().createLink(content);
-      String extension = StringUtils.substringAfterLast(link, ".");
-      if(StringUtils.isNotEmpty(selector)) {
-          selector += ".";
-      }
-      String linkWithSelectors = StringUtils.substringBeforeLast(link, extension) + selector + extension;
-      return linkWithSelectors;
   }
 
 }

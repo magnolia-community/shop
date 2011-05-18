@@ -1,5 +1,6 @@
 [#-- Include: Global --]
 [#include "/templating-kit/paragraphs/teasers/init.inc.ftl"]
+[#setting number_format="0.##"]
 
 [#-------------- ASSIGNS ---------------------]
 

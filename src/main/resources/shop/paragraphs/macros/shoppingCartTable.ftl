@@ -1,4 +1,5 @@
 [#macro shoppingCartTable shoppingCart type]
+	[#setting number_format="0.##"]
 	[#if !shoppingCart?has_content || shoppingCart.getCartItemsCount() == 0]
 	    <p>${i18n['shoppingcart.empty']}</p>
 	    [#else]
@@ -14,8 +15,13 @@
 	    </thead>
 		<tbody>
 	    	[#list shoppingCart.getCartItems() as product]
+	    		[#assign productLink = model.getProductDetailPageLink(product.product)!]
 	    		<tr>
-	    			<td>${product.productTitle}</td>
+	    			[#if productLink?has_content]
+	    				<td><a href="${productLink}">${product.productTitle}</a></td>
+	    			[#else]
+	    				<td>${product.productTitle}</td>
+	    			[/#if]
 	    			<td>${product.quantity}</td>
 	    			<td>${product.unitPrice}</td>
 	    			<td>${product.itemTotal}</td>

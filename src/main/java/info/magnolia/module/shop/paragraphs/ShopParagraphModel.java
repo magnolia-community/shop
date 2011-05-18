@@ -57,7 +57,8 @@ import info.magnolia.module.shop.ShopConfiguration;
 import info.magnolia.module.shop.ShopModule;
 import info.magnolia.module.shop.beans.ShoppingCart;
 import info.magnolia.module.shop.util.ShopUtil;
-import info.magnolia.module.shop.util.ShopUtil.ParamType;
+import info.magnolia.module.shop.util.ShopLinkUtil;
+import info.magnolia.module.shop.util.ShopLinkUtil.ParamType;
 import info.magnolia.module.templating.RenderableDefinition;
 import info.magnolia.module.templating.RenderingModel;
 import info.magnolia.module.templatingkit.navigation.LinkImpl;
@@ -147,19 +148,19 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
   public List<Content> getProductList() {
       
       List<Content> productList = new ArrayList<Content>();
-      if(ShopUtil.isParamOfType(ParamType.CATEGORY)) {
+      if(ShopLinkUtil.isParamOfType(ParamType.CATEGORY)) {
           
-          String productCategory = getSelectedCategoryUUID();
+          String productCategory = ShopLinkUtil.getSelectedCategoryUUID();
           if (StringUtils.isNotEmpty(productCategory)) {
             productList = ShopUtil.getProductsByProductCategory(productCategory);
             return ShopUtil.transformIntoI18nContentList(productList);
           } 
-      } else if(ShopUtil.isParamOfType(ParamType.SEARCH)){
+      } else if(ShopLinkUtil.isParamOfType(ParamType.SEARCH)){
           ProductSearchResultModel productSearchResultModel = new ProductSearchResultModel(content, definition, parent);
           return (List<Content>)productSearchResultModel.getResult();
           
-      } else if(ShopUtil.isParamOfType(ParamType.TAG)){
-          String tagName = ShopUtil.getParamValue(ParamType.TAG);
+      } else if(ShopLinkUtil.isParamOfType(ParamType.TAG)){
+          String tagName = ShopLinkUtil.getParamValue(ParamType.TAG);
           Content tagNode = ShopUtil.getTagNode(tagName);
           Collection<Content> productCategories = ShopUtil.getTaggedProductCategories(tagNode.getUUID());
           //for each category, get all products
@@ -203,7 +204,7 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
    * 
    */
   public Content getCategory() {
-    String productCategoryUUID = getSelectedCategoryUUID();
+    String productCategoryUUID = ShopLinkUtil.getSelectedCategoryUUID();
     if (StringUtils.isNotEmpty(productCategoryUUID)) {
       Content node = ContentUtil.getContentByUUID("data", productCategoryUUID);
       if (!node.isNodeType("shopProduct")) {
@@ -213,17 +214,7 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
     return null;
   }
 
-  public String getSelectedCategoryUUID() {
-    String name = ShopUtil.getParamValue(ParamType.CATEGORY);
-    if(StringUtils.isNotEmpty(name)) {
-      Content category = ShopUtil.getProductCategoryNode(name);
-      if(category != null) {
-        return category.getUUID();
-       
-      }
-    }
-    return "";
-  }
+  
 
   /**
    * Gets product selected from the url, using selector.
@@ -231,7 +222,7 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
    */
   public Content getProduct() {
       
-      String productName = ShopUtil.getParamValue(ParamType.PRODUCT);
+      String productName = ShopLinkUtil.getParamValue(ParamType.PRODUCT);
 
       if (StringUtils.isNotEmpty(productName)) {
           Content product = ShopUtil.getProductNode(productName);
@@ -239,30 +230,6 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
         
       }
       return null;
-  }
-
-  /**
-   * Gets the link for the product detail page.
-   * 
-   * @throws RepositoryException
-   */
-  public String getProductDetailPageLink(Content product)
-      throws RepositoryException {
-    if (product != null) {
-      Content detailPage = STKUtil.getContentByTemplateCategorySubCategory(
-          siteRoot, "feature", "productDetail");
-      
-      String categoryUUID = getSelectedCategoryUUID();
-      String selector = ParamType.PRODUCT + "." + product.getName();
-      
-      if (StringUtils.isNotEmpty(categoryUUID)) {
-          Content category = ContentUtil.getContentByUUID("data", categoryUUID);
-          selector = ParamType.CATEGORY + "." + category.getName() 
-              + "." + ParamType.PRODUCT + "."  + product.getName();
-      } 
-      return ShopUtil.createLinkFromContentWithSelectors(detailPage, selector);
-    }
-    return "";
   }
 
   public TemplateProductPriceBean getProductPriceBean(Content product) {
@@ -371,7 +338,7 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
   
   public STKPager getPager() {
       Content currentPage = MgnlContext.getAggregationState().getMainContent();
-      String linkWithSelectors = ShopUtil.createLinkFromContentWithSelectors(currentPage, SelectorUtil.getSelector());
+      String linkWithSelectors = ShopLinkUtil.createLinkFromContentWithSelectors(currentPage, SelectorUtil.getSelector());
       List<Content> productList = getProductList();
       numberOfProductsFound = productList.size();
       return new STKPager(linkWithSelectors, productList , content);
@@ -379,6 +346,14 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
 
   public int getNumberOfProductsFound() {
       return numberOfProductsFound;
+  }
+  
+  public String getProductDetailPageLink(Content product) {
+      try {
+        return ShopLinkUtil.getProductDetailPageLink(product, siteRoot);
+    } catch (RepositoryException e) {
+        return "";
+    }
   }
   
   

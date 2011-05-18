@@ -33,12 +33,16 @@
  */
 package info.magnolia.module.shop.paragraphs;
 
+import javax.jcr.RepositoryException;
+
 import info.magnolia.cms.core.Content;
 import info.magnolia.module.form.paragraphs.models.SubStepFormModel;
 import info.magnolia.module.shop.beans.ShoppingCart;
+import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.templating.RenderableDefinition;
 import info.magnolia.module.templating.RenderingModel;
+import info.magnolia.module.templatingkit.templates.STKTemplateModel;
 
 /**
  * Checkout step paragraph. Need to get the current shopping cart.
@@ -47,13 +51,27 @@ import info.magnolia.module.templating.RenderingModel;
  */
 public class CheckoutStepParagraphModel extends SubStepFormModel {
 
-  public CheckoutStepParagraphModel(Content content,
+  private Content siteRoot;
+
+public CheckoutStepParagraphModel(Content content,
       RenderableDefinition definition, RenderingModel parent) {
     super(content, definition, parent);
+    if(parent instanceof STKTemplateModel) {
+        this.siteRoot = ((STKTemplateModel) parent).getSiteRoot();
+        
+    }
   }
   
   public ShoppingCart getShoppingCart() {
     return ShopUtil.getShoppingCart();
+  }
+  
+  /** 
+   * It wont display a link, as is the checkout of items and user
+   * will leave the form if there is a link (using same template in 2 different paragraphs)
+   */
+  public String getProductDetailPageLink(Content product) {
+        return "";
   }
 
 }

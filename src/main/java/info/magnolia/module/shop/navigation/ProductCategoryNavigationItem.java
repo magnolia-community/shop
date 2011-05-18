@@ -43,8 +43,9 @@ import org.apache.commons.lang.StringUtils;
 
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.i18n.I18nContentWrapper;
+import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.shop.util.ShopUtil;
-import info.magnolia.module.shop.util.ShopUtil.ParamType;
+import info.magnolia.module.shop.util.ShopLinkUtil.ParamType;
 
 
 public class ProductCategoryNavigationItem {
@@ -56,7 +57,7 @@ public class ProductCategoryNavigationItem {
   public ProductCategoryNavigationItem(Content content, Content siteRoot) {
       this.content = new I18nContentWrapper(content);
       this.siteRoot = siteRoot;
-      this.name = ShopUtil.getParamValue(ParamType.CATEGORY);
+      this.name = ShopLinkUtil.getParamValue(ParamType.CATEGORY);
   }
   
   public Content getContent() {
@@ -118,7 +119,7 @@ public class ProductCategoryNavigationItem {
   }
 
   public String getHref() {
-      return ShopUtil.getCategoryLink(content, siteRoot);
+      return ShopLinkUtil.getCategoryLink(content, siteRoot);
   }
 
   public String getTitle() {

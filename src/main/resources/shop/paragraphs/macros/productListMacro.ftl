@@ -10,7 +10,8 @@
     [#assign noPicLink = ctx.contextPath + "/docroot/shop/images/box.gif"]
    	
 [/#macro]
-[#macro productListMacro productList]	
+[#macro productListMacro productList]
+	[#setting number_format="0.##"]	
 	[#if productList?size > 0]
 		<ul>
 			[#list productList as product]

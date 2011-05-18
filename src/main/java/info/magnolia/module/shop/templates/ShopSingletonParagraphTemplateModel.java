@@ -47,8 +47,9 @@ import info.magnolia.cms.util.SelectorUtil;
 import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.shop.navigation.ProductCategoryNavigationModel;
+import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.shop.util.ShopUtil;
-import info.magnolia.module.shop.util.ShopUtil.ParamType;
+import info.magnolia.module.shop.util.ShopLinkUtil.ParamType;
 import info.magnolia.module.templating.RenderingModel;
 import info.magnolia.module.templatingkit.navigation.LinkImpl;
 import info.magnolia.module.templatingkit.templates.STKTemplate;
@@ -97,7 +98,7 @@ public class ShopSingletonParagraphTemplateModel extends
     List items = new ArrayList();
 
     // add categorie
-    String name = ShopUtil.getParamValue(ParamType.CATEGORY);
+    String name = ShopLinkUtil.getParamValue(ParamType.CATEGORY);
     if (StringUtils.isNotEmpty(name)) {
       Content dataNode = ShopUtil.getProductCategoryNode(name);
       if (dataNode != null) {
@@ -130,7 +131,7 @@ public class ShopSingletonParagraphTemplateModel extends
   }
 
   public String getCategoryLink(Content category) {
-    return ShopUtil.getCategoryLink(category, this.getSiteRoot());
+    return ShopLinkUtil.getCategoryLink(category, this.getSiteRoot());
   }
 
 }

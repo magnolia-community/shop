@@ -36,6 +36,7 @@ package info.magnolia.module.shop.paragraphs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.templating.RenderableDefinition;
 import info.magnolia.module.templating.RenderingModel;
@@ -63,7 +64,7 @@ public class ProductSearchParagraphModel extends RenderingModelImpl {
     }
     
     public String getProductListLink() {
-        return ShopUtil.getProductListSearchLink(siteRoot);
+        return ShopLinkUtil.getProductListSearchLink(siteRoot);
     }
 
     

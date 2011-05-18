@@ -15,7 +15,7 @@
     [@shoppingCartTable shoppingCart=shoppingCart type="cart"/]
     [#if shoppingCart?has_content && shoppingCart.getCartItemsCount() > 0]
 	    <div class="form-wrapper">
-			<form method="post" enctype="multipart/form-data" action="${model.getCheckoutFormLink()}">
+			<form method="get" enctype="multipart/form-data" action="${model.getCheckoutFormLink()}">
 			<div class="button-wrapper"> 
 			<input type="submit" value="${i18n['checkout']}">
 			</div>

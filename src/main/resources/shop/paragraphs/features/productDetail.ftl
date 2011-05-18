@@ -1,5 +1,6 @@
 [#-- Assigns: Get Content --]
 [#include "/shop/paragraphs/macros/addForm.ftl"]
+[#setting number_format="0.##"]
 
 <style type="text/css">
 .photo-index .photo {

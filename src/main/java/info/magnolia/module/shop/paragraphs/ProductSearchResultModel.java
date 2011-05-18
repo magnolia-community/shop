@@ -45,6 +45,7 @@ import info.magnolia.cms.core.search.Query;
 import info.magnolia.cms.core.search.QueryResult;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.shop.ShopModule;
+import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.templating.RenderableDefinition;
 import info.magnolia.module.templating.RenderingModel;
@@ -91,7 +92,7 @@ public class ProductSearchResultModel extends SearchResultModel {
     public String getPageLink(int i) {
         String link = "";
         try {
-            link = ShopUtil.getProductListSearchLink(siteRoot);
+            link = ShopLinkUtil.getProductListSearchLink(siteRoot);
             String current = "&amp;currentPage=";
             link =  link + "?queryProductsStr=" + getQueryStr() + current + i;
         } catch (Exception e) {
