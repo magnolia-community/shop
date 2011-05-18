@@ -58,7 +58,6 @@ import info.magnolia.module.shop.ShopModule;
 import info.magnolia.module.shop.beans.ShoppingCart;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.shop.util.ShopUtil.ParamType;
-import info.magnolia.module.templating.MagnoliaTemplatingUtilities;
 import info.magnolia.module.templating.RenderableDefinition;
 import info.magnolia.module.templating.RenderingModel;
 import info.magnolia.module.templatingkit.navigation.LinkImpl;
@@ -79,6 +78,8 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
 
   private Content siteRoot = null;
   private RenderingModel parent = null;
+
+  private int numberOfProductsFound;
 
   public ShopParagraphModel(Content content, RenderableDefinition definition,
       RenderingModel parent) {
@@ -371,7 +372,14 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
   public STKPager getPager() {
       Content currentPage = MgnlContext.getAggregationState().getMainContent();
       String linkWithSelectors = ShopUtil.createLinkFromContentWithSelectors(currentPage, SelectorUtil.getSelector());
-      return new STKPager(linkWithSelectors, getProductList(), content);
+      List<Content> productList = getProductList();
+      numberOfProductsFound = productList.size();
+      return new STKPager(linkWithSelectors, productList , content);
   }
+
+  public int getNumberOfProductsFound() {
+      return numberOfProductsFound;
+  }
+  
   
 }

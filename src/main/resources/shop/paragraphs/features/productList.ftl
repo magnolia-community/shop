@@ -17,7 +17,7 @@
     	[#if ctx.type?has_content && ctx.type = "offers"]
     		${i18n['productList.currentOffers']}
     	[#else]
-    		${productList?size} ${i18n['productList.products.found']}
+    		${model.numberOfProductsFound} ${i18n['productList.products.found']}
     	[/#if]
     </${headingLevel}>
     [#-- Macro: Pager --]
