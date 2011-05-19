@@ -33,7 +33,7 @@
                 [#-- Macro: Item Assigns --]
                 [@assignItemValues item=item /]
                 <li >
-                    <a href="${itemLink}" >${itemDisplayName} ${model.getNumberOfItemsCategorizedWith(item.@uuid)}</a>
+                    <a href="${itemLink}" >${itemDisplayName} [${model.getNumberOfItemsCategorizedWith(item.@uuid)}]</a>
                 </li>
             [/#list]
         </ul>
