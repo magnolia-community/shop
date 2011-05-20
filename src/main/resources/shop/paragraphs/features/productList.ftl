@@ -9,6 +9,12 @@
 [#assign pager=model.pager!]
 [#assign productList = pager.pageItems!]
 
+[#if pager?exists]
+	[#assign count=pager.count]
+[#else]
+	[#assign count=0]
+[/#if]
+
 [#-- Rendering Part --]
 
 <div class="${divClass}" ${divID} >
@@ -17,7 +23,7 @@
     	[#if ctx.type?has_content && ctx.type = "offers"]
     		${i18n['productList.currentOffers']}
     	[#else]
-    		${model.numberOfProductsFound} ${i18n['productList.products.found']}
+    		${count} ${i18n['productList.products.found']}
     	[/#if]
     </${headingLevel}>
     [#-- Macro: Pager --]
