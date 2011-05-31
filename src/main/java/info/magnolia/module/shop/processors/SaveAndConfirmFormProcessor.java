@@ -66,41 +66,47 @@ public class SaveAndConfirmFormProcessor extends AbstractFormProcessor {
   protected void internalProcess(Content content, Map<String, Object> parameters)
       throws FormProcessorFailedException {
     
-    DefaultShoppingCartImpl cart = (DefaultShoppingCartImpl) ShopUtil.getShoppingCart();
-    if (cart == null) {
-        log.error("Shopping cart could not be found!");
-        throw new FormProcessorFailedException("cart.not.found");
-        
+    try {
+        DefaultShoppingCartImpl cart = (DefaultShoppingCartImpl) ShopUtil.getShoppingCart();
+        if (cart == null) {
+            log.error("Shopping cart could not be found!");
+            throw new FormProcessorFailedException("cart.not.found");
+            
+        }
+        loadCustomerData(cart, parameters);
+        HttpServletRequest request = MgnlContext.getWebContext().getRequest();
+        cart.setOrderDate(new Date());
+        cart.setUserIP(request.getRemoteAddr() + ":" + request.getRemotePort());
+    
+        // NEW: Save via OCM
+        Mapper mapper = new MgnlConfigMapperImpl();
+        RequestObjectCacheImpl requestObjectCache = new RequestObjectCacheImpl();
+        DefaultAtomicTypeConverterProvider converterProvider = new DefaultAtomicTypeConverterProvider();
+        MgnlObjectConverterImpl oc = new MgnlObjectConverterImpl(mapper, converterProvider, new ProxyManagerImpl(), requestObjectCache);
+        ObjectContentManager ocm = new ObjectContentManagerImpl(MgnlContext.getHierarchyManager("data").getWorkspace().getSession(), mapper);
+        ((ObjectContentManagerImpl) ocm).setObjectConverter(oc);
+        ((ObjectContentManagerImpl) ocm).setRequestObjectCache(requestObjectCache);
+    
+        if (StringUtils.isBlank(cart.getUuid())) {
+            // Cart has not been saved before (this would most likely be the standard case)
+            // Set the parent path according to the shop configuration
+            ShopConfiguration shopConfiguration = ShopModule.getInstance().getCurrentShopConfiguration(ShopUtil.getShopName());
+            cart.setParentPath(shopConfiguration.getShopDataRootPath() + "/" + shopConfiguration.getCartsFolderName());
+            ocm.insert(cart);
+            ocm.save();
+            MgnlContext.setAttribute("cartId", cart.getName(), Context.SESSION_SCOPE);
+            
+            // @TODO: did ocm set the uuid and path? If not: How can we do that efficiently?
+            log.debug("UUID of newly inserted shopping cart: " + cart.getUuid());
+            log.debug("Path of newly inserted shopping cart: " + cart.getPath());
+        }
+    } catch (Exception e) {
+        //initialize new cart
+        MgnlContext.getWebContext().getRequest().getSession().removeAttribute("shoppingCart");
+        ShopUtil.setShoppingCartInSession();
+        throw new FormProcessorFailedException("Error while proccessing your shopping cart");
     }
-    loadCustomerData(cart, parameters);
-    HttpServletRequest request = MgnlContext.getWebContext().getRequest();
-    cart.setOrderDate(new Date());
-    cart.setUserIP(request.getRemoteAddr() + ":" + request.getRemotePort());
-
-    // NEW: Save via OCM
-    Mapper mapper = new MgnlConfigMapperImpl();
-    RequestObjectCacheImpl requestObjectCache = new RequestObjectCacheImpl();
-    DefaultAtomicTypeConverterProvider converterProvider = new DefaultAtomicTypeConverterProvider();
-    MgnlObjectConverterImpl oc = new MgnlObjectConverterImpl(mapper, converterProvider, new ProxyManagerImpl(), requestObjectCache);
-    ObjectContentManager ocm = new ObjectContentManagerImpl(MgnlContext.getHierarchyManager("data").getWorkspace().getSession(), mapper);
-    ((ObjectContentManagerImpl) ocm).setObjectConverter(oc);
-    ((ObjectContentManagerImpl) ocm).setRequestObjectCache(requestObjectCache);
-
-    if (StringUtils.isBlank(cart.getUuid())) {
-        // Cart has not been saved before (this would most likely be the standard case)
-        // Set the parent path according to the shop configuration
-        ShopConfiguration shopConfiguration = ShopModule.getInstance().getCurrentShopConfiguration(ShopUtil.getShopName());
-        cart.setParentPath(shopConfiguration.getShopDataRootPath() + "/" + shopConfiguration.getCartsFolderName());
-        ocm.insert(cart);
-        ocm.save();
-        MgnlContext.setAttribute("cartId", cart.getName(), Context.SESSION_SCOPE);
-        
-        // @TODO: did ocm set the uuid and path? If not: How can we do that efficiently?
-        log.debug("UUID of newly inserted shopping cart: " + cart.getUuid());
-        log.debug("Path of newly inserted shopping cart: " + cart.getPath());
-    }
-    MgnlContext.getWebContext().getRequest().getSession().removeAttribute("shoppingCart");
-    ShopUtil.setShoppingCartInSession();
+    
   }
   protected void loadCustomerData(DefaultShoppingCartImpl cart, Map<String, Object> parameters ) {
     //billing address

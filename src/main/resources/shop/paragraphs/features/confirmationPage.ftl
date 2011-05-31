@@ -4,6 +4,7 @@
 
 [#-------------- RENDERING PART --------------]
 
+${model.resetShoppingCart()}
 
 [#-- Rendering: Shopping Cart --]
 <div class="${divClass}" ${divID} >

@@ -131,8 +131,14 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
     }
         
     }
+  
+  public void resetShoppingCart() {
+      //initialize new cart
+      MgnlContext.getWebContext().getRequest().getSession().removeAttribute("shoppingCart");
+      ShopUtil.setShoppingCartInSession();
+  }
 
-private void addToCart() {
+  private void addToCart() {
     String quantityString = MgnlContext.getParameter("quantity");
     int quantity = 1;
     try {
