@@ -52,6 +52,34 @@
         <h1>${mgnl.encode(content).formTitle!}</h1>
         <p>${mgnl.encode(content).formText!}</p>
     </div>
+    <div class="text">
+    
+    	[#assign summaryFormStepBeanList = model.summaryFormStepBeanList]
+    	[#list summaryFormStepBeanList as summaryFormStepBean]
+	    	[#assign parametersMap = summaryFormStepBean.parameters]
+	        [#assign parametersKeys = parametersMap?keys]
+	        [#if parametersKeys?has_content]
+		        <table cellspacing="1" cellpadding="1" border="0" width="100%" >
+		        	<caption>${summaryFormStepBean.title!summaryFormStepBean.name!}</caption>
+		        	<thead>
+			        	<th>${i18n['formSummary.header.name']}</th>
+			        	<th>${i18n['formSummary.header.value']}</th>
+		        	</thead>
+		        	<tbody>
+			        [#list parametersKeys as parameterKey]
+			        	<tr>
+			        		<td>${parameterKey}</td>
+			        		<td>${parametersMap[parameterKey]!}</td>
+			        	</tr>
+			        
+			        [/#list]
+			        </tbody>
+		        </table>
+		    [#else]
+		    	<p>${i18n['summary.no.content']}</p>
+	        [/#if]
+        [/#list]
+    </div>
     <div class="form-wrapper" >
         <form id="${content.formName?default("form0")}" method="post" action="" enctype="${def.parameters.formEnctype?default("multipart/form-data")}" >
             <div class="form-item-hidden">

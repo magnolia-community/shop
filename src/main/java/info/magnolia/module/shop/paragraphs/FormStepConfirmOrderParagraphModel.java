@@ -33,8 +33,9 @@
  */
 package info.magnolia.module.shop.paragraphs;
 
+
 import info.magnolia.cms.core.Content;
-import info.magnolia.module.form.paragraphs.models.SubStepFormModel;
+import info.magnolia.module.form.paragraphs.models.SummarySubStepFormModel;
 import info.magnolia.module.shop.beans.ShoppingCart;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.templating.RenderableDefinition;
@@ -46,11 +47,11 @@ import info.magnolia.module.templatingkit.templates.STKTemplateModel;
  * @author tmiyar
  *
  */
-public class CheckoutStepParagraphModel extends SubStepFormModel {
+public class FormStepConfirmOrderParagraphModel extends SummarySubStepFormModel {
 
   private Content siteRoot;
 
-public CheckoutStepParagraphModel(Content content,
+public FormStepConfirmOrderParagraphModel(Content content,
       RenderableDefinition definition, RenderingModel parent) {
     super(content, definition, parent);
     if(parent instanceof STKTemplateModel) {
