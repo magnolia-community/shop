@@ -26,7 +26,7 @@
 	    			<td>${product.unitPrice}</td>
 	    			<td>${product.itemTotal}</td>
 	    			[#if type=="cart"]
-	    			  <td><a href="${model.getCommandLink('add', product.productUUID)}">+</a>|<a href="${model.getCommandLink('substract', product.productUUID)}">-</a></td>
+	    			  <td><a class="product-add" href="${model.getCommandLink('add', product.productUUID)}">+</a>|<a class="product-substract" href="${model.getCommandLink('substract', product.productUUID)}">-</a></td>
 	    			[/#if] 
 	    		</tr>
 	    	[/#list]
@@ -40,7 +40,7 @@
 				<td></td>
 				<td></td>
 				<td></td>
-				<td [#if type=="cart"]colspan="2"[/#if]>${i18n['shoppingCart.total']} ${shoppingCart.grossTotalInclTax}</td>
+				<td [#if type=="cart"]colspan="2"[/#if]>${i18n['shoppingCart.total']} ${shoppingCart.grossTotalInclTax} ${model.currencyTitle}</td>
 			</tr>
 	    </tbody> 
 	    </table>

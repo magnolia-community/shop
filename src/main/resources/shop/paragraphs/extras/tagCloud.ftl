@@ -8,7 +8,7 @@
 [#-- Assigns: Get and check tags --]
 [#assign categories = model.tagCloud!]
 [#assign has_categories = categories?has_content]
-[#assign catCloudTitle = ""]
+[#assign catCloudTitle = content.catCloudTitle!]
 
 [#-- Assigns: Macro for Item iteration --]
 [#macro assignItemValues item]
@@ -32,7 +32,7 @@
             [#list categories as item]
                 [#-- Macro: Item Assigns --]
                 [@assignItemValues item=item /]
-                <li >
+                <li class="${itemLevel}">
                     <a href="${itemLink}" >${itemDisplayName} [${model.getNumberOfItemsCategorizedWith(item.@uuid)}]</a>
                 </li>
             [/#list]

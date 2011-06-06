@@ -44,10 +44,12 @@ import info.magnolia.cms.i18n.I18nContentSupportFactory;
 import info.magnolia.cms.i18n.I18nContentWrapper;
 import info.magnolia.cms.i18n.Messages;
 import info.magnolia.cms.i18n.MessagesManager;
+import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.NodeDataUtil;
 import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
+import info.magnolia.module.shop.ShopConfiguration;
 import info.magnolia.module.shop.ShopModule;
 import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
 import info.magnolia.module.shop.beans.ShoppingCart;
@@ -177,12 +179,33 @@ public class ShopUtil {
       return productCategories;
   }
   
-  public static List<Content> transformIntoI18nContentList(List<Content> productList) {
-      List<Content> i18nProductList = new ArrayList<Content>();
-      for (Content content : productList) {
-        i18nProductList.add(new I18nContentWrapper(content));
-      }
-      return i18nProductList;
-  }
+    public static List<Content> transformIntoI18nContentList(List<Content> productList) {
+        List<Content> i18nProductList = new ArrayList<Content>();
+        for (Content content : productList) {
+          i18nProductList.add(new I18nContentWrapper(content));
+        }
+        return i18nProductList;
+    }
+  
+    public static String getCurrencyTitle() {
+        Content priceCategory = getShopPriceCategory();
+        Content currency = getCurrencyByUUID(NodeDataUtil.getString(priceCategory,
+        "currencyUUID"));
+        return NodeDataUtil.getString(currency, "title");
+    }
+  
+    public static Content getShopPriceCategory() {
+        ShopConfiguration shopConfiguration = ShopModule.getInstance()
+            .getCurrentShopConfiguration(ShopUtil.getShopName());
+        if (shopConfiguration != null) {
+            return shopConfiguration.getPriceCategoryManager()
+                .getPriceCategoryInUse();
+        }
+        return null;
+
+    }
+    public static Content getCurrencyByUUID(String uuid) {
+        return new I18nContentWrapper(ContentUtil.getContentByUUID("data", uuid));
+    }
 
 }

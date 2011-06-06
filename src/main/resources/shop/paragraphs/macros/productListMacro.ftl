@@ -19,7 +19,7 @@
 	        	[@assignItemValues product=product/]
 	        	[#-- Rendering: Item rendering --]
 	        	<li>
-			    	<h3>${productTitle}</h3>
+			    	<h3><a  href="${itemLink!}">${productTitle}</a></h3>
 					  [#if asset?has_content]        
 	                  <a  href="${itemLink!}">
 	                  	<img src="${stk.getAssetVariation(asset, 'teaser').link}"  />

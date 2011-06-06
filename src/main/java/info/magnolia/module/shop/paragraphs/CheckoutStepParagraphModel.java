@@ -70,5 +70,9 @@ public CheckoutStepParagraphModel(Content content,
   public String getProductDetailPageLink(Content product) {
         return "";
   }
+  
+  public String getCurrencyTitle() {
+      return ShopUtil.getCurrencyTitle();
+  }
 
 }

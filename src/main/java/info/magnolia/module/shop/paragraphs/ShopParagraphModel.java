@@ -51,8 +51,6 @@ import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.NodeDataUtil;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.dms.beans.Document;
-import info.magnolia.module.shop.ShopConfiguration;
-import info.magnolia.module.shop.ShopModule;
 import info.magnolia.module.shop.beans.ShoppingCart;
 import info.magnolia.module.shop.search.AbstractProductListType;
 import info.magnolia.module.shop.search.DefaultProductListType;
@@ -200,10 +198,10 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
   }
 
   public TemplateProductPriceBean getProductPriceBean(Content product) {
-    Content priceCategory = getShopPriceCategory();
+    Content priceCategory = ShopUtil.getShopPriceCategory();
     String productPrice = getProductPriceByCategory(product, priceCategory
         .getUUID());
-    Content currency = getCurrencyByUUID(NodeDataUtil.getString(priceCategory,
+    Content currency = ShopUtil.getCurrencyByUUID(NodeDataUtil.getString(priceCategory,
         "currencyUUID"));
     Content tax = getTaxByUUID(NodeDataUtil.getString(product,
         "taxCategoryUUID"));
@@ -222,12 +220,12 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
     bean.setTax(NodeDataUtil.getString(tax, "tax"));
     return bean;
   }
-
-  public Content getTaxByUUID(String uuid) {
-    return new I18nContentWrapper(ContentUtil.getContentByUUID("data", uuid));
+  
+  public String getCurrencyTitle() {
+      return ShopUtil.getCurrencyTitle();
   }
 
-  public Content getCurrencyByUUID(String uuid) {
+  public Content getTaxByUUID(String uuid) {
     return new I18nContentWrapper(ContentUtil.getContentByUUID("data", uuid));
   }
 
@@ -245,17 +243,6 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
       }
     }
     return null;
-  }
-
-  public Content getShopPriceCategory() {
-    ShopConfiguration shopConfiguration = ShopModule.getInstance()
-        .getCurrentShopConfiguration(ShopUtil.getShopName());
-    if (shopConfiguration != null) {
-      return shopConfiguration.getPriceCategoryManager()
-          .getPriceCategoryInUse();
-    }
-    return null;
-
   }
 
   /**

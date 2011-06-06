@@ -10,7 +10,7 @@
     <sv:value>581daaf0-d3a6-4293-8bbc-096f7f233b07</sv:value>
   </sv:property>
   <sv:property sv:name="bodyID" sv:type="String">
-    <sv:value/>
+    <sv:value>shop</sv:value>
   </sv:property>
   <sv:property sv:name="category" sv:type="String">
     <sv:value>feature</sv:value>
@@ -53,7 +53,7 @@
       <sv:value>2008-09-23T16:56:46.344+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2011-04-14T11:25:30.059+02:00</sv:value>
+      <sv:value>2011-06-06T08:09:47.366+02:00</sv:value>
     </sv:property>
   </sv:node>
   <sv:node sv:name="header">
