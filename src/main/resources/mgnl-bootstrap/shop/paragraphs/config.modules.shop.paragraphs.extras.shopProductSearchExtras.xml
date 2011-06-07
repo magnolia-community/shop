@@ -58,7 +58,7 @@
       <sv:value>5fdf42f6-35a7-4643-acd0-a04e8bd1d04c</sv:value>
     </sv:property>
     <sv:property sv:name="divClass" sv:type="String">
-      <sv:value>box</sv:value>
+      <sv:value>box shopSearch</sv:value>
     </sv:property>
     <sv:property sv:name="divIDPrefix" sv:type="String">
       <sv:value>box</sv:value>
@@ -80,7 +80,7 @@
         <sv:value>2008-10-14T21:51:46.910+02:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-        <sv:value>2011-05-16T09:54:22.682+02:00</sv:value>
+        <sv:value>2011-06-06T14:48:43.095+02:00</sv:value>
       </sv:property>
     </sv:node>
   </sv:node>

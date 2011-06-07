@@ -10,7 +10,7 @@
     <sv:value>581daaf0-d3a6-4293-8bbc-096f7f233b07</sv:value>
   </sv:property>
   <sv:property sv:name="bodyID" sv:type="String">
-    <sv:value>shop</sv:value>
+    <sv:value/>
   </sv:property>
   <sv:property sv:name="category" sv:type="String">
     <sv:value>feature</sv:value>

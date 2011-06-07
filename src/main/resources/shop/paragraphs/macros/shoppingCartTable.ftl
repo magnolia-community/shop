@@ -1,5 +1,4 @@
 [#macro shoppingCartTable shoppingCart type]
-	[#setting number_format="0.##"]
 	[#if !shoppingCart?has_content || shoppingCart.getCartItemsCount() == 0]
 	    <p>${i18n['shoppingcart.empty']}</p>
 	    [#else]
@@ -23,10 +22,10 @@
 	    				<td>${product.productTitle}</td>
 	    			[/#if]
 	    			<td>${product.quantity}</td>
-	    			<td>${product.unitPrice}</td>
-	    			<td>${product.itemTotal}</td>
+	    			<td>${product.unitPrice?string("0.00")}</td>
+	    			<td>${product.itemTotal?string("0.00")}</td>
 	    			[#if type=="cart"]
-	    			  <td><a class="product-add" href="${model.getCommandLink('add', product.productUUID)}">+</a>|<a class="product-substract" href="${model.getCommandLink('substract', product.productUUID)}">-</a></td>
+	    			  <td><a class="product-add" href="${model.getCommandLink('add', product.productUUID)}"><img style="width:16px;height:16px;border:0px;" src="${ctx.contextPath}/.resources/images/add.gif" /></a> <a class="product-substract" href="${model.getCommandLink('substract', product.productUUID)}"><img style="width:16px;height:16px;border:0px;" src="${ctx.contextPath}/.resources/images/remove.gif" /></a></td>
 	    			[/#if] 
 	    		</tr>
 	    	[/#list]
@@ -40,7 +39,7 @@
 				<td></td>
 				<td></td>
 				<td></td>
-				<td [#if type=="cart"]colspan="2"[/#if]>${i18n['shoppingCart.total']} ${shoppingCart.grossTotalInclTax} ${model.currencyTitle}</td>
+				<td [#if type=="cart"]colspan="2"[/#if]>${i18n['shoppingCart.total']} ${shoppingCart.grossTotalInclTax?string("0.00")} ${model.currencyTitle}</td>
 			</tr>
 	    </tbody> 
 	    </table>

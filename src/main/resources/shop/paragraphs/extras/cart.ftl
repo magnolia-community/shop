@@ -1,7 +1,5 @@
 [#-- Include: Global --]
 [#include "/templating-kit/paragraphs/teasers/init.inc.ftl"]
-[#setting number_format="0.##"]
-
 [#-------------- ASSIGNS ---------------------]
 
 [#assign shoppingCart = model.getShoppingCart()!]
@@ -11,7 +9,6 @@
 
 [#-- Rendering: Shopping Cart --]
 <div class="${divClass}" ${divID} >
-	<div class="shopping-cart-extras">
 	    <${headingLevel}>${i18n['shoppingcart.title']}</${headingLevel}>
 	
 	    [#if !shoppingCart?has_content || shoppingCart.getCartItemsCount() == 0]
@@ -20,12 +17,12 @@
 		    <ul>
 		    	[#list shoppingCart.getCartItems() as product]
 		    		<li>
-		    			${product.quantity}x ${product.productTitle} ${currencyTitle}
+		    			${product.quantity}x ${product.productTitle} ${product.itemTotal?string("0.00")} ${currencyTitle}
 		    		</li>
 		    	[/#list]
 		    	
 		    </ul>
-		    <p>${i18n['shoppingCart.total']} ${shoppingCart.grossTotal} ${currencyTitle} ${i18n['shoppingCart.ext.vat']}</p>
+		    <p>${i18n['shoppingCart.total']} ${shoppingCart.grossTotal?string("0.00")} ${currencyTitle} ${i18n['shoppingCart.ext.vat']}</p>
 	    [/#if]
 	    [#if shoppingCart?has_content && shoppingCart.getCartItemsCount() > 0]
 		    <p>

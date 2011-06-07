@@ -11,7 +11,6 @@
    	
 [/#macro]
 [#macro productListMacro productList]
-	[#setting number_format="0.##"]	
 	[#if productList?size > 0]
 		<ul>
 			[#list productList as product]
@@ -23,7 +22,7 @@
 					  [#if asset?has_content]        
 	                  <a  href="${itemLink!}">
 	                  	<img src="${stk.getAssetVariation(asset, 'teaser').link}"  />
-	                  	</a>    
+	                  </a>    
 	                  
 	                  [#else]
 	                  <a  href="${itemLink!}">
@@ -31,11 +30,16 @@
 	                  	</a>    
 	                  
 	                  [/#if]
-					  <p>${description1}</p>
-					  
-					  <p><em class="more"><a href="${itemLink!}">${i18n['link.readmore']} <span> ${productTitle}</span></a></em></p>
-					  <p>${i18n.get('price.detail.text', [bean.price, bean.currency, bean.taxIncluded, bean.tax])}</p>
-			    	  [@addForm product=product model=model/]
+					  <p>${description1} <em class="more"><a href="${itemLink!}">${i18n['link.readmore']} <span> ${productTitle}</span></a></em></p>
+					  <div class="product-price-container">
+					  	<div class="product-price">
+					  		[#assign price=bean.price?number?string("0.00")]
+					  		${i18n.get('price.detail.text', [price, bean.currency, bean.taxIncluded, bean.tax])}
+					  	</div>
+			    	  	<div class="product-add">
+			    	  		[@addForm product=product model=model/]
+			    	  	</div>
+			    	  </div>
 				</li>
 			[/#list]
 		</ul>
