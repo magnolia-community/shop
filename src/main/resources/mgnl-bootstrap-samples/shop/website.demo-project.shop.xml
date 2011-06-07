@@ -32,7 +32,7 @@
       <sv:value>2011-02-08T11:19:56.186+01:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2011-05-20T10:34:10.463+02:00</sv:value>
+      <sv:value>2011-06-06T13:59:50.858+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:template" sv:type="String">
       <sv:value>shopHome</sv:value>
@@ -59,7 +59,7 @@
         <sv:value>2011-02-08T11:27:19.555+01:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-        <sv:value>2011-05-20T10:34:10.463+02:00</sv:value>
+        <sv:value>2011-06-01T13:47:08.660+02:00</sv:value>
       </sv:property>
     </sv:node>
     <sv:node sv:name="singleton">
@@ -89,7 +89,7 @@
           <sv:value>2011-02-28T12:29:57.493+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-05-20T10:34:10.463+02:00</sv:value>
+          <sv:value>2011-06-01T13:47:08.660+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:template" sv:type="String">
           <sv:value>shopProductList</sv:value>
@@ -103,20 +103,20 @@
           <sv:value>mix:lockable</sv:value>
         </sv:property>
         <sv:property sv:name="jcr:uuid" sv:type="String">
-          <sv:value>c7b3e7b3-2b0d-4b51-bfe6-e7c09bb566e5</sv:value>
+          <sv:value>bf919959-a196-48d5-88a8-caaf01e7ffb9</sv:value>
         </sv:property>
         <sv:property sv:name="0" sv:type="String">
-          <sv:value>/sampleShop/products/wg1/E1002-06</sv:value>
+          <sv:value>/sampleShop/products/Books/history/p1021</sv:value>
         </sv:property>
         <sv:property sv:name="1" sv:type="String">
-          <sv:value>/sampleShop/products/wg1/111-118-0-E</sv:value>
+          <sv:value>/sampleShop/products/Toys/p2011</sv:value>
         </sv:property>
         <sv:node sv:name="MetaData">
           <sv:property sv:name="jcr:primaryType" sv:type="Name">
             <sv:value>mgnl:metaData</sv:value>
           </sv:property>
           <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-            <sv:value>2011-05-20T10:34:10.462+02:00</sv:value>
+            <sv:value>2011-06-01T13:47:08.659+02:00</sv:value>
           </sv:property>
         </sv:node>
       </sv:node>
@@ -1091,7 +1091,7 @@
             <sv:value>2011-04-25T14:17:02.808+02:00</sv:value>
           </sv:property>
           <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-            <sv:value>2011-05-18T09:24:41.164+02:00</sv:value>
+            <sv:value>2011-06-01T13:46:40.721+02:00</sv:value>
           </sv:property>
           <sv:property sv:name="mgnl:template" sv:type="String">
             <sv:value>shopFormStep</sv:value>
@@ -1118,7 +1118,7 @@
               <sv:value>2011-04-25T14:34:02.096+02:00</sv:value>
             </sv:property>
             <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-              <sv:value>2011-05-18T09:24:41.164+02:00</sv:value>
+              <sv:value>2011-06-01T13:46:40.721+02:00</sv:value>
             </sv:property>
           </sv:node>
           <sv:node sv:name="singleton">
@@ -1151,7 +1151,7 @@
                 <sv:value>2011-04-25T14:34:02.107+02:00</sv:value>
               </sv:property>
               <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-                <sv:value>2011-05-18T09:24:41.163+02:00</sv:value>
+                <sv:value>2011-06-01T13:46:40.721+02:00</sv:value>
               </sv:property>
               <sv:property sv:name="mgnl:template" sv:type="String">
                 <sv:value>formStep</sv:value>
@@ -1178,7 +1178,7 @@
                   <sv:value>2011-04-25T14:34:25.694+02:00</sv:value>
                 </sv:property>
                 <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-                  <sv:value>2011-05-18T09:24:41.163+02:00</sv:value>
+                  <sv:value>2011-06-01T13:46:40.720+02:00</sv:value>
                 </sv:property>
               </sv:node>
               <sv:node sv:name="0">
@@ -1202,7 +1202,7 @@
                     <sv:value>2011-04-25T14:34:25.695+02:00</sv:value>
                   </sv:property>
                   <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-                    <sv:value>2011-05-18T09:24:41.162+02:00</sv:value>
+                    <sv:value>2011-06-01T13:46:40.720+02:00</sv:value>
                   </sv:property>
                   <sv:property sv:name="mgnl:template" sv:type="String">
                     <sv:value>formGroupFields</sv:value>
@@ -1229,7 +1229,7 @@
                       <sv:value>2011-04-25T14:35:23.339+02:00</sv:value>
                     </sv:property>
                     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-                      <sv:value>2011-05-18T09:24:41.161+02:00</sv:value>
+                      <sv:value>2011-06-01T13:46:40.720+02:00</sv:value>
                     </sv:property>
                   </sv:node>
                   <sv:node sv:name="00">
@@ -1610,6 +1610,9 @@
                     <sv:property sv:name="jcr:uuid" sv:type="String">
                       <sv:value>fbbbdffb-a437-4311-8509-e0d6a618a8eb</sv:value>
                     </sv:property>
+                    <sv:property sv:name="backButtonText" sv:type="String">
+                      <sv:value>Previous step</sv:value>
+                    </sv:property>
                     <sv:property sv:name="buttonText" sv:type="String">
                       <sv:value>Next</sv:value>
                     </sv:property>
@@ -1627,7 +1630,7 @@
                         <sv:value>2011-04-14T09:22:36.092+02:00</sv:value>
                       </sv:property>
                       <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-                        <sv:value>2011-04-25T14:39:34.287+02:00</sv:value>
+                        <sv:value>2011-06-01T13:46:40.719+02:00</sv:value>
                       </sv:property>
                       <sv:property sv:name="mgnl:template" sv:type="String">
                         <sv:value>formSubmit</sv:value>
@@ -1698,7 +1701,7 @@
             <sv:value>2011-04-11T13:54:44.911+02:00</sv:value>
           </sv:property>
           <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-            <sv:value>2011-05-20T13:42:34.959+02:00</sv:value>
+            <sv:value>2011-06-01T13:45:48.311+02:00</sv:value>
           </sv:property>
           <sv:property sv:name="mgnl:template" sv:type="String">
             <sv:value>shopFormStepConfirmOrder</sv:value>
@@ -1725,7 +1728,7 @@
               <sv:value>2011-04-11T13:55:16.704+02:00</sv:value>
             </sv:property>
             <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-              <sv:value>2011-05-20T13:42:29.898+02:00</sv:value>
+              <sv:value>2011-06-01T13:45:48.310+02:00</sv:value>
             </sv:property>
           </sv:node>
           <sv:node sv:name="singleton">
@@ -1755,7 +1758,7 @@
                 <sv:value>2011-04-11T13:55:16.711+02:00</sv:value>
               </sv:property>
               <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-                <sv:value>2011-05-20T13:42:29.897+02:00</sv:value>
+                <sv:value>2011-06-01T13:45:48.310+02:00</sv:value>
               </sv:property>
               <sv:property sv:name="mgnl:template" sv:type="String">
                 <sv:value>shopFormStepConfirmOrder</sv:value>
@@ -1782,7 +1785,7 @@
                   <sv:value>2011-04-14T11:02:38.496+02:00</sv:value>
                 </sv:property>
                 <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-                  <sv:value>2011-05-20T13:42:29.897+02:00</sv:value>
+                  <sv:value>2011-06-01T13:45:48.310+02:00</sv:value>
                 </sv:property>
               </sv:node>
               <sv:node sv:name="0">
@@ -1806,7 +1809,7 @@
                     <sv:value>2011-04-14T11:02:38.500+02:00</sv:value>
                   </sv:property>
                   <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-                    <sv:value>2011-05-20T13:42:29.896+02:00</sv:value>
+                    <sv:value>2011-06-01T13:45:48.310+02:00</sv:value>
                   </sv:property>
                   <sv:property sv:name="mgnl:template" sv:type="String">
                     <sv:value>formGroupFields</sv:value>
@@ -1833,7 +1836,7 @@
                       <sv:value>2011-04-14T11:02:51.091+02:00</sv:value>
                     </sv:property>
                     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-                      <sv:value>2011-05-20T13:42:29.896+02:00</sv:value>
+                      <sv:value>2011-06-01T13:45:48.309+02:00</sv:value>
                     </sv:property>
                   </sv:node>
                   <sv:node sv:name="0">
@@ -1845,6 +1848,9 @@
                     </sv:property>
                     <sv:property sv:name="jcr:uuid" sv:type="String">
                       <sv:value>cd38fcf1-a684-4afb-8514-a7e3f30e1dc1</sv:value>
+                    </sv:property>
+                    <sv:property sv:name="backButtonText" sv:type="String">
+                      <sv:value>Previous step</sv:value>
                     </sv:property>
                     <sv:property sv:name="buttonText" sv:type="String">
                       <sv:value>Send</sv:value>
@@ -1860,7 +1866,7 @@
                         <sv:value>2011-04-14T11:02:51.091+02:00</sv:value>
                       </sv:property>
                       <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-                        <sv:value>2011-04-14T11:02:51.092+02:00</sv:value>
+                        <sv:value>2011-06-01T13:45:48.308+02:00</sv:value>
                       </sv:property>
                       <sv:property sv:name="mgnl:template" sv:type="String">
                         <sv:value>formSubmit</sv:value>
@@ -2072,7 +2078,7 @@
         <sv:value>2011-05-16T10:30:18.090+02:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-        <sv:value>2011-05-17T15:48:30.426+02:00</sv:value>
+        <sv:value>2011-06-06T13:59:50.857+02:00</sv:value>
       </sv:property>
     </sv:node>
     <sv:node sv:name="extras1">
@@ -2096,7 +2102,7 @@
           <sv:value>2011-05-16T10:30:18.182+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-05-17T15:48:30.423+02:00</sv:value>
+          <sv:value>2011-06-06T13:59:50.856+02:00</sv:value>
         </sv:property>
       </sv:node>
       <sv:node sv:name="extrasItem0">
@@ -2165,11 +2171,19 @@
         <sv:property sv:name="jcr:uuid" sv:type="String">
           <sv:value>29e5e679-c506-4ba5-9645-cff1e218ba41</sv:value>
         </sv:property>
+        <sv:property sv:name="catCloudTitle" sv:type="String">
+          <sv:value>Categories</sv:value>
+        </sv:property>
         <sv:property sv:name="categories" sv:type="String">
           <sv:value>3d1377fd-de5d-4823-a70f-09fc44069b48</sv:value>
           <sv:value>756d0705-d629-479f-910d-b3a27855550b</sv:value>
-          <sv:value>2c272dc5-317e-4f1c-b6fb-508157210308</sv:value>
-          <sv:value>80e828f4-f1a6-4cce-902b-4c3bb683469b</sv:value>
+          <sv:value>1124b03d-09d9-41f3-b7c6-b07222a378b6</sv:value>
+          <sv:value>d7ba9d64-b7b8-4b93-8a3d-ecd14a049bb8</sv:value>
+          <sv:value>ab9437db-ab2c-4df5-bb41-87e55409e8e1</sv:value>
+          <sv:value>e75cc729-fdf8-4154-9b5f-4a52ea2beab7</sv:value>
+        </sv:property>
+        <sv:property sv:name="order" sv:type="String">
+          <sv:value>name</sv:value>
         </sv:property>
         <sv:node sv:name="MetaData">
           <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -2182,7 +2196,7 @@
             <sv:value>2011-05-17T15:48:30.418+02:00</sv:value>
           </sv:property>
           <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-            <sv:value>2011-05-17T15:48:30.423+02:00</sv:value>
+            <sv:value>2011-06-06T13:59:50.856+02:00</sv:value>
           </sv:property>
           <sv:property sv:name="mgnl:template" sv:type="String">
             <sv:value>shopTagCloudExtras</sv:value>

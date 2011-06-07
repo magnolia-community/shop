@@ -430,37 +430,6 @@
         </sv:property>
       </sv:node>
     </sv:node>
-    <sv:node sv:name="formSubmit">
-      <sv:property sv:name="jcr:primaryType" sv:type="Name">
-        <sv:value>mgnl:contentNode</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
-        <sv:value>mix:lockable</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>60bdf26d-774a-4118-aaa3-d515982fa7f1</sv:value>
-      </sv:property>
-      <sv:property sv:name="name" sv:type="String">
-        <sv:value>formSubmit</sv:value>
-      </sv:property>
-      <sv:node sv:name="MetaData">
-        <sv:property sv:name="jcr:primaryType" sv:type="Name">
-          <sv:value>mgnl:metaData</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-          <sv:value>false</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:authorid" sv:type="String">
-          <sv:value>superuser</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-          <sv:value>2008-10-24T16:32:53.619+02:00</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-04-14T12:26:36.878+02:00</sv:value>
-        </sv:property>
-      </sv:node>
-    </sv:node>
     <sv:node sv:name="formCriteria">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
         <sv:value>mgnl:contentNode</sv:value>
@@ -492,7 +461,7 @@
         </sv:property>
       </sv:node>
     </sv:node>
-    <sv:node sv:name="formBackButton">
+    <sv:node sv:name="shopCheckDisableFields">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
         <sv:value>mgnl:contentNode</sv:value>
       </sv:property>
@@ -500,10 +469,10 @@
         <sv:value>mix:lockable</sv:value>
       </sv:property>
       <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>e1437dac-a317-4892-8466-46b59a9228cd</sv:value>
+        <sv:value>4d0e13c1-77fe-40a8-b558-19eef6574dd2</sv:value>
       </sv:property>
       <sv:property sv:name="name" sv:type="String">
-        <sv:value>formBackButton</sv:value>
+        <sv:value>shopCheckDisableFields</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -516,10 +485,41 @@
           <sv:value>superuser</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-          <sv:value>2011-05-18T09:21:09.095+02:00</sv:value>
+          <sv:value>2011-05-18T09:21:09.073+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-05-18T09:24:01.055+02:00</sv:value>
+          <sv:value>2011-06-03T15:04:39.579+02:00</sv:value>
+        </sv:property>
+      </sv:node>
+    </sv:node>
+    <sv:node sv:name="shopSubmit">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+        <sv:value>mix:lockable</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>b61f79eb-e345-4d54-b0ba-a33ab61954a1</sv:value>
+      </sv:property>
+      <sv:property sv:name="name" sv:type="String">
+        <sv:value>shopSubmit</sv:value>
+      </sv:property>
+      <sv:node sv:name="MetaData">
+        <sv:property sv:name="jcr:primaryType" sv:type="Name">
+          <sv:value>mgnl:metaData</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:activated" sv:type="Boolean">
+          <sv:value>false</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:authorid" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
+          <sv:value>2011-05-18T09:21:09.073+02:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+          <sv:value>2011-06-03T15:04:31.377+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>

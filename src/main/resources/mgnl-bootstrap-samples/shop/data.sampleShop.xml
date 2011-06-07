@@ -2595,6 +2595,9 @@
       <sv:property sv:name="name" sv:type="String">
         <sv:value>101</sv:value>
       </sv:property>
+      <sv:property sv:name="tags" sv:type="String">
+        <sv:value>d7ba9d64-b7b8-4b93-8a3d-ecd14a049bb8</sv:value>
+      </sv:property>
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Bücher</sv:value>
       </sv:property>
@@ -2612,7 +2615,7 @@
           <sv:value>2011-05-31T08:56:46.010+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-05-31T09:03:36.276+02:00</sv:value>
+          <sv:value>2011-06-01T15:35:56.423+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:template" sv:type="String">
           <sv:value/>
@@ -2634,6 +2637,9 @@
         <sv:property sv:name="name" sv:type="String">
           <sv:value>1011</sv:value>
         </sv:property>
+        <sv:property sv:name="tags" sv:type="String">
+          <sv:value>1124b03d-09d9-41f3-b7c6-b07222a378b6</sv:value>
+        </sv:property>
         <sv:property sv:name="title_de" sv:type="String">
           <sv:value>Hörbücher</sv:value>
         </sv:property>
@@ -2651,87 +2657,7 @@
             <sv:value>2011-05-31T08:58:39.361+02:00</sv:value>
           </sv:property>
           <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-            <sv:value>2011-05-31T08:58:39.362+02:00</sv:value>
-          </sv:property>
-          <sv:property sv:name="mgnl:template" sv:type="String">
-            <sv:value/>
-          </sv:property>
-        </sv:node>
-      </sv:node>
-      <sv:node sv:name="1012">
-        <sv:property sv:name="jcr:primaryType" sv:type="Name">
-          <sv:value>shopProductCategory</sv:value>
-        </sv:property>
-        <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
-          <sv:value>mix:lockable</sv:value>
-        </sv:property>
-        <sv:property sv:name="jcr:uuid" sv:type="String">
-          <sv:value>a4b54b19-6e5a-4cd1-81e8-512fb1ce10f7</sv:value>
-        </sv:property>
-        <sv:property sv:name="itemtype" sv:type="String">
-          <sv:value>shopProductCategory</sv:value>
-        </sv:property>
-        <sv:property sv:name="name" sv:type="String">
-          <sv:value>102</sv:value>
-        </sv:property>
-        <sv:property sv:name="title_de" sv:type="String">
-          <sv:value>HistorieDaten</sv:value>
-        </sv:property>
-        <sv:property sv:name="title_en" sv:type="String">
-          <sv:value>History</sv:value>
-        </sv:property>
-        <sv:node sv:name="MetaData">
-          <sv:property sv:name="jcr:primaryType" sv:type="Name">
-            <sv:value>mgnl:metaData</sv:value>
-          </sv:property>
-          <sv:property sv:name="mgnl:authorid" sv:type="String">
-            <sv:value>superuser</sv:value>
-          </sv:property>
-          <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-            <sv:value>2011-05-31T09:00:30.108+02:00</sv:value>
-          </sv:property>
-          <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-            <sv:value>2011-05-31T09:02:25.090+02:00</sv:value>
-          </sv:property>
-          <sv:property sv:name="mgnl:template" sv:type="String">
-            <sv:value/>
-          </sv:property>
-        </sv:node>
-      </sv:node>
-      <sv:node sv:name="1013">
-        <sv:property sv:name="jcr:primaryType" sv:type="Name">
-          <sv:value>shopProductCategory</sv:value>
-        </sv:property>
-        <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
-          <sv:value>mix:lockable</sv:value>
-        </sv:property>
-        <sv:property sv:name="jcr:uuid" sv:type="String">
-          <sv:value>fc4fdfc2-77be-44bf-85cb-985f2018ea93</sv:value>
-        </sv:property>
-        <sv:property sv:name="itemtype" sv:type="String">
-          <sv:value>shopProductCategory</sv:value>
-        </sv:property>
-        <sv:property sv:name="name" sv:type="String">
-          <sv:value>103</sv:value>
-        </sv:property>
-        <sv:property sv:name="title_de" sv:type="String">
-          <sv:value>Reisen</sv:value>
-        </sv:property>
-        <sv:property sv:name="title_en" sv:type="String">
-          <sv:value>Travel</sv:value>
-        </sv:property>
-        <sv:node sv:name="MetaData">
-          <sv:property sv:name="jcr:primaryType" sv:type="Name">
-            <sv:value>mgnl:metaData</sv:value>
-          </sv:property>
-          <sv:property sv:name="mgnl:authorid" sv:type="String">
-            <sv:value>superuser</sv:value>
-          </sv:property>
-          <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-            <sv:value>2011-05-31T09:01:17.611+02:00</sv:value>
-          </sv:property>
-          <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-            <sv:value>2011-05-31T09:02:27.613+02:00</sv:value>
+            <sv:value>2011-06-01T15:36:23.453+02:00</sv:value>
           </sv:property>
           <sv:property sv:name="mgnl:template" sv:type="String">
             <sv:value/>
@@ -2778,6 +2704,98 @@
           </sv:property>
         </sv:node>
       </sv:node>
+      <sv:node sv:name="1012">
+        <sv:property sv:name="jcr:primaryType" sv:type="Name">
+          <sv:value>shopProductCategory</sv:value>
+        </sv:property>
+        <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+          <sv:value>mix:lockable</sv:value>
+        </sv:property>
+        <sv:property sv:name="jcr:uuid" sv:type="String">
+          <sv:value>a4b54b19-6e5a-4cd1-81e8-512fb1ce10f7</sv:value>
+        </sv:property>
+        <sv:property sv:name="itemtype" sv:type="String">
+          <sv:value>shopProductCategory</sv:value>
+        </sv:property>
+        <sv:property sv:name="name" sv:type="String">
+          <sv:value>1012</sv:value>
+        </sv:property>
+        <sv:property sv:name="tags" sv:type="String">
+          <sv:value>3d1377fd-de5d-4823-a70f-09fc44069b48</sv:value>
+          <sv:value>248f71e8-b9b8-44b0-ac44-7d3e6e19bfce</sv:value>
+          <sv:value>ab9437db-ab2c-4df5-bb41-87e55409e8e1</sv:value>
+        </sv:property>
+        <sv:property sv:name="title_de" sv:type="String">
+          <sv:value>HistorieDaten</sv:value>
+        </sv:property>
+        <sv:property sv:name="title_en" sv:type="String">
+          <sv:value>History</sv:value>
+        </sv:property>
+        <sv:node sv:name="MetaData">
+          <sv:property sv:name="jcr:primaryType" sv:type="Name">
+            <sv:value>mgnl:metaData</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:authorid" sv:type="String">
+            <sv:value>superuser</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:creationdate" sv:type="Date">
+            <sv:value>2011-05-31T09:00:30.108+02:00</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+            <sv:value>2011-06-06T15:24:49.251+02:00</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:template" sv:type="String">
+            <sv:value/>
+          </sv:property>
+        </sv:node>
+      </sv:node>
+      <sv:node sv:name="1013">
+        <sv:property sv:name="jcr:primaryType" sv:type="Name">
+          <sv:value>shopProductCategory</sv:value>
+        </sv:property>
+        <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+          <sv:value>mix:lockable</sv:value>
+        </sv:property>
+        <sv:property sv:name="jcr:uuid" sv:type="String">
+          <sv:value>fc4fdfc2-77be-44bf-85cb-985f2018ea93</sv:value>
+        </sv:property>
+        <sv:property sv:name="itemtype" sv:type="String">
+          <sv:value>shopProductCategory</sv:value>
+        </sv:property>
+        <sv:property sv:name="name" sv:type="String">
+          <sv:value>1013</sv:value>
+        </sv:property>
+        <sv:property sv:name="tags" sv:type="String">
+          <sv:value>3d1377fd-de5d-4823-a70f-09fc44069b48</sv:value>
+          <sv:value>e75cc729-fdf8-4154-9b5f-4a52ea2beab7</sv:value>
+          <sv:value>ab9437db-ab2c-4df5-bb41-87e55409e8e1</sv:value>
+          <sv:value>d7ba9d64-b7b8-4b93-8a3d-ecd14a049bb8</sv:value>
+          <sv:value>756d0705-d629-479f-910d-b3a27855550b</sv:value>
+        </sv:property>
+        <sv:property sv:name="title_de" sv:type="String">
+          <sv:value>Reisen</sv:value>
+        </sv:property>
+        <sv:property sv:name="title_en" sv:type="String">
+          <sv:value>Travel</sv:value>
+        </sv:property>
+        <sv:node sv:name="MetaData">
+          <sv:property sv:name="jcr:primaryType" sv:type="Name">
+            <sv:value>mgnl:metaData</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:authorid" sv:type="String">
+            <sv:value>superuser</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:creationdate" sv:type="Date">
+            <sv:value>2011-05-31T09:01:17.611+02:00</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+            <sv:value>2011-06-06T15:24:56.836+02:00</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:template" sv:type="String">
+            <sv:value/>
+          </sv:property>
+        </sv:node>
+      </sv:node>
     </sv:node>
     <sv:node sv:name="102">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -2794,6 +2812,9 @@
       </sv:property>
       <sv:property sv:name="name" sv:type="String">
         <sv:value>102</sv:value>
+      </sv:property>
+      <sv:property sv:name="tags" sv:type="String">
+        <sv:value>d7ba9d64-b7b8-4b93-8a3d-ecd14a049bb8</sv:value>
       </sv:property>
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Musik</sv:value>
@@ -2812,7 +2833,7 @@
           <sv:value>2011-05-31T09:03:25.319+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-05-31T09:03:25.320+02:00</sv:value>
+          <sv:value>2011-06-01T15:37:53.954+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:template" sv:type="String">
           <sv:value/>
@@ -2835,6 +2856,10 @@
       <sv:property sv:name="name" sv:type="String">
         <sv:value>103</sv:value>
       </sv:property>
+      <sv:property sv:name="tags" sv:type="String">
+        <sv:value>ab9437db-ab2c-4df5-bb41-87e55409e8e1</sv:value>
+        <sv:value>3d1377fd-de5d-4823-a70f-09fc44069b48</sv:value>
+      </sv:property>
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Möbel</sv:value>
       </sv:property>
@@ -2852,7 +2877,7 @@
           <sv:value>2011-05-31T09:05:13.959+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-05-31T09:05:13.960+02:00</sv:value>
+          <sv:value>2011-06-01T15:38:01.001+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:template" sv:type="String">
           <sv:value/>
@@ -2875,6 +2900,9 @@
       <sv:property sv:name="name" sv:type="String">
         <sv:value>104</sv:value>
       </sv:property>
+      <sv:property sv:name="tags" sv:type="String">
+        <sv:value>ab9437db-ab2c-4df5-bb41-87e55409e8e1</sv:value>
+      </sv:property>
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Spielzeug</sv:value>
       </sv:property>
@@ -2892,7 +2920,7 @@
           <sv:value>2011-05-31T09:06:21.419+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-05-31T09:06:21.420+02:00</sv:value>
+          <sv:value>2011-06-01T15:32:51.709+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:template" sv:type="String">
           <sv:value/>
@@ -3732,6 +3760,132 @@
           </sv:property>
           <sv:property sv:name="productUUID" sv:type="String">
             <sv:value>1f9a3860-9a9a-4b3c-ac88-77e601984ae6</sv:value>
+          </sv:property>
+          <sv:property sv:name="quantity" sv:type="Long">
+            <sv:value>1</sv:value>
+          </sv:property>
+          <sv:node sv:name="MetaData">
+            <sv:property sv:name="jcr:primaryType" sv:type="Name">
+              <sv:value>mgnl:metaData</sv:value>
+            </sv:property>
+          </sv:node>
+        </sv:node>
+      </sv:node>
+    </sv:node>
+    <sv:node sv:name="100">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>shopCart</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>7d668641-3cd7-4bee-91a1-5c1e122611d3</sv:value>
+      </sv:property>
+      <sv:property sv:name="billingAddressCity" sv:type="String">
+        <sv:value>Basel</sv:value>
+      </sv:property>
+      <sv:property sv:name="billingAddressCompany" sv:type="String">
+        <sv:value>Magnolia</sv:value>
+      </sv:property>
+      <sv:property sv:name="billingAddressFirstname" sv:type="String">
+        <sv:value>Natascha</sv:value>
+      </sv:property>
+      <sv:property sv:name="billingAddressLastname" sv:type="String">
+        <sv:value>Desmarais</sv:value>
+      </sv:property>
+      <sv:property sv:name="billingAddressMail" sv:type="String">
+        <sv:value>natascha.desmarais@magnolia-cms.com</sv:value>
+      </sv:property>
+      <sv:property sv:name="billingAddressPhone" sv:type="String">
+        <sv:value/>
+      </sv:property>
+      <sv:property sv:name="billingAddressStreet" sv:type="String">
+        <sv:value>St. Johanns-Vorstadt 38</sv:value>
+      </sv:property>
+      <sv:property sv:name="billingAddressZip" sv:type="String">
+        <sv:value>4056</sv:value>
+      </sv:property>
+      <sv:property sv:name="name" sv:type="String">
+        <sv:value>100</sv:value>
+      </sv:property>
+      <sv:property sv:name="ocm_classname" sv:type="String">
+        <sv:value>info.magnolia.module.shop.beans.DefaultShoppingCartImpl</sv:value>
+      </sv:property>
+      <sv:property sv:name="orderDate" sv:type="Date">
+        <sv:value>2011-06-03T11:23:19.831+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="shippingAddressCity" sv:type="String">
+        <sv:value/>
+      </sv:property>
+      <sv:property sv:name="shippingAddressCompany" sv:type="String">
+        <sv:value/>
+      </sv:property>
+      <sv:property sv:name="shippingAddressFirstname" sv:type="String">
+        <sv:value/>
+      </sv:property>
+      <sv:property sv:name="shippingAddressLastname" sv:type="String">
+        <sv:value/>
+      </sv:property>
+      <sv:property sv:name="shippingAddressMail" sv:type="String">
+        <sv:value/>
+      </sv:property>
+      <sv:property sv:name="shippingAddressPhone" sv:type="String">
+        <sv:value/>
+      </sv:property>
+      <sv:property sv:name="shippingAddressStreet" sv:type="String">
+        <sv:value/>
+      </sv:property>
+      <sv:property sv:name="shippingAddressZip" sv:type="String">
+        <sv:value/>
+      </sv:property>
+      <sv:property sv:name="taxIncluded" sv:type="Boolean">
+        <sv:value>false</sv:value>
+      </sv:property>
+      <sv:property sv:name="userIP" sv:type="String">
+        <sv:value>217.162.116.57:-1</sv:value>
+      </sv:property>
+      <sv:node sv:name="MetaData">
+        <sv:property sv:name="jcr:primaryType" sv:type="Name">
+          <sv:value>mgnl:metaData</sv:value>
+        </sv:property>
+      </sv:node>
+      <sv:node sv:name="cartItems">
+        <sv:property sv:name="jcr:primaryType" sv:type="Name">
+          <sv:value>dataFolder</sv:value>
+        </sv:property>
+        <sv:property sv:name="jcr:uuid" sv:type="String">
+          <sv:value>f66f37ab-5bdc-4ca7-bff3-f55f6ffb8cba</sv:value>
+        </sv:property>
+        <sv:node sv:name="MetaData">
+          <sv:property sv:name="jcr:primaryType" sv:type="Name">
+            <sv:value>mgnl:metaData</sv:value>
+          </sv:property>
+        </sv:node>
+        <sv:node sv:name="0">
+          <sv:property sv:name="jcr:primaryType" sv:type="Name">
+            <sv:value>shopCartItem</sv:value>
+          </sv:property>
+          <sv:property sv:name="jcr:uuid" sv:type="String">
+            <sv:value>48e71eb2-8db4-427a-bfab-fd6f1bd42753</sv:value>
+          </sv:property>
+          <sv:property sv:name="itemTax" sv:type="Double">
+            <sv:value>1.748</sv:value>
+          </sv:property>
+          <sv:property sv:name="itemTotal" sv:type="Double">
+            <sv:value>23.0</sv:value>
+          </sv:property>
+          <sv:property sv:name="ocm_classname" sv:type="String">
+            <sv:value>info.magnolia.module.shop.beans.ShoppingCartItem</sv:value>
+          </sv:property>
+          <sv:property sv:name="productDescription" sv:type="String">
+            <sv:value/>
+          </sv:property>
+          <sv:property sv:name="productSubTitle" sv:type="String">
+            <sv:value/>
+          </sv:property>
+          <sv:property sv:name="productTitle" sv:type="String">
+            <sv:value>Baby Einstein Take Along Tunes</sv:value>
+          </sv:property>
+          <sv:property sv:name="productUUID" sv:type="String">
+            <sv:value>4c9bac2c-c4de-4b63-bf39-22513bddfdca</sv:value>
           </sv:property>
           <sv:property sv:name="quantity" sv:type="Long">
             <sv:value>1</sv:value>

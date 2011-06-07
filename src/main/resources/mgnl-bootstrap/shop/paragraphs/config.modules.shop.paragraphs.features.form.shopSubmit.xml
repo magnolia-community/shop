@@ -4,7 +4,7 @@
     <sv:value>mgnl:contentNode</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:uuid" sv:type="String">
-    <sv:value>95eb6be5-cdf2-4833-b44e-1027f64e5ac5</sv:value>
+    <sv:value>95eb6be5-cdf2-4833-b44e-1027f64e5ac9</sv:value>
   </sv:property>
   <sv:property sv:name="description" sv:type="String">
     <sv:value>paragraph.formSubmit.description</sv:value>
