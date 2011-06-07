@@ -25,7 +25,7 @@
 	    			<td>${product.unitPrice?string("0.00")}</td>
 	    			<td>${product.itemTotal?string("0.00")}</td>
 	    			[#if type=="cart"]
-	    			  <td><a class="product-add" href="${model.getCommandLink('add', product.productUUID)}"><img style="width:16px;height:16px;border:0px;" src="${ctx.contextPath}/.resources/images/add.gif" /></a> <a class="product-substract" href="${model.getCommandLink('substract', product.productUUID)}"><img style="width:16px;height:16px;border:0px;" src="${ctx.contextPath}/.resources/images/remove.gif" /></a></td>
+	    			  <td><a class="product-add" href="${model.getCommandLink('add', product.productUUID)}"><img class="shopAddRemove" src="${ctx.contextPath}/.resources/images/add.gif" /></a> <a class="product-substract" href="${model.getCommandLink('substract', product.productUUID)}"><img class="shopAddRemove" src="${ctx.contextPath}/.resources/images/remove.gif" /></a></td>
 	    			[/#if] 
 	    		</tr>
 	    	[/#list]
