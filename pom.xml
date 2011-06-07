@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd ">
-
-    <parent>
-        <artifactId>magnolia-parent-pom-community-module</artifactId>
-        <groupId>info.magnolia</groupId>
-        <version>15</version>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+      <groupId>info.magnolia.forge</groupId>
+      <artifactId>magnolia-parent-pom-forge</artifactId>
+      <version>19</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
     <groupId>info.magnolia.module.shop</groupId>
     <artifactId>magnolia-module-shop</artifactId>
     <packaging>jar</packaging>
@@ -45,7 +44,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>info.magnolia</groupId>
+            <groupId>ch.fastforward</groupId>
             <artifactId>magnolia-module-mail</artifactId>
             <version>${magnoliaVersion}</version>
             <scope>provided</scope>
