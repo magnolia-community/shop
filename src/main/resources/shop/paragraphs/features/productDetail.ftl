@@ -1,29 +1,7 @@
 [#-- Assigns: Get Content --]
 [#include "/shop/paragraphs/macros/addForm.ftl"]
-[#setting number_format="0.##"]
+[#include "/templating-kit/paragraphs/teasers/init.inc.ftl"]
 
-<style type="text/css">
-.photo-index .photo {
-	background: url(../img/bgs/photo-corners.png) 0 100% no-repeat;
-	width: 140px;
-}
-.photo-index .photo dt {
-	min-height: 88px;
-	height: auto;
-}
-.photo-index .photo dt img {
-	width: 138px;
-}
-.photo-index dl {
-	margin-right: 15px;
-}
-.photo-index dl.last {
-	margin-right: 0;
-}
-.photo-index dd {
-	font-size: 50%;
-}
-</style>
 [#assign maxImages = content.maxImages!6]
 
 [#assign product = model.product!]
@@ -42,7 +20,7 @@
 	<h1>[#if category?has_content]<em>${category.title}</em>[/#if]
 	    ${productTitle}
 	</h1>
-	<div class="teaser">
+	<div class="${divClass}" ${divID}>
 	[#if asset?has_content]        
       <a  href="${itemLink!}">
       	<img class="photo" src="${stk.getAssetVariation(asset, 'teaser').link}"  />
@@ -56,9 +34,15 @@
     [/#if]
 	<p>${description1}</p>
 	<p>${description2}</p>
-	<p>${i18n.get('price.detail.text', [bean.price, bean.currency, bean.taxIncluded, bean.tax])}</p>
-	<p>[@addForm product=product model=model/]</p>
-	</div>
+	<div class="product-price-container">
+		<div class="product-price">
+			${i18n.get('price.detail.text', [bean.price, bean.currency, bean.taxIncluded, bean.tax])}
+		</div>
+		<div class="product-add">
+	  		[@addForm product=product model=model/]
+	  	</div>
+  	</div>
+</div>
 	[#if model.images??]
     <div class="photo-index">
         [#list model.images as image]
@@ -69,7 +53,7 @@
                     <dl class="${class}">
                         <dt ><img src="${stk.getAssetVariation(image, 'gallery-thumbnail').link}" alt="${image.title}"/></dt>
                         <dd class="zoom"><a href="${stk.getAssetVariation(image, 'gallery-zoom').link}" rel="showbox" title="${i18n['link.zoom.title']}">${i18n['link.zoom']}</a></dd>
-                        
+                        	<dd class="caption">${i18n['image.zoom']}</dd>
                             <dd class="caption">${image.caption!"&nbsp;"}</dd>
                         
                         [#if image.copyright?has_content]
@@ -88,5 +72,5 @@
     </div><!-- end photo-index -->
 
 [/#if]
-	
+		
 [/#if]

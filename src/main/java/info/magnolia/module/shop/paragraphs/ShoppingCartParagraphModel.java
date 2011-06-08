@@ -65,7 +65,7 @@ public class ShoppingCartParagraphModel extends ShopParagraphModel {
   public String execute() {
     String command = MgnlContext.getParameter("command");
     if (StringUtils.isNotEmpty(command) && StringUtils.equals(command, "add")
-        || StringUtils.equals(command, "substract")) {
+        || StringUtils.equals(command, "substract") || StringUtils.equals(command, "removeall")) {
       String productUUID = MgnlContext.getParameter("product");
       updateItemQuantity(productUUID, command);
     }
@@ -84,8 +84,8 @@ public class ShoppingCartParagraphModel extends ShopParagraphModel {
 
       if (command.equals("add")) {
         shoppingCartItem.setQuantity(++quantity);
-      } else if (command.equals("substract")) {
-        if (quantity <= 1) {
+      } else if (command.equals("substract") || command.equals("removeall")) {
+        if (quantity <= 1 || command.equals("removeall")) {
           shoppingCart.getCartItems().remove(indexOfProductInCart);
         } else {
           shoppingCartItem.setQuantity(--quantity);

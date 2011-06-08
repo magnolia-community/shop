@@ -66,12 +66,6 @@
     <sv:property sv:name="headingLevel" sv:type="String">
       <sv:value>h2</sv:value>
     </sv:property>
-    <sv:property sv:name="searchForSubcategory" sv:type="String">
-      <sv:value>news</sv:value>
-    </sv:property>
-    <sv:property sv:name="teaserLinkType" sv:type="String">
-      <sv:value>internal</sv:value>
-    </sv:property>
     <sv:node sv:name="MetaData">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
         <sv:value>mgnl:metaData</sv:value>

@@ -25,7 +25,11 @@
 	    			<td>${product.unitPrice?string("0.00")}</td>
 	    			<td>${product.itemTotal?string("0.00")}</td>
 	    			[#if type=="cart"]
-	    			  <td><a class="product-add" href="${model.getCommandLink('add', product.productUUID)}"><img class="shopAddRemove" src="${ctx.contextPath}/.resources/images/add.gif" /></a> <a class="product-substract" href="${model.getCommandLink('substract', product.productUUID)}"><img class="shopAddRemove" src="${ctx.contextPath}/.resources/images/remove.gif" /></a></td>
+	    			  <td>
+	    			  	<a class="product-add-more" href="${model.getCommandLink('add', product.productUUID)}"><img class="shopAddRemove" src="${ctx.contextPath}/.resources/images/add.gif" /></a> 
+	    			  	<a class="product-substract" href="${model.getCommandLink('substract', product.productUUID)}"><img class="shopAddRemove" src="${ctx.contextPath}/.resources/images/remove.gif" /></a>
+	    			  	<a class="product-removeall" href="${model.getCommandLink('removeall', product.productUUID)}"><img class="shopAddRemove" src="${ctx.contextPath}/.resources/images/removeAll.gif" /></a>
+	    			  </td>
 	    			[/#if] 
 	    		</tr>
 	    	[/#list]
@@ -33,7 +37,13 @@
 				<td></td>
 				<td></td>
 				<td></td>
-				<td [#if type=="cart"]colspan="2"[/#if]>${i18n['vat']} ${shoppingCart.itemTaxTotal}</td>
+				<td [#if type=="cart"]colspan="2"[/#if]>${i18n['shoppingcart.subtotal']} ${shoppingCart.grossTotalExclTax?string("0.00")} ${model.currencyTitle}</td>
+			</tr>
+	    	<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td [#if type=="cart"]colspan="2"[/#if]>${i18n['vat']} ${shoppingCart.itemTaxTotal?string("0.00")} ${model.currencyTitle}</td>
 			</tr>
 			<tr>
 				<td></td>

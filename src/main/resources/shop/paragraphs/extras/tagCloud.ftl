@@ -32,7 +32,7 @@
             [#list categories as item]
                 [#-- Macro: Item Assigns --]
                 [@assignItemValues item=item /]
-                <li class="${itemLevel}">
+                <li>
                     <a href="${itemLink}" >${itemDisplayName} [${model.getNumberOfItemsCategorizedWith(item.@uuid)}]</a>
                 </li>
             [/#list]
