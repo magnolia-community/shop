@@ -76,227 +76,231 @@ import info.magnolia.module.templatingkit.util.STKUtil;
  */
 public class ShopParagraphModel extends ImageGalleryParagraphModel {
 
-  private static Logger log = LoggerFactory.getLogger(ShopParagraphModel.class);
+    private static Logger log = LoggerFactory
+            .getLogger(ShopParagraphModel.class);
 
-  private Content siteRoot = null;
-  private RenderingModel parent = null;
-  private AbstractProductListType productListType = null;
+    private Content siteRoot = null;
+    private RenderingModel parent = null;
+    private AbstractProductListType productListType = null;
 
-  public ShopParagraphModel(Content content, RenderableDefinition definition,
-      RenderingModel parent) {
-    super(content, definition, parent);
-    this.parent = parent;
-    if(parent instanceof STKTemplateModel) {
-        this.siteRoot = ((STKTemplateModel) parent).getSiteRoot();
-    }
-    
-  }
-
-  public ShoppingCart getShoppingCart() {
-    return ShopUtil.getShoppingCart();
-  }
-
-  protected Content getSiteRoot() {
-    return siteRoot;
-  }
-
-  @Override
-  public String execute() {
-      init();
-      String command = MgnlContext.getParameter("command");
-  
-      if (StringUtils.isNotEmpty(command)) {
-        if (StringUtils.equals(command, "addToCart")) {
-          addToCart();
-          return "";
+    public ShopParagraphModel(Content content, RenderableDefinition definition,
+            RenderingModel parent) {
+        super(content, definition, parent);
+        this.parent = parent;
+        if (parent instanceof STKTemplateModel) {
+            this.siteRoot = ((STKTemplateModel) parent).getSiteRoot();
         }
-      }
 
-    return "";
-  }
-
-  private void init() {
-    if(ShopLinkUtil.isParamOfType(ParamType.CATEGORY)) {
-        productListType = new ProductListTypeCategory(siteRoot, content);     
-              
-    } else if(ShopLinkUtil.isParamOfType(ParamType.SEARCH)){
-        productListType = new ProductListTypeSearch(siteRoot, content);
-        
-    } else if(ShopLinkUtil.isParamOfType(ParamType.TAG)){
-        productListType = new ProductListTypeTag(siteRoot, content);
-    } else {
-        productListType = new DefaultProductListType(siteRoot, content);
-    }
-        
-    }
-  
-  public void resetShoppingCart() {
-      //initialize new cart
-      MgnlContext.getWebContext().getRequest().getSession().removeAttribute("shoppingCart");
-      ShopUtil.setShoppingCartInSession();
-  }
-
-  private void addToCart() {
-    String quantityString = MgnlContext.getParameter("quantity");
-    int quantity = 1;
-    try {
-      quantity = (new Integer(quantityString)).intValue();
-      if (quantity <= 0) {
-        quantity = 1;
-      }
-    } catch (NumberFormatException nfe) {
-      // TODO: log error? qunatity will be set to 1
-    }
-    String product = MgnlContext.getParameter("product");
-    if (StringUtils.isBlank(product)) {
-      log
-          .error("Cannot add item to cart because no \"product\" parameter was found in the request");
-    } else {
-      ShoppingCart cart = getShoppingCart();
-      int success = cart.addToShoppingCart(product, quantity);
-      if (success <= 0) {
-        log.error("Cannot add item to cart because no product for " + product
-            + " could be found");
-
-      }
-    }
-  }
-  
-  public ShopProductPager getPager() {
-      return productListType.getPager();
-  }
-
-  /**
-   * Gets the category selected from the url, using selector.
-   * 
-   */
-  public Content getCategory() {
-    String productCategoryUUID = ShopLinkUtil.getSelectedCategoryUUID();
-    if (StringUtils.isNotEmpty(productCategoryUUID)) {
-      Content node = ContentUtil.getContentByUUID("data", productCategoryUUID);
-      if (!node.isNodeType("shopProduct")) {
-        return new I18nContentWrapper(node);
-      }
-    }
-    return null;
-  }
-  
-  /**
-   * Gets product selected from the url, using selector.
-   * 
-   */
-  public Content getProduct() {
-      
-      String productName = ShopLinkUtil.getParamValue(ParamType.PRODUCT);
-
-      if (StringUtils.isNotEmpty(productName)) {
-          Content product = ShopUtil.getProductNode(productName);
-          return new I18nContentWrapper(product);
-        
-      }
-      return null;
-  }
-
-  public TemplateProductPriceBean getProductPriceBean(Content product) {
-    Content priceCategory = ShopUtil.getShopPriceCategory();
-    String productPrice = getProductPriceByCategory(product, priceCategory
-        .getUUID());
-    Content currency = ShopUtil.getCurrencyByUUID(NodeDataUtil.getString(priceCategory,
-        "currencyUUID"));
-    Content tax = getTaxByUUID(NodeDataUtil.getString(product,
-        "taxCategoryUUID"));
-
-    TemplateProductPriceBean bean = new TemplateProductPriceBean();
-    bean.setPrice(productPrice);
-    bean.setCurrency(NodeDataUtil.getString(currency, "title"));
-    boolean taxIncluded = NodeDataUtil.getBoolean(priceCategory, "taxIncluded",
-        false);
-    if (taxIncluded) {
-      bean.setTaxIncluded(ShopUtil.getMessages().get("tax.included"));
-    } else {
-      bean.setTaxIncluded(ShopUtil.getMessages().get("tax.no.included"));
     }
 
-    bean.setTax(NodeDataUtil.getString(tax, "tax"));
-    return bean;
-  }
-  
-  public String getCurrencyTitle() {
-      return ShopUtil.getCurrencyTitle();
-  }
+    public ShoppingCart getShoppingCart() {
+        return ShopUtil.getShoppingCart();
+    }
 
-  public Content getTaxByUUID(String uuid) {
-    return new I18nContentWrapper(ContentUtil.getContentByUUID("data", uuid));
-  }
+    protected Content getSiteRoot() {
+        return siteRoot;
+    }
 
-  protected String getProductPriceByCategory(Content product,
-      String priceCategoryUUID) {
-    Content pricesNode = ContentUtil.getContent(product, "prices");
-    if (pricesNode.hasChildren()) {
-      for (Iterator iterator = pricesNode.getChildren().iterator(); iterator
-          .hasNext();) {
-        Content price = new I18nContentWrapper((Content) iterator.next());
-        if (NodeDataUtil.getString(price, "priceCategoryUUID").equals(
-            priceCategoryUUID)) {
-          return NodeDataUtil.getString(price, "price");
+    @Override
+    public String execute() {
+        init();
+        String command = MgnlContext.getParameter("command");
+
+        if (StringUtils.isNotEmpty(command)) {
+            if (StringUtils.equals(command, "addToCart")) {
+                addToCart();
+                return "";
+            }
         }
-      }
-    }
-    return null;
-  }
 
-  /**
-   * returns the link to the shopping cart page based on template
-   * category-subcategory
-   */
-  public String getShoppingCartLink() {
-    Content shoppingCartPage;
-    try {
-      shoppingCartPage = STKUtil.getContentByTemplateCategorySubCategory(
-          siteRoot, "feature", "shopShoppingCart");
-      return new LinkImpl(shoppingCartPage).getHref();
-    } catch (RepositoryException e) {
-      log.error("Cant get shopping cart page", e);
-    }
-    return "";
-  }
-
-  /**
-   * get images folder items
-   */
-  protected List<String> getKeys() {
-    Content product = getProduct();
-    Content dmsFolder = STKUtil.getReferencedContent(product, "imageDmsUUID",
-        "dms");
-    if (dmsFolder == null) {
-      return new ArrayList();
-    }
-    List<String> keys = new ArrayList();
-    try {
-      dmsFolder = dmsFolder.getParent();
-
-      Collection children = dmsFolder.getChildren(ItemType.CONTENTNODE);
-
-      for (Iterator iterator = children.iterator(); iterator.hasNext();) {
-        Content imageNode = (Content) iterator.next();
-        if (showImage(new Document(imageNode))) {
-          keys.add(imageNode.getUUID());
-        }
-      }
-
-    } catch (Exception e) {
-
-    }
-    return keys;
-  }
-  
-  public String getProductDetailPageLink(Content product) {
-      try {
-        return ShopLinkUtil.getProductDetailPageLink(product, siteRoot);
-    } catch (RepositoryException e) {
         return "";
     }
-  }
-  
-  
+
+    private void init() {
+        if (ShopLinkUtil.isParamOfType(ParamType.CATEGORY)) {
+            productListType = new ProductListTypeCategory(siteRoot, content);
+
+        } else if (ShopLinkUtil.isParamOfType(ParamType.SEARCH)) {
+            productListType = new ProductListTypeSearch(siteRoot, content);
+
+        } else if (ShopLinkUtil.isParamOfType(ParamType.TAG)) {
+            productListType = new ProductListTypeTag(siteRoot, content);
+        } else {
+            productListType = new DefaultProductListType(siteRoot, content);
+        }
+
+    }
+
+    public void resetShoppingCart() {
+        // initialize new cart
+        MgnlContext.getWebContext().getRequest().getSession().removeAttribute(
+                "shoppingCart");
+        ShopUtil.setShoppingCartInSession();
+    }
+
+    private void addToCart() {
+        String quantityString = MgnlContext.getParameter("quantity");
+        int quantity = 1;
+        try {
+            quantity = (new Integer(quantityString)).intValue();
+            if (quantity <= 0) {
+                quantity = 1;
+            }
+        } catch (NumberFormatException nfe) {
+            // TODO: log error? qunatity will be set to 1
+        }
+        String product = MgnlContext.getParameter("product");
+        if (StringUtils.isBlank(product)) {
+            log
+                    .error("Cannot add item to cart because no \"product\" parameter was found in the request");
+        } else {
+            ShoppingCart cart = getShoppingCart();
+            int success = cart.addToShoppingCart(product, quantity);
+            if (success <= 0) {
+                log.error("Cannot add item to cart because no product for "
+                        + product + " could be found");
+
+            }
+        }
+    }
+
+    public ShopProductPager getPager() {
+        return productListType.getPager();
+    }
+
+    /**
+     * Gets the category selected from the url, using selector.
+     * 
+     */
+    public Content getCategory() {
+        String productCategoryUUID = ShopLinkUtil.getSelectedCategoryUUID();
+        if (StringUtils.isNotEmpty(productCategoryUUID)) {
+            Content node = ContentUtil.getContentByUUID("data",
+                    productCategoryUUID);
+            if (!node.isNodeType("shopProduct")) {
+                return new I18nContentWrapper(node);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Gets product selected from the url, using selector.
+     * 
+     */
+    public Content getProduct() {
+
+        String productName = ShopLinkUtil.getParamValue(ParamType.PRODUCT);
+
+        if (StringUtils.isNotEmpty(productName)) {
+            Content product = ShopUtil.getProductNode(productName);
+            return new I18nContentWrapper(product);
+
+        }
+        return null;
+    }
+
+    public TemplateProductPriceBean getProductPriceBean(Content product) {
+        Content priceCategory = ShopUtil.getShopPriceCategory();
+        String productPrice = getProductPriceByCategory(product, priceCategory
+                .getUUID());
+        Content currency = ShopUtil.getCurrencyByUUID(NodeDataUtil.getString(
+                priceCategory, "currencyUUID"));
+        Content tax = getTaxByUUID(NodeDataUtil.getString(product,
+                "taxCategoryUUID"));
+
+        TemplateProductPriceBean bean = new TemplateProductPriceBean();
+        bean.setPrice(productPrice);
+        bean.setCurrency(NodeDataUtil.getString(currency, "title"));
+        boolean taxIncluded = NodeDataUtil.getBoolean(priceCategory,
+                "taxIncluded", false);
+        if (taxIncluded) {
+            bean.setTaxIncluded(ShopUtil.getMessages().get("tax.included"));
+        } else {
+            bean.setTaxIncluded(ShopUtil.getMessages().get("tax.no.included"));
+        }
+
+        bean.setTax(NodeDataUtil.getString(tax, "tax"));
+        return bean;
+    }
+
+    public String getCurrencyTitle() {
+        return ShopUtil.getCurrencyTitle();
+    }
+
+    public Content getTaxByUUID(String uuid) {
+        return new I18nContentWrapper(ContentUtil
+                .getContentByUUID("data", uuid));
+    }
+
+    protected String getProductPriceByCategory(Content product,
+            String priceCategoryUUID) {
+        Content pricesNode = ContentUtil.getContent(product, "prices");
+        if (pricesNode.hasChildren()) {
+            for (Iterator iterator = pricesNode.getChildren().iterator(); iterator
+                    .hasNext();) {
+                Content price = new I18nContentWrapper((Content) iterator
+                        .next());
+                if (NodeDataUtil.getString(price, "priceCategoryUUID").equals(
+                        priceCategoryUUID)) {
+                    return NodeDataUtil.getString(price, "price");
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * returns the link to the shopping cart page based on template
+     * category-subcategory.
+     */
+    public String getShoppingCartLink() {
+        Content shoppingCartPage;
+        try {
+            shoppingCartPage = STKUtil.getContentByTemplateCategorySubCategory(
+                    siteRoot, "feature", "shopShoppingCart");
+            return new LinkImpl(shoppingCartPage).getHref();
+        } catch (RepositoryException e) {
+            log.error("Cant get shopping cart page", e);
+        }
+        return "";
+    }
+
+    /**
+     * get images folder items.
+     */
+    protected List<String> getKeys() {
+        Content product = getProduct();
+        Content dmsFolder = STKUtil.getReferencedContent(product,
+                "imageDmsUUID", "dms");
+        if (dmsFolder == null) {
+            return new ArrayList();
+        }
+        List<String> keys = new ArrayList();
+        try {
+            dmsFolder = dmsFolder.getParent();
+
+            Collection children = dmsFolder.getChildren(ItemType.CONTENTNODE);
+
+            for (Iterator iterator = children.iterator(); iterator.hasNext();) {
+                Content imageNode = (Content) iterator.next();
+                if (showImage(new Document(imageNode))) {
+                    keys.add(imageNode.getUUID());
+                }
+            }
+
+        } catch (Exception e) {
+
+        }
+        return keys;
+    }
+
+    public String getProductDetailPageLink(Content product) {
+        try {
+            return ShopLinkUtil.getProductDetailPageLink(product, siteRoot);
+        } catch (RepositoryException e) {
+            return "";
+        }
+    }
+
 }

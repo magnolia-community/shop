@@ -46,6 +46,11 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
+/**
+ * Search product listitng.
+ * @author tmiyar
+ *
+ */
 public class ProductListTypeSearch extends AbstractProductListType {
 
     private static final String SEARCH_QUERY_PATTERN = "select * from shopProduct where jcr:path like ''{0}/%'' and contains(*, ''{1}'') order by jcr:path";
@@ -53,7 +58,6 @@ public class ProductListTypeSearch extends AbstractProductListType {
     
     public ProductListTypeSearch(Content siteRoot, Content content) {
         super(siteRoot, content);
-        // TODO Auto-generated constructor stub
     }
     
     @Override

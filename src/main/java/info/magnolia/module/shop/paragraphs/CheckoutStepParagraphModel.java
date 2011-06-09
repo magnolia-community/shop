@@ -65,7 +65,7 @@ public CheckoutStepParagraphModel(Content content,
   
   /** 
    * It wont display a link, as is the checkout of items and user
-   * will leave the form if there is a link (using same template in 2 different paragraphs)
+   * will leave the form if there is a link (using same template in 2 different paragraphs).
    */
   public String getProductDetailPageLink(Content product) {
         return "";

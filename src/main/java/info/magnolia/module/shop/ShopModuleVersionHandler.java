@@ -57,7 +57,7 @@ import javax.jcr.RepositoryException;
 
 import static info.magnolia.nodebuilder.Ops.*;
 
-/*
+/**
  * This class is used to handle installation and updates of your module.
  */
 public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {

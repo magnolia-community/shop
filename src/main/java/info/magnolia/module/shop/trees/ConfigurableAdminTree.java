@@ -49,7 +49,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
+ * Shop Tree.
  * @author will
  */
 public class ConfigurableAdminTree extends AdminTreeMVCHandler {

@@ -62,6 +62,11 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Paragraphs util class.
+ * @author tmiyar
+ *
+ */
 public class ShopUtil {
 
   private static Logger log = LoggerFactory.getLogger(ShopUtil.class);

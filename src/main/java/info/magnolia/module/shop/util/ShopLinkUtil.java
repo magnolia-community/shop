@@ -43,8 +43,18 @@ import javax.jcr.RepositoryException;
 
 import org.apache.commons.lang.StringUtils;
 
+/**
+ * Util class for creating shop links.
+ * @author tmiyar
+ *
+ */
 public class ShopLinkUtil {
     
+    /**
+     * Enum for the diferent product lists.
+     * @author tmiyar
+     *
+     */
     public static enum ParamType {
         SEARCH,  
         CATEGORY,

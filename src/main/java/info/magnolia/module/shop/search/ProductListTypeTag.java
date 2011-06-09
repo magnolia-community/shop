@@ -45,6 +45,11 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Product list of type category/tag when clicking on categories comming from categorization module.
+ * @author tmiyar
+ *
+ */
 public class ProductListTypeTag extends AbstractProductListType {
 
     public ProductListTypeTag(Content siteRoot, Content content) {

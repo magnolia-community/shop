@@ -39,6 +39,11 @@ import info.magnolia.module.shop.util.ShopUtil;
 
 import java.util.List;
 
+/**
+ * Parent type for product lists.
+ * @author tmiyar
+ *
+ */
 abstract public class AbstractProductListType {
     
     private Content siteRoot = null;

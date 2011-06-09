@@ -38,11 +38,16 @@ import java.util.Map;
 import info.magnolia.cms.core.Content;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.form.processors.FormProcessorFailedException;
-import info.magnolia.module.form.processors.SendContactEMailProcessor;
+import info.magnolia.module.form.processors.SendConfirmationEMailProcessor;
 import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
 import info.magnolia.module.shop.util.ShopUtil;
 
-public class SendShopConfirmationEmailProcessor extends SendContactEMailProcessor{
+/**
+ * Default processor to send email to the webshop admin.
+ * @author tmiyar
+ *
+ */
+public class SendShopConfirmationEmailProcessor extends SendConfirmationEMailProcessor   {
 
     @Override
     public void internalProcess(Content content, Map<String, Object> parameters)

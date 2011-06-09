@@ -41,6 +41,11 @@ import javax.jcr.RepositoryException;
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.util.ContentUtil;
 
+/**
+ * Gets navigation items from data module.
+ * @author tmiyar
+ *
+ */
 public class ProductCategoryNavigationModel {
 
   private Content siteRoot;
@@ -59,7 +64,7 @@ public class ProductCategoryNavigationModel {
         + currentShop + "/productcategories");
     for (Content child : productCategoryNode.getChildren("shopProductCategory")) {
 
-      items.add(new ProductCategoryNavigationItem(child, siteRoot));
+      items.add(new ProductCategoryNavigationItem(child, siteRoot, productCategoryNode.getLevel()));
 
     }
     return items;

@@ -71,13 +71,13 @@ import org.slf4j.LoggerFactory;
  * option lable to be made up of multiple nodeData values simply add the names
  * in a comma separated list, e.g. "lastname, firstname". The values will then
  * be combined with a white space in-between.</li>
- * </ul>
+ * </ul>.
  * @author will
  */
 public class QuerySelect extends DialogSelect {
 
     /**
-     * logger
+     * logger.
      */
     private static Logger log = LoggerFactory.getLogger(QuerySelect.class);
 

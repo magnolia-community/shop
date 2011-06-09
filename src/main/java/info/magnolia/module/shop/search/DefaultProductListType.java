@@ -46,6 +46,11 @@ import java.util.List;
 
 import javax.jcr.RepositoryException;
 
+/**
+ * Product list for the current offers if no productcategory selected yet.
+ * @author tmiyar
+ *
+ */
 public class DefaultProductListType extends AbstractProductListType {
 
     public DefaultProductListType(Content siteRoot, Content content) {

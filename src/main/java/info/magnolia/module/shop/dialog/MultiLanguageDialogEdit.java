@@ -37,7 +37,6 @@ import info.magnolia.cms.core.Content;
 import info.magnolia.cms.gui.dialog.DialogEdit;
 import info.magnolia.cms.gui.misc.CssConstants;
 import info.magnolia.cms.security.AccessDeniedException;
-import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.module.templatingkit.util.STKUtil;
 
 import java.io.IOException;
@@ -67,14 +66,14 @@ import org.slf4j.LoggerFactory;
  * version fields.
  * <br />
  * <br />
- * @todo Switch the language configuration technique to the official Magnolia
+ * todo: Switch the language configuration technique to the official Magnolia
  * site configuration.
  * @author will
  */
 public class MultiLanguageDialogEdit extends DialogEdit implements MultiLanguageDialogControl {
 
     /**
-     * logger
+     * logger.
      */
     private static Logger log = LoggerFactory.getLogger(MultiLanguageDialogEdit.class);
     private List<String> languages;
@@ -152,7 +151,6 @@ public class MultiLanguageDialogEdit extends DialogEdit implements MultiLanguage
     private void initLanguages() {
         // set the languages for the site key by assuming that the languages are
         // defined at default site definition
-       //TODO: get current site languages, if in data, how?
         if (getConfigValue("siteKey") != null) {
             Collection<Locale> locales = STKUtil.getSite().getI18n().getLocales();
                 Iterator<Locale> localesIterator = locales.iterator();

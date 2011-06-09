@@ -44,6 +44,11 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
+/**
+ * Product list when selecting a product category.
+ * @author tmiyar
+ *
+ */
 public class ProductListTypeCategory extends AbstractProductListType {
 
     public ProductListTypeCategory(Content siteRoot, Content content) {

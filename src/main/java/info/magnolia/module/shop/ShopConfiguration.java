@@ -33,6 +33,11 @@
  */
 package info.magnolia.module.shop;
 
+/**
+ * Configuration class for each shop.
+ * @author tmiyar
+ *
+ */
 public class ShopConfiguration {
 
   private String name;

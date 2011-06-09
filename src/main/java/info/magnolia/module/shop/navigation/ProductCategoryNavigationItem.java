@@ -47,17 +47,23 @@ import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.shop.util.ShopLinkUtil.ParamType;
 
-
+/**
+ * Vertical navigation items with productcategories from data module.
+ * @author tmiyar
+ *
+ */
 public class ProductCategoryNavigationItem {
 
   private Content content;
   private Content siteRoot;
   private String name;
+  private int categoriesStartLevel;
 
-  public ProductCategoryNavigationItem(Content content, Content siteRoot) {
+  public ProductCategoryNavigationItem(Content content, Content siteRoot, int categoriesStartLevel) {
       this.content = new I18nContentWrapper(content);
       this.siteRoot = siteRoot;
       this.name = ShopLinkUtil.getParamValue(ParamType.CATEGORY);
+      this.categoriesStartLevel = categoriesStartLevel;
   }
   
   public Content getContent() {
@@ -66,8 +72,7 @@ public class ProductCategoryNavigationItem {
 
   public int getLevel(){
       try {
-        //TODO: MUSTCHANGE2 is shop name/ folder name of data module
-        return  content.getLevel() - 2;
+        return  content.getLevel() - categoriesStartLevel;
       } catch (PathNotFoundException e) {
       } catch (RepositoryException e) {
       }
@@ -77,7 +82,7 @@ public class ProductCategoryNavigationItem {
   public List<ProductCategoryNavigationItem> getItems() {
     List<ProductCategoryNavigationItem> items = new ArrayList<ProductCategoryNavigationItem>();
     for (Content child : content.getChildren("shopProductCategory")) {
-      items.add(new ProductCategoryNavigationItem(child, siteRoot));         
+      items.add(new ProductCategoryNavigationItem(child, siteRoot, categoriesStartLevel));         
     }
     return items;
   }

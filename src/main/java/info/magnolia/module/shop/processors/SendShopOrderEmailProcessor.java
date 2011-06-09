@@ -42,6 +42,11 @@ import info.magnolia.module.form.processors.SendContactEMailProcessor;
 import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
 import info.magnolia.module.shop.util.ShopUtil;
 
+/**
+ * Default processor to send an email to customer with all the data from his order.
+ * @author tmiyar
+ *
+ */
 public class SendShopOrderEmailProcessor extends SendContactEMailProcessor{
 
     @Override

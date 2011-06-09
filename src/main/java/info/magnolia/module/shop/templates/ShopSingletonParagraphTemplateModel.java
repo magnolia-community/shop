@@ -43,7 +43,6 @@ import javax.jcr.RepositoryException;
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.i18n.I18nContentWrapper;
 import info.magnolia.cms.util.NodeDataUtil;
-import info.magnolia.cms.util.SelectorUtil;
 import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.shop.navigation.ProductCategoryNavigationModel;
@@ -59,6 +58,11 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Gets the extended breadcrumb and navigation for shop items.
+ * @author tmiyar
+ *
+ */
 public class ShopSingletonParagraphTemplateModel extends
     SingletonParagraphTemplateModel {
 

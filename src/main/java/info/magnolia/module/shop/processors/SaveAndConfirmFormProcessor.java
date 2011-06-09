@@ -60,6 +60,11 @@ import org.apache.jackrabbit.ocm.mapper.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Saves the shoppingcart into data module using ocm.
+ * @author tmiyar
+ *
+ */
 public class SaveAndConfirmFormProcessor extends AbstractFormProcessor {
   private static Logger log = LoggerFactory.getLogger(SaveAndConfirmFormProcessor.class);
   @Override

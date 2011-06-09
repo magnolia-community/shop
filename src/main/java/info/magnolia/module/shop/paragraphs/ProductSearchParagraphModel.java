@@ -37,7 +37,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import info.magnolia.module.shop.util.ShopLinkUtil;
-import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.templating.RenderableDefinition;
 import info.magnolia.module.templating.RenderingModel;
 import info.magnolia.module.templating.RenderingModelImpl;
@@ -45,7 +44,7 @@ import info.magnolia.module.templatingkit.templates.STKTemplateModel;
 import info.magnolia.cms.core.Content;
 
 /**
- *
+ * Performs search on products.
  * @author tmiyar
  *
  */
