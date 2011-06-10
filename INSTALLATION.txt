@@ -1,18 +1,19 @@
 HOW TO INSTALL THE MAGNOLIA SHOP MODULE
 
 The Magnolia shop module currently has the following dependencies jarsDependencies:
-- data module
-	- scheduler module
-		- quartz-1.5.2.jar
+- Magnolia 4.2.3
+- data module, stk, form-1.3-snapshot
 - ocm module(Used to save the shopping cart bean and the cart items to nodes including the automatic distribution of order numbers (i.e. the name of the cart node), configuration of what to save and what not etc.=
-	- jackrabbit-ocm-1.6-SNAPSHOT.jar
+	- jackrabbit-ocm-1.5.3.jar
 - dms, mail, admin-interface (which are installed by default)
 
 So to install the shop module successfully, turn of your servlet container (i.e. Tomcat) and add the following JARs to your WEB-INF/lib folder:
-- magnolia-module-data-1.4.2.jar
+- magnolia-module-data-1.6.1.jar
 - magnolia-module-scheduler-1.3.jar
 - quartz-1.5.2.jar
 - magnolia-module-ocm-1.0-SNAPSHOT.jar
-- jackrabbit-ocm-1.6-SNAPSHOT.jar
+- jackrabbit-ocm-1.5.3.jar
+- magnolia-module-standard-templating-kit-1.4.2.jarjar
+- magnolia-module-form-1.3-SNAPSHOT.jar
 
 Then start the servlet container again and let Magnolia bootstrap the new modules.
