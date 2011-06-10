@@ -15,9 +15,8 @@
     [@editBar /]
     <h6>${i18n['productSearch.accesibility.title']}</h6>
     <form action="${link}" >
-        <label for="searchbar">${i18n['productSearch.title']}</label>
         <input id="searchbar" name="queryProductsStr" type="text" value="" />
-        <input class="button" type="submit" value="${i18n['productSearch.buttonTitle']}" />
+        <input class="button" type="submit" value="${i18n['productSearch.title']}" />
     </form>
 </div>
 

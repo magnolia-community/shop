@@ -19,11 +19,22 @@
 	        	[#-- Rendering: Item rendering --]
 	        	<li>
 			    	<h3><a  href="${itemLink!}">${productTitle}</a></h3>
-					  <p>${description1}</p>
+					  [#if asset?has_content]        
+	                  <a  href="${itemLink!}">
+	                  	<img src="${stk.getAssetVariation(asset, 'teaser').link}"  />
+	                  </a>    
+	                  
+	                  [#else]
+	                  <a  href="${itemLink!}">
+	                  	<img src="${noPicLink}"  />
+	                  	</a>    
+	                  
+	                  [/#if]
+					  <p>${description1} <em class="more"><a href="${itemLink!}">${i18n['link.readmore']} <span> ${productTitle}</span></a></em></p>
 					  <div class="product-price-container">
 					  	<div class="product-price">
 					  		[#assign price=bean.price?number?string("0.00")]
-					  		${i18n.get('price.detail.text', [price, bean.currency, bean.taxIncluded, bean.tax])}
+					  		${i18n.get('price.detail.text', [price, bean.currency])}
 					  	</div>
 			    	  	<div class="product-add">
 			    	  		[@addForm product=product model=model/]

@@ -21,22 +21,12 @@
 	    ${productTitle}
 	</h1>
 	<div class="${divClass}" ${divID}>
-	[#if asset?has_content]        
-      <a  href="${itemLink!}">
-      	<img class="photo" src="${stk.getAssetVariation(asset, 'teaser').link}"  />
-      </a>    
-      
-    [#else]
-      <a  href="${itemLink!}">
-      	<img src="${noPicLink}"  />
-      </a>    
-      
-    [/#if]
 	<p>${description1}</p>
 	<p>${description2}</p>
 	<div class="product-price-container">
 		<div class="product-price">
-			${i18n.get('price.detail.text', [bean.price, bean.currency, bean.taxIncluded, bean.tax])}
+			[#assign price=bean.price?number?string("0.00")]
+			${i18n.get('price.detail.text', [price, bean.currency])}
 		</div>
 		<div class="product-add">
 	  		[@addForm product=product model=model/]
