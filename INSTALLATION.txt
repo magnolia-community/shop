@@ -16,7 +16,4 @@ So to install the shop module successfully, turn of your servlet container (i.e.
 - magnolia-module-standard-templating-kit-1.4.2.jarjar
 - magnolia-module-form-1.3-SNAPSHOT.jar
 
-* Very important: update the nodetypes in order to be able to use categorization module in data repository.
-For that we need to set the property multiple to true of dataItem (MGNLDATA-121)
-
 Then start the servlet container again and let Magnolia bootstrap the new modules.

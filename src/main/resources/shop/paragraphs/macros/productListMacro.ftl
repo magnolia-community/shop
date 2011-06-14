@@ -18,6 +18,12 @@
 	        	[@assignItemValues product=product/]
 	        	[#-- Rendering: Item rendering --]
 	        	<li>
+	        		[#-- Link to open product edit dialog, dialog only used from website--]
+	        		[#if mgnl.editMode]
+	        		<a  target="_blank" href="${ctx.contextPath}/.magnolia/dialogs/shopProductForWebsite.html?mgnlPath=${(product?parent).@handle}&mgnlNode=${product.@name}&mgnlRepository=data&mgnlLocale=${ctx.locale.language}&mgnlRichE=false&mgnlRichEPaste=" >
+	        		${i18n['edit.product']}</a>
+	        		[/#if]
+	        		
 			    	<h3><a  href="${itemLink!}">${productTitle}</a></h3>
 					  [#if asset?has_content]        
 	                  <a  href="${itemLink!}">
