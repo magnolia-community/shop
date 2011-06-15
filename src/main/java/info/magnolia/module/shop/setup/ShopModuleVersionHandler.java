@@ -44,6 +44,8 @@ import info.magnolia.module.data.setup.RegisterNodeTypeTask;
 import info.magnolia.module.delta.IsModuleInstalledOrRegistered;
 import info.magnolia.module.delta.Task;
 import info.magnolia.module.delta.TaskExecutionException;
+import info.magnolia.module.resources.setup.InstallResourcesTask;
+import info.magnolia.module.templatingkit.resources.STKResourceModel;
 import info.magnolia.module.templatingkit.setup.UpdateAllSiteDefinitions;
 import info.magnolia.nodebuilder.NodeBuilder;
 import info.magnolia.nodebuilder.task.ErrorHandling;
@@ -93,6 +95,7 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
   protected List getExtraInstallTasks(InstallContext installContext) {
     final List installTasks = new ArrayList();
     installTasks.addAll(super.getExtraInstallTasks(installContext));
+    installTasks.add(new InstallResourcesTask("/templating-kit/themes/pop/css/shop.css", "processedCss", STKResourceModel.class.getName()));
     installTasks.add(new UpdateAllSiteDefinitions("Add new templates to Availability", "") {
       protected void updateSiteDefinition(InstallContext ctx, Content siteDefinition) throws RepositoryException, TaskExecutionException {
           new NodeBuilder(new TaskLogErrorHandler(ctx), siteDefinition,
