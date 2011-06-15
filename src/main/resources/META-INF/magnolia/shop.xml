@@ -25,6 +25,10 @@
       <version>1.4.2/*</version>
     </dependency>
     <dependency>
+      <name>theme-pop</name>
+      <version>1.4.2/*</version>
+    </dependency>
+    <dependency>
       <name>ocm</name>
       <version>1.0-SNAPSHOT</version>
     </dependency>
