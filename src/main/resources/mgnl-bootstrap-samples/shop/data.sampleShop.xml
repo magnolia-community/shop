@@ -3339,13 +3339,13 @@
         <sv:value>USD</sv:value>
       </sv:property>
       <sv:property sv:name="title" sv:type="String">
-        <sv:value>US Dollar</sv:value>
+        <sv:value>$</sv:value>
       </sv:property>
       <sv:property sv:name="title_de" sv:type="String">
-        <sv:value>US Dollar</sv:value>
+        <sv:value>$</sv:value>
       </sv:property>
       <sv:property sv:name="title_en" sv:type="String">
-        <sv:value>US Dollar</sv:value>
+        <sv:value>$</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">

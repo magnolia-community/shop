@@ -43,7 +43,7 @@
 }
 
 #shop .latest h3 {
-	font-size: 140%;
+  font-size: 140%;
 }
 
  #shop .latest li {
@@ -58,7 +58,7 @@
  }
 
  #shop .latest li .button:hover, .product-add .button:hover {
- 	cursor: pointer;
+   cursor: pointer;
  }
 
  #shop .latest li input[type="text"], .product-add input[type="text"] {
@@ -72,16 +72,16 @@
     margin-bottom: 10px;
 }
 #extras .shoppingCartSideDisplay h2 {
-	font-size: 140%;
-	margin-bottom: 15px;
+  font-size: 140%;
+  margin-bottom: 15px;
 }
 
 .shoppingCartSideDisplay p, .shoppingCartSideDisplay ul {
-	padding-top: 15px;
+  padding-top: 15px;
 }
 
 .shopSearch {
-	padding-bottom: 15px;
+  padding-bottom: 15px;
 }
 
 .shopSearch #searchbar {
@@ -89,8 +89,7 @@
   width: 95%;
   margin: 2px;
 }
-
-.shopSearch .button, #shop-button-navigation-previous input, #shop-button-navigation-next input {
+.form-wrapper .button, .navigation-previous input, .navigation-next input {
   background: #b90834 url(../img/bgs/submit.png) 0 0 repeat-x;
   width: auto;
   border: 1px solid #f19eb2;
@@ -103,11 +102,10 @@
   font-size: 120%;
   text-transform: uppercase;
   font-weight: bold;
-  float:right;
+  float:left;
 }
-.shopSearch .button:hover, .shopSearch .button:active, .shopSearch .button:focus,
- #shop-button-navigation-previous input:hover,  #shop-button-navigation-previous input:active,  #shop-button-navigation-previous input:active,
- #shop-button-navigation-next input:hover,  #shop-button-navigation-next input:active,  #shop-button-navigation-next input:active {
+ .navigation-previous input:hover,  .navigation-previous input:active,  .navigation-previous input:active,
+ .navigation-next input:hover,  .navigation-next input:active,  .navigation-next input:active {
   background: #333;
   color: #fff;
   border: 1px solid #555;
@@ -115,8 +113,21 @@
   border-bottom: 1px solid #4d4d4d;
 }
 
+.navigation-button-wrapper {
+    clear: both;
+    display: inline;
+}
+.navigation-previous, .navigation-next {
+    float:left;
+}
+.form-wrapper div {
+    clear: none;
+}
+.form-wrapper div.navigation-button-wrapper {
+  width: 100%;
+}
 #shop .tagcloud {
-	list-style: none;
+  list-style: none;
 }
 
 #shop .tagcloud li a {
@@ -127,42 +138,35 @@
 }
 
 .teaser .shopAddRemove {
-	width: 16px;
-	margin: 0px;
+  width: 16px;
+  margin: 0px;
 }
 
-#shop-button-navigation {
-    clear: both;
-    display: inline;
-}
-#shop-button-navigation-previous, #shop-button-navigation-next {
-    float:right;
-}
+
+
 #shop .form-wrapper div {
     clear: none;
 }
-.form-wrapper div#shop-button-navigation {
-	width: 100%;
-}
+
 
 .product-price-container {
-	padding-top: 40px;
-	clear: both;
-	position: relative;
+  padding-top: 40px;
+  clear: both;
+  position: relative;
 }
 .product-price, .product-add {
-	position:absolute;
+  position:absolute;
     bottom:0;
 }
 .product-price {
-	float: left;
-	font-size: 150%;
+  float: left;
+  font-size: 150%;
     left:0;
     font-weight: bold;
 }
 .product-add {
-	float: right;
-	right: 0;
+  float: right;
+  right: 0;
 }
 .photo-index .photo {
     background: url(../img/bgs/photo-corners.png) 0 100% no-repeat;

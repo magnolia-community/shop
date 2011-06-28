@@ -430,37 +430,6 @@
         </sv:property>
       </sv:node>
     </sv:node>
-    <sv:node sv:name="formCriteria">
-      <sv:property sv:name="jcr:primaryType" sv:type="Name">
-        <sv:value>mgnl:contentNode</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
-        <sv:value>mix:lockable</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>6ad50c70-ddea-4a61-a70c-8ced54f55dd5</sv:value>
-      </sv:property>
-      <sv:property sv:name="name" sv:type="String">
-        <sv:value>formCriteria</sv:value>
-      </sv:property>
-      <sv:node sv:name="MetaData">
-        <sv:property sv:name="jcr:primaryType" sv:type="Name">
-          <sv:value>mgnl:metaData</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-          <sv:value>false</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:authorid" sv:type="String">
-          <sv:value>superuser</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-          <sv:value>2011-05-18T09:21:09.073+02:00</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-05-18T09:23:51.139+02:00</sv:value>
-        </sv:property>
-      </sv:node>
-    </sv:node>
     <sv:node sv:name="shopCheckDisableFields">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
         <sv:value>mgnl:contentNode</sv:value>
@@ -492,7 +461,7 @@
         </sv:property>
       </sv:node>
     </sv:node>
-    <sv:node sv:name="shopSubmit">
+    <sv:node sv:name="formSubmit">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
         <sv:value>mgnl:contentNode</sv:value>
       </sv:property>
@@ -503,7 +472,7 @@
         <sv:value>b61f79eb-e345-4d54-b0ba-a33ab61954a1</sv:value>
       </sv:property>
       <sv:property sv:name="name" sv:type="String">
-        <sv:value>shopSubmit</sv:value>
+        <sv:value>formSubmit</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
