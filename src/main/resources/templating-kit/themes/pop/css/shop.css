@@ -89,7 +89,7 @@
   width: 95%;
   margin: 2px;
 }
-.form-wrapper .button, .navigation-previous input, .navigation-next input {
+.shopSearch .button, .form-wrapper .button, .navigation-previous input, .navigation-next input {
   background: #b90834 url(../img/bgs/submit.png) 0 0 repeat-x;
   width: auto;
   border: 1px solid #f19eb2;
