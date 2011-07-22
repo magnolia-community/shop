@@ -31,24 +31,37 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.beans;
+package info.magnolia.module.shop.accessors;
 
-import java.util.ArrayList;
+import java.util.List;
+
+import info.magnolia.cms.core.Content;
+import info.magnolia.cms.core.search.Query;
+import info.magnolia.cms.util.QueryUtil;
+import info.magnolia.module.shop.util.ShopUtil;
 
 /**
- * Shoping cart.
- * @author will
+ * shop product.
+ * @author tmiyar
+ *
  */
-public interface ShoppingCart {
-  public int addToShoppingCart(String productUUID, int quantity);
+public class ShopProductAccesor extends DefaultCustomDataAccesor {
+    
+    public ShopProductAccesor(String name) throws Exception {
+        super(name);
+    }
 
-  public void removeFromShoppingCart(String productUUID);
+    protected Content getNode(String name) throws Exception {
+        String path = "/shopProducts/" +ShopUtil.getShopName();
+        return super.getNodeByName(path, "shopProduct", name);
+    }
+    
+    public static List<Content> getProductsByProductCategory(String productCategory) {
+        String xpath = "/jcr:root/"
+            + "shopProducts/" + ShopUtil.getShopName()+ "//element(*,shopProduct)[jcr:contains(productCategoryUUIDs/., '"
+            + productCategory + "')]";
+        List<Content> productList = (List<Content>) QueryUtil.query("data", xpath, Query.XPATH);
+        return ShopUtil.transformIntoI18nContentList(productList);
+    }
 
-  public ArrayList<ShoppingCartItem> getCartItems();
-
-  public int getCartItemsCount();
-
-  public String getLanguage();
-
-  public void setLanguage(String language);
 }

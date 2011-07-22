@@ -31,24 +31,18 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.beans;
+package info.magnolia.module.shop.accessors;
 
-import java.util.ArrayList;
+import info.magnolia.cms.core.Content;
 
 /**
- * Shoping cart.
- * @author will
+ * Shop custom Data Interface.
+ * @author tmiyar
+ *
  */
-public interface ShoppingCart {
-  public int addToShoppingCart(String productUUID, int quantity);
+public interface CustomDataAccesor {
+    
+    public Content getNode();
+    public String getName();
 
-  public void removeFromShoppingCart(String productUUID);
-
-  public ArrayList<ShoppingCartItem> getCartItems();
-
-  public int getCartItemsCount();
-
-  public String getLanguage();
-
-  public void setLanguage(String language);
 }

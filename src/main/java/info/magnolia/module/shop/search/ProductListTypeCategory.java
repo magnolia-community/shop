@@ -36,8 +36,8 @@ package info.magnolia.module.shop.search;
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.util.SelectorUtil;
 import info.magnolia.context.MgnlContext;
+import info.magnolia.module.shop.accessors.ShopProductAccesor;
 import info.magnolia.module.shop.util.ShopLinkUtil;
-import info.magnolia.module.shop.util.ShopUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +66,7 @@ public class ProductListTypeCategory extends AbstractProductListType {
         List<Content> productList = new ArrayList<Content>();
         String productCategory = ShopLinkUtil.getSelectedCategoryUUID();
         if (StringUtils.isNotEmpty(productCategory)) {
-          productList = ShopUtil.getProductsByProductCategory(productCategory);
+          productList = ShopProductAccesor.getProductsByProductCategory(productCategory);
           
         } 
         return productList;

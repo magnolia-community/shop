@@ -40,10 +40,10 @@ package info.magnolia.module.shop.paragraphs;
  * 
  */
 public class TemplateProductPriceBean {
-  private String price;
-  private String tax;
-  private String taxIncluded;
-  private String currency;
+  private String price = "0";
+  private String tax = "0";
+  private String taxIncluded = "";
+  private String currency = "";
 
   public String getPrice() {
     return price;

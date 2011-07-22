@@ -51,7 +51,7 @@ import org.apache.commons.lang.StringUtils;
 public class ShopLinkUtil {
     
     /**
-     * Enum for the diferent product lists.
+     * Enum for the different product lists.
      * @author tmiyar
      *
      */
@@ -91,8 +91,8 @@ public class ShopLinkUtil {
         }
     }
     
-  public static String getCategoryLink(Content category, Content siteRoot) {
-    Content shopRootPage = ShopUtil.getShopRoot(siteRoot);
+  public static String getProductFamilyLink(Content category, Content siteRoot) {
+    Content shopRootPage = ShopUtil.getShopRoot();
     String selector = ParamType.CATEGORY.name() + "." +category.getName();
     return ShopLinkUtil.createLinkFromContentWithSelectors(shopRootPage, selector);
   }
@@ -100,7 +100,7 @@ public class ShopLinkUtil {
   public static String getProductListSearchLink(Content siteRoot) {
       String link = "";
       String selector = "" + ParamType.SEARCH;
-      Content productListPage = ShopUtil.getShopRoot(siteRoot);
+      Content productListPage = ShopUtil.getShopRoot();
       if(productListPage != null) {
           link = ShopLinkUtil.createLinkFromContentWithSelectors(productListPage, selector);
       }
@@ -141,10 +141,12 @@ public class ShopLinkUtil {
   public static String getSelectedCategoryUUID() {
       String name = ShopLinkUtil.getParamValue(ParamType.CATEGORY);
       if(StringUtils.isNotEmpty(name)) {
-        Content category = ShopUtil.getProductCategoryNode(name);
-        if(category != null) {
-          return category.getUUID();
-         
+        Content category = null;
+        try {
+            category = CustomDataUtil.getProductCategoryNode(name);
+            return category.getUUID();
+        } catch (Exception e) {
+            //Item not found
         }
       }
       return "";

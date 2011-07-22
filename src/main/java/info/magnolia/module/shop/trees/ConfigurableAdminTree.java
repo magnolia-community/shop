@@ -51,6 +51,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Shop Tree.
  * @author will
+ * @deprecated
  */
 public class ConfigurableAdminTree extends AdminTreeMVCHandler {
     public static Logger log = LoggerFactory.getLogger(ConfigurableAdminTree.class);

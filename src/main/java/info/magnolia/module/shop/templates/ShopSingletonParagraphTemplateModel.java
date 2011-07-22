@@ -46,6 +46,7 @@ import info.magnolia.cms.util.NodeDataUtil;
 import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.shop.navigation.ProductCategoryNavigationModel;
+import info.magnolia.module.shop.util.CustomDataUtil;
 import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.shop.util.ShopLinkUtil.ParamType;
@@ -90,7 +91,7 @@ public class ShopSingletonParagraphTemplateModel extends
 
   protected String getCurrentShop() {
     if (StringUtils.isEmpty(currentShopName)) {
-      Content shopRoot = ShopUtil.getShopRoot(this.getSiteRoot());
+      Content shopRoot = ShopUtil.getShopRoot();
       if (shopRoot != null) {
         currentShopName = NodeDataUtil.getString(shopRoot, "currentShop");
       }
@@ -101,20 +102,27 @@ public class ShopSingletonParagraphTemplateModel extends
   public Collection getBreadcrumb() throws RepositoryException {
     List items = new ArrayList();
 
-    // add categorie
+    // add family
     String name = ShopLinkUtil.getParamValue(ParamType.CATEGORY);
     if (StringUtils.isNotEmpty(name)) {
-      Content dataNode = ShopUtil.getProductCategoryNode(name);
-      if (dataNode != null) {
-        Content node = new I18nContentWrapper(dataNode);
-        //TODO: level mustchange
-        while (node.getLevel() > 2) {
-          items.add(node);
-          node = node.getParent();
+      Content dataNode;
+        try {
+            dataNode = CustomDataUtil.getProductCategoryNode(name);
+        
+            if (dataNode != null) {
+                Content node = new I18nContentWrapper(dataNode);
+                Content shopNode = CustomDataUtil.getShopNode(ShopUtil.getShopName());
+           
+                while (node.getLevel() > shopNode.getLevel()) {
+                  items.add(node);
+                  node = node.getParent();
+                } //while
+        
+            }//if
+        } catch (Exception e) {
+            //do nothing
         }
-
-      }
-    }
+    }//if
     
     // add website nodes
     Content root = getSiteRoot();
@@ -135,7 +143,7 @@ public class ShopSingletonParagraphTemplateModel extends
   }
 
   public String getCategoryLink(Content category) {
-    return ShopLinkUtil.getCategoryLink(category, this.getSiteRoot());
+    return ShopLinkUtil.getProductFamilyLink(category, this.getSiteRoot());
   }
 
 }

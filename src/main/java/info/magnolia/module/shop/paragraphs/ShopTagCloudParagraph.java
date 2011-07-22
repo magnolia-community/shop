@@ -40,6 +40,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import info.magnolia.module.shop.accessors.ShopProductAccesor;
+import info.magnolia.module.shop.accessors.ShopProductCategoryAccesor;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.shop.util.ShopLinkUtil.ParamType;
 import info.magnolia.module.templating.MagnoliaTemplatingUtilities;
@@ -67,7 +69,7 @@ public class ShopTagCloudParagraph extends RenderingModelImpl {
         
         if(parent instanceof STKTemplateModel) {
             Content siteRoot = ((STKTemplateModel) parent).getSiteRoot();
-            productListPage = ShopUtil.getShopRoot(siteRoot);
+            productListPage = ShopUtil.getShopRoot();
         }
     }
 
@@ -79,12 +81,12 @@ public class ShopTagCloudParagraph extends RenderingModelImpl {
     
     public int getNumberOfItemsCategorizedWith(String categoryUUID) {
       int numberOfProducts = 0;
-      Collection<Content> productCategories = ShopUtil.getTaggedProductCategories(categoryUUID);
+      Collection<Content> productCategories = ShopProductCategoryAccesor.getTaggedProductCategories(categoryUUID);
       
       for (Iterator<Content> iterator = productCategories.iterator(); iterator.hasNext();) {
         Content productCategory = iterator.next();
         //Find products on each category
-        numberOfProducts += ShopUtil.getProductsByProductCategory(productCategory.getUUID()).size();
+        numberOfProducts += ShopProductAccesor.getProductsByProductCategory(productCategory.getUUID()).size();
         
       }
       return numberOfProducts;

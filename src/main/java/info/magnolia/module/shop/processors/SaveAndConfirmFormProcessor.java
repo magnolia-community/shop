@@ -40,9 +40,8 @@ import info.magnolia.module.form.processors.AbstractFormProcessor;
 import info.magnolia.module.form.processors.FormProcessorFailedException;
 import info.magnolia.module.ocm.ext.MgnlConfigMapperImpl;
 import info.magnolia.module.ocm.ext.MgnlObjectConverterImpl;
-import info.magnolia.module.shop.ShopConfiguration;
-import info.magnolia.module.shop.ShopModule;
 import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
+import info.magnolia.module.shop.util.CustomDataUtil;
 import info.magnolia.module.shop.util.ShopUtil;
 
 import java.util.Date;
@@ -95,8 +94,8 @@ public class SaveAndConfirmFormProcessor extends AbstractFormProcessor {
         if (StringUtils.isBlank(cart.getUuid())) {
             // Cart has not been saved before (this would most likely be the standard case)
             // Set the parent path according to the shop configuration
-            ShopConfiguration shopConfiguration = ShopModule.getInstance().getCurrentShopConfiguration(ShopUtil.getShopName());
-            cart.setParentPath(shopConfiguration.getShopDataRootPath() + "/" + shopConfiguration.getCartsFolderName());
+            
+            cart.setParentPath(CustomDataUtil.getShopNode(ShopUtil.getShopName()).getHandle() + "/" + "carts");
             ocm.insert(cart);
             ocm.save();
             MgnlContext.setAttribute("cartId", cart.getName(), Context.SESSION_SCOPE);

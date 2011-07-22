@@ -36,7 +36,7 @@ package info.magnolia.module.shop.search;
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.context.MgnlContext;
-import info.magnolia.module.shop.ShopModule;
+import info.magnolia.module.shop.util.CustomDataUtil;
 import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.shop.util.ShopUtil;
 
@@ -53,7 +53,7 @@ import org.apache.commons.lang.StringUtils;
  */
 public class ProductListTypeSearch extends AbstractProductListType {
 
-    private static final String SEARCH_QUERY_PATTERN = "select * from shopProduct where jcr:path like ''{0}/%'' and contains(*, ''{1}'') order by jcr:path";
+    private static final String SEARCH_QUERY_PATTERN = "select * from shopProduct where jcr:path like ''/shopProducts/{0}/%'' and contains(*, ''{1}'') order by jcr:path";
     private String repository = "data";
     
     public ProductListTypeSearch(Content siteRoot, Content content) {
@@ -83,11 +83,15 @@ public class ProductListTypeSearch extends AbstractProductListType {
     protected String generateSimpleQuery(String searchString) {
         //escape single quote
         searchString = searchString.replace("'", "''");
-        return MessageFormat.format(SEARCH_QUERY_PATTERN, new String[]{this.getPath(), searchString});
+        return MessageFormat.format(SEARCH_QUERY_PATTERN, new String[]{ShopUtil.getShopName(), searchString});
     }
     
     protected String getPath() {
-        return ShopModule.getInstance().getCurrentShopConfiguration(ShopUtil.getShopName()).getShopDataRootPath();
+        try {
+            return CustomDataUtil.getShopNode(ShopUtil.getShopName()).getHandle();
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     protected String getQueryStr() {

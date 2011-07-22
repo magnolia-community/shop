@@ -31,24 +31,34 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.beans;
+package info.magnolia.module.shop.dialog;
 
-import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import info.magnolia.cms.core.Content;
+import info.magnolia.module.admininterface.SaveHandler;
+import info.magnolia.module.data.dialogs.TypeSelectDataDialog;
 
 /**
- * Shoping cart.
- * @author will
+ * due to http://jira.magnolia-cms.com/browse/MGNLDATA-126, need to
+ * set a different js for parent and subnodes.
+ * @author tmiyar
+ *
  */
-public interface ShoppingCart {
-  public int addToShoppingCart(String productUUID, int quantity);
+public class ShopDialog extends TypeSelectDataDialog {
 
-  public void removeFromShoppingCart(String productUUID);
+    public ShopDialog(String name, HttpServletRequest request,
+            HttpServletResponse response, Content configNode) {
+        super(name, request, response, configNode);
+    }
 
-  public ArrayList<ShoppingCartItem> getCartItems();
-
-  public int getCartItemsCount();
-
-  public String getLanguage();
-
-  public void setLanguage(String language);
+    @Override
+    protected boolean onPostSave(SaveHandler handler) {
+        //need to check path due to http://jira.magnolia-cms.com/browse/MGNLDATA-126
+        if(this.path.equals("/shops")) {
+            this.setJsExecutedAfterSaving("window.opener.parent.location.href = window.opener.parent.location.href;");
+        }
+        return super.onPostSave(handler);
+    }
 }

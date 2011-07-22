@@ -64,7 +64,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
   private Date targetDeliveryDate;
   private Date deliveryDate;
   private String userIP;
-  private ArrayList cartItems;
+  private ArrayList<ShoppingCartItem> cartItems;
   private String priceCategoryUUID;
   private String orderAddressCompany;
   private String orderAddressCompany2;
@@ -190,11 +190,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     return -1;
   }
 
-/*  public String getCartUUID() {
-    return cartUUID;
-  }*/
-
-  public ArrayList getCartItems() {
+  public ArrayList<ShoppingCartItem> getCartItems() {
     return cartItems;
   }
 

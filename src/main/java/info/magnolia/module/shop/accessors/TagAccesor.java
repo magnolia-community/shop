@@ -31,24 +31,25 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.beans;
+package info.magnolia.module.shop.accessors;
 
-import java.util.ArrayList;
+import info.magnolia.cms.core.Content;
 
 /**
- * Shoping cart.
- * @author will
+ * tag object, corresponds to the categorization module.
+ * @author tmiyar
+ *
  */
-public interface ShoppingCart {
-  public int addToShoppingCart(String productUUID, int quantity);
+public class TagAccesor extends DefaultCustomDataAccesor {
 
-  public void removeFromShoppingCart(String productUUID);
+    public TagAccesor(String name) throws Exception {
+        super(name);
+    }
 
-  public ArrayList<ShoppingCartItem> getCartItems();
+    @Override
+    protected Content getNode(String name) throws Exception {
+        String path = "/categorization";
+        return super.getNodeByName(path, "category", name);
+    }
 
-  public int getCartItemsCount();
-
-  public String getLanguage();
-
-  public void setLanguage(String language);
 }

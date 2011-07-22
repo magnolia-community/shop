@@ -36,8 +36,10 @@ package info.magnolia.module.shop.search;
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.util.SelectorUtil;
 import info.magnolia.context.MgnlContext;
+import info.magnolia.module.shop.accessors.ShopProductAccesor;
+import info.magnolia.module.shop.accessors.ShopProductCategoryAccesor;
+import info.magnolia.module.shop.util.CustomDataUtil;
 import info.magnolia.module.shop.util.ShopLinkUtil;
-import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.shop.util.ShopLinkUtil.ParamType;
 
 import java.util.ArrayList;
@@ -66,14 +68,20 @@ public class ProductListTypeTag extends AbstractProductListType {
     public List<Content> getResult() {
         List<Content> productList = new ArrayList<Content>();
         String tagName = ShopLinkUtil.getParamValue(ParamType.TAG);
-        Content tagNode = ShopUtil.getTagNode(tagName);
-        Collection<Content> productCategories = ShopUtil.getTaggedProductCategories(tagNode.getUUID());
-        //for each category, get all products
-        for (Iterator<Content> iterator = productCategories.iterator(); iterator
-                .hasNext();) {
-            Content productCategoryNode = iterator.next();
-            productList.addAll(ShopUtil.getProductsByProductCategory(productCategoryNode.getUUID()));
-            
+        Content tagNode;
+        try {
+            tagNode = CustomDataUtil.getTagNode(tagName);
+        
+            Collection<Content> productCategories = ShopProductCategoryAccesor.getTaggedProductCategories(tagNode.getUUID());
+            //for each category, get all products
+            for (Iterator<Content> iterator = productCategories.iterator(); iterator
+                    .hasNext();) {
+                Content productCategoryNode = iterator.next();
+                productList.addAll(ShopProductAccesor.getProductsByProductCategory(productCategoryNode.getUUID()));
+                
+            }
+        } catch (Exception e) {
+            //return empty list
         }
         return productList;
     }

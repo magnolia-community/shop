@@ -51,12 +51,15 @@ import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.NodeDataUtil;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.dms.beans.Document;
+import info.magnolia.module.shop.ShopConfiguration;
+import info.magnolia.module.shop.accessors.ShopAccesor;
 import info.magnolia.module.shop.beans.ShoppingCart;
 import info.magnolia.module.shop.search.AbstractProductListType;
 import info.magnolia.module.shop.search.DefaultProductListType;
 import info.magnolia.module.shop.search.ProductListTypeCategory;
 import info.magnolia.module.shop.search.ProductListTypeSearch;
 import info.magnolia.module.shop.search.ProductListTypeTag;
+import info.magnolia.module.shop.util.CustomDataUtil;
 import info.magnolia.module.shop.util.ShopProductPager;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.shop.util.ShopLinkUtil;
@@ -177,7 +180,7 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
         if (StringUtils.isNotEmpty(productCategoryUUID)) {
             Content node = ContentUtil.getContentByUUID("data",
                     productCategoryUUID);
-            if (!node.isNodeType("shopProduct")) {
+            if (!node.isNodeType("product")) {
                 return new I18nContentWrapper(node);
             }
         }
@@ -193,35 +196,46 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
         String productName = ShopLinkUtil.getParamValue(ParamType.PRODUCT);
 
         if (StringUtils.isNotEmpty(productName)) {
-            Content product = ShopUtil.getProductNode(productName);
-            return new I18nContentWrapper(product);
-
+            Content product;
+            try {
+                product = CustomDataUtil.getProductNode(productName);
+                return new I18nContentWrapper(product);
+            } catch (Exception e) {
+                //item not found
+            }
         }
         return null;
     }
 
     public TemplateProductPriceBean getProductPriceBean(Content product) {
-        Content priceCategory = ShopUtil.getShopPriceCategory();
-        String productPrice = getProductPriceByCategory(product, priceCategory
-                .getUUID());
-        Content currency = ShopUtil.getCurrencyByUUID(NodeDataUtil.getString(
-                priceCategory, "currencyUUID"));
-        Content tax = getTaxByUUID(NodeDataUtil.getString(product,
-                "taxCategoryUUID"));
-
-        TemplateProductPriceBean bean = new TemplateProductPriceBean();
-        bean.setPrice(productPrice);
-        bean.setCurrency(NodeDataUtil.getString(currency, "title"));
-        boolean taxIncluded = NodeDataUtil.getBoolean(priceCategory,
-                "taxIncluded", false);
-        if (taxIncluded) {
-            bean.setTaxIncluded(ShopUtil.getMessages().get("tax.included"));
-        } else {
-            bean.setTaxIncluded(ShopUtil.getMessages().get("tax.no.included"));
+        ShopConfiguration shopConfiguration;
+        try {
+            shopConfiguration = new ShopAccesor(ShopUtil.getShopName()).getShopConfiguration();
+        
+            Content priceCategory = ShopUtil.getShopPriceCategory(shopConfiguration);
+            String productPrice = getProductPriceByCategory(product, priceCategory
+                    .getUUID());
+            Content currency = ShopUtil.getCurrencyByUUID(NodeDataUtil.getString(
+                    priceCategory, "currencyUUID"));
+            Content tax = getTaxByUUID(NodeDataUtil.getString(product,
+                    "taxCategoryUUID"));
+    
+            TemplateProductPriceBean bean = new TemplateProductPriceBean();
+            bean.setPrice(productPrice);
+            bean.setCurrency(NodeDataUtil.getString(currency, "title"));
+            boolean taxIncluded = NodeDataUtil.getBoolean(priceCategory,
+                    "taxIncluded", false);
+            if (taxIncluded) {
+                bean.setTaxIncluded(ShopUtil.getMessages().get("tax.included"));
+            } else {
+                bean.setTaxIncluded(ShopUtil.getMessages().get("tax.no.included"));
+            }
+    
+            bean.setTax(NodeDataUtil.getString(tax, "tax"));
+            return bean;
+        } catch (Exception e) {
+            return new TemplateProductPriceBean();
         }
-
-        bean.setTax(NodeDataUtil.getString(tax, "tax"));
-        return bean;
     }
 
     public String getCurrencyTitle() {

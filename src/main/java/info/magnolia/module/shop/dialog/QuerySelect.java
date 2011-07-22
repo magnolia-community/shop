@@ -163,6 +163,9 @@ public class QuerySelect extends DialogSelect {
         String repository = this.getConfigValue("repository", "data");
         String itemType = this.getConfigValue("itemType", "nt:base");
         String path = this.getConfigValue("path", "");
+        if(path == null) {
+            path = this.getStorageNode().getHandle();
+        }
         String query = this.getConfigValue("query");
         String type = this.getConfigValue("type", "sql");
 
@@ -174,16 +177,7 @@ public class QuerySelect extends DialogSelect {
             queryString = "SELECT * FROM " + itemType + " WHERE jcr:path LIKE '" + path + "/%'";
         }
         Collection items = QueryUtil.query(repository, queryString, type, itemType);
-        /*        Collection configItems;
-        try {
-        configItems = super.getOptionNodes(configNode);
-        items.addAll(configItems);
-        } catch (PathNotFoundException ex) {
-        log.error("Could not get the QuerySelect control items for the query string \"" + queryString + "\"", ex);
-        } catch (RepositoryException ex) {
-        log.error("Could not get the QuerySelect control items for the query string \"" + queryString + "\"", ex);
-        }*/
-
+        
         return items;
     }
 }

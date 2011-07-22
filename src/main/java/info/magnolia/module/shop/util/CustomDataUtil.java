@@ -31,24 +31,37 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.beans;
+package info.magnolia.module.shop.util;
 
-import java.util.ArrayList;
+import info.magnolia.cms.core.Content;
+import info.magnolia.module.shop.accessors.ShopAccesor;
+import info.magnolia.module.shop.accessors.ShopProductAccesor;
+import info.magnolia.module.shop.accessors.ShopProductCategoryAccesor;
+import info.magnolia.module.shop.accessors.TagAccesor;
 
 /**
- * Shoping cart.
- * @author will
+ * util class.
+ * @author tmiyar
+ *
  */
-public interface ShoppingCart {
-  public int addToShoppingCart(String productUUID, int quantity);
+public class CustomDataUtil {
+    
+    public static Content getProductCategoryNode(String name) throws Exception {
+        return new ShopProductCategoryAccesor(name).getNode();
+    }
+  
+    public static Content getProductNode(String name) throws Exception {
+        return new ShopProductAccesor(name).getNode();
+    }
+    
+    public static Content getShopNode(String name) throws Exception {
+        return new ShopAccesor(name).getNode();
+    }
+    
+    public static Content getTagNode(String name) throws Exception {
+        return new TagAccesor(name).getNode();
+    }
+  
+    
 
-  public void removeFromShoppingCart(String productUUID);
-
-  public ArrayList<ShoppingCartItem> getCartItems();
-
-  public int getCartItemsCount();
-
-  public String getLanguage();
-
-  public void setLanguage(String language);
 }

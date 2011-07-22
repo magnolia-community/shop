@@ -34,6 +34,7 @@
 package info.magnolia.module.shop.navigation;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.jcr.RepositoryException;
@@ -60,12 +61,16 @@ public class ProductCategoryNavigationModel {
       throws RepositoryException {
 
     List<ProductCategoryNavigationItem> items = new ArrayList<ProductCategoryNavigationItem>();
-    Content productCategoryNode = ContentUtil.getContent("data", "/"
-        + currentShop + "/productcategories");
-    for (Content child : productCategoryNode.getChildren("shopProductCategory")) {
-
-      items.add(new ProductCategoryNavigationItem(child, siteRoot, productCategoryNode.getLevel()));
-
+    Content productCategoriesNode = ContentUtil.getContent("data", "/shopProductCategories/"
+        + currentShop);
+    if(productCategoriesNode != null) {
+        Collection<Content> productCategories = productCategoriesNode.getChildren("shopProductCategory");
+        int level = productCategoriesNode.getLevel();
+        for (Content child : productCategories) {
+    
+          items.add(new ProductCategoryNavigationItem(child, siteRoot, level));
+    
+        }
     }
     return items;
   }

@@ -44,29 +44,35 @@ import info.magnolia.cms.util.ContentUtil;
  * 
  */
 public class DefaultPriceCategoryManagerImpl implements PriceCategoryManager {
+    private String defaultPriceCategory;
+    private String shopName;
+    
+    
+    public DefaultPriceCategoryManagerImpl(String defaultPriceCategory, String shopName ) {
+        this.defaultPriceCategory = defaultPriceCategory;
+        this.shopName = shopName;
+        
+    }
 
-  private String shopName;
-  private String defaultPriceCategory;
+    public Content getPriceCategoryInUse() {
+        Content priceCategory = ContentUtil.getContent("data", "/shops/" + shopName + "/priceCategories/" + getDefaultPriceCategory());
+        return priceCategory;
+    }
 
-  public Content getPriceCategoryInUse() {
-    return ContentUtil.getContent("data", "/" + getShopName()
-        + "/pricecategories/" + getDefaultPriceCategory());
-  }
+    public void setDefaultPriceCategory(String defaultPriceCategory) {
+        this.defaultPriceCategory = defaultPriceCategory;
+    }
 
-  public String getShopName() {
-    return shopName;
-  }
+    public String getDefaultPriceCategory() {
+        return defaultPriceCategory;
+    }
 
-  public void setShopName(String shopName) {
-    this.shopName = shopName;
-  }
+    public String getShopName() {
+        return shopName;
+    }
 
-  public String getDefaultPriceCategory() {
-    return defaultPriceCategory;
-  }
-
-  public void setDefaultPriceCategory(String defaultPriceCategory) {
-    this.defaultPriceCategory = defaultPriceCategory;
-  }
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
 
 }

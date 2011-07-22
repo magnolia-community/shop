@@ -43,8 +43,8 @@ import org.apache.commons.lang.StringUtils;
 
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.i18n.I18nContentWrapper;
+import info.magnolia.module.shop.util.CustomDataUtil;
 import info.magnolia.module.shop.util.ShopLinkUtil;
-import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.shop.util.ShopLinkUtil.ParamType;
 
 /**
@@ -57,13 +57,13 @@ public class ProductCategoryNavigationItem {
   private Content content;
   private Content siteRoot;
   private String name;
-  private int categoriesStartLevel;
+  private int productCategoriesStartLevel;
 
-  public ProductCategoryNavigationItem(Content content, Content siteRoot, int categoriesStartLevel) {
+  public ProductCategoryNavigationItem(Content content, Content siteRoot, int familiesStartLevel) {
       this.content = new I18nContentWrapper(content);
       this.siteRoot = siteRoot;
       this.name = ShopLinkUtil.getParamValue(ParamType.CATEGORY);
-      this.categoriesStartLevel = categoriesStartLevel;
+      this.productCategoriesStartLevel = familiesStartLevel;
   }
   
   public Content getContent() {
@@ -72,7 +72,7 @@ public class ProductCategoryNavigationItem {
 
   public int getLevel(){
       try {
-        return  content.getLevel() - categoriesStartLevel;
+        return  content.getLevel() - productCategoriesStartLevel;
       } catch (PathNotFoundException e) {
       } catch (RepositoryException e) {
       }
@@ -82,7 +82,7 @@ public class ProductCategoryNavigationItem {
   public List<ProductCategoryNavigationItem> getItems() {
     List<ProductCategoryNavigationItem> items = new ArrayList<ProductCategoryNavigationItem>();
     for (Content child : content.getChildren("shopProductCategory")) {
-      items.add(new ProductCategoryNavigationItem(child, siteRoot, categoriesStartLevel));         
+      items.add(new ProductCategoryNavigationItem(child, siteRoot, productCategoriesStartLevel));         
     }
     return items;
   }
@@ -92,14 +92,16 @@ public class ProductCategoryNavigationItem {
     if(StringUtils.isEmpty(name)) {
       return false;
     }
-    Content productCategory = ShopUtil.getProductCategoryNode(name);
-    if(productCategory != null) {
-      final String selectedPath = productCategory.getHandle();
-      final String currentHandle = this.content.getHandle();
-      return selectedPath.startsWith(currentHandle + "/") || selectedPath.equals(currentHandle);
-    } else {
-      return false;
+    Content productCategory = null;
+    try {
+        productCategory = CustomDataUtil.getProductCategoryNode(name);
+        final String selectedPath = productCategory.getHandle();
+        final String currentHandle = this.content.getHandle();
+        return selectedPath.startsWith(currentHandle + "/") || selectedPath.equals(currentHandle);
+    } catch (Exception e) {
+        return false;
     }
+    
 }
 
   public String getId(){
@@ -124,7 +126,7 @@ public class ProductCategoryNavigationItem {
   }
 
   public String getHref() {
-      return ShopLinkUtil.getCategoryLink(content, siteRoot);
+      return ShopLinkUtil.getProductFamilyLink(content, siteRoot);
   }
 
   public String getTitle() {

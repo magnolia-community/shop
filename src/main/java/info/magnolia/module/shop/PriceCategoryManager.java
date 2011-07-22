@@ -43,11 +43,6 @@ import info.magnolia.cms.core.Content;
  * 
  */
 public interface PriceCategoryManager {
-
-  public Content getPriceCategoryInUse();
-
-  public String getDefaultPriceCategory();
-
-  public void setDefaultPriceCategory(String defaultPriceCategory);
+    public Content getPriceCategoryInUse();
 
 }

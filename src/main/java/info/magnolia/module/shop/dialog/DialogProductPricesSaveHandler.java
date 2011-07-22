@@ -39,9 +39,9 @@ import info.magnolia.cms.core.ItemType;
 import info.magnolia.cms.security.AccessDeniedException;
 import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.objectfactory.Components;
-import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.content2bean.Bean2ContentProcessor;
 import info.magnolia.content2bean.Content2BeanException;
+import info.magnolia.context.MgnlContext;
 import info.magnolia.module.admininterface.FieldSaveHandler;
 import info.magnolia.module.shop.util.SimpleBean2ContentProcessorImpl;
 import java.util.ArrayList;
@@ -62,50 +62,41 @@ public class DialogProductPricesSaveHandler implements FieldSaveHandler {
 
   public void save(Content parentNode, Content configNode, java.lang.String name, MultipartForm form, int type,
       int valueType, int isRichEditValue, int encoding) throws RepositoryException, AccessDeniedException {
-    // get all price categories
-    String priceCategoryNodeType = "shopPriceCategory";
-    if (configNode.getNodeData("priceCategoryNodeType").isExist()) {
-      priceCategoryNodeType = configNode.getNodeData("priceCategoryNodeType").getString();
-    }
-    String priceCategoryPath = "/shop/pricecategories";
-    if (configNode.getNodeData("priceCategoryPath").isExist()) {
-      priceCategoryPath = configNode.getNodeData("priceCategoryPath").getString();
-    }
-    if (priceCategoryPath.endsWith("/")) {
-      priceCategoryPath = StringUtils.substringBeforeLast(priceCategoryPath, "/");
-    }
-    String queryString = "SELECT * from " + priceCategoryNodeType + " WHERE jcr:path LIKE '" + priceCategoryPath
-        + "/%'";
-    Collection priceCategories = QueryUtil.query("data", queryString, "sql", priceCategoryNodeType);
-
-    // look for prices for each category
-    String price, priceCategoryUUID;
-    ArrayList prices = new ArrayList();
-    HashMap currPrice;
-    Double priceValue;
-    for (int i = 0; i < priceCategories.size(); i++) {
-      currPrice = new HashMap();
-      price = form.getParameter(name + "_price_" + i);
-      if (StringUtils.isNotBlank(price)) {
-        // TODO: maybe one should clear out any illegal character like
-        // grouping characters etc. (i.e. anything other than 0-9 and .)
-        priceValue = new Double(price);
-        currPrice.put("price", priceValue);
-      }
-      priceCategoryUUID = form.getParameter(name + "_priceCategoryUUID_" + i);
-      currPrice.put("priceCategoryUUID", priceCategoryUUID);
-      prices.add(currPrice);
-    }
-
-    try {
-      log.debug("data: " + prices);
-      Bean2ContentProcessor b2cp = (Bean2ContentProcessor) Components
-          .getSingleton(SimpleBean2ContentProcessorImpl.class);
-      parentNode.getParent().save();
-      Content node = ContentUtil.getOrCreateContent(parentNode, name, ItemType.CONTENTNODE, true);
-      b2cp.setNodeDatas(node, prices, null);
-    } catch (Content2BeanException ex) {
-      log.error("Could not set data in node " + parentNode.getHandle(), ex);
+    String shopName = MgnlContext.getParameter("shopName");
+    Content priceCategoriesNode = ContentUtil.getContent("data", "/shops/" + shopName + "/priceCategories");
+    
+    if(priceCategoriesNode != null) {
+        Collection priceCategories = priceCategoriesNode.getChildren(new ItemType("shopPriceCategory"));
+    
+        // look for prices for each category
+        String price, priceCategoryUUID;
+        ArrayList prices = new ArrayList();
+        HashMap currPrice;
+        Double priceValue;
+        for (int i = 0; i < priceCategories.size(); i++) {
+          currPrice = new HashMap();
+          price = MgnlContext.getParameter(name + "_price_" + i);
+          if (StringUtils.isNotBlank(price)) {
+            // TODO: maybe one should clear out any illegal character like
+            // grouping characters etc. (i.e. anything other than 0-9 and .)
+            priceValue = new Double(price);
+            currPrice.put("price", priceValue);
+          }
+          priceCategoryUUID = MgnlContext.getParameter(name + "_priceCategoryUUID_" + i);
+          currPrice.put("priceCategoryUUID", priceCategoryUUID);
+          prices.add(currPrice);
+        }
+    
+        try {
+          log.debug("data: " + prices);
+          Bean2ContentProcessor b2cp = (Bean2ContentProcessor) Components
+              .getSingleton(SimpleBean2ContentProcessorImpl.class);
+          parentNode.getParent().save();
+          Content node = ContentUtil.getOrCreateContent(parentNode, name, ItemType.CONTENTNODE, true);
+          b2cp.setNodeDatas(node, prices, null);
+        } catch (Content2BeanException ex) {
+          log.error("Could not set data in node " + parentNode.getHandle(), ex);
+        }
     }
   }
 }

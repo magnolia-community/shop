@@ -44,7 +44,7 @@ import info.magnolia.cms.core.Content;
 import info.magnolia.cms.core.search.Query;
 import info.magnolia.cms.core.search.QueryResult;
 import info.magnolia.context.MgnlContext;
-import info.magnolia.module.shop.ShopModule;
+import info.magnolia.module.shop.util.CustomDataUtil;
 import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.templating.RenderableDefinition;
@@ -61,7 +61,7 @@ import info.magnolia.module.templatingkit.templates.STKTemplateModel;
 public class ProductSearchResultModel extends SearchResultModel {
     
     private static final Logger log = LoggerFactory.getLogger(ProductSearchResultModel.class);
-    private static final String SEARCH_QUERY_PATTERN = "select * from shopProduct where jcr:path like ''{0}/%'' and contains(*, ''{1}'') order by jcr:path";
+    private static final String SEARCH_QUERY_PATTERN = "select * from product where jcr:path like ''{0}/%'' and contains(*, ''{1}'') order by jcr:path";
     
     protected String repository = "data";
     private Content siteRoot = null;
@@ -81,7 +81,11 @@ public class ProductSearchResultModel extends SearchResultModel {
     }
 
     public String getPath() {
-        return ShopModule.getInstance().getCurrentShopConfiguration(ShopUtil.getShopName()).getShopDataRootPath();
+        try {
+            return CustomDataUtil.getShopNode(ShopUtil.getShopName()).getHandle();
+        } catch (Exception e) {
+            return "";
+        }
         
     }
     
@@ -120,7 +124,7 @@ public class ProductSearchResultModel extends SearchResultModel {
 
             QueryResult queryResult = q.execute();
 
-            count = pagedQuery(queryResult.getContent("shopProduct"), getOffset(), maxResultsPerPage);
+            count = pagedQuery(queryResult.getContent("product"), getOffset(), maxResultsPerPage);
 
             numPages = count/maxResultsPerPage;
             if((count % maxResultsPerPage) > 0 ) {

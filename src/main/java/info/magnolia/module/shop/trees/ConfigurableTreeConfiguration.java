@@ -62,6 +62,7 @@ import org.slf4j.LoggerFactory;
  * for documentation on how to use this class.
  *
  * @author willscheidegger@mac.com
+ * @deprecated
  */
 public class ConfigurableTreeConfiguration extends AbstractTreeConfiguration {
 

@@ -33,6 +33,10 @@
  */
 package info.magnolia.module.shop;
 
+import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
+import info.magnolia.module.shop.util.ShopUtil;
+import info.magnolia.objectfactory.Classes;
+
 /**
  * Configuration class for each shop.
  * @author tmiyar
@@ -43,11 +47,10 @@ public class ShopConfiguration {
   private String name;
   private String cartBeanType;
   private String cartSessionVariable;
-  private String defaultPriceCategoryKey;
+  private String defaultPriceCategoryName;
   private String savedCartUUIDSessionVariable;
-  private String shopDataRootPath;
-  private String cartsFolderName;
-  private PriceCategoryManager priceCategoryManager;
+  private String priceCategoryManagerClassQualifiedName;
+  private String cartClassQualifiedName;
 
   public String getName() {
     return name;
@@ -73,12 +76,12 @@ public class ShopConfiguration {
     this.cartSessionVariable = cartSessionVariable;
   }
 
-  public String getDefaultPriceCategoryKey() {
-    return defaultPriceCategoryKey;
+  public String getDefaultPriceCategoryName() {
+    return defaultPriceCategoryName;
   }
 
-  public void setDefaultPriceCategoryKey(String defaultPriceCategoryKey) {
-    this.defaultPriceCategoryKey = defaultPriceCategoryKey;
+  public void setDefaultPriceCategoryName(String defaultPriceCategoryKey) {
+    this.defaultPriceCategoryName = defaultPriceCategoryKey;
   }
 
   public String getSavedCartUUIDSessionVariable() {
@@ -90,27 +93,31 @@ public class ShopConfiguration {
     this.savedCartUUIDSessionVariable = savedCartUUIDSessionVariable;
   }
 
-  public String getShopDataRootPath() {
-    return shopDataRootPath;
-  }
 
-  public void setShopDataRootPath(String shopDataRootPath) {
-    this.shopDataRootPath = shopDataRootPath;
-  }
+    public DefaultPriceCategoryManagerImpl getPriceCategoryManager() {
+        //TODO: use class factory
+        return Classes.quietNewInstance(getPriceCategoryManagerClassQualifiedName(), getDefaultPriceCategoryName(), getName());
+    }
+  
+    public String getPriceCategoryManagerClassQualifiedName() {
+        return priceCategoryManagerClassQualifiedName;
+    }
+    
+    public void setPriceCategoryManagerClassQualifiedName(
+            String priceCategoryManagerClassName) {
+        this.priceCategoryManagerClassQualifiedName = priceCategoryManagerClassName;
+    }
 
-  public PriceCategoryManager getPriceCategoryManager() {
-    return priceCategoryManager;
-  }
+    public String getCartClassQualifiedName() {
+        return cartClassQualifiedName;
+    }
 
-  public void setPriceCategoryManager(PriceCategoryManager priceCategoryManager) {
-    this.priceCategoryManager = priceCategoryManager;
-  }
-
-  public String getCartsFolderName() {
-    return cartsFolderName;
-  }
-
-  public void setCartsFolderName(String cartsFolderName) {
-    this.cartsFolderName = cartsFolderName;
-  }  
+    public void setCartClassQualifiedName(String cartClassQualifiedName) {
+        this.cartClassQualifiedName = cartClassQualifiedName;
+    }
+    
+    public DefaultShoppingCartImpl getCartClass() {
+        return Classes.quietNewInstance(getCartClassQualifiedName(), ShopUtil.getShopPriceCategory(this));
+    }
+  
 }

@@ -31,24 +31,51 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.beans;
+package info.magnolia.module.shop.trees;
 
-import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import info.magnolia.cms.gui.control.ContextMenu;
+import info.magnolia.cms.gui.control.ContextMenuItem;
+import info.magnolia.cms.gui.control.FunctionBar;
+import info.magnolia.cms.gui.control.Tree;
+import info.magnolia.module.data.trees.WorkflowDataAdminTreeConfig;
 
 /**
- * Shoping cart.
- * @author will
+ * Do not allow folders in some shop types except the ones
+ * created by default.
+ * @author tmiyar
+ *
  */
-public interface ShoppingCart {
-  public int addToShoppingCart(String productUUID, int quantity);
+public class NoNewFolderDataTreeConfiguration extends
+        WorkflowDataAdminTreeConfig {
 
-  public void removeFromShoppingCart(String productUUID);
+    @Override
+    public void prepareFunctionBar(Tree tree, boolean browseMode,
+            HttpServletRequest request) {
+        // TODO Auto-generated method stub
+        super.prepareFunctionBar(tree, browseMode, request);
+        
+        ContextMenu menu = tree.getMenu();
+        FunctionBar bar = tree.getFunctionBar();
+        
+        removeNewFolderMenuItem(menu);
+        removeNewFolderMenuItem(bar);
+        
+    }
 
-  public ArrayList<ShoppingCartItem> getCartItems();
+    protected void removeNewFolderMenuItem(ContextMenu menu) {
+        ContextMenuItem menuItem = menu.getMenuItemByName("newFolder");
+        List<ContextMenuItem> menuItems = menu.getMenuItems();
+        int index = menuItems.indexOf(menuItem);
+        if (index >= 0) {
+            menuItems.remove(index);
+        }
+    }
 
-  public int getCartItemsCount();
+    
+    
 
-  public String getLanguage();
-
-  public void setLanguage(String language);
 }

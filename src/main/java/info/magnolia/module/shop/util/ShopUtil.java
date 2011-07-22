@@ -34,27 +34,22 @@
 package info.magnolia.module.shop.util;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
 import info.magnolia.cms.core.Content;
-import info.magnolia.cms.core.search.Query;
 import info.magnolia.cms.i18n.I18nContentSupportFactory;
 import info.magnolia.cms.i18n.I18nContentWrapper;
 import info.magnolia.cms.i18n.Messages;
 import info.magnolia.cms.i18n.MessagesManager;
 import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.NodeDataUtil;
-import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.shop.ShopConfiguration;
-import info.magnolia.module.shop.ShopModule;
+import info.magnolia.module.shop.accessors.ShopAccesor;
 import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
 import info.magnolia.module.shop.beans.ShoppingCart;
-import info.magnolia.module.templatingkit.util.STKUtil;
-import info.magnolia.objectfactory.Classes;
 
 import javax.jcr.RepositoryException;
 
@@ -68,147 +63,140 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class ShopUtil {
-
-  private static Logger log = LoggerFactory.getLogger(ShopUtil.class);
-  
-  /**
-   * Gets the shop current node, assumes one shop per site.
-   */
-  public static Content getShopRoot(Content siteRoot) {
-    Content shopRoot = null;
-    try {
-      shopRoot = STKUtil.getContentByTemplateCategorySubCategory(siteRoot,
-          "feature", "shopHome");
-    } catch (RepositoryException e) {
-      log.error("No template found with category feature, subcategory shopHome");
-    }
-
-    return shopRoot;
-  }
-  
-  public static Messages getMessages() {
-    Locale currentLocale = I18nContentSupportFactory.getI18nSupport()
-        .getLocale();
-    final Messages msg = MessagesManager.getMessages(
-        "info.magnolia.module.shop.messages", currentLocale);
-    return msg;
-  }
-
-  public static void setShoppingCartInSession() {
-    String shopName = getShopName();
-
-    if (StringUtils.isNotEmpty(shopName)) {
-
-      DefaultShoppingCartImpl cart = (DefaultShoppingCartImpl) getShoppingCart();
-      if (cart == null) {
-        Content priceCategory = ShopModule.getInstance()
-            .getCurrentShopConfiguration(shopName).getPriceCategoryManager()
-            .getPriceCategoryInUse();
-        cart = Classes.quietNewInstance(ShopModule.getInstance().getCartClassQualifiedName(), priceCategory);
-        cart.setLanguage(getLanguage());
-        MgnlContext.setAttribute("shoppingCart", cart, Context.SESSION_SCOPE);
-      }
-    }
-  }
-
-  public static String getLanguage() {
-    return I18nContentSupportFactory.getI18nSupport()
-    .getLocale().getLanguage();
-  }
-
-  public static String getShopName() {
-    return (String) MgnlContext.getAttribute("shopName");
-  }
-
-  public static ShoppingCart getShoppingCart() {
     
-    return (ShoppingCart) MgnlContext.getAttribute("shoppingCart");
-  }
-  
-  /**
-   * Gets localized string from data repository.
-   * 
-   */
-  public String getString(Content node, String nodeDataName) {
-    Locale currentLocale = I18nContentSupportFactory.getI18nSupport().getLocale();
-    return NodeDataUtil.getString(node, nodeDataName + "_"
-        + currentLocale.getLanguage(), NodeDataUtil.getString(node,
-        nodeDataName));
-  }
-  
-  protected static Content getShopDataNodeByName(String nodeTypeName, String name) {
-    String sql = "select * from " + nodeTypeName + " where jcr:path like '/" + getShopName() + "/%/" + name + "'";
-    Collection<Content> nodeCollection = QueryUtil.query("data", sql);
-    if(!nodeCollection.isEmpty()) {
-      return nodeCollection.iterator().next();
-    }
-    return null;
-  }
-  
-  protected static Content getDataNodeByName(String nodeTypeName, String name) {
-      String sql = "select * from " + nodeTypeName + " where name='" + name + "'";
-      Collection<Content> nodeCollection = QueryUtil.query("data", sql);
-      if(!nodeCollection.isEmpty()) {
-        return nodeCollection.iterator().next();
-      }
-      return null;
-    }
-  public static Content getProductCategoryNode(String name) {
-    return getShopDataNodeByName("shopProductCategory", name);
-  }
-  
-  public static Content getProductNode(String name) {
-    return getShopDataNodeByName("shopProduct", name);
-  }
-  
-  public static Content getTagNode(String name) {
-      return getDataNodeByName("category", name);
+    private static Logger log = LoggerFactory.getLogger(ShopUtil.class);
+
+    /**
+     * Gets the shop current node, assumes one shop per site.
+     * TODO: Use category subcategory
+     */
+    public static Content getShopRoot() {
+        Content currentPage = MgnlContext.getAggregationState().getMainContent();
+        try {
+          while (currentPage != null && !currentPage.getTemplate().equals("shopHome")) {
+              currentPage = currentPage.getParent();
+          }
+        } catch (RepositoryException e) {
+          log.error("No template found with template name shopHome");
+        }
+    
+        return currentPage;
     }
   
-  public static List<Content> getProductsByProductCategory(String productCategory) {
-    String xpath = "/jcr:root/"
-        + ShopUtil.getShopName()
-        + "/products//element(*,shopProduct)[jcr:contains(productCategoryUUIDs/., '"
-        + productCategory + "')]";
-    List<Content> productList = (List<Content>) QueryUtil.query("data", xpath, Query.XPATH);
-    return productList;
-  }
+    public static Messages getMessages() {
+        Locale currentLocale = I18nContentSupportFactory.getI18nSupport()
+            .getLocale();
+        final Messages msg = MessagesManager.getMessages(
+            "info.magnolia.module.shop.messages", currentLocale);
+        return msg;
+    }
+    
+    
+
+    public static void setShoppingCartInSession() {
+        String shopName = getShopName();
+    
+        if (StringUtils.isNotEmpty(shopName)) {
+    
+            DefaultShoppingCartImpl cart = (DefaultShoppingCartImpl) getShoppingCart();
+            ShopConfiguration shopConfiguration = null;
+            try {
+                shopConfiguration = new ShopAccesor(getShopName()).getShopConfiguration();
+            } catch (Exception e) {
+                //do nothing
+            }
+            if (cart == null && shopConfiguration != null) {
+                cart = shopConfiguration.getCartClass();
+                MgnlContext.setAttribute("shoppingCart", cart, Context.SESSION_SCOPE);
+            }
+        }
+    }
+
+    public static String getShopName() {
+        return (String) MgnlContext.getAttribute("shopName");
+    }
+
+    public static ShoppingCart getShoppingCart() {
+        return (ShoppingCart) MgnlContext.getAttribute("shoppingCart");
+    }
   
-  public static Collection<Content> getTaggedProductCategories(String categoryUUID) {
-      String shopDataRootPath = ShopModule.getInstance().getCurrentShopConfiguration(ShopUtil.getShopName()).getShopDataRootPath();
-        
-        String query = "select * from shopProductCategory where  jcr:path like '%" + shopDataRootPath 
-          + "/%' and contains(tags, '" + categoryUUID + "')";
-        
-        Collection<Content> productCategories = QueryUtil.query("data", query);
-      return productCategories;
-  }
+    /**
+     * Gets localized string from data repository.
+     * 
+     */
+//    public String getString(Content node, String nodeDataName) {
+//        Locale currentLocale = I18nContentSupportFactory.getI18nSupport().getLocale();
+//        return NodeDataUtil.getString(node, nodeDataName + "_"
+//            + currentLocale.getLanguage(), NodeDataUtil.getString(node,
+//            nodeDataName));
+//    }
   
-    public static List<Content> transformIntoI18nContentList(List<Content> productList) {
+//    public static Content getShopDataNode() {
+//        return ContentUtil.getContent("data", "/shops/" + getShopName());
+//    }
+  
+//    protected static Content getShopDataNodeByName(String nodeTypeName, String name) {
+//        String sql = "select * from " + nodeTypeName + " where jcr:path like '/%/" + getShopName() + "/" + name + "'";
+//        Collection<Content> nodeCollection = QueryUtil.query("data", sql);
+//        if(!nodeCollection.isEmpty()) {
+//            return nodeCollection.iterator().next();
+//        }
+//        return null;
+//    }
+    
+//    private static Content getDataNodeByName(String dataTypeRootPath, String nodeTypeName, String name) {
+//        String sql = "select * from " + nodeTypeName + " where jcr:path like '" + dataTypeRootPath + getShopName() + "/%' and name = '" + name + "'";
+//        Collection<Content> nodeCollection = QueryUtil.query("data", sql);
+//        if(!nodeCollection.isEmpty()) {
+//            return nodeCollection.iterator().next();
+//        }
+//        return null;
+//    }
+  
+//    protected static Content getDataNodeByName(String nodeTypeName, String name) {
+//        String sql = "select * from " + nodeTypeName + " where name='" + name + "'";
+//        Collection<Content> nodeCollection = QueryUtil.query("data", sql);
+//        if(!nodeCollection.isEmpty()) {
+//            return nodeCollection.iterator().next();
+//        }
+//        return null;
+//    }
+    
+    public static List<Content> transformIntoI18nContentList(List<Content> contentList) {
         List<Content> i18nProductList = new ArrayList<Content>();
-        for (Content content : productList) {
-          i18nProductList.add(new I18nContentWrapper(content));
+        for (Content content : contentList) {
+            i18nProductList.add(new I18nContentWrapper(content));
         }
         return i18nProductList;
     }
   
     public static String getCurrencyTitle() {
-        Content priceCategory = getShopPriceCategory();
-        Content currency = getCurrencyByUUID(NodeDataUtil.getString(priceCategory,
-        "currencyUUID"));
-        return NodeDataUtil.getString(currency, "title");
+       
+        ShopConfiguration shopConfiguration;
+        try {
+            shopConfiguration = new ShopAccesor(getShopName()).getShopConfiguration();
+        
+            if (shopConfiguration != null) {
+                Content priceCategory = getShopPriceCategory(shopConfiguration);
+                Content currency = getCurrencyByUUID(NodeDataUtil.getString(priceCategory,
+                "currencyUUID"));
+                return NodeDataUtil.getString(currency, "title");
+            }
+        } catch (Exception e) {
+            //nothing
+        }
+        return "";
     }
   
-    public static Content getShopPriceCategory() {
-        ShopConfiguration shopConfiguration = ShopModule.getInstance()
-            .getCurrentShopConfiguration(ShopUtil.getShopName());
-        if (shopConfiguration != null) {
-            return shopConfiguration.getPriceCategoryManager()
-                .getPriceCategoryInUse();
+    public static Content getShopPriceCategory(ShopConfiguration shopConfiguration) {
+        if(shopConfiguration != null) {
+            return shopConfiguration.getPriceCategoryManager().getPriceCategoryInUse();
         }
         return null;
+        
 
     }
+    
     public static Content getCurrencyByUUID(String uuid) {
         return new I18nContentWrapper(ContentUtil.getContentByUUID("data", uuid));
     }
