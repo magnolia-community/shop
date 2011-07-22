@@ -444,7 +444,7 @@
         <sv:value>querySelect</sv:value>
       </sv:property>
       <sv:property sv:name="itemType" sv:type="String">
-        <sv:value>shopTaxCategory</sv:value>
+        <sv:value>taxCategory</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
         <sv:value>VAT category</sv:value>

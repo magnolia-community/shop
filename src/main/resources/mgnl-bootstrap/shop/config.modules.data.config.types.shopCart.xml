@@ -7,22 +7,22 @@
     <sv:value>mix:lockable</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:uuid" sv:type="String">
-    <sv:value>6476fb7a-b0dc-4399-a485-7cd892a144d8</sv:value>
+    <sv:value>479058fd-a35c-48ca-aae6-b25096172107</sv:value>
   </sv:property>
   <sv:property sv:name="dialog" sv:type="String">
     <sv:value>shopCart</sv:value>
   </sv:property>
-  <sv:property sv:name="hierarchy" sv:type="String">
-    <sv:value>true</sv:value>
+  <sv:property sv:name="hierarchy" sv:type="Boolean">
+    <sv:value>false</sv:value>
   </sv:property>
   <sv:property sv:name="rootPath" sv:type="String">
-    <sv:value>/sampleShop</sv:value>
+    <sv:value>/shopCarts</sv:value>
   </sv:property>
-  <sv:property sv:name="sortByName" sv:type="String">
-    <sv:value>true</sv:value>
+  <sv:property sv:name="sortByName" sv:type="Boolean">
+    <sv:value>false</sv:value>
   </sv:property>
   <sv:property sv:name="title" sv:type="String">
-    <sv:value>Shopping Carts</sv:value>
+    <sv:value>cart</sv:value>
   </sv:property>
   <sv:property sv:name="tree" sv:type="String">
     <sv:value>shopCart</sv:value>
@@ -35,13 +35,50 @@
       <sv:value>superuser</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-      <sv:value>2008-06-27T13:13:50.150+02:00</sv:value>
+      <sv:value>2011-07-04T10:35:15.310+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2008-06-27T13:13:50.150+02:00</sv:value>
+      <sv:value>2011-07-15T10:22:51.224+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:template" sv:type="String">
       <sv:value/>
     </sv:property>
+  </sv:node>
+  <sv:node sv:name="cartItem">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>mgnl:contentNode</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+      <sv:value>mix:lockable</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:uuid" sv:type="String">
+      <sv:value>d05a1602-2af7-4480-8633-3757592cdbc9</sv:value>
+    </sv:property>
+    <sv:property sv:name="dialog" sv:type="String">
+      <sv:value>shopCartItem</sv:value>
+    </sv:property>
+    <sv:property sv:name="title" sv:type="String">
+      <sv:value>cartItem</sv:value>
+    </sv:property>
+    <sv:property sv:name="tree" sv:type="String">
+      <sv:value>shopCartItem</sv:value>
+    </sv:property>
+    <sv:node sv:name="MetaData">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:metaData</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:authorid" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:creationdate" sv:type="Date">
+        <sv:value>2011-07-04T10:35:55.440+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+        <sv:value>2011-07-15T11:20:38.733+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:template" sv:type="String">
+        <sv:value/>
+      </sv:property>
+    </sv:node>
   </sv:node>
 </sv:node>

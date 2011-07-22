@@ -7,25 +7,22 @@
     <sv:value>mix:lockable</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:uuid" sv:type="String">
-    <sv:value>9962ffbf-fd22-44d3-8632-f34ab3438888</sv:value>
+    <sv:value>1f182697-9305-4a32-8b20-35b2e8ff3b5a</sv:value>
   </sv:property>
   <sv:property sv:name="dialog" sv:type="String">
     <sv:value>shopProduct</sv:value>
   </sv:property>
-  <sv:property sv:name="hierarchy" sv:type="String">
+  <sv:property sv:name="hierarchy" sv:type="Boolean">
     <sv:value>true</sv:value>
-  </sv:property>
-  <sv:property sv:name="menuTitle" sv:type="String">
-    <sv:value>Products</sv:value>
   </sv:property>
   <sv:property sv:name="rootPath" sv:type="String">
-    <sv:value>/sampleShop/products</sv:value>
+    <sv:value>/shopProducts</sv:value>
   </sv:property>
-  <sv:property sv:name="sortByName" sv:type="String">
-    <sv:value>true</sv:value>
+  <sv:property sv:name="sortByName" sv:type="Boolean">
+    <sv:value>false</sv:value>
   </sv:property>
   <sv:property sv:name="title" sv:type="String">
-    <sv:value>Product</sv:value>
+    <sv:value>product</sv:value>
   </sv:property>
   <sv:property sv:name="tree" sv:type="String">
     <sv:value>shopProduct</sv:value>
@@ -38,10 +35,10 @@
       <sv:value>superuser</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-      <sv:value>2008-06-27T13:02:10.958+02:00</sv:value>
+      <sv:value>2011-07-04T10:33:54.276+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2010-03-05T08:08:04.429+01:00</sv:value>
+      <sv:value>2011-07-15T10:21:45.211+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:template" sv:type="String">
       <sv:value/>

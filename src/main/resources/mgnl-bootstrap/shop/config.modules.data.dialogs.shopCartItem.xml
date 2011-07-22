@@ -7,10 +7,10 @@
     <sv:value>mix:lockable</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:uuid" sv:type="String">
-    <sv:value>891c0d42-c26b-40e8-9cc0-3857e6b22270</sv:value>
+    <sv:value>1302b9d9-dc68-47b9-a6bc-b453f0c13b63</sv:value>
   </sv:property>
   <sv:property sv:name="class" sv:type="String">
-    <sv:value>info.magnolia.module.shop.dialog.RootSpecificConfigurableTreeDialog</sv:value>
+    <sv:value>info.magnolia.module.data.dialogs.TypeSelectDataDialog</sv:value>
   </sv:property>
   <sv:property sv:name="i18nBasename" sv:type="String">
     <sv:value>info.magnolia.module.data.messages</sv:value>
@@ -18,30 +18,18 @@
   <sv:property sv:name="saveHandler" sv:type="String">
     <sv:value>info.magnolia.module.data.save.DataSaveHandler</sv:value>
   </sv:property>
-  <sv:property sv:name="treeName" sv:type="String">
-    <sv:value>CartManager</sv:value>
-  </sv:property>
   <sv:node sv:name="MetaData">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>mgnl:metaData</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-      <sv:value>true</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:activatorid" sv:type="String">
-      <sv:value>superuser</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:authorid" sv:type="String">
       <sv:value>superuser</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-      <sv:value>2010-03-02T16:49:27.340+01:00</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:lastaction" sv:type="Date">
-      <sv:value>2010-03-16T15:53:57.312+01:00</sv:value>
+      <sv:value>2011-07-04T10:35:55.461+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2010-03-15T09:39:37.289+01:00</sv:value>
+      <sv:value>2011-07-15T10:33:44.532+02:00</sv:value>
     </sv:property>
   </sv:node>
   <sv:node sv:name="mainTab">
@@ -52,7 +40,7 @@
       <sv:value>mix:lockable</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>67aa5c47-8d89-490f-9f00-328368d25ef6</sv:value>
+      <sv:value>4b251376-bfce-4553-8e49-53d72f442aa2</sv:value>
     </sv:property>
     <sv:property sv:name="controlType" sv:type="String">
       <sv:value>tab</sv:value>
@@ -65,7 +53,7 @@
         <sv:value>mgnl:metaData</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-        <sv:value>true</sv:value>
+        <sv:value>false</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:activatorid" sv:type="String">
         <sv:value>superuser</sv:value>
@@ -80,7 +68,7 @@
         <sv:value>2010-03-16T15:53:57.313+01:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-        <sv:value>2010-03-11T09:59:47.497+01:00</sv:value>
+        <sv:value>2011-07-15T10:33:30.244+02:00</sv:value>
       </sv:property>
     </sv:node>
     <sv:node sv:name="name">
@@ -91,7 +79,7 @@
         <sv:value>mix:lockable</sv:value>
       </sv:property>
       <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>923edcf5-73ae-46a7-a8af-6474a35c504b</sv:value>
+        <sv:value>5c2ee227-b0f4-47fa-8cf7-d627ca6a4658</sv:value>
       </sv:property>
       <sv:property sv:name="controlType" sv:type="String">
         <sv:value>edit</sv:value>
@@ -104,7 +92,7 @@
           <sv:value>mgnl:metaData</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-          <sv:value>true</sv:value>
+          <sv:value>false</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:activatorid" sv:type="String">
           <sv:value>superuser</sv:value>
@@ -119,7 +107,7 @@
           <sv:value>2010-03-16T15:53:57.315+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-03-11T09:59:47.499+01:00</sv:value>
+          <sv:value>2011-07-15T10:33:30.245+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -128,7 +116,7 @@
         <sv:value>mgnl:contentNode</sv:value>
       </sv:property>
       <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>c7b43a34-20b4-4690-922c-03080bbc58d6</sv:value>
+        <sv:value>d50c05b0-18f8-4380-a81f-1ab9041a4ad8</sv:value>
       </sv:property>
       <sv:property sv:name="controlType" sv:type="String">
         <sv:value>uuidLink</sv:value>
@@ -153,7 +141,7 @@
           <sv:value>mgnl:metaData</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-          <sv:value>true</sv:value>
+          <sv:value>false</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:activatorid" sv:type="String">
           <sv:value>superuser</sv:value>
@@ -168,7 +156,7 @@
           <sv:value>2010-03-16T15:53:57.317+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-03-11T10:57:36.472+01:00</sv:value>
+          <sv:value>2011-07-15T10:33:30.246+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -180,7 +168,7 @@
         <sv:value>mix:lockable</sv:value>
       </sv:property>
       <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>51c566a3-5abb-41aa-9bb3-b876d47987ed</sv:value>
+        <sv:value>0c5725d7-3863-4acb-9856-3f4f0e6900d8</sv:value>
       </sv:property>
       <sv:property sv:name="controlType" sv:type="String">
         <sv:value>edit</sv:value>
@@ -193,7 +181,7 @@
           <sv:value>mgnl:metaData</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-          <sv:value>true</sv:value>
+          <sv:value>false</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:activatorid" sv:type="String">
           <sv:value>superuser</sv:value>
@@ -208,7 +196,7 @@
           <sv:value>2010-03-16T15:53:57.317+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-03-11T11:56:49.923+01:00</sv:value>
+          <sv:value>2011-07-15T10:33:30.246+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -220,7 +208,7 @@
         <sv:value>mix:lockable</sv:value>
       </sv:property>
       <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>f337a15e-744c-4222-9c95-f661a64b23f4</sv:value>
+        <sv:value>5cd886c4-566f-4762-9489-f0b2933337ea</sv:value>
       </sv:property>
       <sv:property sv:name="controlType" sv:type="String">
         <sv:value>edit</sv:value>
@@ -236,7 +224,7 @@
           <sv:value>mgnl:metaData</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-          <sv:value>true</sv:value>
+          <sv:value>false</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:activatorid" sv:type="String">
           <sv:value>superuser</sv:value>
@@ -251,7 +239,7 @@
           <sv:value>2010-03-16T15:53:57.318+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-03-11T09:59:47.499+01:00</sv:value>
+          <sv:value>2011-07-15T10:33:30.246+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -263,7 +251,7 @@
         <sv:value>mix:lockable</sv:value>
       </sv:property>
       <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>d2794d05-b12a-4e59-b096-194eff2fdc00</sv:value>
+        <sv:value>dc68147f-a1a4-4a19-adb5-d8367f5b957c</sv:value>
       </sv:property>
       <sv:property sv:name="controlType" sv:type="String">
         <sv:value>edit</sv:value>
@@ -276,7 +264,7 @@
           <sv:value>mgnl:metaData</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-          <sv:value>true</sv:value>
+          <sv:value>false</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:activatorid" sv:type="String">
           <sv:value>superuser</sv:value>
@@ -291,7 +279,7 @@
           <sv:value>2010-03-16T15:53:57.319+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-03-11T10:57:47.096+01:00</sv:value>
+          <sv:value>2011-07-15T10:33:30.246+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -303,7 +291,7 @@
         <sv:value>mix:lockable</sv:value>
       </sv:property>
       <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>8316761a-dc8e-434b-9fc0-1b8d623943e1</sv:value>
+        <sv:value>ee1b0c19-bf6d-4b03-8238-bf9b7d5b83e7</sv:value>
       </sv:property>
       <sv:property sv:name="controlType" sv:type="String">
         <sv:value>edit</sv:value>
@@ -316,7 +304,7 @@
           <sv:value>mgnl:metaData</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-          <sv:value>true</sv:value>
+          <sv:value>false</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:activatorid" sv:type="String">
           <sv:value>superuser</sv:value>
@@ -331,7 +319,7 @@
           <sv:value>2010-03-16T15:53:57.319+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-03-11T10:57:54.624+01:00</sv:value>
+          <sv:value>2011-07-15T10:33:30.246+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -340,7 +328,7 @@
         <sv:value>mgnl:contentNode</sv:value>
       </sv:property>
       <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>2c3c124e-04d0-4655-a56c-939631ce19be</sv:value>
+        <sv:value>cfb606d1-7b60-401c-b8d4-cbd3b8fa35b3</sv:value>
       </sv:property>
       <sv:property sv:name="aligment" sv:type="String">
         <sv:value>true</sv:value>
@@ -377,7 +365,7 @@
           <sv:value>MetaData</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-          <sv:value>true</sv:value>
+          <sv:value>false</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:activatorid" sv:type="String">
           <sv:value>superuser</sv:value>
@@ -392,7 +380,7 @@
           <sv:value>2010-03-16T15:53:57.320+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-03-11T11:03:33.209+01:00</sv:value>
+          <sv:value>2011-07-15T10:33:30.247+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -404,7 +392,7 @@
         <sv:value>mix:lockable</sv:value>
       </sv:property>
       <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>3ef5385b-03ea-4f48-89e5-6ee3c5f0439c</sv:value>
+        <sv:value>4089e912-88b9-470e-a732-c0b936174ee3</sv:value>
       </sv:property>
       <sv:property sv:name="controlType" sv:type="String">
         <sv:value>edit</sv:value>
@@ -420,7 +408,7 @@
           <sv:value>mgnl:metaData</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-          <sv:value>true</sv:value>
+          <sv:value>false</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:activatorid" sv:type="String">
           <sv:value>superuser</sv:value>
@@ -435,7 +423,7 @@
           <sv:value>2010-03-16T15:53:57.321+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-03-11T09:59:47.501+01:00</sv:value>
+          <sv:value>2011-07-15T10:33:30.247+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -447,7 +435,7 @@
         <sv:value>mix:lockable</sv:value>
       </sv:property>
       <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>1c456097-ea12-428c-8d90-e68fa931a05b</sv:value>
+        <sv:value>2764c376-fabe-424c-9009-99ca443625ac</sv:value>
       </sv:property>
       <sv:property sv:name="controlType" sv:type="String">
         <sv:value>edit</sv:value>
@@ -463,7 +451,7 @@
           <sv:value>mgnl:metaData</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-          <sv:value>true</sv:value>
+          <sv:value>false</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:activatorid" sv:type="String">
           <sv:value>superuser</sv:value>
@@ -478,7 +466,7 @@
           <sv:value>2010-03-16T15:53:57.321+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-03-11T09:59:47.501+01:00</sv:value>
+          <sv:value>2011-07-15T10:33:30.248+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -490,7 +478,7 @@
         <sv:value>mix:lockable</sv:value>
       </sv:property>
       <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>044b6d90-4c3f-4d19-b95f-ae80b2848dd0</sv:value>
+        <sv:value>b3328131-fd72-44ed-ae81-ad0d4369c7e0</sv:value>
       </sv:property>
       <sv:property sv:name="controlType" sv:type="String">
         <sv:value>edit</sv:value>
@@ -506,7 +494,7 @@
           <sv:value>mgnl:metaData</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-          <sv:value>true</sv:value>
+          <sv:value>false</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:activatorid" sv:type="String">
           <sv:value>superuser</sv:value>
@@ -521,7 +509,7 @@
           <sv:value>2010-03-16T15:53:57.322+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2010-03-11T09:59:47.501+01:00</sv:value>
+          <sv:value>2011-07-15T10:33:30.248+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>

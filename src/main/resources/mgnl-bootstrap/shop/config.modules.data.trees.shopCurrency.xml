@@ -7,25 +7,16 @@
     <sv:value>mix:lockable</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:uuid" sv:type="String">
-    <sv:value>631499c4-ad78-4120-960a-3bfb54be8590</sv:value>
+    <sv:value>652a97d2-5b3b-437b-b1b9-fdd11c740245</sv:value>
   </sv:property>
-  <sv:property sv:name="dialog" sv:type="String">
-    <sv:value>shopCurrency</sv:value>
+  <sv:property sv:name="class" sv:type="String">
+    <sv:value>info.magnolia.module.data.trees.GenericDataAdminTree</sv:value>
   </sv:property>
-  <sv:property sv:name="hierarchy" sv:type="String">
-    <sv:value>true</sv:value>
+  <sv:property sv:name="configurationClass" sv:type="String">
+    <sv:value>info.magnolia.module.shop.trees.NoNewFolderDataTreeConfiguration</sv:value>
   </sv:property>
-  <sv:property sv:name="rootPath" sv:type="String">
-    <sv:value>/sampleShop</sv:value>
-  </sv:property>
-  <sv:property sv:name="sortByName" sv:type="String">
-    <sv:value>true</sv:value>
-  </sv:property>
-  <sv:property sv:name="title" sv:type="String">
-    <sv:value>Currencies</sv:value>
-  </sv:property>
-  <sv:property sv:name="tree" sv:type="String">
-    <sv:value>shopCurrency</sv:value>
+  <sv:property sv:name="repository" sv:type="String">
+    <sv:value>data</sv:value>
   </sv:property>
   <sv:node sv:name="MetaData">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -35,13 +26,10 @@
       <sv:value>superuser</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-      <sv:value>2008-06-27T13:15:26.311+02:00</sv:value>
+      <sv:value>2011-07-04T10:32:44.143+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2008-06-27T13:15:26.312+02:00</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:template" sv:type="String">
-      <sv:value/>
+      <sv:value>2011-07-21T09:14:41.368+02:00</sv:value>
     </sv:property>
   </sv:node>
 </sv:node>

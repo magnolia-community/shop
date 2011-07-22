@@ -94,10 +94,10 @@
         <sv:value>dialog.shopHomeSectionProperties.tabShop.currentShop.label</sv:value>
       </sv:property>
       <sv:property sv:name="path" sv:type="String">
-        <sv:value>/modules/shop/config/shops</sv:value>
+        <sv:value>/shops</sv:value>
       </sv:property>
       <sv:property sv:name="repository" sv:type="String">
-        <sv:value>config</sv:value>
+        <sv:value>data</sv:value>
       </sv:property>
       <sv:property sv:name="type" sv:type="String">
         <sv:value>String</sv:value>
@@ -113,7 +113,7 @@
           <sv:value>2011-03-01T09:17:13.981+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-03-01T13:20:17.599+01:00</sv:value>
+          <sv:value>2011-07-20T12:57:26.188+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>

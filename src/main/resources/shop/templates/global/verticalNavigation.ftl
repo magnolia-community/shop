@@ -8,7 +8,7 @@
 [/#if]
 
 [#macro renderNavigation navigation]
-    [#if navigation.items?has_content]
+    [#if navigation?has_content && navigation.items?has_content]
         <ul>
         [#list navigation.items as item]
             [#if item.open && item.selected]

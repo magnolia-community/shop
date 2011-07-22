@@ -3,7 +3,6 @@
 <module>
   <name>shop</name>
   <displayName>Magnolia module : magnolia-module-shop</displayName>
-  <class>info.magnolia.module.shop.ShopModule</class>
   <versionHandler>info.magnolia.module.shop.setup.ShopModuleVersionHandler</versionHandler>
   <version>${project.version}</version>
   

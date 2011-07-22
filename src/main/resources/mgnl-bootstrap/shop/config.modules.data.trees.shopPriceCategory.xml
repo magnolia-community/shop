@@ -7,25 +7,19 @@
     <sv:value>mix:lockable</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:uuid" sv:type="String">
-    <sv:value>a7d8d7b1-a520-4910-b0b4-6c43f2407176</sv:value>
+    <sv:value>ef150514-2b40-4797-8ff8-4b92933ae76d</sv:value>
   </sv:property>
-  <sv:property sv:name="dialog" sv:type="String">
-    <sv:value>shopPriceCategory</sv:value>
+  <sv:property sv:name="class" sv:type="String">
+    <sv:value>info.magnolia.module.data.trees.GenericDataAdminTree</sv:value>
   </sv:property>
-  <sv:property sv:name="hierarchy" sv:type="String">
-    <sv:value>true</sv:value>
+  <sv:property sv:name="configurationClass" sv:type="String">
+    <sv:value>info.magnolia.module.shop.trees.NoNewFolderDataTreeConfiguration</sv:value>
   </sv:property>
-  <sv:property sv:name="rootPath" sv:type="String">
-    <sv:value>/sampleShop</sv:value>
+  <sv:property sv:name="itemTypes" sv:type="String">
+    <sv:value>dataItemNode</sv:value>
   </sv:property>
-  <sv:property sv:name="sortByName" sv:type="String">
-    <sv:value>true</sv:value>
-  </sv:property>
-  <sv:property sv:name="title" sv:type="String">
-    <sv:value>Price Categories</sv:value>
-  </sv:property>
-  <sv:property sv:name="tree" sv:type="String">
-    <sv:value>shopPriceCategory</sv:value>
+  <sv:property sv:name="repository" sv:type="String">
+    <sv:value>data</sv:value>
   </sv:property>
   <sv:node sv:name="MetaData">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -35,13 +29,10 @@
       <sv:value>superuser</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-      <sv:value>2008-06-27T13:12:07.104+02:00</sv:value>
+      <sv:value>2011-07-04T10:38:15.310+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2008-06-27T13:12:07.106+02:00</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:template" sv:type="String">
-      <sv:value/>
+      <sv:value>2011-07-21T09:14:33.291+02:00</sv:value>
     </sv:property>
   </sv:node>
 </sv:node>
