@@ -46,14 +46,20 @@
       <sv:value>tab</sv:value>
     </sv:property>
     <sv:property sv:name="label" sv:type="String">
-      <sv:value>taxCategories</sv:value>
+      <sv:value>data.dialogs.shopTaxCategories.mainTab.label</sv:value>
     </sv:property>
     <sv:node sv:name="MetaData">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
         <sv:value>mgnl:metaData</sv:value>
       </sv:property>
+      <sv:property sv:name="mgnl:authorid" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
       <sv:property sv:name="mgnl:creationdate" sv:type="Date">
         <sv:value>2011-07-04T10:37:55.415+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+        <sv:value>2011-07-26T13:42:16.919+02:00</sv:value>
       </sv:property>
     </sv:node>
     <sv:node sv:name="name">
@@ -70,7 +76,7 @@
         <sv:value>info.magnolia.module.data.controls.NodeNameControl</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>Name</sv:value>
+        <sv:value>data.dialogs.shopTaxCategories.mainTab.name.label</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -83,7 +89,7 @@
           <sv:value>2011-07-04T10:37:55.416+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-19T15:47:44.968+02:00</sv:value>
+          <sv:value>2011-07-26T13:42:37.775+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>

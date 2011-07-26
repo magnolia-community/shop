@@ -46,7 +46,7 @@
       <sv:value>tab</sv:value>
     </sv:property>
     <sv:property sv:name="label" sv:type="String">
-      <sv:value>Tax Category</sv:value>
+      <sv:value>data.dialogs.shopTaxCategory.mainTab.label</sv:value>
     </sv:property>
     <sv:node sv:name="MetaData">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -68,7 +68,7 @@
         <sv:value>2010-03-16T15:53:27.299+01:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-        <sv:value>2011-07-15T10:35:09.236+02:00</sv:value>
+        <sv:value>2011-07-26T13:42:51.991+02:00</sv:value>
       </sv:property>
     </sv:node>
     <sv:node sv:name="name">
@@ -85,7 +85,7 @@
         <sv:value>info.magnolia.module.data.controls.NodeNameControl</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>Key</sv:value>
+        <sv:value>data.dialogs.shopTaxCategory.mainTab.name.label</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -107,7 +107,7 @@
           <sv:value>2010-03-16T15:53:27.300+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-19T15:47:36.462+02:00</sv:value>
+          <sv:value>2011-07-26T13:43:04.404+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -125,7 +125,7 @@
         <sv:value>multiLanguageEdit</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>Description</sv:value>
+        <sv:value>data.dialogs.shopTaxCategory.mainTab.title.label</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -147,7 +147,7 @@
           <sv:value>2010-03-16T15:53:27.301+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-15T10:35:09.237+02:00</sv:value>
+          <sv:value>2011-07-26T13:43:14.891+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -165,10 +165,10 @@
         <sv:value>edit</sv:value>
       </sv:property>
       <sv:property sv:name="description" sv:type="String">
-        <sv:value>in %, e.g. 7.6 for 7.6%, not 0.076!</sv:value>
+        <sv:value>data.dialogs.shopTaxCategory.mainTab.tax.description</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>VAT rate</sv:value>
+        <sv:value>data.dialogs.shopTaxCategory.mainTab.tax.label</sv:value>
       </sv:property>
       <sv:property sv:name="type" sv:type="String">
         <sv:value>Double</sv:value>
@@ -193,7 +193,7 @@
           <sv:value>2010-03-16T15:53:27.302+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-15T10:35:09.237+02:00</sv:value>
+          <sv:value>2011-07-26T13:43:38.365+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>

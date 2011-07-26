@@ -46,7 +46,7 @@
       <sv:value>tab</sv:value>
     </sv:property>
     <sv:property sv:name="label" sv:type="String">
-      <sv:value>Product Category</sv:value>
+      <sv:value>data.dialogs.shopProductCategory.mainTab.label</sv:value>
     </sv:property>
     <sv:node sv:name="MetaData">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -68,7 +68,7 @@
         <sv:value>2010-03-16T15:52:51.774+01:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-        <sv:value>2011-07-15T10:29:25.388+02:00</sv:value>
+        <sv:value>2011-07-26T13:52:56.743+02:00</sv:value>
       </sv:property>
     </sv:node>
     <sv:node sv:name="name">
@@ -85,7 +85,7 @@
         <sv:value>info.magnolia.module.data.controls.NodeNameControl</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>Product category no.</sv:value>
+        <sv:value>data.dialogs.shopProductCategory.mainTab.name.label</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -107,7 +107,7 @@
           <sv:value>2010-03-16T15:52:51.775+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-19T15:48:15.473+02:00</sv:value>
+          <sv:value>2011-07-26T13:53:08.745+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -125,7 +125,7 @@
         <sv:value>multiLanguageEdit</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>Title</sv:value>
+        <sv:value>data.dialogs.shopProductCategory.mainTab.title.label</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -147,7 +147,7 @@
           <sv:value>2010-03-16T15:52:51.776+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-15T10:29:25.388+02:00</sv:value>
+          <sv:value>2011-07-26T13:53:19.121+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -165,7 +165,7 @@
         <sv:value>multiLanguageEdit</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>Description</sv:value>
+        <sv:value>data.dialogs.shopProductCategory.mainTab.categoryDescription.label</sv:value>
       </sv:property>
       <sv:property sv:name="rows" sv:type="String">
         <sv:value>3</sv:value>
@@ -190,7 +190,47 @@
           <sv:value>2010-03-16T15:52:51.777+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-15T10:29:25.389+02:00</sv:value>
+          <sv:value>2011-07-26T15:05:42.962+02:00</sv:value>
+        </sv:property>
+      </sv:node>
+    </sv:node>
+    <sv:node sv:name="tags">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+        <sv:value>mix:lockable</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>6ccc4b55-9ef9-4024-86fc-e4b98b1086ec</sv:value>
+      </sv:property>
+      <sv:property sv:name="controlType" sv:type="String">
+        <sv:value>categorizationUUIDMultiSelect</sv:value>
+      </sv:property>
+      <sv:property sv:name="description" sv:type="String">
+        <sv:value>dialogs.generic.tabCategorization.categories.description</sv:value>
+      </sv:property>
+      <sv:property sv:name="i18nBasename" sv:type="String">
+        <sv:value>info.magnolia.module.shop.messages</sv:value>
+      </sv:property>
+      <sv:property sv:name="label" sv:type="String">
+        <sv:value>dialogs.generic.tabCategorization.categories.label</sv:value>
+      </sv:property>
+      <sv:property sv:name="saveHandler" sv:type="String">
+        <sv:value>info.magnolia.module.categorization.controls.CategorizationSaveHandler</sv:value>
+      </sv:property>
+      <sv:property sv:name="tree" sv:type="String">
+        <sv:value>category</sv:value>
+      </sv:property>
+      <sv:property sv:name="type" sv:type="String">
+        <sv:value>String</sv:value>
+      </sv:property>
+      <sv:node sv:name="MetaData">
+        <sv:property sv:name="jcr:primaryType" sv:type="Name">
+          <sv:value>mgnl:metaData</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
+          <sv:value>2011-07-21T14:44:39.558+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>

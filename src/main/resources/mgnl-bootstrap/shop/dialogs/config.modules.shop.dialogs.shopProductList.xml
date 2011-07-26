@@ -49,7 +49,7 @@
       <sv:value>tab</sv:value>
     </sv:property>
     <sv:property sv:name="label" sv:type="String">
-      <sv:value>dialog.productList.mainTab</sv:value>
+      <sv:value>dialog.productList.mainTab.label</sv:value>
     </sv:property>
     <sv:node sv:name="MetaData">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -74,7 +74,7 @@
         <sv:value>2010-03-16T15:57:05.606+01:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-        <sv:value>2011-02-24T12:26:04.548+01:00</sv:value>
+        <sv:value>2011-07-26T15:21:17.698+02:00</sv:value>
       </sv:property>
     </sv:node>
     <sv:node sv:name="currentOffers">

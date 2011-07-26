@@ -46,7 +46,7 @@
       <sv:value>tab</sv:value>
     </sv:property>
     <sv:property sv:name="label" sv:type="String">
-      <sv:value>Shopping Cart Items</sv:value>
+      <sv:value>data.dialogs.shopCartItem.mainTab.label</sv:value>
     </sv:property>
     <sv:node sv:name="MetaData">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -68,7 +68,7 @@
         <sv:value>2010-03-16T15:53:57.313+01:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-        <sv:value>2011-07-15T10:33:30.244+02:00</sv:value>
+        <sv:value>2011-07-26T14:41:40.007+02:00</sv:value>
       </sv:property>
     </sv:node>
     <sv:node sv:name="name">
@@ -85,7 +85,7 @@
         <sv:value>edit</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>Item no.</sv:value>
+        <sv:value>data.dialogs.shopCartItem.mainTab.name.label</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -107,7 +107,7 @@
           <sv:value>2010-03-16T15:53:57.315+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-15T10:33:30.245+02:00</sv:value>
+          <sv:value>2011-07-26T14:41:52.426+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -122,10 +122,10 @@
         <sv:value>uuidLink</sv:value>
       </sv:property>
       <sv:property sv:name="description" sv:type="String">
-        <sv:value>Reference to the product in this item</sv:value>
+        <sv:value>mainTab</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>Product</sv:value>
+        <sv:value>data.dialogs.shopCartItem.mainTab.productUUID.label</sv:value>
       </sv:property>
       <sv:property sv:name="path" sv:type="String">
         <sv:value>/shop</sv:value>
@@ -156,7 +156,7 @@
           <sv:value>2010-03-16T15:53:57.317+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-15T10:33:30.246+02:00</sv:value>
+          <sv:value>2011-07-26T14:55:27.664+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -174,7 +174,7 @@
         <sv:value>edit</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>Product No.</sv:value>
+        <sv:value>data.dialogs.shopCartItem.mainTab.productNumber.label</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -196,7 +196,7 @@
           <sv:value>2010-03-16T15:53:57.317+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-15T10:33:30.246+02:00</sv:value>
+          <sv:value>2011-07-26T14:54:19.023+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -214,7 +214,7 @@
         <sv:value>edit</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>Quantity</sv:value>
+        <sv:value>data.dialogs.shopCartItem.mainTab.quantity.label</sv:value>
       </sv:property>
       <sv:property sv:name="type" sv:type="String">
         <sv:value>Long</sv:value>
@@ -239,7 +239,7 @@
           <sv:value>2010-03-16T15:53:57.318+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-15T10:33:30.246+02:00</sv:value>
+          <sv:value>2011-07-26T14:54:25.798+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -257,7 +257,7 @@
         <sv:value>edit</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>Title</sv:value>
+        <sv:value>data.dialogs.shopCartItem.mainTab.productTitle.label</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -279,7 +279,7 @@
           <sv:value>2010-03-16T15:53:57.319+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-15T10:33:30.246+02:00</sv:value>
+          <sv:value>2011-07-26T14:54:35.344+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -297,7 +297,7 @@
         <sv:value>edit</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>Subtitle</sv:value>
+        <sv:value>data.dialogs.shopCartItem.mainTab.productSubTitle.label</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -319,7 +319,7 @@
           <sv:value>2010-03-16T15:53:57.319+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-15T10:33:30.246+02:00</sv:value>
+          <sv:value>2011-07-26T14:54:47.076+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -346,7 +346,7 @@
         <sv:value>true</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>Description</sv:value>
+        <sv:value>data.dialogs.shopCartItem.mainTab.productDescription.label</sv:value>
       </sv:property>
       <sv:property sv:name="name" sv:type="String">
         <sv:value>text</sv:value>
@@ -380,7 +380,7 @@
           <sv:value>2010-03-16T15:53:57.320+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-15T10:33:30.247+02:00</sv:value>
+          <sv:value>2011-07-26T14:54:53.033+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -398,7 +398,7 @@
         <sv:value>edit</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>Unit price</sv:value>
+        <sv:value>data.dialogs.shopCartItem.mainTab.unitPrice.label</sv:value>
       </sv:property>
       <sv:property sv:name="type" sv:type="String">
         <sv:value>Double</sv:value>
@@ -423,7 +423,7 @@
           <sv:value>2010-03-16T15:53:57.321+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-15T10:33:30.247+02:00</sv:value>
+          <sv:value>2011-07-26T14:55:00.107+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -441,7 +441,7 @@
         <sv:value>edit</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>Tax rate</sv:value>
+        <sv:value>data.dialogs.shopCartItem.mainTab.taxRate.label</sv:value>
       </sv:property>
       <sv:property sv:name="type" sv:type="String">
         <sv:value>Double</sv:value>
@@ -466,7 +466,7 @@
           <sv:value>2010-03-16T15:53:57.321+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-15T10:33:30.248+02:00</sv:value>
+          <sv:value>2011-07-26T14:55:09.835+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -484,7 +484,7 @@
         <sv:value>edit</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>Discount (%)</sv:value>
+        <sv:value>data.dialogs.shopCartItem.mainTab.discount.label</sv:value>
       </sv:property>
       <sv:property sv:name="type" sv:type="String">
         <sv:value>Double</sv:value>
@@ -509,7 +509,7 @@
           <sv:value>2010-03-16T15:53:57.322+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-15T10:33:30.248+02:00</sv:value>
+          <sv:value>2011-07-26T14:55:22.081+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>

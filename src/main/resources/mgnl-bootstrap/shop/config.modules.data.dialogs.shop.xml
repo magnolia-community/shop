@@ -13,7 +13,7 @@
     <sv:value>info.magnolia.module.shop.dialog.ShopDialog</sv:value>
   </sv:property>
   <sv:property sv:name="i18nBasename" sv:type="String">
-    <sv:value>info.magnolia.module.data.messages</sv:value>
+    <sv:value>info.magnolia.module.shop.messages</sv:value>
   </sv:property>
   <sv:property sv:name="saveHandler" sv:type="String">
     <sv:value>info.magnolia.module.shop.save.ShopSaveHandler</sv:value>
@@ -29,7 +29,7 @@
       <sv:value>2011-07-04T12:23:49.866+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2011-07-11T10:25:22.636+02:00</sv:value>
+      <sv:value>2011-07-26T12:34:57.827+02:00</sv:value>
     </sv:property>
   </sv:node>
   <sv:node sv:name="mainTab">
@@ -46,14 +46,20 @@
       <sv:value>tab</sv:value>
     </sv:property>
     <sv:property sv:name="label" sv:type="String">
-      <sv:value>shop</sv:value>
+      <sv:value>data.dialogs.shop.mainTab.label</sv:value>
     </sv:property>
     <sv:node sv:name="MetaData">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
         <sv:value>mgnl:metaData</sv:value>
       </sv:property>
+      <sv:property sv:name="mgnl:authorid" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
       <sv:property sv:name="mgnl:creationdate" sv:type="Date">
         <sv:value>2011-07-04T12:23:49.866+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+        <sv:value>2011-07-26T12:36:05.806+02:00</sv:value>
       </sv:property>
     </sv:node>
     <sv:node sv:name="name">
@@ -70,7 +76,7 @@
         <sv:value>info.magnolia.module.data.controls.NodeNameControl</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>Name</sv:value>
+        <sv:value>data.dialogs.shop.mainTab.name.label</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -83,7 +89,7 @@
           <sv:value>2011-07-04T12:23:49.867+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-19T15:46:17.036+02:00</sv:value>
+          <sv:value>2011-07-26T12:36:19.215+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -102,7 +108,7 @@
       <sv:value>tab</sv:value>
     </sv:property>
     <sv:property sv:name="label" sv:type="String">
-      <sv:value>shop</sv:value>
+      <sv:value>data.dialogs.shop.systemTab.label</sv:value>
     </sv:property>
     <sv:node sv:name="MetaData">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -118,7 +124,7 @@
         <sv:value>2011-07-04T12:23:49.866+02:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-        <sv:value>2011-07-19T15:45:08.500+02:00</sv:value>
+        <sv:value>2011-07-26T12:36:45.460+02:00</sv:value>
       </sv:property>
     </sv:node>
     <sv:node sv:name="defaultPriceCategoryName">
@@ -138,7 +144,7 @@
         <sv:value>standard-price</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>default price category</sv:value>
+        <sv:value>data.dialogs.shop.systemTab.defaultPriceCategoryName.label</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -154,7 +160,7 @@
           <sv:value>2011-07-04T12:23:49.867+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-20T11:52:04.276+02:00</sv:value>
+          <sv:value>2011-07-26T12:37:03.717+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -175,7 +181,7 @@
         <sv:value>info.magnolia.module.shop.DefaultPriceCategoryManagerImpl</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>Price category Manager implmentation class</sv:value>
+        <sv:value>data.dialogs.shop.systemTab.priceCategoryManagerClassQualifiedName.label</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -191,7 +197,7 @@
           <sv:value>2011-07-04T12:23:49.867+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-20T11:18:14.154+02:00</sv:value>
+          <sv:value>2011-07-26T12:37:34.981+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -212,7 +218,7 @@
         <sv:value>shoppingCart</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>cart session variable</sv:value>
+        <sv:value>data.dialogs.shop.systemTab.cartSessionVariable.label</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -228,7 +234,7 @@
           <sv:value>2011-07-04T12:23:49.867+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-19T15:57:42.860+02:00</sv:value>
+          <sv:value>2011-07-26T12:37:57.380+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -249,7 +255,7 @@
         <sv:value>sampleShopCart</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>cart bean type</sv:value>
+        <sv:value>data.dialogs.shop.systemTab.cartBeanType.label</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -265,7 +271,7 @@
           <sv:value>2011-07-04T12:23:49.867+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-19T15:57:52.917+02:00</sv:value>
+          <sv:value>2011-07-26T12:38:21.706+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -286,7 +292,7 @@
         <sv:value>info.magnolia.module.shop.beans.DefaultShoppingCartImpl</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>cart class qualified name</sv:value>
+        <sv:value>data.dialogs.shop.systemTab.cartClassQualifiedName.label</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -302,7 +308,7 @@
           <sv:value>2011-07-04T12:23:49.867+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-19T15:57:59.582+02:00</sv:value>
+          <sv:value>2011-07-26T12:38:37.547+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>

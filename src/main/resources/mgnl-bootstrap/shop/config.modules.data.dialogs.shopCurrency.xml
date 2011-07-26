@@ -46,7 +46,7 @@
       <sv:value>tab</sv:value>
     </sv:property>
     <sv:property sv:name="label" sv:type="String">
-      <sv:value>Currency</sv:value>
+      <sv:value>data.dialogs.shopCurrency.mainTab.label</sv:value>
     </sv:property>
     <sv:node sv:name="MetaData">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -68,7 +68,7 @@
         <sv:value>2010-03-16T15:53:16.119+01:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-        <sv:value>2011-07-15T10:32:58.159+02:00</sv:value>
+        <sv:value>2011-07-26T13:39:44.628+02:00</sv:value>
       </sv:property>
     </sv:node>
     <sv:node sv:name="name">
@@ -85,7 +85,7 @@
         <sv:value>info.magnolia.module.data.controls.NodeNameControl</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>Currency code</sv:value>
+        <sv:value>data.dialogs.shopCurrency.mainTab.name.label</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -107,7 +107,7 @@
           <sv:value>2010-03-16T15:53:16.120+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-19T15:47:06.160+02:00</sv:value>
+          <sv:value>2011-07-26T13:40:32.450+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -125,7 +125,7 @@
         <sv:value>multiLanguageEdit</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>Title</sv:value>
+        <sv:value>data.dialogs.shopCurrency.mainTab.title.label</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -147,7 +147,7 @@
           <sv:value>2010-03-16T15:53:16.121+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-15T10:32:58.160+02:00</sv:value>
+          <sv:value>2011-07-26T13:40:40.432+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -165,7 +165,7 @@
         <sv:value>edit</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>Exchange rate</sv:value>
+        <sv:value>data.dialogs.shopCurrency.mainTab.exchangeRate.label</sv:value>
       </sv:property>
       <sv:property sv:name="type" sv:type="String">
         <sv:value>Double</sv:value>
@@ -190,7 +190,7 @@
           <sv:value>2010-03-16T15:53:16.122+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-15T10:32:58.160+02:00</sv:value>
+          <sv:value>2011-07-26T13:40:47.856+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -205,7 +205,7 @@
         <sv:value>date</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>Last updated</sv:value>
+        <sv:value>data.dialogs.shopCurrency.mainTab.dateLastUpdated.label</sv:value>
       </sv:property>
       <sv:property sv:name="time" sv:type="String">
         <sv:value>true</sv:value>
@@ -236,7 +236,7 @@
           <sv:value>2010-03-16T15:53:16.123+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-15T10:32:58.160+02:00</sv:value>
+          <sv:value>2011-07-26T13:40:55.585+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -254,10 +254,10 @@
         <sv:value>edit</sv:value>
       </sv:property>
       <sv:property sv:name="description" sv:type="String">
-        <sv:value>As used in Java formatting (see &lt;a href="http://java.sun.com/docs/books/tutorial/i18n/format/decimalFormat.html" target="_blank"&gt;this article&lt;/a&gt; for details.</sv:value>
+        <sv:value>data.dialogs.shopCurrency.mainTab.formatting.description</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>Formatting string</sv:value>
+        <sv:value>data.dialogs.shopCurrency.mainTab.formatting.label</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -279,7 +279,7 @@
           <sv:value>2010-03-16T15:53:16.124+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-15T10:32:58.160+02:00</sv:value>
+          <sv:value>2011-07-26T13:41:16.072+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>

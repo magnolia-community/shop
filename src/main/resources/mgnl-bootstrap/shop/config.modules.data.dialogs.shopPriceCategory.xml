@@ -46,7 +46,7 @@
       <sv:value>tab</sv:value>
     </sv:property>
     <sv:property sv:name="label" sv:type="String">
-      <sv:value>Price Category</sv:value>
+      <sv:value>data.dialogs.shopPriceCategory.mainTab.label</sv:value>
     </sv:property>
     <sv:node sv:name="MetaData">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -68,7 +68,7 @@
         <sv:value>2010-03-16T15:53:04.918+01:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-        <sv:value>2011-07-15T10:34:03.449+02:00</sv:value>
+        <sv:value>2011-07-26T13:45:21.956+02:00</sv:value>
       </sv:property>
     </sv:node>
     <sv:node sv:name="name">
@@ -85,7 +85,7 @@
         <sv:value>info.magnolia.module.data.controls.NodeNameControl</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>Key</sv:value>
+        <sv:value>data.dialogs.shopPriceCategory.mainTab.name.label</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -107,7 +107,7 @@
           <sv:value>2010-03-16T15:53:04.919+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-19T15:47:54.942+02:00</sv:value>
+          <sv:value>2011-07-26T13:45:36.283+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -125,7 +125,7 @@
         <sv:value>multiLanguageEdit</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>Title</sv:value>
+        <sv:value>data.dialogs.shopPriceCategory.mainTab.title.label</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -147,7 +147,7 @@
           <sv:value>2010-03-16T15:53:04.921+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-15T10:34:03.450+02:00</sv:value>
+          <sv:value>2011-07-26T13:45:51.043+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -168,7 +168,7 @@
         <sv:value>shopCurrency</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>Currency</sv:value>
+        <sv:value>data.dialogs.shopPriceCategory.mainTab.currencyUUID.label</sv:value>
       </sv:property>
       <sv:property sv:name="labelNodeData" sv:type="String">
         <sv:value>title_en</sv:value>
@@ -199,7 +199,7 @@
           <sv:value>2010-03-16T15:53:04.922+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-15T10:34:03.450+02:00</sv:value>
+          <sv:value>2011-07-26T13:46:34.314+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -220,7 +220,7 @@
         <sv:value>radio</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
-        <sv:value>VAT</sv:value>
+        <sv:value>data.dialogs.shopPriceCategory.mainTab.taxIncluded.label</sv:value>
       </sv:property>
       <sv:property sv:name="type" sv:type="String">
         <sv:value>Boolean</sv:value>
@@ -245,7 +245,7 @@
           <sv:value>2010-03-16T15:53:04.922+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-15T10:34:03.450+02:00</sv:value>
+          <sv:value>2011-07-26T13:46:49.605+02:00</sv:value>
         </sv:property>
       </sv:node>
       <sv:node sv:name="options">
@@ -292,7 +292,7 @@
             <sv:value>bb50ba96-bc7b-478b-bf83-deef6016307f</sv:value>
           </sv:property>
           <sv:property sv:name="label" sv:type="String">
-            <sv:value>incl.</sv:value>
+            <sv:value>data.dialogs.shopPriceCategory.mainTab.taxIncluded.option.inc.label</sv:value>
           </sv:property>
           <sv:property sv:name="selected" sv:type="Boolean">
             <sv:value>true</sv:value>
@@ -320,7 +320,7 @@
               <sv:value>2010-03-16T15:53:04.924+01:00</sv:value>
             </sv:property>
             <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-              <sv:value>2011-07-15T10:34:03.451+02:00</sv:value>
+              <sv:value>2011-07-26T13:47:22.060+02:00</sv:value>
             </sv:property>
           </sv:node>
         </sv:node>
@@ -335,7 +335,7 @@
             <sv:value>a625ed88-0391-4ed0-967f-d73f27a0939a</sv:value>
           </sv:property>
           <sv:property sv:name="label" sv:type="String">
-            <sv:value>excl.</sv:value>
+            <sv:value>data.dialogs.shopPriceCategory.mainTab.taxIncluded.option.excl.label</sv:value>
           </sv:property>
           <sv:property sv:name="value" sv:type="Boolean">
             <sv:value>false</sv:value>
@@ -360,7 +360,7 @@
               <sv:value>2010-03-16T15:53:04.925+01:00</sv:value>
             </sv:property>
             <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-              <sv:value>2011-07-15T10:34:03.451+02:00</sv:value>
+              <sv:value>2011-07-26T13:47:33.399+02:00</sv:value>
             </sv:property>
           </sv:node>
         </sv:node>
