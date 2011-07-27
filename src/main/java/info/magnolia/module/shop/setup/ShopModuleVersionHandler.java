@@ -99,10 +99,10 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
   protected List getExtraInstallTasks(InstallContext installContext) {
     final List installTasks = new ArrayList();
     installTasks.addAll(super.getExtraInstallTasks(installContext));
-    installTasks.add(new AddMainMenuItemTask("shops", "shops", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shop')", "/.resources/icons/24/shoppingcart.gif", "data"));
-    installTasks.add(new AddSubMenuItemTask("shops", "shopProduct", "products", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shopProduct')", "/.resources/icons/16/dot.gif"));
-    installTasks.add(new AddSubMenuItemTask("shops", "shopProductCategory", "Product categories", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shopProductCategory')", "/.resources/icons/16/dot.gif"));
-    installTasks.add(new AddSubMenuItemTask("shops", "shopCart", "Cart", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shopCart')", "/.resources/icons/16/dot.gif"));
+    installTasks.add(new AddMainMenuItemTask("shops", "menu.shops", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shop')", "/.resources/icons/24/shoppingcart.gif", "data"));
+    installTasks.add(new AddSubMenuItemTask("shops", "shopProduct", "menu.products", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shopProduct')", "/.resources/icons/16/dot.gif"));
+    installTasks.add(new AddSubMenuItemTask("shops", "shopProductCategory", "menu.productCategories", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shopProductCategory')", "/.resources/icons/16/dot.gif"));
+    installTasks.add(new AddSubMenuItemTask("shops", "shopCart", "menu.carts", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shopCart')", "/.resources/icons/16/dot.gif"));
     installTasks.add(new InstallResourcesTask("/templating-kit/themes/pop/css/shop.css", "processedCss", STKResourceModel.class.getName()));
     installTasks.add(new UpdateAllSiteDefinitions("Add new templates to Availability", "") {
       protected void updateSiteDefinition(InstallContext ctx, Content siteDefinition) throws RepositoryException, TaskExecutionException {

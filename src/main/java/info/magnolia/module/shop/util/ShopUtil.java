@@ -106,8 +106,13 @@ public class ShopUtil {
                 //do nothing
             }
             if (cart == null && shopConfiguration != null) {
-                cart = shopConfiguration.getCartClass();
-                MgnlContext.setAttribute("shoppingCart", cart, Context.SESSION_SCOPE);
+                
+                try {
+                    cart = shopConfiguration.getCartClass();
+                    MgnlContext.setAttribute("shoppingCart", cart, Context.SESSION_SCOPE);
+                } catch (Exception e) {
+                    
+                }
             }
         }
     }
@@ -119,49 +124,7 @@ public class ShopUtil {
     public static ShoppingCart getShoppingCart() {
         return (ShoppingCart) MgnlContext.getAttribute("shoppingCart");
     }
-  
-    /**
-     * Gets localized string from data repository.
-     * 
-     */
-//    public String getString(Content node, String nodeDataName) {
-//        Locale currentLocale = I18nContentSupportFactory.getI18nSupport().getLocale();
-//        return NodeDataUtil.getString(node, nodeDataName + "_"
-//            + currentLocale.getLanguage(), NodeDataUtil.getString(node,
-//            nodeDataName));
-//    }
-  
-//    public static Content getShopDataNode() {
-//        return ContentUtil.getContent("data", "/shops/" + getShopName());
-//    }
-  
-//    protected static Content getShopDataNodeByName(String nodeTypeName, String name) {
-//        String sql = "select * from " + nodeTypeName + " where jcr:path like '/%/" + getShopName() + "/" + name + "'";
-//        Collection<Content> nodeCollection = QueryUtil.query("data", sql);
-//        if(!nodeCollection.isEmpty()) {
-//            return nodeCollection.iterator().next();
-//        }
-//        return null;
-//    }
-    
-//    private static Content getDataNodeByName(String dataTypeRootPath, String nodeTypeName, String name) {
-//        String sql = "select * from " + nodeTypeName + " where jcr:path like '" + dataTypeRootPath + getShopName() + "/%' and name = '" + name + "'";
-//        Collection<Content> nodeCollection = QueryUtil.query("data", sql);
-//        if(!nodeCollection.isEmpty()) {
-//            return nodeCollection.iterator().next();
-//        }
-//        return null;
-//    }
-  
-//    protected static Content getDataNodeByName(String nodeTypeName, String name) {
-//        String sql = "select * from " + nodeTypeName + " where name='" + name + "'";
-//        Collection<Content> nodeCollection = QueryUtil.query("data", sql);
-//        if(!nodeCollection.isEmpty()) {
-//            return nodeCollection.iterator().next();
-//        }
-//        return null;
-//    }
-    
+   
     public static List<Content> transformIntoI18nContentList(List<Content> contentList) {
         List<Content> i18nProductList = new ArrayList<Content>();
         for (Content content : contentList) {
@@ -190,7 +153,11 @@ public class ShopUtil {
   
     public static Content getShopPriceCategory(ShopConfiguration shopConfiguration) {
         if(shopConfiguration != null) {
-            return shopConfiguration.getPriceCategoryManager().getPriceCategoryInUse();
+            try {
+                return shopConfiguration.getPriceCategoryManager().getPriceCategoryInUse();
+            } catch (Exception e) {
+                
+            }
         }
         return null;
         

@@ -58,6 +58,8 @@ public class ShopDialog extends TypeSelectDataDialog {
         //need to check path due to http://jira.magnolia-cms.com/browse/MGNLDATA-126
         if(this.path.equals("/shops")) {
             this.setJsExecutedAfterSaving("window.opener.parent.location.href = window.opener.parent.location.href;");
+        } else if (this.getItemType().equals("shopProduct")) {
+            
         }
         return super.onPostSave(handler);
     }

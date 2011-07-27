@@ -108,13 +108,13 @@ public class ShopSaveHandler extends DataSaveHandler {
         String icon = "/.resources/icons/16/dot.gif";
         Content menuNode = hm.getContent("/modules/adminInterface/config/menu/" + newShopNode.getName(), true, ItemType.CONTENTNODE);
         //Adds the node datas
-        addMenuNodeDatas("/.resources/icons/24/shoppingcart.gif", "MgnlAdminCentral.showTree('shop', '/shops/" + newShopNode.getName() +"', true);", newShopNode.getName(), menuNode);
-        addShopSubMenu(menuNode, "taxCategories", icon, "MgnlAdminCentral.showTree('shop', '/shops/" + newShopNode.getName() +"/taxCategories"+"', true);", "tax categories");
-        addShopSubMenu(menuNode, "currencies", icon, "MgnlAdminCentral.showTree('shop', '/shops/" + newShopNode.getName() +"/currencies"+"', true);", "currencies");
-        addShopSubMenu(menuNode, "priceCategories", icon, "MgnlAdminCentral.showTree('shop', '/shops/" + newShopNode.getName() +"/priceCategories"+"', true);", "price categories");
-        addShopSubMenu(menuNode, "productCategories", icon, "MgnlAdminCentral.showTree('shopProductCategory', '/shopProductCategories/" + newShopNode.getName() +"', true);", "product categories");
-        addShopSubMenu(menuNode, "products", icon, "MgnlAdminCentral.showTree('shopProduct', '/shopProducts/" + newShopNode.getName() +"', true);", "products");
-        menuNode.orderBefore(menuNode.getName(), "data");
+        addMenuNodeDatas("/.resources/icons/24/shoppingcart.gif", null, newShopNode.getName(), menuNode);
+        addShopSubMenu(menuNode, "taxCategories", icon, "MgnlAdminCentral.showTree('shop', '/shops/" + newShopNode.getName() +"/taxCategories"+"', true);", "menu.taxCategories");
+        addShopSubMenu(menuNode, "currencies", icon, "MgnlAdminCentral.showTree('shop', '/shops/" + newShopNode.getName() +"/currencies"+"', true);", "menu.currencies");
+        addShopSubMenu(menuNode, "priceCategories", icon, "MgnlAdminCentral.showTree('shop', '/shops/" + newShopNode.getName() +"/priceCategories"+"', true);", "menu.priceCategories");
+        addShopSubMenu(menuNode, "productCategories", icon, "MgnlAdminCentral.showTree('shopProductCategory', '/shopProductCategories/" + newShopNode.getName() +"', true);", "menu.productCategories");
+        addShopSubMenu(menuNode, "products", icon, "MgnlAdminCentral.showTree('shopProduct', '/shopProducts/" + newShopNode.getName() +"', true);", "menu.products");
+        menuNode.getParent().orderBefore(menuNode.getName(), "shops");
         menuNode.getParent().save();
         
     }
@@ -132,6 +132,7 @@ public class ShopSaveHandler extends DataSaveHandler {
         NodeDataUtil.getOrCreateAndSet(menu, "icon", icon);
         NodeDataUtil.getOrCreateAndSet(menu, "onclick", onClick);
         NodeDataUtil.getOrCreateAndSet(menu, "label", label);
+        NodeDataUtil.getOrCreateAndSet(menu, "i18nBasename", "info.magnolia.module.shop.messages");
     }
 
     /**

@@ -94,9 +94,10 @@ public class ShopConfiguration {
   }
 
 
-    public DefaultPriceCategoryManagerImpl getPriceCategoryManager() {
-        //TODO: use class factory
+    public DefaultPriceCategoryManagerImpl getPriceCategoryManager() throws Exception {
+        
         return Classes.quietNewInstance(getPriceCategoryManagerClassQualifiedName(), getDefaultPriceCategoryName(), getName());
+        
     }
   
     public String getPriceCategoryManagerClassQualifiedName() {
@@ -116,7 +117,7 @@ public class ShopConfiguration {
         this.cartClassQualifiedName = cartClassQualifiedName;
     }
     
-    public DefaultShoppingCartImpl getCartClass() {
+    public DefaultShoppingCartImpl getCartClass() throws Exception {
         return Classes.quietNewInstance(getCartClassQualifiedName(), ShopUtil.getShopPriceCategory(this));
     }
   
