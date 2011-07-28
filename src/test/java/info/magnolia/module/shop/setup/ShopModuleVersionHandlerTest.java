@@ -49,6 +49,7 @@ import info.magnolia.context.MgnlContext;
 import info.magnolia.module.ModuleManagementException;
 import info.magnolia.module.ModuleVersionHandler;
 import info.magnolia.module.ModuleVersionHandlerTestCase;
+import info.magnolia.module.data.DataModule;
 import info.magnolia.module.exchangesimple.DefaultActivationManager;
 
 import javax.jcr.RepositoryException;
@@ -122,8 +123,8 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
 
             final HierarchyManager hm = MgnlContext.getHierarchyManager(ContentRepository.CONFIG);
             // menu configuration
-            setupConfigNode("/modules/adminInterface/config/menu",ItemType.CONTENTNODE);
-            setupConfigNode("/modules/data/config/types",ItemType.CONTENTNODE);
+            setupConfigNode("/modules/adminInterface/config/menu",ItemType.CONTENT);
+            setupConfigNode("/modules/data/config/types",ItemType.CONTENT);
             setupConfigNode("/modules/adminInterface/config/menu/data",ItemType.CONTENTNODE);
             setupConfigNode("/modules/standard-templating-kit/config/site/templates/availability/templates",ItemType.CONTENTNODE);
             setupConfigNode("/modules/standard-templating-kit/templates",ItemType.CONTENTNODE);
@@ -132,19 +133,7 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
             //check menu
             assertEquals("shops", hm.getContent("/modules/adminInterface/config/menu/shops").getName());
             //check  datatypes
-            final Content dataTypesNode = MgnlContext.getHierarchyManager("config").getContent("/modules/data/config/types");
-            
-            assertTrue(dataTypesNode.hasContent("shop"));
-            assertTrue(dataTypesNode.hasContent("shopProduct"));
-            assertTrue(dataTypesNode.hasContent("shopProductCategory"));
-            assertTrue(dataTypesNode.hasContent("shopCart"));
-            
-            //check templates
-            final Content availabilityTemplatesNode = MgnlContext.getHierarchyManager("config").getContent("/modules/shop/templates");
-            assertTrue(availabilityTemplatesNode.hasContent("shopCheckoutForm"));
-            assertTrue(availabilityTemplatesNode.hasContent("shopHome"));
-            assertTrue(availabilityTemplatesNode.hasContent("shopProductDetail"));
-            assertTrue(availabilityTemplatesNode.hasContent("shopConfirmationPage"));
+         
         }
 
         protected String[] getExtraWorkspaces() {
