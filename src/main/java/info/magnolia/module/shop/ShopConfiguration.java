@@ -34,6 +34,7 @@
 package info.magnolia.module.shop;
 
 import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
+import info.magnolia.module.shop.exceptions.ShopConfigurationException;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.objectfactory.Classes;
 
@@ -94,9 +95,12 @@ public class ShopConfiguration {
   }
 
 
-    public DefaultPriceCategoryManagerImpl getPriceCategoryManager() throws Exception {
-        
-        return Classes.quietNewInstance(getPriceCategoryManagerClassQualifiedName(), getDefaultPriceCategoryName(), getName());
+    public DefaultPriceCategoryManagerImpl getPriceCategoryManager() throws ShopConfigurationException {
+        try {
+            return Classes.quietNewInstance(getPriceCategoryManagerClassQualifiedName(), getDefaultPriceCategoryName(), getName());
+        } catch (Exception e) {
+            throw new ShopConfigurationException("Unable to instantiate price category manager class");
+        }
         
     }
   
@@ -117,8 +121,12 @@ public class ShopConfiguration {
         this.cartClassQualifiedName = cartClassQualifiedName;
     }
     
-    public DefaultShoppingCartImpl getCartClass() throws Exception {
-        return Classes.quietNewInstance(getCartClassQualifiedName(), ShopUtil.getShopPriceCategory(this));
+    public DefaultShoppingCartImpl getCartClass() throws ShopConfigurationException {
+        try {
+            return Classes.quietNewInstance(getCartClassQualifiedName(), ShopUtil.getShopPriceCategory(this));
+        } catch (Exception e) {
+            throw new ShopConfigurationException("Unable to instantiate cart class");
+        }
     }
   
 }

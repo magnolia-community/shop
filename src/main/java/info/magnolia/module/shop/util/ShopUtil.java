@@ -77,7 +77,7 @@ public class ShopUtil {
               currentPage = currentPage.getParent();
           }
         } catch (RepositoryException e) {
-          log.error("No template found with template name shopHome");
+            log.error("No template found with template name shopHome");
         }
     
         return currentPage;
@@ -103,7 +103,7 @@ public class ShopUtil {
             try {
                 shopConfiguration = new ShopAccesor(getShopName()).getShopConfiguration();
             } catch (Exception e) {
-                //do nothing
+                log.error("cant get shop configuration for " + getShopName());
             }
             if (cart == null && shopConfiguration != null) {
                 
@@ -111,7 +111,7 @@ public class ShopUtil {
                     cart = shopConfiguration.getCartClass();
                     MgnlContext.setAttribute("shoppingCart", cart, Context.SESSION_SCOPE);
                 } catch (Exception e) {
-                    
+                    log.error("Error in shop " + getShopName(), e);
                 }
             }
         }
@@ -156,7 +156,7 @@ public class ShopUtil {
             try {
                 return shopConfiguration.getPriceCategoryManager().getPriceCategoryInUse();
             } catch (Exception e) {
-                
+                log.error("Error in shop " + getShopName(), e);
             }
         }
         return null;
