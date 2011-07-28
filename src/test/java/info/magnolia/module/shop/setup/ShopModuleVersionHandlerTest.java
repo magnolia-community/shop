@@ -34,7 +34,6 @@
 package info.magnolia.module.shop.setup;
 
 import info.magnolia.cms.beans.config.ContentRepository;
-import info.magnolia.cms.core.Content;
 import info.magnolia.cms.core.HierarchyManager;
 import info.magnolia.cms.core.ItemType;
 import info.magnolia.cms.exchange.ActivationManager;
@@ -49,7 +48,6 @@ import info.magnolia.context.MgnlContext;
 import info.magnolia.module.ModuleManagementException;
 import info.magnolia.module.ModuleVersionHandler;
 import info.magnolia.module.ModuleVersionHandlerTestCase;
-import info.magnolia.module.data.DataModule;
 import info.magnolia.module.exchangesimple.DefaultActivationManager;
 
 import javax.jcr.RepositoryException;
