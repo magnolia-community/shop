@@ -123,8 +123,10 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
             final HierarchyManager hm = MgnlContext.getHierarchyManager(ContentRepository.CONFIG);
             // menu configuration
             setupConfigNode("/modules/adminInterface/config/menu",ItemType.CONTENTNODE);
+            setupConfigNode("/modules/data/config/types",ItemType.CONTENTNODE);
             setupConfigNode("/modules/adminInterface/config/menu/data",ItemType.CONTENTNODE);
             setupConfigNode("/modules/standard-templating-kit/config/site/templates/availability/templates",ItemType.CONTENTNODE);
+            setupConfigNode("/modules/standard-templating-kit/templates",ItemType.CONTENTNODE);
 
             executeUpdatesAsIfTheCurrentlyInstalledVersionWas(null);
             //check menu
