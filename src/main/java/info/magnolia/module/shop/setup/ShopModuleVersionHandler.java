@@ -43,6 +43,8 @@ import info.magnolia.module.admininterface.setup.AddMainMenuItemTask;
 import info.magnolia.module.admininterface.setup.AddSubMenuItemTask;
 import info.magnolia.module.data.setup.RegisterNodeTypeTask;
 
+import info.magnolia.module.delta.AddRoleToUserTask;
+import info.magnolia.module.delta.IsAuthorInstanceDelegateTask;
 import info.magnolia.module.delta.IsModuleInstalledOrRegistered;
 import info.magnolia.module.delta.Task;
 import info.magnolia.module.delta.TaskExecutionException;
@@ -139,6 +141,8 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                     addProperty("label", "dialogs.generic.tabCategorization.categories.label"),
                     addProperty("description", "dialogs.generic.tabCategorization.categories.description")))
             )));
+    installTasks.add(new IsAuthorInstanceDelegateTask("Shop role for anonymous user", "This role to anonymous users will be added just on public instances.", null, 
+            new AddRoleToUserTask("", "anonymous", "shop-user-base")));
     return installTasks;
   }
 }
