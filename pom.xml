@@ -54,10 +54,21 @@
 	      <artifactId>magnolia-module-standard-templating-kit</artifactId>
 		  <version>${stkVersion}</version>
 	    </dependency>
+        <dependency>
+            <groupId>info.magnolia</groupId>
+            <artifactId>magnolia-module-resources</artifactId>
+            <version>1.4</version>
+        </dependency>
 	    <dependency>
             <groupId>info.magnolia</groupId>
             <artifactId>magnolia-module-form</artifactId>
             <version>1.3-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>info.magnolia</groupId>
+            <artifactId>magnolia-module-fckeditor</artifactId>
+            <version>${magnoliaVersion}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

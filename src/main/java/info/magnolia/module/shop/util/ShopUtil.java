@@ -33,6 +33,7 @@
  */
 package info.magnolia.module.shop.util;
 
+import info.magnolia.cms.security.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -50,6 +51,8 @@ import info.magnolia.module.shop.ShopConfiguration;
 import info.magnolia.module.shop.accessors.ShopAccesor;
 import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
 import info.magnolia.module.shop.beans.ShoppingCart;
+import info.magnolia.module.templatingkit.templates.category.TemplateCategoryUtil;
+import javax.jcr.PathNotFoundException;
 
 import javax.jcr.RepositoryException;
 
@@ -63,41 +66,43 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class ShopUtil {
-    
+
     private static Logger log = LoggerFactory.getLogger(ShopUtil.class);
 
     /**
-     * Gets the shop current node, assumes one shop per site.
-     * TODO: Use category subcategory
+     * Gets the shop current node
      */
     public static Content getShopRoot() {
-        Content currentPage = MgnlContext.getAggregationState().getMainContent();
+        Content currContent = MgnlContext.getAggregationState().getMainContent();
         try {
-          while (currentPage != null && !currentPage.getTemplate().equals("shopHome")) {
-              currentPage = currentPage.getParent();
-          }
-        } catch (RepositoryException e) {
-            log.error("No template found with template name shopHome");
+            while (currContent.getLevel() >= 0) {
+                if (TemplateCategoryUtil.getTemplateSubCategory(currContent).equals("shopHome")) {
+                    return currContent;
+                } else {
+                    currContent = currContent.getParent();
+                }
+            }
+        } catch (PathNotFoundException ex) {
+            log.error("Path not found!", ex);
+        } catch (RepositoryException ex) {
+            log.error("Repository exception", ex);
         }
-    
-        return currentPage;
+        log.error("No template found with subcategory shopHome");
+        return null;
     }
-  
+
     public static Messages getMessages() {
-        Locale currentLocale = I18nContentSupportFactory.getI18nSupport()
-            .getLocale();
+        Locale currentLocale = I18nContentSupportFactory.getI18nSupport().getLocale();
         final Messages msg = MessagesManager.getMessages(
-            "info.magnolia.module.shop.messages", currentLocale);
+                "info.magnolia.module.shop.messages", currentLocale);
         return msg;
     }
-    
-    
 
     public static void setShoppingCartInSession() {
         String shopName = getShopName();
-    
+
         if (StringUtils.isNotEmpty(shopName)) {
-    
+
             DefaultShoppingCartImpl cart = (DefaultShoppingCartImpl) getShoppingCart();
             ShopConfiguration shopConfiguration = null;
             try {
@@ -106,7 +111,7 @@ public class ShopUtil {
                 log.error("cant get shop configuration for " + getShopName());
             }
             if (cart == null && shopConfiguration != null) {
-                
+
                 try {
                     cart = shopConfiguration.getCartClass();
                     MgnlContext.setAttribute("shoppingCart", cart, Context.SESSION_SCOPE);
@@ -121,10 +126,30 @@ public class ShopUtil {
         return (String) MgnlContext.getAttribute("shopName");
     }
 
+    public static String getShopName(Content dataNode) {
+        if (dataNode != null) {
+            try {
+                // shop name is name of node @ level 2
+                // @TODO: Make sure it's a data node
+                Content level2Node = dataNode.getAncestor(2);
+                if (level2Node != null) {
+                    return level2Node.getName();
+                }
+            } catch (PathNotFoundException ex) {
+                log.error("Could not get level 2 node of node " + dataNode.getHandle(), ex);
+            } catch (AccessDeniedException ex) {
+                log.error("Could not get level 2 node of node " + dataNode.getHandle(), ex);
+            } catch (RepositoryException ex) {
+                log.error("Could not get level 2 node of node " + dataNode.getHandle(), ex);
+            }
+        }
+        return null;
+    }
+
     public static ShoppingCart getShoppingCart() {
         return (ShoppingCart) MgnlContext.getAttribute("shoppingCart");
     }
-   
+
     public static List<Content> transformIntoI18nContentList(List<Content> contentList) {
         List<Content> i18nProductList = new ArrayList<Content>();
         for (Content content : contentList) {
@@ -132,17 +157,17 @@ public class ShopUtil {
         }
         return i18nProductList;
     }
-  
+
     public static String getCurrencyTitle() {
-       
+
         ShopConfiguration shopConfiguration;
         try {
             shopConfiguration = new ShopAccesor(getShopName()).getShopConfiguration();
-        
+
             if (shopConfiguration != null) {
                 Content priceCategory = getShopPriceCategory(shopConfiguration);
                 Content currency = getCurrencyByUUID(NodeDataUtil.getString(priceCategory,
-                "currencyUUID"));
+                        "currencyUUID"));
                 return NodeDataUtil.getString(currency, "title");
             }
         } catch (Exception e) {
@@ -150,9 +175,9 @@ public class ShopUtil {
         }
         return "";
     }
-  
+
     public static Content getShopPriceCategory(ShopConfiguration shopConfiguration) {
-        if(shopConfiguration != null) {
+        if (shopConfiguration != null) {
             try {
                 return shopConfiguration.getPriceCategoryManager().getPriceCategoryInUse();
             } catch (Exception e) {
@@ -160,12 +185,10 @@ public class ShopUtil {
             }
         }
         return null;
-        
-
     }
-    
+
     public static Content getCurrencyByUUID(String uuid) {
         return new I18nContentWrapper(ContentUtil.getContentByUUID("data", uuid));
-    }
 
+    }
 }

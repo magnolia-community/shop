@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sv:node sv:name="queryCheckbox" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<sv:node sv:name="shopQuerySelect" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <sv:property sv:name="jcr:primaryType" sv:type="Name">
     <sv:value>mgnl:contentNode</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:uuid" sv:type="String">
-    <sv:value>a86ea4d7-f231-48d6-9fd3-185a18ac7176</sv:value>
+    <sv:value>3871b982-e5d4-4db9-a78e-209a557690be</sv:value>
   </sv:property>
   <sv:property sv:name="class" sv:type="String">
-    <sv:value>info.magnolia.module.shop.dialog.QueryDialogButtonSet</sv:value>
+    <sv:value>info.magnolia.module.shop.dialog.QuerySelect</sv:value>
   </sv:property>
   <sv:node sv:name="MetaData">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -17,7 +17,7 @@
       <sv:value>MetaData</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-      <sv:value>true</sv:value>
+      <sv:value>false</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:activatorid" sv:type="String">
       <sv:value>superuser</sv:value>
@@ -32,7 +32,7 @@
       <sv:value>2009-11-29T17:32:41.770+01:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2010-09-28T22:37:38.065+02:00</sv:value>
+      <sv:value>2011-08-16T07:55:27.994+02:00</sv:value>
     </sv:property>
   </sv:node>
 </sv:node>

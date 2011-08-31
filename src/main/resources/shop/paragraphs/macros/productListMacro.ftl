@@ -20,7 +20,7 @@
 	        	<li>
 	        		[#-- Link to open product edit dialog, dialog only used from website--]
 	        		[#if mgnl.editMode]
-	        		<a  target="_blank" href="${ctx.contextPath}/.magnolia/dialogs/shopProduct.html?mgnlPath=${(product?parent).@handle}&mgnlNode=${product.@name}&mgnlRepository=data&mgnlLocale=${ctx.locale.language}&mgnlRichE=false&mgnlRichEPaste=" >
+	        		<a  target="_blank" href="${ctx.contextPath}/.magnolia/dialogs/shopProduct.html?mgnlPath=${(product?parent).@handle}&mgnlNode=${product.@name}&mgnlRepository=data&mgnlLocale=${state.locale.language}&mgnlRichE=false&mgnlRichEPaste=" >
 	        		${i18n['edit.product']}</a>
 	        		[/#if]
 	        		

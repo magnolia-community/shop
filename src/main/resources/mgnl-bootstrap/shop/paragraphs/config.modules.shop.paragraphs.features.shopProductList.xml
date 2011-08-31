@@ -58,7 +58,7 @@
       <sv:value>1f153106-fca5-472f-9250-b38ca0e512a6</sv:value>
     </sv:property>
     <sv:property sv:name="divClass" sv:type="String">
-      <sv:value>teaser latest</sv:value>
+      <sv:value>teaser products</sv:value>
     </sv:property>
     <sv:property sv:name="divIDPrefix" sv:type="String">
       <sv:value>teaser</sv:value>

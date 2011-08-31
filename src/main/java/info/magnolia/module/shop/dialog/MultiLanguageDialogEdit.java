@@ -37,6 +37,8 @@ import info.magnolia.cms.core.Content;
 import info.magnolia.cms.gui.dialog.DialogEdit;
 import info.magnolia.cms.gui.misc.CssConstants;
 import info.magnolia.cms.security.AccessDeniedException;
+import info.magnolia.module.templatingkit.sites.Site;
+import info.magnolia.module.templatingkit.sites.SiteManager;
 import info.magnolia.module.templatingkit.util.STKUtil;
 
 import java.io.IOException;
@@ -93,13 +95,12 @@ public class MultiLanguageDialogEdit extends DialogEdit implements MultiLanguage
             mgnlPath = StringUtils.substringBefore(mgnlPath, "/");
             setConfig("siteKey", mgnlPath);
         }
-        initLanguages();
-        // init the rest
         super.init(request, response, storageNode, configNode);
         // if the languages have not been initialized yet
         if (getConfigValue("siteKey") == null) {
             initSiteKey(storageNode);
         }
+        initLanguages();
     }
 
     @Override
@@ -151,15 +152,24 @@ public class MultiLanguageDialogEdit extends DialogEdit implements MultiLanguage
     private void initLanguages() {
         // set the languages for the site key by assuming that the languages are
         // defined at default site definition
+        Site site = null;
         if (getConfigValue("siteKey") != null) {
-            Collection<Locale> locales = STKUtil.getSite().getI18n().getLocales();
-                Iterator<Locale> localesIterator = locales.iterator();
-                ArrayList<String> languageList = new ArrayList<String>();
-                while (localesIterator.hasNext()) {
-                    languageList.add(localesIterator.next().getLanguage());
-                }
-                this.languages = languageList;
-            }
+            String siteKey = getConfigValue("siteKey");
+            site = SiteManager.Factory.getInstance().getSite(getConfigValue("siteKey"));
+        }
+        if (site == null && this.getStorageNode() != null) {
+            site = STKUtil.getSite(this.getStorageNode());
+        }
+        if (site == null) {
+            site = STKUtil.getSite();
+        }
+        Collection<Locale> locales = site.getI18n().getLocales();
+        Iterator<Locale> localesIterator = locales.iterator();
+        ArrayList<String> languageList = new ArrayList<String>();
+        while (localesIterator.hasNext()) {
+            languageList.add(localesIterator.next().getLanguage());
+        }
+        this.languages = languageList;
     }
 
     public List<String> getLanguages() {

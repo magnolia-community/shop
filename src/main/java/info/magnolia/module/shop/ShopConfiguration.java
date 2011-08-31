@@ -45,54 +45,54 @@ import info.magnolia.objectfactory.Classes;
  */
 public class ShopConfiguration {
 
-  private String name;
-  private String cartBeanType;
-  private String cartSessionVariable;
-  private String defaultPriceCategoryName;
-  private String savedCartUUIDSessionVariable;
-  private String priceCategoryManagerClassQualifiedName;
-  private String cartClassQualifiedName;
+    private String name;
+    private String cartBeanType;
+    private String cartSessionVariable;
+    private String defaultPriceCategoryName;
+    private String savedCartUUIDSessionVariable;
+    private String priceCategoryManagerClassQualifiedName;
+    private String cartClassQualifiedName;
 
-  public String getName() {
-    return name;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  public String getCartBeanType() {
-    return cartBeanType;
-  }
+    public String getCartBeanType() {
+        return cartBeanType;
+    }
 
-  public void setCartBeanType(String cartBeanType) {
-    this.cartBeanType = cartBeanType;
-  }
+    public void setCartBeanType(String cartBeanType) {
+        this.cartBeanType = cartBeanType;
+    }
 
-  public String getCartSessionVariable() {
-    return cartSessionVariable;
-  }
+    public String getCartSessionVariable() {
+        return cartSessionVariable;
+    }
 
-  public void setCartSessionVariable(String cartSessionVariable) {
-    this.cartSessionVariable = cartSessionVariable;
-  }
+    public void setCartSessionVariable(String cartSessionVariable) {
+        this.cartSessionVariable = cartSessionVariable;
+    }
 
-  public String getDefaultPriceCategoryName() {
-    return defaultPriceCategoryName;
-  }
+    public String getDefaultPriceCategoryName() {
+        return defaultPriceCategoryName;
+    }
 
-  public void setDefaultPriceCategoryName(String defaultPriceCategoryKey) {
-    this.defaultPriceCategoryName = defaultPriceCategoryKey;
-  }
+    public void setDefaultPriceCategoryName(String defaultPriceCategoryKey) {
+        this.defaultPriceCategoryName = defaultPriceCategoryKey;
+    }
 
-  public String getSavedCartUUIDSessionVariable() {
-    return savedCartUUIDSessionVariable;
-  }
+    public String getSavedCartUUIDSessionVariable() {
+        return savedCartUUIDSessionVariable;
+    }
 
-  public void setSavedCartUUIDSessionVariable(
-      String savedCartUUIDSessionVariable) {
-    this.savedCartUUIDSessionVariable = savedCartUUIDSessionVariable;
-  }
+    public void setSavedCartUUIDSessionVariable(
+            String savedCartUUIDSessionVariable) {
+        this.savedCartUUIDSessionVariable = savedCartUUIDSessionVariable;
+    }
 
 
     public DefaultPriceCategoryManagerImpl getPriceCategoryManager() throws ShopConfigurationException {
@@ -101,13 +101,13 @@ public class ShopConfiguration {
         } catch (Exception e) {
             throw new ShopConfigurationException("Unable to instantiate price category manager class");
         }
-        
+
     }
-  
+
     public String getPriceCategoryManagerClassQualifiedName() {
         return priceCategoryManagerClassQualifiedName;
     }
-    
+
     public void setPriceCategoryManagerClassQualifiedName(
             String priceCategoryManagerClassName) {
         this.priceCategoryManagerClassQualifiedName = priceCategoryManagerClassName;
@@ -120,7 +120,7 @@ public class ShopConfiguration {
     public void setCartClassQualifiedName(String cartClassQualifiedName) {
         this.cartClassQualifiedName = cartClassQualifiedName;
     }
-    
+
     public DefaultShoppingCartImpl getCartClass() throws ShopConfigurationException {
         try {
             return Classes.quietNewInstance(getCartClassQualifiedName(), ShopUtil.getShopPriceCategory(this));
@@ -128,5 +128,5 @@ public class ShopConfiguration {
             throw new ShopConfigurationException("Unable to instantiate cart class");
         }
     }
-  
+
 }
