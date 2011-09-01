@@ -35,6 +35,8 @@ package info.magnolia.module.shop;
 
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.util.ContentUtil;
+import info.magnolia.module.shop.accessors.ShopAccesor;
+import info.magnolia.module.shop.util.ShopUtil;
 
 /**
  * Implement this class to get the category price used by i.e. user selected
@@ -55,7 +57,7 @@ public class DefaultPriceCategoryManagerImpl implements PriceCategoryManager {
     }
 
     public Content getPriceCategoryInUse() {
-        Content priceCategory = ContentUtil.getContent("data", "/shops/" + shopName + "/priceCategories/" + getDefaultPriceCategory());
+        Content priceCategory = ContentUtil.getContent("data", ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, shopName, "priceCategories", getDefaultPriceCategory()));
         return priceCategory;
     }
 

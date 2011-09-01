@@ -34,6 +34,7 @@
 package info.magnolia.module.shop.accessors;
 
 import info.magnolia.cms.core.Content;
+import info.magnolia.module.shop.util.ShopUtil;
 
 /**
  * tag object, corresponds to the categorization module.
@@ -42,13 +43,15 @@ import info.magnolia.cms.core.Content;
  */
 public class TagAccesor extends DefaultCustomDataAccesor {
 
+    public static String CATEGORIZATION_FOLDER = "categorization";
+    
     public TagAccesor(String name) throws Exception {
         super(name);
     }
 
     @Override
     protected Content getNode(String name) throws Exception {
-        String path = "/categorization";
+        String path = ShopUtil.getPath("categorization");
         return super.getNodeByName(path, "category", name);
     }
 

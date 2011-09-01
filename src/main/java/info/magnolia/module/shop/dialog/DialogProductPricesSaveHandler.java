@@ -43,6 +43,8 @@ import info.magnolia.content2bean.Bean2ContentProcessor;
 import info.magnolia.content2bean.Content2BeanException;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.admininterface.FieldSaveHandler;
+import info.magnolia.module.shop.accessors.ShopAccesor;
+import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.shop.util.SimpleBean2ContentProcessorImpl;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -63,7 +65,7 @@ public class DialogProductPricesSaveHandler implements FieldSaveHandler {
   public void save(Content parentNode, Content configNode, java.lang.String name, MultipartForm form, int type,
       int valueType, int isRichEditValue, int encoding) throws RepositoryException, AccessDeniedException {
     String shopName = MgnlContext.getParameter("shopName");
-    Content priceCategoriesNode = ContentUtil.getContent("data", "/shops/" + shopName + "/priceCategories");
+    Content priceCategoriesNode = ContentUtil.getContent("data", ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, shopName, "priceCategories"));
     
     if(priceCategoriesNode != null) {
         Collection priceCategories = priceCategoriesNode.getChildren(new ItemType("shopPriceCategory"));

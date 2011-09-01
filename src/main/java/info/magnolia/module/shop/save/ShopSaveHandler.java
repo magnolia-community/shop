@@ -47,6 +47,10 @@ import info.magnolia.cms.util.ExclusiveWrite;
 import info.magnolia.cms.util.NodeDataUtil;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.data.save.DataSaveHandler;
+import info.magnolia.module.shop.accessors.ShopAccesor;
+import info.magnolia.module.shop.accessors.ShopProductAccesor;
+import info.magnolia.module.shop.accessors.ShopProductCategoryAccesor;
+import info.magnolia.module.shop.util.ShopUtil;
 
 /**
  * This class creates the basic hierarchy of data for the shop,
@@ -78,7 +82,7 @@ public class ShopSaveHandler extends DataSaveHandler {
                     if(node.getItemType().getSystemName().equals("shop")) {
                         addDefaultSubNodes(node);
                         addFolderNodesWithShopName(hm, "shopCarts", node.getName());
-                        addFolderNodesWithShopName(hm, "shopProducts", node.getName());
+                        addFolderNodesWithShopName(hm, ShopProductAccesor.SHOP_PRODUCTS_FOLDER, node.getName());
                         addFolderNodesWithShopName(hm, "shopProductCategories", node.getName());
                         addNewShopInMenu(node);
                     }
@@ -95,7 +99,7 @@ public class ShopSaveHandler extends DataSaveHandler {
     }
 
     private void addFolderNodesWithShopName(HierarchyManager hm, String path, String shopName) throws RepositoryException {
-        Content newFolder = hm.getContent(path + "/" + shopName, true, new ItemType("dataFolder"));
+        Content newFolder = hm.getContent(path + ShopUtil.getPath(shopName), true, new ItemType("dataFolder"));
         newFolder.getParent().save();
     }
 
@@ -109,11 +113,11 @@ public class ShopSaveHandler extends DataSaveHandler {
         Content menuNode = hm.getContent("/modules/adminInterface/config/menu/" + newShopNode.getName(), true, ItemType.CONTENTNODE);
         //Adds the node datas
         addMenuNodeDatas("/.resources/icons/24/shoppingcart.gif", null, newShopNode.getName(), menuNode);
-        addShopSubMenu(menuNode, "taxCategories", icon, "MgnlAdminCentral.showTree('shop', '/shops/" + newShopNode.getName() +"/taxCategories"+"', true);", "menu.taxCategories");
-        addShopSubMenu(menuNode, "currencies", icon, "MgnlAdminCentral.showTree('shop', '/shops/" + newShopNode.getName() +"/currencies"+"', true);", "menu.currencies");
-        addShopSubMenu(menuNode, "priceCategories", icon, "MgnlAdminCentral.showTree('shop', '/shops/" + newShopNode.getName() +"/priceCategories"+"', true);", "menu.priceCategories");
-        addShopSubMenu(menuNode, "productCategories", icon, "MgnlAdminCentral.showTree('shopProductCategory', '/shopProductCategories/" + newShopNode.getName() +"', true);", "menu.productCategories");
-        addShopSubMenu(menuNode, "products", icon, "MgnlAdminCentral.showTree('shopProduct', '/shopProducts/" + newShopNode.getName() +"', true);", "menu.products");
+        addShopSubMenu(menuNode, "taxCategories", icon, "MgnlAdminCentral.showTree('shop', '" + ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, newShopNode.getName(), "taxCategories") +"', true);", "menu.taxCategories");
+        addShopSubMenu(menuNode, "currencies", icon, "MgnlAdminCentral.showTree('shop', '" + ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, "currencies") +"', true);", "menu.currencies");
+        addShopSubMenu(menuNode, "priceCategories", icon, "MgnlAdminCentral.showTree('shop', '" + ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, "priceCategories") +"', true);", "menu.priceCategories");
+        addShopSubMenu(menuNode, "productCategories", icon, "MgnlAdminCentral.showTree('shopProductCategory', '" + ShopUtil.getPath( ShopProductCategoryAccesor.SHOP_PRODUCTCATEGORIES_FOLDER, newShopNode.getName()) +"', true);", "menu.productCategories");
+        addShopSubMenu(menuNode, "products", icon, "MgnlAdminCentral.showTree('shopProduct', '/" + ShopUtil.getPath(ShopProductAccesor.SHOP_PRODUCTS_FOLDER, newShopNode.getName()) +"', true);", "menu.products");
         menuNode.getParent().orderBefore(menuNode.getName(), "shops");
         menuNode.getParent().save();
         

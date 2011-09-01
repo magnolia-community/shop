@@ -46,18 +46,20 @@ import info.magnolia.module.shop.util.ShopUtil;
  */
 public class ShopProductCategoryAccesor extends DefaultCustomDataAccesor {
    
+    public static String SHOP_PRODUCTCATEGORIES_FOLDER = "shopProductCategories";
+    
     public ShopProductCategoryAccesor(String name) throws Exception {
         super(name);
     }
 
     protected Content getNode(String name) throws Exception {
-        String path = "/shopProductCategories/" + ShopUtil.getShopName();
+        String path = ShopUtil.getPath("shopProductCategories", ShopUtil.getShopName());
         return super.getNodeByName(path, "shopProductCategory", name);
     }
     
     public static Collection<Content> getTaggedProductCategories(String categoryUUID) {
         
-        String query = "select * from shopProductCategory where jcr:path like '/shopProductCategories/" + ShopUtil.getShopName() 
+        String query = "select * from shopProductCategory where jcr:path like '" + ShopUtil.getPath("shopProductCategories", ShopUtil.getShopName()) 
           + "/%' and contains(tags, '" + categoryUUID + "')";
         
         Collection<Content> productCategories = QueryUtil.query("data", query);

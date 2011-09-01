@@ -50,6 +50,7 @@ import info.magnolia.cms.i18n.Messages;
 import info.magnolia.module.admininterface.AdminTreeMVCHandler;
 import info.magnolia.module.admininterface.trees.ConfigTreeConfiguration;
 import info.magnolia.module.data.DataConsts;
+import info.magnolia.module.shop.accessors.ShopProductAccesor;
 import info.magnolia.module.shop.util.ShopUtil;
 
 /**
@@ -67,7 +68,7 @@ public class ProductListDataTree extends AdminTreeMVCHandler {
   }
 
   public void init() {
-      this.setRootPath("/shopProducts/" + ShopUtil.getShopName());
+      this.setRootPath(ShopUtil.getPath(ShopProductAccesor.SHOP_PRODUCTS_FOLDER, ShopUtil.getShopName()));
     super.init();
     this.setConfiguration(new ConfigTreeConfiguration() {
       final Messages msgs = getMessages();

@@ -29,7 +29,7 @@
       <sv:value>2011-07-04T10:33:02.109+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2011-07-15T14:00:08.144+02:00</sv:value>
+      <sv:value>2011-08-30T13:16:45.352+02:00</sv:value>
     </sv:property>
   </sv:node>
   <sv:node sv:name="mainTab">
@@ -191,46 +191,6 @@
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
           <sv:value>2011-07-26T15:05:42.962+02:00</sv:value>
-        </sv:property>
-      </sv:node>
-    </sv:node>
-    <sv:node sv:name="tags">
-      <sv:property sv:name="jcr:primaryType" sv:type="Name">
-        <sv:value>mgnl:contentNode</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
-        <sv:value>mix:lockable</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>6ccc4b55-9ef9-4024-86fc-e4b98b1086ec</sv:value>
-      </sv:property>
-      <sv:property sv:name="controlType" sv:type="String">
-        <sv:value>categorizationUUIDMultiSelect</sv:value>
-      </sv:property>
-      <sv:property sv:name="description" sv:type="String">
-        <sv:value>dialogs.generic.tabCategorization.categories.description</sv:value>
-      </sv:property>
-      <sv:property sv:name="i18nBasename" sv:type="String">
-        <sv:value>info.magnolia.module.shop.messages</sv:value>
-      </sv:property>
-      <sv:property sv:name="label" sv:type="String">
-        <sv:value>dialogs.generic.tabCategorization.categories.label</sv:value>
-      </sv:property>
-      <sv:property sv:name="saveHandler" sv:type="String">
-        <sv:value>info.magnolia.module.categorization.controls.CategorizationSaveHandler</sv:value>
-      </sv:property>
-      <sv:property sv:name="tree" sv:type="String">
-        <sv:value>category</sv:value>
-      </sv:property>
-      <sv:property sv:name="type" sv:type="String">
-        <sv:value>String</sv:value>
-      </sv:property>
-      <sv:node sv:name="MetaData">
-        <sv:property sv:name="jcr:primaryType" sv:type="Name">
-          <sv:value>mgnl:metaData</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-          <sv:value>2011-07-21T14:44:39.558+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>

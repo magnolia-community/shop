@@ -31,51 +31,36 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.accessors;
-
-import java.util.Map;
+package info.magnolia.module.shop.util;
 
 import info.magnolia.cms.core.Content;
-import info.magnolia.content2bean.Content2BeanException;
-import info.magnolia.content2bean.Content2BeanUtil;
-import info.magnolia.content2bean.TransformationState;
-import info.magnolia.content2bean.impl.Content2BeanTransformerImpl;
-import info.magnolia.module.shop.ShopConfiguration;
-import info.magnolia.module.shop.util.ShopUtil;
+import info.magnolia.module.templatingkit.navigation.Link;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
- * shop object.
+ * Gets the propert link for shop navigation items.
  * @author tmiyar
  *
  */
-public class ShopAccesor extends DefaultCustomDataAccesor {
-    
-    public static String SHOP_SHOPS_FOLDER = "shops";
-    
-    public ShopAccesor(String name) throws Exception {
-        super(name);
+public class ShopLinkImpl implements Link {
+    private Content node;
+
+    public ShopLinkImpl(Content node) {
+        this.node = node;
     }
 
-    protected Content getNode(String name) throws Exception {
-        String path = ShopUtil.getPath(SHOP_SHOPS_FOLDER);
-        return super.getNodeByName(path, "shop", name);
+    public String getTitle(){
+        return StringUtils.defaultIfEmpty(node.getTitle(), node.getName());
     }
-    
-    public ShopConfiguration getShopConfiguration() {
-        Content shopNode = getNode();
-        if(shopNode != null) {
-            try {
-                return (ShopConfiguration) Content2BeanUtil.toBean(shopNode, false, new Content2BeanTransformerImpl() {
-                    public Object newBeanInstance(TransformationState state, Map properties) {
-                        return new ShopConfiguration();
-                    }
-                });
-            } catch (Content2BeanException e) {
-                log.error("Cant read shop configuration for " + getName(), e);
-            }
-            
-        }
-        return null;
+
+    public String getNavigationTitle(){
+        String navigationTitle = node.getNodeData("navigationTitle").getString();
+        return StringUtils.defaultIfEmpty(StringUtils.defaultIfEmpty(navigationTitle, node.getTitle()), node.getName());
+    }
+
+    public String getHref(){
+        return ShopLinkUtil.getProductCategoryLink(node);
     }
 
 }

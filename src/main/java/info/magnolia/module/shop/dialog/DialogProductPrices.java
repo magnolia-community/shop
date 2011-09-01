@@ -41,7 +41,9 @@ import info.magnolia.cms.gui.dialog.DialogControlImpl;
 import info.magnolia.cms.gui.misc.CssConstants;
 import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.QueryUtil;
+import info.magnolia.module.shop.accessors.ShopAccesor;
 import info.magnolia.module.shop.util.ShopUtil;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.text.DecimalFormat;
@@ -77,87 +79,87 @@ public class DialogProductPrices extends DialogBox {
         this.drawHtmlPre(out);
         //products are stored per shop
         String shopName = findShopName();
-
-        Content priceCategoriesNode = ContentUtil.getContent("data", "/shops/" + shopName + "/priceCategories");
-
-        if (priceCategoriesNode == null) {
+    
+        Content priceCategoriesNode = ContentUtil.getContent("data", ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, shopName, "priceCategories" ));
+    
+        if(priceCategoriesNode == null) {
             out.write("no price categories found");
         } else {
             // get all price categories
             Collection priceCategories = priceCategoriesNode.getChildren("shopPriceCategory");
-
+        
             if (priceCategories.isEmpty()) {
                 out.write("no price categories found");
             } else {
                 //add shopname for the save handler
                 out.write("<input type=\"hidden\" name=\"shopName\" value=\""
-                        + shopName + "\" />");
-                // draw a table with price category name, currency, incl./excl. vat and
-                // price
-                // TODO: Localize!
-                out.write("<table cellspacing=\"2\" cellpadding=\"0\" border=\"0\">");
-                out.write("<tr valign=\"top\"><th>Preiskategorie</th><th>WŠhrung</th><th>MwSt.</th><th>Preis</th></tr>");
-                Iterator<Content> priceCategoryIter = priceCategories.iterator();
-                Content currPriceCat, currency;
-                String currencyUUID;
-                int i = 0;
-                while (priceCategoryIter.hasNext()) {
-                    currPriceCat = priceCategoryIter.next();
-                    out.write("<tr valign=\"top\">");
-                    out.write("<td>" + currPriceCat.getNodeData("title_de").getString() + "</td>");
-                    currencyUUID = currPriceCat.getNodeData("currencyUUID").getString();
-                    out.write("<td align=\"center\">");
-                    if (StringUtils.isNotBlank(currencyUUID)) {
-                        currency = ContentUtil.getContentByUUID("data", currencyUUID);
-                        if (currency != null) {
-                            out.write(currency.getNodeData("name").getString());
-                        }
-                    }
-                    out.write("</td>");
-                    out.write("<td>");
-                    if (currPriceCat.getNodeData("taxIncluded").getBoolean()) {
-                        out.write("inkl. MwSt.");
-                    } else {
-                        out.write("exkl. MwSt.");
-                    }
-                    out.write("</td>");
-                    out.write("<td>");
-                    // get the price value
-                    Double value = null;
-                    String queryString = "";
-                    if (this.getStorageNode() != null) {
-                        queryString = "SELECT * FROM mgnl:contentNode WHERE jcr:path LIKE '" + this.getStorageNode().getHandle()
-                                + "/" + this.getName() + "/%' and priceCategoryUUID = '" + currPriceCat.getUUID() + "'";
-                        Iterator<Content> priceIter = QueryUtil.query("data", queryString, "sql", "mgnl:contentNode").iterator();
-                        if (priceIter.hasNext()) {
-                            value = priceIter.next().getNodeData("price").getDouble();
-                        }
-                    }
-                    if (value != null) {
-                        this.setValue(priceFormat.format(value));
-                    }
-                    GridEdit control = new GridEdit(this.getName() + "_price_" + i, this.getValue());
-                    control.setType(this.getConfigValue("type", PropertyType.TYPENAME_STRING));
-                    if (this.getConfigValue("saveInfo").equals("false")) { //$NON-NLS-1$ //$NON-NLS-2$
-                        control.setSaveInfo(false);
-                    }
-                    control.setCssClass(CssConstants.CSSCLASS_EDIT);
-                    control.setRows(this.getConfigValue("rows", "1"));
-                    control.setCssStyles("width", this.getConfigValue("width", "100%"));
-                    if (this.getConfigValue("onchange", null) != null) {
-                        control.setEvent("onchange", this.getConfigValue("onchange"));
-                    }
-                    out.write(control.getHtml());
-
-                    out.write("<input type=\"hidden\" name=\"" + this.getName() + "_priceCategoryUUID_" + i + "\" value=\""
-                            + currPriceCat.getUUID() + "\" />");
-                    out.write("</td>");
-                    out.write("</tr>");
-                    i++;
-                }
-                out.write("</table>");
-                out.write(this.getHtmlSaveInfo());
-                this.drawHtmlPost(out);
+                    + shopName + "\" />");
+              // draw a table with price category name, currency, incl./excl. vat and
+              // price
+              // TODO: Localize!
+              out.write("<table cellspacing=\"2\" cellpadding=\"0\" border=\"0\">");
+              out.write("<tr valign=\"top\"><th>Preiskategorie</th><th>WŠhrung</th><th>MwSt.</th><th>Preis</th></tr>");
+              Iterator<Content> priceCategoryIter = priceCategories.iterator();
+              Content currPriceCat, currency;
+              String currencyUUID;
+              int i = 0;
+              while (priceCategoryIter.hasNext()) {
+                  currPriceCat = priceCategoryIter.next();
+                  out.write("<tr valign=\"top\">");
+                  out.write("<td>" + currPriceCat.getNodeData("title_de").getString() + "</td>");
+                  currencyUUID = currPriceCat.getNodeData("currencyUUID").getString();
+                  out.write("<td align=\"center\">");
+                  if (StringUtils.isNotBlank(currencyUUID)) {
+                      currency = ContentUtil.getContentByUUID("data", currencyUUID);
+                      if (currency != null) {
+                          out.write(currency.getNodeData("name").getString());
+                      }
+                  }
+                  out.write("</td>");
+                  out.write("<td>");
+                  if (currPriceCat.getNodeData("taxIncluded").getBoolean()) {
+                      out.write("inkl. MwSt.");
+                  } else {
+                      out.write("exkl. MwSt.");
+                  }
+                  out.write("</td>");
+                  out.write("<td>");
+                  // get the price value
+                  Double value = null;
+                  String queryString = "";
+                  if (this.getStorageNode() != null) {
+                      queryString = "SELECT * FROM mgnl:contentNode WHERE jcr:path LIKE '" + this.getStorageNode().getHandle()
+                          + ShopUtil.getPath(this.getName()) + "/%' and priceCategoryUUID = '" + currPriceCat.getUUID() + "'";
+                      Iterator<Content> priceIter = QueryUtil.query("data", queryString, "sql", "mgnl:contentNode").iterator();
+                      if (priceIter.hasNext()) {
+                          value = priceIter.next().getNodeData("price").getDouble();
+                      }
+                  }
+                  if (value != null) {
+                      this.setValue(priceFormat.format(value));
+                  }
+                  GridEdit control = new GridEdit(this.getName() + "_price_" + i, this.getValue());
+                  control.setType(this.getConfigValue("type", PropertyType.TYPENAME_STRING));
+                  if (this.getConfigValue("saveInfo").equals("false")) { //$NON-NLS-1$ //$NON-NLS-2$
+                      control.setSaveInfo(false);
+                  }
+                  control.setCssClass(CssConstants.CSSCLASS_EDIT);
+                  control.setRows(this.getConfigValue("rows", "1"));
+                  control.setCssStyles("width", this.getConfigValue("width", "100%"));
+                  if (this.getConfigValue("onchange", null) != null) {
+                      control.setEvent("onchange", this.getConfigValue("onchange"));
+                  }
+                  out.write(control.getHtml());
+                
+                  out.write("<input type=\"hidden\" name=\"" + this.getName() + "_priceCategoryUUID_" + i + "\" value=\""
+                      + currPriceCat.getUUID() + "\" />");
+                  out.write("</td>");
+                  out.write("</tr>");
+                  i++;
+              }
+              out.write("</table>");
+              out.write(this.getHtmlSaveInfo());
+              this.drawHtmlPost(out);
             }
         }
     }

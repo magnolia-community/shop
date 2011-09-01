@@ -47,18 +47,20 @@ import info.magnolia.module.shop.util.ShopUtil;
  */
 public class ShopProductAccesor extends DefaultCustomDataAccesor {
     
+    public static String SHOP_PRODUCTS_FOLDER = "shopProducts";
+    
     public ShopProductAccesor(String name) throws Exception {
         super(name);
     }
 
     protected Content getNode(String name) throws Exception {
-        String path = "/shopProducts/" +ShopUtil.getShopName();
+        String path = ShopUtil.getPath(SHOP_PRODUCTS_FOLDER, ShopUtil.getShopName());
         return super.getNodeByName(path, "shopProduct", name);
     }
     
     public static List<Content> getProductsByProductCategory(String productCategory) {
-        String xpath = "/jcr:root/"
-            + "shopProducts/" + ShopUtil.getShopName()+ "//element(*,shopProduct)[jcr:contains(productCategoryUUIDs/., '"
+        String xpath = ShopUtil.getPath("jcr:root", SHOP_PRODUCTS_FOLDER, 
+            ShopUtil.getShopName())+ "//element(*,shopProduct)[jcr:contains(productCategoryUUIDs/., '"
             + productCategory + "')]";
         List<Content> productList = (List<Content>) QueryUtil.query("data", xpath, Query.XPATH);
         return ShopUtil.transformIntoI18nContentList(productList);

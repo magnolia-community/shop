@@ -55,13 +55,11 @@ import info.magnolia.module.shop.util.ShopLinkUtil.ParamType;
 public class ProductCategoryNavigationItem {
 
   private Content content;
-  private Content siteRoot;
   private String name;
   private int productCategoriesStartLevel;
 
-  public ProductCategoryNavigationItem(Content content, Content siteRoot, int familiesStartLevel) {
+  public ProductCategoryNavigationItem(Content content, int familiesStartLevel) {
       this.content = new I18nContentWrapper(content);
-      this.siteRoot = siteRoot;
       this.name = ShopLinkUtil.getParamValue(ParamType.CATEGORY);
       this.productCategoriesStartLevel = familiesStartLevel;
   }
@@ -82,7 +80,7 @@ public class ProductCategoryNavigationItem {
   public List<ProductCategoryNavigationItem> getItems() {
     List<ProductCategoryNavigationItem> items = new ArrayList<ProductCategoryNavigationItem>();
     for (Content child : content.getChildren("shopProductCategory")) {
-      items.add(new ProductCategoryNavigationItem(child, siteRoot, productCategoriesStartLevel));         
+      items.add(new ProductCategoryNavigationItem(child, productCategoriesStartLevel));         
     }
     return items;
   }
@@ -126,7 +124,7 @@ public class ProductCategoryNavigationItem {
   }
 
   public String getHref() {
-      return ShopLinkUtil.getProductFamilyLink(content, siteRoot);
+      return ShopLinkUtil.getProductCategoryLink(content);
   }
 
   public String getTitle() {

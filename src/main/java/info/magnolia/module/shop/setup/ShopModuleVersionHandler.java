@@ -35,6 +35,7 @@ package info.magnolia.module.shop.setup;
 
 import static info.magnolia.nodebuilder.Ops.addProperty;
 import static info.magnolia.nodebuilder.Ops.getNode;
+import info.magnolia.cms.beans.config.ContentRepository;
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.core.ItemType;
 import info.magnolia.module.DefaultModuleVersionHandler;
@@ -45,9 +46,12 @@ import info.magnolia.module.data.setup.RegisterNodeTypeTask;
 
 import info.magnolia.module.delta.AddRoleToUserTask;
 import info.magnolia.module.delta.IsAuthorInstanceDelegateTask;
+import info.magnolia.module.delta.IsInstallSamplesTask;
 import info.magnolia.module.delta.IsModuleInstalledOrRegistered;
+import info.magnolia.module.delta.OrderNodeBeforeTask;
 import info.magnolia.module.delta.Task;
 import info.magnolia.module.delta.TaskExecutionException;
+import info.magnolia.module.inplacetemplating.setup.TemplatesInstallTask;
 import info.magnolia.module.resources.setup.InstallResourcesTask;
 import info.magnolia.module.templatingkit.resources.STKResourceModel;
 import info.magnolia.module.templatingkit.setup.UpdateAllSiteDefinitions;
@@ -101,10 +105,12 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
   protected List getExtraInstallTasks(InstallContext installContext) {
     final List installTasks = new ArrayList();
     installTasks.addAll(super.getExtraInstallTasks(installContext));
+    installTasks.add(new TemplatesInstallTask("/shop/.*\\.ftl", true));
     installTasks.add(new AddMainMenuItemTask("shops", "menu.shops", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shop')", "/.resources/icons/24/shoppingcart.gif", "data"));
     installTasks.add(new AddSubMenuItemTask("shops", "shopProduct", "menu.products", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shopProduct')", "/.resources/icons/16/dot.gif"));
     installTasks.add(new AddSubMenuItemTask("shops", "shopProductCategory", "menu.productCategories", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shopProductCategory')", "/.resources/icons/16/dot.gif"));
     installTasks.add(new AddSubMenuItemTask("shops", "shopCart", "menu.carts", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shopCart')", "/.resources/icons/16/dot.gif"));
+    installTasks.add(new IsInstallSamplesTask("","", new OrderNodeBeforeTask("","", ContentRepository.CONFIG, "/modules/adminInterface/config/menu/sampleShop", "shops")));
     installTasks.add(new InstallResourcesTask("/templating-kit/themes/pop/css/shop.css", "processedCss", STKResourceModel.class.getName()));
     installTasks.add(new UpdateAllSiteDefinitions("Add new templates to Availability", "") {
       protected void updateSiteDefinition(InstallContext ctx, Content siteDefinition) throws RepositoryException, TaskExecutionException {

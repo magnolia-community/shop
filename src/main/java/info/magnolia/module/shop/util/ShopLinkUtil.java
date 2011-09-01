@@ -91,7 +91,7 @@ public class ShopLinkUtil {
         }
     }
     
-  public static String getProductFamilyLink(Content category, Content siteRoot) {
+  public static String getProductCategoryLink(Content category) {
     Content shopRootPage = ShopUtil.getShopRoot();
     String selector = ParamType.CATEGORY.name() + "." +category.getName();
     return ShopLinkUtil.createLinkFromContentWithSelectors(shopRootPage, selector);

@@ -68,14 +68,19 @@ import org.slf4j.LoggerFactory;
 public class ShopUtil {
 
     private static Logger log = LoggerFactory.getLogger(ShopUtil.class);
+    public static String ATTRIBUTE_SHOPNAME = "shopName";
+    public static String ATTRIBUTE_SHOPPINGCART = "shoppingCart";
+    
+    public static String SHOP_TEMPLATE_NAME = "shopHome";
+    public static String I18N_BASENAME = "info.magnolia.module.shop.messages";
 
     /**
-     * Gets the shop current node
+     * Gets the shop current node.
      */
     public static Content getShopRoot() {
         Content currContent = MgnlContext.getAggregationState().getMainContent();
         try {
-            while (currContent.getLevel() >= 0) {
+         while (currContent.getLevel() >= 0) {
                 if (TemplateCategoryUtil.getTemplateSubCategory(currContent).equals("shopHome")) {
                     return currContent;
                 } else {
@@ -94,7 +99,7 @@ public class ShopUtil {
     public static Messages getMessages() {
         Locale currentLocale = I18nContentSupportFactory.getI18nSupport().getLocale();
         final Messages msg = MessagesManager.getMessages(
-                "info.magnolia.module.shop.messages", currentLocale);
+                I18N_BASENAME, currentLocale);
         return msg;
     }
 
@@ -114,7 +119,7 @@ public class ShopUtil {
 
                 try {
                     cart = shopConfiguration.getCartClass();
-                    MgnlContext.setAttribute("shoppingCart", cart, Context.SESSION_SCOPE);
+                    MgnlContext.setAttribute(ATTRIBUTE_SHOPPINGCART, cart, Context.SESSION_SCOPE);
                 } catch (Exception e) {
                     log.error("Error in shop " + getShopName(), e);
                 }
@@ -123,7 +128,7 @@ public class ShopUtil {
     }
 
     public static String getShopName() {
-        return (String) MgnlContext.getAttribute("shopName");
+        return (String) MgnlContext.getAttribute(ATTRIBUTE_SHOPNAME);
     }
 
     public static String getShopName(Content dataNode) {
@@ -147,7 +152,7 @@ public class ShopUtil {
     }
 
     public static ShoppingCart getShoppingCart() {
-        return (ShoppingCart) MgnlContext.getAttribute("shoppingCart");
+        return (ShoppingCart) MgnlContext.getAttribute(ATTRIBUTE_SHOPPINGCART);
     }
 
     public static List<Content> transformIntoI18nContentList(List<Content> contentList) {
@@ -190,5 +195,21 @@ public class ShopUtil {
     public static Content getCurrencyByUUID(String uuid) {
         return new I18nContentWrapper(ContentUtil.getContentByUUID("data", uuid));
 
+    }
+    
+    public static String getPath(boolean removeEndToken, String... strings ) {
+        String path = "/";
+        
+        for (String string : strings) {
+            path += string + "/";
+        }
+        if(removeEndToken) {
+            path = StringUtils.chomp(path, "/");
+        }
+        return path;
+    }
+    
+    public static String getPath(String... strings ) {
+        return getPath(true, strings);
     }
 }

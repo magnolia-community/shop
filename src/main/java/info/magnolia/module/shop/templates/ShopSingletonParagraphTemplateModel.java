@@ -47,10 +47,12 @@ import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.shop.navigation.ProductCategoryNavigationModel;
 import info.magnolia.module.shop.util.CustomDataUtil;
+import info.magnolia.module.shop.util.ShopLinkImpl;
 import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.shop.util.ShopLinkUtil.ParamType;
 import info.magnolia.module.templating.RenderingModel;
+import info.magnolia.module.templatingkit.navigation.Link;
 import info.magnolia.module.templatingkit.navigation.LinkImpl;
 import info.magnolia.module.templatingkit.templates.STKTemplate;
 import info.magnolia.module.templatingkit.templates.SingletonParagraphTemplateModel;
@@ -74,10 +76,9 @@ public class ShopSingletonParagraphTemplateModel extends SingletonParagraphTempl
         super(content, definition, parent);
     }
 
-    public ProductCategoryNavigationModel getProductCategoryNavigation() {
-        return new ProductCategoryNavigationModel(this.getSiteRoot(),
-                getCurrentShopName());
-    }
+  public ProductCategoryNavigationModel getProductCategoryNavigation() {
+    return new ProductCategoryNavigationModel(getCurrentShopName());
+  }
 
     @Override
     public String execute() {
@@ -87,62 +88,61 @@ public class ShopSingletonParagraphTemplateModel extends SingletonParagraphTempl
         return super.execute();
     }
 
-    protected String getCurrentShopName() {
-        if (StringUtils.isEmpty(currentShopName)) {
-            // look for a template with the subcategory "shopHome" in the current path
-            Content shopRoot = ShopUtil.getShopRoot();
-            if (shopRoot != null) {
-                currentShopName = NodeDataUtil.getString(shopRoot, "currentShop");
-            }
+  protected String getCurrentShopName() {
+    if (StringUtils.isEmpty(currentShopName)) {
+      Content shopRoot = ShopUtil.getShopRoot();
+      if (shopRoot != null) {
+        currentShopName = NodeDataUtil.getString(shopRoot, "currentShop");
+      }
+    }
+    return currentShopName;
+  }
+
+  public Collection<Link> getBreadcrumb() throws RepositoryException {
+    List<Link> items = new ArrayList<Link>();
+
+    // add family
+    String name = ShopLinkUtil.getParamValue(ParamType.CATEGORY);
+    if (StringUtils.isNotEmpty(name)) {
+      Content dataNode;
+        try {
+            dataNode = CustomDataUtil.getProductCategoryNode(name);
+        
+            if (dataNode != null) {
+                Content node = new I18nContentWrapper(dataNode);
+                Content shopNode = CustomDataUtil.getShopNode(ShopUtil.getShopName());
+           
+                while (node.getLevel() > shopNode.getLevel()) {
+                  items.add(new ShopLinkImpl(node));
+                  node = node.getParent();
+                } //while
+        
+            }//if
+        } catch (Exception e) {
+            //do nothing
         }
-        return currentShopName;
+    }//if
+    
+    // add website nodes
+    Content root = getSiteRoot();
+    Content current = content;
+    while (current.getLevel() >= root.getLevel()) {
+      // only the nodes that are not hidden in navigation
+      if (!NodeDataUtil.getBoolean(current, "hideInNav", false)) {
+        items.add(new LinkImpl(current));
+      }
+      if (current.getLevel() == 0) {
+        break;
+      }
+      current = current.getParent();
     }
 
-    @Override
-    public Collection getBreadcrumb() throws RepositoryException {
-        List items = new ArrayList();
+    Collections.reverse(items);
+    return items;
+  }
 
-        // add family
-        String name = ShopLinkUtil.getParamValue(ParamType.CATEGORY);
-        if (StringUtils.isNotEmpty(name)) {
-            Content dataNode;
-            try {
-                dataNode = CustomDataUtil.getProductCategoryNode(name);
+  public String getCategoryLink(Content category) {
+    return ShopLinkUtil.getProductCategoryLink(category);
+  }
 
-                if (dataNode != null) {
-                    Content node = new I18nContentWrapper(dataNode);
-                    Content shopNode = CustomDataUtil.getShopNode(ShopUtil.getShopName());
-
-                    while (node.getLevel() > shopNode.getLevel()) {
-                        items.add(node);
-                        node = node.getParent();
-                    } //while
-
-                }//if
-            } catch (Exception e) {
-                //do nothing
-            }
-        }//if
-
-        // add website nodes
-        Content root = getSiteRoot();
-        Content current = content;
-        while (current.getLevel() >= root.getLevel()) {
-            // only the nodes that are not hidden in navigation
-            if (!NodeDataUtil.getBoolean(current, "hideInNav", false)) {
-                items.add(new LinkImpl(current));
-            }
-            if (current.getLevel() == 0) {
-                break;
-            }
-            current = current.getParent();
-        }
-
-        Collections.reverse(items);
-        return items;
-    }
-
-    public String getCategoryLink(Content category) {
-        return ShopLinkUtil.getProductFamilyLink(category, this.getSiteRoot());
-    }
 }

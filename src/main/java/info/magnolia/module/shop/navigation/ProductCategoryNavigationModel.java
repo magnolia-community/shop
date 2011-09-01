@@ -41,6 +41,8 @@ import javax.jcr.RepositoryException;
 
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.util.ContentUtil;
+import info.magnolia.module.shop.accessors.ShopProductCategoryAccesor;
+import info.magnolia.module.shop.util.ShopUtil;
 
 /**
  * Gets navigation items from data module.
@@ -49,11 +51,9 @@ import info.magnolia.cms.util.ContentUtil;
  */
 public class ProductCategoryNavigationModel {
 
-  private Content siteRoot;
   private String currentShop;
 
-  public ProductCategoryNavigationModel(Content siteRoot, String currentShop) {
-    this.siteRoot = siteRoot;
+  public ProductCategoryNavigationModel(String currentShop) {
     this.currentShop = currentShop;
   }
 
@@ -61,14 +61,14 @@ public class ProductCategoryNavigationModel {
       throws RepositoryException {
 
     List<ProductCategoryNavigationItem> items = new ArrayList<ProductCategoryNavigationItem>();
-    Content productCategoriesNode = ContentUtil.getContent("data", "/shopProductCategories/"
-        + currentShop);
+    Content productCategoriesNode = ContentUtil.getContent("data", ShopUtil.getPath(ShopProductCategoryAccesor.SHOP_PRODUCTCATEGORIES_FOLDER,
+        currentShop));
     if(productCategoriesNode != null) {
         Collection<Content> productCategories = productCategoriesNode.getChildren("shopProductCategory");
         int level = productCategoriesNode.getLevel();
         for (Content child : productCategories) {
     
-          items.add(new ProductCategoryNavigationItem(child, siteRoot, level));
+          items.add(new ProductCategoryNavigationItem(child, level));
     
         }
     }
