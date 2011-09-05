@@ -130,6 +130,22 @@ public class ShopUtil {
     public static String getShopName() {
         return (String) MgnlContext.getAttribute(ATTRIBUTE_SHOPNAME);
     }
+    
+    /**
+     * Used in product dialog, for getting productCategories, productPrices... and
+     * the storageNode is null.
+     */
+    public static String getShopNameFromPath() {
+        String mgnlPath = MgnlContext.getParameter("mgnlPath");
+        String shopName = "";
+        if(StringUtils.isNotEmpty(mgnlPath)) {
+            String[] pathSplit = StringUtils.split(mgnlPath, "/");
+            if(pathSplit.length >= 2){
+                shopName = pathSplit[1];
+            }
+        }
+        return shopName;
+    }
 
     public static String getShopName(Content dataNode) {
         if (dataNode != null) {

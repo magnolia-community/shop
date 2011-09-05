@@ -40,6 +40,8 @@ import info.magnolia.cms.gui.dialog.DialogButtonSet;
 import info.magnolia.cms.security.AccessDeniedException;
 import info.magnolia.cms.util.NodeDataUtil;
 import info.magnolia.cms.util.QueryUtil;
+import info.magnolia.module.shop.util.ShopUtil;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -152,6 +154,10 @@ public class QueryDialogButtonSet extends DialogButtonSet {
         String repository = this.getConfigValue("repository", "data");
         String itemType = this.getConfigValue("itemType", "nt:base");
         String path = this.getConfigValue("path", "");
+        if (StringUtils.isEmpty(path)) {
+            path = ShopUtil.getShopNameFromPath();
+        }
+        
         String query = this.getConfigValue("query");
         String type = this.getConfigValue("type", "sql");
 
@@ -160,7 +166,7 @@ public class QueryDialogButtonSet extends DialogButtonSet {
             queryString = query;
         } else {
             type = "sql";
-            queryString = "SELECT * FROM " + itemType + " WHERE jcr:path LIKE '" + path + "/%'";
+            queryString = "SELECT * FROM " + itemType + " WHERE jcr:path LIKE '%/" + path + "/%'";
         }
         Collection items = QueryUtil.query(repository, queryString, type, itemType);
         return items;
