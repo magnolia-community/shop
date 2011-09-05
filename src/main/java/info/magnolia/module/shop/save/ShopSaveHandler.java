@@ -114,10 +114,10 @@ public class ShopSaveHandler extends DataSaveHandler {
         //Adds the node datas
         addMenuNodeDatas("/.resources/icons/24/shoppingcart.gif", null, newShopNode.getName(), menuNode);
         addShopSubMenu(menuNode, "taxCategories", icon, "MgnlAdminCentral.showTree('shop', '" + ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, newShopNode.getName(), "taxCategories") +"', true);", "menu.taxCategories");
-        addShopSubMenu(menuNode, "currencies", icon, "MgnlAdminCentral.showTree('shop', '" + ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, "currencies") +"', true);", "menu.currencies");
-        addShopSubMenu(menuNode, "priceCategories", icon, "MgnlAdminCentral.showTree('shop', '" + ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, "priceCategories") +"', true);", "menu.priceCategories");
+        addShopSubMenu(menuNode, "currencies", icon, "MgnlAdminCentral.showTree('shop', '" + ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, newShopNode.getName(), "currencies") +"', true);", "menu.currencies");
+        addShopSubMenu(menuNode, "priceCategories", icon, "MgnlAdminCentral.showTree('shop', '" + ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, newShopNode.getName(), "priceCategories") +"', true);", "menu.priceCategories");
         addShopSubMenu(menuNode, "productCategories", icon, "MgnlAdminCentral.showTree('shopProductCategory', '" + ShopUtil.getPath( ShopProductCategoryAccesor.SHOP_PRODUCTCATEGORIES_FOLDER, newShopNode.getName()) +"', true);", "menu.productCategories");
-        addShopSubMenu(menuNode, "products", icon, "MgnlAdminCentral.showTree('shopProduct', '/" + ShopUtil.getPath(ShopProductAccesor.SHOP_PRODUCTS_FOLDER, newShopNode.getName()) +"', true);", "menu.products");
+        addShopSubMenu(menuNode, "products", icon, "MgnlAdminCentral.showTree('shopProduct', '" + ShopUtil.getPath(ShopProductAccesor.SHOP_PRODUCTS_FOLDER, newShopNode.getName()) +"', true);", "menu.products");
         menuNode.getParent().orderBefore(menuNode.getName(), "shops");
         menuNode.getParent().save();
         

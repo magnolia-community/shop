@@ -38,30 +38,30 @@
     padding-top: 10px;
  }
 
- #shop .latest p {
+ #shop .products p {
     line-height: 1.5em;
 }
 
-#shop .latest h3 {
+#shop .products h3 {
   font-size: 140%;
 }
 
- #shop .latest li {
+ #shop .products li {
     padding-top: 10px;
     list-style: none;
  }
 
- #shop .latest li .button, .product-add .button {
+ #shop .products li .button, .product-add .button {
     padding: 3px 3px 3px 25px;
     background: #f2f2f2 url('../img/shop/shoppingcart.gif') no-repeat center left;
     border: 1px solid #b3b3b3;
  }
 
- #shop .latest li .button:hover, .product-add .button:hover {
+ #shop .products li .button:hover, .product-add .button:hover {
    cursor: pointer;
  }
 
- #shop .latest li input[type="text"], .product-add input[type="text"] {
+ #shop .products li input[type="text"], .product-add input[type="text"] {
     height: 1.6em;
     width: 5em;
  }
