@@ -34,6 +34,7 @@
 package info.magnolia.module.shop.paragraphs;
 
 import info.magnolia.cms.core.Content;
+import info.magnolia.cms.i18n.I18nContentWrapper;
 import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.NodeDataUtil;
 import info.magnolia.module.shop.util.ShopLinkUtil;
@@ -85,7 +86,7 @@ public class ProductTeaserModel extends InternalTeaserModel {
     public Content getProduct() {
         String productUUID = NodeDataUtil.getString(content, "productUUID");
         if (StringUtils.isNotBlank(productUUID)) {
-            return ContentUtil.getContentByUUID("data", productUUID);
+            return new I18nContentWrapper(ContentUtil.getContentByUUID("data", productUUID));
         }
         return null;
     }

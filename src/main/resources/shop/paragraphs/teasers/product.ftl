@@ -15,7 +15,7 @@
     [#assign title = content.teaserTitle!model.product.title!model.product.@name]
     [#assign text = content.teaserAbstract!model.product.productDescription1!]
     [#assign kicker = target.kicker!]
-    [#assign teaserLink = model.teaserLink!]
+    [#assign teaserLink = model.productDetailPageLink!]
     [#assign hasLinkList = content.hasLinkList!false]
 
     [#if !hideTeaserImage]
@@ -62,7 +62,7 @@
             </a>
         </${headingLevel}>
         [#if hasImageLink]<a href="${teaserLink}"><img src="${imageLink}" alt="${imageAlt}" /></a>[/#if]
-        [#if hasText]<p>${text + " "}<em class="more"><a href="${model.teaserLink}">${i18n['link.readon']} <span>${title}</span></a></em></p>[/#if]
+        [#if hasText]<p>${text + " "}<em class="more"><a href="${teaserLink}">${i18n['link.readon']} <span>${title}</span></a></em></p>[/#if]
 
         [#if hasLinkList]
             [#-- Macro: Link List from include --]
