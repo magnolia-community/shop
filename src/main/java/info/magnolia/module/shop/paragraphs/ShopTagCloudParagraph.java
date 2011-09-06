@@ -33,15 +33,11 @@
  */
 package info.magnolia.module.shop.paragraphs;
 
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import info.magnolia.module.shop.accessors.ShopProductAccesor;
-import info.magnolia.module.shop.accessors.ShopProductCategoryAccesor;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.shop.util.ShopLinkUtil.ParamType;
 import info.magnolia.module.templating.MagnoliaTemplatingUtilities;
@@ -63,12 +59,13 @@ public class ShopTagCloudParagraph extends RenderingModelImpl {
     private static final Logger log = LoggerFactory.getLogger(ShopTagCloudParagraph.class);
 
     private Content productListPage = null;
+    private Content siteRoot = null;
     
     public ShopTagCloudParagraph(Content content, RenderableDefinition definition, RenderingModel parent) {
         super(content, definition, parent);
         
         if(parent instanceof STKTemplateModel) {
-            Content siteRoot = ((STKTemplateModel) parent).getSiteRoot();
+            this.siteRoot = ((STKTemplateModel) parent).getSiteRoot();
             productListPage = ShopUtil.getShopRoot();
         }
     }
@@ -80,16 +77,7 @@ public class ShopTagCloudParagraph extends RenderingModelImpl {
     }
     
     public int getNumberOfItemsCategorizedWith(String categoryUUID) {
-      int numberOfProducts = 0;
-      Collection<Content> productCategories = ShopProductCategoryAccesor.getTaggedProductCategories(categoryUUID);
-      
-      for (Iterator<Content> iterator = productCategories.iterator(); iterator.hasNext();) {
-        Content productCategory = iterator.next();
-        //Find products on each category
-        numberOfProducts += ShopProductAccesor.getProductsByProductCategory(productCategory.getUUID()).size();
-        
-      }
-      return numberOfProducts;
+      return ShopUtil.findTaggedProducts(categoryUUID).size();
     }
     
     public String getProductListLink(String tagName) {
