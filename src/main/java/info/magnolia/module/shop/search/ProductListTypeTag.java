@@ -71,4 +71,9 @@ public class ProductListTypeTag extends AbstractProductListType {
         }
         return null;
     }
+
+    @Override
+    public String getTitle() {
+        return ShopUtil.getMessages().getWithDefault("productList.tag", new Object[]{ShopLinkUtil.getParamValue(ParamType.TAG)}, "");
+    }
 }

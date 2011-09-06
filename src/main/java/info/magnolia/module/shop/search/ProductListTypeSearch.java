@@ -102,6 +102,11 @@ public class ProductListTypeSearch extends AbstractProductListType {
 
     protected String getRepository() {
         return repository;
+    }
+
+    @Override
+    public String getTitle() {
+        return ShopUtil.getMessages().getWithDefault("productList.search", new Object[]{getQueryStr()}, "");
     }    
 
 }

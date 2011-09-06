@@ -57,6 +57,7 @@ abstract public class AbstractProductListType {
     
     abstract public List<Content> getResult();
     abstract protected String getPagerLink();
+    abstract public String getTitle();
     
     public Content getSiteRoot() {
         return siteRoot;

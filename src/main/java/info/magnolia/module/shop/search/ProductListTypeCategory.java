@@ -34,10 +34,14 @@
 package info.magnolia.module.shop.search;
 
 import info.magnolia.cms.core.Content;
+import info.magnolia.cms.i18n.I18nContentWrapper;
 import info.magnolia.cms.util.SelectorUtil;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.shop.accessors.ShopProductAccesor;
+import info.magnolia.module.shop.util.CustomDataUtil;
 import info.magnolia.module.shop.util.ShopLinkUtil;
+import info.magnolia.module.shop.util.ShopUtil;
+import info.magnolia.module.shop.util.ShopLinkUtil.ParamType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +74,18 @@ public class ProductListTypeCategory extends AbstractProductListType {
           
         } 
         return productList;
+    }
+
+    @Override
+    public String getTitle() {
+        String name = ShopLinkUtil.getParamValue(ParamType.CATEGORY);
+        try {
+            Content category = new I18nContentWrapper(CustomDataUtil.getProductCategoryNode(name));
+            return ShopUtil.getMessages().getWithDefault("productList.productCategory", new Object[]{category.getTitle()}, "");
+        } catch (Exception e) {
+            
+        };
+        return "";
     }
 
 }

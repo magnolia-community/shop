@@ -20,11 +20,7 @@
 	[@cms.editBar /]
 	<div class="listingHeader">
 		<${headingLevel}>
-			[#if ctx.type?has_content && ctx.type = "offers"]
-				${i18n['productList.currentOffers']}
-			[#else]
-				${category.title!'keine kategorie'}
-			[/#if]
+				${model.title!}
 		</${headingLevel}>
 		<em>${count} ${(count>1)?string(i18n['productList.products.found'],i18n['productList.product.found'])}</em>
 		[#-- Macro: Pager --]

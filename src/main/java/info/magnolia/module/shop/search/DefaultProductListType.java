@@ -36,7 +36,7 @@ package info.magnolia.module.shop.search;
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.core.NodeData;
 import info.magnolia.cms.util.ContentUtil;
-import info.magnolia.context.MgnlContext;
+import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.templating.MagnoliaTemplatingUtilities;
 
 import java.util.ArrayList;
@@ -82,8 +82,12 @@ public class DefaultProductListType extends AbstractProductListType {
             }
           } //end for
         } //end else
-        MgnlContext.setAttribute("type", "offers");
         return productList;
+    }
+
+    @Override
+    public String getTitle() {
+        return ShopUtil.getMessages().get("productList.currentOffers");
     }
 
 }
