@@ -125,7 +125,7 @@
         <sv:value>40708550-e22c-43d4-91ae-4a92c352ee7d</sv:value>
       </sv:property>
       <sv:property sv:name="controlType" sv:type="String">
-        <sv:value>multiLanguageEdit</sv:value>
+        <sv:value>shopMultiLanguageEdit</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
         <sv:value>data.dialogs.shopProduct.mainTab.title.label</sv:value>
@@ -165,7 +165,7 @@
         <sv:value>0e6890f4-8761-4907-8dcd-1d6abf8124d3</sv:value>
       </sv:property>
       <sv:property sv:name="controlType" sv:type="String">
-        <sv:value>multiLanguageEdit</sv:value>
+        <sv:value>shopMultiLanguageEdit</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
         <sv:value>data.dialogs.shopProduct.mainTab.productDescription1.label</sv:value>
@@ -208,7 +208,7 @@
         <sv:value>c031ad3b-81cb-49c7-84e1-d974fcc3d6b7</sv:value>
       </sv:property>
       <sv:property sv:name="controlType" sv:type="String">
-        <sv:value>multiLanguageEdit</sv:value>
+        <sv:value>shopMultiLanguageEdit</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
         <sv:value>data.dialogs.shopProduct.mainTab.productDescription2.label</sv:value>

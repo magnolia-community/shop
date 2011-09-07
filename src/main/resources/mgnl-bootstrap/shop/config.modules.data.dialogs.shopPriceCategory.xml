@@ -122,7 +122,7 @@
         <sv:value>233309ab-9bfb-456b-a8cd-654ad6c05951</sv:value>
       </sv:property>
       <sv:property sv:name="controlType" sv:type="String">
-        <sv:value>multiLanguageEdit</sv:value>
+        <sv:value>shopMultiLanguageEdit</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
         <sv:value>data.dialogs.shopPriceCategory.mainTab.title.label</sv:value>

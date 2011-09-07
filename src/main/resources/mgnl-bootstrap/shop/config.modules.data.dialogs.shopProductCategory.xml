@@ -122,7 +122,7 @@
         <sv:value>80148028-5446-4cf6-a267-0b32b585556d</sv:value>
       </sv:property>
       <sv:property sv:name="controlType" sv:type="String">
-        <sv:value>multiLanguageEdit</sv:value>
+        <sv:value>shopMultiLanguageEdit</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
         <sv:value>data.dialogs.shopProductCategory.mainTab.title.label</sv:value>
@@ -162,7 +162,7 @@
         <sv:value>94f21b80-0249-4107-904c-ea34c9ab7cdf</sv:value>
       </sv:property>
       <sv:property sv:name="controlType" sv:type="String">
-        <sv:value>multiLanguageEdit</sv:value>
+        <sv:value>shopMultiLanguageEdit</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
         <sv:value>data.dialogs.shopProductCategory.mainTab.categoryDescription.label</sv:value>

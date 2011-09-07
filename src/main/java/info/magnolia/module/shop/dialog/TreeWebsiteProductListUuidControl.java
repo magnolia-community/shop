@@ -35,8 +35,10 @@ package info.magnolia.module.shop.dialog;
 
 import javax.jcr.RepositoryException;
 
+import info.magnolia.cms.beans.config.ContentRepository;
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.gui.dialog.DialogUUIDLink;
+import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.NodeDataUtil;
 import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
@@ -55,15 +57,24 @@ public class TreeWebsiteProductListUuidControl extends DialogUUIDLink {
     protected void doBeforeDrawHtml() {
         super.doBeforeDrawHtml();
         try {
-            Content content = this.getStorageNode().getAncestor(1);
+            Content siteRootNode = this.getStorageNode();
+            
+            if (siteRootNode == null) {
+                if(MgnlContext.hasAttribute("mgnlPath")) {
+                    String pathToParent = (String) MgnlContext.getAttribute("mgnlPath");
+                    siteRootNode = ContentUtil.getContent(ContentRepository.WEBSITE, pathToParent);
+                    if(siteRootNode != null) {
+                        siteRootNode = siteRootNode.getAncestor(1);
+                    }
+                }
+            }
         
-            Content shopHome = STKUtil.getContentByTemplateCategorySubCategory(content, "feature", "shopHome");
+            Content shopHome = STKUtil.getContentByTemplateCategorySubCategory(siteRootNode, "feature", "shopHome");
             if(shopHome != null) {
                 MgnlContext.setAttribute(ShopUtil.ATTRIBUTE_SHOPNAME, NodeDataUtil.getString(shopHome, "currentShop"), Context.SESSION_SCOPE);
             }
         } catch (RepositoryException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            
         }
     }
 
