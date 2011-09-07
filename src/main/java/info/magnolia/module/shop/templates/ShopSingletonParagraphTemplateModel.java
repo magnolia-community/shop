@@ -82,7 +82,7 @@ public class ShopSingletonParagraphTemplateModel extends SingletonParagraphTempl
 
     @Override
     public String execute() {
-        MgnlContext.setAttribute("shopName", getCurrentShopName(),
+        MgnlContext.setAttribute(ShopUtil.ATTRIBUTE_SHOPNAME, getCurrentShopName(),
                 Context.SESSION_SCOPE);
         ShopUtil.setShoppingCartInSession();
         return super.execute();
