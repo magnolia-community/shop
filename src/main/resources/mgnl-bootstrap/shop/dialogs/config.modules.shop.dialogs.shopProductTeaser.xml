@@ -73,7 +73,7 @@
         <sv:value>b2191690-f817-47f8-9dd1-bf3cf867da1c</sv:value>
       </sv:property>
       <sv:property sv:name="controlType" sv:type="String">
-        <sv:value>uuidLink</sv:value>
+        <sv:value>info.magnolia.module.shop.dialog.TreeWebsiteProductListUuidControl</sv:value>
       </sv:property>
       <sv:property sv:name="i18nBasename" sv:type="String">
         <sv:value>info.magnolia.module.shop.messages</sv:value>
