@@ -162,7 +162,7 @@
         <sv:value>5d21274e-cad0-4ac5-a92f-333b9a962e0d</sv:value>
       </sv:property>
       <sv:property sv:name="controlType" sv:type="String">
-        <sv:value>querySelect</sv:value>
+        <sv:value>shopQuerySelect</sv:value>
       </sv:property>
       <sv:property sv:name="itemType" sv:type="String">
         <sv:value>shopCurrency</sv:value>

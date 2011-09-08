@@ -334,7 +334,7 @@
         <sv:value>175b3119-8b33-4862-a8b5-c189a6126626</sv:value>
       </sv:property>
       <sv:property sv:name="controlType" sv:type="String">
-        <sv:value>queryCheckbox</sv:value>
+        <sv:value>shopQueryCheckbox</sv:value>
       </sv:property>
       <sv:property sv:name="description" sv:type="String">
         <sv:value>Product categories to which this product should belong</sv:value>
@@ -429,7 +429,7 @@
         <sv:value>7a96c61a-aa5d-4cf4-a75c-5f6b4c17ea6c</sv:value>
       </sv:property>
       <sv:property sv:name="controlType" sv:type="String">
-        <sv:value>querySelect</sv:value>
+        <sv:value>shopQuerySelect</sv:value>
       </sv:property>
       <sv:property sv:name="itemType" sv:type="String">
         <sv:value>shopTaxCategory</sv:value>
