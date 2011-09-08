@@ -37,6 +37,8 @@ import info.magnolia.cms.core.Content;
 import info.magnolia.cms.gui.dialog.DialogEdit;
 import info.magnolia.cms.gui.misc.CssConstants;
 import info.magnolia.cms.security.AccessDeniedException;
+import info.magnolia.cms.util.ContentUtil;
+import info.magnolia.context.MgnlContext;
 import info.magnolia.module.templatingkit.sites.Site;
 import info.magnolia.module.templatingkit.sites.SiteManager;
 import info.magnolia.module.templatingkit.util.STKUtil;
@@ -157,8 +159,20 @@ public class MultiLanguageDialogEdit extends DialogEdit implements MultiLanguage
             String siteKey = getConfigValue("siteKey");
             site = SiteManager.Factory.getInstance().getSite(getConfigValue("siteKey"));
         }
-        if (site == null && this.getStorageNode() != null) {
-            site = STKUtil.getSite(this.getStorageNode());
+        if (site == null) {
+            if (this.getStorageNode() != null) {
+                site = STKUtil.getSite(this.getStorageNode());
+            } else {
+                // new node -> we need to look at the path!
+                String path = MgnlContext.getParameter("mgnlPath");
+                String repository = MgnlContext.getParameter("mgnlRepository");
+                if (StringUtils.isNotBlank(path) && StringUtils.isNotBlank(repository)) {
+                    Content parentNode = ContentUtil.getContent(repository, path);
+                    if (parentNode != null) {
+                        site = STKUtil.getSite(parentNode);
+                    }
+                }
+            }
         }
         if (site == null) {
             site = STKUtil.getSite();

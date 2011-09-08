@@ -35,6 +35,7 @@ package info.magnolia.module.shop.dialog;
 
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.gui.control.ControlImpl;
+import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.fckeditor.dialogs.FckEditorDialog;
 import info.magnolia.module.templatingkit.sites.Site;
@@ -127,7 +128,7 @@ public class MultiLanguageDialogFckEdit extends FckEditorDialog implements Multi
         }
     }
 
-    // TODO: MultiLanguageDialogEdit and MultiLanguageDialogFckEdit share some common code
+    // @TODO: MultiLanguageDialogEdit and MultiLanguageDialogFckEdit share some common code
     // which should be "outsourced"
     private void initLanguages() {
         // set the languages for the site key by assuming that the languages are
@@ -137,8 +138,20 @@ public class MultiLanguageDialogFckEdit extends FckEditorDialog implements Multi
             String siteKey = getConfigValue("siteKey");
             site = SiteManager.Factory.getInstance().getSite(getConfigValue("siteKey"));
         }
-        if (site == null && this.getStorageNode() != null) {
-            site = STKUtil.getSite(this.getStorageNode());
+        if (site == null) {
+            if (this.getStorageNode() != null) {
+                site = STKUtil.getSite(this.getStorageNode());
+            } else {
+                // new node -> we need to look at the path!
+                String path = MgnlContext.getParameter("mgnlPath");
+                String repository = MgnlContext.getParameter("mgnlRepository");
+                if (StringUtils.isNotBlank(path) && StringUtils.isNotBlank(repository)) {
+                    Content parentNode = ContentUtil.getContent(repository, path);
+                    if (parentNode != null) {
+                        site = STKUtil.getSite(parentNode);
+                    }
+                }
+            }
         }
         if (site == null) {
             site = STKUtil.getSite();

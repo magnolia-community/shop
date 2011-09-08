@@ -37,8 +37,10 @@ import info.magnolia.cms.core.Content;
 import info.magnolia.cms.gui.control.SelectOption;
 import info.magnolia.cms.gui.dialog.DialogSelect;
 import info.magnolia.cms.security.AccessDeniedException;
+import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.NodeDataUtil;
 import info.magnolia.cms.util.QueryUtil;
+import info.magnolia.context.MgnlContext;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.templatingkit.sites.Site;
 import info.magnolia.module.templatingkit.sites.SiteManager;
@@ -145,7 +147,7 @@ public class QuerySelect extends DialogSelect {
             if (staticOptionsFlag.equals("before")) {
                 options.addAll(staticSelectOptions);
             }
-                Iterator it = this.getOptionNodes(configNode).iterator(); //$NON-NLS-1$
+            Iterator it = this.getOptionNodes(configNode).iterator(); //$NON-NLS-1$
             while (it.hasNext()) {
                 Content n = (Content) it.next();
                 String valueNodeData = this.getConfigValue("valueNodeData", "value");
@@ -163,26 +165,26 @@ public class QuerySelect extends DialogSelect {
                 String label, currentLabel, currentLanguage;
                 Iterator<String> languageIter = languages.iterator();
 //                if (labelNodeData.indexOf(",") >= 0) {
-                    label = "";
-                    String[] labelNodeDatas = StringUtils.split(labelNodeData, ",");
-                    labelNodeDatas = StringUtils.stripAll(labelNodeDatas);
-                    for (int i = 0; i < labelNodeDatas.length; i++) {
-                        currentLabel = null;
-                        while (languageIter.hasNext() && StringUtils.isBlank(currentLabel)) {
-                            currentLanguage = languageIter.next();
-                            currentLabel = NodeDataUtil.getString(n, labelNodeDatas[i] + "_" + currentLanguage);
-                            log.debug("label " + i + " (" + labelNodeDatas[i] + "_" + currentLanguage + "): " + currentLabel);
-                        }
-                        if (StringUtils.isBlank(currentLabel)) {
-                            currentLabel = NodeDataUtil.getString(n, labelNodeDatas[i]);
-                            log.debug("label " + i + " (" + labelNodeDatas[i] + "): " + currentLabel);
-                        }
-                        label += currentLabel + " ";
+                label = "";
+                String[] labelNodeDatas = StringUtils.split(labelNodeData, ",");
+                labelNodeDatas = StringUtils.stripAll(labelNodeDatas);
+                for (int i = 0; i < labelNodeDatas.length; i++) {
+                    currentLabel = null;
+                    while (languageIter.hasNext() && StringUtils.isBlank(currentLabel)) {
+                        currentLanguage = languageIter.next();
+                        currentLabel = NodeDataUtil.getString(n, labelNodeDatas[i] + "_" + currentLanguage);
+                        log.debug("label " + i + " (" + labelNodeDatas[i] + "_" + currentLanguage + "): " + currentLabel);
                     }
-                    StringUtils.strip(label);
-                    if (StringUtils.isEmpty(label)) {
-                        label = value;
+                    if (StringUtils.isBlank(currentLabel)) {
+                        currentLabel = NodeDataUtil.getString(n, labelNodeDatas[i]);
+                        log.debug("label " + i + " (" + labelNodeDatas[i] + "): " + currentLabel);
                     }
+                    label += currentLabel + " ";
+                }
+                StringUtils.strip(label);
+                if (StringUtils.isEmpty(label)) {
+                    label = value;
+                }
 //                } else {
 //                    label = NodeDataUtil.getString(n, labelNodeData, value);//$NON-NLS-1$
 //                }
@@ -227,7 +229,7 @@ public class QuerySelect extends DialogSelect {
         return items;
     }
 
-        private void initSiteKey(Content storageNode) {
+    private void initSiteKey(Content storageNode) {
         if (storageNode != null) {
             try {
                 Content rootDataNode = storageNode.getAncestor(1);
@@ -242,6 +244,7 @@ public class QuerySelect extends DialogSelect {
         }
     }
 
+    // @TODO: move to utility class
     private void initLanguages(Content storageNode) {
         // set the languages for the site key by assuming that the languages are
         // defined at default site definition
@@ -250,10 +253,22 @@ public class QuerySelect extends DialogSelect {
             String siteKey = getConfigValue("siteKey");
             site = SiteManager.Factory.getInstance().getSite(getConfigValue("siteKey"));
         }
-        if (site == null && this.getStorageNode() != null) {
-            site = STKUtil.getSite(this.getStorageNode());
-        } else if (site == null && storageNode != null) {
-            site = STKUtil.getSite(storageNode);
+        if (site == null) {
+            if (this.getStorageNode() != null) {
+                site = STKUtil.getSite(this.getStorageNode());
+            } else if (storageNode != null) {
+                site = STKUtil.getSite(storageNode);
+            } else {
+                // new node -> we need to look at the path!
+                String path = MgnlContext.getParameter("mgnlPath");
+                String repository = MgnlContext.getParameter("mgnlRepository");
+                if (StringUtils.isNotBlank(path) && StringUtils.isNotBlank(repository)) {
+                    Content parentNode = ContentUtil.getContent(repository, path);
+                    if (parentNode != null) {
+                        site = STKUtil.getSite(parentNode);
+                    }
+                }
+            }
         }
         if (site == null) {
             site = STKUtil.getSite();
@@ -274,5 +289,4 @@ public class QuerySelect extends DialogSelect {
     public void setLanguages(List<String> languages) {
         this.languages = languages;
     }
-
 }
