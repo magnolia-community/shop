@@ -82,7 +82,6 @@
 [/#if]
 
 
-
 [#-------------- ADDITIONAL MACROS --------------]
 
 [#-- Macro: Edit Bar --]

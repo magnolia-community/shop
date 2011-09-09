@@ -7,6 +7,7 @@
 	[#assign productTitle = product.title!]
 	[#assign itemLink = model.getProductDetailPageLink(product)]
 	[#assign bean = model.getProductPriceBean(product)]
+	[#assign optionSets = model.getOptionSets(product)]
     [#assign noPicLink = ctx.contextPath + "/docroot/shop/images/box.gif"]
    	
 [/#macro]

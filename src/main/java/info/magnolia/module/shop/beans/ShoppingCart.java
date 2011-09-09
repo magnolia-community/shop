@@ -34,12 +34,14 @@
 package info.magnolia.module.shop.beans;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Shoping cart.
  * @author will
  */
 public interface ShoppingCart {
+  public int addToShoppingCart(String productUUID, int quantity, Map options);
   public int addToShoppingCart(String productUUID, int quantity);
 
   public void removeFromShoppingCart(String productUUID);

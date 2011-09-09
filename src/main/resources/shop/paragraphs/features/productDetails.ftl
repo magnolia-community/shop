@@ -13,6 +13,7 @@
 	[#assign description2 = product.productDescription2!]
 	[#assign productTitle = product.title!]
 	[#assign bean = model.getProductPriceBean(product)]
+	[#assign optionSets = model.getOptionSets(product)]
 	
 	[#assign noPicLink = ctx.contextPath + "/docroot/shop/images/box.gif"]
 	

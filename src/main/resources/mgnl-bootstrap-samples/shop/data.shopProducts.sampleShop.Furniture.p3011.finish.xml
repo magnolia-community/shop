@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sv:node sv:name="finish" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <sv:property sv:name="jcr:primaryType" sv:type="Name">
+    <sv:value>shopProductOptions</sv:value>
+  </sv:property>
+  <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+    <sv:value>mix:lockable</sv:value>
+  </sv:property>
+  <sv:property sv:name="jcr:uuid" sv:type="String">
+    <sv:value>09986141-aa31-43fe-a06a-8093148a17e1</sv:value>
+  </sv:property>
+  <sv:property sv:name="description_de" sv:type="String">
+    <sv:value>Wählen Sie zwischen 2 Holz-Varianten und 3 Farben</sv:value>
+  </sv:property>
+  <sv:property sv:name="description_en" sv:type="String">
+    <sv:value>Choose between 2 wood finishes and 3 colors</sv:value>
+  </sv:property>
+  <sv:property sv:name="itemtype" sv:type="String">
+    <sv:value>shopProductOptions</sv:value>
+  </sv:property>
+  <sv:property sv:name="name" sv:type="String">
+    <sv:value>finish</sv:value>
+  </sv:property>
+  <sv:property sv:name="title_de" sv:type="String">
+    <sv:value>Ausführung</sv:value>
+  </sv:property>
+  <sv:property sv:name="title_en" sv:type="String">
+    <sv:value>Finish</sv:value>
+  </sv:property>
+  <sv:node sv:name="MetaData">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>mgnl:metaData</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:authorid" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:creationdate" sv:type="Date">
+      <sv:value>2011-09-08T08:16:56.747+02:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+      <sv:value>2011-09-08T08:16:56.749+02:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:template" sv:type="String">
+      <sv:value/>
+    </sv:property>
+  </sv:node>
+  <sv:node sv:name="birch">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>shopProductOption</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+      <sv:value>mix:lockable</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:uuid" sv:type="String">
+      <sv:value>d243e1a9-c62a-40a0-b8ec-4d783de9b6ad</sv:value>
+    </sv:property>
+    <sv:property sv:name="itemtype" sv:type="String">
+      <sv:value>shopProductOption</sv:value>
+    </sv:property>
+    <sv:property sv:name="name" sv:type="String">
+      <sv:value>birch</sv:value>
+    </sv:property>
+    <sv:property sv:name="title_de" sv:type="String">
+      <sv:value>Birke</sv:value>
+    </sv:property>
+    <sv:property sv:name="title_en" sv:type="String">
+      <sv:value>Birch</sv:value>
+    </sv:property>
+    <sv:node sv:name="MetaData">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:metaData</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:authorid" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:creationdate" sv:type="Date">
+        <sv:value>2011-09-08T08:17:43.626+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+        <sv:value>2011-09-08T08:17:43.627+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:template" sv:type="String">
+        <sv:value/>
+      </sv:property>
+    </sv:node>
+  </sv:node>
+  <sv:node sv:name="beech">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>shopProductOption</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+      <sv:value>mix:lockable</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:uuid" sv:type="String">
+      <sv:value>c9569b76-580c-487a-9a33-0ca9dac1d061</sv:value>
+    </sv:property>
+    <sv:property sv:name="itemtype" sv:type="String">
+      <sv:value>shopProductOption</sv:value>
+    </sv:property>
+    <sv:property sv:name="name" sv:type="String">
+      <sv:value>beech</sv:value>
+    </sv:property>
+    <sv:property sv:name="title_de" sv:type="String">
+      <sv:value>Buche</sv:value>
+    </sv:property>
+    <sv:property sv:name="title_en" sv:type="String">
+      <sv:value>Beech</sv:value>
+    </sv:property>
+    <sv:node sv:name="MetaData">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:metaData</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:authorid" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:creationdate" sv:type="Date">
+        <sv:value>2011-09-08T08:19:27.314+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+        <sv:value>2011-09-08T08:19:27.315+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:template" sv:type="String">
+        <sv:value/>
+      </sv:property>
+    </sv:node>
+  </sv:node>
+  <sv:node sv:name="white">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>shopProductOption</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+      <sv:value>mix:lockable</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:uuid" sv:type="String">
+      <sv:value>efdc606f-21ed-4ea0-aa7d-816911c2af88</sv:value>
+    </sv:property>
+    <sv:property sv:name="itemtype" sv:type="String">
+      <sv:value>shopProductOption</sv:value>
+    </sv:property>
+    <sv:property sv:name="name" sv:type="String">
+      <sv:value>white</sv:value>
+    </sv:property>
+    <sv:property sv:name="title_de" sv:type="String">
+      <sv:value>weiss</sv:value>
+    </sv:property>
+    <sv:property sv:name="title_en" sv:type="String">
+      <sv:value>white</sv:value>
+    </sv:property>
+    <sv:node sv:name="MetaData">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:metaData</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:authorid" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:creationdate" sv:type="Date">
+        <sv:value>2011-09-08T08:19:39.467+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+        <sv:value>2011-09-08T08:19:39.468+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:template" sv:type="String">
+        <sv:value/>
+      </sv:property>
+    </sv:node>
+  </sv:node>
+  <sv:node sv:name="grey">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>shopProductOption</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+      <sv:value>mix:lockable</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:uuid" sv:type="String">
+      <sv:value>cf1da4c0-e513-4418-bcf4-db8c29563780</sv:value>
+    </sv:property>
+    <sv:property sv:name="itemtype" sv:type="String">
+      <sv:value>shopProductOption</sv:value>
+    </sv:property>
+    <sv:property sv:name="name" sv:type="String">
+      <sv:value>grey</sv:value>
+    </sv:property>
+    <sv:property sv:name="title_de" sv:type="String">
+      <sv:value>grau</sv:value>
+    </sv:property>
+    <sv:property sv:name="title_en" sv:type="String">
+      <sv:value>grey</sv:value>
+    </sv:property>
+    <sv:node sv:name="MetaData">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:metaData</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:authorid" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:creationdate" sv:type="Date">
+        <sv:value>2011-09-08T08:19:56.668+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+        <sv:value>2011-09-08T08:19:56.669+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:template" sv:type="String">
+        <sv:value/>
+      </sv:property>
+    </sv:node>
+  </sv:node>
+  <sv:node sv:name="red">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>shopProductOption</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+      <sv:value>mix:lockable</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:uuid" sv:type="String">
+      <sv:value>e033f1cf-eee7-4c6e-8737-176dc25dc302</sv:value>
+    </sv:property>
+    <sv:property sv:name="itemtype" sv:type="String">
+      <sv:value>shopProductOption</sv:value>
+    </sv:property>
+    <sv:property sv:name="name" sv:type="String">
+      <sv:value>red</sv:value>
+    </sv:property>
+    <sv:property sv:name="title_de" sv:type="String">
+      <sv:value>rot</sv:value>
+    </sv:property>
+    <sv:property sv:name="title_en" sv:type="String">
+      <sv:value>red</sv:value>
+    </sv:property>
+    <sv:node sv:name="MetaData">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:metaData</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:authorid" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:creationdate" sv:type="Date">
+        <sv:value>2011-09-08T08:20:15.060+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+        <sv:value>2011-09-08T08:20:15.061+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:template" sv:type="String">
+        <sv:value/>
+      </sv:property>
+    </sv:node>
+  </sv:node>
+</sv:node>

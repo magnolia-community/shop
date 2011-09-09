@@ -41,6 +41,9 @@ import info.magnolia.module.ocm.beans.OCMBean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,236 +64,246 @@ import org.slf4j.LoggerFactory;
  */
 public class ShoppingCartItem extends OCMBean implements Serializable {
 
-  private static final long serialVersionUID = 1L;
-  private static Logger log = LoggerFactory.getLogger(ShoppingCartItem.class);
-  private String productUUID;
-  private String productNumber;
-  private int quantity;
-  private BigDecimal unitPrice;
-  private BigDecimal itemDiscountRate;
-  private BigDecimal itemTaxRate;
-  private String shoppingCartUUID;
-  private DefaultShoppingCartImpl cart;
-  private String productTitle;
-  private String productSubTitle;
-  private String productDescription;
+    private static final long serialVersionUID = 1L;
+    private static Logger log = LoggerFactory.getLogger(ShoppingCartItem.class);
+    private String productUUID;
+    private String productNumber;
+    private int quantity;
+    private BigDecimal unitPrice;
+    private BigDecimal itemDiscountRate;
+    private BigDecimal itemTaxRate;
+    private String shoppingCartUUID;
+    private DefaultShoppingCartImpl cart;
+    private String productTitle;
+    private String productSubTitle;
+    private String productDescription;
+    private Map<String,CartItemOption> options;
 
-  public ShoppingCartItem(DefaultShoppingCartImpl cart, Content product, int quantity, Content productPrice) {
-    super();
-    this.setCart(cart);
-    this.setProduct(product);
-    this.setQuantity(quantity);
-    this.setProductPrice(productPrice);
-  }
-
-  public ShoppingCartItem(DefaultShoppingCartImpl cart, String productUUID, int quantity, double unitPrice) {
-    super();
-    this.setCart(cart);
-    Content product = new I18nContentWrapper(ContentUtil.getContentByUUID("data", productUUID));
-    this.setProduct(product);
-    this.setQuantity(quantity);
-    this.setUnitPrice(unitPrice);
-  }
-
-  public Content getProduct() {
-    if (StringUtils.isNotBlank(productUUID)) {
-      return ContentUtil.getContentByUUID("data", productUUID);
+    public ShoppingCartItem(DefaultShoppingCartImpl cart, Content product, int quantity, Content productPrice, Map options) {
+        this(cart, product, quantity, productPrice);
+        this.setOptions(options);
     }
-    return null;
-  }
 
-  public void setProduct(Content product) {
-    if (product != null) {
-      this.productUUID = product.getUUID();
-      log.debug("setting product " + product + " in cart item");
-      log.debug("product number: " + NodeDataUtil.getString(product, "name"));
-      setProductNumber(NodeDataUtil.getString(product, "name"));
-      
-        setProductTitle(NodeDataUtil.getString(product, "title"));
-        setProductSubTitle(NodeDataUtil.getString(product, "productDescription1"));
-        setProductDescription(NodeDataUtil.getString(product, "productDescription2" ));
-        if (product.getNodeData("taxCategoryUUID").isExist()) {
-          Content taxCategory = ContentUtil
-              .getContentByUUID("data", product.getNodeData("taxCategoryUUID").getString());
-          if (taxCategory != null && taxCategory.getNodeData("tax").isExist()) {
-                        setItemTaxRate(new BigDecimal(taxCategory.getNodeData("tax").getString()));
-          }
+    public ShoppingCartItem(DefaultShoppingCartImpl cart, Content product, int quantity, Content productPrice) {
+        super();
+        this.setCart(cart);
+        this.setProduct(product);
+        this.setQuantity(quantity);
+        this.setProductPrice(productPrice);
+    }
+
+    public ShoppingCartItem(DefaultShoppingCartImpl cart, String productUUID, int quantity, double unitPrice, Map options) {
+        this(cart, productUUID, quantity, unitPrice);
+        this.setOptions(options);
+    }
+    
+    public ShoppingCartItem(DefaultShoppingCartImpl cart, String productUUID, int quantity, double unitPrice) {
+        super();
+        this.setCart(cart);
+        Content product = new I18nContentWrapper(ContentUtil.getContentByUUID("data", productUUID));
+        this.setProduct(product);
+        this.setQuantity(quantity);
+        this.setUnitPrice(unitPrice);
+    }
+
+    public Content getProduct() {
+        if (StringUtils.isNotBlank(productUUID)) {
+            return ContentUtil.getContentByUUID("data", productUUID);
         }
-      
-    } else {
-      this.productUUID = null;
+        return null;
     }
-  }
 
-  public int getQuantity() {
-    return quantity;
-  }
+    public void setProduct(Content product) {
+        if (product != null) {
+            this.productUUID = product.getUUID();
+            log.debug("setting product " + product + " in cart item");
+            log.debug("product number: " + NodeDataUtil.getString(product, "name"));
+            setProductNumber(NodeDataUtil.getString(product, "name"));
 
-  public void setQuantity(int quantity) {
-    this.quantity = quantity;
-  }
+            setProductTitle(NodeDataUtil.getString(product, "title"));
+            setProductSubTitle(NodeDataUtil.getString(product, "productDescription1"));
+            setProductDescription(NodeDataUtil.getString(product, "productDescription2"));
+            if (product.getNodeData("taxCategoryUUID").isExist()) {
+                Content taxCategory = ContentUtil.getContentByUUID("data", product.getNodeData("taxCategoryUUID").getString());
+                if (taxCategory != null && taxCategory.getNodeData("tax").isExist()) {
+                    setItemTaxRate(new BigDecimal(taxCategory.getNodeData("tax").getString()));
+                }
+            }
 
-  public double getUnitPrice() {
-    return unitPrice.doubleValue();
-  }
-
-  public void setUnitPrice(double unitPrice) {
-    this.unitPrice = new BigDecimal("" + unitPrice);
-  }
-
-  public void setProductPrice(Content productPrice) {
-    if (productPrice != null && productPrice.getNodeData("price").isExist()) {
-      this.setUnitPrice(productPrice.getNodeData("price").getDouble());
-    }
-  }
-
-  public String getProductNumber() {
-    return productNumber;
-  }
-
-  /**
-   * @param productNumber
-   *          the productNumber to set
-   */
-  public void setProductNumber(String productNumber) {
-    this.productNumber = productNumber;
-    log.debug("product number: " + this.productNumber);
-  }
-
-  public String getProductUUID() {
-    return productUUID;
-  }
-
-  public String getShoppingCartUUID() {
-    return shoppingCartUUID;
-  }
-
-  public void setShoppingCartUUID(String shoppingCartUUID) {
-    this.shoppingCartUUID = shoppingCartUUID;
-  }
-
-  public DefaultShoppingCartImpl getCart() {
-    return cart;
-  }
-
-  public void setCart(DefaultShoppingCartImpl cart) {
-    this.cart = cart;
-  }
-
-  public String getProductTitle() {
-    return productTitle;
-  }
-
-  public void setProductTitle(String productTitle) {
-    this.productTitle = productTitle;
-  }
-
-  public String getProductSubTitle() {
-    return productSubTitle;
-  }
-
-  public void setProductSubTitle(String productSubTitle) {
-    this.productSubTitle = productSubTitle;
-  }
-
-  public String getProductDescription() {
-    return productDescription;
-  }
-
-  public void setProductDescription(String productDescription) {
-    this.productDescription = productDescription;
-  }
-
-  public double getItemTotal() {
-    BigDecimal total = getItemTotalBigDecimal();
-    if (total != null) {
-      return total.doubleValue();
-    } else {
-      return (double) 0;
-    }
-  }
-
-  public BigDecimal getItemTotalBigDecimal() {
-    if (unitPrice != null) {
-      BigDecimal total = unitPrice.multiply(new BigDecimal("" + quantity));
-      if (  getItemDiscountRate() != null && getItemDiscountRate().floatValue() > 0 && getItemDiscountRate().floatValue() <= 100) {
-        total = total.multiply(new BigDecimal("100").subtract(getItemDiscountRate())).divide(new BigDecimal("100"));
-      }
-      return total;
-    } else {
-      return null;
-    }
-  }
-
-  public BigDecimal getItemTaxBigDecimal() {
-    BigDecimal total = getItemTotalBigDecimal();
-    if (total != null && getItemTaxRate() != null) {
-      BigDecimal oneHundred = new BigDecimal("100");
-      if (getCart().getTaxIncluded()) {
-        // total = price including tax
-        BigDecimal taxFactor = oneHundred.divide(getItemTaxRate().add(oneHundred), 10, RoundingMode.HALF_UP);
-        return total.subtract(total.multiply(taxFactor));
-      } else {
-        // toal = price excluding tax
-        BigDecimal taxFactor = getItemTaxRate().add(oneHundred).divide(oneHundred, 10, RoundingMode.HALF_UP);
-        return total.multiply(taxFactor).subtract(total);
-      }
-    }
-    return null;
-  }
-
-  public double getItemTax() {
-    BigDecimal tax = getItemTaxBigDecimal();
-    if (tax != null) {
-      return tax.doubleValue();
-    } else {
-      return (double) 0;
-    }
-  }
-
-  public BigDecimal getItemTotalExclTaxBigDecimal() {
-    BigDecimal total = getItemTotalBigDecimal();
-    BigDecimal tax = getItemTaxBigDecimal();
-    if (total != null) {
-      if (tax != null) {
-        if (getCart().getTaxIncluded()) {
-          return total.subtract(tax);
+        } else {
+            this.productUUID = null;
         }
-      }
-      return total;
     }
-    return null;
-  }
 
-  public double getItemTotalExclTax() {
-    BigDecimal total = getItemTotalExclTaxBigDecimal();
-    if (total != null) {
-      return total.doubleValue();
+    public int getQuantity() {
+        return quantity;
     }
-    return 0;
-  }
 
-  public BigDecimal getItemTotalInclTaxBigDecimal() {
-    BigDecimal total = getItemTotalBigDecimal();
-    BigDecimal tax = getItemTaxBigDecimal();
-    if (total != null) {
-      if (tax != null) {
-        if (!getCart().getTaxIncluded()) {
-          return total.add(tax);
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getUnitPrice() {
+        return unitPrice.doubleValue();
+    }
+
+    public void setUnitPrice(double unitPrice) {
+        this.unitPrice = new BigDecimal("" + unitPrice);
+    }
+
+    public void setProductPrice(Content productPrice) {
+        if (productPrice != null && productPrice.getNodeData("price").isExist()) {
+            this.setUnitPrice(productPrice.getNodeData("price").getDouble());
         }
-      }
-      return total;
     }
-    return null;
-  }
 
-  public double getItemTotalInclTax() {
-    BigDecimal total = getItemTotalInclTaxBigDecimal();
-    if (total != null) {
-      return total.doubleValue();
+    public String getProductNumber() {
+        return productNumber;
     }
-    return 0;
-  }
+
+    /**
+     * @param productNumber
+     *          the productNumber to set
+     */
+    public void setProductNumber(String productNumber) {
+        this.productNumber = productNumber;
+        log.debug("product number: " + this.productNumber);
+    }
+
+    public String getProductUUID() {
+        return productUUID;
+    }
+
+    public String getShoppingCartUUID() {
+        return shoppingCartUUID;
+    }
+
+    public void setShoppingCartUUID(String shoppingCartUUID) {
+        this.shoppingCartUUID = shoppingCartUUID;
+    }
+
+    public DefaultShoppingCartImpl getCart() {
+        return cart;
+    }
+
+    public void setCart(DefaultShoppingCartImpl cart) {
+        this.cart = cart;
+    }
+
+    public String getProductTitle() {
+        return productTitle;
+    }
+
+    public void setProductTitle(String productTitle) {
+        this.productTitle = productTitle;
+    }
+
+    public String getProductSubTitle() {
+        return productSubTitle;
+    }
+
+    public void setProductSubTitle(String productSubTitle) {
+        this.productSubTitle = productSubTitle;
+    }
+
+    public String getProductDescription() {
+        return productDescription;
+    }
+
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
+    }
+
+    public double getItemTotal() {
+        BigDecimal total = getItemTotalBigDecimal();
+        if (total != null) {
+            return total.doubleValue();
+        } else {
+            return (double) 0;
+        }
+    }
+
+    public BigDecimal getItemTotalBigDecimal() {
+        if (unitPrice != null) {
+            BigDecimal total = unitPrice.multiply(new BigDecimal("" + quantity));
+            if (getItemDiscountRate() != null && getItemDiscountRate().floatValue() > 0 && getItemDiscountRate().floatValue() <= 100) {
+                total = total.multiply(new BigDecimal("100").subtract(getItemDiscountRate())).divide(new BigDecimal("100"));
+            }
+            return total;
+        } else {
+            return null;
+        }
+    }
+
+    public BigDecimal getItemTaxBigDecimal() {
+        BigDecimal total = getItemTotalBigDecimal();
+        if (total != null && getItemTaxRate() != null) {
+            BigDecimal oneHundred = new BigDecimal("100");
+            if (getCart().getTaxIncluded()) {
+                // total = price including tax
+                BigDecimal taxFactor = oneHundred.divide(getItemTaxRate().add(oneHundred), 10, RoundingMode.HALF_UP);
+                return total.subtract(total.multiply(taxFactor));
+            } else {
+                // toal = price excluding tax
+                BigDecimal taxFactor = getItemTaxRate().add(oneHundred).divide(oneHundred, 10, RoundingMode.HALF_UP);
+                return total.multiply(taxFactor).subtract(total);
+            }
+        }
+        return null;
+    }
+
+    public double getItemTax() {
+        BigDecimal tax = getItemTaxBigDecimal();
+        if (tax != null) {
+            return tax.doubleValue();
+        } else {
+            return (double) 0;
+        }
+    }
+
+    public BigDecimal getItemTotalExclTaxBigDecimal() {
+        BigDecimal total = getItemTotalBigDecimal();
+        BigDecimal tax = getItemTaxBigDecimal();
+        if (total != null) {
+            if (tax != null) {
+                if (getCart().getTaxIncluded()) {
+                    return total.subtract(tax);
+                }
+            }
+            return total;
+        }
+        return null;
+    }
+
+    public double getItemTotalExclTax() {
+        BigDecimal total = getItemTotalExclTaxBigDecimal();
+        if (total != null) {
+            return total.doubleValue();
+        }
+        return 0;
+    }
+
+    public BigDecimal getItemTotalInclTaxBigDecimal() {
+        BigDecimal total = getItemTotalBigDecimal();
+        BigDecimal tax = getItemTaxBigDecimal();
+        if (total != null) {
+            if (tax != null) {
+                if (!getCart().getTaxIncluded()) {
+                    return total.add(tax);
+                }
+            }
+            return total;
+        }
+        return null;
+    }
+
+    public double getItemTotalInclTax() {
+        BigDecimal total = getItemTotalInclTaxBigDecimal();
+        if (total != null) {
+            return total.doubleValue();
+        }
+        return 0;
+    }
 
     /**
      * @return the itemDiscountRate
@@ -318,5 +331,40 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
      */
     public void setItemTaxRate(BigDecimal itemTaxRate) {
         this.itemTaxRate = itemTaxRate;
+    }
+
+    /**
+     * @return the options
+     */
+    public Map<String,CartItemOption> getOptions() {
+        return options;
+    }
+
+    /**
+     * @param options the options to set
+     */
+    public void setOptions(Map<String,CartItemOption> options) {
+        this.options = options;
+    }
+    
+    public boolean isOptionsMatching(Map options) {
+        if ((options == null || options.isEmpty()) && (this.options == null || this.options.isEmpty())) {
+            // both option sets are empty (or null) -> match!
+            return true;
+        } else if (options != null && this.options != null) {
+            if (options.size() == this.options.size()) {
+                // same amount of options -> we need to compare them one by one
+                Iterator keys = options.keySet().iterator();
+                String currKey;
+                while (keys.hasNext()) {
+                    currKey = (String) keys.next();
+                    if (!this.options.containsKey(currKey) || !options.get(currKey).equals(this.options.get(currKey))) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+        return false;
     }
 }

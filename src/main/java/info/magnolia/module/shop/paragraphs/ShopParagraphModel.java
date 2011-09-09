@@ -33,10 +33,13 @@
  */
 package info.magnolia.module.shop.paragraphs;
 
+import info.magnolia.cms.security.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import javax.jcr.PathNotFoundException;
 
 import javax.jcr.RepositoryException;
 
@@ -53,6 +56,7 @@ import info.magnolia.context.MgnlContext;
 import info.magnolia.module.dms.beans.Document;
 import info.magnolia.module.shop.ShopConfiguration;
 import info.magnolia.module.shop.accessors.ShopAccesor;
+import info.magnolia.module.shop.beans.CartItemOption;
 import info.magnolia.module.shop.beans.ShoppingCart;
 import info.magnolia.module.shop.search.AbstractProductListType;
 import info.magnolia.module.shop.search.DefaultProductListType;
@@ -64,12 +68,15 @@ import info.magnolia.module.shop.util.ShopProductPager;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.shop.util.ShopLinkUtil.ParamType;
+import info.magnolia.module.templating.MagnoliaTemplatingUtilities;
 import info.magnolia.module.templating.RenderableDefinition;
 import info.magnolia.module.templating.RenderingModel;
 import info.magnolia.module.templatingkit.navigation.LinkImpl;
 import info.magnolia.module.templatingkit.paragraphs.ImageGalleryParagraphModel;
 import info.magnolia.module.templatingkit.templates.STKTemplateModel;
 import info.magnolia.module.templatingkit.util.STKUtil;
+import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Shop paragraph model, used on productdetail and productlist paragraphs.
@@ -152,13 +159,46 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
         } catch (NumberFormatException nfe) {
             // TODO: log error? qunatity will be set to 1
         }
+        // get all options
+        Iterator keysIter = MgnlContext.getParameters().keySet().iterator();
+        HashMap<String,CartItemOption> options = new HashMap();
+        String currKey, optionSetUUID, optionUUID;
+        Content optionNode, optionSetNode;
+        CartItemOption cio;
+        while (keysIter.hasNext()) {
+            currKey = (String) keysIter.next();
+            if (currKey.startsWith("option_")) {
+                optionSetUUID = StringUtils.substringAfter(currKey, "option_");
+                optionUUID = MgnlContext.getParameter(currKey);
+                optionNode = ContentUtil.getContentByUUID("data", optionUUID);
+                if (optionNode != null) {
+                    try {
+                        optionNode = new I18nContentWrapper(optionNode);
+                        optionSetNode = optionNode.getParent();
+                        cio = new CartItemOption();
+                        cio.setOptionSetUUID(optionSetNode.getUUID());
+                        cio.setTitle(NodeDataUtil.getString(optionSetNode, "title"));
+                        cio.setValueTitle(NodeDataUtil.getString(optionNode, "title"));
+                        cio.setValueName(optionNode.getName());
+                        cio.setValueUUID(optionNode.getUUID());
+                        options.put(currKey, cio);
+                    } catch (PathNotFoundException ex) {
+                        log.error("could not get parent of " + optionNode.getHandle(), ex);
+                    } catch (AccessDeniedException ex) {
+                        log.error("could not get parent of " + optionNode.getHandle(), ex);
+                    } catch (RepositoryException ex) {
+                        log.error("could not get parent of " + optionNode.getHandle(), ex);
+                    }
+                }
+            }
+        }
         String product = MgnlContext.getParameter("product");
         if (StringUtils.isBlank(product)) {
             log
                     .error("Cannot add item to cart because no \"product\" parameter was found in the request");
         } else {
             ShoppingCart cart = getShoppingCart();
-            int success = cart.addToShoppingCart(product, quantity);
+            int success = cart.addToShoppingCart(product, quantity, options);
             if (success <= 0) {
                 log.error("Cannot add item to cart because no product for "
                         + product + " could be found");
@@ -238,6 +278,16 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
         }
     }
 
+    public Collection getOptionSets(Content product) {
+        ArrayList optionSets = new ArrayList(product.getChildren(new ItemType("shopProductOptions")));
+        return ShopUtil.transformIntoI18nContentList(optionSets);
+    }
+
+    public Collection getOptions(Content option) {
+        ArrayList options = new ArrayList(option.getChildren(new ItemType("shopProductOption")));
+        return ShopUtil.transformIntoI18nContentList(options);
+    }
+    
     public String getCurrencyTitle() {
         return ShopUtil.getCurrencyTitle();
     }

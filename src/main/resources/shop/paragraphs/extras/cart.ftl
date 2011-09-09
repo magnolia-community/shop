@@ -14,10 +14,17 @@
 	    [#if !shoppingCart?has_content || shoppingCart.getCartItemsCount() == 0]
 	    	<p>${i18n['shoppingcart.empty']}</p>
 	    [#else]
-		    <ul>
+		    <ul class="shopping_cart">
 		    	[#list shoppingCart.getCartItems() as product]
 		    		<li>
-		    			${product.quantity}x ${product.productTitle} ${product.itemTotal?string("0.00")} ${currencyTitle}
+		    			${product.quantity}x ${product.productTitle} [#if product.options?has_content]
+		    				[#assign keys = product.options?keys]
+							[#list keys as key]
+								<span class="option">[#assign option = mgnl.getContentByUUID("data", product.options[key].valueUUID)!]
+								[#assign option = mgnl.i18n(option) /]
+								[#assign optionSet = mgnl.i18n(option?parent)]
+								<span class="label">${optionSet.title}:</span> <span class="value">${option.title}</span>[#if key_has_next], [/#if]</span>
+							[/#list][/#if]${product.itemTotal?string("0.00")} ${currencyTitle}
 		    		</li>
 		    	[/#list]
 		    	

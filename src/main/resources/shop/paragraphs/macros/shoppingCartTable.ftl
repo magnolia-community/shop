@@ -2,7 +2,7 @@
 	[#if !shoppingCart?has_content || shoppingCart.getCartItemsCount() == 0]
 	    <p>${i18n['shoppingcart.empty']}</p>
 	    [#else]
-	    <table cellspacing="1" cellpadding="1" border="0" width="100%">
+	    <table cellspacing="1" cellpadding="1" border="0" width="100%" class="shopping_cart">
 	    <thead>
 	    	<th>${i18n['table.product']}</th>
 	    	<th>${i18n['table.quantity']}</th>
@@ -17,9 +17,31 @@
 	    		[#assign productLink = model.getProductDetailPageLink(product.product)!]
 	    		<tr>
 	    			[#if productLink?has_content]
-	    				<td><a href="${productLink}">${product.productTitle}</a></td>
+	    				<td>
+	    					<a href="${productLink}">${product.productTitle}</a>
+							[#if product.options?has_content]
+		    					[#assign keys = product.options?keys]
+								[#list keys as key]
+									<span class="option">[#assign option = mgnl.getContentByUUID("data", product.options[key].valueUUID)!]
+									[#assign option = mgnl.i18n(option) /]
+									[#assign optionSet = mgnl.i18n(option?parent)]
+									<span class="label">${optionSet.title}:</span> <span class="value">${option.title}</span>[#if key_has_next], [/#if]</span>
+								[/#list]
+							[/#if]
+	    				</td>
 	    			[#else]
-	    				<td>${product.productTitle}</td>
+	    				<td>
+	    					${product.productTitle}
+							[#if product.options?has_content]
+		    					[#assign keys = product.options?keys]
+								[#list keys as key]
+									<span class="option">[#assign option = mgnl.getContentByUUID("data", product.options[key].valueUUID)!]
+									[#assign option = mgnl.i18n(option) /]
+									[#assign optionSet = mgnl.i18n(option?parent)]
+									<span class="label">${optionSet.title}:</span> <span class="value">${option.title}</span>[#if key_has_next], [/#if]</span>
+								[/#list]
+							[/#if]
+						</td>
 	    			[/#if]
 	    			<td>${product.quantity}</td>
 	    			<td>${product.unitPrice?string("0.00")}</td>

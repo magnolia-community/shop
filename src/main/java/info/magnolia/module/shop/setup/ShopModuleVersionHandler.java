@@ -95,6 +95,8 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
     installTasks.add(new RegisterNodeTypeTask("shopPriceCategory"));
     installTasks.add(new RegisterNodeTypeTask("shopProduct"));
     installTasks.add(new RegisterNodeTypeMultipleTask("shopProductCategory"));
+    installTasks.add(new RegisterNodeTypeTask("shopProductOptions"));
+    installTasks.add(new RegisterNodeTypeTask("shopProductOption"));
     installTasks.add(new RegisterNodeTypeTask("shopTaxCategories"));
     installTasks.add(new RegisterNodeTypeTask("shopTaxCategory"));
     installTasks.addAll(super.getBasicInstallTasks(installContext));

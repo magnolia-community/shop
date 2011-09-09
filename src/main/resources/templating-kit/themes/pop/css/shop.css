@@ -168,6 +168,17 @@
   float: right;
   right: 0;
 }
+.product-add .option {
+	margin-bottom: 3px;
+}
+.product-add .option label {
+	display: block;
+	font-weight: bold;
+	font-size: 80%;
+}
+.product-add .option select {
+	width: 100%;
+}
 .photo-index .photo {
     background: url(../img/bgs/photo-corners.png) 0 100% no-repeat;
     width: 140px;
@@ -187,4 +198,11 @@
 }
 .photo-index dd {
     font-size: 100%;
+}
+.shopping_cart span.option {
+	display: block;
+	font-size: 80%;
+}
+.shopping_cart span.option .label {
+	font-weight: bold;
 }
