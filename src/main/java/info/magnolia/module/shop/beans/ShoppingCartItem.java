@@ -41,7 +41,6 @@ import info.magnolia.module.ocm.beans.OCMBean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import org.apache.commons.lang.StringUtils;
@@ -79,7 +78,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
     private String productDescription;
     private Map<String,CartItemOption> options;
 
-    public ShoppingCartItem(DefaultShoppingCartImpl cart, Content product, int quantity, Content productPrice, Map options) {
+    public ShoppingCartItem(DefaultShoppingCartImpl cart, Content product, int quantity, Content productPrice, Map<String,CartItemOption> options) {
         this(cart, product, quantity, productPrice);
         this.setOptions(options);
     }
@@ -92,7 +91,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
         this.setProductPrice(productPrice);
     }
 
-    public ShoppingCartItem(DefaultShoppingCartImpl cart, String productUUID, int quantity, double unitPrice, Map options) {
+    public ShoppingCartItem(DefaultShoppingCartImpl cart, String productUUID, int quantity, double unitPrice, Map<String,CartItemOption> options) {
         this(cart, productUUID, quantity, unitPrice);
         this.setOptions(options);
     }

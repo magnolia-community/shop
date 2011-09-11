@@ -6,7 +6,6 @@
 [#assign currencyTitle = model.currencyTitle!]
 [#-------------- RENDERING PART --------------]
 
-
 [#-- Rendering: Shopping Cart --]
 <div class="${divClass}" ${divID} >
 	    <${headingLevel}>${i18n['shoppingcart.title']}</${headingLevel}>

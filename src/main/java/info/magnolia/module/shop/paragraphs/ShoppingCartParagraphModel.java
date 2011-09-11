@@ -55,61 +55,68 @@ import info.magnolia.module.templatingkit.util.STKUtil;
  */
 public class ShoppingCartParagraphModel extends ShopParagraphModel {
 
-  public ShoppingCartParagraphModel(Content content,
-      RenderableDefinition definition, RenderingModel parent) {
-    super(content, definition, parent);
+    public ShoppingCartParagraphModel(Content content,
+            RenderableDefinition definition, RenderingModel parent) {
+        super(content, definition, parent);
 
-  }
-
-  @Override
-  public String execute() {
-    String command = MgnlContext.getParameter("command");
-    if (StringUtils.isNotEmpty(command) && StringUtils.equals(command, "add")
-        || StringUtils.equals(command, "substract") || StringUtils.equals(command, "removeall")) {
-      String productUUID = MgnlContext.getParameter("product");
-      updateItemQuantity(productUUID, command);
     }
-    return "";
-  }
 
-  protected void updateItemQuantity(String productUUID, String command) {
-    ShoppingCart shoppingCart = getShoppingCart();
-    int indexOfProductInCart = ((DefaultShoppingCartImpl) shoppingCart)
-        .indexOfProduct(productUUID);
-    if (indexOfProductInCart >= 0) {
-
-      ShoppingCartItem shoppingCartItem = (ShoppingCartItem) shoppingCart
-          .getCartItems().get(indexOfProductInCart);
-      int quantity = shoppingCartItem.getQuantity();
-
-      if (command.equals("add")) {
-        shoppingCartItem.setQuantity(++quantity);
-      } else if (command.equals("substract") || command.equals("removeall")) {
-        if (quantity <= 1 || command.equals("removeall")) {
-          shoppingCart.getCartItems().remove(indexOfProductInCart);
-        } else {
-          shoppingCartItem.setQuantity(--quantity);
-        } // quantity <=1
-
-      } // else command
-    } // else product on cart
-  }
-
-  public String getCommandLink(String command, String productUUID) {
-    return new LinkImpl(MgnlContext.getAggregationState().getMainContent())
-        .getHref()
-        + "?command=" + command + "&product=" + productUUID;
-  }
-
-  public String getCheckoutFormLink() {
-    try {
-      Content formPage = STKUtil.getContentByTemplateCategorySubCategory(
-          getSiteRoot(), "feature", "checkoutform");
-      return new LinkImpl(formPage).getHref();
-    } catch (RepositoryException e) {
-      // TODO
+    @Override
+    public String execute() {
+        String command = MgnlContext.getParameter("command");
+        if (StringUtils.isNotEmpty(command) && StringUtils.equals(command, "add")
+                || StringUtils.equals(command, "substract") || StringUtils.equals(command, "removeall")) {
+            String productUUID = MgnlContext.getParameter("product");
+            updateItemQuantity(productUUID, command);
+        }
+        return "";
     }
-    return "";
-  }
 
+    protected void updateItemQuantity(String productUUID, String command) {
+        ShoppingCart shoppingCart = getShoppingCart();
+        int indexOfProductInCart = -1;
+        // first try to determine the item by looking for an "item" parameter (index of item)
+        if (MgnlContext.getParameter("item") != null) {
+            try {
+                indexOfProductInCart = (new Integer(MgnlContext.getParameter("item"))).intValue();
+            } catch (NumberFormatException nfe) {
+                // log error?
+            }
+        }
+        // if no item index was provided, try to get the item by its product uuid.
+        if (indexOfProductInCart < 0) {
+            indexOfProductInCart = ((DefaultShoppingCartImpl) shoppingCart).indexOfProduct(productUUID);
+        }
+        if (indexOfProductInCart >= 0) {
+            ShoppingCartItem shoppingCartItem = (ShoppingCartItem) shoppingCart.getCartItems().get(indexOfProductInCart);
+            int quantity = shoppingCartItem.getQuantity();
+
+            if (command.equals("add")) {
+                shoppingCartItem.setQuantity(++quantity);
+            } else if (command.equals("substract") || command.equals("removeall")) {
+                if (quantity <= 1 || command.equals("removeall")) {
+                    shoppingCart.getCartItems().remove(indexOfProductInCart);
+                } else {
+                    shoppingCartItem.setQuantity(--quantity);
+                } // quantity <=1
+
+            } // else command
+        } // else product on cart
+    }
+
+    public String getCommandLink(String command, String productUUID, int index) {
+        return new LinkImpl(MgnlContext.getAggregationState().getMainContent()).getHref()
+                + "?command=" + command + "&product=" + productUUID + "&item=" + index;
+    }
+
+    public String getCheckoutFormLink() {
+        try {
+            Content formPage = STKUtil.getContentByTemplateCategorySubCategory(
+                    getSiteRoot(), "feature", "checkoutform");
+            return new LinkImpl(formPage).getHref();
+        } catch (RepositoryException e) {
+            // TODO
+        }
+        return "";
+    }
 }

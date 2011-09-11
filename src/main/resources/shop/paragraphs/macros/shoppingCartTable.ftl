@@ -1,4 +1,5 @@
 [#macro shoppingCartTable shoppingCart type]
+${model.class.name}<br />
 	[#if !shoppingCart?has_content || shoppingCart.getCartItemsCount() == 0]
 	    <p>${i18n['shoppingcart.empty']}</p>
 	    [#else]
@@ -48,9 +49,9 @@
 	    			<td>${product.itemTotal?string("0.00")}</td>
 	    			[#if type=="cart"]
 	    			  <td>
-	    			  	<a class="product-add-more" href="${model.getCommandLink('add', product.productUUID)}"><img class="shopAddRemove" src="${ctx.contextPath}/.resources/images/add.gif" /></a> 
-	    			  	<a class="product-substract" href="${model.getCommandLink('substract', product.productUUID)}"><img class="shopAddRemove" src="${ctx.contextPath}/.resources/images/remove.gif" /></a>
-	    			  	<a class="product-removeall" href="${model.getCommandLink('removeall', product.productUUID)}"><img class="shopAddRemove" src="${ctx.contextPath}/.resources/images/removeAll.gif" /></a>
+	    			  	<a class="product-add-more" href="${model.getCommandLink('add', product.productUUID, product_index)}"><img class="shopAddRemove" src="${ctx.contextPath}/.resources/images/add.gif" /></a> 
+	    			  	<a class="product-substract" href="${model.getCommandLink('substract', product.productUUID, product_index)}"><img class="shopAddRemove" src="${ctx.contextPath}/.resources/images/remove.gif" /></a>
+	    			  	<a class="product-removeall" href="${model.getCommandLink('removeall', product.productUUID, product_index)}"><img class="shopAddRemove" src="${ctx.contextPath}/.resources/images/removeAll.gif" /></a>
 	    			  </td>
 	    			[/#if] 
 	    		</tr>
