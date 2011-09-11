@@ -88,7 +88,10 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
     // make sure we register the type before doing anything else
     installTasks.add(new RegisterNodeTypeTask("shop"));
     installTasks.add(new RegisterNodeTypeTask("shopCart"));
+    installTasks.add(new RegisterNodeTypeTask("shopCartItems"));
     installTasks.add(new RegisterNodeTypeTask("shopCartItem"));
+    installTasks.add(new RegisterNodeTypeTask("shopCartItemOptions"));
+    installTasks.add(new RegisterNodeTypeTask("shopCartItemOption"));
     installTasks.add(new RegisterNodeTypeTask("shopCurrencies"));
     installTasks.add(new RegisterNodeTypeTask("shopCurrency"));
     installTasks.add(new RegisterNodeTypeTask("shopPriceCategories"));

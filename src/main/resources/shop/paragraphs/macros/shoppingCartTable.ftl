@@ -1,5 +1,4 @@
 [#macro shoppingCartTable shoppingCart type]
-${model.class.name}<br />
 	[#if !shoppingCart?has_content || shoppingCart.getCartItemsCount() == 0]
 	    <p>${i18n['shoppingcart.empty']}</p>
 	    [#else]

@@ -95,7 +95,7 @@ public class SaveAndConfirmFormProcessor extends AbstractFormProcessor {
             // Cart has not been saved before (this would most likely be the standard case)
             // Set the parent path according to the shop configuration
             
-            cart.setParentPath(CustomDataUtil.getShopNode(ShopUtil.getShopName()).getHandle() + ShopUtil.getPath("carts"));
+            cart.setParentPath("/shopCarts/" + ShopUtil.getShopName());
             ocm.insert(cart);
             ocm.save();
             MgnlContext.setAttribute("cartId", cart.getName(), Context.SESSION_SCOPE);
