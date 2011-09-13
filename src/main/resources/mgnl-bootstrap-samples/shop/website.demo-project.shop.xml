@@ -41,7 +41,7 @@
       <sv:value>2011-06-08T13:51:14.102+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2011-06-08T11:28:29.576+02:00</sv:value>
+      <sv:value>2011-09-08T11:43:01.681+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:template" sv:type="String">
       <sv:value>shopHome</sv:value>
@@ -77,7 +77,7 @@
         <sv:value>2011-06-08T13:51:14.103+02:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-        <sv:value>2011-06-01T13:47:08.660+02:00</sv:value>
+        <sv:value>2011-09-08T11:43:01.680+02:00</sv:value>
       </sv:property>
     </sv:node>
     <sv:node sv:name="singleton">
@@ -116,7 +116,7 @@
           <sv:value>2011-06-08T13:51:14.103+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-06-01T13:47:08.660+02:00</sv:value>
+          <sv:value>2011-09-08T11:43:01.680+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:template" sv:type="String">
           <sv:value>shopProductList</sv:value>
@@ -130,29 +130,20 @@
           <sv:value>mix:lockable</sv:value>
         </sv:property>
         <sv:property sv:name="jcr:uuid" sv:type="String">
-          <sv:value>bf919959-a196-48d5-88a8-caaf01e7ffb9</sv:value>
+          <sv:value>50279297-310e-45e2-8087-e44936d2ea5d</sv:value>
         </sv:property>
         <sv:property sv:name="0" sv:type="String">
-          <sv:value>/sampleShop/products/Books/history/p1021</sv:value>
+          <sv:value>5c49702e-7d70-46da-a2fb-cef2b52861b5</sv:value>
         </sv:property>
         <sv:property sv:name="1" sv:type="String">
-          <sv:value>/sampleShop/products/Toys/p2011</sv:value>
+          <sv:value>f1e6596e-6415-4e72-88b7-6f9afcfb9430</sv:value>
         </sv:property>
         <sv:node sv:name="MetaData">
           <sv:property sv:name="jcr:primaryType" sv:type="Name">
             <sv:value>mgnl:metaData</sv:value>
           </sv:property>
-          <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-            <sv:value>true</sv:value>
-          </sv:property>
-          <sv:property sv:name="mgnl:activatorid" sv:type="String">
-            <sv:value>superuser</sv:value>
-          </sv:property>
           <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-            <sv:value>2011-06-01T13:47:08.659+02:00</sv:value>
-          </sv:property>
-          <sv:property sv:name="mgnl:lastaction" sv:type="Date">
-            <sv:value>2011-06-08T13:51:14.110+02:00</sv:value>
+            <sv:value>2011-09-08T11:43:01.680+02:00</sv:value>
           </sv:property>
         </sv:node>
       </sv:node>

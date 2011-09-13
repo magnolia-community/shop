@@ -69,9 +69,9 @@ public class DefaultProductListType extends AbstractProductListType {
         if (currentOffers != null) {
           Collection<NodeData> offers = currentOffers.getNodeDataCollection();
           for (Iterator<NodeData> iterator = offers.iterator(); iterator.hasNext();) {
-            NodeData productPathNodeData = (NodeData) iterator.next();
-            Content productNode = ContentUtil.getContent("data",
-                productPathNodeData.getString());
+            NodeData producUuidNodeData = (NodeData) iterator.next();
+            Content productNode = ContentUtil.getContentByUUID("data",
+                producUuidNodeData.getString());
             try {
               if (productNode != null
                       && productNode.getItemType().getSystemName().equals("shopProduct")) {

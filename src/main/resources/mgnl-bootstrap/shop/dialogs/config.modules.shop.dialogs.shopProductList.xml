@@ -85,7 +85,7 @@
         <sv:value>8bb284bc-236d-4117-acfd-733336a65805</sv:value>
       </sv:property>
       <sv:property sv:name="controlType" sv:type="String">
-        <sv:value>multiselect</sv:value>
+        <sv:value>info.magnolia.module.shop.dialog.ShopUUIDMultiSelect</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
         <sv:value>dialog.productList.mainTab.currentOffers.label</sv:value>
@@ -119,7 +119,7 @@
           <sv:value>2010-03-16T15:57:05.607+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-02-28T14:10:57.002+01:00</sv:value>
+          <sv:value>2011-09-08T11:13:10.788+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
