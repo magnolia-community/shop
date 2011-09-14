@@ -40,7 +40,7 @@
 					  <p>${description1} <em class="more"><a href="${itemLink!}">${i18n['link.readmore']} <span> ${productTitle}</span></a></em></p>
 					  <div class="product-price-container">
 					  	<div class="product-price">
-					  		[#assign price=bean.price?number?string("0.00")]
+					  		[#assign price=bean.price!0?number?string("0.00")]
 					  		${i18n.get('price.detail.text', [price, bean.currency])}
 					  	</div>
 			    	  	<div class="product-add">
