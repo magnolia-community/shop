@@ -36,4 +36,12 @@
       <version>1.0-SNAPSHOT</version>
     </dependency>
   </dependencies>
+  <repositories>
+    <repository>
+      <name>magnolia</name>
+      <workspaces>
+        <workspace>shoppingCarts</workspace>
+      </workspaces>
+    </repository>
+  </repositories>
 </module>

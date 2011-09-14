@@ -86,7 +86,7 @@ public class SaveAndConfirmFormProcessor extends AbstractFormProcessor {
         RequestObjectCacheImpl requestObjectCache = new RequestObjectCacheImpl();
         DefaultAtomicTypeConverterProvider converterProvider = new DefaultAtomicTypeConverterProvider();
         MgnlObjectConverterImpl oc = new MgnlObjectConverterImpl(mapper, converterProvider, new ProxyManagerImpl(), requestObjectCache);
-        ObjectContentManager ocm = new ObjectContentManagerImpl(MgnlContext.getHierarchyManager("data").getWorkspace().getSession(), mapper);
+        ObjectContentManager ocm = new ObjectContentManagerImpl(MgnlContext.getHierarchyManager("shoppingCarts").getWorkspace().getSession(), mapper);
         ((ObjectContentManagerImpl) ocm).setObjectConverter(oc);
         ((ObjectContentManagerImpl) ocm).setRequestObjectCache(requestObjectCache);
     
@@ -94,7 +94,7 @@ public class SaveAndConfirmFormProcessor extends AbstractFormProcessor {
             // Cart has not been saved before (this would most likely be the standard case)
             // Set the parent path according to the shop configuration
             
-            cart.setParentPath("/shopCarts/" + ShopUtil.getShopName());
+            cart.setParentPath("/" + ShopUtil.getShopName());
             ocm.insert(cart);
             ocm.save();
             MgnlContext.setAttribute("cartId", cart.getName(), Context.SESSION_SCOPE);
