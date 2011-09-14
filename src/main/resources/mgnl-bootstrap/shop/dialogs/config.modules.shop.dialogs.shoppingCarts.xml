@@ -79,7 +79,7 @@
         <sv:value>c236ca21-3bc3-4f0b-a53f-26deb0811bb1</sv:value>
       </sv:property>
       <sv:property sv:name="controlType" sv:type="String">
-        <sv:value>info.magnolia.module.shop.controls.NodeNameControl</sv:value>
+        <sv:value>info.magnolia.module.data.controls.NodeNameControl</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
         <sv:value>shop.dialogs.shoppingCart.mainTab.name.label</sv:value>
