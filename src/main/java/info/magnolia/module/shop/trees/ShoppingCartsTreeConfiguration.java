@@ -47,6 +47,8 @@ import info.magnolia.module.admininterface.AbstractTreeConfiguration;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * Tree configuration for shoppingCarts repository tree.
  * @author tmiyar
@@ -71,7 +73,12 @@ public class ShoppingCartsTreeConfiguration extends AbstractTreeConfiguration {
         TreeColumn titleColumn = TreeColumn.createLabelColumn(tree, msgs.get("shoppingCarts.list.title"), true);
         titleColumn.setWidth(3);
 
-        
+        TreeColumn column1 = new TreeColumn(tree.getJavascriptTree(), request);
+        column1.setName(StringUtils.EMPTY);
+        column1.setTitle(msgs.get("tree.config.value")); //$NON-NLS-1$
+        column1.setIsNodeDataValue(true);
+        column1.setWidth(3);
+        column1.setHtmlEdit();
 
         TreeColumn columnIcons = TreeColumn.createActivationColumn(tree, msgs.get("shoppingCarts.list.status"));
         columnIcons.setIconsPermission(true);
@@ -80,11 +87,12 @@ public class ShoppingCartsTreeConfiguration extends AbstractTreeConfiguration {
         dateColumn.setWidth(2);
 
         tree.addColumn(titleColumn);
-        
+        tree.addColumn(column1);
             
         if (isAdminInstance() || hasAnyActiveSubscriber()) {
             tree.addColumn(columnIcons);
         }
+        
         tree.addColumn(dateColumn);
         
 
