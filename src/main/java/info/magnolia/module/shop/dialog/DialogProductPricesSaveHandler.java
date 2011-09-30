@@ -49,6 +49,8 @@ import info.magnolia.module.shop.util.SimpleBean2ContentProcessorImpl;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
+
 import javax.jcr.RepositoryException;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -68,20 +70,20 @@ public class DialogProductPricesSaveHandler implements FieldSaveHandler {
     Content priceCategoriesNode = ContentUtil.getContent("data", ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, shopName, "priceCategories"));
     
     if(priceCategoriesNode != null) {
-        Collection priceCategories = priceCategoriesNode.getChildren(new ItemType("shopPriceCategory"));
+        Collection<Content> priceCategories = priceCategoriesNode.getChildren(new ItemType("shopPriceCategory"));
     
         // look for prices for each category
         String price, priceCategoryUUID;
-        ArrayList prices = new ArrayList();
-        HashMap currPrice;
+        ArrayList<Map<String, Object>> prices = new ArrayList<Map<String, Object>>();
+        Map<String, Object> currPrice;
         Double priceValue;
         for (int i = 0; i < priceCategories.size(); i++) {
-          currPrice = new HashMap();
+          currPrice = new HashMap<String, Object>();
           price = MgnlContext.getParameter(name + "_price_" + i);
           if (StringUtils.isNotBlank(price)) {
             // TODO: maybe one should clear out any illegal character like
             // grouping characters etc. (i.e. anything other than 0-9 and .)
-            priceValue = new Double(price);
+            priceValue = Double.valueOf(price);
             currPrice.put("price", priceValue);
           }
           priceCategoryUUID = MgnlContext.getParameter(name + "_priceCategoryUUID_" + i);

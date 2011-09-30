@@ -202,6 +202,24 @@ public class ShopUtil {
         }
         return "";
     }
+    
+    public static String getCurrencyFormatting() {
+
+        ShopConfiguration shopConfiguration;
+        try {
+            shopConfiguration = new ShopAccesor(getShopName()).getShopConfiguration();
+
+            if (shopConfiguration != null) {
+                Content priceCategory = getShopPriceCategory(shopConfiguration);
+                Content currency = getCurrencyByUUID(NodeDataUtil.getString(priceCategory,
+                        "currencyUUID"));
+                return NodeDataUtil.getString(currency, "formatting");
+            }
+        } catch (Exception e) {
+            //nothing
+        }
+        return "";
+    }
 
     public static Content getShopPriceCategory(ShopConfiguration shopConfiguration) {
         if (shopConfiguration != null) {

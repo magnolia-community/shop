@@ -26,7 +26,7 @@
 	<p>${description2}</p>
 	<div class="product-price-container">
 		<div class="product-price">
-			[#assign price=bean.price?number?string("0.00")]
+			[#assign price=bean.price]
 			${i18n.get('price.detail.text', [price, bean.currency])}
 		</div>
 		<div class="product-add">

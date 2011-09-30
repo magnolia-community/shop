@@ -4,6 +4,7 @@
 
 [#assign shoppingCart = model.getShoppingCart()!]
 [#assign currencyTitle = model.currencyTitle!]
+[#assign currencyFormatting = model.currencyFormatting!"00.00"]
 [#-------------- RENDERING PART --------------]
 
 [#-- Rendering: Shopping Cart --]
@@ -23,12 +24,12 @@
 								[#assign option = mgnl.i18n(option) /]
 								[#assign optionSet = mgnl.i18n(option?parent)]
 								<span class="label">${optionSet.title}:</span> <span class="value">${option.title}</span>[#if key_has_next], [/#if]</span>
-							[/#list][/#if]${product.itemTotal?string("0.00")} ${currencyTitle}
+							[/#list][/#if]${product.itemTotal?string(currencyFormatting)} ${currencyTitle}
 		    		</li>
 		    	[/#list]
 		    	
 		    </ul>
-		    <p>${i18n['shoppingCart.total']} ${shoppingCart.grossTotal?string("0.00")} ${currencyTitle} ${i18n['shoppingCart.ext.vat']}</p>
+		    <p>${i18n['shoppingCart.total']} ${shoppingCart.grossTotal?string(currencyFormatting)} ${currencyTitle} ${i18n['shoppingCart.ext.vat']}</p>
 	    [/#if]
 	    [#if shoppingCart?has_content && shoppingCart.getCartItemsCount() > 0]
 		    <p>

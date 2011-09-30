@@ -250,15 +250,16 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
             shopConfiguration = new ShopAccesor(ShopUtil.getShopName()).getShopConfiguration();
         
             Content priceCategory = ShopUtil.getShopPriceCategory(shopConfiguration);
-            String productPrice = getProductPriceByCategory(product, priceCategory
-                    .getUUID());
+            
             Content currency = ShopUtil.getCurrencyByUUID(NodeDataUtil.getString(
                     priceCategory, "currencyUUID"));
             Content tax = getTaxByUUID(NodeDataUtil.getString(product,
                     "taxCategoryUUID"));
     
             TemplateProductPriceBean bean = new TemplateProductPriceBean();
-            bean.setPrice(productPrice);
+            bean.setFormatting(NodeDataUtil.getString(currency, "formatting"));
+            bean.setPrice(getProductPriceByCategory(product, priceCategory
+                    .getUUID()));
             bean.setCurrency(NodeDataUtil.getString(currency, "title"));
             boolean taxIncluded = NodeDataUtil.getBoolean(priceCategory,
                     "taxIncluded", false);
@@ -267,7 +268,7 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
             } else {
                 bean.setTaxIncluded(ShopUtil.getMessages().get("tax.no.included"));
             }
-    
+            
             bean.setTax(NodeDataUtil.getString(tax, "tax"));
             return bean;
         } catch (Exception e) {
@@ -288,13 +289,17 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
     public String getCurrencyTitle() {
         return ShopUtil.getCurrencyTitle();
     }
+    
+    public String getCurrencyFormatting() {
+        return ShopUtil.getCurrencyFormatting();
+    }
 
     public Content getTaxByUUID(String uuid) {
         return new I18nContentWrapper(ContentUtil
                 .getContentByUUID("data", uuid));
     }
 
-    protected String getProductPriceByCategory(Content product,
+    protected Double getProductPriceByCategory(Content product,
             String priceCategoryUUID) {
         Content pricesNode = ContentUtil.getContent(product, "prices");
         if (pricesNode.hasChildren()) {
@@ -304,7 +309,7 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
                         .next());
                 if (NodeDataUtil.getString(price, "priceCategoryUUID").equals(
                         priceCategoryUUID)) {
-                    return NodeDataUtil.getString(price, "price");
+                    return price.getNodeData("price").getDouble();
                 }
             }
         }

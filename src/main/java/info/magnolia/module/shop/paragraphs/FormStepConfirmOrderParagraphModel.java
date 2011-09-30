@@ -75,5 +75,9 @@ public FormStepConfirmOrderParagraphModel(Content content,
   public String getCurrencyTitle() {
       return ShopUtil.getCurrencyTitle();
   }
+  
+  public String getCurrencyFormatting() {
+      return ShopUtil.getCurrencyFormatting();
+  }
 
 }

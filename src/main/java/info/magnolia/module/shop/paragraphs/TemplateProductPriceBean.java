@@ -33,6 +33,9 @@
  */
 package info.magnolia.module.shop.paragraphs;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 /**
  * Bean with all the price info.
  * 
@@ -40,16 +43,20 @@ package info.magnolia.module.shop.paragraphs;
  * 
  */
 public class TemplateProductPriceBean {
-  private String price = "0";
-  private String tax = "0";
-  private String taxIncluded = "";
-  private String currency = "";
+  private double price;
+  private String tax;
+  private String taxIncluded;
+  private String currency;
+  private String formatting;
+  
+
 
   public String getPrice() {
-    return price;
+    NumberFormat formatter = new DecimalFormat(formatting);
+    return formatter.format(price);
   }
 
-  public void setPrice(String price) {
+  public void setPrice(double price) {
     this.price = price;
   }
 
@@ -77,4 +84,13 @@ public class TemplateProductPriceBean {
     this.currency = currency;
   }
 
+public String getFormatting() {
+    return formatting;
+}
+
+public void setFormatting(String formatting) {
+    this.formatting = formatting;
+}
+
+  
 }
