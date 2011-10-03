@@ -39,6 +39,8 @@ import info.magnolia.cms.gui.dialog.Dialog;
 import info.magnolia.cms.gui.dialog.DialogBox;
 import info.magnolia.cms.gui.dialog.DialogControlImpl;
 import info.magnolia.cms.gui.misc.CssConstants;
+import info.magnolia.cms.i18n.Messages;
+import info.magnolia.cms.i18n.MessagesManager;
 import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.module.shop.accessors.ShopAccesor;
@@ -79,6 +81,8 @@ public class DialogProductPrices extends DialogBox {
         this.drawHtmlPre(out);
         //products are stored per shop
         String shopName = findShopName();
+        Messages msg = this.getMessages();
+        
     
         Content priceCategoriesNode = ContentUtil.getContent("data", ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, shopName, "priceCategories" ));
     
@@ -96,9 +100,9 @@ public class DialogProductPrices extends DialogBox {
                     + shopName + "\" />");
               // draw a table with price category name, currency, incl./excl. vat and
               // price
-              // TODO: Localize!
               out.write("<table cellspacing=\"2\" cellpadding=\"0\" border=\"0\">");
-              out.write("<tr valign=\"top\"><th>Preiskategorie</th><th>WŠhrung</th><th>MwSt.</th><th>Preis</th></tr>");
+              out.write("<tr valign=\"top\"><th>"+ msg.get("price.category.label") +"</th><th>"
+                          + msg.get("price.currency.label") +"</th><th>"+ msg.get("price.vat.label") +"</th><th>"+ msg.get("price.label") +"</th></tr>");
               Iterator<Content> priceCategoryIter = priceCategories.iterator();
               Content currPriceCat, currency;
               String currencyUUID;
@@ -118,9 +122,9 @@ public class DialogProductPrices extends DialogBox {
                   out.write("</td>");
                   out.write("<td>");
                   if (currPriceCat.getNodeData("taxIncluded").getBoolean()) {
-                      out.write("inkl. MwSt.");
+                      out.write(msg.get("tax.included"));
                   } else {
-                      out.write("exkl. MwSt.");
+                      out.write(msg.get("tax.no.included"));
                   }
                   out.write("</td>");
                   out.write("<td>");
