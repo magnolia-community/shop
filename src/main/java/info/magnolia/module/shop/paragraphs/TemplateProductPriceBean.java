@@ -52,8 +52,14 @@ public class TemplateProductPriceBean {
 
 
   public String getPrice() {
+      try {
     NumberFormat formatter = new DecimalFormat(formatting);
     return formatter.format(price);
+      } catch (Exception e) {
+          //set default formatting
+          NumberFormat formatter = new DecimalFormat("###,###.00");
+          return formatter.format(price);
+      }
   }
 
   public void setPrice(double price) {

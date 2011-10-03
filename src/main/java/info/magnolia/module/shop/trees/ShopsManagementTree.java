@@ -61,7 +61,6 @@ public class ShopsManagementTree extends GenericDataAdminTree {
     public ShopsManagementTree(String name, HttpServletRequest request,
             HttpServletResponse response) {
         super(name, request, response);
-        String rootpath = this.getRootPath();
     }
     
     public String delete() {

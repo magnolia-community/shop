@@ -74,7 +74,8 @@ public class DefaultProductListType extends AbstractProductListType {
                 producUuidNodeData.getString());
             try {
               if (productNode != null
-                      && productNode.getItemType().getSystemName().equals("shopProduct")) {
+                      && productNode.getItemType().getSystemName().equals("shopProduct")
+                      && ShopUtil.getShopName().equals(productNode.getAncestor(2).getName())) {
                   productList.add(productNode);
               }
             } catch (RepositoryException e) {
