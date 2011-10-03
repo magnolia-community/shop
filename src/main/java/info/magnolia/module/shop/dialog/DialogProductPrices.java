@@ -40,7 +40,6 @@ import info.magnolia.cms.gui.dialog.DialogBox;
 import info.magnolia.cms.gui.dialog.DialogControlImpl;
 import info.magnolia.cms.gui.misc.CssConstants;
 import info.magnolia.cms.i18n.Messages;
-import info.magnolia.cms.i18n.MessagesManager;
 import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.module.shop.accessors.ShopAccesor;
