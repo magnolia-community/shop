@@ -36,6 +36,9 @@ package info.magnolia.module.shop.paragraphs;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Bean with all the price info.
  * 
@@ -43,6 +46,8 @@ import java.text.NumberFormat;
  * 
  */
 public class TemplateProductPriceBean {
+  
+    private static Logger log = LoggerFactory.getLogger(TemplateProductPriceBean.class);  
   private double price;
   private String tax;
   private String taxIncluded;
@@ -53,13 +58,14 @@ public class TemplateProductPriceBean {
 
   public String getPrice() {
       try {
-    NumberFormat formatter = new DecimalFormat(formatting);
-    return formatter.format(price);
+          if(price >= 0) {
+              NumberFormat formatter = new DecimalFormat(formatting);
+              return formatter.format(price);
+          }
       } catch (Exception e) {
-          //set default formatting
-          NumberFormat formatter = new DecimalFormat("###,###.00");
-          return formatter.format(price);
+          log.error("error reading price", e);
       }
+      return ""+price;
   }
 
   public void setPrice(double price) {
