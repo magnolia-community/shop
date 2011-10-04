@@ -143,9 +143,9 @@ public class ShopSaveHandler extends DataSaveHandler {
      * Creates the basic structure of a shop.
      */
     protected void addDefaultSubNodes(Content node) throws AccessDeniedException, PathNotFoundException, RepositoryException {
-        node.createContent("taxCategories", new ItemType("shopTaxCategories"));
-        node.createContent("currencies", new ItemType("shopCurrencies"));
-        node.createContent("priceCategories", new ItemType("shopPriceCategories"));
+        ContentUtil.getOrCreateContent(node, "taxCategories", new ItemType("shopTaxCategories"));
+        ContentUtil.getOrCreateContent(node, "currencies", new ItemType("shopCurrencies"));
+        ContentUtil.getOrCreateContent(node, "priceCategories", new ItemType("shopPriceCategories"));
         node.save();
         
     }
