@@ -197,45 +197,5 @@
         </sv:property>
       </sv:node>
     </sv:node>
-    <sv:node sv:name="tags">
-      <sv:property sv:name="jcr:primaryType" sv:type="Name">
-        <sv:value>mgnl:contentNode</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
-        <sv:value>mix:lockable</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>78b54d8e-aeae-4b4d-bebe-a59ad72bcc27</sv:value>
-      </sv:property>
-      <sv:property sv:name="controlType" sv:type="String">
-        <sv:value>categorizationUUIDMultiSelect</sv:value>
-      </sv:property>
-      <sv:property sv:name="description" sv:type="String">
-        <sv:value>dialogs.generic.tabCategorization.categories.description</sv:value>
-      </sv:property>
-      <sv:property sv:name="i18nBasename" sv:type="String">
-        <sv:value>info.magnolia.module.shop.messages</sv:value>
-      </sv:property>
-      <sv:property sv:name="label" sv:type="String">
-        <sv:value>dialogs.generic.tabCategorization.categories.label</sv:value>
-      </sv:property>
-      <sv:property sv:name="saveHandler" sv:type="String">
-        <sv:value>info.magnolia.module.categorization.controls.CategorizationSaveHandler</sv:value>
-      </sv:property>
-      <sv:property sv:name="tree" sv:type="String">
-        <sv:value>category</sv:value>
-      </sv:property>
-      <sv:property sv:name="type" sv:type="String">
-        <sv:value>String</sv:value>
-      </sv:property>
-      <sv:node sv:name="MetaData">
-        <sv:property sv:name="jcr:primaryType" sv:type="Name">
-          <sv:value>mgnl:metaData</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-          <sv:value>2011-09-14T11:34:14.729+02:00</sv:value>
-        </sv:property>
-      </sv:node>
-    </sv:node>
   </sv:node>
 </sv:node>
