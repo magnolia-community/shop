@@ -33,47 +33,38 @@
  */
 package info.magnolia.module.shop.trees;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
-import info.magnolia.cms.gui.control.ContextMenu;
-import info.magnolia.cms.gui.control.ContextMenuItem;
-import info.magnolia.cms.gui.control.FunctionBar;
 import info.magnolia.cms.gui.control.Tree;
+import info.magnolia.cms.gui.control.TreeColumn;
+import info.magnolia.context.MgnlContext;
+import info.magnolia.module.data.DataConsts;
+import info.magnolia.module.data.trees.WorkflowDataAdminTreeConfig;
 
-/**
- * Do not allow folders in some shop types except the ones
- * created by default.
+/** 
+ * we add a column title.
  * @author tmiyar
  *
  */
-    public class NoNewFolderDataTreeConfiguration extends GenericShopsTreeConfig {
+public class GenericShopsTreeConfig extends WorkflowDataAdminTreeConfig{
 
     @Override
-    public void prepareFunctionBar(Tree tree, boolean browseMode,
+    public void prepareTree(Tree tree, boolean browseMode,
             HttpServletRequest request) {
-        // TODO Auto-generated method stub
-        super.prepareFunctionBar(tree, browseMode, request);
+        super.prepareTree(tree, browseMode, request);
+        TreeColumn nameColumn = tree.getColumns(0);
+        nameColumn.setHtmlEdit("");
         
-        ContextMenu menu = tree.getMenu();
-        FunctionBar bar = tree.getFunctionBar();
+        TreeColumn colTitle = new TreeColumn();
+        colTitle.setJavascriptTree(tree.getJavascriptTree());
+        colTitle.setWidth(1);
         
-        removeNewFolderMenuItem(menu);
-        removeNewFolderMenuItem(bar);
+        colTitle.setName(DataConsts.TYPE_TITLE + "_" + MgnlContext.getAggregationState().getLocale().getLanguage());
+        colTitle.setTitle(msgs.get("module.data.tree.type.column.title.label"));
         
+        tree.getColumns().add(1, colTitle);
     }
-
-    protected void removeNewFolderMenuItem(ContextMenu menu) {
-        ContextMenuItem menuItem = menu.getMenuItemByName("newFolder");
-        List<ContextMenuItem> menuItems = menu.getMenuItems();
-        int index = menuItems.indexOf(menuItem);
-        if (index >= 0) {
-            menuItems.remove(index);
-        }
-    }
-
     
     
-
+    
 }

@@ -16,17 +16,21 @@
 [/#if]
 
 [#-- Rendering Part --]
+<div id="page-intro">
+	<h1>
+		<em>${count} ${(count>1)?string(i18n['productList.products.found'],i18n['productList.product.found'])}</em>
+		${model.title!}
+	</h1>
+</div>
 <div class="${divClass}" ${divID} >
 	[@cms.editBar /]
-	<div class="listingHeader">
-		<${headingLevel}>
-				${model.title!}
-		</${headingLevel}>
-		<em>${count} ${(count>1)?string(i18n['productList.products.found'],i18n['productList.product.found'])}</em>
+	
+		
+		
 		[#-- Macro: Pager --]
 		[@pagination pager "top" /]
-	</div>
-	[@productListMacro productList=productList/]
+	
+	    [@productListMacro productList=productList/]
 </div>
 
 [#-- Macro: Pager --]

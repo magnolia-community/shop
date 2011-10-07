@@ -43,7 +43,7 @@ import info.magnolia.cms.gui.control.FunctionBarItem;
 import info.magnolia.cms.gui.control.Tree;
 import info.magnolia.cms.gui.control.TreeColumn;
 import info.magnolia.cms.i18n.Messages;
-import info.magnolia.module.admininterface.AbstractTreeConfiguration;
+import info.magnolia.module.data.trees.GenericDataAdminTreeConfig;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -54,7 +54,7 @@ import org.apache.commons.lang.StringUtils;
  * @author tmiyar
  *
  */
-public class ShoppingCartsTreeConfiguration extends AbstractTreeConfiguration {
+public class ShoppingCartsTreeConfig extends GenericDataAdminTreeConfig {
 
     public void prepareTree(Tree tree, boolean browseMode, HttpServletRequest request) {
         final Messages msgs = getMessages();
@@ -63,7 +63,7 @@ public class ShoppingCartsTreeConfiguration extends AbstractTreeConfiguration {
             + ItemType.CONTENTNODE.getSystemName()
             + "'? mgnlTreeMenuOpenDialog("
             + tree.getJavascriptTree()
-            + ",'.magnolia/dialogs/shoppingCarts.html"
+            + ",'.magnolia/dialogs/shopCart.html"
             + "') : '';");
 
         tree.addItemType(ItemType.NT_FOLDER, "/.resources/icons/16/folder.gif");

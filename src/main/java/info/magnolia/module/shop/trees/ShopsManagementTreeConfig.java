@@ -33,47 +33,24 @@
  */
 package info.magnolia.module.shop.trees;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
-import info.magnolia.cms.gui.control.ContextMenu;
 import info.magnolia.cms.gui.control.ContextMenuItem;
-import info.magnolia.cms.gui.control.FunctionBar;
 import info.magnolia.cms.gui.control.Tree;
 
-/**
- * Do not allow folders in some shop types except the ones
- * created by default.
+/** 
+ * name of shop should not be editable.
  * @author tmiyar
  *
  */
-    public class NoNewFolderDataTreeConfiguration extends GenericShopsTreeConfig {
+public class ShopsManagementTreeConfig extends GenericShopsTreeConfig{
 
     @Override
-    public void prepareFunctionBar(Tree tree, boolean browseMode,
+    public void prepareContextMenu(Tree tree, boolean browseMode,
             HttpServletRequest request) {
-        // TODO Auto-generated method stub
-        super.prepareFunctionBar(tree, browseMode, request);
-        
-        ContextMenu menu = tree.getMenu();
-        FunctionBar bar = tree.getFunctionBar();
-        
-        removeNewFolderMenuItem(menu);
-        removeNewFolderMenuItem(bar);
-        
+        super.prepareContextMenu(tree, browseMode, request);
+        ContextMenuItem menuItem = tree.getMenu().getMenuItemByName("copy");
+        tree.getMenu().getMenuItems().remove(menuItem);
     }
-
-    protected void removeNewFolderMenuItem(ContextMenu menu) {
-        ContextMenuItem menuItem = menu.getMenuItemByName("newFolder");
-        List<ContextMenuItem> menuItems = menu.getMenuItems();
-        int index = menuItems.indexOf(menuItem);
-        if (index >= 0) {
-            menuItems.remove(index);
-        }
-    }
-
     
-    
-
 }

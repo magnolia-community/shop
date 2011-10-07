@@ -114,7 +114,7 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
     installTasks.add(new AddMainMenuItemTask("shops", "menu.shops", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shop')", "/.resources/icons/24/shoppingcart.gif", "data"));
     installTasks.add(new AddSubMenuItemTask("shops", "shopProduct", "menu.products", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shopProduct')", "/.resources/icons/16/dot.gif"));
     installTasks.add(new AddSubMenuItemTask("shops", "shopProductCategory", "menu.productCategories", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shopProductCategory')", "/.resources/icons/16/dot.gif"));
-    installTasks.add(new AddSubMenuItemTask("shops", "shopCart", "menu.carts", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shoppingCarts')", "/.resources/icons/16/dot.gif"));
+    installTasks.add(new AddSubMenuItemTask("shops", "shopCart", "menu.carts", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shopCart')", "/.resources/icons/16/dot.gif"));
     installTasks.add(new IsInstallSamplesTask("","", new OrderNodeBeforeTask("","", ContentRepository.CONFIG, "/modules/adminInterface/config/menu/sampleShop", "shops")));
     installTasks.add(new InstallResourcesTask("/templating-kit/themes/pop/css/shop.css", "processedCss", STKResourceModel.class.getName()));
     installTasks.add(new UpdateAllSiteDefinitions("Add new templates to Availability", "") {

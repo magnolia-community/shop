@@ -92,6 +92,12 @@ public class ProductListDataTree extends AdminTreeMVCHandler {
                 column0.setHtmlEdit();
                 column0.setIsLabel(true);
                 column0.setWidth(3);
+                
+                TreeColumn colTitle = new TreeColumn();
+                colTitle.setJavascriptTree(tree.getJavascriptTree());
+                colTitle.setWidth(1);
+                colTitle.setName(DataConsts.TYPE_TITLE);
+                colTitle.setTitle(msgs.get("module.data.tree.type.column.title.label"));
         
                 TreeColumn column1 = new TreeColumn(tree.getJavascriptTree(), request);
                 column1.setName(StringUtils.EMPTY);
@@ -145,6 +151,7 @@ public class ProductListDataTree extends AdminTreeMVCHandler {
     
                 if (!browseMode) {
                   tree.addColumn(column1);
+                  tree.addColumn(colTitle);
                   tree.addColumn(column2);
         
                   if (isAdminInstance() || hasAnyActiveSubscriber()) {

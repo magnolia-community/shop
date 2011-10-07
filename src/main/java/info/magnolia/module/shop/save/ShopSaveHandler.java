@@ -112,7 +112,7 @@ public class ShopSaveHandler extends DataSaveHandler {
         String icon = "/.resources/icons/16/dot.gif";
         Content menuNode = hm.getContent("/modules/adminInterface/config/menu/" + newShopNode.getName(), true, ItemType.CONTENTNODE);
         //Adds the node datas
-        addMenuNodeDatas("/.resources/icons/24/shoppingcart.gif", null, newShopNode.getName(), menuNode);
+        addMenuNodeDatas("/.resources/icons/24/shoppingcart.gif", null, newShopNode.getTitle(), menuNode);
         addShopSubMenu(menuNode, "taxCategories", icon, "MgnlAdminCentral.showTree('shop', '" + ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, newShopNode.getName(), "taxCategories") +"', true);", "menu.taxCategories");
         addShopSubMenu(menuNode, "currencies", icon, "MgnlAdminCentral.showTree('shop', '" + ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, newShopNode.getName(), "currencies") +"', true);", "menu.currencies");
         addShopSubMenu(menuNode, "priceCategories", icon, "MgnlAdminCentral.showTree('shop', '" + ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, newShopNode.getName(), "priceCategories") +"', true);", "menu.priceCategories");

@@ -41,6 +41,8 @@ import java.io.Serializable;
  * @author will
  */
 public class CartItemOption extends OCMBean implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
     private String title;
     private String optionSetUUID;
     private String valueUUID;
