@@ -49,6 +49,7 @@ import info.magnolia.module.ModuleManagementException;
 import info.magnolia.module.ModuleVersionHandler;
 import info.magnolia.module.ModuleVersionHandlerTestCase;
 import info.magnolia.module.exchangesimple.DefaultActivationManager;
+import org.junit.Test;
 
 import javax.jcr.RepositoryException;
 import javax.security.auth.Subject;
@@ -116,6 +117,7 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
     /**
      * Test the installation process, there must be a new menu shops, new templates, data types...
      */
+    @Test
     public void testInstallation() throws ModuleManagementException, RepositoryException {
 
         final HierarchyManager hm = MgnlContext.getHierarchyManager(ContentRepository.CONFIG);

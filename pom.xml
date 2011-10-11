@@ -1,92 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd ">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd ">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-      <groupId>info.magnolia.forge</groupId>
-      <artifactId>magnolia-parent-pom-forge</artifactId>
-      <version>19</version>
-    </parent>
-    <groupId>info.magnolia.module.shop</groupId>
-    <artifactId>magnolia-module-shop</artifactId>
-    <packaging>jar</packaging>
-    <version>1.0-SNAPSHOT</version>
-    <name>Magnolia Simple Shop Module</name>
+    <groupId>info.magnolia.forge</groupId>
+    <artifactId>magnolia-parent-pom-forge</artifactId>
+    <version>19</version>
+  </parent>
+  <groupId>info.magnolia.shop</groupId>
+  <artifactId>magnolia-module-shop</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>Magnolia Simple Shop Module</name>
 
-    <properties>
-        <javaVersion>1.5</javaVersion>
-        <magnoliaVersion>4.4.2</magnoliaVersion>
-	    <stkVersion>1.4.2</stkVersion>
-    </properties>
+  <properties>
+    <javaVersion>1.5</javaVersion>
+    <magnoliaVersion>4.4.2</magnoliaVersion>
+    <stkVersion>1.4.2</stkVersion>
 
-    <dependencies>
-        <dependency>
-            <groupId>info.magnolia</groupId>
-            <artifactId>magnolia-core</artifactId>
-            <version>${magnoliaVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>info.magnolia</groupId>
-            <artifactId>magnolia-module-data</artifactId>
-            <version>1.6.1</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>info.magnolia</groupId>
-            <artifactId>magnolia-module-dms</artifactId>
-            <version>1.5.1</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>info.magnolia</groupId>
-            <artifactId>magnolia-module-admininterface</artifactId>
-            <version>${magnoliaVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>info.magnolia</groupId>
-            <artifactId>magnolia-module-mail</artifactId>
-            <version>${magnoliaVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-	      <groupId>info.magnolia</groupId>
-	      <artifactId>magnolia-module-standard-templating-kit</artifactId>
-		  <version>${stkVersion}</version>
-	    </dependency>
-        <dependency>
-            <groupId>info.magnolia</groupId>
-            <artifactId>magnolia-module-resources</artifactId>
-            <version>1.4</version>
-        </dependency>
-	    <dependency>
-            <groupId>info.magnolia</groupId>
-            <artifactId>magnolia-module-form</artifactId>
-            <version>1.3-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>info.magnolia</groupId>
-            <artifactId>magnolia-module-fckeditor</artifactId>
-            <version>${magnoliaVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-	  	<groupId>ch.fastforward</groupId>
-	  	<artifactId>magnolia-module-ocm</artifactId>
-	  	<version>1.0-SNAPSHOT</version>
-	  	<exclusions>
-	  	 <exclusion>
-	  	 	<groupId>commons-logging</groupId>
-	  	 	<artifactId>commons-logging</artifactId>
-	  	 </exclusion>
-	  	 <exclusion>
-	  	 	<groupId>xml-apis</groupId>
-            <artifactId>xml-apis</artifactId>
-	  	 </exclusion>
-	  	</exclusions>
-	  </dependency>
-	  <dependency>
+    <!-- dual licensed : -->
+    <checkstyleHeader>magnolia-build-tools/license-header-dual.regex</checkstyleHeader>
+    <magnoliaBuildToolsArtifactId>magnolia-build-tools-dual-licensed</magnoliaBuildToolsArtifactId>
+    <magnoliaLicenseStyle>dual</magnoliaLicenseStyle>
+  </properties>
+  <licenses>
+    <license>
+      <name>GPLv3</name>
+      <url>http://www.gnu.org/licenses/gpl-3.0.txt</url>
+    </license>
+    <license>
+      <name>Magnolia Network Agreement</name>
+      <url>http://www.magnolia-cms.com/mna.html</url>
+    </license>
+  </licenses>
+  <issueManagement>
+    <system>Jira</system>
+    <url>http://jira.magnolia-cms.com/browse/MSHOP</url>
+  </issueManagement>
+  <scm>
+    <connection>scm:svn:http://svn.magnolia-cms.com/svn/forge/magnolia-shop/trunk</connection>
+    <developerConnection>scm:svn:http://svn.magnolia-cms.com/svn/forge/magnolia-shop/trunk</developerConnection>
+    <url>http://svn.magnolia-cms.com/view/forge/magnolia-shop/trunk</url>
+  </scm>
+  <dependencies>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-core</artifactId>
+      <version>${magnoliaVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-module-data</artifactId>
+      <version>1.6.1</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-module-dms</artifactId>
+      <version>1.5.1</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-module-admininterface</artifactId>
+      <version>${magnoliaVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-module-mail</artifactId>
+      <version>${magnoliaVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-module-standard-templating-kit</artifactId>
+      <version>${stkVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-module-resources</artifactId>
+      <version>1.4</version>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-module-form</artifactId>
+      <version>1.3.1-SNAPSHOT</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-module-fckeditor</artifactId>
+      <version>${magnoliaVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>ch.fastforward</groupId>
+      <artifactId>magnolia-module-ocm</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>xml-apis</groupId>
+          <artifactId>xml-apis</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-core</artifactId>
       <version>${magnoliaVersion}</version>
@@ -94,25 +118,17 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>com.mockrunner</groupId>
-      <artifactId>mockrunner</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.easymock</groupId>
       <artifactId>easymock</artifactId>
+      <version>3.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.easymock</groupId>
-      <artifactId>easymockclassextension</artifactId>
-      <scope>test</scope>
-    </dependency>
-      <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
+      <version>4.8.2</version>
       <scope>test</scope>
-    </dependency>  
-    </dependencies>
-    
+    </dependency>
+  </dependencies>
+
 </project>
