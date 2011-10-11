@@ -37,12 +37,7 @@ import info.magnolia.cms.beans.config.ContentRepository;
 import info.magnolia.cms.core.HierarchyManager;
 import info.magnolia.cms.core.ItemType;
 import info.magnolia.cms.exchange.ActivationManager;
-import info.magnolia.cms.security.MgnlRoleManager;
-import info.magnolia.cms.security.MgnlUserManager;
-import info.magnolia.cms.security.Role;
-import info.magnolia.cms.security.SecuritySupport;
-import info.magnolia.cms.security.SecuritySupportImpl;
-import info.magnolia.cms.security.User;
+import info.magnolia.cms.security.*;
 import info.magnolia.cms.util.FactoryUtil;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.ModuleManagementException;
@@ -55,92 +50,91 @@ import javax.security.auth.Subject;
 
 /**
  * Test creation of shop menu
- * @author tmiyar
  *
+ * @author tmiyar
  */
 public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
-        
-    
+
+
     protected String getModuleDescriptorPath() {
-            return "/META-INF/magnolia/shop.xml";
-        }
+        return "/META-INF/magnolia/shop.xml";
+    }
 
-        protected void setUp() throws Exception {
-            super.setUp();
-            final SecuritySupportImpl securitySupport = new SecuritySupportImpl();
-            // this, because of AddContactUserRoleTask
-            securitySupport.addUserManager("system", new MgnlUserManager() {
-                public User getUser(String name) {
-                    if ("anonymous".equals(name)) {
-                        // wooooh ugly hack - to return a DummyUser
-                        return getUser((Subject) null);
-                    }
-                    return super.getUser(name);
+    protected void setUp() throws Exception {
+        super.setUp();
+        final SecuritySupportImpl securitySupport = new SecuritySupportImpl();
+        // this, because of AddContactUserRoleTask
+        securitySupport.addUserManager("system", new MgnlUserManager() {
+            public User getUser(String name) {
+                if ("anonymous".equals(name)) {
+                    // wooooh ugly hack - to return a DummyUser
+                    return getUser((Subject) null);
                 }
-            });
-            // this, because of SetupModuleRepositoriesTask.grantRepositoryToSuperuser
-            securitySupport.setRoleManager(new MgnlRoleManager() {
-                public Role getRole(String name) {
-                    if ("superuser".equals(name)) {
-                        return new Role() {
-                            public String getName() {
-                                return "superuser";
-                            }
+                return super.getUser(name);
+            }
+        });
+        // this, because of SetupModuleRepositoriesTask.grantRepositoryToSuperuser
+        securitySupport.setRoleManager(new MgnlRoleManager() {
+            public Role getRole(String name) {
+                if ("superuser".equals(name)) {
+                    return new Role() {
+                        public String getName() {
+                            return "superuser";
+                        }
 
-                            public void addPermission(String repository, String path, long permission) {
-                                //
-                            }
+                        public void addPermission(String repository, String path, long permission) {
+                            //
+                        }
 
-                            public void removePermission(String repository, String path) {
-                                //
-                            }
+                        public void removePermission(String repository, String path) {
+                            //
+                        }
 
-                            public void removePermission(String repository, String path, long permission) {
-                                //
-                            }
-                        };
-                    }
-                    return super.getRole(name);
+                        public void removePermission(String repository, String path, long permission) {
+                            //
+                        }
+                    };
                 }
-            });
-            FactoryUtil.setInstance(SecuritySupport.class, securitySupport);
+                return super.getRole(name);
+            }
+        });
+        FactoryUtil.setInstance(SecuritySupport.class, securitySupport);
 
-            // due to SetupModuleRepositoriesTask#subscribeRepository
-            FactoryUtil.setInstance(ActivationManager.class, new DefaultActivationManager());
-        }
+        // due to SetupModuleRepositoriesTask#subscribeRepository
+        FactoryUtil.setInstance(ActivationManager.class, new DefaultActivationManager());
+    }
 
-        protected ModuleVersionHandler newModuleVersionHandlerForTests() {
-            return new ShopModuleVersionHandler();
-        }
+    protected ModuleVersionHandler newModuleVersionHandlerForTests() {
+        return new ShopModuleVersionHandler();
+    }
 
-        /**
-         * 
-         * Test the installation process, there must be a new menu shops, new templates, data types...
-         */
-        public void testInstallation() throws ModuleManagementException, RepositoryException {
+    /**
+     * Test the installation process, there must be a new menu shops, new templates, data types...
+     */
+    public void testInstallation() throws ModuleManagementException, RepositoryException {
 
-            final HierarchyManager hm = MgnlContext.getHierarchyManager(ContentRepository.CONFIG);
-            // menu configuration
-            setupConfigNode("/modules/adminInterface/config/menu",ItemType.CONTENT);
-            setupConfigNode("/modules/data/config/types",ItemType.CONTENT);
-            setupConfigNode("/modules/adminInterface/config/menu/data",ItemType.CONTENTNODE);
-            setupConfigNode("/modules/adminInterface/config/menu/sampleShop",ItemType.CONTENTNODE);
-            setupConfigNode("/modules/standard-templating-kit/config/site/templates/availability/templates",ItemType.CONTENTNODE);
-            setupConfigNode("/modules/standard-templating-kit/templates",ItemType.CONTENTNODE);
+        final HierarchyManager hm = MgnlContext.getHierarchyManager(ContentRepository.CONFIG);
+        // menu configuration
+        setupConfigNode("/modules/adminInterface/config/menu", ItemType.CONTENT);
+        setupConfigNode("/modules/data/config/types", ItemType.CONTENT);
+        setupConfigNode("/modules/adminInterface/config/menu/data", ItemType.CONTENTNODE);
+        setupConfigNode("/modules/adminInterface/config/menu/sampleShop", ItemType.CONTENTNODE);
+        setupConfigNode("/modules/standard-templating-kit/config/site/templates/availability/templates", ItemType.CONTENTNODE);
+        setupConfigNode("/modules/standard-templating-kit/templates", ItemType.CONTENTNODE);
 
-            executeUpdatesAsIfTheCurrentlyInstalledVersionWas(null);
-            //check menu
-            assertEquals("shops", hm.getContent("/modules/adminInterface/config/menu/shops").getName());
-            //check  datatypes
-         
-        }
-
-        protected String[] getExtraWorkspaces() {
-            return new String[]{"data", "dms", "resources", "templates"};
-        }
-        
-        protected String getExtraNodeTypes() {
-            return "/mgnl-nodetypes/test-magnoliaAnddata-nodetypes.xml";
-        }
+        executeUpdatesAsIfTheCurrentlyInstalledVersionWas(null);
+        //check menu
+        assertEquals("shops", hm.getContent("/modules/adminInterface/config/menu/shops").getName());
+        //check  datatypes
 
     }
+
+    protected String[] getExtraWorkspaces() {
+        return new String[]{"data", "dms", "resources", "templates"};
+    }
+
+    protected String getExtraNodeTypes() {
+        return "/mgnl-nodetypes/test-magnoliaAnddata-nodetypes.xml";
+    }
+
+}
