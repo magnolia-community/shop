@@ -36,22 +36,11 @@ package info.magnolia.module.shop.dialog;
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.gui.dialog.DialogEdit;
 import info.magnolia.cms.gui.misc.CssConstants;
-import info.magnolia.cms.security.AccessDeniedException;
-import info.magnolia.cms.util.ContentUtil;
-import info.magnolia.context.MgnlContext;
-import info.magnolia.module.templatingkit.sites.Site;
-import info.magnolia.module.templatingkit.sites.SiteManager;
-import info.magnolia.module.templatingkit.util.STKUtil;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 
-import javax.jcr.PathNotFoundException;
 import javax.jcr.PropertyType;
 import javax.jcr.RepositoryException;
 import javax.servlet.http.HttpServletRequest;
@@ -87,7 +76,7 @@ public class MultiLanguageDialogEdit extends DialogEdit implements MultiLanguage
         // First, try to set the languages by looking at the path of the storage
         // node
         if (storageNode != null) {
-            initSiteKey(storageNode);
+            DialogLanguagesUtil.initSiteKey(this, storageNode);
         } else {
             String mgnlPath = request.getParameter("mgnlPath");
             if (mgnlPath.startsWith("/")) {
@@ -100,9 +89,9 @@ public class MultiLanguageDialogEdit extends DialogEdit implements MultiLanguage
         super.init(request, response, storageNode, configNode);
         // if the languages have not been initialized yet
         if (getConfigValue("siteKey") == null) {
-            initSiteKey(storageNode);
+            DialogLanguagesUtil.initSiteKey(this, storageNode);
         }
-        initLanguages();
+        languages = DialogLanguagesUtil.initLanguages(this);
     }
 
     @Override
@@ -135,58 +124,7 @@ public class MultiLanguageDialogEdit extends DialogEdit implements MultiLanguage
             super.drawHtml(out);
         }
     }
-
-    private void initSiteKey(Content storageNode) {
-        if (storageNode != null) {
-            try {
-                Content rootDataNode = storageNode.getAncestor(1);
-                setConfig("siteKey", rootDataNode.getName());
-            } catch (PathNotFoundException ex) {
-                log.error("Could not get level 1 node of " + storageNode.getHandle(), ex);
-            } catch (AccessDeniedException ex) {
-                log.error("Could not get level 1 node of " + storageNode.getHandle(), ex);
-            } catch (RepositoryException ex) {
-                log.error("Could not get level 1 node of " + storageNode.getHandle(), ex);
-            }
-        }
-    }
-
-    // @TODO: Move this to utility class
-    private void initLanguages() {
-        // set the languages for the site key by assuming that the languages are
-        // defined at default site definition
-        Site site = null;
-        if (getConfigValue("siteKey") != null) {
-            String siteKey = getConfigValue("siteKey");
-            site = SiteManager.Factory.getInstance().getSite(getConfigValue("siteKey"));
-        }
-        if (site == null) {
-            if (this.getStorageNode() != null) {
-                site = STKUtil.getSite(this.getStorageNode());
-            } else {
-                // new node -> we need to look at the path!
-                String path = MgnlContext.getParameter("mgnlPath");
-                String repository = MgnlContext.getParameter("mgnlRepository");
-                if (StringUtils.isNotBlank(path) && StringUtils.isNotBlank(repository)) {
-                    Content parentNode = ContentUtil.getContent(repository, path);
-                    if (parentNode != null) {
-                        site = STKUtil.getSite(parentNode);
-                    }
-                }
-            }
-        }
-        if (site == null) {
-            site = STKUtil.getSite();
-        }
-        Collection<Locale> locales = site.getI18n().getLocales();
-        Iterator<Locale> localesIterator = locales.iterator();
-        ArrayList<String> languageList = new ArrayList<String>();
-        while (localesIterator.hasNext()) {
-            languageList.add(localesIterator.next().getLanguage());
-        }
-        this.languages = languageList;
-    }
-
+    
     public List<String> getLanguages() {
         return this.languages;
     }
