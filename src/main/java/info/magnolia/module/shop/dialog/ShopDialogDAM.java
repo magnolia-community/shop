@@ -84,38 +84,48 @@ public class ShopDialogDAM extends DialogControlImpl {
     private static final Logger log = LoggerFactory.getLogger(ShopDialogDAM.class);
     private DialogBox box;
     private Collection<DAMHandler> handlers = null;
+    private List<String> languages;
 
     public void init(HttpServletRequest request, HttpServletResponse response,
             Content storageNode, Content configNode) throws RepositoryException {
 
+        // First, try to set the languages by looking at the path of the storage
+        // node
+        if (storageNode != null) {
+            DialogLanguagesUtil.initSiteKey(this, storageNode);
+        } else {
+            String mgnlPath = request.getParameter("mgnlPath");
+            if (mgnlPath.startsWith("/")) {
+                // this should be the case
+                mgnlPath = mgnlPath.substring(1);
+            }
+            mgnlPath = StringUtils.substringBefore(mgnlPath, "/");
+            setConfig("siteKey", mgnlPath);
+        }
         super.init(request, response, storageNode, configNode);
+        // if the languages have not been initialized yet
+        if (getConfigValue("siteKey") == null) {
+            DialogLanguagesUtil.initSiteKey(this, storageNode);
+        }
+        languages = DialogLanguagesUtil.initLanguages(this);
         this.handlers = getDamSupport().getHandlers().values();
         loadSubs();
     }
 
-    public void drawHtmlPreSubs(Writer out) throws IOException {
+    public void drawHtmlPreSubs(String language, Writer out) throws IOException {
         if(handlers.size() > 1) {
-            drawRadio(out);
+            drawRadio(language, out);
         }
         else if(handlers.size() == 1){
-            Hidden control = new Hidden(getName(), handlers.iterator().next().getName());
+            Hidden control = new Hidden(getName() + "_" + language, handlers.iterator().next().getName());
             out.write(control.getHtml());
         }
     }
 
-    protected void drawSubs(Writer out) throws IOException {
+    protected void drawSubs(String language, Writer out) throws IOException {
         String aName = this.getName();
-        //TODO: would it not be more systematic to set (and keep) locale in separate variable and to be able to still retrieve unlocalized name? Maybe for 5.0 ...
-        String originalName = this.getConfigValue(ORIGINAL_NAME);
-        String locale = "";
-        if (!StringUtils.isBlank(originalName)) {
-            locale = StringUtils.substringAfter(aName, originalName);
-            if (locale.startsWith("_")) {
-                aName = originalName;
-            } else {
-                locale = "";
-            }
-        }
+        
+        String locale = "_" + language;
 
         for(DAMHandler handler: handlers) {
 
@@ -147,30 +157,34 @@ public class ShopDialogDAM extends DialogControlImpl {
     }
 
     private void loadSubs() {
-        for(DAMHandler handler: handlers) {
-
-            for (Object c : handler.getControls()) {
-                Content controlNodeConfig = (Content) c;
-                try {
-                    DialogControl control = DialogFactory.loadDialog(this.getRequest(), this.getResponse(), this.getStorageNode(),
-                            controlNodeConfig);
-                    String name = ((DialogControlImpl) control).getName();
-                    ((DialogControlImpl) control).setName(this.getName() + name);
-
-                    this.addSub((DialogControlImpl) control);
-
-                } catch (RepositoryException e) {
-                    // ignore
-                    log.debug(e.getMessage(), e);
+        if (languages != null && languages.size() > 0) {
+            for (int i = 0; i < languages.size(); i++) {
+                for(DAMHandler handler: handlers) {
+        
+                    for (Object c : handler.getControls()) {
+                        Content controlNodeConfig = (Content) c;
+                        try {
+                            DialogControl control = DialogFactory.loadDialog(this.getRequest(), this.getResponse(), this.getStorageNode(),
+                                    controlNodeConfig);
+                            String name = ((DialogControlImpl) control).getName() + "_"+ languages.get(i);
+                            ((DialogControlImpl) control).setName(this.getName() + name);
+        
+                            this.addSub((DialogControlImpl) control);
+        
+                        } catch (RepositoryException e) {
+                            // ignore
+                            log.debug(e.getMessage(), e);
+                        }
+                    }
                 }
             }
         }
     }
 
-    public void drawHtmlPostSubs(Writer out) throws IOException {
+    public void drawHtmlPostSubs(String language, Writer out) throws IOException {
         if(box != null) {
             out.append("<script type=\"text/javascript\"> ");
-            out.append("mgnl.dam.DAMDialog.onSelectionChanged('" + this.getName() + "','" + this.getValue() + "');");
+            out.append("mgnl.dam.DAMDialog.onSelectionChanged('" + this.getName() +"_"+ language + "','" + this.getValue() + "');");
             out.append("</script>");
             box.drawHtmlPost(out);
         }
@@ -206,18 +220,18 @@ public class ShopDialogDAM extends DialogControlImpl {
         }
     }
 
-    private List<Button> getDamRadioOptions() {
+    private List<Button> getDamRadioOptions(String language) {
         List<Button> selectOptions = new ArrayList<Button>();
         for(DAMHandler handler: handlers) {
-            Button option = new Button(this.getName(), handler.getName());
+            Button option = new Button(this.getName() +"_"+ language, handler.getName());
             option.setLabel(this.getMessage(handler.getDamSelectorOptionLabel()));
-            option.setOnclick("mgnl.dam.DAMDialog.onSelectionChanged('" + this.getName() + "','" + handler.getName() + "');");
+            option.setOnclick("mgnl.dam.DAMDialog.onSelectionChanged('" + this.getName() +"_"+ language + "','" + handler.getName() + "');");
             selectOptions.add(option);
         }
         return selectOptions;
     }
 
-    public void drawRadio(Writer out) throws IOException {
+    public void drawRadio(String language, Writer out) throws IOException {
 
         box = new DialogButtonSet();
         try {
@@ -225,12 +239,12 @@ public class ShopDialogDAM extends DialogControlImpl {
         } catch (RepositoryException e) {
             //ignore
         }
-        box.setLabel(this.getMessage(this.getLabel()));
+        box.setLabel(this.getMessage(this.getLabel()) + " ("+ language +")" );
         box.setSaveInfo(true);
 
         ButtonSet control;
         // radio
-        control = new ButtonSet(this.getName(), this.getValue());
+        control = new ButtonSet(this.getName() +"_"+ language, this.getValue());
 
         control.setButtonType(ControlImpl.BUTTONTYPE_RADIO);
 
@@ -239,11 +253,12 @@ public class ShopDialogDAM extends DialogControlImpl {
         control.setSaveInfo(true);
 
         control.setType(PropertyType.TYPENAME_STRING);
+        
 
         control.setButtonHtmlPre("<tr><td class=\"" + CssConstants.CSSCLASS_BUTTONSETBUTTON + "\">");
         control.setButtonHtmlInter("</td><td class=\"" + CssConstants.CSSCLASS_BUTTONSETLABEL + "\">");
         control.setButtonHtmlPost("</td></tr>");
-        List<Button> selectOptions = getDamRadioOptions();
+        List<Button> selectOptions = getDamRadioOptions(language);
         int cols = selectOptions.size();
         if (cols > 1) {
             control.setHtmlPre(control.getHtmlPre() + "<tr>");
@@ -303,4 +318,18 @@ public class ShopDialogDAM extends DialogControlImpl {
         }
         super.setName(s);
     }
+
+    @Override
+    public void drawHtml(Writer out) throws IOException {
+        
+        if (languages != null && languages.size() > 0) {
+            for (int i = 0; i < languages.size(); i++) {
+                this.drawHtmlPreSubs(languages.get(i), out);
+                this.drawSubs(languages.get(i), out);
+                this.drawHtmlPostSubs(languages.get(i), out);
+            }
+        }
+    }
+    
+    
 }
