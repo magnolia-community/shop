@@ -134,8 +134,8 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
       }
     });
     
-    installTasks.add(new IsModuleInstalledOrRegistered("Tag product Categores", 
-        "Adds control to product categories dialog for taging this categories.", "extended-templating-kit", 
+    installTasks.add(new IsModuleInstalledOrRegistered("Keywords for product Categores", 
+        "Adds control to product categories dialog for asigning keywords.", "extended-templating-kit", 
         new NodeBuilderTask("","", ErrorHandling.strict, "config",
             getNode("modules/data/dialogs/shopProductCategory/mainTab").then(
                 addNode("tags", ItemType.CONTENTNODE).then(
@@ -143,6 +143,7 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                     addProperty("saveHandler", "info.magnolia.module.categorization.controls.CategorizationSaveHandler"),
                     addProperty("tree", "category"),
                     addProperty("type", "String"),
+                    addProperty("i18n", "true"),
                     addProperty("i18nBasename", "info.magnolia.module.shop.messages"),
                     addProperty("label", "dialogs.generic.tabCategorization.categories.label"),
                     addProperty("description", "dialogs.generic.tabCategorization.categories.description")))
