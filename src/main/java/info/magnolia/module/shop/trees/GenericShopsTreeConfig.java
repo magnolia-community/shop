@@ -52,8 +52,6 @@ public class GenericShopsTreeConfig extends WorkflowDataAdminTreeConfig{
     public void prepareTree(Tree tree, boolean browseMode,
             HttpServletRequest request) {
         super.prepareTree(tree, browseMode, request);
-        TreeColumn nameColumn = tree.getColumns(0);
-        nameColumn.setHtmlEdit("");
         
         TreeColumn colTitle = new TreeColumn();
         colTitle.setJavascriptTree(tree.getJavascriptTree());
@@ -61,10 +59,7 @@ public class GenericShopsTreeConfig extends WorkflowDataAdminTreeConfig{
         
         colTitle.setName(DataConsts.TYPE_TITLE + "_" + MgnlContext.getAggregationState().getLocale().getLanguage());
         colTitle.setTitle(msgs.get("module.data.tree.type.column.title.label"));
-        
+        colTitle.setHtmlEdit();
         tree.getColumns().add(1, colTitle);
     }
-    
-    
-    
 }

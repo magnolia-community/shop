@@ -51,6 +51,7 @@ public class ShopsManagementTreeConfig extends GenericShopsTreeConfig{
         super.prepareContextMenu(tree, browseMode, request);
         ContextMenuItem menuItem = tree.getMenu().getMenuItemByName("copy");
         tree.getMenu().getMenuItems().remove(menuItem);
+        
     }
     
 }
