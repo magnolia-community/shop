@@ -85,13 +85,10 @@
         <sv:value>f0e59988-bb74-454c-ab57-e774efc02e37</sv:value>
       </sv:property>
       <sv:property sv:name="controlType" sv:type="String">
-        <sv:value>info.magnolia.module.data.controls.NodeNameControl</sv:value>
+        <sv:value>edit</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
         <sv:value>data.dialogs.shopProduct.mainTab.name.label</sv:value>
-      </sv:property>
-      <sv:property sv:name="required" sv:type="String">
-        <sv:value>true</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -113,7 +110,7 @@
           <sv:value>2010-03-16T15:52:38.953+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-10-06T14:09:00.956+02:00</sv:value>
+          <sv:value>2011-10-13T13:41:40.170+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -421,6 +418,49 @@
         <sv:value>2011-07-26T13:33:02.996+02:00</sv:value>
       </sv:property>
     </sv:node>
+    <sv:node sv:name="prices">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+        <sv:value>mix:lockable</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>4b93a78a-ea75-49de-a6d4-dd6643441257</sv:value>
+      </sv:property>
+      <sv:property sv:name="controlType" sv:type="String">
+        <sv:value>shopProductPrices</sv:value>
+      </sv:property>
+      <sv:property sv:name="description" sv:type="String">
+        <sv:value>data.dialogs.shopProduct.pricingTab.prices.description</sv:value>
+      </sv:property>
+      <sv:property sv:name="label" sv:type="String">
+        <sv:value>data.dialogs.shopProduct.pricingTab.prices.label</sv:value>
+      </sv:property>
+      <sv:node sv:name="MetaData">
+        <sv:property sv:name="jcr:primaryType" sv:type="Name">
+          <sv:value>mgnl:metaData</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:activated" sv:type="Boolean">
+          <sv:value>false</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:activatorid" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:authorid" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
+          <sv:value>2010-03-02T22:38:59.677+01:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastaction" sv:type="Date">
+          <sv:value>2010-03-16T15:52:38.958+01:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+          <sv:value>2011-10-13T14:26:22.655+02:00</sv:value>
+        </sv:property>
+      </sv:node>
+    </sv:node>
     <sv:node sv:name="taxCategoryUUID">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
         <sv:value>mgnl:contentNode</sv:value>
@@ -470,49 +510,6 @@
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
           <sv:value>2011-07-26T13:32:02.906+02:00</sv:value>
-        </sv:property>
-      </sv:node>
-    </sv:node>
-    <sv:node sv:name="prices">
-      <sv:property sv:name="jcr:primaryType" sv:type="Name">
-        <sv:value>mgnl:contentNode</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
-        <sv:value>mix:lockable</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>4b93a78a-ea75-49de-a6d4-dd6643441257</sv:value>
-      </sv:property>
-      <sv:property sv:name="controlType" sv:type="String">
-        <sv:value>shopProductPrices</sv:value>
-      </sv:property>
-      <sv:property sv:name="description" sv:type="String">
-        <sv:value>data.dialogs.shopProduct.pricingTab.prices.description</sv:value>
-      </sv:property>
-      <sv:property sv:name="label" sv:type="String">
-        <sv:value>data.dialogs.shopProduct.pricingTab.prices.label</sv:value>
-      </sv:property>
-      <sv:node sv:name="MetaData">
-        <sv:property sv:name="jcr:primaryType" sv:type="Name">
-          <sv:value>mgnl:metaData</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-          <sv:value>false</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:activatorid" sv:type="String">
-          <sv:value>superuser</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:authorid" sv:type="String">
-          <sv:value>superuser</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-          <sv:value>2010-03-02T22:38:59.677+01:00</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:lastaction" sv:type="Date">
-          <sv:value>2010-03-16T15:52:38.958+01:00</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-26T14:37:46.545+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>

@@ -82,13 +82,10 @@
         <sv:value>26a5b79b-7e51-4e67-b29e-6fdf651a25ec</sv:value>
       </sv:property>
       <sv:property sv:name="controlType" sv:type="String">
-        <sv:value>info.magnolia.module.data.controls.NodeNameControl</sv:value>
+        <sv:value>edit</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
         <sv:value>data.dialogs.shopPriceCategory.mainTab.name.label</sv:value>
-      </sv:property>
-      <sv:property sv:name="required" sv:type="String">
-        <sv:value>true</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -110,7 +107,7 @@
           <sv:value>2010-03-16T15:53:04.919+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-10-06T14:10:45.672+02:00</sv:value>
+          <sv:value>2011-10-13T13:42:39.188+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
