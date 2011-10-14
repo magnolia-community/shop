@@ -148,6 +148,12 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                     addProperty("label", "dialogs.generic.tabCategorization.categories.label"),
                     addProperty("description", "dialogs.generic.tabCategorization.categories.description")))
             )));
+    installTasks.add(new IsModuleInstalledOrRegistered("Set multilanguage on categorization", 
+            "Display name in the site defined languages.", "categorization", 
+            new NodeBuilderTask("","", ErrorHandling.strict, "config",
+                getNode("modules/data/dialogs/category/mainTab/displayName").then(
+                    setProperty("controlType", "shopMultiLanguageEdit")
+                ))));
     installTasks.add(new IsAuthorInstanceDelegateTask("Shop role for anonymous user", "This role to anonymous users will be added just on public instances.", null, 
             new AddRoleToUserTask("", "anonymous", "shop-user-base")));
     return installTasks;
