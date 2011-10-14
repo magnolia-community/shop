@@ -27,7 +27,7 @@
 	<div class="product-price-container">
 		<div class="product-price">
 			[#assign price=bean.price]
-			${i18n.get('price.detail.text', [price, bean.currency])}
+			${i18n.get('price.detail.text', [bean.currency, price])}
 		</div>
 		<div class="product-add">
 	  		[@addForm product=product model=model/]
