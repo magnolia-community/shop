@@ -33,7 +33,6 @@
  */
 package info.magnolia.module.shop.dialog;
 
-import info.magnolia.cms.beans.config.ContentRepository;
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.gui.control.Button;
 import info.magnolia.cms.gui.control.ButtonSet;
@@ -44,13 +43,13 @@ import info.magnolia.cms.gui.dialog.DialogButtonSet;
 import info.magnolia.cms.gui.dialog.DialogControl;
 import info.magnolia.cms.gui.dialog.DialogControlImpl;
 import info.magnolia.cms.gui.dialog.DialogFactory;
+import info.magnolia.cms.gui.dialog.UUIDDialogControl;
 import info.magnolia.cms.gui.misc.CssConstants;
 import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.context.MgnlContext;
+import info.magnolia.module.shop.ShopModule;
 import info.magnolia.module.templatingkit.dam.DAMHandler;
 import info.magnolia.module.templatingkit.dam.DAMSupport;
-import info.magnolia.module.templatingkit.sites.Site;
-import info.magnolia.module.templatingkit.util.STKUtil;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -192,31 +191,9 @@ public class ShopDialogDAM extends DialogControlImpl {
 
     private DAMSupport getDamSupport() {
         try {
-            Site site;
-            // the content we are currently editing
-            Content websiteNode = this.getStorageNode();
-            if(websiteNode != null){
-                site = STKUtil.getSite(websiteNode);
-            }
-            // if this is a new content we get the site of the parent node
-            else if(MgnlContext.hasAttribute("mgnlPath")) {
-                String pathToParent = (String) MgnlContext.getAttribute("mgnlPath");
-                Content parentNode = ContentUtil.getContent(ContentRepository.WEBSITE, pathToParent);
-                if(parentNode != null) {
-                  site = STKUtil.getSite(parentNode);
-                } else {
-                  site = STKUtil.getSite();
-                }
-            }
-            else{
-                // in this case the dialog control is used in an other use case
-                // for instance to inspect a dialog configuration
-                // we cannot do better than use the current site
-                site = STKUtil.getSite();
-            }
-            return site.getDamSupport();
+            return ShopModule.getInstance().getDamSupport();
         } catch (Exception e) {
-            throw new RuntimeException("Can't determine the site to use", e);
+            throw new RuntimeException("Can't get shop damsupport to use", e);
         }
     }
 
@@ -241,10 +218,11 @@ public class ShopDialogDAM extends DialogControlImpl {
         }
         box.setLabel(this.getMessage(this.getLabel()) + " ("+ language +")" );
         box.setSaveInfo(true);
-
+        //init value for the different languages
+        this.setValue(null);
         ButtonSet control;
         // radio
-        control = new ButtonSet(this.getName() +"_"+ language, this.getValue());
+        control = new ButtonSet(this.getName() +"_"+ language, this.getValue(language));
 
         control.setButtonType(ControlImpl.BUTTONTYPE_RADIO);
 
@@ -330,6 +308,45 @@ public class ShopDialogDAM extends DialogControlImpl {
             }
         }
     }
+    
+    public String getValue(String language) {
+        if (this.value == null) {
+            if (this.getStorageNode() != null) {
+                this.value = readValue(language);
+                if(this instanceof UUIDDialogControl){
+                    String repository = ((UUIDDialogControl)this).getRepository();
+                    this.value = ContentUtil.uuid2path(repository, this.value);
+                }
+            }
+            
+            if (MgnlContext.getParameter(this.getName()) != null) {
+                this.value = MgnlContext.getParameter(this.getName());
+            }
+
+            if (this.value == null && StringUtils.isNotEmpty(getConfigValue(DEFAULT_VALUE_PROPERTY))) {
+                return this.getMessage(this.getConfigValue(DEFAULT_VALUE_PROPERTY));
+            }
+
+            if (this.value == null) {
+                this.value = StringUtils.EMPTY;
+            }
+        }
+        return this.value;
+    }
+    
+    protected String readValue(String language) {
+        try {
+            if(!this.getStorageNode().hasNodeData(this.getName() + "_" + language)){
+                return null;
+            }
+        }
+        catch (RepositoryException e) {
+            log.error("can't read nodedata [" + this.getName() + "]", e);
+            return null;
+        }
+        return this.getStorageNode().getNodeData(this.getName() + "_" + language).getString();
+    }
+
     
     
 }
