@@ -157,6 +157,9 @@ public class QueryDialogButtonSet extends DialogButtonSet {
         if (StringUtils.isEmpty(path)) {
             path = ShopUtil.getShopNameFromPath();
         }
+        if (StringUtils.isNotEmpty(path) && path.startsWith("/")) {
+            path = path.substring(1);
+        }
         
         String query = this.getConfigValue("query");
         String type = this.getConfigValue("type", "sql");
