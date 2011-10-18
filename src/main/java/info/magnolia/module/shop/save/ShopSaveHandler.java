@@ -81,7 +81,9 @@ public class ShopSaveHandler extends DataSaveHandler {
                     //need to check itemtype due to http://jira.magnolia-cms.com/browse/MGNLDATA-126
                     if(node.getItemType().getSystemName().equals("shop")) {
                         addDefaultSubNodes(node);
-                        addFolderNodesWithShopName(hm, "shopCarts", node.getName());
+                        HierarchyManager shopCartsHm = MgnlContext.getHierarchyManager("shoppingCarts");
+                        shopCartsHm.getContent(node.getName(), true, ItemType.FOLDER);
+                        shopCartsHm.save();
                         addFolderNodesWithShopName(hm, ShopProductAccesor.SHOP_PRODUCTS_FOLDER, node.getName());
                         addFolderNodesWithShopName(hm, "shopProductCategories", node.getName());
                         addNewShopInMenu(node);
