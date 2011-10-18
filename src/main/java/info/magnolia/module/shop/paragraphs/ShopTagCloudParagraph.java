@@ -74,7 +74,10 @@ public class ShopTagCloudParagraph extends RenderingModelImpl {
     public List<Content> getTagCloud() {
       
       List<Content> contentList = CategorizationSupport.Factory.getInstance().getCategories(content);
-      return ShopUtil.transformIntoI18nContentList(contentList);
+      if (contentList != null) {
+          return ShopUtil.transformIntoI18nContentList(contentList);
+      }
+      return null;
 
     }
     
