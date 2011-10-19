@@ -5,9 +5,11 @@ var jq=jQuery.noConflict();
 function toggleStatus() {
     if (jq('#${content.controlName!}').is(':checked')) {
         jq('#main input[type=text]').parent().hide('slow');
+        jq('#main textarea').parent().hide('slow');
         
     } else {
     	jq('#main input[type=text]').parent().show('slow');
+    	jq('#main textarea').parent().show('slow');
     }   
 }
 
