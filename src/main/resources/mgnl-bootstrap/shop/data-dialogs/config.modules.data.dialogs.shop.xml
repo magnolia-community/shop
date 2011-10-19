@@ -75,6 +75,9 @@
       <sv:property sv:name="controlType" sv:type="String">
         <sv:value>info.magnolia.module.data.controls.NodeNameControl</sv:value>
       </sv:property>
+      <sv:property sv:name="description" sv:type="String">
+        <sv:value>data.dialogs.shop.mainTab.name.description</sv:value>
+      </sv:property>
       <sv:property sv:name="label" sv:type="String">
         <sv:value>data.dialogs.shop.mainTab.name.label</sv:value>
       </sv:property>
@@ -92,7 +95,7 @@
           <sv:value>2011-07-04T12:23:49.867+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-10-06T13:57:00.882+02:00</sv:value>
+          <sv:value>2011-10-19T10:39:05.414+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>

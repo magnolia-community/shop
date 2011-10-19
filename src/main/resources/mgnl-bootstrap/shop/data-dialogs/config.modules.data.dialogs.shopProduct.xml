@@ -87,6 +87,9 @@
       <sv:property sv:name="controlType" sv:type="String">
         <sv:value>edit</sv:value>
       </sv:property>
+      <sv:property sv:name="description" sv:type="String">
+        <sv:value>data.dialogs.shopProduct.mainTab.name.description</sv:value>
+      </sv:property>
       <sv:property sv:name="label" sv:type="String">
         <sv:value>data.dialogs.shopProduct.mainTab.name.label</sv:value>
       </sv:property>
@@ -110,7 +113,7 @@
           <sv:value>2010-03-16T15:52:38.953+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-10-13T13:41:40.170+02:00</sv:value>
+          <sv:value>2011-10-18T15:21:09.202+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -251,7 +254,7 @@
         <sv:value>shopDam</sv:value>
       </sv:property>
       <sv:property sv:name="i18nBasename" sv:type="String">
-        <sv:value>info.magnolia.module.templatingkit.messages</sv:value>
+        <sv:value>info.magnolia.module.shop.messages</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
         <sv:value>dialogs.generic.controls.tabImage.image.label</sv:value>
@@ -279,7 +282,7 @@
           <sv:value>2006-05-01T21:47:58.230+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-15T10:28:18.395+02:00</sv:value>
+          <sv:value>2011-10-18T15:19:54.808+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -337,7 +340,7 @@
         <sv:value>shopQueryCheckbox</sv:value>
       </sv:property>
       <sv:property sv:name="description" sv:type="String">
-        <sv:value>Product categories to which this product should belong</sv:value>
+        <sv:value>data.dialogs.shopProduct.productCategoriesTab.productCategoryUUIDs.description</sv:value>
       </sv:property>
       <sv:property sv:name="itemType" sv:type="String">
         <sv:value>shopProductCategory</sv:value>
@@ -374,7 +377,7 @@
           <sv:value>2010-03-16T15:52:38.956+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-26T13:32:13.709+02:00</sv:value>
+          <sv:value>2011-10-19T10:32:46.891+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
