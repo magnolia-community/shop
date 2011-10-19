@@ -17,6 +17,7 @@
     [#assign itemDisplayName = item.displayName!itemName]
     [#assign itemLevel = item.level]
     [#assign itemLink = model.getProductListLink(itemName)]
+    [#assign itemNumberOfItems = model.getNumberOfItemsCategorizedWith(item.@uuid)]
 [/#macro]
 
 [#-------------- RENDERING PART --------------]
@@ -32,9 +33,11 @@
             [#list categories as item]
                 [#-- Macro: Item Assigns --]
                 [@assignItemValues item=item /]
+                [#if itemNumberOfItems > 0]
                 <li>
-                    <a href="${itemLink}" >${itemDisplayName} [${model.getNumberOfItemsCategorizedWith(item.@uuid)}]</a>
+                    <a href="${itemLink}" >${itemDisplayName} [${itemNumberOfItems}]</a>
                 </li>
+                [/#if]
             [/#list]
         </ul>
     [/#if]
