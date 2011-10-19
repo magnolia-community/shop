@@ -2747,7 +2747,7 @@
             <sv:value>Crankset: Shimano. Brake: Shimano Disc Deore 160 mm. Rear Derailleur: Shimano XT</sv:value>
           </sv:property>
           <sv:property sv:name="taxCategoryUUID" sv:type="String">
-            <sv:value>62972888-d32d-401f-9eac-5ce48ad59869</sv:value>
+            <sv:value>5f2ac4fd-87a8-44ec-b345-0571a1adf38d</sv:value>
           </sv:property>
           <sv:property sv:name="title_en" sv:type="String">
             <sv:value>Corratec XVert Expert Disc Hardtail Bike 2009</sv:value>
@@ -2943,7 +2943,7 @@
             <sv:value>This is what has inspired us in perfecting the SUNN 2011 XC range with always lighter and higher performing bikes. Not everyone is a competitor however, so our XC bikes are also designed to be fun to ride and will ensure countless good memories on your bike.</sv:value>
           </sv:property>
           <sv:property sv:name="taxCategoryUUID" sv:type="String">
-            <sv:value>62972888-d32d-401f-9eac-5ce48ad59869</sv:value>
+            <sv:value>5f2ac4fd-87a8-44ec-b345-0571a1adf38d</sv:value>
           </sv:property>
           <sv:property sv:name="title_en" sv:type="String">
             <sv:value>Sunn Prim S2 2011</sv:value>
@@ -3139,7 +3139,7 @@
             <sv:value>MTB - The durable BeOne. Our alloy Performance bikes are fast, light and durable. For competitive riders who prefer aluminium over carbon. With the same geometry as our high-end Pro series frames and ultra light tubing, the Performance mountain bikes are ready to race. Wherever you like.</sv:value>
           </sv:property>
           <sv:property sv:name="taxCategoryUUID" sv:type="String">
-            <sv:value>62972888-d32d-401f-9eac-5ce48ad59869</sv:value>
+            <sv:value>5f2ac4fd-87a8-44ec-b345-0571a1adf38d</sv:value>
           </sv:property>
           <sv:property sv:name="title_en" sv:type="String">
             <sv:value>BeOne Karma Race Hardtail Bike 2011</sv:value>
@@ -3360,7 +3360,7 @@
             <sv:value>You don’t have to be an experienced rider to ride our BeOne bikes. Our Sport series bikes are specially developed for riders who just discovered their passion for cycling. Whether it’s on the road. The Sport series road have an excellent price-quality ratio, are looking good and give you loads of comfort. And above all that ultimate pleasure.</sv:value>
           </sv:property>
           <sv:property sv:name="taxCategoryUUID" sv:type="String">
-            <sv:value>62972888-d32d-401f-9eac-5ce48ad59869</sv:value>
+            <sv:value>5f2ac4fd-87a8-44ec-b345-0571a1adf38d</sv:value>
           </sv:property>
           <sv:property sv:name="title_en" sv:type="String">
             <sv:value>BeOne Storm Comp Road bike 2011</sv:value>
@@ -3556,7 +3556,7 @@
             <sv:value>At Vitus bikes we pioneered many of the technologies that have helped carbon fibre make the leap from space-age aeronautics into the pro peleton, its blend of light weight, stiffness and vibration-damping comfort being perfectly suited to the needs of the elite racer or performance sporting rider alike.</sv:value>
           </sv:property>
           <sv:property sv:name="taxCategoryUUID" sv:type="String">
-            <sv:value>62972888-d32d-401f-9eac-5ce48ad59869</sv:value>
+            <sv:value>5f2ac4fd-87a8-44ec-b345-0571a1adf38d</sv:value>
           </sv:property>
           <sv:property sv:name="title_en" sv:type="String">
             <sv:value>Vitus Bikes Dark Plasma VR 2011</sv:value>
@@ -3778,7 +3778,7 @@
           <sv:value>Whether running or biking, hiking or climbing the characteristics required from performance clothing are of the same high quality standard. Montane Clothing is the lightest available. By reducing the weight and overall pack size of all Montane clothing to the lowest achievable levels, the outdoor experience and performance can be further enhanced. Less energy is wasted when carrying Montane products with less space being used there is more space is available for other essential items like food and equipment. </sv:value>
         </sv:property>
         <sv:property sv:name="taxCategoryUUID" sv:type="String">
-          <sv:value>62972888-d32d-401f-9eac-5ce48ad59869</sv:value>
+          <sv:value>5f2ac4fd-87a8-44ec-b345-0571a1adf38d</sv:value>
         </sv:property>
         <sv:property sv:name="title_en" sv:type="String">
           <sv:value>Montane FeatherLite Velo Jacket</sv:value>
@@ -3971,7 +3971,7 @@
           <sv:value>Cordura® fabric with wicking finish and Teflon® HT treatment; hard wearing, fast drying and water resistant.</sv:value>
         </sv:property>
         <sv:property sv:name="taxCategoryUUID" sv:type="String">
-          <sv:value>62972888-d32d-401f-9eac-5ce48ad59869</sv:value>
+          <sv:value>5f2ac4fd-87a8-44ec-b345-0571a1adf38d</sv:value>
         </sv:property>
         <sv:property sv:name="title_en" sv:type="String">
           <sv:value>Endura Singletrack Shorts 2010</sv:value>
@@ -4164,7 +4164,7 @@
           <sv:value>Stretch arch support. Loopback construction. Mesh stitch section. Fast wicking. Fast drying. Mixed triple pack.</sv:value>
         </sv:property>
         <sv:property sv:name="taxCategoryUUID" sv:type="String">
-          <sv:value>62972888-d32d-401f-9eac-5ce48ad59869</sv:value>
+          <sv:value>5f2ac4fd-87a8-44ec-b345-0571a1adf38d</sv:value>
         </sv:property>
         <sv:property sv:name="title_en" sv:type="String">
           <sv:value>Endura Coolmax Stripe Socks - 3 Pack</sv:value>
@@ -4382,7 +4382,7 @@
           <sv:value xsi:type="xs:base64Binary">UmVpbmZvcmNlZCBmb3JrIGFkYXB0ZXI6IHRoZSB0dWJlcyBhcmUgc3VwcGxpZWQgd2l0aCB0d28gZXh0cmEgYnVja2xlcyBhbmQgcGFkZGluZyB3aGljaCBhcmUgbW91bnRlZCBvbiBhIHJpZ2lkLWZvYW0gYmxvY2s7IHRoZSBmb3JrIGVuZHMgYXJlIHByb3ZpZGVkIHdpdGggZG91YmxlIHByb3RlY3Rpb24gZnJvbSBiZWxvdyBieSBtZWFucyBvZiBhIHNwZWNpYWxseSByZWluZm9yY2VkIHBsYXN0aWMgcGxhdGUuIA0KRXh0cmEgd2lkZSBjYXJyaWFnZTogdGlsdC1wcm90ZWN0ZWQsIGltcGFjdC1yZXNpc3RhbnQgY2FycmlhZ2Ugd2l0aCBkdXJhYmxlLCBzb2Z0IHNrYXRlIHdoZWVscyBhbmQgc2VhbGVkIGJlYXJpbmdzLiANClNpZGUgd2hlZWwgY29tcGFydG1lbnRzOiBwcmVzc3VyZSBhbmQgaW1wYWN0IGFyZSBkaXN0cmlidXRlZCB0byB0aGUgdHlyZXMgYW5kIHJpbXMgYnkgbWVhbnMgb2YgdHViZSBzdHJ1dHMsIHNvIHRoZSBicmFrZSBkaXNrcyBhcmUgcHJvdGVjdGVkIGZyb20gd2FycGluZy4gDQpGaXRzIGZvciBNVEIgYW5kIHJvYWRiaWtl</sv:value>
         </sv:property>
         <sv:property sv:name="taxCategoryUUID" sv:type="String">
-          <sv:value>62972888-d32d-401f-9eac-5ce48ad59869</sv:value>
+          <sv:value>5f2ac4fd-87a8-44ec-b345-0571a1adf38d</sv:value>
         </sv:property>
         <sv:property sv:name="title_en" sv:type="String">
           <sv:value>Evoc Bike Travel Bag 2012</sv:value>
@@ -4575,7 +4575,7 @@
           <sv:value xsi:type="xs:base64Binary">4oCiCVN0ZWVsIG1lc2gNCuKAoglSZW1vdmFibGUgd2l0aCBzYWZlIGRvdWJsZSBoYW5kbGViYXIgaG9va3MNCuKAoglIYW5kbGUgd2l0aCBueWxvbiBncmlwDQrigKIJRGltZW5zaW9uIC0gMTZ4MjJ4MTJjbQ==</sv:value>
         </sv:property>
         <sv:property sv:name="taxCategoryUUID" sv:type="String">
-          <sv:value>62972888-d32d-401f-9eac-5ce48ad59869</sv:value>
+          <sv:value>5f2ac4fd-87a8-44ec-b345-0571a1adf38d</sv:value>
         </sv:property>
         <sv:property sv:name="title_en" sv:type="String">
           <sv:value>Basil Junior Handlebar Basket</sv:value>
@@ -4768,7 +4768,7 @@
           <sv:value>Loaded with data, Edge 500 tracks your distance, speed, location and elevation with high sensitivity GPS. Add an ANT+™ compatible heart rate monitor, speed/cadence sensor or compatible power meter for a finely-tuned analysis of your ride.</sv:value>
         </sv:property>
         <sv:property sv:name="taxCategoryUUID" sv:type="String">
-          <sv:value>62972888-d32d-401f-9eac-5ce48ad59869</sv:value>
+          <sv:value>5f2ac4fd-87a8-44ec-b345-0571a1adf38d</sv:value>
         </sv:property>
         <sv:property sv:name="title_en" sv:type="String">
           <sv:value>Garmin Edge 500</sv:value>
@@ -4986,7 +4986,7 @@
           <sv:value>For all of this and much, much more make sure you get your copy of the March Issue of Dirt Magazine.</sv:value>
         </sv:property>
         <sv:property sv:name="taxCategoryUUID" sv:type="String">
-          <sv:value>b045bfa9-1883-4cc6-986c-c2f2caa0c4a0</sv:value>
+          <sv:value>2ea38f09-c34c-4b0b-85b9-6db61defaa0e</sv:value>
         </sv:property>
         <sv:property sv:name="title_en" sv:type="String">
           <sv:value>Dirt Magazine</sv:value>
@@ -5179,7 +5179,7 @@
           <sv:value>Decline is to the U.S.A. what Dirt is to the UK, the epitome of gravity assisted mountain biking. This high quality publication contains some of the most spectacular photography from staff photographer Sven Martin and many other famous contributing snappers such as John Gibson, Sterling Lorence and Harookz to name but a few. Add to this incredibly well written articles and features with in-depth analysis on featured products and you have one of, if not THE best MTB publication in circulation today.</sv:value>
         </sv:property>
         <sv:property sv:name="taxCategoryUUID" sv:type="String">
-          <sv:value>b045bfa9-1883-4cc6-986c-c2f2caa0c4a0</sv:value>
+          <sv:value>2ea38f09-c34c-4b0b-85b9-6db61defaa0e</sv:value>
         </sv:property>
         <sv:property sv:name="title_en" sv:type="String">
           <sv:value>Decline Magazine August 2011</sv:value>
@@ -5369,7 +5369,7 @@
           <sv:value>Description coming soon</sv:value>
         </sv:property>
         <sv:property sv:name="taxCategoryUUID" sv:type="String">
-          <sv:value>b045bfa9-1883-4cc6-986c-c2f2caa0c4a0</sv:value>
+          <sv:value>2ea38f09-c34c-4b0b-85b9-6db61defaa0e</sv:value>
         </sv:property>
         <sv:property sv:name="title_en" sv:type="String">
           <sv:value>Uberdog Magazine Issue 5</sv:value>
