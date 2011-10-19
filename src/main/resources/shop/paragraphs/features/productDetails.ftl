@@ -44,7 +44,7 @@
                     <dl class="${class}">
                         <dt ><img src="${stk.getAssetVariation(image, 'gallery-thumbnail').link}" alt="${image.title}"/></dt>
                         <dd class="zoom"><a href="${stk.getAssetVariation(image, 'gallery-zoom').link}" rel="showbox" title="${i18n['link.zoom.title']}">${i18n['link.zoom']}</a></dd>
-                        	<dd class="caption">${i18n['image.zoom']}</dd>
+                        	
                             <dd class="caption">${image.caption!"&nbsp;"}</dd>
                         
                         [#if image.copyright?has_content]
