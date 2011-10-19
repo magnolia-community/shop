@@ -91,4 +91,9 @@ public class DefaultProductListType extends AbstractProductListType {
         return ShopUtil.getMessages().get("productList.currentOffers");
     }
 
+    @Override
+    public String getListType() {
+        return "default";
+    }
+
 }

@@ -88,4 +88,9 @@ public class ProductListTypeCategory extends AbstractProductListType {
         return "";
     }
 
+    @Override
+    public String getListType() {
+        return ""+ParamType.CATEGORY;
+    }
+
 }

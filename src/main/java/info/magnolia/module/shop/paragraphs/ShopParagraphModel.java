@@ -372,5 +372,9 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
     public String getTitle() {
         return productListType.getTitle();
     }
+    
+    public String getListType() {
+        return productListType.getListType();
+    }
 
 }

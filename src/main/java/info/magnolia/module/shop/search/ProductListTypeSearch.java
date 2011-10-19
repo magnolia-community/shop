@@ -40,6 +40,7 @@ import info.magnolia.module.shop.accessors.ShopProductAccesor;
 import info.magnolia.module.shop.util.CustomDataUtil;
 import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.shop.util.ShopUtil;
+import info.magnolia.module.shop.util.ShopLinkUtil.ParamType;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -107,6 +108,11 @@ public class ProductListTypeSearch extends AbstractProductListType {
     @Override
     public String getTitle() {
         return ShopUtil.getMessages().getWithDefault("productList.search", new Object[]{getQueryStr()}, "");
+    }
+
+    @Override
+    public String getListType() {
+        return ""+ParamType.SEARCH;
     }    
 
 }

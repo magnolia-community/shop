@@ -18,19 +18,19 @@
 [#-- Rendering Part --]
 <div id="page-intro">
 	<h1>
+	[#if model.listType != "default"]
 		<em>${count} ${(count>1)?string(i18n['productList.products.found'],i18n['productList.product.found'])}</em>
+	[/#if]
 		${model.title!}
 	</h1>
 </div>
 <div class="${divClass}" ${divID} >
 	[@cms.editBar /]
-	
 		
-		
-		[#-- Macro: Pager --]
-		[@pagination pager "top" /]
+	[#-- Macro: Pager --]
+	[@pagination pager "top" /]
 	
-	    [@productListMacro productList=productList/]
+	[@productListMacro productList=productList/]
 </div>
 
 [#-- Macro: Pager --]
