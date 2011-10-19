@@ -86,22 +86,22 @@ public class DialogProductPrices extends DialogBox {
         Content priceCategoriesNode = ContentUtil.getContent("data", ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, shopName, "priceCategories" ));
     
         if(priceCategoriesNode == null) {
-            out.write("no price categories found");
+            out.write("No price categories found");
         } else {
             // get all price categories
             Collection priceCategories = priceCategoriesNode.getChildren("shopPriceCategory");
         
             if (priceCategories.isEmpty()) {
-                out.write("no price categories found");
+                out.write("No price categories found");
             } else {
                 //add shopname for the save handler
                 out.write("<input type=\"hidden\" name=\"shopName\" value=\""
                     + shopName + "\" />");
               // draw a table with price category name, currency, incl./excl. vat and
               // price
-              out.write("<table cellspacing=\"2\" cellpadding=\"0\" border=\"0\">");
-              out.write("<tr valign=\"top\"><th>"+ msg.get("price.category.label") +"</th><th>"
-                          + msg.get("price.currency.label") +"</th><th>"+ msg.get("price.vat.label") +"</th><th>"+ msg.get("price.label") +"</th></tr>");
+              out.write("<br /><table cellspacing=\"2\" cellpadding=\"0\" border=\"0\">");
+              out.write("<tr valign=\"top\" align=\"left\"><th width=\"40%\">"+ msg.get("price.category.label") +"</th><th width=\"20%\">"
+                          + msg.get("price.currency.label") +"</th><th width=\"20%\">"+ msg.get("price.vat.label") +"</th><th width=\"20%\">"+ msg.get("price.label") +"</th></tr>");
               Iterator<Content> priceCategoryIter = priceCategories.iterator();
               Content currPriceCat, currency;
               String currencyUUID;
@@ -111,7 +111,7 @@ public class DialogProductPrices extends DialogBox {
                   out.write("<tr valign=\"top\">");
                   out.write("<td>" + currPriceCat.getNodeData("title_de").getString() + "</td>");
                   currencyUUID = currPriceCat.getNodeData("currencyUUID").getString();
-                  out.write("<td align=\"center\">");
+                  out.write("<td align=\"left\">");
                   if (StringUtils.isNotBlank(currencyUUID)) {
                       currency = ContentUtil.getContentByUUID("data", currencyUUID);
                       if (currency != null) {
@@ -148,7 +148,7 @@ public class DialogProductPrices extends DialogBox {
                   }
                   control.setCssClass(CssConstants.CSSCLASS_EDIT);
                   control.setRows(this.getConfigValue("rows", "1"));
-                  control.setCssStyles("width", this.getConfigValue("width", "100%"));
+                  control.setCssStyles("width", this.getConfigValue("width", "80%"));
                   if (this.getConfigValue("onchange", null) != null) {
                       control.setEvent("onchange", this.getConfigValue("onchange"));
                   }
