@@ -473,7 +473,7 @@
       </sv:node>
     </sv:node>
   </sv:node>
-  <sv:node sv:name="Bike-Shop">
+  <sv:node sv:name="bikeShop">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>dataFolder</sv:value>
     </sv:property>

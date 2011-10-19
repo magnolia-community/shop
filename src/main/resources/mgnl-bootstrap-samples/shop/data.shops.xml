@@ -517,7 +517,7 @@
       </sv:node>
     </sv:node>
   </sv:node>
-  <sv:node sv:name="Bike-Shop">
+  <sv:node sv:name="bikeShop">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>shop</sv:value>
     </sv:property>
@@ -543,7 +543,7 @@
       <sv:value>shop</sv:value>
     </sv:property>
     <sv:property sv:name="name" sv:type="String">
-      <sv:value>Bike-Shop</sv:value>
+      <sv:value>bikeShop</sv:value>
     </sv:property>
     <sv:property sv:name="priceCategoryManagerClassQualifiedName" sv:type="String">
       <sv:value>info.magnolia.module.shop.DefaultPriceCategoryManagerImpl</sv:value>
