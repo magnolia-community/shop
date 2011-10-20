@@ -2,6 +2,7 @@
 
 <script type="text/javascript">
 var jq=jQuery.noConflict();
+
 function toggleStatus() {
     if (jq('#${content.controlName!}').is(':checked')) {
         jq('#main input[type=text]').parent().hide('slow');
@@ -12,6 +13,11 @@ function toggleStatus() {
     	jq('#main textarea').parent().show('slow');
     }   
 }
+
+jq(document).ready(function() {
+
+	toggleStatus();
+});
 
 </script>
 <div ${model.style!}>
@@ -48,3 +54,4 @@ function toggleStatus() {
     </fieldset>
 
 </div>
+
