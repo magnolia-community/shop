@@ -9,7 +9,7 @@
 
 
 [#-- Rendering: Shopping Cart --]
-<div class="${divClass}" ${divID} >
+<div >
     <${headingLevel}>${i18n['shoppingcart.title']}</${headingLevel}>
 
     [@shoppingCartTable shoppingCart=shoppingCart type="cart"/]

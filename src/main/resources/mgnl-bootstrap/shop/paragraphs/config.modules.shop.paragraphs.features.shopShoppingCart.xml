@@ -57,20 +57,8 @@
     <sv:property sv:name="jcr:uuid" sv:type="String">
       <sv:value>04d9f5b3-e03d-4f0b-af31-9a3917a4a758</sv:value>
     </sv:property>
-    <sv:property sv:name="divClass" sv:type="String">
-      <sv:value>teaser products</sv:value>
-    </sv:property>
-    <sv:property sv:name="divIDPrefix" sv:type="String">
-      <sv:value>teaser</sv:value>
-    </sv:property>
     <sv:property sv:name="headingLevel" sv:type="String">
       <sv:value>h2</sv:value>
-    </sv:property>
-    <sv:property sv:name="searchForSubcategory" sv:type="String">
-      <sv:value>news</sv:value>
-    </sv:property>
-    <sv:property sv:name="teaserLinkType" sv:type="String">
-      <sv:value>internal</sv:value>
     </sv:property>
     <sv:node sv:name="MetaData">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
