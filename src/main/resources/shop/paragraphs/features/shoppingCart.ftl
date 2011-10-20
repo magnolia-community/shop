@@ -1,5 +1,4 @@
 [#-- Include: Global --]
-[#include "/templating-kit/paragraphs/teasers/init.inc.ftl"]
 [#include "/shop/paragraphs/macros/shoppingCartTable.ftl"]
 
 [#-------------- ASSIGNS ---------------------]
@@ -10,7 +9,7 @@
 
 [#-- Rendering: Shopping Cart --]
 <div >
-    <${headingLevel}>${i18n['shoppingcart.title']}</${headingLevel}>
+    <${def.headingLevel}>${i18n['shoppingcart.title']}</${def.headingLevel}>
 
     [@shoppingCartTable shoppingCart=shoppingCart type="cart"/]
     [#if shoppingCart?has_content && shoppingCart.getCartItemsCount() > 0]
