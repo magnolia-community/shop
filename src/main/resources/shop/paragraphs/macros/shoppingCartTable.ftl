@@ -7,9 +7,9 @@
 	    <table cellspacing="1" cellpadding="1" border="0" width="100%" class="shopping_cart">
 	    <thead>
 	    	<th>${i18n['table.product']}</th>
-	    	<th>${i18n['table.quantity']}</th>
-	    	<th>${i18n['table.unitprice']}</th>
-	    	<th>${i18n['table.total']}</th>
+	    	<th id="price">${i18n['table.quantity']}</th>
+	    	<th id="price">${i18n['table.unitprice']}</th>
+	    	<th id="price">${i18n['table.total']}</th>
 	    	[#if type=="cart"]
 	          <th></th>	
 			[/#if]
@@ -45,9 +45,9 @@
 							[/#if]
 						</td>
 	    			[/#if]
-	    			<td>${product.quantity}</td>
-	    			<td>${product.unitPrice?string(currencyFormatting!)}</td>
-	    			<td>${product.itemTotal?string(currencyFormatting!)}</td>
+	    			<td id="price">${product.quantity}</td>
+	    			<td id="price">${product.unitPrice?string(currencyFormatting!)}</td>
+	    			<td id="price">${product.itemTotal?string(currencyFormatting!)}</td>
 	    			[#if type=="cart"]
 	    			  <td>
 	    			  	<a class="product-add-more" href="${model.getCommandLink('add', product.productUUID, product_index)}"><img class="shopAddRemove" src="${ctx.contextPath}/.resources/images/add.gif" /></a> 
@@ -60,20 +60,23 @@
 	    	<tr>
 				<td></td>
 				<td></td>
-				<td></td>
-				<td [#if type=="cart"]colspan="2"[/#if]>${i18n['shoppingcart.subtotal']} ${shoppingCart.grossTotalExclTax?string(currencyFormatting!)} ${currencyTitle!}</td>
+				<td>${i18n['shoppingcart.subtotal']}</td>
+				<td id="price" > ${shoppingCart.grossTotalExclTax?string(currencyFormatting!)} ${currencyTitle!}</td>
+				[#if type=="cart"]<td></td>[/#if]
 			</tr>
 	    	<tr>
 				<td></td>
 				<td></td>
-				<td></td>
-				<td [#if type=="cart"]colspan="2"[/#if]>${i18n['vat']} ${shoppingCart.itemTaxTotal?string("0.00")} ${currencyTitle!}</td>
+				<td>${i18n['vat']}</td>
+				<td id="price" > ${shoppingCart.itemTaxTotal?string("0.00")} ${currencyTitle!}</td>
+				[#if type=="cart"]<td></td>[/#if]
 			</tr>
 			<tr>
 				<td></td>
 				<td></td>
-				<td></td>
-				<td [#if type=="cart"]colspan="2"[/#if]>${i18n['shoppingCart.total']} ${shoppingCart.grossTotalInclTax?string(currencyFormatting!)} ${currencyTitle}</td>
+				<td>${i18n['shoppingCart.total']}</td>
+				<td id="price" > ${shoppingCart.grossTotalInclTax?string(currencyFormatting!)} ${currencyTitle}</td>
+				[#if type=="cart"]<td></td>[/#if]
 			</tr>
 	    </tbody> 
 	    </table>
