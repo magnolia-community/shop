@@ -21,7 +21,7 @@
 		</div>
 	[/#if]
     
-</div><!-- end ${divClass} -->
+</div>
 
 
 
