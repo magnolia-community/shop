@@ -79,6 +79,6 @@ public class ProductListTypeTag extends AbstractProductListType {
 
     @Override
     public String getListType() {
-        return ""+ParamType.TAG;
+        return ParamType.TAG.name();
     }
 }

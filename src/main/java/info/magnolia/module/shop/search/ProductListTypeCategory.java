@@ -90,7 +90,7 @@ public class ProductListTypeCategory extends AbstractProductListType {
 
     @Override
     public String getListType() {
-        return ""+ParamType.CATEGORY;
+        return ParamType.CATEGORY.name();
     }
 
 }

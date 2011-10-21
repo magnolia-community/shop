@@ -112,7 +112,7 @@ public class ProductListTypeSearch extends AbstractProductListType {
 
     @Override
     public String getListType() {
-        return ""+ParamType.SEARCH;
+        return ParamType.SEARCH.name();
     }    
 
 }
