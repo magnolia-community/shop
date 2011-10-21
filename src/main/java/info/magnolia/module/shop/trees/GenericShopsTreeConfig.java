@@ -37,7 +37,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import info.magnolia.cms.gui.control.Tree;
 import info.magnolia.cms.gui.control.TreeColumn;
-import info.magnolia.context.MgnlContext;
 import info.magnolia.module.data.DataConsts;
 import info.magnolia.module.data.trees.WorkflowDataAdminTreeConfig;
 
