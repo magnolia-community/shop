@@ -34,6 +34,7 @@
 package info.magnolia.module.shop.util;
 
 import info.magnolia.cms.core.Content;
+import info.magnolia.cms.i18n.I18nContentWrapper;
 import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.SelectorUtil;
 import info.magnolia.module.templating.MagnoliaTemplatingUtilities;
@@ -63,12 +64,9 @@ public class ShopLinkUtil {
     }
   
     public static boolean isParamOfType(ParamType paramType) {
-        String selectorName = SelectorUtil.getSelector(2);
-        if(StringUtils.isEmpty(selectorName)) {
-            selectorName = SelectorUtil.getSelector(0);
-        }
+        String selector = SelectorUtil.getSelector();
         
-        if(StringUtils.isNotEmpty(selectorName) && selectorName.equalsIgnoreCase(paramType.name())) {
+        if(StringUtils.isNotEmpty(selector) && StringUtils.contains(selector, paramType.name())) {
             return true;
         }
         return false;
@@ -92,14 +90,18 @@ public class ShopLinkUtil {
     }
     
   public static String getProductCategoryLink(Content category) {
-    Content shopRootPage = ShopUtil.getShopRoot();
-    String selector = ParamType.CATEGORY.name() + "." +category.getName();
-    return ShopLinkUtil.createLinkFromContentWithSelectors(shopRootPage, selector);
+      Content shopRootPage = ShopUtil.getShopRoot();
+      String selector = createProductCategorySelector(category);
+      return ShopLinkUtil.createLinkFromContentWithSelectors(shopRootPage, selector);
+  }
+
+  public static String createProductCategorySelector(Content category) {
+      return category.getTitle() + "." + ParamType.CATEGORY.name() + "." +category.getName();
   }
   
   public static String getProductListSearchLink(Content siteRoot) {
       String link = "";
-      String selector = "" + ParamType.SEARCH;
+      String selector = createSearchSelector();
       Content productListPage = ShopUtil.getShopRoot();
       if(productListPage != null) {
           link = ShopLinkUtil.createLinkFromContentWithSelectors(productListPage, selector);
@@ -108,6 +110,10 @@ public class ShopLinkUtil {
       return link;
   
   }
+
+  private static String createSearchSelector() {
+      return ParamType.SEARCH.name();
+  }
   
   public static String createLinkFromContentWithSelectors(Content content, String selector) {
       String link = MagnoliaTemplatingUtilities.getInstance().createLink(content);
@@ -115,8 +121,7 @@ public class ShopLinkUtil {
       if(StringUtils.isNotEmpty(selector)) {
           selector += ".";
       }
-      String linkWithSelectors = StringUtils.substringBeforeLast(link, extension) + selector + extension;
-      return linkWithSelectors;
+      return StringUtils.substringBeforeLast(link, extension) + selector + extension;
   }
   
   public static String getProductDetailPageLink(Content product, Content siteRoot)
@@ -126,17 +131,27 @@ public class ShopLinkUtil {
         siteRoot, "feature", "productDetail");
     
     String categoryUUID = getSelectedCategoryUUID();
-    String selector = ParamType.PRODUCT + "." + product.getName();
+    String selector = createProductSelector(product);
     
     if (StringUtils.isNotEmpty(categoryUUID)) {
-        Content category = ContentUtil.getContentByUUID("data", categoryUUID);
-        selector = ParamType.CATEGORY + "." + category.getName() 
-            + "." + ParamType.PRODUCT + "."  + product.getName();
+        Content category = new I18nContentWrapper(ContentUtil.getContentByUUID("data", categoryUUID));
+        selector = createProductAndProductCategorySelector(
+                product, category);
     } 
     return ShopLinkUtil.createLinkFromContentWithSelectors(detailPage, selector);
   }
   return "";
   }
+
+  public static String createProductAndProductCategorySelector(Content product,
+        Content category) {
+      return createProductCategorySelector(category)
+            + "." + createProductSelector(product);
+}
+
+public static String createProductSelector(Content product) {
+    return product.getTitle() + "." +ParamType.PRODUCT.name() + "." + product.getName();
+}
   
   public static String getSelectedCategoryUUID() {
       String name = ShopLinkUtil.getParamValue(ParamType.CATEGORY);

@@ -38,7 +38,6 @@ import info.magnolia.cms.i18n.I18nContentWrapper;
 import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.NodeDataUtil;
 import info.magnolia.module.shop.util.ShopLinkUtil;
-import info.magnolia.module.shop.util.ShopLinkUtil.ParamType;
 import info.magnolia.module.templating.RenderableDefinition;
 import info.magnolia.module.templating.RenderingModel;
 import info.magnolia.module.templatingkit.paragraphs.InternalTeaserModel;
@@ -98,12 +97,11 @@ public class ProductTeaserModel extends InternalTeaserModel {
             Content detailPage = STKUtil.getContentByTemplateCategorySubCategory(
                     siteRoot, "feature", "productDetail");
 
-            String selector = ParamType.PRODUCT + "." + product.getName();
+            String selector = ShopLinkUtil.createProductSelector(product);
 
             if (StringUtils.isNotEmpty(categoryUUID)) {
-                Content category = ContentUtil.getContentByUUID("data", categoryUUID);
-                selector = ParamType.CATEGORY + "." + category.getName()
-                        + "." + ParamType.PRODUCT + "." + product.getName();
+                Content category = new I18nContentWrapper(ContentUtil.getContentByUUID("data", categoryUUID));
+                selector = ShopLinkUtil.createProductAndProductCategorySelector(product, category);
             }
             return ShopLinkUtil.createLinkFromContentWithSelectors(detailPage, selector);
         }
