@@ -14,6 +14,7 @@
 	[#assign productTitle = product.title!]
 	[#assign bean = model.getProductPriceBean(product)]
 	[#assign optionSets = model.getOptionSets(product)]
+	[#assign images = model.images!]
 	
 	[#assign noPicLink = ctx.contextPath + "/docroot/shop/images/box.gif"]
 	[#-- Link to open product edit dialog, dialog only used from website--]
@@ -38,34 +39,40 @@
 	  	</div>
   	</div>
 </div>
-	[#if model.images??]
     <div class="photo-index">
-        [#list model.images as image]
-            [#if image_index < maxImages]
-                [#if image.link?has_content]
-                    [#assign class][#if (image_index+1)%3==0]photo last[#else]photo[/#if][/#assign]
-
-                    <dl class="${class}">
-                        <dt ><img src="${stk.getAssetVariation(image, 'gallery-thumbnail').link}" alt="${image.title}"/></dt>
-                        <dd class="zoom"><a href="${stk.getAssetVariation(image, 'gallery-zoom').link}" rel="showbox" title="${i18n['link.zoom.title']}">${i18n['link.zoom']}</a></dd>
-                        	
-                            <dd class="caption">${image.caption!"&nbsp;"}</dd>
-                        
-                        [#if image.copyright?has_content]
-                            <dd class="copyright">${image.copyright}</dd>
-                        [/#if]
-                        [#if image.description?has_content]
-                            <dd class="longdesc">${image.description}</dd>
-                        [/#if]
-                    </dl>
-                [#else]
-
-                [/#if]
-                [/#if]
-        [/#list]
-        
+	    [#if images?has_content]
+	        [#list images as image]
+	            [#if image_index < maxImages]
+	                [#if image.link?has_content]
+	                    [#assign class][#if (image_index+1)%3==0]photo last[#else]photo[/#if][/#assign]
+	
+	                    <dl class="${class}">
+	                        <dt ><img src="${stk.getAssetVariation(image, 'gallery-thumbnail').link}" alt="${image.title}"/></dt>
+	                        <dd class="zoom"><a href="${stk.getAssetVariation(image, 'gallery-zoom').link}" rel="showbox" title="${i18n['link.zoom.title']}">${i18n['link.zoom']}</a></dd>
+	                        	
+	                            <dd class="caption">${image.caption!"&nbsp;"}</dd>
+	                        
+	                        [#if image.copyright?has_content]
+	                            <dd class="copyright">${image.copyright}</dd>
+	                        [/#if]
+	                        [#if image.description?has_content]
+	                            <dd class="longdesc">${image.description}</dd>
+	                        [/#if]
+	                    </dl>
+	                [#else]
+	
+	                [/#if]
+	                [/#if]
+	        [/#list]
+	    [#else]
+	    	<dl class="photo">
+                <dt ><img src="${stk.getAssetVariation(asset, 'gallery-thumbnail').link}" /></dt>
+                <dd class="zoom"><a href="${stk.getAssetVariation(asset, 'gallery-zoom').link}" rel="showbox" title="${i18n['link.zoom.title']}">${i18n['link.zoom']}</a></dd>
+                <dd class="caption">&nbsp;</dd>
+            </dl>
+        [/#if]
     </div><!-- end photo-index -->
 
-[/#if]
+
 		
 [/#if]
