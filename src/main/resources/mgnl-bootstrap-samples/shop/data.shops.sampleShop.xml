@@ -30,7 +30,7 @@
   <sv:property sv:name="priceCategoryManagerClassQualifiedName" sv:type="String">
     <sv:value>info.magnolia.module.shop.DefaultPriceCategoryManagerImpl</sv:value>
   </sv:property>
-  <sv:property sv:name="title_en" sv:type="String">
+  <sv:property sv:name="title" sv:type="String">
     <sv:value>Sample Shop</sv:value>
   </sv:property>
   <sv:node sv:name="MetaData">
@@ -90,7 +90,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Normalsatz (7.6%)</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Regular (7.6%)</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -142,7 +142,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Reduzierter Satz (2.4%)</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Reduced (2.4%)</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -194,7 +194,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>MwSt.-frei (0%)</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Taxfree (0%)</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -274,7 +274,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>USD</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>USD</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -326,7 +326,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>EUR</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>EUR</sv:value>
       </sv:property>
       <sv:property sv:name="title_fr" sv:type="String">
@@ -387,7 +387,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>CHF</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>CHF</sv:value>
       </sv:property>
       <sv:property sv:name="title_fr" sv:type="String">
@@ -464,7 +464,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Standart Verkaufspreis</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Standard selling price</sv:value>
       </sv:property>
       <sv:property sv:name="title_fr" sv:type="String">

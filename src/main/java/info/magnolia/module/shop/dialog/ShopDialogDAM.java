@@ -77,7 +77,7 @@ import org.slf4j.LoggerFactory;
  * @author tmiyar
  *
  */
-public class ShopDialogDAM extends DialogControlImpl {
+public class ShopDialogDAM extends DialogControlImpl implements MultiLanguageDialogControl {
 
     private static final String ORIGINAL_NAME = "originalName";
     private static final Logger log = LoggerFactory.getLogger(ShopDialogDAM.class);
@@ -116,7 +116,7 @@ public class ShopDialogDAM extends DialogControlImpl {
             drawRadio(language, out);
         }
         else if(handlers.size() == 1){
-            Hidden control = new Hidden(getName() + "_" + language, handlers.iterator().next().getName());
+            Hidden control = new Hidden(getName() + getLanguageSuffix(language), handlers.iterator().next().getName());
             out.write(control.getHtml());
         }
     }
@@ -124,7 +124,7 @@ public class ShopDialogDAM extends DialogControlImpl {
     protected void drawSubs(String language, Writer out) throws IOException {
         String aName = this.getName();
         
-        String locale = "_" + language;
+        String locale = getLanguageSuffix(language);
 
         for(DAMHandler handler: handlers) {
 
@@ -165,7 +165,7 @@ public class ShopDialogDAM extends DialogControlImpl {
                         try {
                             DialogControl control = DialogFactory.loadDialog(this.getRequest(), this.getResponse(), this.getStorageNode(),
                                     controlNodeConfig);
-                            String name = ((DialogControlImpl) control).getName() + "_"+ languages.get(i);
+                            String name = ((DialogControlImpl) control).getName() + getLanguageSuffix(languages.get(i));
                             ((DialogControlImpl) control).setName(this.getName() + name);
         
                             this.addSub((DialogControlImpl) control);
@@ -183,7 +183,7 @@ public class ShopDialogDAM extends DialogControlImpl {
     public void drawHtmlPostSubs(String language, Writer out) throws IOException {
         if(box != null) {
             out.append("<script type=\"text/javascript\"> ");
-            out.append("mgnl.dam.DAMDialog.onSelectionChanged('" + this.getName() +"_"+ language + "','" + this.getValue() + "');");
+            out.append("mgnl.dam.DAMDialog.onSelectionChanged('" + this.getName() +getLanguageSuffix(language) + "','" + this.getValue() + "');");
             out.append("</script>");
             box.drawHtmlPost(out);
         }
@@ -200,9 +200,9 @@ public class ShopDialogDAM extends DialogControlImpl {
     private List<Button> getDamRadioOptions(String language) {
         List<Button> selectOptions = new ArrayList<Button>();
         for(DAMHandler handler: handlers) {
-            Button option = new Button(this.getName() +"_"+ language, handler.getName());
+            Button option = new Button(this.getName() +getLanguageSuffix(language), handler.getName());
             option.setLabel(this.getMessage(handler.getDamSelectorOptionLabel()));
-            option.setOnclick("mgnl.dam.DAMDialog.onSelectionChanged('" + this.getName() +"_"+ language + "','" + handler.getName() + "');");
+            option.setOnclick("mgnl.dam.DAMDialog.onSelectionChanged('" + this.getName() +getLanguageSuffix(language) + "','" + handler.getName() + "');");
             selectOptions.add(option);
         }
         return selectOptions;
@@ -222,7 +222,7 @@ public class ShopDialogDAM extends DialogControlImpl {
         this.setValue(null);
         ButtonSet control;
         // radio
-        control = new ButtonSet(this.getName() +"_"+ language, this.getValue(language));
+        control = new ButtonSet(this.getName() +getLanguageSuffix(language), this.getValue(language));
 
         control.setButtonType(ControlImpl.BUTTONTYPE_RADIO);
 
@@ -336,7 +336,7 @@ public class ShopDialogDAM extends DialogControlImpl {
     
     protected String readValue(String language) {
         try {
-            if(!this.getStorageNode().hasNodeData(this.getName() + "_" + language)){
+            if(!this.getStorageNode().hasNodeData(this.getName() + getLanguageSuffix(language))){
                 return null;
             }
         }
@@ -344,9 +344,19 @@ public class ShopDialogDAM extends DialogControlImpl {
             log.error("can't read nodedata [" + this.getName() + "]", e);
             return null;
         }
-        return this.getStorageNode().getNodeData(this.getName() + "_" + language).getString();
+        return this.getStorageNode().getNodeData(this.getName() + getLanguageSuffix(language)).getString();
     }
 
-    
+    public List<String> getLanguages() {
+        return this.languages;
+    }
+
+    public void setLanguages(List<String> languages) {
+        this.languages = languages;
+    }
+
+    public String getLanguageSuffix(String language) {
+        return DialogLanguagesUtil.getLanguageSuffix(this, language);
+    }
     
 }

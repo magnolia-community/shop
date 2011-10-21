@@ -35,19 +35,11 @@ package info.magnolia.module.shop.dialog;
 
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.gui.control.ControlImpl;
-import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.fckeditor.dialogs.FckEditorDialog;
-import info.magnolia.module.templatingkit.sites.Site;
-import info.magnolia.module.templatingkit.sites.SiteManager;
-import info.magnolia.module.templatingkit.util.STKUtil;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Locale;
 import javax.jcr.PathNotFoundException;
 import javax.jcr.RepositoryException;
 import javax.servlet.http.HttpServletRequest;
@@ -112,7 +104,7 @@ public class MultiLanguageDialogFckEdit extends FckEditorDialog implements Multi
         if (getConfigValue("siteKey") == null) {
             initSiteKey(storageNode);
         }
-        initLanguages();
+        languages = DialogLanguagesUtil.initLanguages(this);
     }
 
     private void initSiteKey(Content storageNode) {
@@ -128,42 +120,7 @@ public class MultiLanguageDialogFckEdit extends FckEditorDialog implements Multi
         }
     }
 
-    // @TODO: MultiLanguageDialogEdit and MultiLanguageDialogFckEdit share some common code
-    // which should be "outsourced"
-    private void initLanguages() {
-        // set the languages for the site key by assuming that the languages are
-        // defined at default site definition
-        Site site = null;
-        if (getConfigValue("siteKey") != null) {
-            String siteKey = getConfigValue("siteKey");
-            site = SiteManager.Factory.getInstance().getSite(getConfigValue("siteKey"));
-        }
-        if (site == null) {
-            if (this.getStorageNode() != null) {
-                site = STKUtil.getSite(this.getStorageNode());
-            } else {
-                // new node -> we need to look at the path!
-                String path = MgnlContext.getParameter("mgnlPath");
-                String repository = MgnlContext.getParameter("mgnlRepository");
-                if (StringUtils.isNotBlank(path) && StringUtils.isNotBlank(repository)) {
-                    Content parentNode = ContentUtil.getContent(repository, path);
-                    if (parentNode != null) {
-                        site = STKUtil.getSite(parentNode);
-                    }
-                }
-            }
-        }
-        if (site == null) {
-            site = STKUtil.getSite();
-        }
-        Collection<Locale> locales = site.getI18n().getLocales();
-        Iterator<Locale> localesIterator = locales.iterator();
-        ArrayList<String> languageList = new ArrayList<String>();
-        while (localesIterator.hasNext()) {
-            languageList.add(localesIterator.next().getLanguage());
-        }
-        this.languages = languageList;
-    }
+    
 
     @Override
     public void drawHtml(Writer out) throws IOException {
@@ -192,14 +149,14 @@ public class MultiLanguageDialogFckEdit extends FckEditorDialog implements Multi
                 if (id == null) {
                     log.error("Missing id for fckEditor instance"); //$NON-NLS-1$
                 } else {
-                    id += "_" + languages.get(i);
+                    id += getLanguageSuffix(languages.get(i));
                 }
 
-                String var = getVarName() + "_" + languages.get(i);
+                String var = getVarName() + getLanguageSuffix(languages.get(i));
 //                String value = convertToView(getValue());
                 String value = null;
                 if (getStorageNode() != null) {
-                    value = convertToView(getStorageNode().getNodeData(getName() + "_" + languages.get(i)).getString());
+                    value = convertToView(getStorageNode().getNodeData(getName() + getLanguageSuffix(languages.get(i))).getString());
                 }
                 out.write("<label for=\"" + id + "\">" + languages.get(i) + "</label>");
                 out.write("<script type=\"text/javascript\">"); //$NON-NLS-1$
@@ -315,5 +272,9 @@ public class MultiLanguageDialogFckEdit extends FckEditorDialog implements Multi
 
     public void setLanguages(List<String> languages) {
         this.languages = languages;
+    }
+    
+    public String getLanguageSuffix(String language) {
+        return DialogLanguagesUtil.getLanguageSuffix(this, language);
     }
 }

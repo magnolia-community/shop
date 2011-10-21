@@ -48,7 +48,7 @@
     <sv:property sv:name="title_de" sv:type="String">
       <sv:value>Bücher</sv:value>
     </sv:property>
-    <sv:property sv:name="title_en" sv:type="String">
+    <sv:property sv:name="title" sv:type="String">
       <sv:value>Books</sv:value>
     </sv:property>
     <sv:node sv:name="MetaData">
@@ -90,7 +90,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Hörbücher</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>AudioBooks</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -130,7 +130,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Garten</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Garden</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -175,7 +175,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>HistorieDaten</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>History</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -222,7 +222,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Reisen</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Travel</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -266,7 +266,7 @@
     <sv:property sv:name="title_de" sv:type="String">
       <sv:value>Musik</sv:value>
     </sv:property>
-    <sv:property sv:name="title_en" sv:type="String">
+    <sv:property sv:name="title" sv:type="String">
       <sv:value>Music</sv:value>
     </sv:property>
     <sv:node sv:name="MetaData">
@@ -310,7 +310,7 @@
     <sv:property sv:name="title_de" sv:type="String">
       <sv:value>Möbel</sv:value>
     </sv:property>
-    <sv:property sv:name="title_en" sv:type="String">
+    <sv:property sv:name="title" sv:type="String">
       <sv:value>Furniture</sv:value>
     </sv:property>
     <sv:node sv:name="MetaData">
@@ -353,7 +353,7 @@
     <sv:property sv:name="title_de" sv:type="String">
       <sv:value>Spielzeug</sv:value>
     </sv:property>
-    <sv:property sv:name="title_en" sv:type="String">
+    <sv:property sv:name="title" sv:type="String">
       <sv:value>Toys</sv:value>
     </sv:property>
     <sv:node sv:name="MetaData">
@@ -392,7 +392,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Baby</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Baby</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -432,7 +432,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Kinder</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Children</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">

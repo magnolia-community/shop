@@ -32,7 +32,7 @@
       <sv:value>2011-07-04T10:33:54.312+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2011-07-26T12:41:20.346+02:00</sv:value>
+      <sv:value>2011-10-21T07:51:08.037+02:00</sv:value>
     </sv:property>
   </sv:node>
   <sv:node sv:name="mainTab">
@@ -349,7 +349,7 @@
         <sv:value>data.dialogs.shopProduct.productCategoriesTab.productCategoryUUIDs.label</sv:value>
       </sv:property>
       <sv:property sv:name="labelNodeData" sv:type="String">
-        <sv:value>title_en</sv:value>
+        <sv:value>title</sv:value>
       </sv:property>
       <sv:property sv:name="repository" sv:type="String">
         <sv:value>data</sv:value>
@@ -377,7 +377,7 @@
           <sv:value>2010-03-16T15:52:38.956+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-10-19T10:32:46.891+02:00</sv:value>
+          <sv:value>2011-10-21T07:51:31.988+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -484,7 +484,7 @@
         <sv:value>data.dialogs.shopProduct.pricingTab.taxCategoryUUID.label</sv:value>
       </sv:property>
       <sv:property sv:name="labelNodeData" sv:type="String">
-        <sv:value>title_en</sv:value>
+        <sv:value>title</sv:value>
       </sv:property>
       <sv:property sv:name="repository" sv:type="String">
         <sv:value>data</sv:value>
@@ -512,7 +512,7 @@
           <sv:value>2010-03-16T15:52:38.957+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-07-26T13:32:02.906+02:00</sv:value>
+          <sv:value>2011-10-20T14:37:17.324+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>

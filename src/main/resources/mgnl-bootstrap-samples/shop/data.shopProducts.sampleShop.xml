@@ -60,10 +60,10 @@
       <sv:property sv:name="jcr:uuid" sv:type="String">
         <sv:value>f1e6596e-6415-4e72-88b7-6f9afcfb9430</sv:value>
       </sv:property>
-      <sv:property sv:name="imageDmsUUID_en" sv:type="String">
+      <sv:property sv:name="imageDmsUUID" sv:type="String">
         <sv:value>024a17fe-0eaa-4834-a95d-ed2b9738c634</sv:value>
       </sv:property>
-      <sv:property sv:name="image_en" sv:type="String">
+      <sv:property sv:name="image" sv:type="String">
         <sv:value>dms</sv:value>
       </sv:property>
       <sv:property sv:name="itemtype" sv:type="String">
@@ -75,7 +75,7 @@
       <sv:property sv:name="productDescription1_de" sv:type="String">
         <sv:value>Tote Körper zeigen sich in flachen Gräbern auf den leeren Bau viel Vincent Plum Bail Bonds. Niemand ist sicher, wer der Mörder ist, oder warum die Opfer wurden offed, aber klar ist, dass Stephanie's Namen auf der Liste Mörder ist.</sv:value>
       </sv:property>
-      <sv:property sv:name="productDescription1_en" sv:type="String">
+      <sv:property sv:name="productDescription1" sv:type="String">
         <sv:value>Dead bodies are showing up in shallow graves on the empty construction lot of Vincent Plum Bail Bonds. No one is sure who the killer is, or why the victims have been offed, but what is clear is that Stephanie’s name is on the killer’s list.</sv:value>
       </sv:property>
       <sv:property sv:name="taxCategoryUUID" sv:type="String">
@@ -84,7 +84,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Smokin 'Seventeen: Stephanie Plum Novel</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Smokin' Seventeen: A Stephanie Plum Novel</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -227,10 +227,10 @@
       <sv:property sv:name="jcr:uuid" sv:type="String">
         <sv:value>69db7daa-45e6-45b0-b5f9-7b817da2f1a5</sv:value>
       </sv:property>
-      <sv:property sv:name="imageDmsUUID_en" sv:type="String">
+      <sv:property sv:name="imageDmsUUID" sv:type="String">
         <sv:value>ab02d13e-7855-45a9-8bd2-ea7801bc5320</sv:value>
       </sv:property>
-      <sv:property sv:name="image_en" sv:type="String">
+      <sv:property sv:name="image" sv:type="String">
         <sv:value>dms</sv:value>
       </sv:property>
       <sv:property sv:name="itemtype" sv:type="String">
@@ -242,7 +242,7 @@
       <sv:property sv:name="productDescription1_de" sv:type="String">
         <sv:value>Am Standort in Boston, ist Bad-Boy Schauspieler Jumbo Nelson von der Vergewaltigung und Ermordung einer jungen Frau angeklagt. Von Anfang an der Fall scheint verdächtig, so dass die Boston PD fordert Spenser zu untersuchen. Es sieht nicht so gut für Jumbo, deren Appetit auf Essen, Trinken und Sex sind wie überdimensionale wie sein Name. Er war der größte Star des Studios, aber er ist sich seiner größten Haftung.</sv:value>
       </sv:property>
-      <sv:property sv:name="productDescription1_en" sv:type="String">
+      <sv:property sv:name="productDescription1" sv:type="String">
         <sv:value>On location in Boston, bad-boy actor Jumbo Nelson is accused of the rape and murder of a young woman. From the start the case seems fishy, so the Boston PD calls on Spenser to investigate. Things don’t look so good for Jumbo, whose appetites for food, booze, and sex are as outsized as his name. He was the studio’s biggest star, but he’s become its biggest liability.</sv:value>
       </sv:property>
       <sv:property sv:name="taxCategoryUUID" sv:type="String">
@@ -251,7 +251,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Sixkill (Spenser)</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Sixkill (Spenser)</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -394,10 +394,10 @@
       <sv:property sv:name="jcr:uuid" sv:type="String">
         <sv:value>f497cc7c-24c0-47f4-a9e9-05fee83d7a3f</sv:value>
       </sv:property>
-      <sv:property sv:name="imageDmsUUID_en" sv:type="String">
+      <sv:property sv:name="imageDmsUUID" sv:type="String">
         <sv:value>6ebb77aa-d6f4-4bfc-88a5-627e749bfaab</sv:value>
       </sv:property>
-      <sv:property sv:name="image_en" sv:type="String">
+      <sv:property sv:name="image" sv:type="String">
         <sv:value>dms</sv:value>
       </sv:property>
       <sv:property sv:name="itemtype" sv:type="String">
@@ -409,7 +409,7 @@
       <sv:property sv:name="productDescription1_de" sv:type="String">
         <sv:value>Einige Geheimnisse einfach nicht bleiben begraben das brillante neue Lucas Davenport-Thriller aus dem # 1 New York Times-Bestseller-Autorin.</sv:value>
       </sv:property>
-      <sv:property sv:name="productDescription1_en" sv:type="String">
+      <sv:property sv:name="productDescription1" sv:type="String">
         <sv:value>Some secrets just can't stay buried-the brilliant new Lucas Davenport thriller from the #1 New York Times-bestselling author.</sv:value>
       </sv:property>
       <sv:property sv:name="taxCategoryUUID" sv:type="String">
@@ -418,7 +418,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Buried Prey</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Buried Prey</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -561,10 +561,10 @@
       <sv:property sv:name="jcr:uuid" sv:type="String">
         <sv:value>a7f6ed17-8a1e-445c-b3d1-736f9b668ee9</sv:value>
       </sv:property>
-      <sv:property sv:name="imageDmsUUID_en" sv:type="String">
+      <sv:property sv:name="imageDmsUUID" sv:type="String">
         <sv:value>f65bbdc2-7809-4632-a21f-cdb255898e78</sv:value>
       </sv:property>
-      <sv:property sv:name="image_en" sv:type="String">
+      <sv:property sv:name="image" sv:type="String">
         <sv:value>dms</sv:value>
       </sv:property>
       <sv:property sv:name="itemtype" sv:type="String">
@@ -576,7 +576,7 @@
       <sv:property sv:name="productDescription1_de" sv:type="String">
         <sv:value>Neu im # 1 New York Times Bestseller-Reihe Sookie Stackhouse die Grundlage für HBO (r) 's True Blood!</sv:value>
       </sv:property>
-      <sv:property sv:name="productDescription1_en" sv:type="String">
+      <sv:property sv:name="productDescription1" sv:type="String">
         <sv:value>New in the #1 New York Times bestselling Sookie Stackhouse series-the basis for HBO(r)'s True Blood!</sv:value>
       </sv:property>
       <sv:property sv:name="taxCategoryUUID" sv:type="String">
@@ -585,7 +585,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Dead Reckoning</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Dead Reckoning</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -728,10 +728,10 @@
       <sv:property sv:name="jcr:uuid" sv:type="String">
         <sv:value>ee8e1667-899d-42be-9f5a-d1b75cb190bf</sv:value>
       </sv:property>
-      <sv:property sv:name="imageDmsUUID_en" sv:type="String">
+      <sv:property sv:name="imageDmsUUID" sv:type="String">
         <sv:value>b58d43b0-730e-410f-8388-f0a509b2518d</sv:value>
       </sv:property>
-      <sv:property sv:name="image_en" sv:type="String">
+      <sv:property sv:name="image" sv:type="String">
         <sv:value>dms</sv:value>
       </sv:property>
       <sv:property sv:name="itemtype" sv:type="String">
@@ -743,7 +743,7 @@
       <sv:property sv:name="productDescription1_de" sv:type="String">
         <sv:value>Ein Meister im Schreiben wahre Geschichten wie Nieten als Fiktion</sv:value>
       </sv:property>
-      <sv:property sv:name="productDescription1_en" sv:type="String">
+      <sv:property sv:name="productDescription1" sv:type="String">
         <sv:value>A master at writing true tales as riveting as fiction.</sv:value>
       </sv:property>
       <sv:property sv:name="taxCategoryUUID" sv:type="String">
@@ -752,7 +752,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>im Garten von Beasts: Liebe, Terror, und eine amerikanische Familie in Hitlers Berlin</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>in the Garden of Beasts: Love, Terror, and an American Family in Hitler's Berlin</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -895,10 +895,10 @@
       <sv:property sv:name="jcr:uuid" sv:type="String">
         <sv:value>2a542e38-f768-40c6-a5eb-f819dd3f1c45</sv:value>
       </sv:property>
-      <sv:property sv:name="imageDmsUUID_en" sv:type="String">
+      <sv:property sv:name="imageDmsUUID" sv:type="String">
         <sv:value>a8f2db1f-55d8-4d11-8d22-19310daf3971</sv:value>
       </sv:property>
-      <sv:property sv:name="image_en" sv:type="String">
+      <sv:property sv:name="image" sv:type="String">
         <sv:value>dms</sv:value>
       </sv:property>
       <sv:property sv:name="itemtype" sv:type="String">
@@ -910,7 +910,7 @@
       <sv:property sv:name="productDescription1_de" sv:type="String">
         <sv:value>Vor acht Jahren, sagte ein alter Mann mir eine Geschichte, die mir den Atem raubte. Sein Name war Louie Zamperini und ab dem Tag, ich zum ersten Mal mit ihm gesprochen, seine fast unbegreiflich dramatischen Lebens war meine Obsession.</sv:value>
       </sv:property>
-      <sv:property sv:name="productDescription1_en" sv:type="String">
+      <sv:property sv:name="productDescription1" sv:type="String">
         <sv:value>Eight years ago, an old man told me a story that took my breath away. His name was Louie Zamperini, and from the day I first spoke to him, his almost incomprehensibly dramatic life was my obsession.</sv:value>
       </sv:property>
       <sv:property sv:name="taxCategoryUUID" sv:type="String">
@@ -919,7 +919,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Ungebrochen: Ein Weltkrieg Story of Survival, Belastbarkeit und Erlösung</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Unbroken: A World War II Story of Survival, Resilience, and Redemption</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -1062,10 +1062,10 @@
       <sv:property sv:name="jcr:uuid" sv:type="String">
         <sv:value>99feb9d3-42a6-410f-a452-bc8f76e6329a</sv:value>
       </sv:property>
-      <sv:property sv:name="imageDmsUUID_en" sv:type="String">
+      <sv:property sv:name="imageDmsUUID" sv:type="String">
         <sv:value>6a565d2d-bb1d-4934-a6ef-2a542e871c4c</sv:value>
       </sv:property>
-      <sv:property sv:name="image_en" sv:type="String">
+      <sv:property sv:name="image" sv:type="String">
         <sv:value>dms</sv:value>
       </sv:property>
       <sv:property sv:name="itemtype" sv:type="String">
@@ -1077,7 +1077,7 @@
       <sv:property sv:name="productDescription1_de" sv:type="String">
         <sv:value>"Seien Sie im Allgemeinen tugendhaft, und du wirst glücklich sein", rät Benjamin Franklin, und er war ein Mann, der bis zu seinen eigenen Worten lebten.</sv:value>
       </sv:property>
-      <sv:property sv:name="productDescription1_en" sv:type="String">
+      <sv:property sv:name="productDescription1" sv:type="String">
         <sv:value>"Be in general virtuous, and you will be happy," advises Benjamin Franklin, and he was a man who lived up to his own words.</sv:value>
       </sv:property>
       <sv:property sv:name="taxCategoryUUID" sv:type="String">
@@ -1086,7 +1086,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Benjamin Franklin: Autobiography</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Benjamin Franklin: Autobiography</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -1238,7 +1238,7 @@
       <sv:property sv:name="productDescription1_de" sv:type="String">
         <sv:value>Bestsellerautor Amy Stewart präsentiert die schmutzigen Geschichten von Pflanzen schlecht benimmt, von dem Baum, Gift Dolche Schuppen auf dem Blatt, dass ein Krieg ausgelöst.</sv:value>
       </sv:property>
-      <sv:property sv:name="productDescription1_en" sv:type="String">
+      <sv:property sv:name="productDescription1" sv:type="String">
         <sv:value>Bestselling author Amy Stewart presents the sordid tales of plants behaving badly, from the tree that sheds poison daggers to the leaf that triggered a war.</sv:value>
       </sv:property>
       <sv:property sv:name="taxCategoryUUID" sv:type="String">
@@ -1247,7 +1247,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Wicked Pflanzen: Das Unkraut, das Lincoln's Mutter und anderen botanischen Gräueltaten Killed</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Wicked Plants: The Weed That Killed Lincoln's Mother and Other Botanical Atrocities</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -1393,10 +1393,10 @@
       <sv:property sv:name="jcr:uuid" sv:type="String">
         <sv:value>b995eeb8-dc92-4d54-a9de-3af4ac5dbcce</sv:value>
       </sv:property>
-      <sv:property sv:name="imageDmsUUID_en" sv:type="String">
+      <sv:property sv:name="imageDmsUUID" sv:type="String">
         <sv:value>d7ae3f64-ca5f-49dd-a96a-3370193e5b02</sv:value>
       </sv:property>
-      <sv:property sv:name="image_en" sv:type="String">
+      <sv:property sv:name="image" sv:type="String">
         <sv:value>dms</sv:value>
       </sv:property>
       <sv:property sv:name="itemtype" sv:type="String">
@@ -1408,7 +1408,7 @@
       <sv:property sv:name="productDescription1_de" sv:type="String">
         <sv:value>Rückkehr in die USA nach 20 Jahren in England, entschied Iowa native Bryson mit seiner Mutter Land beim Wandern wieder die Länge der 2100-Meile Appalachian Trail.</sv:value>
       </sv:property>
-      <sv:property sv:name="productDescription1_en" sv:type="String">
+      <sv:property sv:name="productDescription1" sv:type="String">
         <sv:value>Returning to the U.S. after 20 years in England, Iowa native Bryson decided to reconnect with his mother country by hiking the length of the 2100-mile Appalachian Trail.</sv:value>
       </sv:property>
       <sv:property sv:name="taxCategoryUUID" sv:type="String">
@@ -1417,7 +1417,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>A Walk in the Woods</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>A Walk in the Woods</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -1563,10 +1563,10 @@
       <sv:property sv:name="jcr:uuid" sv:type="String">
         <sv:value>610c33d5-6e18-441f-a8f2-58871d7a6e22</sv:value>
       </sv:property>
-      <sv:property sv:name="imageDmsUUID_en" sv:type="String">
+      <sv:property sv:name="imageDmsUUID" sv:type="String">
         <sv:value>8164f6f9-ca8e-42a1-8145-5490cbb20671</sv:value>
       </sv:property>
-      <sv:property sv:name="image_en" sv:type="String">
+      <sv:property sv:name="image" sv:type="String">
         <sv:value>dms</sv:value>
       </sv:property>
       <sv:property sv:name="itemtype" sv:type="String">
@@ -1578,7 +1578,7 @@
       <sv:property sv:name="productDescription1_de" sv:type="String">
         <sv:value>Nach seinem Abschluss an der Emory University in Atlanta im Jahr 1992 aufgegeben Top Student und Sportler Christopher McCandless seinen Besitz, gab seine ganze $ 24.000 Sparkonto für wohltätige Zwecke und trampte nach Alaska, wo er ging in der Wildnis leben.</sv:value>
       </sv:property>
-      <sv:property sv:name="productDescription1_en" sv:type="String">
+      <sv:property sv:name="productDescription1" sv:type="String">
         <sv:value>After graduating from Emory University in Atlanta in 1992, top student and athlete Christopher McCandless abandoned his possessions, gave his entire $24,000 savings account to charity and hitchhiked to Alaska, where he went to live in the wilderness.</sv:value>
       </sv:property>
       <sv:property sv:name="taxCategoryUUID" sv:type="String">
@@ -1587,7 +1587,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>into the Wild</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>into the Wild</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -1717,7 +1717,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Born This Way</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Born This Way</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -1857,10 +1857,10 @@
       <sv:property sv:name="jcr:uuid" sv:type="String">
         <sv:value>3e3d1ba0-41d3-4c80-a318-e01eba293ca7</sv:value>
       </sv:property>
-      <sv:property sv:name="imageDmsUUID_en" sv:type="String">
+      <sv:property sv:name="imageDmsUUID" sv:type="String">
         <sv:value>9dd49976-c457-4fad-a120-c2b0e316912e</sv:value>
       </sv:property>
-      <sv:property sv:name="image_en" sv:type="String">
+      <sv:property sv:name="image" sv:type="String">
         <sv:value>dms</sv:value>
       </sv:property>
       <sv:property sv:name="itemtype" sv:type="String">
@@ -1875,7 +1875,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Adele</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Adele</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -2040,10 +2040,10 @@
       <sv:property sv:name="jcr:uuid" sv:type="String">
         <sv:value>4c9bac2c-c4de-4b63-bf39-22513bddfdca</sv:value>
       </sv:property>
-      <sv:property sv:name="imageDmsUUID_en" sv:type="String">
+      <sv:property sv:name="imageDmsUUID" sv:type="String">
         <sv:value>5857a9f9-f331-427e-abdc-3ec851c5a8d8</sv:value>
       </sv:property>
-      <sv:property sv:name="image_en" sv:type="String">
+      <sv:property sv:name="image" sv:type="String">
         <sv:value>dms</sv:value>
       </sv:property>
       <sv:property sv:name="itemtype" sv:type="String">
@@ -2058,7 +2058,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Baby Einstein Take Along Tunes</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Baby Einstein Take Along Tunes</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -2226,10 +2226,10 @@
       <sv:property sv:name="jcr:uuid" sv:type="String">
         <sv:value>9c503965-f6d2-45ff-a41e-060454368288</sv:value>
       </sv:property>
-      <sv:property sv:name="imageDmsUUID_en" sv:type="String">
+      <sv:property sv:name="imageDmsUUID" sv:type="String">
         <sv:value>262bfb53-bb71-4b8f-989d-3d0bc6c9a21b</sv:value>
       </sv:property>
-      <sv:property sv:name="image_en" sv:type="String">
+      <sv:property sv:name="image" sv:type="String">
         <sv:value>dms</sv:value>
       </sv:property>
       <sv:property sv:name="itemtype" sv:type="String">
@@ -2241,7 +2241,7 @@
       <sv:property sv:name="productDescription1_de" sv:type="String">
         <sv:value>Balmoral 2 Tür Schrank mit 2 Schubkästen</sv:value>
       </sv:property>
-      <sv:property sv:name="productDescription1_en" sv:type="String">
+      <sv:property sv:name="productDescription1" sv:type="String">
         <sv:value>Balmoral 2 Door Wardrobe with  2 Deep Drawers</sv:value>
       </sv:property>
       <sv:property sv:name="taxCategoryUUID" sv:type="String">
@@ -2250,7 +2250,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>BALMORAL 2 TÜR SCHRANK + SCHUBLADEN</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>BALMORAL 2 DOOR WARDROBE + DRAWERS</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -2392,7 +2392,7 @@
         <sv:property sv:name="description_de" sv:type="String">
           <sv:value>Wählen Sie zwischen 2 Holz-Varianten und 3 Farben</sv:value>
         </sv:property>
-        <sv:property sv:name="description_en" sv:type="String">
+        <sv:property sv:name="description" sv:type="String">
           <sv:value>Choose between 2 wood finishes and 3 colors</sv:value>
         </sv:property>
         <sv:property sv:name="itemtype" sv:type="String">
@@ -2404,7 +2404,7 @@
         <sv:property sv:name="title_de" sv:type="String">
           <sv:value>Ausführung</sv:value>
         </sv:property>
-        <sv:property sv:name="title_en" sv:type="String">
+        <sv:property sv:name="title" sv:type="String">
           <sv:value>Finish</sv:value>
         </sv:property>
         <sv:node sv:name="MetaData">
@@ -2443,7 +2443,7 @@
           <sv:property sv:name="title_de" sv:type="String">
             <sv:value>Birke</sv:value>
           </sv:property>
-          <sv:property sv:name="title_en" sv:type="String">
+          <sv:property sv:name="title" sv:type="String">
             <sv:value>Birch</sv:value>
           </sv:property>
           <sv:node sv:name="MetaData">
@@ -2483,7 +2483,7 @@
           <sv:property sv:name="title_de" sv:type="String">
             <sv:value>Buche</sv:value>
           </sv:property>
-          <sv:property sv:name="title_en" sv:type="String">
+          <sv:property sv:name="title" sv:type="String">
             <sv:value>Beech</sv:value>
           </sv:property>
           <sv:node sv:name="MetaData">
@@ -2523,7 +2523,7 @@
           <sv:property sv:name="title_de" sv:type="String">
             <sv:value>weiss</sv:value>
           </sv:property>
-          <sv:property sv:name="title_en" sv:type="String">
+          <sv:property sv:name="title" sv:type="String">
             <sv:value>white</sv:value>
           </sv:property>
           <sv:node sv:name="MetaData">
@@ -2563,7 +2563,7 @@
           <sv:property sv:name="title_de" sv:type="String">
             <sv:value>grau</sv:value>
           </sv:property>
-          <sv:property sv:name="title_en" sv:type="String">
+          <sv:property sv:name="title" sv:type="String">
             <sv:value>grey</sv:value>
           </sv:property>
           <sv:node sv:name="MetaData">
@@ -2603,7 +2603,7 @@
           <sv:property sv:name="title_de" sv:type="String">
             <sv:value>rot</sv:value>
           </sv:property>
-          <sv:property sv:name="title_en" sv:type="String">
+          <sv:property sv:name="title" sv:type="String">
             <sv:value>red</sv:value>
           </sv:property>
           <sv:node sv:name="MetaData">

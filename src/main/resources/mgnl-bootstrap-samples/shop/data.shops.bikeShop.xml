@@ -30,7 +30,7 @@
   <sv:property sv:name="priceCategoryManagerClassQualifiedName" sv:type="String">
     <sv:value>info.magnolia.module.shop.DefaultPriceCategoryManagerImpl</sv:value>
   </sv:property>
-  <sv:property sv:name="title_en" sv:type="String">
+  <sv:property sv:name="title" sv:type="String">
     <sv:value>Bike Shop</sv:value>
   </sv:property>
   <sv:node sv:name="MetaData">
@@ -90,7 +90,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Goods and services</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Goods and services</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -130,7 +130,7 @@
       <sv:property sv:name="tax" sv:type="Double">
         <sv:value>2.4</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Books and magazines</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -195,7 +195,7 @@
       <sv:property sv:name="name" sv:type="String">
         <sv:value>EUR</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>EUR</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -241,7 +241,7 @@
       <sv:property sv:name="name" sv:type="String">
         <sv:value>CHF</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>CHF</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -306,7 +306,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Standard euro</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Standard euro</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -352,7 +352,7 @@
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Tax-free Swiss franc</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Tax-free Swiss franc</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">

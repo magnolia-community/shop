@@ -93,32 +93,6 @@ public class QuerySelect extends DialogSelect {
     private static Logger log = LoggerFactory.getLogger(QuerySelect.class);
     private List<String> languages;
 
-    @Override
-    public void init(HttpServletRequest request, HttpServletResponse response, Content storageNode, Content configNode) throws RepositoryException {
-        // First, try to set the languages by looking at the path of the storage
-        // node
-        if (storageNode != null) {
-            initSiteKey(storageNode);
-        } else {
-            String mgnlPath = request.getParameter("mgnlPath");
-            if (mgnlPath.startsWith("/")) {
-                // this should be the case
-                mgnlPath = mgnlPath.substring(1);
-            }
-            mgnlPath = StringUtils.substringBefore(mgnlPath, "/");
-            setConfig("siteKey", mgnlPath);
-        }
-        // if the languages have not been initialized yet
-        if (getConfigValue("siteKey") == null) {
-            initSiteKey(storageNode);
-        }
-        // The languages need to be initialized before super.init() is called because they are needed
-        // to set the labels. Unfortunately at this point the storageNode is not set yet (since it
-        // will be set in the super.init() method) so we need to pass that along as parameter...
-        initLanguages(storageNode);
-        super.init(request, response, storageNode, configNode);
-    }
-
     /**
      * 
      * @param configNode
@@ -162,32 +136,18 @@ public class QuerySelect extends DialogSelect {
                     value = NodeDataUtil.getString(n, valueNodeData);
                 }
 
-                String label, currentLabel, currentLanguage;
-                Iterator<String> languageIter = languages.iterator();
-//                if (labelNodeData.indexOf(",") >= 0) {
+                String label = "";
                 label = "";
                 String[] labelNodeDatas = StringUtils.split(labelNodeData, ",");
                 labelNodeDatas = StringUtils.stripAll(labelNodeDatas);
                 for (int i = 0; i < labelNodeDatas.length; i++) {
-                    currentLabel = null;
-                    while (languageIter.hasNext() && StringUtils.isBlank(currentLabel)) {
-                        currentLanguage = languageIter.next();
-                        currentLabel = NodeDataUtil.getString(n, labelNodeDatas[i] + "_" + currentLanguage);
-                        log.debug("label " + i + " (" + labelNodeDatas[i] + "_" + currentLanguage + "): " + currentLabel);
-                    }
-                    if (StringUtils.isBlank(currentLabel)) {
-                        currentLabel = NodeDataUtil.getString(n, labelNodeDatas[i]);
-                        log.debug("label " + i + " (" + labelNodeDatas[i] + "): " + currentLabel);
-                    }
-                    label += currentLabel + " ";
+                    log.debug("label "+i+" ("+labelNodeDatas[i]+"): "+NodeDataUtil.getString(n, labelNodeDatas[i]));
+                    label += NodeDataUtil.getString(n, labelNodeDatas[i]) + " ";
                 }
                 StringUtils.strip(label);
                 if (StringUtils.isEmpty(label)) {
                     label = value;
                 }
-//                } else {
-//                    label = NodeDataUtil.getString(n, labelNodeData, value);//$NON-NLS-1$
-//                }
 
                 SelectOption option = new SelectOption(label, value);
                 if (n.getNodeData("selected").getBoolean()) { //$NON-NLS-1$
@@ -228,65 +188,5 @@ public class QuerySelect extends DialogSelect {
 
         return items;
     }
-
-    private void initSiteKey(Content storageNode) {
-        if (storageNode != null) {
-            try {
-                Content rootDataNode = storageNode.getAncestor(1);
-                setConfig("siteKey", rootDataNode.getName());
-            } catch (PathNotFoundException ex) {
-                log.error("Could not get level 1 node of " + storageNode.getHandle(), ex);
-            } catch (AccessDeniedException ex) {
-                log.error("Could not get level 1 node of " + storageNode.getHandle(), ex);
-            } catch (RepositoryException ex) {
-                log.error("Could not get level 1 node of " + storageNode.getHandle(), ex);
-            }
-        }
-    }
-
-    // @TODO: move to utility class
-    private void initLanguages(Content storageNode) {
-        // set the languages for the site key by assuming that the languages are
-        // defined at default site definition
-        Site site = null;
-        if (getConfigValue("siteKey") != null) {
-            String siteKey = getConfigValue("siteKey");
-            site = SiteManager.Factory.getInstance().getSite(getConfigValue("siteKey"));
-        }
-        if (site == null) {
-            if (this.getStorageNode() != null) {
-                site = STKUtil.getSite(this.getStorageNode());
-            } else if (storageNode != null) {
-                site = STKUtil.getSite(storageNode);
-            } else {
-                // new node -> we need to look at the path!
-                String path = MgnlContext.getParameter("mgnlPath");
-                String repository = MgnlContext.getParameter("mgnlRepository");
-                if (StringUtils.isNotBlank(path) && StringUtils.isNotBlank(repository)) {
-                    Content parentNode = ContentUtil.getContent(repository, path);
-                    if (parentNode != null) {
-                        site = STKUtil.getSite(parentNode);
-                    }
-                }
-            }
-        }
-        if (site == null) {
-            site = STKUtil.getSite();
-        }
-        Collection<Locale> locales = site.getI18n().getLocales();
-        Iterator<Locale> localesIterator = locales.iterator();
-        ArrayList<String> languageList = new ArrayList<String>();
-        while (localesIterator.hasNext()) {
-            languageList.add(localesIterator.next().getLanguage());
-        }
-        this.languages = languageList;
-    }
-
-    public List<String> getLanguages() {
-        return this.languages;
-    }
-
-    public void setLanguages(List<String> languages) {
-        this.languages = languages;
-    }
+    
 }

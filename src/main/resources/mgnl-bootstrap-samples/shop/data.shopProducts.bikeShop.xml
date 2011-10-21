@@ -84,7 +84,7 @@
         <sv:property sv:name="jcr:uuid" sv:type="String">
           <sv:value>31c648aa-4b0e-4c51-90c2-52c5b60c1838</sv:value>
         </sv:property>
-        <sv:property sv:name="image_en" sv:type="String">
+        <sv:property sv:name="image" sv:type="String">
           <sv:value>upload</sv:value>
         </sv:property>
         <sv:property sv:name="itemtype" sv:type="String">
@@ -93,16 +93,16 @@
         <sv:property sv:name="name" sv:type="String">
           <sv:value>69515</sv:value>
         </sv:property>
-        <sv:property sv:name="productDescription1_en" sv:type="String">
+        <sv:property sv:name="productDescription1" sv:type="String">
           <sv:value xsi:type="xs:base64Binary">V2VpZ2h0OiAxMi43IGtnLiBVc2U6IFgtIENvdW50cnkgLyBTcG9ydA0K</sv:value>
         </sv:property>
-        <sv:property sv:name="productDescription2_en" sv:type="String">
+        <sv:property sv:name="productDescription2" sv:type="String">
           <sv:value>Crankset: Shimano. Brake: Shimano Disc Deore 160 mm. Rear Derailleur: Shimano XT</sv:value>
         </sv:property>
         <sv:property sv:name="taxCategoryUUID" sv:type="String">
           <sv:value>5f2ac4fd-87a8-44ec-b345-0571a1adf38d</sv:value>
         </sv:property>
-        <sv:property sv:name="title_en" sv:type="String">
+        <sv:property sv:name="title" sv:type="String">
           <sv:value>Corratec XVert Expert Disc Hardtail Bike 2009</sv:value>
         </sv:property>
         <sv:node sv:name="MetaData">
@@ -122,7 +122,7 @@
             <sv:value/>
           </sv:property>
         </sv:node>
-        <sv:node sv:name="imageBinary_en">
+        <sv:node sv:name="imageBinary">
           <sv:property sv:name="jcr:primaryType" sv:type="Name">
             <sv:value>mgnl:resource</sv:value>
           </sv:property>
@@ -280,7 +280,7 @@
         <sv:property sv:name="jcr:uuid" sv:type="String">
           <sv:value>d2315543-1a88-4a16-b159-dbb36030fb6d</sv:value>
         </sv:property>
-        <sv:property sv:name="image_en" sv:type="String">
+        <sv:property sv:name="image" sv:type="String">
           <sv:value>upload</sv:value>
         </sv:property>
         <sv:property sv:name="itemtype" sv:type="String">
@@ -289,16 +289,16 @@
         <sv:property sv:name="name" sv:type="String">
           <sv:value>58985</sv:value>
         </sv:property>
-        <sv:property sv:name="productDescription1_en" sv:type="String">
+        <sv:property sv:name="productDescription1" sv:type="String">
           <sv:value>The Cross Country category is probably the most physically demanding but at SUNN we believe that performance can mix well with riding pleasure.</sv:value>
         </sv:property>
-        <sv:property sv:name="productDescription2_en" sv:type="String">
+        <sv:property sv:name="productDescription2" sv:type="String">
           <sv:value>This is what has inspired us in perfecting the SUNN 2011 XC range with always lighter and higher performing bikes. Not everyone is a competitor however, so our XC bikes are also designed to be fun to ride and will ensure countless good memories on your bike.</sv:value>
         </sv:property>
         <sv:property sv:name="taxCategoryUUID" sv:type="String">
           <sv:value>5f2ac4fd-87a8-44ec-b345-0571a1adf38d</sv:value>
         </sv:property>
-        <sv:property sv:name="title_en" sv:type="String">
+        <sv:property sv:name="title" sv:type="String">
           <sv:value>Sunn Prim S2 2011</sv:value>
         </sv:property>
         <sv:node sv:name="MetaData">
@@ -318,7 +318,7 @@
             <sv:value/>
           </sv:property>
         </sv:node>
-        <sv:node sv:name="imageBinary_en">
+        <sv:node sv:name="imageBinary">
           <sv:property sv:name="jcr:primaryType" sv:type="Name">
             <sv:value>mgnl:resource</sv:value>
           </sv:property>
@@ -476,7 +476,7 @@
         <sv:property sv:name="jcr:uuid" sv:type="String">
           <sv:value>0c1dbecb-1dc9-45b7-89da-9ae45e1a83b6</sv:value>
         </sv:property>
-        <sv:property sv:name="image_en" sv:type="String">
+        <sv:property sv:name="image" sv:type="String">
           <sv:value>upload</sv:value>
         </sv:property>
         <sv:property sv:name="itemtype" sv:type="String">
@@ -485,16 +485,16 @@
         <sv:property sv:name="name" sv:type="String">
           <sv:value>59240</sv:value>
         </sv:property>
-        <sv:property sv:name="productDescription1_en" sv:type="String">
+        <sv:property sv:name="productDescription1" sv:type="String">
           <sv:value>BeOne for the competitive rider: Performance Series</sv:value>
         </sv:property>
-        <sv:property sv:name="productDescription2_en" sv:type="String">
+        <sv:property sv:name="productDescription2" sv:type="String">
           <sv:value>MTB - The durable BeOne. Our alloy Performance bikes are fast, light and durable. For competitive riders who prefer aluminium over carbon. With the same geometry as our high-end Pro series frames and ultra light tubing, the Performance mountain bikes are ready to race. Wherever you like.</sv:value>
         </sv:property>
         <sv:property sv:name="taxCategoryUUID" sv:type="String">
           <sv:value>5f2ac4fd-87a8-44ec-b345-0571a1adf38d</sv:value>
         </sv:property>
-        <sv:property sv:name="title_en" sv:type="String">
+        <sv:property sv:name="title" sv:type="String">
           <sv:value>BeOne Karma Race Hardtail Bike 2011</sv:value>
         </sv:property>
         <sv:node sv:name="MetaData">
@@ -514,7 +514,7 @@
             <sv:value/>
           </sv:property>
         </sv:node>
-        <sv:node sv:name="imageBinary_en">
+        <sv:node sv:name="imageBinary">
           <sv:property sv:name="jcr:primaryType" sv:type="Name">
             <sv:value>mgnl:resource</sv:value>
           </sv:property>
@@ -697,7 +697,7 @@
         <sv:property sv:name="jcr:uuid" sv:type="String">
           <sv:value>7090ff26-9671-43ee-b005-3b69e7d5e16b</sv:value>
         </sv:property>
-        <sv:property sv:name="image_en" sv:type="String">
+        <sv:property sv:name="image" sv:type="String">
           <sv:value>upload</sv:value>
         </sv:property>
         <sv:property sv:name="itemtype" sv:type="String">
@@ -706,16 +706,16 @@
         <sv:property sv:name="name" sv:type="String">
           <sv:value>59250</sv:value>
         </sv:property>
-        <sv:property sv:name="productDescription1_en" sv:type="String">
+        <sv:property sv:name="productDescription1" sv:type="String">
           <sv:value>BeOne for unsurpassed pleasure. Sport Series. A BeOne for everyone.</sv:value>
         </sv:property>
-        <sv:property sv:name="productDescription2_en" sv:type="String">
+        <sv:property sv:name="productDescription2" sv:type="String">
           <sv:value>You don’t have to be an experienced rider to ride our BeOne bikes. Our Sport series bikes are specially developed for riders who just discovered their passion for cycling. Whether it’s on the road. The Sport series road have an excellent price-quality ratio, are looking good and give you loads of comfort. And above all that ultimate pleasure.</sv:value>
         </sv:property>
         <sv:property sv:name="taxCategoryUUID" sv:type="String">
           <sv:value>5f2ac4fd-87a8-44ec-b345-0571a1adf38d</sv:value>
         </sv:property>
-        <sv:property sv:name="title_en" sv:type="String">
+        <sv:property sv:name="title" sv:type="String">
           <sv:value>BeOne Storm Comp Road bike 2011</sv:value>
         </sv:property>
         <sv:node sv:name="MetaData">
@@ -735,7 +735,7 @@
             <sv:value/>
           </sv:property>
         </sv:node>
-        <sv:node sv:name="imageBinary_en">
+        <sv:node sv:name="imageBinary">
           <sv:property sv:name="jcr:primaryType" sv:type="Name">
             <sv:value>mgnl:resource</sv:value>
           </sv:property>
@@ -893,7 +893,7 @@
         <sv:property sv:name="jcr:uuid" sv:type="String">
           <sv:value>85217059-d7df-41cf-accb-40a1a248f270</sv:value>
         </sv:property>
-        <sv:property sv:name="image_en" sv:type="String">
+        <sv:property sv:name="image" sv:type="String">
           <sv:value>upload</sv:value>
         </sv:property>
         <sv:property sv:name="itemtype" sv:type="String">
@@ -902,16 +902,16 @@
         <sv:property sv:name="name" sv:type="String">
           <sv:value>49203</sv:value>
         </sv:property>
-        <sv:property sv:name="productDescription1_en" sv:type="String">
+        <sv:property sv:name="productDescription1" sv:type="String">
           <sv:value>This product is selected for it's outstanding value for money, unbeatable quality and exceptional performance.</sv:value>
         </sv:property>
-        <sv:property sv:name="productDescription2_en" sv:type="String">
+        <sv:property sv:name="productDescription2" sv:type="String">
           <sv:value>At Vitus bikes we pioneered many of the technologies that have helped carbon fibre make the leap from space-age aeronautics into the pro peleton, its blend of light weight, stiffness and vibration-damping comfort being perfectly suited to the needs of the elite racer or performance sporting rider alike.</sv:value>
         </sv:property>
         <sv:property sv:name="taxCategoryUUID" sv:type="String">
           <sv:value>5f2ac4fd-87a8-44ec-b345-0571a1adf38d</sv:value>
         </sv:property>
-        <sv:property sv:name="title_en" sv:type="String">
+        <sv:property sv:name="title" sv:type="String">
           <sv:value>Vitus Bikes Dark Plasma VR 2011</sv:value>
         </sv:property>
         <sv:node sv:name="MetaData">
@@ -931,7 +931,7 @@
             <sv:value/>
           </sv:property>
         </sv:node>
-        <sv:node sv:name="imageBinary_en">
+        <sv:node sv:name="imageBinary">
           <sv:property sv:name="jcr:primaryType" sv:type="Name">
             <sv:value>mgnl:resource</sv:value>
           </sv:property>
@@ -1115,7 +1115,7 @@
       <sv:property sv:name="jcr:uuid" sv:type="String">
         <sv:value>4e9b1da1-a635-429c-8059-4aeff6df0fda</sv:value>
       </sv:property>
-      <sv:property sv:name="image_en" sv:type="String">
+      <sv:property sv:name="image" sv:type="String">
         <sv:value>upload</sv:value>
       </sv:property>
       <sv:property sv:name="itemtype" sv:type="String">
@@ -1124,16 +1124,16 @@
       <sv:property sv:name="name" sv:type="String">
         <sv:value>11427</sv:value>
       </sv:property>
-      <sv:property sv:name="productDescription1_en" sv:type="String">
+      <sv:property sv:name="productDescription1" sv:type="String">
         <sv:value>Montane is a company owned and run by people with a passion for outdoor performance sports especially in challenging and inspiring places. </sv:value>
       </sv:property>
-      <sv:property sv:name="productDescription2_en" sv:type="String">
+      <sv:property sv:name="productDescription2" sv:type="String">
         <sv:value>Whether running or biking, hiking or climbing the characteristics required from performance clothing are of the same high quality standard. Montane Clothing is the lightest available. By reducing the weight and overall pack size of all Montane clothing to the lowest achievable levels, the outdoor experience and performance can be further enhanced. Less energy is wasted when carrying Montane products with less space being used there is more space is available for other essential items like food and equipment. </sv:value>
       </sv:property>
       <sv:property sv:name="taxCategoryUUID" sv:type="String">
         <sv:value>5f2ac4fd-87a8-44ec-b345-0571a1adf38d</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Montane FeatherLite Velo Jacket</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -1153,7 +1153,7 @@
           <sv:value/>
         </sv:property>
       </sv:node>
-      <sv:node sv:name="imageBinary_en">
+      <sv:node sv:name="imageBinary">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
           <sv:value>mgnl:resource</sv:value>
         </sv:property>
@@ -1308,7 +1308,7 @@
       <sv:property sv:name="jcr:uuid" sv:type="String">
         <sv:value>98d2b297-0797-4b4e-81a2-664a8dcfbf37</sv:value>
       </sv:property>
-      <sv:property sv:name="image_en" sv:type="String">
+      <sv:property sv:name="image" sv:type="String">
         <sv:value>upload</sv:value>
       </sv:property>
       <sv:property sv:name="itemtype" sv:type="String">
@@ -1317,16 +1317,16 @@
       <sv:property sv:name="name" sv:type="String">
         <sv:value>69458</sv:value>
       </sv:property>
-      <sv:property sv:name="productDescription1_en" sv:type="String">
+      <sv:property sv:name="productDescription1" sv:type="String">
         <sv:value>Endura top of the range, fully featured, durable baggy short.</sv:value>
       </sv:property>
-      <sv:property sv:name="productDescription2_en" sv:type="String">
+      <sv:property sv:name="productDescription2" sv:type="String">
         <sv:value>Cordura® fabric with wicking finish and Teflon® HT treatment; hard wearing, fast drying and water resistant.</sv:value>
       </sv:property>
       <sv:property sv:name="taxCategoryUUID" sv:type="String">
         <sv:value>5f2ac4fd-87a8-44ec-b345-0571a1adf38d</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Endura Singletrack Shorts 2010</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -1346,7 +1346,7 @@
           <sv:value/>
         </sv:property>
       </sv:node>
-      <sv:node sv:name="imageBinary_en">
+      <sv:node sv:name="imageBinary">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
           <sv:value>mgnl:resource</sv:value>
         </sv:property>
@@ -1501,7 +1501,7 @@
       <sv:property sv:name="jcr:uuid" sv:type="String">
         <sv:value>46470988-a7fa-4786-b503-bb909a0fe811</sv:value>
       </sv:property>
-      <sv:property sv:name="image_en" sv:type="String">
+      <sv:property sv:name="image" sv:type="String">
         <sv:value>upload</sv:value>
       </sv:property>
       <sv:property sv:name="itemtype" sv:type="String">
@@ -1510,16 +1510,16 @@
       <sv:property sv:name="name" sv:type="String">
         <sv:value>41028</sv:value>
       </sv:property>
-      <sv:property sv:name="productDescription1_en" sv:type="String">
+      <sv:property sv:name="productDescription1" sv:type="String">
         <sv:value xsi:type="xs:base64Binary">Q29vbE1heMKuIFN0cmlwZSBTb2NrcyBhcmUgYW5hdG9taWNhbGx5IGVuZ2luZWVyZWQgZm9yIGN5Y2xpbmcuDQo=</sv:value>
       </sv:property>
-      <sv:property sv:name="productDescription2_en" sv:type="String">
+      <sv:property sv:name="productDescription2" sv:type="String">
         <sv:value>Stretch arch support. Loopback construction. Mesh stitch section. Fast wicking. Fast drying. Mixed triple pack.</sv:value>
       </sv:property>
       <sv:property sv:name="taxCategoryUUID" sv:type="String">
         <sv:value>5f2ac4fd-87a8-44ec-b345-0571a1adf38d</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Endura Coolmax Stripe Socks - 3 Pack</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -1539,7 +1539,7 @@
           <sv:value/>
         </sv:property>
       </sv:node>
-      <sv:node sv:name="imageBinary_en">
+      <sv:node sv:name="imageBinary">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
           <sv:value>mgnl:resource</sv:value>
         </sv:property>
@@ -1719,7 +1719,7 @@
       <sv:property sv:name="jcr:uuid" sv:type="String">
         <sv:value>92ef2c7e-5131-4e38-9200-ba7125271c68</sv:value>
       </sv:property>
-      <sv:property sv:name="image_en" sv:type="String">
+      <sv:property sv:name="image" sv:type="String">
         <sv:value>upload</sv:value>
       </sv:property>
       <sv:property sv:name="itemtype" sv:type="String">
@@ -1728,16 +1728,16 @@
       <sv:property sv:name="name" sv:type="String">
         <sv:value>64766</sv:value>
       </sv:property>
-      <sv:property sv:name="productDescription1_en" sv:type="String">
+      <sv:property sv:name="productDescription1" sv:type="String">
         <sv:value>Bike travel bag for trips by plane, car, or train. No matter if roadbike, XC-, FR-, DH- or enduro bike- everything is safely stored ready-to-go within mere minutes. Only the handlebar, the pedals and the wheels need to be dismounted.</sv:value>
       </sv:property>
-      <sv:property sv:name="productDescription2_en" sv:type="String">
+      <sv:property sv:name="productDescription2" sv:type="String">
         <sv:value xsi:type="xs:base64Binary">UmVpbmZvcmNlZCBmb3JrIGFkYXB0ZXI6IHRoZSB0dWJlcyBhcmUgc3VwcGxpZWQgd2l0aCB0d28gZXh0cmEgYnVja2xlcyBhbmQgcGFkZGluZyB3aGljaCBhcmUgbW91bnRlZCBvbiBhIHJpZ2lkLWZvYW0gYmxvY2s7IHRoZSBmb3JrIGVuZHMgYXJlIHByb3ZpZGVkIHdpdGggZG91YmxlIHByb3RlY3Rpb24gZnJvbSBiZWxvdyBieSBtZWFucyBvZiBhIHNwZWNpYWxseSByZWluZm9yY2VkIHBsYXN0aWMgcGxhdGUuIA0KRXh0cmEgd2lkZSBjYXJyaWFnZTogdGlsdC1wcm90ZWN0ZWQsIGltcGFjdC1yZXNpc3RhbnQgY2FycmlhZ2Ugd2l0aCBkdXJhYmxlLCBzb2Z0IHNrYXRlIHdoZWVscyBhbmQgc2VhbGVkIGJlYXJpbmdzLiANClNpZGUgd2hlZWwgY29tcGFydG1lbnRzOiBwcmVzc3VyZSBhbmQgaW1wYWN0IGFyZSBkaXN0cmlidXRlZCB0byB0aGUgdHlyZXMgYW5kIHJpbXMgYnkgbWVhbnMgb2YgdHViZSBzdHJ1dHMsIHNvIHRoZSBicmFrZSBkaXNrcyBhcmUgcHJvdGVjdGVkIGZyb20gd2FycGluZy4gDQpGaXRzIGZvciBNVEIgYW5kIHJvYWRiaWtl</sv:value>
       </sv:property>
       <sv:property sv:name="taxCategoryUUID" sv:type="String">
         <sv:value>5f2ac4fd-87a8-44ec-b345-0571a1adf38d</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Evoc Bike Travel Bag 2012</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -1757,7 +1757,7 @@
           <sv:value/>
         </sv:property>
       </sv:node>
-      <sv:node sv:name="imageBinary_en">
+      <sv:node sv:name="imageBinary">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
           <sv:value>mgnl:resource</sv:value>
         </sv:property>
@@ -1912,7 +1912,7 @@
       <sv:property sv:name="jcr:uuid" sv:type="String">
         <sv:value>60d3e2e8-ef67-46d5-aa4a-015ebf2c1a4e</sv:value>
       </sv:property>
-      <sv:property sv:name="image_en" sv:type="String">
+      <sv:property sv:name="image" sv:type="String">
         <sv:value>upload</sv:value>
       </sv:property>
       <sv:property sv:name="itemtype" sv:type="String">
@@ -1921,16 +1921,16 @@
       <sv:property sv:name="name" sv:type="String">
         <sv:value>38908</sv:value>
       </sv:property>
-      <sv:property sv:name="productDescription1_en" sv:type="String">
+      <sv:property sv:name="productDescription1" sv:type="String">
         <sv:value>Junior front bike basket with jolly big animal sticker.</sv:value>
       </sv:property>
-      <sv:property sv:name="productDescription2_en" sv:type="String">
+      <sv:property sv:name="productDescription2" sv:type="String">
         <sv:value xsi:type="xs:base64Binary">4oCiCVN0ZWVsIG1lc2gNCuKAoglSZW1vdmFibGUgd2l0aCBzYWZlIGRvdWJsZSBoYW5kbGViYXIgaG9va3MNCuKAoglIYW5kbGUgd2l0aCBueWxvbiBncmlwDQrigKIJRGltZW5zaW9uIC0gMTZ4MjJ4MTJjbQ==</sv:value>
       </sv:property>
       <sv:property sv:name="taxCategoryUUID" sv:type="String">
         <sv:value>5f2ac4fd-87a8-44ec-b345-0571a1adf38d</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Basil Junior Handlebar Basket</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -1950,7 +1950,7 @@
           <sv:value/>
         </sv:property>
       </sv:node>
-      <sv:node sv:name="imageBinary_en">
+      <sv:node sv:name="imageBinary">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
           <sv:value>mgnl:resource</sv:value>
         </sv:property>
@@ -2105,7 +2105,7 @@
       <sv:property sv:name="jcr:uuid" sv:type="String">
         <sv:value>f0a7830c-3eb5-4f59-8df4-d60386220bdb</sv:value>
       </sv:property>
-      <sv:property sv:name="image_en" sv:type="String">
+      <sv:property sv:name="image" sv:type="String">
         <sv:value>upload</sv:value>
       </sv:property>
       <sv:property sv:name="itemtype" sv:type="String">
@@ -2114,16 +2114,16 @@
       <sv:property sv:name="name" sv:type="String">
         <sv:value>44123</sv:value>
       </sv:property>
-      <sv:property sv:name="productDescription1_en" sv:type="String">
+      <sv:property sv:name="productDescription1" sv:type="String">
         <sv:value>Sharpen your cycling performance with Edge 500, a lightweight GPS-based cycling computer for performance-driven cyclists.</sv:value>
       </sv:property>
-      <sv:property sv:name="productDescription2_en" sv:type="String">
+      <sv:property sv:name="productDescription2" sv:type="String">
         <sv:value>Loaded with data, Edge 500 tracks your distance, speed, location and elevation with high sensitivity GPS. Add an ANT+™ compatible heart rate monitor, speed/cadence sensor or compatible power meter for a finely-tuned analysis of your ride.</sv:value>
       </sv:property>
       <sv:property sv:name="taxCategoryUUID" sv:type="String">
         <sv:value>5f2ac4fd-87a8-44ec-b345-0571a1adf38d</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Garmin Edge 500</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -2143,7 +2143,7 @@
           <sv:value/>
         </sv:property>
       </sv:node>
-      <sv:node sv:name="imageBinary_en">
+      <sv:node sv:name="imageBinary">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
           <sv:value>mgnl:resource</sv:value>
         </sv:property>
@@ -2323,7 +2323,7 @@
       <sv:property sv:name="jcr:uuid" sv:type="String">
         <sv:value>3f3098b6-b445-4bae-bc44-67b3c7514e0c</sv:value>
       </sv:property>
-      <sv:property sv:name="image_en" sv:type="String">
+      <sv:property sv:name="image" sv:type="String">
         <sv:value>upload</sv:value>
       </sv:property>
       <sv:property sv:name="itemtype" sv:type="String">
@@ -2332,16 +2332,16 @@
       <sv:property sv:name="name" sv:type="String">
         <sv:value>69850</sv:value>
       </sv:property>
-      <sv:property sv:name="productDescription1_en" sv:type="String">
+      <sv:property sv:name="productDescription1" sv:type="String">
         <sv:value>Dirt features a heavy mix of product reviews, race reports and general MTB related gossip and news along with special features on the latest products.</sv:value>
       </sv:property>
-      <sv:property sv:name="productDescription2_en" sv:type="String">
+      <sv:property sv:name="productDescription2" sv:type="String">
         <sv:value>For all of this and much, much more make sure you get your copy of the March Issue of Dirt Magazine.</sv:value>
       </sv:property>
       <sv:property sv:name="taxCategoryUUID" sv:type="String">
         <sv:value>2ea38f09-c34c-4b0b-85b9-6db61defaa0e</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Dirt Magazine</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -2361,7 +2361,7 @@
           <sv:value/>
         </sv:property>
       </sv:node>
-      <sv:node sv:name="imageBinary_en">
+      <sv:node sv:name="imageBinary">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
           <sv:value>mgnl:resource</sv:value>
         </sv:property>
@@ -2516,7 +2516,7 @@
       <sv:property sv:name="jcr:uuid" sv:type="String">
         <sv:value>9b3f51f3-946a-4c73-ad4f-0589f7933852</sv:value>
       </sv:property>
-      <sv:property sv:name="image_en" sv:type="String">
+      <sv:property sv:name="image" sv:type="String">
         <sv:value>upload</sv:value>
       </sv:property>
       <sv:property sv:name="itemtype" sv:type="String">
@@ -2525,16 +2525,16 @@
       <sv:property sv:name="name" sv:type="String">
         <sv:value>68158</sv:value>
       </sv:property>
-      <sv:property sv:name="productDescription1_en" sv:type="String">
+      <sv:property sv:name="productDescription1" sv:type="String">
         <sv:value>Decline features a heady mix of product reviews, race reports and general MTB related gossip and news along with special features on the latest products. </sv:value>
       </sv:property>
-      <sv:property sv:name="productDescription2_en" sv:type="String">
+      <sv:property sv:name="productDescription2" sv:type="String">
         <sv:value>Decline is to the U.S.A. what Dirt is to the UK, the epitome of gravity assisted mountain biking. This high quality publication contains some of the most spectacular photography from staff photographer Sven Martin and many other famous contributing snappers such as John Gibson, Sterling Lorence and Harookz to name but a few. Add to this incredibly well written articles and features with in-depth analysis on featured products and you have one of, if not THE best MTB publication in circulation today.</sv:value>
       </sv:property>
       <sv:property sv:name="taxCategoryUUID" sv:type="String">
         <sv:value>2ea38f09-c34c-4b0b-85b9-6db61defaa0e</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Decline Magazine August 2011</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -2554,7 +2554,7 @@
           <sv:value/>
         </sv:property>
       </sv:node>
-      <sv:node sv:name="imageBinary_en">
+      <sv:node sv:name="imageBinary">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
           <sv:value>mgnl:resource</sv:value>
         </sv:property>
@@ -2709,7 +2709,7 @@
       <sv:property sv:name="jcr:uuid" sv:type="String">
         <sv:value>7513a14b-dab2-420b-a755-32c8f1404658</sv:value>
       </sv:property>
-      <sv:property sv:name="image_en" sv:type="String">
+      <sv:property sv:name="image" sv:type="String">
         <sv:value>upload</sv:value>
       </sv:property>
       <sv:property sv:name="itemtype" sv:type="String">
@@ -2718,13 +2718,13 @@
       <sv:property sv:name="name" sv:type="String">
         <sv:value>69350</sv:value>
       </sv:property>
-      <sv:property sv:name="productDescription1_en" sv:type="String">
+      <sv:property sv:name="productDescription1" sv:type="String">
         <sv:value>Description coming soon</sv:value>
       </sv:property>
       <sv:property sv:name="taxCategoryUUID" sv:type="String">
         <sv:value>2ea38f09-c34c-4b0b-85b9-6db61defaa0e</sv:value>
       </sv:property>
-      <sv:property sv:name="title_en" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Uberdog Magazine Issue 5</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -2744,7 +2744,7 @@
           <sv:value/>
         </sv:property>
       </sv:node>
-      <sv:node sv:name="imageBinary_en">
+      <sv:node sv:name="imageBinary">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
           <sv:value>mgnl:resource</sv:value>
         </sv:property>

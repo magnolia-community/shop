@@ -42,5 +42,6 @@ import java.util.List;
  */
 public interface MultiLanguageDialogControl extends DialogControl {
     public List<String> getLanguages();
+    public String getLanguageSuffix(String language);
     public void setLanguages(List<String> languages);
 }

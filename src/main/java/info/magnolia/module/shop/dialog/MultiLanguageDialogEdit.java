@@ -92,6 +92,7 @@ public class MultiLanguageDialogEdit extends DialogEdit implements MultiLanguage
             DialogLanguagesUtil.initSiteKey(this, storageNode);
         }
         languages = DialogLanguagesUtil.initLanguages(this);
+        
     }
 
     @Override
@@ -100,7 +101,8 @@ public class MultiLanguageDialogEdit extends DialogEdit implements MultiLanguage
         if (languages != null && languages.size() > 0) {
             this.drawHtmlPre(out);
             for (int i = 0; i < languages.size(); i++) {
-                String name = this.getName() + "_" + languages.get(i);
+                
+                String name = this.getName() + getLanguageSuffix(languages.get(i));
                 String value = null;
                 if (getStorageNode() != null) {
                     value = getStorageNode().getNodeData(name).getString();
@@ -131,5 +133,9 @@ public class MultiLanguageDialogEdit extends DialogEdit implements MultiLanguage
 
     public void setLanguages(List<String> languages) {
         this.languages = languages;
+    }
+
+    public String getLanguageSuffix(String language) {
+        return DialogLanguagesUtil.getLanguageSuffix(this, language);
     }
 }
