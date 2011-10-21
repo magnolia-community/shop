@@ -96,7 +96,7 @@ public class ShopLinkUtil {
   }
 
   public static String createProductCategorySelector(Content category) {
-      return category.getTitle() + "." + ParamType.CATEGORY.name() + "." +category.getName();
+      return StringUtils.replace(category.getTitle(), " ", "-") + "." + ParamType.CATEGORY.name() + "." +category.getName();
   }
   
   public static String getProductListSearchLink(Content siteRoot) {
@@ -150,7 +150,7 @@ public class ShopLinkUtil {
 }
 
 public static String createProductSelector(Content product) {
-    return product.getTitle() + "." +ParamType.PRODUCT.name() + "." + product.getName();
+    return StringUtils.replace(product.getTitle(), " ", "-") + "." +ParamType.PRODUCT.name() + "." + product.getName();
 }
   
   public static String getSelectedCategoryUUID() {
