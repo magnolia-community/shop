@@ -38,8 +38,8 @@ import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.form.processors.AbstractFormProcessor;
 import info.magnolia.module.form.processors.FormProcessorFailedException;
-import info.magnolia.module.ocm.ext.MgnlConfigMapperImpl;
-import info.magnolia.module.ocm.ext.MgnlObjectConverterImpl;
+import ch.fastforward.magnolia.ocm.ext.MgnlConfigMapperImpl;
+import ch.fastforward.magnolia.ocm.ext.MgnlObjectConverterImpl;
 import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
 import info.magnolia.module.shop.util.ShopUtil;
 

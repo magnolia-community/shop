@@ -37,7 +37,7 @@ import info.magnolia.cms.core.Content;
 import info.magnolia.cms.i18n.I18nContentWrapper;
 import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.QueryUtil;
-import info.magnolia.module.ocm.beans.OCMNumberedBean;
+import ch.fastforward.magnolia.ocm.beans.OCMNumberedBean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;

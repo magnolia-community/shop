@@ -33,7 +33,7 @@
  */
 package info.magnolia.module.shop.beans;
 
-import info.magnolia.module.ocm.beans.OCMBean;
+import ch.fastforward.magnolia.ocm.beans.OCMBean;
 import java.io.Serializable;
 
 /**

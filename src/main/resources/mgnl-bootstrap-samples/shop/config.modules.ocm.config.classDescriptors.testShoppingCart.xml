@@ -1280,7 +1280,7 @@
         <sv:value>org.apache.jackrabbit.ocm.mapper.model.CollectionDescriptor</sv:value>
       </sv:property>
       <sv:property sv:name="collectionConverter" sv:type="String">
-        <sv:value>info.magnolia.module.ocm.ext.MgnlDefaultCollectionConverterImpl</sv:value>
+        <sv:value>ch.fastforward.magnolia.ocm.ext.MgnlDefaultCollectionConverterImpl</sv:value>
       </sv:property>
       <sv:property sv:name="elementClassName" sv:type="String">
         <sv:value>info.magnolia.module.shop.beans.ShoppingCartItem</sv:value>
