@@ -16,7 +16,7 @@
     <sv:value>/.resources/icons/24/shoppingcart.gif</sv:value>
   </sv:property>
   <sv:property sv:name="label" sv:type="String">
-    <sv:value>sampleShop</sv:value>
+    <sv:value>Sample Shop</sv:value>
   </sv:property>
   <sv:property sv:name="onclick" sv:type="String">
     <sv:value/>
