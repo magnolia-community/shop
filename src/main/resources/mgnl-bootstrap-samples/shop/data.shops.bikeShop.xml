@@ -87,10 +87,10 @@
       <sv:property sv:name="tax" sv:type="Double">
         <sv:value>7.5</sv:value>
       </sv:property>
-      <sv:property sv:name="title_de" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Goods and services</sv:value>
       </sv:property>
-      <sv:property sv:name="title" sv:type="String">
+      <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Goods and services</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -216,52 +216,6 @@
         </sv:property>
       </sv:node>
     </sv:node>
-    <sv:node sv:name="CHF">
-      <sv:property sv:name="jcr:primaryType" sv:type="Name">
-        <sv:value>shopCurrency</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
-        <sv:value>mix:lockable</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>44e66616-5e70-4878-b7e7-1ad6cad7c53e</sv:value>
-      </sv:property>
-      <sv:property sv:name="dateLastUpdated" sv:type="Date">
-        <sv:value>2011-09-13T11:32:52.000Z</sv:value>
-      </sv:property>
-      <sv:property sv:name="exchangeRate" sv:type="Double">
-        <sv:value>1.0</sv:value>
-      </sv:property>
-      <sv:property sv:name="formatting" sv:type="String">
-        <sv:value>###,###.00</sv:value>
-      </sv:property>
-      <sv:property sv:name="itemtype" sv:type="String">
-        <sv:value>shopCurrency</sv:value>
-      </sv:property>
-      <sv:property sv:name="name" sv:type="String">
-        <sv:value>CHF</sv:value>
-      </sv:property>
-      <sv:property sv:name="title" sv:type="String">
-        <sv:value>CHF</sv:value>
-      </sv:property>
-      <sv:node sv:name="MetaData">
-        <sv:property sv:name="jcr:primaryType" sv:type="Name">
-          <sv:value>mgnl:metaData</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:authorid" sv:type="String">
-          <sv:value>superuser</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-          <sv:value>2011-09-13T13:33:05.887+02:00</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-10-18T11:36:24.293+02:00</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:template" sv:type="String">
-          <sv:value/>
-        </sv:property>
-      </sv:node>
-    </sv:node>
   </sv:node>
   <sv:node sv:name="priceCategories">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -303,10 +257,10 @@
       <sv:property sv:name="taxIncluded" sv:type="Boolean">
         <sv:value>true</sv:value>
       </sv:property>
-      <sv:property sv:name="title_de" sv:type="String">
+      <sv:property sv:name="title" sv:type="String">
         <sv:value>Standard euro</sv:value>
       </sv:property>
-      <sv:property sv:name="title" sv:type="String">
+      <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Standard euro</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -321,52 +275,6 @@
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
           <sv:value>2011-10-18T12:12:45.497+02:00</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:template" sv:type="String">
-          <sv:value/>
-        </sv:property>
-      </sv:node>
-    </sv:node>
-    <sv:node sv:name="Tax-free-Swiss-franc">
-      <sv:property sv:name="jcr:primaryType" sv:type="Name">
-        <sv:value>shopPriceCategory</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
-        <sv:value>mix:lockable</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>1e06d298-0b11-4a8e-9ce7-f93e47c720f0</sv:value>
-      </sv:property>
-      <sv:property sv:name="currencyUUID" sv:type="String">
-        <sv:value>08f1f538-51d3-4f7c-9c2e-f4cadf0aa20f</sv:value>
-      </sv:property>
-      <sv:property sv:name="itemtype" sv:type="String">
-        <sv:value>shopPriceCategory</sv:value>
-      </sv:property>
-      <sv:property sv:name="name" sv:type="String">
-        <sv:value>Tax-free Swiss franc</sv:value>
-      </sv:property>
-      <sv:property sv:name="taxIncluded" sv:type="Boolean">
-        <sv:value>false</sv:value>
-      </sv:property>
-      <sv:property sv:name="title_de" sv:type="String">
-        <sv:value>Tax-free Swiss franc</sv:value>
-      </sv:property>
-      <sv:property sv:name="title" sv:type="String">
-        <sv:value>Tax-free Swiss franc</sv:value>
-      </sv:property>
-      <sv:node sv:name="MetaData">
-        <sv:property sv:name="jcr:primaryType" sv:type="Name">
-          <sv:value>mgnl:metaData</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:authorid" sv:type="String">
-          <sv:value>superuser</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-          <sv:value>2011-09-13T13:34:36.876+02:00</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-09-13T13:34:36.880+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:template" sv:type="String">
           <sv:value/>

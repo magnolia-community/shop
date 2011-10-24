@@ -41,7 +41,7 @@
       <sv:value>2011-06-08T13:51:14.102+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2011-10-19T09:34:17.888+02:00</sv:value>
+      <sv:value>2011-10-24T10:55:02.712+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:template" sv:type="String">
       <sv:value>shopHome</sv:value>
@@ -176,7 +176,7 @@
         <sv:value>2011-02-28T15:20:57.543+01:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-        <sv:value>2011-03-07T16:24:27.883+01:00</sv:value>
+        <sv:value>2011-10-24T10:55:02.717+02:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:template" sv:type="String">
         <sv:value>shopProductDetail</sv:value>
@@ -308,7 +308,7 @@
         <sv:value>2011-03-09T13:53:00.251+01:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-        <sv:value>2011-10-19T08:47:35.673+02:00</sv:value>
+        <sv:value>2011-10-24T10:55:02.718+02:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:template" sv:type="String">
         <sv:value>shopShoppingCart</sv:value>
@@ -391,7 +391,7 @@
           <sv:value>2011-06-08T14:10:03.051+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-10-19T09:41:07.652+02:00</sv:value>
+          <sv:value>2011-10-24T10:55:02.719+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:template" sv:type="String">
           <sv:value>shopCheckoutForm</sv:value>
@@ -913,7 +913,7 @@
             <sv:value>2011-04-25T14:17:02.808+02:00</sv:value>
           </sv:property>
           <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-            <sv:value>2011-10-19T09:41:36.290+02:00</sv:value>
+            <sv:value>2011-10-24T10:55:02.719+02:00</sv:value>
           </sv:property>
           <sv:property sv:name="mgnl:template" sv:type="String">
             <sv:value>shopFormStep</sv:value>
@@ -1299,7 +1299,7 @@
             <sv:value>2011-06-17T12:51:11.476+02:00</sv:value>
           </sv:property>
           <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-            <sv:value>2011-10-19T10:14:01.223+02:00</sv:value>
+            <sv:value>2011-10-24T10:55:02.720+02:00</sv:value>
           </sv:property>
           <sv:property sv:name="mgnl:template" sv:type="String">
             <sv:value>shopFormStepConfirmOrder</sv:value>
@@ -1602,7 +1602,7 @@
           <sv:value>2011-04-11T12:38:19.442+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-05-05T08:58:19.332+02:00</sv:value>
+          <sv:value>2011-10-24T10:55:02.720+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:template" sv:type="String">
           <sv:value>shopConfirmationPage</sv:value>
