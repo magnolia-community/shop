@@ -6,7 +6,7 @@
 		[#assign currencyFormatting = model.currencyFormatting]
 	    <table cellspacing="1" cellpadding="1" border="0" width="100%" class="shopping_cart">
 	    <thead>
-	    	<th>${i18n['table.product']}</th>
+	    	<th id="prod-name-col-width">${i18n['table.product']}</th>
 	    	<th id="price">${i18n['table.quantity']}</th>
 	    	<th id="price">${i18n['table.unitprice']}</th>
 	    	<th id="price">${i18n['table.total']}</th>

@@ -175,6 +175,10 @@
   padding-right: 20px;
 }
 
+#main #prod-name-col-width {
+	width: 40%
+}
+
 .product-add {
   float: right;
   right: 0;
