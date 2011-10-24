@@ -42,9 +42,6 @@
     <sv:property sv:name="name" sv:type="String">
       <sv:value>101-Books</sv:value>
     </sv:property>
-    <sv:property sv:name="tags" sv:type="String">
-      <sv:value>d7ba9d64-b7b8-4b93-8a3d-ecd14a049bb8</sv:value>
-    </sv:property>
     <sv:property sv:name="title_de" sv:type="String">
       <sv:value>Bücher</sv:value>
     </sv:property>
@@ -83,9 +80,6 @@
       </sv:property>
       <sv:property sv:name="name" sv:type="String">
         <sv:value>1011-AudioBooks</sv:value>
-      </sv:property>
-      <sv:property sv:name="tags" sv:type="String">
-        <sv:value>1124b03d-09d9-41f3-b7c6-b07222a378b6</sv:value>
       </sv:property>
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Hörbücher</sv:value>
@@ -167,11 +161,6 @@
       <sv:property sv:name="name" sv:type="String">
         <sv:value>1012-History</sv:value>
       </sv:property>
-      <sv:property sv:name="tags" sv:type="String">
-        <sv:value>3d1377fd-de5d-4823-a70f-09fc44069b48</sv:value>
-        <sv:value>248f71e8-b9b8-44b0-ac44-7d3e6e19bfce</sv:value>
-        <sv:value>ab9437db-ab2c-4df5-bb41-87e55409e8e1</sv:value>
-      </sv:property>
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>HistorieDaten</sv:value>
       </sv:property>
@@ -211,13 +200,6 @@
       </sv:property>
       <sv:property sv:name="name" sv:type="String">
         <sv:value>1013-Travel</sv:value>
-      </sv:property>
-      <sv:property sv:name="tags" sv:type="String">
-        <sv:value>3d1377fd-de5d-4823-a70f-09fc44069b48</sv:value>
-        <sv:value>e75cc729-fdf8-4154-9b5f-4a52ea2beab7</sv:value>
-        <sv:value>ab9437db-ab2c-4df5-bb41-87e55409e8e1</sv:value>
-        <sv:value>d7ba9d64-b7b8-4b93-8a3d-ecd14a049bb8</sv:value>
-        <sv:value>756d0705-d629-479f-910d-b3a27855550b</sv:value>
       </sv:property>
       <sv:property sv:name="title_de" sv:type="String">
         <sv:value>Reisen</sv:value>
@@ -260,9 +242,6 @@
     <sv:property sv:name="name" sv:type="String">
       <sv:value>102-Music</sv:value>
     </sv:property>
-    <sv:property sv:name="tags" sv:type="String">
-      <sv:value>d7ba9d64-b7b8-4b93-8a3d-ecd14a049bb8</sv:value>
-    </sv:property>
     <sv:property sv:name="title_de" sv:type="String">
       <sv:value>Musik</sv:value>
     </sv:property>
@@ -303,10 +282,6 @@
     <sv:property sv:name="name" sv:type="String">
       <sv:value>103-Furniture</sv:value>
     </sv:property>
-    <sv:property sv:name="tags" sv:type="String">
-      <sv:value>ab9437db-ab2c-4df5-bb41-87e55409e8e1</sv:value>
-      <sv:value>3d1377fd-de5d-4823-a70f-09fc44069b48</sv:value>
-    </sv:property>
     <sv:property sv:name="title_de" sv:type="String">
       <sv:value>Möbel</sv:value>
     </sv:property>
@@ -346,9 +321,6 @@
     </sv:property>
     <sv:property sv:name="name" sv:type="String">
       <sv:value>104-Toys</sv:value>
-    </sv:property>
-    <sv:property sv:name="tags" sv:type="String">
-      <sv:value>ab9437db-ab2c-4df5-bb41-87e55409e8e1</sv:value>
     </sv:property>
     <sv:property sv:name="title_de" sv:type="String">
       <sv:value>Spielzeug</sv:value>

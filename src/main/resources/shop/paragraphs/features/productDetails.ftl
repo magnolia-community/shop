@@ -64,12 +64,13 @@
 	                [/#if]
 	                [/#if]
 	        [/#list]
-	    [#else]
+	    [#elseif asset?has_content]
 	    	<dl class="photo">
                 <dt ><img src="${stk.getAssetVariation(asset, 'gallery-thumbnail').link}" /></dt>
                 <dd class="zoom"><a href="${stk.getAssetVariation(asset, 'gallery-zoom').link}" rel="showbox" title="${i18n['link.zoom.title']}">${i18n['link.zoom']}</a></dd>
                 <dd class="caption">&nbsp;</dd>
             </dl>
+            
         [/#if]
     </div><!-- end photo-index -->
 

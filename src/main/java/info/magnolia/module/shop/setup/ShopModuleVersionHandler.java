@@ -91,8 +91,8 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
     installTasks.add(new RegisterNodeTypeTask("shopCurrency"));
     installTasks.add(new RegisterNodeTypeTask("shopPriceCategories"));
     installTasks.add(new RegisterNodeTypeTask("shopPriceCategory"));
-    installTasks.add(new RegisterNodeTypeTask("shopProduct"));
-    installTasks.add(new RegisterNodeTypeMultipleTask("shopProductCategory"));
+    installTasks.add(new RegisterNodeTypeMultipleTask("shopProduct"));
+    installTasks.add(new RegisterNodeTypeTask("shopProductCategory"));
     installTasks.add(new RegisterNodeTypeTask("shopProductOptions"));
     installTasks.add(new RegisterNodeTypeTask("shopProductOption"));
     installTasks.add(new RegisterNodeTypeTask("shopTaxCategories"));
@@ -138,17 +138,20 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
     installTasks.add(new IsModuleInstalledOrRegistered("Keywords for product Categores", 
         "Adds control to product categories dialog for asigning keywords.", "extended-templating-kit", 
         new NodeBuilderTask("","", ErrorHandling.strict, "config",
-            getNode("modules/data/dialogs/shopProductCategory/mainTab").then(
-                addNode("tags", ItemType.CONTENTNODE).then(
-                    addProperty("controlType", "categorizationUUIDMultiSelect"),
-                    addProperty("saveHandler", "info.magnolia.module.categorization.controls.CategorizationSaveHandler"),
-                    addProperty("tree", "category"),
-                    addProperty("type", "String"),
-                    addProperty("i18n", "true"),
-                    addProperty("i18nBasename", "info.magnolia.module.shop.messages"),
-                    addProperty("label", "dialogs.generic.tabCategorization.categories.label"),
-                    addProperty("description", "dialogs.generic.tabCategorization.categories.description")))
-            )));
+            getNode("modules/data/dialogs/shopProduct").then(
+                addNode("tagsTab", ItemType.CONTENTNODE).then(
+                        addProperty("controlType", "tab"), 
+                        addProperty("label", "dialogs.generic.tabCategorization.categories.label"),
+                        addNode("tags", ItemType.CONTENTNODE).then(
+                            addProperty("controlType", "categorizationUUIDMultiSelect"),
+                            addProperty("saveHandler", "info.magnolia.module.categorization.controls.CategorizationSaveHandler"),
+                            addProperty("tree", "category"),
+                            addProperty("type", "String"),
+                            addProperty("i18n", "true"),
+                            addProperty("i18nBasename", "info.magnolia.module.shop.messages"),
+                            addProperty("label", "dialogs.generic.tabCategorization.categories.label"),
+                            addProperty("description", "dialogs.generic.tabCategorization.categories.description")))
+                ))));
     installTasks.add(new IsModuleInstalledOrRegistered("Set multilanguage on categorization", 
             "Display name in the site defined languages.", "categorization", 
             new NodeBuilderTask("","", ErrorHandling.strict, "config",

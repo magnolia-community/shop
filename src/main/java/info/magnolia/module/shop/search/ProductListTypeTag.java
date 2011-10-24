@@ -65,7 +65,7 @@ public class ProductListTypeTag extends AbstractProductListType {
         String tagName = ShopLinkUtil.getParamValue(ParamType.TAG);
         try {
             Content tagNode = CustomDataUtil.getTagNode(tagName);
-            return ShopUtil.findTaggedProducts(tagNode.getUUID());
+            return (List<Content>)ShopUtil.findTaggedProducts(tagNode.getUUID());
         } catch (Exception e) {
             //TODO
         }

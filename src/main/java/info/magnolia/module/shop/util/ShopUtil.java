@@ -36,11 +36,8 @@ package info.magnolia.module.shop.util;
 import info.magnolia.cms.security.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.i18n.I18nContentSupportFactory;
@@ -54,7 +51,6 @@ import info.magnolia.context.MgnlContext;
 import info.magnolia.module.shop.ShopConfiguration;
 import info.magnolia.module.shop.accessors.ShopAccesor;
 import info.magnolia.module.shop.accessors.ShopProductAccesor;
-import info.magnolia.module.shop.accessors.ShopProductCategoryAccesor;
 import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
 import info.magnolia.module.shop.beans.ShoppingCart;
 import info.magnolia.module.templatingkit.templates.category.TemplateCategoryUtil;
@@ -253,28 +249,8 @@ public class ShopUtil {
         return getPath(true, strings);
     }
     
-    public static List<Content> findTaggedProducts(String tagUUID) {
-        List<Content> productList = new ArrayList<Content>();
-        Map<String, Content> productMap = new HashMap<String, Content>();
-        try {
-            
-            Collection<Content> productCategories = ShopProductCategoryAccesor.getTaggedProductCategories(tagUUID);
-            //for each category, get all products
-            for (Iterator<Content> iterator = productCategories.iterator(); iterator
-                    .hasNext();) {
-                Content productCategoryNode = iterator.next();
-                productList.addAll(ShopProductAccesor.getProductsByProductCategory(productCategoryNode.getUUID()));
-            }
-            
-            //remove duplicates
-            for (Content content : productList) {
-                productMap.put(content.getUUID(), content);
-            }
-            productList.clear();
-            productList.addAll(productMap.values());
-        } catch (Exception e) {
-            //return empty list
-        }
-        return productList;
+    public static Collection<Content> findTaggedProducts(String tagUUID) {
+        return ShopProductAccesor.getTaggedProducts(tagUUID);
+        
     }
 }

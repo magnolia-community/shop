@@ -44,9 +44,9 @@ import info.magnolia.module.templating.MagnoliaTemplatingUtilities;
 import info.magnolia.module.templating.RenderableDefinition;
 import info.magnolia.module.templating.RenderingModel;
 import info.magnolia.module.templating.RenderingModelImpl;
-import info.magnolia.module.templatingkit.categorization.CategorizationSupport;
 import info.magnolia.module.templatingkit.templates.STKTemplateModel;
 import info.magnolia.cms.core.Content;
+import info.magnolia.cms.util.QueryUtil;
 
 /**
  * Displays the tags assigned to productcategories by using categorization module.
@@ -73,7 +73,7 @@ public class ShopTagCloudParagraph extends RenderingModelImpl {
 
     public List<Content> getTagCloud() {
       
-      List<Content> contentList = CategorizationSupport.Factory.getInstance().getCategories(content);
+      List<Content> contentList = (List<Content>) QueryUtil.query("data", "select * from category");
       if (contentList != null) {
           return ShopUtil.transformIntoI18nContentList(contentList);
       }

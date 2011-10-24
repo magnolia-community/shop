@@ -33,10 +33,7 @@
  */
 package info.magnolia.module.shop.accessors;
 
-import java.util.Collection;
-
 import info.magnolia.cms.core.Content;
-import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.module.shop.util.ShopUtil;
 
 /**
@@ -56,14 +53,4 @@ public class ShopProductCategoryAccesor extends DefaultCustomDataAccesor {
         String path = ShopUtil.getPath("shopProductCategories", ShopUtil.getShopName());
         return super.getNodeByName(path, "shopProductCategory", name);
     }
-    
-    public static Collection<Content> getTaggedProductCategories(String categoryUUID) {
-        
-        String query = "select * from shopProductCategory where jcr:path like '" + ShopUtil.getPath("shopProductCategories", ShopUtil.getShopName()) 
-          + "/%' and contains(tags, '" + categoryUUID + "')";
-        
-        Collection<Content> productCategories = QueryUtil.query("data", query);
-        return productCategories;
-    }
-
 }
