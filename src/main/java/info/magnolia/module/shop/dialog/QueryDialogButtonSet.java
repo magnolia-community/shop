@@ -126,18 +126,16 @@ public class QueryDialogButtonSet extends DialogButtonSet {
                     label = NodeDataUtil.getString(n, labelNodeData, value);//$NON-NLS-1$
                 }
 
-                //label = this.getMessage(label);
-                Button button = new Button(this.getName(), value);
-                // if (n.getNodeData("label").isExist()) button.setLabel(n.getNodeData("label").getString());
+                Button button = new IndentedButton(this.getName(), value, "width:" + n.getLevel() * 10+ "px;");
                 button.setLabel(label);
-
-                String iconSrc = n.getNodeData("iconSrc").getString(); //$NON-NLS-1$
+                String iconSrc = n.getNodeData("iconSrc").getString();
                 if (StringUtils.isNotEmpty(iconSrc)) {
                     button.setIconSrc(iconSrc);
                 }
 
-                if (setDefaultSelected && n.getNodeData("selected").getBoolean()) { //$NON-NLS-1$
+                if (setDefaultSelected && n.getNodeData("selected").getBoolean()) { 
                     button.setState(ControlImpl.BUTTONSTATE_PUSHED);
+                   
                 }
                 options.add(button);
             }
@@ -183,4 +181,6 @@ public class QueryDialogButtonSet extends DialogButtonSet {
         setOptions(configNode, false);
         setConfig("valueType", "multiple");
     }
+    
+    
 }
