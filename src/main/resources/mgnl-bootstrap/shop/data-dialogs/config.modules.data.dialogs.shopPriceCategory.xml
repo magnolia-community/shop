@@ -171,7 +171,7 @@
         <sv:value>data.dialogs.shopPriceCategory.mainTab.currencyUUID.label</sv:value>
       </sv:property>
       <sv:property sv:name="labelNodeData" sv:type="String">
-        <sv:value>title_en</sv:value>
+        <sv:value>title</sv:value>
       </sv:property>
       <sv:property sv:name="repository" sv:type="String">
         <sv:value>data</sv:value>
