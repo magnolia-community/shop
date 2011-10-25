@@ -87,11 +87,11 @@
       <sv:property sv:name="tax" sv:type="Double">
         <sv:value>7.6</sv:value>
       </sv:property>
-      <sv:property sv:name="title_de" sv:type="String">
-        <sv:value>Normalsatz (7.6%)</sv:value>
-      </sv:property>
       <sv:property sv:name="title" sv:type="String">
         <sv:value>Regular (7.6%)</sv:value>
+      </sv:property>
+      <sv:property sv:name="title_de" sv:type="String">
+        <sv:value>Normalsatz (7.6%)</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -139,11 +139,11 @@
       <sv:property sv:name="tax" sv:type="Double">
         <sv:value>2.4</sv:value>
       </sv:property>
-      <sv:property sv:name="title_de" sv:type="String">
-        <sv:value>Reduzierter Satz (2.4%)</sv:value>
-      </sv:property>
       <sv:property sv:name="title" sv:type="String">
         <sv:value>Reduced (2.4%)</sv:value>
+      </sv:property>
+      <sv:property sv:name="title_de" sv:type="String">
+        <sv:value>Reduzierter Satz (2.4%)</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -191,11 +191,11 @@
       <sv:property sv:name="tax" sv:type="Double">
         <sv:value>0.0</sv:value>
       </sv:property>
-      <sv:property sv:name="title_de" sv:type="String">
-        <sv:value>MwSt.-frei (0%)</sv:value>
-      </sv:property>
       <sv:property sv:name="title" sv:type="String">
         <sv:value>Taxfree (0%)</sv:value>
+      </sv:property>
+      <sv:property sv:name="title_de" sv:type="String">
+        <sv:value>MwSt.-frei (0%)</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -269,12 +269,9 @@
         <sv:value>USD</sv:value>
       </sv:property>
       <sv:property sv:name="title" sv:type="String">
-        <sv:value>$</sv:value>
-      </sv:property>
-      <sv:property sv:name="title_de" sv:type="String">
         <sv:value>USD</sv:value>
       </sv:property>
-      <sv:property sv:name="title" sv:type="String">
+      <sv:property sv:name="title_de" sv:type="String">
         <sv:value>USD</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -321,12 +318,9 @@
         <sv:value>EUR</sv:value>
       </sv:property>
       <sv:property sv:name="title" sv:type="String">
-        <sv:value>EURO</sv:value>
-      </sv:property>
-      <sv:property sv:name="title_de" sv:type="String">
         <sv:value>EUR</sv:value>
       </sv:property>
-      <sv:property sv:name="title" sv:type="String">
+      <sv:property sv:name="title_de" sv:type="String">
         <sv:value>EUR</sv:value>
       </sv:property>
       <sv:property sv:name="title_fr" sv:type="String">
@@ -382,12 +376,9 @@
         <sv:value>CHF</sv:value>
       </sv:property>
       <sv:property sv:name="title" sv:type="String">
-        <sv:value>Schweizer Franken</sv:value>
-      </sv:property>
-      <sv:property sv:name="title_de" sv:type="String">
         <sv:value>CHF</sv:value>
       </sv:property>
-      <sv:property sv:name="title" sv:type="String">
+      <sv:property sv:name="title_de" sv:type="String">
         <sv:value>CHF</sv:value>
       </sv:property>
       <sv:property sv:name="title_fr" sv:type="String">
@@ -461,11 +452,11 @@
       <sv:property sv:name="taxIncluded" sv:type="Boolean">
         <sv:value>false</sv:value>
       </sv:property>
-      <sv:property sv:name="title_de" sv:type="String">
-        <sv:value>Standart Verkaufspreis</sv:value>
-      </sv:property>
       <sv:property sv:name="title" sv:type="String">
         <sv:value>Standard selling price</sv:value>
+      </sv:property>
+      <sv:property sv:name="title_de" sv:type="String">
+        <sv:value>Standart Verkaufspreis</sv:value>
       </sv:property>
       <sv:property sv:name="title_fr" sv:type="String">
         <sv:value>Brutto Verkaufspreis CHF (fr)</sv:value>

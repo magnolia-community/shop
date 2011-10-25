@@ -41,7 +41,7 @@
       <sv:value>2011-06-08T13:51:14.102+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2011-10-24T10:55:02.712+02:00</sv:value>
+      <sv:value>2011-10-24T17:11:30.527+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:template" sv:type="String">
       <sv:value>shopHome</sv:value>
@@ -1700,7 +1700,7 @@
         <sv:value>2011-06-08T13:51:14.112+02:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-        <sv:value>2011-10-18T10:37:17.200+02:00</sv:value>
+        <sv:value>2011-10-24T17:11:30.525+02:00</sv:value>
       </sv:property>
     </sv:node>
     <sv:node sv:name="extras1">
@@ -1733,7 +1733,7 @@
           <sv:value>2011-06-08T13:51:14.113+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-10-18T10:37:17.200+02:00</sv:value>
+          <sv:value>2011-10-24T17:11:30.525+02:00</sv:value>
         </sv:property>
       </sv:node>
       <sv:node sv:name="extrasItem0">
@@ -1830,6 +1830,7 @@
           <sv:value>d7ba9d64-b7b8-4b93-8a3d-ecd14a049bb8</sv:value>
           <sv:value>ab9437db-ab2c-4df5-bb41-87e55409e8e1</sv:value>
           <sv:value>e75cc729-fdf8-4154-9b5f-4a52ea2beab7</sv:value>
+          <sv:value>756d0705-d629-479f-910d-b3a27855550b</sv:value>
         </sv:property>
         <sv:property sv:name="order" sv:type="String">
           <sv:value>name</sv:value>
@@ -1854,7 +1855,7 @@
             <sv:value>2011-06-08T13:51:14.120+02:00</sv:value>
           </sv:property>
           <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-            <sv:value>2011-10-18T10:37:17.200+02:00</sv:value>
+            <sv:value>2011-10-24T17:11:30.525+02:00</sv:value>
           </sv:property>
           <sv:property sv:name="mgnl:template" sv:type="String">
             <sv:value>shopTagCloudExtras</sv:value>

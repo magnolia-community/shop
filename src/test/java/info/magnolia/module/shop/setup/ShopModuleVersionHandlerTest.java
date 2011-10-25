@@ -126,7 +126,6 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         setupConfigNode("/modules/data/config/types", ItemType.CONTENT);
         setupConfigNode("/modules/adminInterface/config/menu/data", ItemType.CONTENTNODE);
         setupConfigNode("/modules/adminInterface/config/menu/sampleShop", ItemType.CONTENTNODE);
-        setupConfigNode("/modules/adminInterface/config/menu/bikeShop", ItemType.CONTENTNODE);
         setupConfigNode("/modules/standard-templating-kit/config/site/templates/availability/templates", ItemType.CONTENTNODE);
         setupConfigNode("/modules/standard-templating-kit/templates", ItemType.CONTENTNODE);
 
