@@ -15,6 +15,9 @@
   <sv:property sv:name="configurationClass" sv:type="String">
     <sv:value>info.magnolia.module.data.trees.GenericDataAdminTreeConfig</sv:value>
   </sv:property>
+  <sv:property sv:name="dialogName" sv:type="String">
+    <sv:value>shopProductOption</sv:value>
+  </sv:property>
   <sv:property sv:name="itemTypes" sv:type="String">
     <sv:value>dataItemNode</sv:value>
   </sv:property>
@@ -25,8 +28,14 @@
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>mgnl:metaData</sv:value>
     </sv:property>
+    <sv:property sv:name="mgnl:authorid" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
     <sv:property sv:name="mgnl:creationdate" sv:type="Date">
       <sv:value>2011-09-08T07:18:57.549+02:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+      <sv:value>2011-10-25T08:41:08.245+02:00</sv:value>
     </sv:property>
   </sv:node>
 </sv:node>

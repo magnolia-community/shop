@@ -15,6 +15,9 @@
   <sv:property sv:name="configurationClass" sv:type="String">
     <sv:value>info.magnolia.module.shop.trees.ShopsManagementTreeConfig</sv:value>
   </sv:property>
+  <sv:property sv:name="dialogName" sv:type="String">
+    <sv:value>shop</sv:value>
+  </sv:property>
   <sv:property sv:name="itemTypes" sv:type="String">
     <sv:value>dataItemNode, shopTaxCategories, shopPriceCategories, shopCurrencies, shopSystem</sv:value>
   </sv:property>
@@ -35,7 +38,7 @@
       <sv:value>2011-07-04T10:10:13.659+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2011-10-06T13:45:56.160+02:00</sv:value>
+      <sv:value>2011-10-25T08:53:27.406+02:00</sv:value>
     </sv:property>
   </sv:node>
 </sv:node>

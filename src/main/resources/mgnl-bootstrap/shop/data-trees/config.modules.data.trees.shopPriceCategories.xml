@@ -15,6 +15,9 @@
   <sv:property sv:name="configurationClass" sv:type="String">
     <sv:value>info.magnolia.module.data.trees.WorkflowDataAdminTreeConfig</sv:value>
   </sv:property>
+  <sv:property sv:name="dialogName" sv:type="String">
+    <sv:value>shopPriceCategory</sv:value>
+  </sv:property>
   <sv:property sv:name="itemTypes" sv:type="String">
     <sv:value>dataItemNode, shopPriceCategory</sv:value>
   </sv:property>
@@ -35,7 +38,7 @@
       <sv:value>2011-07-04T10:37:55.432+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2011-07-15T11:15:00.518+02:00</sv:value>
+      <sv:value>2011-10-25T08:42:35.385+02:00</sv:value>
     </sv:property>
   </sv:node>
 </sv:node>

@@ -15,6 +15,9 @@
   <sv:property sv:name="configurationClass" sv:type="String">
     <sv:value>info.magnolia.module.shop.trees.NoNewFolderDataTreeConfiguration</sv:value>
   </sv:property>
+  <sv:property sv:name="dialogName" sv:type="String">
+    <sv:value>shopPriceCategory</sv:value>
+  </sv:property>
   <sv:property sv:name="itemTypes" sv:type="String">
     <sv:value>dataItemNode</sv:value>
   </sv:property>
@@ -32,7 +35,7 @@
       <sv:value>2011-07-04T10:38:15.310+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2011-07-21T09:14:33.291+02:00</sv:value>
+      <sv:value>2011-10-25T08:40:54.963+02:00</sv:value>
     </sv:property>
   </sv:node>
 </sv:node>
