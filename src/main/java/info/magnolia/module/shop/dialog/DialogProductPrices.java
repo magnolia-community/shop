@@ -39,6 +39,7 @@ import info.magnolia.cms.gui.dialog.Dialog;
 import info.magnolia.cms.gui.dialog.DialogBox;
 import info.magnolia.cms.gui.dialog.DialogControlImpl;
 import info.magnolia.cms.gui.misc.CssConstants;
+import info.magnolia.cms.i18n.I18nContentWrapper;
 import info.magnolia.cms.i18n.Messages;
 import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.QueryUtil;
@@ -107,9 +108,9 @@ public class DialogProductPrices extends DialogBox {
               String currencyUUID;
               int i = 0;
               while (priceCategoryIter.hasNext()) {
-                  currPriceCat = priceCategoryIter.next();
+                  currPriceCat = new I18nContentWrapper(priceCategoryIter.next());
                   out.write("<tr valign=\"top\">");
-                  out.write("<td>" + currPriceCat.getNodeData("title_de").getString() + "</td>");
+                  out.write("<td>" + currPriceCat.getTitle() + "</td>");
                   currencyUUID = currPriceCat.getNodeData("currencyUUID").getString();
                   out.write("<td align=\"left\">");
                   if (StringUtils.isNotBlank(currencyUUID)) {
