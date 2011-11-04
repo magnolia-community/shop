@@ -33,7 +33,7 @@
 	    [/#if]
 	    [#if shoppingCart?has_content && shoppingCart.getCartItemsCount() > 0]
 		    <p>
-		    <em class="more"><a href="${model.getShoppingCartLink()}" >${i18n['shoppingCart.view']}</a></em>
+		    <em class="more"><a href="${model.shoppingCartLink!}" >${i18n['shoppingCart.view']}</a></em>
 		    </p>
 	    [/#if]
 </div><!-- end ${divClass} -->

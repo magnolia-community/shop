@@ -70,7 +70,7 @@ public class ProductTeaserModel extends InternalTeaserModel {
     public Content getTarget() {
         Content shopRoot = null;
         try {
-            shopRoot = STKUtil.getContentByTemplateCategorySubCategory(siteRoot, "feature", "productDetail");
+            shopRoot = STKUtil.getContentByTemplateCategorySubCategory(siteRoot, "feature", "product-detail");
         } catch (RepositoryException ex) {
             log.error("Could not get shopHome page", ex);
         }
@@ -91,19 +91,9 @@ public class ProductTeaserModel extends InternalTeaserModel {
     }
 
     public String getProductDetailPageLink() throws RepositoryException {
-        String categoryUUID = NodeDataUtil.getString(content, "productCategoryUUID");
         Content product = this.getProduct();
         if (product != null) {
-            Content detailPage = STKUtil.getContentByTemplateCategorySubCategory(
-                    siteRoot, "feature", "productDetail");
-
-            String selector = ShopLinkUtil.createProductSelector(product);
-
-            if (StringUtils.isNotEmpty(categoryUUID)) {
-                Content category = new I18nContentWrapper(ContentUtil.getContentByUUID("data", categoryUUID));
-                selector = ShopLinkUtil.createProductAndProductCategorySelector(product, category);
-            }
-            return ShopLinkUtil.createLinkFromContentWithSelectors(detailPage, selector);
+            return ShopLinkUtil.getProductDetailPageLink(product, siteRoot);
         }
         return "";
     }

@@ -40,7 +40,6 @@ import info.magnolia.module.shop.accessors.ShopProductAccesor;
 import info.magnolia.module.shop.util.CustomDataUtil;
 import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.shop.util.ShopUtil;
-import info.magnolia.module.shop.util.ShopLinkUtil.ParamType;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -49,7 +48,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Search product listitng.
+ * Search product listing.
  * @author tmiyar
  *
  */
@@ -73,11 +72,11 @@ public class ProductListTypeSearch extends AbstractProductListType {
     @Override
     public List<Content> getResult() {
         List<Content> searchResult = new ArrayList<Content>();
-        String queryString = generateSimpleQuery(this.getQueryStr());
-        if (StringUtils.isBlank(queryString)){
+        String queryStr = this.getQueryStr();
+        if (StringUtils.isEmpty(queryStr)){
             return searchResult;
         }
-        
+        String queryString = generateSimpleQuery(queryStr);
         searchResult = (List<Content>) QueryUtil.query(getRepository(), queryString );
         
         return searchResult;
@@ -109,10 +108,6 @@ public class ProductListTypeSearch extends AbstractProductListType {
     public String getTitle() {
         return ShopUtil.getMessages().getWithDefault("productList.search", new Object[]{getQueryStr()}, "");
     }
-
-    @Override
-    public String getListType() {
-        return ParamType.SEARCH.name();
-    }    
+ 
 
 }

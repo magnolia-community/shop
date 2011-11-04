@@ -36,7 +36,6 @@ package info.magnolia.module.shop.util;
 import info.magnolia.cms.core.Content;
 import info.magnolia.module.shop.accessors.ShopAccesor;
 import info.magnolia.module.shop.accessors.ShopProductAccesor;
-import info.magnolia.module.shop.accessors.ShopProductCategoryAccesor;
 import info.magnolia.module.shop.accessors.TagAccesor;
 
 /**
@@ -45,10 +44,6 @@ import info.magnolia.module.shop.accessors.TagAccesor;
  *
  */
 public class CustomDataUtil {
-    
-    public static Content getProductCategoryNode(String name) throws Exception {
-        return new ShopProductCategoryAccesor(name).getNode();
-    }
   
     public static Content getProductNode(String name) throws Exception {
         return new ShopProductAccesor(name).getNode();

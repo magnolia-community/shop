@@ -51,6 +51,7 @@ import info.magnolia.cms.core.ItemType;
 import info.magnolia.cms.i18n.I18nContentWrapper;
 import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.NodeDataUtil;
+import info.magnolia.cms.util.SelectorUtil;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.dms.beans.Document;
 import info.magnolia.module.shop.ShopConfiguration;
@@ -58,15 +59,11 @@ import info.magnolia.module.shop.accessors.ShopAccesor;
 import info.magnolia.module.shop.beans.CartItemOption;
 import info.magnolia.module.shop.beans.ShoppingCart;
 import info.magnolia.module.shop.search.AbstractProductListType;
-import info.magnolia.module.shop.search.DefaultProductListType;
 import info.magnolia.module.shop.search.ProductListTypeCategory;
-import info.magnolia.module.shop.search.ProductListTypeSearch;
-import info.magnolia.module.shop.search.ProductListTypeTag;
 import info.magnolia.module.shop.util.CustomDataUtil;
 import info.magnolia.module.shop.util.ShopProductPager;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.shop.util.ShopLinkUtil;
-import info.magnolia.module.shop.util.ShopLinkUtil.ParamType;
 import info.magnolia.module.templating.RenderableDefinition;
 import info.magnolia.module.templating.RenderingModel;
 import info.magnolia.module.templatingkit.navigation.LinkImpl;
@@ -88,7 +85,7 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
 
     private Content siteRoot = null;
     private RenderingModel parent = null;
-    private AbstractProductListType productListType = null;
+    protected AbstractProductListType productListType = null;
 
     public ShopParagraphModel(Content content, RenderableDefinition definition,
             RenderingModel parent) {
@@ -123,19 +120,8 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
         return "";
     }
 
-    private void init() {
-        if (ShopLinkUtil.isParamOfType(ParamType.CATEGORY)) {
+    protected void init() {
             productListType = new ProductListTypeCategory(siteRoot, content);
-
-        } else if (ShopLinkUtil.isParamOfType(ParamType.SEARCH)) {
-            productListType = new ProductListTypeSearch(siteRoot, content);
-
-        } else if (ShopLinkUtil.isParamOfType(ParamType.TAG)) {
-            productListType = new ProductListTypeTag(siteRoot, content);
-        } else {
-            productListType = new DefaultProductListType(siteRoot, content);
-        }
-
     }
 
     public void resetShoppingCart() {
@@ -145,7 +131,7 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
         ShopUtil.setShoppingCartInSession();
     }
 
-    private void addToCart() {
+    protected void addToCart() {
         String quantityString = MgnlContext.getParameter("quantity");
         int quantity = 1;
         try {
@@ -158,14 +144,13 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
         }
         // get all options
         Iterator keysIter = MgnlContext.getParameters().keySet().iterator();
-        HashMap<String,CartItemOption> options = new HashMap();
-        String currKey, optionSetUUID, optionUUID;
+        HashMap<String,CartItemOption> options = new HashMap<String,CartItemOption>();
+        String currKey, optionUUID;
         Content optionNode, optionSetNode;
         CartItemOption cio;
         while (keysIter.hasNext()) {
             currKey = (String) keysIter.next();
             if (currKey.startsWith("option_")) {
-                optionSetUUID = StringUtils.substringAfter(currKey, "option_");
                 optionUUID = MgnlContext.getParameter(currKey);
                 optionNode = ContentUtil.getContentByUUID("data", optionUUID);
                 if (optionNode != null) {
@@ -208,39 +193,24 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
         return productListType.getPager();
     }
 
-    /**
-     * Gets the category selected from the url, using selector.
-     * 
-     */
-    public Content getCategory() {
-        String productCategoryUUID = ShopLinkUtil.getSelectedCategoryUUID();
-        if (StringUtils.isNotEmpty(productCategoryUUID)) {
-            Content node = ContentUtil.getContentByUUID("data",
-                    productCategoryUUID);
-            if (!node.isNodeType("product")) {
-                return new I18nContentWrapper(node);
-            }
-        }
-        return null;
-    }
-
+    
     /**
      * Gets product selected from the url, using selector.
      * 
      */
     public Content getProduct() {
 
-        String productName = ShopLinkUtil.getParamValue(ParamType.PRODUCT);
-
-        if (StringUtils.isNotEmpty(productName)) {
             Content product;
             try {
-                product = CustomDataUtil.getProductNode(productName);
-                return new I18nContentWrapper(product);
+                String productId = SelectorUtil.getSelector(2);
+                if(StringUtils.isNotEmpty(productId)){
+                    product = CustomDataUtil.getProductNode(productId);
+                    return new I18nContentWrapper(product);
+                }
             } catch (Exception e) {
                 //item not found
             }
-        }
+     
         return null;
     }
 
@@ -276,13 +246,13 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
         }
     }
 
-    public Collection getOptionSets(Content product) {
-        ArrayList optionSets = new ArrayList(product.getChildren(new ItemType("shopProductOptions")));
+    public Collection<Content> getOptionSets(Content product) {
+        ArrayList<Content> optionSets = new ArrayList<Content>(product.getChildren(new ItemType("shopProductOptions")));
         return ShopUtil.transformIntoI18nContentList(optionSets);
     }
 
-    public Collection getOptions(Content option) {
-        ArrayList options = new ArrayList(option.getChildren(new ItemType("shopProductOption")));
+    public Collection<Content> getOptions(Content option) {
+        ArrayList<Content> options = new ArrayList<Content>(option.getChildren(new ItemType("shopProductOption")));
         return ShopUtil.transformIntoI18nContentList(options);
     }
     
@@ -303,7 +273,7 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
             String priceCategoryUUID) {
         Content pricesNode = ContentUtil.getContent(product, "prices");
         if (pricesNode.hasChildren()) {
-            for (Iterator iterator = pricesNode.getChildren().iterator(); iterator
+            for (Iterator<Content> iterator = pricesNode.getChildren().iterator(); iterator
                     .hasNext();) {
                 Content price = new I18nContentWrapper((Content) iterator
                         .next());
@@ -324,7 +294,7 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
         Content shoppingCartPage;
         try {
             shoppingCartPage = STKUtil.getContentByTemplateCategorySubCategory(
-                    siteRoot, "feature", "shopShoppingCart");
+                    siteRoot, "feature", "shopping-cart");
             return new LinkImpl(shoppingCartPage).getHref();
         } catch (RepositoryException e) {
             log.error("Cant get shopping cart page", e);
@@ -340,16 +310,16 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
         Content dmsFolder = STKUtil.getReferencedContent(product,
                 "imageDmsUUID", "dms");
         if (dmsFolder == null) {
-            return new ArrayList();
+            return new ArrayList<String>();
         }
-        List<String> keys = new ArrayList();
+        List<String> keys = new ArrayList<String>();
         try {
             dmsFolder = dmsFolder.getParent();
 
-            Collection children = dmsFolder.getChildren(ItemType.CONTENTNODE);
+            Collection<Content> children = dmsFolder.getChildren(ItemType.CONTENTNODE);
 
-            for (Iterator iterator = children.iterator(); iterator.hasNext();) {
-                Content imageNode = (Content) iterator.next();
+            for (Iterator<Content> iterator = children.iterator(); iterator.hasNext();) {
+                Content imageNode = iterator.next();
                 if (showImage(new Document(imageNode))) {
                     keys.add(imageNode.getUUID());
                 }
@@ -367,14 +337,6 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
         } catch (RepositoryException e) {
             return "";
         }
-    }
-    
-    public String getTitle() {
-        return productListType.getTitle();
-    }
-    
-    public String getListType() {
-        return productListType.getListType();
     }
 
 }

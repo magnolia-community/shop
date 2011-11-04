@@ -31,48 +31,34 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.navigation;
+package info.magnolia.module.shop.paragraphs;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import javax.jcr.RepositoryException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import info.magnolia.cms.core.Content;
-import info.magnolia.cms.util.ContentUtil;
-import info.magnolia.module.shop.accessors.ShopProductCategoryAccesor;
-import info.magnolia.module.shop.util.ShopUtil;
+import info.magnolia.module.shop.search.ProductListTypeSearch;
+import info.magnolia.module.templating.RenderableDefinition;
+import info.magnolia.module.templating.RenderingModel;
 
 /**
- * Gets navigation items from data module.
+ * Displays the result for product search.
+ * 
  * @author tmiyar
- *
+ * 
  */
-public class ProductCategoryNavigationModel {
+public class ShopProductSearchResultParagraphModel extends ShopParagraphModel {
 
-  private String currentShop;
+    private static Logger log = LoggerFactory
+            .getLogger(ShopProductSearchResultParagraphModel.class);
 
-  public ProductCategoryNavigationModel(String currentShop) {
-    this.currentShop = currentShop;
-  }
-
-  public List<ProductCategoryNavigationItem> getItems()
-      throws RepositoryException {
-
-    List<ProductCategoryNavigationItem> items = new ArrayList<ProductCategoryNavigationItem>();
-    Content productCategoriesNode = ContentUtil.getContent("data", ShopUtil.getPath(ShopProductCategoryAccesor.SHOP_PRODUCTCATEGORIES_FOLDER,
-        currentShop));
-    if(productCategoriesNode != null) {
-        Collection<Content> productCategories = productCategoriesNode.getChildren("shopProductCategory");
-        int level = productCategoriesNode.getLevel();
-        for (Content child : productCategories) {
-    
-          items.add(new ProductCategoryNavigationItem(child, level));
-    
-        }
+    public ShopProductSearchResultParagraphModel(Content content,
+            RenderableDefinition definition, RenderingModel parent) {
+        super(content, definition, parent);
     }
-    return items;
-  }
 
+    protected void init() {
+        productListType = new ProductListTypeSearch(getSiteRoot(), content);
+    }
+    
 }

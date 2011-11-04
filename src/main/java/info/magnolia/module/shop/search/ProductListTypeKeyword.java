@@ -34,66 +34,45 @@
 package info.magnolia.module.shop.search;
 
 import info.magnolia.cms.core.Content;
-import info.magnolia.cms.core.NodeData;
-import info.magnolia.cms.util.ContentUtil;
+import info.magnolia.cms.util.SelectorUtil;
+import info.magnolia.context.MgnlContext;
+import info.magnolia.module.shop.util.CustomDataUtil;
+import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.shop.util.ShopUtil;
-import info.magnolia.module.templating.MagnoliaTemplatingUtilities;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
-import javax.jcr.RepositoryException;
-
 /**
- * Product list for the current offers if no productcategory selected yet.
+ * Product list of type category/tag when clicking on categories comming from categorization module.
  * @author tmiyar
  *
  */
-public class DefaultProductListType extends AbstractProductListType {
+public class ProductListTypeKeyword extends AbstractProductListType {
 
-    public DefaultProductListType(Content siteRoot, Content content) {
+    public ProductListTypeKeyword(Content siteRoot, Content content) {
         super(siteRoot, content);
     }
 
     @Override
     protected String getPagerLink() {
-        return MagnoliaTemplatingUtilities.getInstance().createLink(getContent());
+        Content currentPage = MgnlContext.getAggregationState().getMainContent();
+        return ShopLinkUtil.createLinkFromContentWithSelectors(currentPage, SelectorUtil.getSelector());
     }
 
     @Override
     public List<Content> getResult() {
-        List<Content> productList = new ArrayList<Content>();
-        Content currentOffers = ContentUtil.getContent(getContent(), "currentOffers");
-        if (currentOffers != null) {
-          Collection<NodeData> offers = currentOffers.getNodeDataCollection();
-          for (Iterator<NodeData> iterator = offers.iterator(); iterator.hasNext();) {
-            NodeData producUuidNodeData = (NodeData) iterator.next();
-            Content productNode = ContentUtil.getContentByUUID("data",
-                producUuidNodeData.getString());
-            try {
-              if (productNode != null
-                      && productNode.getItemType().getSystemName().equals("shopProduct")
-                      && ShopUtil.getShopName().equals(productNode.getAncestor(2).getName())) {
-                  productList.add(productNode);
-              }
-            } catch (RepositoryException e) {
-  
-            }
-          } //end for
-        } //end else
-        return productList;
+        String tagName = "";
+        try {
+            Content tagNode = CustomDataUtil.getTagNode(tagName);
+            return (List<Content>)ShopUtil.findTaggedProducts(tagNode.getUUID());
+        } catch (Exception e) {
+            //TODO
+        }
+        return null;
     }
 
     @Override
     public String getTitle() {
-        return ShopUtil.getMessages().get("productList.currentOffers");
+        return ShopUtil.getMessages().getWithDefault("productList.tag", new Object[]{""}, "");
     }
-
-    @Override
-    public String getListType() {
-        return "default";
-    }
-
 }

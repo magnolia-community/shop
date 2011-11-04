@@ -41,16 +41,10 @@ import java.util.List;
 import javax.jcr.RepositoryException;
 
 import info.magnolia.cms.core.Content;
-import info.magnolia.cms.i18n.I18nContentWrapper;
 import info.magnolia.cms.util.NodeDataUtil;
 import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
-import info.magnolia.module.shop.navigation.ProductCategoryNavigationModel;
-import info.magnolia.module.shop.util.CustomDataUtil;
-import info.magnolia.module.shop.util.ShopLinkImpl;
-import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.shop.util.ShopUtil;
-import info.magnolia.module.shop.util.ShopLinkUtil.ParamType;
 import info.magnolia.module.templating.RenderingModel;
 import info.magnolia.module.templatingkit.navigation.Link;
 import info.magnolia.module.templatingkit.navigation.LinkImpl;
@@ -76,10 +70,6 @@ public class ShopSingletonParagraphTemplateModel extends SingletonParagraphTempl
         super(content, definition, parent);
     }
 
-  public ProductCategoryNavigationModel getProductCategoryNavigation() {
-    return new ProductCategoryNavigationModel(getCurrentShopName());
-  }
-
     @Override
     public String execute() {
         MgnlContext.setAttribute(ShopUtil.ATTRIBUTE_SHOPNAME, getCurrentShopName(),
@@ -100,28 +90,6 @@ public class ShopSingletonParagraphTemplateModel extends SingletonParagraphTempl
 
   public Collection<Link> getBreadcrumb() throws RepositoryException {
     List<Link> items = new ArrayList<Link>();
-
-    // add family
-    String name = ShopLinkUtil.getParamValue(ParamType.CATEGORY);
-    if (StringUtils.isNotEmpty(name)) {
-      Content dataNode;
-        try {
-            dataNode = CustomDataUtil.getProductCategoryNode(name);
-        
-            if (dataNode != null) {
-                Content node = new I18nContentWrapper(dataNode);
-                Content shopNode = CustomDataUtil.getShopNode(ShopUtil.getShopName());
-           
-                while (node.getLevel() > shopNode.getLevel()) {
-                  items.add(new ShopLinkImpl(node));
-                  node = node.getParent();
-                } //while
-        
-            }//if
-        } catch (Exception e) {
-            //do nothing
-        }
-    }//if
     
     // add website nodes
     Content root = getSiteRoot();
@@ -139,10 +107,6 @@ public class ShopSingletonParagraphTemplateModel extends SingletonParagraphTempl
 
     Collections.reverse(items);
     return items;
-  }
-
-  public String getCategoryLink(Content category) {
-    return ShopLinkUtil.getProductCategoryLink(category);
   }
 
 }

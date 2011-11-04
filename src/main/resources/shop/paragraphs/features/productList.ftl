@@ -5,7 +5,6 @@
 [#include "/templating-kit/paragraphs/macros/pagination.ftl"]
 
 
-[#assign category=model.category!]
 [#assign pager=model.pager!]
 [#assign productList = pager.pageItems!]
 
@@ -16,19 +15,14 @@
 [/#if]
 
 [#-- Rendering Part --]
-<div id="page-intro">
-	<h1>
-	[#if model.listType != "default"]
-		<em>${count} ${(count>1)?string(i18n['productList.products.found'],i18n['productList.product.found'])}</em>
-	[/#if]
-		${model.title!}
-	</h1>
-</div>
+
 <div class="${divClass}" ${divID} >
 	[@cms.editBar /]
 		
 	[#-- Macro: Pager --]
 	[@pagination pager "top" /]
+	
+	<em>${count} ${(count>1)?string(i18n['productList.products.found'],i18n['productList.product.found'])}</em>
 	
 	[@productListMacro productList=productList/]
 </div>

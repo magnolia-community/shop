@@ -10,7 +10,7 @@
     <sv:value>c1583908-0e18-45de-bf56-65b0b19461c7</sv:value>
   </sv:property>
   <sv:property sv:name="description" sv:type="String">
-    <sv:value>shoping cart</sv:value>
+    <sv:value>paragraphs.extras.shopExtrasCart.description</sv:value>
   </sv:property>
   <sv:property sv:name="dialog" sv:type="String">
     <sv:value>shopEmpty</sv:value>
@@ -25,7 +25,7 @@
     <sv:value>/shop/paragraphs/extras/cart.ftl</sv:value>
   </sv:property>
   <sv:property sv:name="title" sv:type="String">
-    <sv:value>shopping cart</sv:value>
+    <sv:value>paragraphs.extras.shopExtrasCart.title</sv:value>
   </sv:property>
   <sv:property sv:name="type" sv:type="String">
     <sv:value>stk</sv:value>
@@ -44,7 +44,7 @@
       <sv:value>2008-10-10T14:55:27.084+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2011-03-22T10:42:47.612+01:00</sv:value>
+      <sv:value>2011-11-03T11:34:29.307+01:00</sv:value>
     </sv:property>
   </sv:node>
   <sv:node sv:name="parameters">

@@ -49,7 +49,6 @@ import info.magnolia.context.MgnlContext;
 import info.magnolia.module.data.save.DataSaveHandler;
 import info.magnolia.module.shop.accessors.ShopAccesor;
 import info.magnolia.module.shop.accessors.ShopProductAccesor;
-import info.magnolia.module.shop.accessors.ShopProductCategoryAccesor;
 import info.magnolia.module.shop.util.ShopUtil;
 
 /**
@@ -118,7 +117,6 @@ public class ShopSaveHandler extends DataSaveHandler {
         addShopSubMenu(menuNode, "taxCategories", icon, "MgnlAdminCentral.showTree('shop', '" + ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, newShopNode.getName(), "taxCategories") +"', true);", "menu.taxCategories");
         addShopSubMenu(menuNode, "currencies", icon, "MgnlAdminCentral.showTree('shop', '" + ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, newShopNode.getName(), "currencies") +"', true);", "menu.currencies");
         addShopSubMenu(menuNode, "priceCategories", icon, "MgnlAdminCentral.showTree('shop', '" + ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, newShopNode.getName(), "priceCategories") +"', true);", "menu.priceCategories");
-        addShopSubMenu(menuNode, "productCategories", icon, "MgnlAdminCentral.showTree('shopProductCategory', '" + ShopUtil.getPath( ShopProductCategoryAccesor.SHOP_PRODUCTCATEGORIES_FOLDER, newShopNode.getName()) +"', true);", "menu.productCategories");
         addShopSubMenu(menuNode, "products", icon, "MgnlAdminCentral.showTree('shopProduct', '" + ShopUtil.getPath(ShopProductAccesor.SHOP_PRODUCTS_FOLDER, newShopNode.getName()) +"', true);", "menu.products");
         menuNode.getParent().orderBefore(menuNode.getName(), "shops");
         menuNode.getParent().save();

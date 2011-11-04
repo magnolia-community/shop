@@ -39,6 +39,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
+import info.magnolia.cms.beans.config.ContentRepository;
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.i18n.I18nContentSupportFactory;
 import info.magnolia.cms.i18n.I18nContentWrapper;
@@ -46,6 +47,7 @@ import info.magnolia.cms.i18n.Messages;
 import info.magnolia.cms.i18n.MessagesManager;
 import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.NodeDataUtil;
+import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.shop.ShopConfiguration;
@@ -97,6 +99,18 @@ public class ShopUtil {
         log.error("No template found with subcategory shopHome");
         return null;
     }
+    
+    public static Content getShopRootByShopName(String shopName) {
+        
+         Collection<Content> shops = QueryUtil.query(ContentRepository.WEBSITE, "select * from mgnl:content where currentShop='" 
+                 + shopName + "'");
+         if(!shops.isEmpty()) {
+             return shops.iterator().next();
+         }
+        log.error("No shop found with name " + shopName);
+        return null;
+    }
+
 
     public static Messages getMessages() {
         Locale currentLocale = I18nContentSupportFactory.getI18nSupport().getLocale();
@@ -175,8 +189,10 @@ public class ShopUtil {
 
     public static List<Content> transformIntoI18nContentList(List<Content> contentList) {
         List<Content> i18nProductList = new ArrayList<Content>();
-        for (Content content : contentList) {
-            i18nProductList.add(new I18nContentWrapper(content));
+        if(contentList != null) {
+            for (Content content : contentList) {
+                i18nProductList.add(new I18nContentWrapper(content));
+            }
         }
         return i18nProductList;
     }

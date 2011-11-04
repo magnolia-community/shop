@@ -131,37 +131,6 @@
       </sv:property>
     </sv:node>
   </sv:node>
-  <sv:node sv:name="productCategories">
-    <sv:property sv:name="jcr:primaryType" sv:type="Name">
-      <sv:value>mgnl:contentNode</sv:value>
-    </sv:property>
-    <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
-      <sv:value>mix:lockable</sv:value>
-    </sv:property>
-    <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>15a90ec2-be9a-4575-a60d-196536e3084c</sv:value>
-    </sv:property>
-    <sv:property sv:name="i18nBasename" sv:type="String">
-      <sv:value>info.magnolia.module.shop.messages</sv:value>
-    </sv:property>
-    <sv:property sv:name="icon" sv:type="String">
-      <sv:value>/.resources/icons/16/dot.gif</sv:value>
-    </sv:property>
-    <sv:property sv:name="label" sv:type="String">
-      <sv:value>menu.productCategories</sv:value>
-    </sv:property>
-    <sv:property sv:name="onclick" sv:type="String">
-      <sv:value>MgnlAdminCentral.showTree('shopProductCategory', '/shopProductCategories/sampleShop', true);</sv:value>
-    </sv:property>
-    <sv:node sv:name="MetaData">
-      <sv:property sv:name="jcr:primaryType" sv:type="Name">
-        <sv:value>mgnl:metaData</sv:value>
-      </sv:property>
-      <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-        <sv:value>2011-08-30T14:22:55.090+02:00</sv:value>
-      </sv:property>
-    </sv:node>
-  </sv:node>
   <sv:node sv:name="products">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>mgnl:contentNode</sv:value>

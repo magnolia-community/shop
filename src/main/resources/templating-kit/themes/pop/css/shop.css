@@ -123,6 +123,12 @@
 .form-wrapper div {
     clear: none;
 }
+
+
+#shop #main .text ol {
+margin-left: 0px;
+}
+
 .form-wrapper div.navigation-button-wrapper {
   width: 100%;
 }

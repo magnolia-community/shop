@@ -337,22 +337,16 @@
         <sv:value>175b3119-8b33-4862-a8b5-c189a6126626</sv:value>
       </sv:property>
       <sv:property sv:name="controlType" sv:type="String">
-        <sv:value>shopQueryCheckbox</sv:value>
+        <sv:value>info.magnolia.module.shop.dialog.ProductCategoryQueryDialogButtonSet</sv:value>
       </sv:property>
       <sv:property sv:name="description" sv:type="String">
         <sv:value>data.dialogs.shopProduct.productCategoriesTab.productCategoryUUIDs.description</sv:value>
-      </sv:property>
-      <sv:property sv:name="itemType" sv:type="String">
-        <sv:value>shopProductCategory</sv:value>
       </sv:property>
       <sv:property sv:name="label" sv:type="String">
         <sv:value>data.dialogs.shopProduct.productCategoriesTab.productCategoryUUIDs.label</sv:value>
       </sv:property>
       <sv:property sv:name="labelNodeData" sv:type="String">
         <sv:value>title</sv:value>
-      </sv:property>
-      <sv:property sv:name="repository" sv:type="String">
-        <sv:value>data</sv:value>
       </sv:property>
       <sv:property sv:name="valueNodeData" sv:type="String">
         <sv:value>uuid</sv:value>
@@ -377,7 +371,7 @@
           <sv:value>2010-03-16T15:52:38.956+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-10-21T07:51:31.988+02:00</sv:value>
+          <sv:value>2011-10-28T11:16:28.120+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>

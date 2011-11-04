@@ -5,7 +5,6 @@
 [#assign maxImages = content.maxImages!6]
 
 [#assign product = model.product!]
-[#assign category=model.category!]
 
 [#if product?has_content]
 	[#assign asset = stk.getAsset(product, 'image')!]
@@ -23,7 +22,7 @@
 	${i18n['edit.product']}</a>
 	[/#if]
 	[#-- Rendering Part --]
-	<h1>[#if category?has_content]<em>${category.title}</em>[/#if]
+	<h1>
 	    ${productTitle}
 	</h1>
 	<div class="${divClass}" ${divID}>

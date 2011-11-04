@@ -19,7 +19,7 @@
     <sv:value>info.magnolia.module.templatingkit.templates.STKTemplate</sv:value>
   </sv:property>
   <sv:property sv:name="dialog" sv:type="String">
-    <sv:value>shopEmpty</sv:value>
+    <sv:value>stkSectionProperties</sv:value>
   </sv:property>
   <sv:property sv:name="i18nBasename" sv:type="String">
     <sv:value>info.magnolia.module.shop.messages</sv:value>
@@ -53,7 +53,7 @@
       <sv:value>2008-09-23T16:56:46.344+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2011-06-06T08:09:47.366+02:00</sv:value>
+      <sv:value>2011-11-03T11:39:01.740+01:00</sv:value>
     </sv:property>
   </sv:node>
   <sv:node sv:name="header">
@@ -160,9 +160,6 @@
       </sv:property>
       <sv:property sv:name="level" sv:type="Long">
         <sv:value>10</sv:value>
-      </sv:property>
-      <sv:property sv:name="template" sv:type="String">
-        <sv:value>/shop/templates/global/verticalNavigation.ftl</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -409,7 +406,10 @@
       <sv:property sv:name="jcr:uuid" sv:type="String">
         <sv:value>81384fdb-b7e1-438c-87ea-c660954739b0</sv:value>
       </sv:property>
-      <sv:property sv:name="enabled" sv:type="String">
+      <sv:property sv:name="dialog" sv:type="String">
+        <sv:value>stkSectionHeader</sv:value>
+      </sv:property>
+      <sv:property sv:name="showTextFeatures" sv:type="String">
         <sv:value>false</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -426,7 +426,7 @@
           <sv:value>2009-03-08T21:13:53.091+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-04-14T11:20:38.433+02:00</sv:value>
+          <sv:value>2011-11-03T13:58:41.388+01:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>

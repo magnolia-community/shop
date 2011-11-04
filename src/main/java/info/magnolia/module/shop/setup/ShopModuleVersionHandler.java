@@ -92,7 +92,6 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
     installTasks.add(new RegisterNodeTypeTask("shopPriceCategories"));
     installTasks.add(new RegisterNodeTypeTask("shopPriceCategory"));
     installTasks.add(new RegisterNodeTypeMultipleTask("shopProduct"));
-    installTasks.add(new RegisterNodeTypeTask("shopProductCategory"));
     installTasks.add(new RegisterNodeTypeTask("shopProductOptions"));
     installTasks.add(new RegisterNodeTypeTask("shopProductOption"));
     installTasks.add(new RegisterNodeTypeTask("shopTaxCategories"));
@@ -107,7 +106,6 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
     installTasks.addAll(super.getExtraInstallTasks(installContext));
     installTasks.add(new TemplatesInstallTask("/shop/.*\\.ftl", true));
     installTasks.add(new AddMainMenuItemTask("shops", "menu.shops", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shop')", "/.resources/icons/24/shoppingcart.gif", "data"));
-    installTasks.add(new AddSubMenuItemTask("shops", "shopProductCategory", "menu.productCategories", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shopProductCategory')", "/.resources/icons/16/dot.gif"));
     installTasks.add(new AddSubMenuItemTask("shops", "shoppingCarts", "menu.carts", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shoppingCarts')", "/.resources/icons/16/dot.gif"));
     installTasks.add(new IsInstallSamplesTask("","", new OrderNodeBeforeTask("","", ContentRepository.CONFIG, "/modules/adminInterface/config/menu/sampleShop", "shops")));
     installTasks.add(new InstallResourcesTask("/templating-kit/themes/pop/css/shop.css", "processedCss", STKResourceModel.class.getName()));
@@ -123,8 +121,14 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                       addProperty("name", "shopFormStep")),
                   addNode("shopFormStepConfirmOrder", ItemType.CONTENTNODE).then(
                       addProperty("name", "shopFormStepConfirmOrder")),
-                  addNode("shopHome", ItemType.CONTENTNODE).then(
-                      addProperty("name", "shopHome")),
+                  addNode("shopSection", ItemType.CONTENTNODE).then(
+                      addProperty("name", "shopSection")),
+                  addNode("shopProductCategory", ItemType.CONTENTNODE).then(
+                      addProperty("name", "shopProductCategory")),
+                  addNode("shopProductKeywordResult", ItemType.CONTENTNODE).then(
+                      addProperty("name", "shopProductKeywordResult")),
+                  addNode("shopProductSearchResult", ItemType.CONTENTNODE).then(
+                      addProperty("name", "shopProductSearchResult")),
                   addNode("shopProductDetail", ItemType.CONTENTNODE).then(
                       addProperty("name", "shopProductDetail")),
                   addNode("shopShoppingCart", ItemType.CONTENTNODE).then(

@@ -39,7 +39,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import info.magnolia.module.shop.util.ShopUtil;
-import info.magnolia.module.shop.util.ShopLinkUtil.ParamType;
 import info.magnolia.module.templating.MagnoliaTemplatingUtilities;
 import info.magnolia.module.templating.RenderableDefinition;
 import info.magnolia.module.templating.RenderingModel;
@@ -91,7 +90,7 @@ public class ShopTagCloudParagraph extends RenderingModelImpl {
         if(productListPage != null) {
             link = MagnoliaTemplatingUtilities.getInstance().createLink(productListPage)
             .replace(".html",
-                "." + ParamType.TAG + "." + tagName + ".html");
+                "." + tagName + ".html");
         }
         
         return link;

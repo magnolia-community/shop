@@ -10,7 +10,7 @@
     <sv:value>a521fa0b-7366-43c5-9e57-b79ffd11710f</sv:value>
   </sv:property>
   <sv:property sv:name="bodyID" sv:type="String">
-    <sv:value/>
+    <sv:value>shop</sv:value>
   </sv:property>
   <sv:property sv:name="category" sv:type="String">
     <sv:value>feature</sv:value>
@@ -19,7 +19,7 @@
     <sv:value>info.magnolia.module.templatingkit.templates.STKTemplate</sv:value>
   </sv:property>
   <sv:property sv:name="dialog" sv:type="String">
-    <sv:value>shopEmpty</sv:value>
+    <sv:value>stkSectionProperties</sv:value>
   </sv:property>
   <sv:property sv:name="i18nBasename" sv:type="String">
     <sv:value>info.magnolia.module.shop.messages</sv:value>
@@ -28,7 +28,7 @@
     <sv:value>info.magnolia.module.shop.templates.ShopSingletonParagraphTemplateModel</sv:value>
   </sv:property>
   <sv:property sv:name="subcategory" sv:type="String">
-    <sv:value>shopShoppingCart</sv:value>
+    <sv:value>shopping-cart</sv:value>
   </sv:property>
   <sv:property sv:name="title" sv:type="String">
     <sv:value>templates.shopShoppingCart.title</sv:value>
@@ -53,7 +53,7 @@
       <sv:value>2008-09-23T16:56:46.344+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2011-06-06T08:08:41.000+02:00</sv:value>
+      <sv:value>2011-11-03T10:58:11.509+01:00</sv:value>
     </sv:property>
   </sv:node>
   <sv:node sv:name="header">
@@ -160,9 +160,6 @@
       </sv:property>
       <sv:property sv:name="level" sv:type="Long">
         <sv:value>10</sv:value>
-      </sv:property>
-      <sv:property sv:name="template" sv:type="String">
-        <sv:value>/shop/templates/global/verticalNavigation.ftl</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -407,9 +404,12 @@
         <sv:value>mix:lockable</sv:value>
       </sv:property>
       <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>f50492e6-7261-4bef-9b80-8f4e7f7ceb67</sv:value>
+        <sv:value>c5454653-cf61-4025-827d-1d40ec47b326</sv:value>
       </sv:property>
-      <sv:property sv:name="enabled" sv:type="String">
+      <sv:property sv:name="dialog" sv:type="String">
+        <sv:value>stkSectionHeader</sv:value>
+      </sv:property>
+      <sv:property sv:name="showTextFeatures" sv:type="String">
         <sv:value>false</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -426,61 +426,8 @@
           <sv:value>2009-03-08T21:13:53.091+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-03-22T10:38:24.133+01:00</sv:value>
+          <sv:value>2011-11-03T13:57:57.510+01:00</sv:value>
         </sv:property>
-      </sv:node>
-    </sv:node>
-    <sv:node sv:name="paragraphs">
-      <sv:property sv:name="jcr:primaryType" sv:type="Name">
-        <sv:value>mgnl:contentNode</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
-        <sv:value>mix:lockable</sv:value>
-      </sv:property>
-      <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>116d0037-6c35-4e2d-b28c-1c4ffa1d37cf</sv:value>
-      </sv:property>
-      <sv:node sv:name="MetaData">
-        <sv:property sv:name="jcr:primaryType" sv:type="Name">
-          <sv:value>mgnl:metaData</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:authorid" sv:type="String">
-          <sv:value>superuser</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-          <sv:value>2011-03-30T11:03:56.743+02:00</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-03-30T11:04:15.322+02:00</sv:value>
-        </sv:property>
-      </sv:node>
-      <sv:node sv:name="form">
-        <sv:property sv:name="jcr:primaryType" sv:type="Name">
-          <sv:value>mgnl:contentNode</sv:value>
-        </sv:property>
-        <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
-          <sv:value>mix:lockable</sv:value>
-        </sv:property>
-        <sv:property sv:name="jcr:uuid" sv:type="String">
-          <sv:value>50e96d14-30e2-4c47-9c7a-012ca267bd04</sv:value>
-        </sv:property>
-        <sv:property sv:name="name" sv:type="String">
-          <sv:value>form</sv:value>
-        </sv:property>
-        <sv:node sv:name="MetaData">
-          <sv:property sv:name="jcr:primaryType" sv:type="Name">
-            <sv:value>mgnl:metaData</sv:value>
-          </sv:property>
-          <sv:property sv:name="mgnl:authorid" sv:type="String">
-            <sv:value>superuser</sv:value>
-          </sv:property>
-          <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-            <sv:value>2011-03-30T11:04:29.151+02:00</sv:value>
-          </sv:property>
-          <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-            <sv:value>2011-03-30T11:05:11.796+02:00</sv:value>
-          </sv:property>
-        </sv:node>
       </sv:node>
     </sv:node>
   </sv:node>

@@ -29,7 +29,7 @@
       <sv:value>2008-10-10T14:53:26.696+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2011-09-06T11:58:01.209+02:00</sv:value>
+      <sv:value>2011-10-26T10:49:30.903+02:00</sv:value>
     </sv:property>
   </sv:node>
   <sv:node sv:name="tabTeaser">
@@ -62,7 +62,7 @@
         <sv:value>2008-10-10T14:53:55.191+02:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-        <sv:value>2011-09-06T11:57:51.421+02:00</sv:value>
+        <sv:value>2011-10-26T10:49:30.905+02:00</sv:value>
       </sv:property>
     </sv:node>
     <sv:node sv:name="productUUID">
@@ -110,7 +110,7 @@
           <sv:value>2010-03-16T15:57:05.607+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-09-06T12:42:54.196+02:00</sv:value>
+          <sv:value>2011-10-26T10:49:30.907+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -141,7 +141,7 @@
           <sv:value>2008-10-08T15:23:21.732+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-09-06T11:57:51.423+02:00</sv:value>
+          <sv:value>2011-10-26T10:49:30.908+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -176,7 +176,7 @@
         <sv:value>2008-10-10T14:53:55.191+02:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-        <sv:value>2011-09-06T11:57:51.424+02:00</sv:value>
+        <sv:value>2011-10-26T10:49:30.908+02:00</sv:value>
       </sv:property>
     </sv:node>
     <sv:node sv:name="teaserTitle">
@@ -215,7 +215,7 @@
           <sv:value>2008-09-25T13:57:00.582+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-09-06T11:57:51.424+02:00</sv:value>
+          <sv:value>2011-10-26T10:49:30.910+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -258,7 +258,7 @@
           <sv:value>2008-09-25T13:57:00.582+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-09-06T11:57:51.424+02:00</sv:value>
+          <sv:value>2011-10-26T10:49:30.911+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -289,7 +289,7 @@
           <sv:value>2008-10-08T15:23:21.732+02:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2011-09-06T11:57:51.425+02:00</sv:value>
+          <sv:value>2011-10-26T10:49:30.911+02:00</sv:value>
         </sv:property>
       </sv:node>
     </sv:node>
@@ -321,7 +321,7 @@
         <sv:value>2008-10-08T15:23:21.732+02:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-        <sv:value>2011-09-06T11:57:51.425+02:00</sv:value>
+        <sv:value>2011-10-26T10:49:30.912+02:00</sv:value>
       </sv:property>
     </sv:node>
   </sv:node>

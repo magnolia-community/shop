@@ -31,26 +31,35 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.accessors;
+package info.magnolia.module.shop.paragraphs;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import info.magnolia.cms.core.Content;
-import info.magnolia.module.shop.util.ShopUtil;
+import info.magnolia.module.shop.search.ProductListTypeKeyword;
+import info.magnolia.module.templating.RenderableDefinition;
+import info.magnolia.module.templating.RenderingModel;
 
 /**
- * shopproduct category.
+ * Displays the result for keyword search, keywords are assigned to products
+ * EE version only.
+ * 
  * @author tmiyar
- *
+ * 
  */
-public class ShopProductCategoryAccesor extends DefaultCustomDataAccesor {
-   
-    public static String SHOP_PRODUCTCATEGORIES_FOLDER = "shopProductCategories";
-    
-    public ShopProductCategoryAccesor(String name) throws Exception {
-        super(name);
+public class ShopKeywordSearchResultParagraphModel extends ShopParagraphModel {
+
+    private static Logger log = LoggerFactory
+            .getLogger(ShopKeywordSearchResultParagraphModel.class);
+
+    public ShopKeywordSearchResultParagraphModel(Content content,
+            RenderableDefinition definition, RenderingModel parent) {
+        super(content, definition, parent);
     }
 
-    protected Content getNode(String name) throws Exception {
-        String path = ShopUtil.getPath("shopProductCategories", ShopUtil.getShopName());
-        return super.getNodeByName(path, "shopProductCategory", name);
+    protected void init() {
+            productListType = new ProductListTypeKeyword(getSiteRoot(), content);
     }
+    
 }
