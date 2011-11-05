@@ -42,7 +42,9 @@
 					  <div class="product-price-container">
 					  	<div class="product-price">
 					  		[#assign price=bean.price!]
-					  		${i18n.get('price.detail.text', [bean.currency, price])}
+					  		[#if price?has_content && bean.currency?has_content]
+						  		${i18n.get('price.detail.text', [bean.currency, price])}
+						  	[/#if]
 					  	</div>
 			    	  	<div class="product-add">
 			    	  		[@addForm product=product model=model/]

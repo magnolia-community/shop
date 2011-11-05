@@ -35,6 +35,7 @@ package info.magnolia.module.shop.paragraphs;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import org.apache.commons.lang.StringUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,63 +47,63 @@ import org.slf4j.LoggerFactory;
  * 
  */
 public class TemplateProductPriceBean {
-  
-    private static Logger log = LoggerFactory.getLogger(TemplateProductPriceBean.class);  
-  private double price;
-  private String tax;
-  private String taxIncluded;
-  private String currency;
-  private String formatting;
-  
+
+    private static Logger log = LoggerFactory.getLogger(TemplateProductPriceBean.class);
+    private double price;
+    private String tax;
+    private String taxIncluded;
+    private String currency;
+    private String formatting;
 
 
-  public String getPrice() {
-      try {
-          if(price >= 0) {
-              NumberFormat formatter = new DecimalFormat(formatting);
-              return formatter.format(price);
-          }
-      } catch (Exception e) {
-          log.error("error reading price", e);
-      }
-      return ""+price;
-  }
 
-  public void setPrice(double price) {
-    this.price = price;
-  }
+    public String getPrice() {
+        try {
+            if (price >= 0 && StringUtils.isNotBlank(formatting)) {
+                NumberFormat formatter = new DecimalFormat(formatting);
+                return formatter.format(price);
+            }
+        } catch (Exception e) {
+            log.error("error reading price", e);
+        }
+        return "" + price;
+    }
 
-  public String getTax() {
-    return tax;
-  }
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
-  public void setTax(String tax) {
-    this.tax = tax;
-  }
+    public String getTax() {
+        return tax;
+    }
 
-  public String getTaxIncluded() {
-    return taxIncluded;
-  }
+    public void setTax(String tax) {
+        this.tax = tax;
+    }
 
-  public void setTaxIncluded(String taxIncluded) {
-    this.taxIncluded = taxIncluded;
-  }
+    public String getTaxIncluded() {
+        return taxIncluded;
+    }
 
-  public String getCurrency() {
-    return currency;
-  }
+    public void setTaxIncluded(String taxIncluded) {
+        this.taxIncluded = taxIncluded;
+    }
 
-  public void setCurrency(String currency) {
-    this.currency = currency;
-  }
+    public String getCurrency() {
+        return currency;
+    }
 
-public String getFormatting() {
-    return formatting;
-}
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
 
-public void setFormatting(String formatting) {
-    this.formatting = formatting;
-}
+    public String getFormatting() {
+        return formatting;
+    }
 
-  
+    public void setFormatting(String formatting) {
+        this.formatting = formatting;
+    }
+
+
 }

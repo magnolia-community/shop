@@ -41,6 +41,7 @@ import org.slf4j.LoggerFactory;
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.i18n.I18nContentWrapper;
 import info.magnolia.cms.util.QueryUtil;
+import org.apache.jackrabbit.util.ISO9075;
 
 /**
  * CustomData interface implementation.
@@ -60,8 +61,10 @@ public abstract class DefaultCustomDataAccesor implements CustomDataAccesor {
 
     }
     protected Content getNodeByName(String rootPath, String nodeType, String name) throws Exception {
-        String sql = "select * from " + nodeType + " where jcr:path like '" + rootPath + "/%' and name = '" + name + "'";
-        Collection<Content> nodeCollection = QueryUtil.query("data", sql);
+//        String sql = "select * from " + nodeType + " where jcr:path like '" + rootPath + "/%' and name = '" + name + "'";
+        String xpath = "/jcr:root" + rootPath + "//" + ISO9075.encode(name);
+//        Collection<Content> nodeCollection = QueryUtil.query("data", sql);
+        Collection<Content> nodeCollection = QueryUtil.query("data", xpath, "xpath", nodeType);
         if(!nodeCollection.isEmpty()) {
             return new I18nContentWrapper(nodeCollection.iterator().next());
         }
