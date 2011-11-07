@@ -25,7 +25,7 @@
     <sv:value>info.magnolia.module.shop.messages</sv:value>
   </sv:property>
   <sv:property sv:name="modelClass" sv:type="String">
-    <sv:value>info.magnolia.module.templatingkit.templates.STKTemplateModel</sv:value>
+    <sv:value>info.magnolia.module.shop.templates.ShopHomeParagraphTemplateModel</sv:value>
   </sv:property>
   <sv:property sv:name="subcategory" sv:type="String">
     <sv:value>shopHome</sv:value>
@@ -53,7 +53,7 @@
       <sv:value>2008-09-23T16:56:46.344+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2011-11-02T11:44:07.651+01:00</sv:value>
+      <sv:value>2011-11-07T08:45:59.711+01:00</sv:value>
     </sv:property>
   </sv:node>
   <sv:node sv:name="header">
