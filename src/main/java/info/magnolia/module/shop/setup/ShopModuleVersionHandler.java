@@ -121,8 +121,8 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                       addProperty("name", "shopFormStep")),
                   addNode("shopFormStepConfirmOrder", ItemType.CONTENTNODE).then(
                       addProperty("name", "shopFormStepConfirmOrder")),
-                  addNode("shopSection", ItemType.CONTENTNODE).then(
-                      addProperty("name", "shopSection")),
+                  addNode("shopHome", ItemType.CONTENTNODE).then(
+                      addProperty("name", "shopHome")),
                   addNode("shopProductCategory", ItemType.CONTENTNODE).then(
                       addProperty("name", "shopProductCategory")),
                   addNode("shopProductKeywordResult", ItemType.CONTENTNODE).then(
