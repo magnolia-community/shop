@@ -18,7 +18,7 @@
 		[/#list]
 	[/#if]
 	<input value="1" name="quantity" type="text"/>
-	<input class="button" type="submit" value="Add to cart" />
+	<input class="button" type="submit" value="${i18n['add.to.cart']}" />
 	<input value="addToCart" name="command" type="hidden"/>
 	<input value="${product.@uuid}" name="product" type="hidden"/>
 </form>
