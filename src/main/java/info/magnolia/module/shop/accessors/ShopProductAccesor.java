@@ -36,6 +36,8 @@ package info.magnolia.module.shop.accessors;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.core.search.Query;
 import info.magnolia.cms.util.QueryUtil;
@@ -60,11 +62,15 @@ public class ShopProductAccesor extends DefaultCustomDataAccesor {
     }
     
     public static List<Content> getProductsByProductCategory(String productCategory) {
-        String xpath = ShopUtil.getPath("jcr:root", SHOP_PRODUCTS_FOLDER, 
-            ShopUtil.getShopName())+ "//element(*,shopProduct)[jcr:contains(productCategoryUUIDs/., '"
-            + productCategory + "')]";
-        List<Content> productList = (List<Content>) QueryUtil.query("data", xpath, Query.XPATH);
-        return ShopUtil.transformIntoI18nContentList(productList);
+        String shopName = ShopUtil.getShopName();
+            if(StringUtils.isNotEmpty(shopName)) {
+            String xpath = ShopUtil.getPath("jcr:root", SHOP_PRODUCTS_FOLDER, 
+                shopName)+ "//element(*,shopProduct)[jcr:contains(productCategoryUUIDs/., '"
+                + productCategory + "')]";
+            List<Content> productList = (List<Content>) QueryUtil.query("data", xpath, Query.XPATH);
+            return ShopUtil.transformIntoI18nContentList(productList);
+        }
+        return null;
     }
     
     public static Collection<Content> getTaggedProducts(String categoryUUID) {
