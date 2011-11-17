@@ -84,7 +84,6 @@ public class ShopSaveHandler extends DataSaveHandler {
                         shopCartsHm.getContent(node.getName(), true, ItemType.FOLDER);
                         shopCartsHm.save();
                         addFolderNodesWithShopName(hm, ShopProductAccesor.SHOP_PRODUCTS_FOLDER, node.getName());
-                        addFolderNodesWithShopName(hm, "shopProductCategories", node.getName());
                         addNewShopInMenu(node);
                     }
                     
