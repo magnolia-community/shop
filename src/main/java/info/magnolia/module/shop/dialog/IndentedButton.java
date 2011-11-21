@@ -37,16 +37,15 @@ import info.magnolia.cms.gui.control.Button;
 
 import org.apache.commons.lang.StringUtils;
 
-
 /**
- * Extends of Button class to add indentation inf front of checkboxes.
- * Adds a new td tag with the styles passed in the parameter styles.
+ * Special type of Button that adds indentation in front of checkboxes. Adds a new td tag with the styles passed in the parameter styles.
+ * 
  * @author tmiyar
- *
+ * 
  */
 public class IndentedButton extends Button {
-    private String style;
-    
+    private final String style;
+
     public IndentedButton(String style) {
         super();
         this.style = style;
@@ -57,16 +56,16 @@ public class IndentedButton extends Button {
         this.style = style;
     }
 
+    @Override
     public void setHtmlPre() {
-            if (this.getButtonType() == BUTTONTYPE_PUSHBUTTON) {
-                this.setHtmlPre(StringUtils.EMPTY);
-            }
-            else {
-                if(StringUtils.isNotEmpty(style)) {
-                    this.setHtmlPre("<table cellpadding=0 cellspacing=0 border=0><tr><td style=\"" 
+        if (this.getButtonType() == BUTTONTYPE_PUSHBUTTON) {
+            this.setHtmlPre(StringUtils.EMPTY);
+        } else {
+            if(StringUtils.isNotEmpty(style)) {
+                this.setHtmlPre("<table cellpadding=0 cellspacing=0 border=0><tr><td style=\""
                         + style +"\"></td><td>");
-                }
             }
         }
-    
+    }
+
 }

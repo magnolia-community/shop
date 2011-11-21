@@ -137,7 +137,7 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
       }
     });
     
-    installTasks.add(new IsModuleInstalledOrRegistered("Keywords for product Categores", 
+    installTasks.add(new IsModuleInstalledOrRegistered("Keywords for product Categories", 
         "Adds control to product categories dialog for asigning keywords.", "extended-templating-kit", 
         new NodeBuilderTask("","", ErrorHandling.strict, "config",
             getNode("modules/data/dialogs/shopProduct").then(
