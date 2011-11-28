@@ -3,7 +3,7 @@
 
 [#-------------- RENDERING PART --------------]
 
-${model.resetShoppingCart()}
+${model.parent.resetShoppingCart()}
 
 [#-- Rendering: Shopping Cart --]
 

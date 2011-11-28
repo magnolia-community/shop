@@ -35,13 +35,9 @@ package info.magnolia.module.shop.paragraphs;
 
 import javax.jcr.RepositoryException;
 
-import org.apache.commons.lang.StringUtils;
 
 import info.magnolia.cms.core.Content;
 import info.magnolia.context.MgnlContext;
-import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
-import info.magnolia.module.shop.beans.ShoppingCart;
-import info.magnolia.module.shop.beans.ShoppingCartItem;
 import info.magnolia.module.templating.RenderableDefinition;
 import info.magnolia.module.templating.RenderingModel;
 import info.magnolia.module.templatingkit.navigation.LinkImpl;
@@ -63,16 +59,16 @@ public class ShoppingCartParagraphModel extends ShopParagraphModel {
 
     @Override
     public String execute() {
-        String command = MgnlContext.getParameter("command");
+/*        String command = MgnlContext.getParameter("command");
         if (StringUtils.isNotEmpty(command) && StringUtils.equals(command, "add")
-                || StringUtils.equals(command, "substract") || StringUtils.equals(command, "removeall")) {
+                || StringUtils.equals(command, "subtract") || StringUtils.equals(command, "removeall")) {
             String productUUID = MgnlContext.getParameter("product");
             updateItemQuantity(productUUID, command);
-        }
+        }*/
         return "";
     }
 
-    protected void updateItemQuantity(String productUUID, String command) {
+/*    protected void updateItemQuantity(String productUUID, String command) {
         ShoppingCart shoppingCart = getShoppingCart();
         int indexOfProductInCart = -1;
         // first try to determine the item by looking for an "item" parameter (index of item)
@@ -93,7 +89,7 @@ public class ShoppingCartParagraphModel extends ShopParagraphModel {
 
             if (command.equals("add")) {
                 shoppingCartItem.setQuantity(++quantity);
-            } else if (command.equals("substract") || command.equals("removeall")) {
+            } else if (command.equals("subtract") || command.equals("removeall")) {
                 if (quantity <= 1 || command.equals("removeall")) {
                     shoppingCart.getCartItems().remove(indexOfProductInCart);
                 } else {
@@ -102,7 +98,7 @@ public class ShoppingCartParagraphModel extends ShopParagraphModel {
 
             } // else command
         } // else product on cart
-    }
+    }*/
 
     public String getCommandLink(String command, String productUUID, int index) {
         return new LinkImpl(MgnlContext.getAggregationState().getMainContent()).getHref()

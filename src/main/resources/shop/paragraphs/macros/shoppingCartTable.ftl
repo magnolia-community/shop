@@ -51,7 +51,7 @@
 	    			[#if type=="cart"]
 	    			  <td>
 	    			  	<a class="product-add-more" href="${model.getCommandLink('add', product.productUUID, product_index)}"><img class="shopAddRemove" src="${ctx.contextPath}/.resources/images/add.gif" /></a> 
-	    			  	<a class="product-substract" href="${model.getCommandLink('substract', product.productUUID, product_index)}"><img class="shopAddRemove" src="${ctx.contextPath}/.resources/images/remove.gif" /></a>
+	    			  	<a class="product-subtract" href="${model.getCommandLink('subtract', product.productUUID, product_index)}"><img class="shopAddRemove" src="${ctx.contextPath}/.resources/images/remove.gif" /></a>
 	    			  	<a class="product-removeall" href="${model.getCommandLink('removeall', product.productUUID, product_index)}"><img class="shopAddRemove" src="${ctx.contextPath}/.resources/images/removeAll.gif" /></a>
 	    			  </td>
 	    			[/#if] 

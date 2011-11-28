@@ -108,14 +108,14 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
     @Override
     public String execute() {
         init();
-        String command = MgnlContext.getParameter("command");
+/*        String command = MgnlContext.getParameter("command");
 
         if (StringUtils.isNotEmpty(command)) {
             if (StringUtils.equals(command, "addToCart")) {
                 addToCart();
                 return "";
             }
-        }
+        }*/
 
         return "";
     }
@@ -124,7 +124,7 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
             productListType = new ProductListTypeCategory(siteRoot, content);
     }
 
-    public void resetShoppingCart() {
+/*    public void resetShoppingCart() {
         // initialize new cart
         MgnlContext.getWebContext().getRequest().getSession().removeAttribute(
                 "shoppingCart");
@@ -187,7 +187,7 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
 
             }
         }
-    }
+    }*/
 
     public ShopProductPager getPager() {
         return productListType.getPager();
@@ -305,6 +305,7 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
     /**
      * get images folder items.
      */
+    @Override
     protected List<String> getKeys() {
         Content product = getProduct();
         Content dmsFolder = STKUtil.getReferencedContent(product,
@@ -333,7 +334,7 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
 
     public String getProductDetailPageLink(Content product) {
         try {
-            return ShopLinkUtil.getProductDetailPageLink(product, siteRoot);
+            return ShopLinkUtil.getProductDetailPageLink(product, MgnlContext.getAggregationState().getMainContent(), siteRoot);
         } catch (RepositoryException e) {
             return "";
         }

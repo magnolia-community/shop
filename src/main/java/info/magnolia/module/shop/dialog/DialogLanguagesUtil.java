@@ -109,7 +109,7 @@ public class DialogLanguagesUtil {
 
     private static Site getSite(DialogControlImpl controlImpl) {
         Site site = null;
-        if (controlImpl.getConfigValue("siteKey") != null) {
+        if (StringUtils.isNotBlank(controlImpl.getConfigValue("siteKey"))) {
             String siteKey = controlImpl.getConfigValue("siteKey");
             site = SiteManager.Factory.getInstance().getSite(siteKey);
         }

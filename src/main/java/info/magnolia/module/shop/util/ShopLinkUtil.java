@@ -85,6 +85,25 @@ public class ShopLinkUtil {
       return "";
   }
   
+  public static String getProductDetailPageLink(Content product, Content currentPage, Content siteRoot)
+  throws RepositoryException {
+      if (product != null) {
+          // first check if there is a product detail page underneath the current
+          // page (which should be a product category page). This will make the
+          // current product category to stay highlighted in the navigation.
+          Content detailPage = STKUtil.getContentByTemplateCategorySubCategory(currentPage, "feature", "product-detail");
+          if (detailPage == null) {
+              // if no detail page was found search the whole site for a "generic"
+              // detail page.
+              detailPage = STKUtil.getContentByTemplateCategorySubCategory(siteRoot, "feature", "product-detail");
+          }
+
+          String selector = createProductSelector(product);
+          return ShopLinkUtil.createLinkFromContentWithSelectors(detailPage, selector);
+      }
+      return "";
+  }
+
   public static String createProductSelector(Content product) {
       return StringUtils.replace(product.getTitle(), " ", "-") + ".PRODUCT." + product.getName();
   }
