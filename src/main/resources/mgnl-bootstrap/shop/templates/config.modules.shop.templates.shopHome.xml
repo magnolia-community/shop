@@ -13,7 +13,7 @@
     <sv:value>section</sv:value>
   </sv:property>
   <sv:property sv:name="category" sv:type="String">
-    <sv:value>section</sv:value>
+    <sv:value>feature</sv:value>
   </sv:property>
   <sv:property sv:name="class" sv:type="String">
     <sv:value>info.magnolia.module.templatingkit.templates.STKTemplate</sv:value>
