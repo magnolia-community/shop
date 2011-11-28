@@ -7,9 +7,9 @@
 	    <table cellspacing="1" cellpadding="1" border="0" width="100%" class="shopping_cart">
 	    <thead>
 	    	<th id="prod-name-col-width">${i18n['table.product']}</th>
-	    	<th id="price">${i18n['table.quantity']}</th>
-	    	<th id="price">${i18n['table.unitprice']}</th>
-	    	<th id="price">${i18n['table.total']}</th>
+	    	<th class="quantity">${i18n['table.quantity']}</th>
+	    	<th class="unitprice">${i18n['table.unitprice']}</th>
+	    	<th class="itemtotal">${i18n['table.total']}</th>
 	    	[#if type=="cart"]
 	          <th></th>	
 			[/#if]
