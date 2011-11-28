@@ -45,9 +45,9 @@
 							[/#if]
 						</td>
 	    			[/#if]
-	    			<td id="price">${product.quantity}</td>
-	    			<td id="price">${product.unitPrice?string(currencyFormatting!)}</td>
-	    			<td id="price">${product.itemTotal?string(currencyFormatting!)}</td>
+	    			<td class="quantity">${product.quantity}</td>
+	    			<td class="unitprice">${product.unitPrice?string(currencyFormatting!)}</td>
+	    			<td class="itemtotal">${product.itemTotal?string(currencyFormatting!)}</td>
 	    			[#if type=="cart"]
 	    			  <td>
 	    			  	<a class="product-add-more" href="${model.getCommandLink('add', product.productUUID, product_index)}"><img class="shopAddRemove" src="${ctx.contextPath}/.resources/images/add.gif" /></a> 
