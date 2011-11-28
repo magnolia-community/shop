@@ -61,21 +61,21 @@
 				<td></td>
 				<td></td>
 				<td>${i18n['shoppingcart.subtotal']}</td>
-				<td id="price" > ${shoppingCart.grossTotalExclTax?string(currencyFormatting!)} ${currencyTitle!}</td>
+				<td class="total_excl_tax">${shoppingCart.grossTotalExclTax?string(currencyFormatting!)} ${currencyTitle!}</td>
 				[#if type=="cart"]<td></td>[/#if]
 			</tr>
 	    	<tr>
 				<td></td>
 				<td></td>
 				<td>${i18n['vat']}</td>
-				<td id="price" > ${shoppingCart.itemTaxTotal?string("0.00")} ${currencyTitle!}</td>
+				<td class="tax">${shoppingCart.itemTaxTotal?string("0.00")} ${currencyTitle!}</td>
 				[#if type=="cart"]<td></td>[/#if]
 			</tr>
 			<tr>
 				<td></td>
 				<td></td>
 				<td>${i18n['shoppingCart.total']}</td>
-				<td id="price" > ${shoppingCart.grossTotalInclTax?string(currencyFormatting!)} ${currencyTitle}</td>
+				<td class="total_incl_tax">${shoppingCart.grossTotalInclTax?string(currencyFormatting!)} ${currencyTitle}</td>
 				[#if type=="cart"]<td></td>[/#if]
 			</tr>
 	    </tbody> 
