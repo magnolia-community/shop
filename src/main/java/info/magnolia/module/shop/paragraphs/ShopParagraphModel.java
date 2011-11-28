@@ -33,12 +33,10 @@
  */
 package info.magnolia.module.shop.paragraphs;
 
-import info.magnolia.cms.security.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import javax.jcr.PathNotFoundException;
 
 import javax.jcr.RepositoryException;
 
@@ -56,7 +54,6 @@ import info.magnolia.context.MgnlContext;
 import info.magnolia.module.dms.beans.Document;
 import info.magnolia.module.shop.ShopConfiguration;
 import info.magnolia.module.shop.accessors.ShopAccesor;
-import info.magnolia.module.shop.beans.CartItemOption;
 import info.magnolia.module.shop.beans.ShoppingCart;
 import info.magnolia.module.shop.search.AbstractProductListType;
 import info.magnolia.module.shop.search.ProductListTypeCategory;
@@ -70,7 +67,6 @@ import info.magnolia.module.templatingkit.navigation.LinkImpl;
 import info.magnolia.module.templatingkit.paragraphs.ImageGalleryParagraphModel;
 import info.magnolia.module.templatingkit.templates.STKTemplateModel;
 import info.magnolia.module.templatingkit.util.STKUtil;
-import java.util.HashMap;
 
 /**
  * Shop paragraph model, used on productdetail and productlist paragraphs.
