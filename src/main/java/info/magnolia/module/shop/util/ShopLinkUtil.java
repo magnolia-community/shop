@@ -40,6 +40,8 @@ import info.magnolia.module.templatingkit.util.STKUtil;
 import javax.jcr.RepositoryException;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Util class for creating shop links.
@@ -47,10 +49,12 @@ import org.apache.commons.lang.StringUtils;
  *
  */
 public class ShopLinkUtil {
+    
+    private static final Logger log = LoggerFactory.getLogger(ShopLinkUtil.class);
 
-  public static String getProductCategoryLink(Content category) {
-      return MagnoliaTemplatingUtilities.getInstance().createLink(category);
-  }
+      public static String getProductCategoryLink(Content category) {
+          return MagnoliaTemplatingUtilities.getInstance().createLink(category);
+      }
   
   public static String getProductListSearchLink(Content siteRoot) {
       String link = "";
@@ -58,8 +62,18 @@ public class ShopLinkUtil {
           Content productSearchResultPage = STKUtil.getNearestContentByTemplateCategorySubCategory(siteRoot, "feature", "product-search-result", ShopUtil.getShopRoot());
           link = MagnoliaTemplatingUtilities.getInstance().createLink(productSearchResultPage);
       } catch (RepositoryException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
+          log.error("Product search result link not found");
+      }
+      return link;
+  }
+  
+  public static String getProductKeywordLink(Content siteRoot) {
+      String link = "";
+      try {
+          Content productKeywordResultPage = STKUtil.getNearestContentByTemplateCategorySubCategory(siteRoot, "feature", "keyword-search-result", ShopUtil.getShopRoot());
+          link = MagnoliaTemplatingUtilities.getInstance().createLink(productKeywordResultPage);
+      } catch (RepositoryException e) {
+          log.error("Product keyword search result link not found");
       }
       return link;
   }

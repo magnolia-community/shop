@@ -61,7 +61,7 @@ public class ProductListTypeKeyword extends AbstractProductListType {
 
     @Override
     public List<Content> getResult() {
-        String tagName = "";
+        String tagName = SelectorUtil.getSelector(0);
         try {
             Content tagNode = CustomDataUtil.getTagNode(tagName);
             return (List<Content>)ShopUtil.findTaggedProducts(tagNode.getUUID());

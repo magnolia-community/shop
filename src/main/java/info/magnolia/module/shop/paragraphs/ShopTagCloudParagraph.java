@@ -35,11 +35,12 @@ package info.magnolia.module.shop.paragraphs;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.shop.util.ShopUtil;
-import info.magnolia.module.templating.MagnoliaTemplatingUtilities;
 import info.magnolia.module.templating.RenderableDefinition;
 import info.magnolia.module.templating.RenderingModel;
 import info.magnolia.module.templating.RenderingModelImpl;
@@ -57,7 +58,7 @@ public class ShopTagCloudParagraph extends RenderingModelImpl {
 
     private static final Logger log = LoggerFactory.getLogger(ShopTagCloudParagraph.class);
 
-    private Content productListPage = null;
+    private String productKeywordResultPage = null;
     private Content siteRoot = null;
     
     public ShopTagCloudParagraph(Content content, RenderableDefinition definition, RenderingModel parent) {
@@ -65,7 +66,7 @@ public class ShopTagCloudParagraph extends RenderingModelImpl {
         
         if(parent instanceof STKTemplateModel) {
             this.siteRoot = ((STKTemplateModel) parent).getSiteRoot();
-            productListPage = ShopUtil.getShopRoot();
+            productKeywordResultPage = ShopLinkUtil.getProductKeywordLink(siteRoot);
         }
     }
 
@@ -84,13 +85,16 @@ public class ShopTagCloudParagraph extends RenderingModelImpl {
       return ShopUtil.findTaggedProducts(categoryUUID).size();
     }
     
-    public String getProductListLink(String tagName) {
+    public String getProductListLink(String tagName, String tagDisplayName) {
         String link = "";
-        
-        if(productListPage != null) {
-            link = MagnoliaTemplatingUtilities.getInstance().createLink(productListPage)
-            .replace(".html",
-                "." + tagName + ".html");
+        String replacement = "." + tagName;
+        if(StringUtils.isNotEmpty(tagDisplayName)) {
+            replacement += "." + tagDisplayName; 
+        }
+        replacement += ".html";
+        if(productKeywordResultPage != null) {
+            link = productKeywordResultPage.replace(".html",
+                    replacement);
         }
         
         return link;
