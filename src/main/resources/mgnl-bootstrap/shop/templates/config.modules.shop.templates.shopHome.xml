@@ -993,37 +993,6 @@
           <sv:value>2011-11-02T11:13:32.272+01:00</sv:value>
         </sv:property>
       </sv:node>
-      <sv:node sv:name="shopExtrasTagCloud">
-        <sv:property sv:name="jcr:primaryType" sv:type="Name">
-          <sv:value>mgnl:contentNode</sv:value>
-        </sv:property>
-        <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
-          <sv:value>mix:lockable</sv:value>
-        </sv:property>
-        <sv:property sv:name="jcr:uuid" sv:type="String">
-          <sv:value>a3d133bb-1a81-429c-9324-c1d2ad2dc90f</sv:value>
-        </sv:property>
-        <sv:property sv:name="name" sv:type="String">
-          <sv:value>shopExtrasTagCloud</sv:value>
-        </sv:property>
-        <sv:node sv:name="MetaData">
-          <sv:property sv:name="jcr:primaryType" sv:type="Name">
-            <sv:value>mgnl:metaData</sv:value>
-          </sv:property>
-          <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-            <sv:value>false</sv:value>
-          </sv:property>
-          <sv:property sv:name="mgnl:authorid" sv:type="String">
-            <sv:value>superuser</sv:value>
-          </sv:property>
-          <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-            <sv:value>2011-05-04T18:21:13.434+02:00</sv:value>
-          </sv:property>
-          <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-            <sv:value>2011-11-02T11:34:06.560+01:00</sv:value>
-          </sv:property>
-        </sv:node>
-      </sv:node>
       <sv:node sv:name="shopExtrasCart">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
           <sv:value>mgnl:contentNode</sv:value>
