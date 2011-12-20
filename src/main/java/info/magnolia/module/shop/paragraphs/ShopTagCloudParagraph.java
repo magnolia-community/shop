@@ -47,6 +47,7 @@ import info.magnolia.module.templating.RenderingModelImpl;
 import info.magnolia.module.templatingkit.templates.STKTemplateModel;
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.util.QueryUtil;
+import info.magnolia.context.MgnlContext;
 
 /**
  * Displays the tags assigned to productcategories by using categorization module.
@@ -91,9 +92,10 @@ public class ShopTagCloudParagraph extends RenderingModelImpl {
         if(StringUtils.isNotEmpty(tagDisplayName)) {
             replacement += "." + tagDisplayName; 
         }
-        replacement += ".html";
+        String extension = "." + MgnlContext.getAggregationState().getExtension();
+        replacement += extension;
         if(productKeywordResultPage != null) {
-            link = productKeywordResultPage.replace(".html",
+            link = productKeywordResultPage.replace(extension,
                     replacement);
         }
         
