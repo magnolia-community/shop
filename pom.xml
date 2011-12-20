@@ -5,7 +5,7 @@
   <parent>
     <groupId>info.magnolia.forge</groupId>
     <artifactId>magnolia-parent-pom-forge</artifactId>
-    <version>19</version>
+    <version>20</version>
   </parent>
   <groupId>info.magnolia.shop</groupId>
   <artifactId>magnolia-module-shop</artifactId>
@@ -58,7 +58,7 @@
     <dependency>
       <groupId>ch.fastforward</groupId>
       <artifactId>magnolia-module-ocm</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>1.0</version>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
