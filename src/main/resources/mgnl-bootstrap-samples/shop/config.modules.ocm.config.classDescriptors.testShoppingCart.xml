@@ -381,7 +381,7 @@
         </sv:property>
       </sv:node>
     </sv:node>
-    <sv:node sv:name="acceptedGTC">
+    <sv:node sv:name="termsAccepted">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
         <sv:value>mgnl:contentNode</sv:value>
       </sv:property>
@@ -481,10 +481,10 @@
         <sv:value>org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor</sv:value>
       </sv:property>
       <sv:property sv:name="fieldName" sv:type="String">
-        <sv:value>acceptedGTC</sv:value>
+        <sv:value>termsAccepted</sv:value>
       </sv:property>
       <sv:property sv:name="jcrName" sv:type="String">
-        <sv:value>acceptedGTC</sv:value>
+        <sv:value>termsAccepted</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">

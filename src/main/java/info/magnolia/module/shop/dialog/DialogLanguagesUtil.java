@@ -36,6 +36,8 @@ package info.magnolia.module.shop.dialog;
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.gui.dialog.DialogControlImpl;
 import info.magnolia.cms.i18n.DefaultI18nContentSupport;
+import info.magnolia.cms.i18n.I18nContentSupport;
+import info.magnolia.cms.i18n.I18nContentSupportFactory;
 import info.magnolia.cms.security.AccessDeniedException;
 import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.context.MgnlContext;
@@ -62,8 +64,9 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class DialogLanguagesUtil {
+
     private static Logger log = LoggerFactory.getLogger(DialogLanguagesUtil.class);
-    
+
     public static void initSiteKey(DialogControlImpl controlImpl, Content storageNode) {
         if (storageNode != null) {
             try {
@@ -81,17 +84,20 @@ public class DialogLanguagesUtil {
 
     // @TODO: Move this to utility class
     public static ArrayList<String> initLanguages(DialogControlImpl controlImpl) {
+        ArrayList<String> languageList = new ArrayList<String>();
         // set the languages for the site key by assuming that the languages are
         // defined at default site definition
-        DefaultI18nContentSupport i18nContentSupport = getSiteI18nContentSupport(controlImpl);
-        Collection<Locale> locales = i18nContentSupport.getLocales();
-        
-        Iterator<Locale> localesIterator = locales.iterator();
-        ArrayList<String> languageList = new ArrayList<String>();
-        while (localesIterator.hasNext()) {
-            
-            languageList.add(localesIterator.next().getLanguage());
-            
+        I18nContentSupport i18nContentSupport = getSiteI18nContentSupport(controlImpl);
+
+        if (i18nContentSupport == null || !i18nContentSupport.isEnabled()) {
+            i18nContentSupport = I18nContentSupportFactory.getI18nSupport();
+        }
+        if (i18nContentSupport != null) {
+            Collection<Locale> locales = i18nContentSupport.getLocales();
+            Iterator<Locale> localesIterator = locales.iterator();
+            while (localesIterator.hasNext()) {
+                languageList.add(localesIterator.next().getLanguage());
+            }
         }
         return languageList;
     }
@@ -102,8 +108,12 @@ public class DialogLanguagesUtil {
 
     private static DefaultI18nContentSupport getSiteI18nContentSupport(DialogControlImpl controlImpl) {
         Site site = getSite(controlImpl);
-        
+
         DefaultI18nContentSupport i18nContentSupport = (DefaultI18nContentSupport) site.getI18n();
+        if (i18nContentSupport == null || !i18nContentSupport.isEnabled()) {
+            i18nContentSupport = (DefaultI18nContentSupport) I18nContentSupportFactory.getI18nSupport();
+        }
+
         return i18nContentSupport;
     }
 
@@ -133,9 +143,9 @@ public class DialogLanguagesUtil {
         }
         return site;
     }
-    
+
     public static String getLanguageSuffix(DialogControlImpl controlImpl, String language) {
-        if(language.equals(getSiteDefaultLanguage(controlImpl))) {
+        if (language.equals(getSiteDefaultLanguage(controlImpl))) {
             return "";
         } else {
             return "_" + language;

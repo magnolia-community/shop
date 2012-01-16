@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sv:node sv:name="shopConfirmTerms" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <sv:property sv:name="jcr:primaryType" sv:type="Name">
+    <sv:value>mgnl:contentNode</sv:value>
+  </sv:property>
+  <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+    <sv:value>mix:lockable</sv:value>
+  </sv:property>
+  <sv:property sv:name="jcr:uuid" sv:type="String">
+    <sv:value>c7ac4ed3-da2c-4997-8fd6-3584223b601a</sv:value>
+  </sv:property>
+  <sv:property sv:name="description" sv:type="String">
+    <sv:value>Used to get the users acceptance of the terms.</sv:value>
+  </sv:property>
+  <sv:property sv:name="dialog" sv:type="String">
+    <sv:value>shopConfirmTerms</sv:value>
+  </sv:property>
+  <sv:property sv:name="extends" sv:type="String">
+    <sv:value>/modules/form/paragraphs/formEdit</sv:value>
+  </sv:property>
+  <sv:property sv:name="templatePath" sv:type="String">
+    <sv:value>/shop/paragraphs/features/form/formTermsConfirmation.ftl</sv:value>
+  </sv:property>
+  <sv:property sv:name="title" sv:type="String">
+    <sv:value>Terms Checkbox</sv:value>
+  </sv:property>
+  <sv:node sv:name="MetaData">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>mgnl:metaData</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:authorid" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:creationdate" sv:type="Date">
+      <sv:value>2011-12-08T12:46:05.464+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+      <sv:value>2011-12-08T22:06:01.213+01:00</sv:value>
+    </sv:property>
+  </sv:node>
+</sv:node>

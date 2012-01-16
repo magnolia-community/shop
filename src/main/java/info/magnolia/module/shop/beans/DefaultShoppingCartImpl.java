@@ -112,7 +112,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     private String billingAddressPhone;
     private String billingAddressMobile;
     private String billingAddressMail;
-    private Boolean acceptedGTC;
+    private Boolean termsAccepted;
     private Double cartDiscountRate;
     private Boolean taxIncluded = false;
 
@@ -246,12 +246,12 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
         this.orderAddressCompany2 = orderAddressCompany2;
     }
 
-    public Boolean getAcceptedGTC() {
-        return acceptedGTC;
+    public Boolean getTermsAccepted() {
+        return termsAccepted;
     }
 
-    public void setAcceptedGTC(Boolean acceptedGTC) {
-        this.acceptedGTC = acceptedGTC;
+    public void setTermsAccepted(Boolean termsAccepted) {
+        this.termsAccepted = termsAccepted;
     }
 
     public String getOrderAddressFirstname() {

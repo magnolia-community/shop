@@ -78,11 +78,11 @@
       <sv:property sv:name="productDescription1_de" sv:type="String">
         <sv:value>Tote Körper zeigen sich in flachen Gräbern auf den leeren Bau viel Vincent Plum Bail Bonds. Niemand ist sicher, wer der Mörder ist, oder warum die Opfer wurden offed, aber klar ist, dass Stephanie's Namen auf der Liste Mörder ist.</sv:value>
       </sv:property>
-      <sv:property sv:name="tags" sv:type="String">
+<!--      <sv:property sv:name="tags" sv:type="String">
         <sv:value>80e828f4-f1a6-4cce-902b-4c3bb683469b</sv:value>
         <sv:value>2c272dc5-317e-4f1c-b6fb-508157210308</sv:value>
         <sv:value>248f71e8-b9b8-44b0-ac44-7d3e6e19bfce</sv:value>
-      </sv:property>
+      </sv:property>-->
       <sv:property sv:name="taxCategoryUUID" sv:type="String">
         <sv:value>e436202d-627a-4b46-a49a-6f66ead1a6d8</sv:value>
       </sv:property>
