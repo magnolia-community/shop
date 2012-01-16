@@ -66,6 +66,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Paragraphs util class.
+ *
  * @author tmiyar
  *
  */
@@ -74,7 +75,6 @@ public class ShopUtil {
     private static Logger log = LoggerFactory.getLogger(ShopUtil.class);
     public static String ATTRIBUTE_SHOPNAME = "shopName";
     public static String ATTRIBUTE_SHOPPINGCART = "shoppingCart";
-    
     public static String SHOP_TEMPLATE_NAME = "shopHome";
     public static String I18N_BASENAME = "info.magnolia.module.shop.messages";
 
@@ -84,7 +84,8 @@ public class ShopUtil {
     public static Content getShopRoot() {
         Content currContent = MgnlContext.getAggregationState().getMainContent();
         try {
-         while (currContent.getLevel() >= 0) {
+            while (currContent.getLevel() >= 0) {
+                String subCategory = TemplateCategoryUtil.getTemplateSubCategory(currContent);
                 if (TemplateCategoryUtil.getTemplateSubCategory(currContent).equals("shopHome")) {
                     return currContent;
                 } else {
@@ -99,18 +100,17 @@ public class ShopUtil {
         log.error("No template found with subcategory shopHome");
         return null;
     }
-    
+
     public static Content getShopRootByShopName(String shopName) {
-        
-         Collection<Content> shops = QueryUtil.query(ContentRepository.WEBSITE, "select * from mgnl:content where currentShop='" 
-                 + shopName + "'");
-         if(!shops.isEmpty()) {
-             return shops.iterator().next();
-         }
+
+        Collection<Content> shops = QueryUtil.query(ContentRepository.WEBSITE, "select * from mgnl:content where currentShop='"
+                + shopName + "'");
+        if (!shops.isEmpty()) {
+            return shops.iterator().next();
+        }
         log.error("No shop found with name " + shopName);
         return null;
     }
-
 
     public static Messages getMessages() {
         Locale currentLocale = I18nContentSupportFactory.getI18nSupport().getLocale();
@@ -146,7 +146,7 @@ public class ShopUtil {
     public static String getShopName() {
         return (String) MgnlContext.getAttribute(ATTRIBUTE_SHOPNAME);
     }
-    
+
     /**
      * Used in product dialog, for getting productCategories, productPrices... and
      * the storageNode is null.
@@ -154,9 +154,9 @@ public class ShopUtil {
     public static String getShopNameFromPath() {
         String mgnlPath = MgnlContext.getParameter("mgnlPath");
         String shopName = "";
-        if(StringUtils.isNotEmpty(mgnlPath)) {
+        if (StringUtils.isNotEmpty(mgnlPath)) {
             String[] pathSplit = StringUtils.split(mgnlPath, "/");
-            if(pathSplit.length >= 2){
+            if (pathSplit.length >= 2) {
                 shopName = pathSplit[1];
             }
         }
@@ -189,7 +189,7 @@ public class ShopUtil {
 
     public static List<Content> transformIntoI18nContentList(List<Content> contentList) {
         List<Content> i18nProductList = new ArrayList<Content>();
-        if(contentList != null) {
+        if (contentList != null) {
             for (Content content : contentList) {
                 i18nProductList.add(new I18nContentWrapper(content));
             }
@@ -214,7 +214,7 @@ public class ShopUtil {
         }
         return "";
     }
-    
+
     public static String getCurrencyFormatting() {
 
         ShopConfiguration shopConfiguration;
@@ -248,25 +248,25 @@ public class ShopUtil {
         return new I18nContentWrapper(ContentUtil.getContentByUUID("data", uuid));
 
     }
-    
-    public static String getPath(boolean removeEndToken, String... strings ) {
+
+    public static String getPath(boolean removeEndToken, String... strings) {
         String path = "/";
-        
+
         for (String string : strings) {
             path += string + "/";
         }
-        if(removeEndToken) {
+        if (removeEndToken) {
             path = StringUtils.chomp(path, "/");
         }
         return path;
     }
-    
-    public static String getPath(String... strings ) {
+
+    public static String getPath(String... strings) {
         return getPath(true, strings);
     }
-    
+
     public static Collection<Content> findTaggedProducts(String tagUUID) {
         return ShopProductAccesor.getTaggedProducts(tagUUID);
-        
+
     }
 }

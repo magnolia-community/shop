@@ -119,7 +119,7 @@ public class ShopLinkUtil {
   }
 
   public static String createProductSelector(Content product) {
-      return StringUtils.replace(product.getTitle(), " ", "-") + ".PRODUCT." + product.getName();
+      return StringUtils.replace(StringUtils.replace(product.getTitle(), ".", "-"), " ", "-") + ".PRODUCT." + product.getName();
   }
 
 }
