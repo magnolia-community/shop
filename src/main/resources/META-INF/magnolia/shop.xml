@@ -24,6 +24,7 @@
     <dependency>
       <name>demo-project</name>
       <version>1.4.2/*</version>
+      <optional>true</optional>
     </dependency>
     <dependency>
       <name>theme-pop</name>
