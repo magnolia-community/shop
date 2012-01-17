@@ -48,6 +48,7 @@ import info.magnolia.module.delta.AddRoleToUserTask;
 import info.magnolia.module.delta.IsAuthorInstanceDelegateTask;
 import info.magnolia.module.delta.IsInstallSamplesTask;
 import info.magnolia.module.delta.IsModuleInstalledOrRegistered;
+import info.magnolia.module.delta.ModuleDependencyBootstrapTask;
 import info.magnolia.module.delta.OrderNodeBeforeTask;
 import info.magnolia.module.delta.Task;
 import info.magnolia.module.delta.TaskExecutionException;
@@ -172,6 +173,9 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                 ))));
     installTasks.add(new IsAuthorInstanceDelegateTask("Shop role for anonymous user", "This role to anonymous users will be added just on public instances.", null, 
             new AddRoleToUserTask("", "anonymous", "shop-user-base")));
+    
+    installTasks.add(new IsInstallSamplesTask("Install demo-project sample content ", "", new ModuleDependencyBootstrapTask("demo-project")));
+    
     return installTasks;
   }
 }
