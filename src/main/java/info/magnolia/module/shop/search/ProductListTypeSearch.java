@@ -40,6 +40,7 @@ import info.magnolia.module.shop.accessors.ShopProductAccesor;
 import info.magnolia.module.shop.util.CustomDataUtil;
 import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.shop.util.ShopUtil;
+import info.magnolia.templating.functions.TemplatingFunctions;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -58,13 +59,13 @@ public class ProductListTypeSearch extends AbstractProductListType {
         + ShopUtil.getPath(ShopProductAccesor.SHOP_PRODUCTS_FOLDER) + "/{0}/%'' and contains(*, ''{1}'') order by jcr:path";
     private String repository = "data";
     
-    public ProductListTypeSearch(Content siteRoot, Content content) {
-        super(siteRoot, content);
+    public ProductListTypeSearch(TemplatingFunctions functions, Content siteRoot, Content content) {
+        super(functions, siteRoot, content);
     }
     
     @Override
     protected String getPagerLink() {
-        String link = ShopLinkUtil.getProductListSearchLink(getSiteRoot());
+        String link = ShopLinkUtil.getProductListSearchLink(functions, getSiteRoot());
         link =  link + "?queryProductsStr=" + getQueryStr();
         return link;
     }

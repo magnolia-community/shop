@@ -33,13 +33,18 @@
  */
 package info.magnolia.module.shop.paragraphs;
 
+import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 
 
 import info.magnolia.cms.core.Content;
+import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.context.MgnlContext;
-import info.magnolia.module.templating.RenderableDefinition;
-import info.magnolia.module.templating.RenderingModel;
+import info.magnolia.rendering.model.RenderingModel;
+import info.magnolia.rendering.template.TemplateDefinition;
+import info.magnolia.templating.functions.TemplatingFunctions;
+import info.magnolia.module.templatingkit.STKModule;
+import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.module.templatingkit.navigation.LinkImpl;
 import info.magnolia.module.templatingkit.util.STKUtil;
 
@@ -51,65 +56,32 @@ import info.magnolia.module.templatingkit.util.STKUtil;
  */
 public class ShoppingCartParagraphModel extends ShopParagraphModel {
 
-    public ShoppingCartParagraphModel(Content content,
-            RenderableDefinition definition, RenderingModel parent) {
-        super(content, definition, parent);
-
+    
+    public ShoppingCartParagraphModel(Node content,
+            TemplateDefinition definition, RenderingModel parent,
+            STKTemplatingFunctions stkFunctions,
+            TemplatingFunctions templatingFunctions, STKModule stkModule) {
+        super(content, definition, parent, stkFunctions, templatingFunctions, stkModule);
     }
+
 
     @Override
     public String execute() {
-/*        String command = MgnlContext.getParameter("command");
-        if (StringUtils.isNotEmpty(command) && StringUtils.equals(command, "add")
-                || StringUtils.equals(command, "subtract") || StringUtils.equals(command, "removeall")) {
-            String productUUID = MgnlContext.getParameter("product");
-            updateItemQuantity(productUUID, command);
-        }*/
+
         return "";
     }
 
-/*    protected void updateItemQuantity(String productUUID, String command) {
-        ShoppingCart shoppingCart = getShoppingCart();
-        int indexOfProductInCart = -1;
-        // first try to determine the item by looking for an "item" parameter (index of item)
-        if (MgnlContext.getParameter("item") != null) {
-            try {
-                indexOfProductInCart = (new Integer(MgnlContext.getParameter("item"))).intValue();
-            } catch (NumberFormatException nfe) {
-                // log error?
-            }
-        }
-        // if no item index was provided, try to get the item by its product uuid.
-        if (indexOfProductInCart < 0) {
-            indexOfProductInCart = ((DefaultShoppingCartImpl) shoppingCart).indexOfProduct(productUUID);
-        }
-        if (indexOfProductInCart >= 0) {
-            ShoppingCartItem shoppingCartItem = (ShoppingCartItem) shoppingCart.getCartItems().get(indexOfProductInCart);
-            int quantity = shoppingCartItem.getQuantity();
-
-            if (command.equals("add")) {
-                shoppingCartItem.setQuantity(++quantity);
-            } else if (command.equals("subtract") || command.equals("removeall")) {
-                if (quantity <= 1 || command.equals("removeall")) {
-                    shoppingCart.getCartItems().remove(indexOfProductInCart);
-                } else {
-                    shoppingCartItem.setQuantity(--quantity);
-                } // quantity <=1
-
-            } // else command
-        } // else product on cart
-    }*/
 
     public String getCommandLink(String command, String productUUID, int index) {
-        return new LinkImpl(MgnlContext.getAggregationState().getMainContent()).getHref()
+        return new LinkImpl(MgnlContext.getAggregationState().getMainContent().getJCRNode(), templatingFunctions).getHref()
                 + "?command=" + command + "&product=" + productUUID + "&item=" + index;
     }
 
     public String getCheckoutFormLink() {
         try {
             Content formPage = STKUtil.getContentByTemplateCategorySubCategory(
-                    getSiteRoot(), "feature", "checkoutform");
-            return new LinkImpl(formPage).getHref();
+                    ContentUtil.asContent(getSiteRoot()), "feature", "checkoutform");
+            return new LinkImpl(formPage.getJCRNode(), templatingFunctions).getHref();
         } catch (RepositoryException e) {
             // TODO
         }

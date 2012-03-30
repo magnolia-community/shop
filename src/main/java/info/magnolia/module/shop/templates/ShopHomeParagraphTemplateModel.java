@@ -33,14 +33,17 @@
  */
 package info.magnolia.module.shop.templates;
 
+import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.core.ItemType;
 import info.magnolia.cms.security.AccessDeniedException;
 import info.magnolia.cms.util.ContentUtil;
-import info.magnolia.module.templating.RenderingModel;
-import info.magnolia.module.templatingkit.templates.STKTemplate;
+import info.magnolia.rendering.model.RenderingModel;
+import info.magnolia.templating.functions.TemplatingFunctions;
+import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
+import info.magnolia.module.templatingkit.templates.pages.STKPage;
 import info.magnolia.module.templatingkit.templates.STKTemplateModel;
 import info.magnolia.module.templatingkit.util.STKUtil;
 
@@ -50,16 +53,17 @@ import info.magnolia.module.templatingkit.util.STKUtil;
  * @author tmiyar
  *
  */
-public class ShopHomeParagraphTemplateModel extends STKTemplateModel<STKTemplate> {
-
-    public ShopHomeParagraphTemplateModel(Content content,
-            STKTemplate definition, RenderingModel parent) {
-        super(content, definition, parent);
-    }
+public class ShopHomeParagraphTemplateModel extends STKTemplateModel<STKPage> {
     
+    public ShopHomeParagraphTemplateModel(Node content, STKPage definition,
+            RenderingModel<?> parent, STKTemplatingFunctions stkFunctions,
+            TemplatingFunctions templatingFunctions) {
+        super(content, definition, parent, stkFunctions, templatingFunctions);
+    }
+
     public String execute() {
         try {
-            STKUtil.doPrivileged(content, new STKUtil.PrivilegedOperation(){
+            STKUtil.doPrivileged(ContentUtil.asContent(content), new STKUtil.PrivilegedOperation(){
                 @Override
                 public void exec(Content contentInSystemContext) throws RepositoryException {
                     createShopStructure(contentInSystemContext);
@@ -73,15 +77,15 @@ public class ShopHomeParagraphTemplateModel extends STKTemplateModel<STKTemplate
     }
 
     protected void createShopStructure(Content contentInSystemContext) {
-        
-        if(!content.hasChildren()) {
+        Content contentNode = ContentUtil.asContent(content);
+        if(!contentNode.hasChildren()) {
             try {
-                createShopPage(content, "sample-category", "shopProductCategory");
-                createShopPage(content, "product-detail", "shopProductDetail");
-                createShopPage(content, "product-search-result", "shopProductSearchResult");
-                createShopPage(content, "keyword-search-result", "shopProductKeywordResult");
+                createShopPage(contentNode, "sample-category", "shopProductCategory");
+                createShopPage(contentNode, "product-detail", "shopProductDetail");
+                createShopPage(contentNode, "product-search-result", "shopProductSearchResult");
+                createShopPage(contentNode, "keyword-search-result", "shopProductKeywordResult");
                 
-                Content shoppingCart = createShopPage(content, "shopping-cart", "shopShoppingCart");
+                Content shoppingCart = createShopPage(contentNode, "shopping-cart", "shopShoppingCart");
                 Content checkout = createShopPage(shoppingCart, "check-out", "shopCheckoutForm");
                 createShopPage(shoppingCart, "confirmation", "shopConfirmationPage");
                 createShopPage(checkout, "form-step", "shopFormStep");

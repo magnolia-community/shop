@@ -36,6 +36,7 @@ package info.magnolia.module.shop.search;
 import info.magnolia.cms.core.Content;
 import info.magnolia.module.shop.util.ShopProductPager;
 import info.magnolia.module.shop.util.ShopUtil;
+import info.magnolia.templating.functions.TemplatingFunctions;
 
 import java.util.List;
 
@@ -48,11 +49,13 @@ abstract public class AbstractProductListType {
     
     private Content siteRoot = null;
     private Content content = null;
+    protected TemplatingFunctions functions;
     
-    public AbstractProductListType(Content siteRoot, Content content) {
+    public AbstractProductListType(TemplatingFunctions functions, Content siteRoot, Content content) {
         super();
         this.siteRoot = siteRoot;
         this.content = content;
+        this.functions = functions;
     }
     
     abstract public List<Content> getResult();

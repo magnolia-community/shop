@@ -38,6 +38,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 
 import info.magnolia.cms.core.Content;
@@ -52,10 +53,12 @@ import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
 import info.magnolia.module.shop.beans.ShoppingCart;
 import info.magnolia.module.shop.beans.ShoppingCartItem;
 import info.magnolia.module.shop.util.ShopUtil;
-import info.magnolia.module.templating.RenderingModel;
+import info.magnolia.rendering.model.RenderingModel;
+import info.magnolia.templating.functions.TemplatingFunctions;
+import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.module.templatingkit.navigation.Link;
 import info.magnolia.module.templatingkit.navigation.LinkImpl;
-import info.magnolia.module.templatingkit.templates.STKTemplate;
+import info.magnolia.module.templatingkit.templates.pages.STKPage;
 import info.magnolia.module.templatingkit.templates.SingletonParagraphTemplateModel;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -72,13 +75,17 @@ import org.slf4j.LoggerFactory;
  */
 public class ShopSingletonParagraphTemplateModel extends SingletonParagraphTemplateModel {
 
+    public ShopSingletonParagraphTemplateModel(Node content,
+            STKPage definition, RenderingModel<?> parent,
+            STKTemplatingFunctions stkFunctions,
+            TemplatingFunctions templatingFunctions) {
+        super(content, definition, parent, stkFunctions, templatingFunctions);
+    }
+
     private static Logger log = LoggerFactory.getLogger(ShopSingletonParagraphTemplateModel.class);
     private String currentShopName = "";
 
-    public ShopSingletonParagraphTemplateModel(Content content,
-            STKTemplate definition, RenderingModel parent) {
-        super(content, definition, parent);
-    }
+    
 
     @Override
     public String execute() {
@@ -116,12 +123,12 @@ public class ShopSingletonParagraphTemplateModel extends SingletonParagraphTempl
         List<Link> items = new ArrayList<Link>();
 
         // add website nodes
-        Content root = getSiteRoot();
-        Content current = content;
+        Content root = ContentUtil.asContent(getSiteRoot());
+        Content current = ContentUtil.asContent(content);
         while (current.getLevel() >= root.getLevel()) {
             // only the nodes that are not hidden in navigation
             if (!NodeDataUtil.getBoolean(current, "hideInNav", false)) {
-                items.add(new LinkImpl(current));
+                items.add(new LinkImpl(current.getJCRNode(), templatingFunctions));
             }
             if (current.getLevel() == 0) {
                 break;

@@ -38,6 +38,8 @@ import info.magnolia.context.MgnlContext;
 import info.magnolia.module.templatingkit.navigation.Link;
 import info.magnolia.module.templatingkit.templates.category.TemplateCategory;
 import info.magnolia.module.templatingkit.templates.category.TemplateCategoryUtil;
+import info.magnolia.templating.functions.TemplatingFunctions;
+
 import javax.jcr.RepositoryException;
 
 import org.apache.commons.lang.StringUtils;
@@ -53,9 +55,11 @@ public class ShopProductLinkImpl implements Link {
 
     private static Logger log = LoggerFactory.getLogger(ShopProductLinkImpl.class);
     private Content node;
+    private TemplatingFunctions functions;
 
-    public ShopProductLinkImpl(Content node) {
+    public ShopProductLinkImpl(TemplatingFunctions functions, Content node) {
         this.node = node;
+        this.functions = functions;
     }
 
     public String getTitle() {
@@ -80,7 +84,7 @@ public class ShopProductLinkImpl implements Link {
         }
 
         try {
-            return ShopLinkUtil.getProductDetailPageLink(node, MgnlContext.getAggregationState().getMainContent(), null);
+            return ShopLinkUtil.getProductDetailPageLink(functions, node, MgnlContext.getAggregationState().getMainContent(), null);
         } catch (RepositoryException ex) {
             log.error("Failed to create product detail page link.", ex);
             return "";

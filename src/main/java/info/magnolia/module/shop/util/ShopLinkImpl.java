@@ -35,6 +35,7 @@ package info.magnolia.module.shop.util;
 
 import info.magnolia.cms.core.Content;
 import info.magnolia.module.templatingkit.navigation.Link;
+import info.magnolia.templating.functions.TemplatingFunctions;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -45,9 +46,11 @@ import org.apache.commons.lang.StringUtils;
  */
 public class ShopLinkImpl implements Link {
     private Content node;
+    private TemplatingFunctions functions;
 
-    public ShopLinkImpl(Content node) {
+    public ShopLinkImpl(TemplatingFunctions functions, Content node) {
         this.node = node;
+        this.functions = functions;
     }
 
     public String getTitle(){
@@ -60,7 +63,7 @@ public class ShopLinkImpl implements Link {
     }
 
     public String getHref(){
-        return ShopLinkUtil.getProductCategoryLink(node);
+        return ShopLinkUtil.getProductCategoryLink(functions, node);
     }
 
 }

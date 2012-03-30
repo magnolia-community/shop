@@ -55,7 +55,6 @@ import info.magnolia.module.delta.TaskExecutionException;
 import info.magnolia.module.inplacetemplating.setup.TemplatesInstallTask;
 import info.magnolia.module.resources.setup.InstallResourcesTask;
 import info.magnolia.module.templatingkit.resources.STKResourceModel;
-import info.magnolia.module.templatingkit.setup.UpdateAllSiteDefinitions;
 import info.magnolia.nodebuilder.NodeBuilder;
 import info.magnolia.nodebuilder.task.ErrorHandling;
 import info.magnolia.nodebuilder.task.NodeBuilderTask;

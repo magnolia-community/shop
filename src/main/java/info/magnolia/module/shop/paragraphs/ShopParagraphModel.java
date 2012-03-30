@@ -38,6 +38,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 
 import org.apache.commons.lang.StringUtils;
@@ -61,11 +62,14 @@ import info.magnolia.module.shop.util.CustomDataUtil;
 import info.magnolia.module.shop.util.ShopProductPager;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.shop.util.ShopLinkUtil;
-import info.magnolia.module.templating.RenderableDefinition;
-import info.magnolia.module.templating.RenderingModel;
+import info.magnolia.rendering.model.RenderingModel;
+import info.magnolia.rendering.template.TemplateDefinition;
+import info.magnolia.templating.functions.TemplatingFunctions;
+import info.magnolia.module.templatingkit.STKModule;
+import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.module.templatingkit.navigation.LinkImpl;
-import info.magnolia.module.templatingkit.paragraphs.ImageGalleryParagraphModel;
 import info.magnolia.module.templatingkit.templates.STKTemplateModel;
+import info.magnolia.module.templatingkit.templates.components.ImageGalleryParagraphModel;
 import info.magnolia.module.templatingkit.util.STKUtil;
 
 /**
@@ -77,113 +81,41 @@ import info.magnolia.module.templatingkit.util.STKUtil;
 public class ShopParagraphModel extends ImageGalleryParagraphModel {
 
     private static Logger log = LoggerFactory
-            .getLogger(ShopParagraphModel.class);
-
+    .getLogger(ShopParagraphModel.class);
     private Content siteRoot = null;
     private RenderingModel parent = null;
     protected AbstractProductListType productListType = null;
-
-    public ShopParagraphModel(Content content, RenderableDefinition definition,
-            RenderingModel parent) {
-        super(content, definition, parent);
+    
+    public ShopParagraphModel(Node content, TemplateDefinition definition,
+            RenderingModel parent, STKTemplatingFunctions stkFunctions,
+            TemplatingFunctions templatingFunctions, STKModule stkModule) {
+        super(content, definition, parent, stkFunctions, templatingFunctions, stkModule);
         this.parent = parent;
         if (parent instanceof STKTemplateModel) {
-            this.siteRoot = ((STKTemplateModel) parent).getSiteRoot();
+            this.siteRoot = ContentUtil.asContent(((STKTemplateModel) parent).getSiteRoot());
         }
-
     }
 
     public ShoppingCart getShoppingCart() {
         return ShopUtil.getShoppingCart();
     }
 
-    protected Content getSiteRoot() {
-        return siteRoot;
+    public Node getSiteRoot() {
+        return siteRoot.getJCRNode();
     }
 
     @Override
     public String execute() {
         init();
-/*        String command = MgnlContext.getParameter("command");
-
-        if (StringUtils.isNotEmpty(command)) {
-            if (StringUtils.equals(command, "addToCart")) {
-                addToCart();
-                return "";
-            }
-        }*/
-
         return "";
     }
 
     protected void init() {
-            productListType = new ProductListTypeCategory(siteRoot, content);
+            productListType = new ProductListTypeCategory(templatingFunctions, 
+                    siteRoot, ContentUtil.asContent(content));
     }
 
-/*    public void resetShoppingCart() {
-        // initialize new cart
-        MgnlContext.getWebContext().getRequest().getSession().removeAttribute(
-                "shoppingCart");
-        ShopUtil.setShoppingCartInSession();
-    }
 
-    protected void addToCart() {
-        String quantityString = MgnlContext.getParameter("quantity");
-        int quantity = 1;
-        try {
-            quantity = (new Integer(quantityString)).intValue();
-            if (quantity <= 0) {
-                quantity = 1;
-            }
-        } catch (NumberFormatException nfe) {
-            // TODO: log error? qunatity will be set to 1
-        }
-        // get all options
-        Iterator keysIter = MgnlContext.getParameters().keySet().iterator();
-        HashMap<String,CartItemOption> options = new HashMap<String,CartItemOption>();
-        String currKey, optionUUID;
-        Content optionNode, optionSetNode;
-        CartItemOption cio;
-        while (keysIter.hasNext()) {
-            currKey = (String) keysIter.next();
-            if (currKey.startsWith("option_")) {
-                optionUUID = MgnlContext.getParameter(currKey);
-                optionNode = ContentUtil.getContentByUUID("data", optionUUID);
-                if (optionNode != null) {
-                    try {
-                        optionNode = new I18nContentWrapper(optionNode);
-                        optionSetNode = optionNode.getParent();
-                        cio = new CartItemOption();
-                        cio.setOptionSetUUID(optionSetNode.getUUID());
-                        cio.setTitle(NodeDataUtil.getString(optionSetNode, "title"));
-                        cio.setValueTitle(NodeDataUtil.getString(optionNode, "title"));
-                        cio.setValueName(optionNode.getName());
-                        cio.setValueUUID(optionNode.getUUID());
-                        options.put(currKey, cio);
-                    } catch (PathNotFoundException ex) {
-                        log.error("could not get parent of " + optionNode.getHandle(), ex);
-                    } catch (AccessDeniedException ex) {
-                        log.error("could not get parent of " + optionNode.getHandle(), ex);
-                    } catch (RepositoryException ex) {
-                        log.error("could not get parent of " + optionNode.getHandle(), ex);
-                    }
-                }
-            }
-        }
-        String product = MgnlContext.getParameter("product");
-        if (StringUtils.isBlank(product)) {
-            log
-                    .error("Cannot add item to cart because no \"product\" parameter was found in the request");
-        } else {
-            ShoppingCart cart = getShoppingCart();
-            int success = cart.addToShoppingCart(product, quantity, options);
-            if (success <= 0) {
-                log.error("Cannot add item to cart because no product for "
-                        + product + " could be found");
-
-            }
-        }
-    }*/
 
     public ShopProductPager getPager() {
         return productListType.getPager();
@@ -291,7 +223,7 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
         try {
             shoppingCartPage = STKUtil.getContentByTemplateCategorySubCategory(
                     siteRoot, "feature", "shopping-cart");
-            return new LinkImpl(shoppingCartPage).getHref();
+            return new LinkImpl(shoppingCartPage.getJCRNode(), templatingFunctions).getHref();
         } catch (RepositoryException e) {
             log.error("Cant get shopping cart page", e);
         }
@@ -330,7 +262,7 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
 
     public String getProductDetailPageLink(Content product) {
         try {
-            return ShopLinkUtil.getProductDetailPageLink(product, MgnlContext.getAggregationState().getMainContent(), siteRoot);
+            return ShopLinkUtil.getProductDetailPageLink(templatingFunctions, product, MgnlContext.getAggregationState().getMainContent(), siteRoot);
         } catch (RepositoryException e) {
             return "";
         }

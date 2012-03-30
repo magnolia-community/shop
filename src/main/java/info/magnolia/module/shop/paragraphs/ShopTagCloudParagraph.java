@@ -35,17 +35,22 @@ package info.magnolia.module.shop.paragraphs;
 
 import java.util.List;
 
+import javax.jcr.Node;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.shop.util.ShopUtil;
-import info.magnolia.module.templating.RenderableDefinition;
-import info.magnolia.module.templating.RenderingModel;
-import info.magnolia.module.templating.RenderingModelImpl;
+import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
+import info.magnolia.module.templatingkit.templates.AbstractSTKTemplateModel;
 import info.magnolia.module.templatingkit.templates.STKTemplateModel;
+import info.magnolia.rendering.model.RenderingModel;
+import info.magnolia.rendering.template.TemplateDefinition;
+import info.magnolia.templating.functions.TemplatingFunctions;
 import info.magnolia.cms.core.Content;
+import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.context.MgnlContext;
 
@@ -53,24 +58,25 @@ import info.magnolia.context.MgnlContext;
  * Displays the tags assigned to productcategories by using categorization module.
  * Only for enterprise users.
  * @author tmiyar
+ * @param <RD>
  *
  */
-public class ShopTagCloudParagraph extends RenderingModelImpl {
+public class ShopTagCloudParagraph<RD extends TemplateDefinition> extends AbstractSTKTemplateModel<TemplateDefinition> {
 
     private static final Logger log = LoggerFactory.getLogger(ShopTagCloudParagraph.class);
 
     private String productKeywordResultPage = null;
     private Content siteRoot = null;
     
-    public ShopTagCloudParagraph(Content content, RenderableDefinition definition, RenderingModel parent) {
-        super(content, definition, parent);
-        
+    public ShopTagCloudParagraph(Node content, TemplateDefinition definition,
+            RenderingModel<?> parent, STKTemplatingFunctions stkFunctions,
+            TemplatingFunctions templatingFunctions) {
+        super(content, definition, parent, stkFunctions, templatingFunctions);
         if(parent instanceof STKTemplateModel) {
-            this.siteRoot = ((STKTemplateModel) parent).getSiteRoot();
-            productKeywordResultPage = ShopLinkUtil.getProductKeywordLink(siteRoot);
+            this.siteRoot = ContentUtil.asContent(((STKTemplateModel) parent).getSiteRoot());
+            productKeywordResultPage = ShopLinkUtil.getProductKeywordLink(templatingFunctions, siteRoot);
         }
     }
-
 
     public List<Content> getTagCloud() {
       

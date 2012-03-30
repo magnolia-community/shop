@@ -33,7 +33,6 @@
  */
 package info.magnolia.module.shop.processors;
 
-import info.magnolia.cms.core.Content;
 import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.form.processors.AbstractFormProcessor;
@@ -46,6 +45,7 @@ import info.magnolia.module.shop.util.ShopUtil;
 import java.util.Date;
 import java.util.Map;
 
+import javax.jcr.Node;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
@@ -66,7 +66,7 @@ import org.slf4j.LoggerFactory;
 public class SaveAndConfirmFormProcessor extends AbstractFormProcessor {
   private static Logger log = LoggerFactory.getLogger(SaveAndConfirmFormProcessor.class);
   @Override
-  protected void internalProcess(Content content, Map<String, Object> parameters)
+  protected void internalProcess(Node content, Map<String, Object> parameters)
       throws FormProcessorFailedException {
     
     try {

@@ -33,13 +33,18 @@
  */
 package info.magnolia.module.shop.paragraphs;
 
+import javax.jcr.Node;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import info.magnolia.cms.core.Content;
+import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.module.shop.search.ProductListTypeKeyword;
-import info.magnolia.module.templating.RenderableDefinition;
-import info.magnolia.module.templating.RenderingModel;
+import info.magnolia.module.templatingkit.STKModule;
+import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
+import info.magnolia.rendering.model.RenderingModel;
+import info.magnolia.rendering.template.TemplateDefinition;
+import info.magnolia.templating.functions.TemplatingFunctions;
 
 /**
  * Displays the result for keyword search, keywords are assigned to products
@@ -49,17 +54,19 @@ import info.magnolia.module.templating.RenderingModel;
  * 
  */
 public class ShopKeywordSearchResultParagraphModel extends ShopParagraphModel {
-
+    
     private static Logger log = LoggerFactory
             .getLogger(ShopKeywordSearchResultParagraphModel.class);
 
-    public ShopKeywordSearchResultParagraphModel(Content content,
-            RenderableDefinition definition, RenderingModel parent) {
-        super(content, definition, parent);
+    public ShopKeywordSearchResultParagraphModel(Node content,
+            TemplateDefinition definition, RenderingModel parent,
+            STKTemplatingFunctions stkFunctions,
+            TemplatingFunctions templatingFunctions, STKModule stkModule) {
+        super(content, definition, parent, stkFunctions, templatingFunctions, stkModule);
     }
 
     protected void init() {
-            productListType = new ProductListTypeKeyword(getSiteRoot(), content);
+            productListType = new ProductListTypeKeyword(templatingFunctions, ContentUtil.asContent(getSiteRoot()), ContentUtil.asContent(content));
     }
     
 }

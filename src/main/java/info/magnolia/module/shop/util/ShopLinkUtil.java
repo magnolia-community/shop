@@ -34,8 +34,8 @@
 package info.magnolia.module.shop.util;
 
 import info.magnolia.cms.core.Content;
-import info.magnolia.module.templating.MagnoliaTemplatingUtilities;
 import info.magnolia.module.templatingkit.util.STKUtil;
+import info.magnolia.templating.functions.TemplatingFunctions;
 
 import javax.jcr.RepositoryException;
 
@@ -52,34 +52,34 @@ public class ShopLinkUtil {
     
     private static final Logger log = LoggerFactory.getLogger(ShopLinkUtil.class);
 
-      public static String getProductCategoryLink(Content category) {
-          return MagnoliaTemplatingUtilities.getInstance().createLink(category);
+      public static String getProductCategoryLink(TemplatingFunctions functions, Content category) {
+          return functions.link(category.getJCRNode());
       }
   
-  public static String getProductListSearchLink(Content siteRoot) {
+  public static String getProductListSearchLink(TemplatingFunctions functions, Content siteRoot) {
       String link = "";
       try {
           Content productSearchResultPage = STKUtil.getNearestContentByTemplateCategorySubCategory(siteRoot, "feature", "product-search-result", ShopUtil.getShopRoot());
-          link = MagnoliaTemplatingUtilities.getInstance().createLink(productSearchResultPage);
+          link = functions.link(productSearchResultPage.getJCRNode());
       } catch (RepositoryException e) {
           log.error("Product search result link not found");
       }
       return link;
   }
   
-  public static String getProductKeywordLink(Content siteRoot) {
+  public static String getProductKeywordLink(TemplatingFunctions functions, Content siteRoot) {
       String link = "";
       try {
           Content productKeywordResultPage = STKUtil.getNearestContentByTemplateCategorySubCategory(siteRoot, "feature", "keyword-search-result", ShopUtil.getShopRoot());
-          link = MagnoliaTemplatingUtilities.getInstance().createLink(productKeywordResultPage);
+          link = functions.link(productKeywordResultPage.getJCRNode());
       } catch (RepositoryException e) {
           log.error("Product keyword search result link not found");
       }
       return link;
   }
   
-  public static String createLinkFromContentWithSelectors(Content content, String selector) {
-      String link = MagnoliaTemplatingUtilities.getInstance().createLink(content);
+  public static String createLinkFromContentWithSelectors(TemplatingFunctions functions, Content content, String selector) {
+      String link = functions.link(content.getJCRNode());
       String extension = StringUtils.substringAfterLast(link, ".");
       if(StringUtils.isNotEmpty(selector)) {
           selector += ".";
@@ -87,19 +87,19 @@ public class ShopLinkUtil {
       return StringUtils.substringBeforeLast(link, extension) + selector + extension;
   }
   
-  public static String getProductDetailPageLink(Content product, Content siteRoot)
+  public static String getProductDetailPageLink(TemplatingFunctions functions, Content product, Content siteRoot)
   throws RepositoryException {
       if (product != null) {
         Content detailPage = STKUtil.getContentByTemplateCategorySubCategory(
             siteRoot, "feature", "product-detail");
         
         String selector = createProductSelector(product);
-        return ShopLinkUtil.createLinkFromContentWithSelectors(detailPage, selector);
+        return ShopLinkUtil.createLinkFromContentWithSelectors(functions, detailPage, selector);
       }
       return "";
   }
   
-  public static String getProductDetailPageLink(Content product, Content currentPage, Content siteRoot)
+  public static String getProductDetailPageLink(TemplatingFunctions functions, Content product, Content currentPage, Content siteRoot)
   throws RepositoryException {
       if (product != null) {
           // first check if there is a product detail page underneath the current
@@ -113,7 +113,7 @@ public class ShopLinkUtil {
           }
 
           String selector = createProductSelector(product);
-          return ShopLinkUtil.createLinkFromContentWithSelectors(detailPage, selector);
+          return ShopLinkUtil.createLinkFromContentWithSelectors(functions, detailPage, selector);
       }
       return "";
   }

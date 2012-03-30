@@ -41,9 +41,10 @@ import info.magnolia.cms.i18n.I18nContentSupportFactory;
 import info.magnolia.cms.security.AccessDeniedException;
 import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.context.MgnlContext;
+import info.magnolia.module.templatingkit.sites.STKSiteManager;
 import info.magnolia.module.templatingkit.sites.Site;
-import info.magnolia.module.templatingkit.sites.SiteManager;
 import info.magnolia.module.templatingkit.util.STKUtil;
+import info.magnolia.objectfactory.Components;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -121,7 +122,7 @@ public class DialogLanguagesUtil {
         Site site = null;
         if (StringUtils.isNotBlank(controlImpl.getConfigValue("siteKey"))) {
             String siteKey = controlImpl.getConfigValue("siteKey");
-            site = SiteManager.Factory.getInstance().getSite(siteKey);
+            site = Components.getComponent(STKSiteManager.class).getSite(siteKey);
         }
         if (site == null) {
             if (controlImpl.getStorageNode() != null) {

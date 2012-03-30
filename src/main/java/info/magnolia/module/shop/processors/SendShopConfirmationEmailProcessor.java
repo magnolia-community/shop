@@ -35,7 +35,8 @@ package info.magnolia.module.shop.processors;
 
 import java.util.Map;
 
-import info.magnolia.cms.core.Content;
+import javax.jcr.Node;
+
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.form.processors.FormProcessorFailedException;
 import info.magnolia.module.form.processors.SendConfirmationEMailProcessor;
@@ -50,7 +51,7 @@ import info.magnolia.module.shop.util.ShopUtil;
 public class SendShopConfirmationEmailProcessor extends SendConfirmationEMailProcessor   {
 
     @Override
-    public void internalProcess(Content content, Map<String, Object> parameters)
+    public void internalProcess(Node content, Map<String, Object> parameters)
             throws FormProcessorFailedException {
         try {
             //add current shopping cart to the parameters map

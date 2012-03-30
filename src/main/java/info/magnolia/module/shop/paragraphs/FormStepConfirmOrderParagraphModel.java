@@ -34,13 +34,17 @@
 package info.magnolia.module.shop.paragraphs;
 
 
+import javax.jcr.Node;
+
 import info.magnolia.cms.core.Content;
-import info.magnolia.module.form.paragraphs.models.SubStepFormModel;
+import info.magnolia.cms.util.ContentUtil;
+import info.magnolia.module.form.templates.components.SubStepFormModel;
 import info.magnolia.module.shop.beans.ShoppingCart;
 import info.magnolia.module.shop.util.ShopUtil;
-import info.magnolia.module.templating.RenderableDefinition;
-import info.magnolia.module.templating.RenderingModel;
 import info.magnolia.module.templatingkit.templates.STKTemplateModel;
+import info.magnolia.rendering.model.RenderingModel;
+import info.magnolia.rendering.template.RenderableDefinition;
+import info.magnolia.templating.functions.TemplatingFunctions;
 
 /**
  * Checkout step paragraph. Need to get the current shopping cart.
@@ -49,16 +53,17 @@ import info.magnolia.module.templatingkit.templates.STKTemplateModel;
  */
 public class FormStepConfirmOrderParagraphModel extends SubStepFormModel {
 
-  private Content siteRoot;
+    private Content siteRoot;
 
-public FormStepConfirmOrderParagraphModel(Content content,
-      RenderableDefinition definition, RenderingModel parent) {
-    super(content, definition, parent);
-    if(parent instanceof STKTemplateModel) {
-        this.siteRoot = ((STKTemplateModel) parent).getSiteRoot();
-        
+    public FormStepConfirmOrderParagraphModel(Node content,
+            RenderableDefinition definition, RenderingModel<?> parent,
+            TemplatingFunctions functions) {
+        super(content, definition, parent, functions);
+        if(parent instanceof STKTemplateModel) {
+            this.siteRoot = ContentUtil.asContent(((STKTemplateModel) parent).getSiteRoot());
+            
+        }
     }
-  }
   
   public ShoppingCart getShoppingCart() {
     return ShopUtil.getShoppingCart();

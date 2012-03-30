@@ -39,6 +39,7 @@ import info.magnolia.context.MgnlContext;
 import info.magnolia.module.shop.util.CustomDataUtil;
 import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.shop.util.ShopUtil;
+import info.magnolia.templating.functions.TemplatingFunctions;
 
 import java.util.List;
 
@@ -49,14 +50,14 @@ import java.util.List;
  */
 public class ProductListTypeKeyword extends AbstractProductListType {
 
-    public ProductListTypeKeyword(Content siteRoot, Content content) {
-        super(siteRoot, content);
+    public ProductListTypeKeyword(TemplatingFunctions functions, Content siteRoot, Content content) {
+        super(functions, siteRoot, content);
     }
 
     @Override
     protected String getPagerLink() {
         Content currentPage = MgnlContext.getAggregationState().getMainContent();
-        return ShopLinkUtil.createLinkFromContentWithSelectors(currentPage, SelectorUtil.getSelector());
+        return ShopLinkUtil.createLinkFromContentWithSelectors(functions, currentPage, SelectorUtil.getSelector());
     }
 
     @Override
