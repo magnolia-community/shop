@@ -35,6 +35,7 @@ package info.magnolia.module.shop.dialog;
 
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.gui.dialog.DialogControlImpl;
+import info.magnolia.cms.i18n.AbstractI18nContentSupport;
 import info.magnolia.cms.i18n.DefaultI18nContentSupport;
 import info.magnolia.cms.i18n.I18nContentSupport;
 import info.magnolia.cms.i18n.I18nContentSupportFactory;
@@ -107,12 +108,12 @@ public class DialogLanguagesUtil {
         return getSiteI18nContentSupport(controlImpl).getDefaultLocale().getLanguage();
     }
 
-    private static DefaultI18nContentSupport getSiteI18nContentSupport(DialogControlImpl controlImpl) {
+    private static AbstractI18nContentSupport getSiteI18nContentSupport(DialogControlImpl controlImpl) {
         Site site = getSite(controlImpl);
 
-        DefaultI18nContentSupport i18nContentSupport = (DefaultI18nContentSupport) site.getI18n();
+        AbstractI18nContentSupport i18nContentSupport = (AbstractI18nContentSupport) site.getI18n();
         if (i18nContentSupport == null || !i18nContentSupport.isEnabled()) {
-            i18nContentSupport = (DefaultI18nContentSupport) I18nContentSupportFactory.getI18nSupport();
+            i18nContentSupport = (AbstractI18nContentSupport) I18nContentSupportFactory.getI18nSupport();
         }
 
         return i18nContentSupport;
