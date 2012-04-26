@@ -36,7 +36,6 @@ package info.magnolia.module.shop.dialog;
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.gui.dialog.DialogControlImpl;
 import info.magnolia.cms.i18n.AbstractI18nContentSupport;
-import info.magnolia.cms.i18n.DefaultI18nContentSupport;
 import info.magnolia.cms.i18n.I18nContentSupport;
 import info.magnolia.cms.i18n.I18nContentSupportFactory;
 import info.magnolia.cms.security.AccessDeniedException;
