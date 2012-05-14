@@ -40,7 +40,7 @@ import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.module.form.templates.components.SubStepFormModel;
 import info.magnolia.module.shop.beans.ShoppingCart;
 import info.magnolia.module.shop.util.ShopUtil;
-import info.magnolia.module.templatingkit.templates.STKTemplateModel;
+import info.magnolia.module.templatingkit.templates.pages.STKPageModel;
 import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.rendering.template.RenderableDefinition;
 import info.magnolia.templating.functions.TemplatingFunctions;
@@ -58,8 +58,8 @@ public class CheckoutStepParagraphModel extends SubStepFormModel {
             RenderableDefinition definition, RenderingModel<?> parent,
             TemplatingFunctions functions) {
         super(content, definition, parent, functions);
-        if(parent instanceof STKTemplateModel) {
-            this.siteRoot = ContentUtil.asContent(((STKTemplateModel) parent).getSiteRoot());
+        if(parent instanceof STKPageModel) {
+            this.siteRoot = ContentUtil.asContent(((STKPageModel) parent).getSiteRoot());
             
         }
     }

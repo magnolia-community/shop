@@ -1,4 +1,3 @@
-[#assign cms=JspTaglibs["cms-taglib"]]
 
 <script type="text/javascript">
 var jq=jQuery.noConflict();
@@ -21,7 +20,6 @@ jq(document).ready(function() {
 
 </script>
 <div ${model.style!}>
-    [@cms.editBar /]
     
     [#if content.title?has_content]
         <label for="${content.controlName!''}">
@@ -29,7 +27,7 @@ jq(document).ready(function() {
             [#if !model.isValid()]
                 <em>${i18n['form.error.field']}</em>
             [/#if]
-            ${mgnl.encode(content).title!}
+            ${cmsfn.encode(content).title!}
             [#if content.mandatory!false]
                 <dfn title="required">${model.requiredSymbol!}</dfn>
             [/#if]

@@ -2,8 +2,7 @@
 [#-------------- INCLUDE AND ASSIGN PART --------------]
 
 [#-- Assigns: General --]
-[#assign cms=JspTaglibs["cms-taglib"]]
-[#include "/templating-kit/paragraphs/teasers/init.inc.ftl"]
+[#include "/templating-kit/components/teasers/init.inc.ftl"]
 
 [#-- Assigns: Get and check tags --]
 [#assign categories = model.tagCloud!]
@@ -25,8 +24,6 @@
 [#-- Rendering: Category Cloud --]
 
 <div class="${divClass}" ${divID}>
-    [#-- Macro: Edit Bar --]
-    [@editBar /]
     [#if has_categories]
         [#if catCloudTitle?has_content]<${def.headingLevel!"h3"}>${catCloudTitle}</${def.headingLevel!"h3"}>[/#if]
         <ul>
@@ -44,10 +41,5 @@
 </div>
 
 
-[#-------------- ADDITIONAL MACROS --------------]
 
-[#-- Macro: Edit Bar --]
-[#macro editBar]
-   [@cms.editBar editLabel="${i18n['catCloud.editLabel']}" moveLabel="" /]
-[/#macro]
 

@@ -1,4 +1,4 @@
-[#assign cms=JspTaglibs["cms-taglib"]]
+
 [#-- Include: Global --]
 [#-------------- ASSIGNS ---------------------]
 
@@ -9,19 +9,15 @@
 
 [#-- Rendering: Shopping Cart --]
 [#if shoppingCart?has_content && shoppingCart.getCartItemsCount() > 0]
-	<li ${mgnl.editMode?string("style=\"float: none; display: block;\"","")}>
-        [#if mgnl.editMode]
-            <div style="width: 103px">[@cms.editBar /]</div>
-        [/#if]
+	<li ${cmsfn.editMode?string("style=\"float: none; display: block;\"","")}>
+        
 		<div class="${divClass!}" ${divID!} >
 		    <a href="${model.shoppingCartLink!}" class="cart_link">(${shoppingCart.cartItemsCount}) ${content.linkTitle!i18n['shoppingCart.view']}</a>
 		</div><!-- end ${divClass!} -->
 	</li>
 [#else]
-	<li ${mgnl.editMode?string("style=\"float: none; display: block;\"","")}>
-        [#if mgnl.editMode]
-            <div style="width: 103px">[@cms.editBar /]</div>
-        [/#if]
+	<li ${cmsfn.editMode?string("style=\"float: none; display: block;\"","")}>
+        
 		<div class="empty_cart">(0) ${content.linkTitle!i18n['shoppingCart.view']}</div>
 	</li>
 [/#if]

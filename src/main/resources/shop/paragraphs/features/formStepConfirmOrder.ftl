@@ -1,4 +1,4 @@
-[#assign cms=JspTaglibs["cms-taglib"]]
+
 [#include "/shop/paragraphs/macros/shoppingCartTable.ftl"]
 [#-------------- ASSIGNS ---------------------]
 
@@ -6,7 +6,7 @@
 
 [#if actionResult == "go-to-first-page"]
 	<div class="text">
-		${i18n.get("form.user.errorMessage.go-to-first-page", [mgnl.createLink("website", model.view.firstPage)])}
+		${i18n.get("form.user.errorMessage.go-to-first-page", [cmsfn.createLink("website", model.view.firstPage)])}
 	</div>
 [#elseif actionResult == "success"]
     <div class="text success">
@@ -15,7 +15,7 @@
     </div>
 [#elseif actionResult == "session-expired"]
 	<div class="text error">
-		${i18n.get("form.user.errorMessage.session-expired", [mgnl.createLink("website", model.view.firstPage)])}
+		${i18n.get("form.user.errorMessage.session-expired", [cmsfn.createLink("website", model.view.firstPage)])}
 	</div>
 [#elseif actionResult == "failure"]
 	<div class="text error">
@@ -37,20 +37,10 @@
             </ul>
         </div>
     [/#if]
-    [#if mgnl.editMode]
-        [#if content.@name == "singleton"]
-    <div style="clear: both" >
-        [@cms.editBar editLabel="${i18n['form.editLabel']}" moveLabel="" deleteLabel="" /]
-    </div>
-        [#else]
-            <div style="clear: both" >
-            [@cms.editBar editLabel="${i18n['form.editLabel']}" moveLabel="" /]
-            </div>
-        [/#if]
-    [/#if]
+    
     <div class="text">
-        <h1>${mgnl.encode(content).formTitle!}</h1>
-        <p>${mgnl.encode(content).formText!}</p>
+        <h1>${cmsfn.encode(content).formTitle!}</h1>
+        <p>${cmsfn.encode(content).formText!}</p>
     </div>
     	
     <div class="form-wrapper" >
@@ -67,12 +57,9 @@
 		
 		    [@shoppingCartTable shoppingCart=shoppingCart type=""/]
                 
-            [#if content.fieldsets?exists]
-                [@cms.contentNodeIterator contentNodeCollectionName="fieldsets"]
-                    [@cms.includeTemplate/]
-                [/@cms.contentNodeIterator]
-            [/#if]
-            [#if mgnl.editMode]
+            [@cms.area name="fieldsets"/]
+            
+            [#if cmsfn.editMode]
                 <div>[@cms.newBar contentNodeCollectionName="fieldsets"  newLabel="${i18n['form.fieldset.newLabel']}" paragraph="formGroupFields" /]</div>
             [/#if]
         </form>

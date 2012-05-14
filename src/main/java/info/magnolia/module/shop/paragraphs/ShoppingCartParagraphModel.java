@@ -34,7 +34,6 @@
 package info.magnolia.module.shop.paragraphs;
 
 import javax.jcr.Node;
-import javax.jcr.RepositoryException;
 
 
 import info.magnolia.cms.core.Content;
@@ -43,10 +42,10 @@ import info.magnolia.context.MgnlContext;
 import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.rendering.template.TemplateDefinition;
 import info.magnolia.templating.functions.TemplatingFunctions;
+import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.templatingkit.STKModule;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.module.templatingkit.navigation.LinkImpl;
-import info.magnolia.module.templatingkit.util.STKUtil;
 
 /**
  * Shopping cart paragraph.
@@ -79,10 +78,10 @@ public class ShoppingCartParagraphModel extends ShopParagraphModel {
 
     public String getCheckoutFormLink() {
         try {
-            Content formPage = STKUtil.getContentByTemplateCategorySubCategory(
+            Content formPage = ShopUtil.getContentByTemplateCategorySubCategory(
                     ContentUtil.asContent(getSiteRoot()), "feature", "checkoutform");
             return new LinkImpl(formPage.getJCRNode(), templatingFunctions).getHref();
-        } catch (RepositoryException e) {
+        } catch (Exception e) {
             // TODO
         }
         return "";

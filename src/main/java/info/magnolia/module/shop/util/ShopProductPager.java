@@ -52,11 +52,11 @@ public class ShopProductPager {
     private int count;
     private String link;
     private int maxResultsPerPage;
-    private Collection items;
+    private Collection<Content> items;
     private String position;
     private int numPages;
 
-    public ShopProductPager(String link, Collection items, Content content) {
+    public ShopProductPager(String link, Collection<Content> items, Content content) {
         this.count = items.size();
         this.items = items;
         this.link = link;
@@ -65,16 +65,16 @@ public class ShopProductPager {
         numPages = calculateNumberOfPages();
     }
     
-    public Collection getPageItems() {
+    public Collection<Content> getPageItems() {
 
-        Collection subList = items;
+        Collection<Content> subList = items;
         int offset = getOffset();
         if(count > 0) {
             int limit = maxResultsPerPage + offset;
             if(items.size() < limit) {
                 limit = count;
             }
-            subList = ((List)items).subList(offset, limit);
+            subList = ((List<Content>)items).subList(offset, limit);
 
         }
         return subList;

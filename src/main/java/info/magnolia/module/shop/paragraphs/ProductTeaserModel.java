@@ -39,11 +39,10 @@ import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.jcr.util.ContentMap;
 import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.module.shop.util.ShopLinkUtil;
+import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.module.templatingkit.style.CssSelectorBuilder;
-import info.magnolia.module.templatingkit.templates.STKTemplateModel;
 import info.magnolia.module.templatingkit.templates.components.InternalTeaserModel;
-import info.magnolia.module.templatingkit.util.STKUtil;
 import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.rendering.template.TemplateDefinition;
 import info.magnolia.templating.functions.TemplatingFunctions;
@@ -69,22 +68,13 @@ public class ProductTeaserModel extends InternalTeaserModel {
             TemplatingFunctions templatingFunctions) {
         super(content, definition, parent, stkFunctions, cssSelectorBuilder,
                 templatingFunctions);
-        RenderingModel currParent = parent;
-        while (!(currParent instanceof STKTemplateModel)) {
-            currParent = currParent.getParent();
-        }
-        siteRoot = ContentUtil.asContent(((STKTemplateModel) currParent).getSiteRoot());
+        siteRoot = ContentUtil.asContent(stkFunctions.siteRoot(content));
     }
 
     @Override
     public ContentMap getTarget() {
-        Content shopRoot = null;
-        try {
-            shopRoot = STKUtil.getContentByTemplateCategorySubCategory(siteRoot, "feature", "product-detail");
-        } catch (RepositoryException ex) {
-            log.error("Could not get shopHome page", ex);
-        }
         
+         Content shopRoot = ShopUtil.getContentByTemplateCategorySubCategory(siteRoot, "feature", "product-detail");
         
         if (shopRoot != null) {
             return templatingFunctions.asContentMap(stkFunctions.wrap(shopRoot.getJCRNode()));
@@ -108,5 +98,9 @@ public class ProductTeaserModel extends InternalTeaserModel {
             return ShopLinkUtil.getProductDetailPageLink(templatingFunctions, product, siteRoot);
         }
         return "";
+    }
+    
+    public Node getJCRNode(Content content) {
+        return content.getJCRNode();
     }
 }

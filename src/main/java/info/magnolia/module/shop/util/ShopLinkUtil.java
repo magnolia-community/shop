@@ -34,9 +34,10 @@
 package info.magnolia.module.shop.util;
 
 import info.magnolia.cms.core.Content;
-import info.magnolia.module.templatingkit.util.STKUtil;
+import info.magnolia.module.templatingkit.templates.category.TemplateCategoryUtil;
 import info.magnolia.templating.functions.TemplatingFunctions;
 
+import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 
 import org.apache.commons.lang.StringUtils;
@@ -59,8 +60,8 @@ public class ShopLinkUtil {
   public static String getProductListSearchLink(TemplatingFunctions functions, Content siteRoot) {
       String link = "";
       try {
-          Content productSearchResultPage = STKUtil.getNearestContentByTemplateCategorySubCategory(siteRoot, "feature", "product-search-result", ShopUtil.getShopRoot());
-          link = functions.link(productSearchResultPage.getJCRNode());
+          Node productSearchResultPage = TemplateCategoryUtil.getNearestContentByTemplateCategorySubCategory(siteRoot.getJCRNode(), "feature", "product-search-result", ShopUtil.getShopRoot().getJCRNode());
+          link = functions.link(productSearchResultPage);
       } catch (RepositoryException e) {
           log.error("Product search result link not found");
       }
@@ -70,8 +71,8 @@ public class ShopLinkUtil {
   public static String getProductKeywordLink(TemplatingFunctions functions, Content siteRoot) {
       String link = "";
       try {
-          Content productKeywordResultPage = STKUtil.getNearestContentByTemplateCategorySubCategory(siteRoot, "feature", "keyword-search-result", ShopUtil.getShopRoot());
-          link = functions.link(productKeywordResultPage.getJCRNode());
+          Node productKeywordResultPage = TemplateCategoryUtil.getNearestContentByTemplateCategorySubCategory(siteRoot.getJCRNode(), "feature", "keyword-search-result", ShopUtil.getShopRoot().getJCRNode());
+          link = functions.link(productKeywordResultPage);
       } catch (RepositoryException e) {
           log.error("Product keyword search result link not found");
       }
@@ -82,15 +83,15 @@ public class ShopLinkUtil {
       String link = functions.link(content.getJCRNode());
       String extension = StringUtils.substringAfterLast(link, ".");
       if(StringUtils.isNotEmpty(selector)) {
-          selector += ".";
+          selector = "~" + selector + "~";
       }
-      return StringUtils.substringBeforeLast(link, extension) + selector + extension;
+      return StringUtils.substringBeforeLast(link, extension) + selector + "." + extension;
   }
   
   public static String getProductDetailPageLink(TemplatingFunctions functions, Content product, Content siteRoot)
   throws RepositoryException {
       if (product != null) {
-        Content detailPage = STKUtil.getContentByTemplateCategorySubCategory(
+        Content detailPage = ShopUtil.getContentByTemplateCategorySubCategory(
             siteRoot, "feature", "product-detail");
         
         String selector = createProductSelector(product);
@@ -105,11 +106,11 @@ public class ShopLinkUtil {
           // first check if there is a product detail page underneath the current
           // page (which should be a product category page). This will make the
           // current product category to stay highlighted in the navigation.
-          Content detailPage = STKUtil.getContentByTemplateCategorySubCategory(currentPage, "feature", "product-detail");
+          Content detailPage = ShopUtil.getContentByTemplateCategorySubCategory(currentPage.getParent(), "feature", "product-detail");
           if (detailPage == null) {
               // if no detail page was found search the whole site for a "generic"
               // detail page.
-              detailPage = STKUtil.getContentByTemplateCategorySubCategory(siteRoot, "feature", "product-detail");
+              detailPage = ShopUtil.getContentByTemplateCategorySubCategory(siteRoot, "feature", "product-detail");
           }
 
           String selector = createProductSelector(product);
@@ -119,7 +120,7 @@ public class ShopLinkUtil {
   }
 
   public static String createProductSelector(Content product) {
-      return StringUtils.replace(StringUtils.replace(product.getTitle(), ".", "-"), " ", "-") + ".PRODUCT." + product.getName();
+      return StringUtils.replace(StringUtils.replace(product.getTitle(), ".", "-"), " ", "-") + "~PRODUCT~" + product.getName();
   }
 
 }

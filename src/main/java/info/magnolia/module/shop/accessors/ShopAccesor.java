@@ -33,13 +33,8 @@
  */
 package info.magnolia.module.shop.accessors;
 
-import java.util.Map;
-
 import info.magnolia.cms.core.Content;
-import info.magnolia.content2bean.Content2BeanException;
-import info.magnolia.content2bean.Content2BeanUtil;
-import info.magnolia.content2bean.TransformationState;
-import info.magnolia.content2bean.impl.Content2BeanTransformerImpl;
+import info.magnolia.cms.util.NodeDataUtil;
 import info.magnolia.module.shop.ShopConfiguration;
 import info.magnolia.module.shop.util.ShopUtil;
 
@@ -65,12 +60,16 @@ public class ShopAccesor extends DefaultCustomDataAccesor {
         Content shopNode = getNode();
         if(shopNode != null) {
             try {
-                return (ShopConfiguration) Content2BeanUtil.toBean(shopNode, false, new Content2BeanTransformerImpl() {
-                    public Object newBeanInstance(TransformationState state, Map properties) {
-                        return new ShopConfiguration();
-                    }
-                });
-            } catch (Content2BeanException e) {
+                ShopConfiguration shopConfiguration = new ShopConfiguration();
+                shopConfiguration.setCartBeanType(NodeDataUtil.getString(shopNode, "cartBeanType", ""));
+                shopConfiguration.setCartClassQualifiedName(NodeDataUtil.getString(shopNode, "cartClassQualifiedName", ""));
+                shopConfiguration.setCartSessionVariable(NodeDataUtil.getString(shopNode, "cartSessionVariable", ""));
+                shopConfiguration.setDefaultPriceCategoryName(NodeDataUtil.getString(shopNode, "defaultPriceCategoryName", ""));
+                shopConfiguration.setName(NodeDataUtil.getString(shopNode, "name", ""));
+                shopConfiguration.setPriceCategoryManagerClassQualifiedName(NodeDataUtil.getString(shopNode, "priceCategoryManagerClassQualifiedName", ""));
+                shopConfiguration.setSavedCartUUIDSessionVariable(NodeDataUtil.getString(shopNode, "savedCartUUIDSessionVariable", ""));
+                return shopConfiguration;
+            } catch (Exception e) {
                 log.error("Cant read shop configuration for " + getName(), e);
             }
             

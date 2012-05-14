@@ -45,7 +45,6 @@ import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.module.templatingkit.templates.AbstractSTKTemplateModel;
-import info.magnolia.module.templatingkit.templates.STKTemplateModel;
 import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.rendering.template.TemplateDefinition;
 import info.magnolia.templating.functions.TemplatingFunctions;
@@ -65,17 +64,13 @@ public class ShopTagCloudParagraph<RD extends TemplateDefinition> extends Abstra
 
     private static final Logger log = LoggerFactory.getLogger(ShopTagCloudParagraph.class);
 
-    private String productKeywordResultPage = null;
     private Content siteRoot = null;
     
     public ShopTagCloudParagraph(Node content, TemplateDefinition definition,
             RenderingModel<?> parent, STKTemplatingFunctions stkFunctions,
             TemplatingFunctions templatingFunctions) {
         super(content, definition, parent, stkFunctions, templatingFunctions);
-        if(parent instanceof STKTemplateModel) {
-            this.siteRoot = ContentUtil.asContent(((STKTemplateModel) parent).getSiteRoot());
-            productKeywordResultPage = ShopLinkUtil.getProductKeywordLink(templatingFunctions, siteRoot);
-        }
+        siteRoot = ContentUtil.asContent(stkFunctions.siteRoot(content));
     }
 
     public List<Content> getTagCloud() {
@@ -94,15 +89,16 @@ public class ShopTagCloudParagraph<RD extends TemplateDefinition> extends Abstra
     
     public String getProductListLink(String tagName, String tagDisplayName) {
         String link = "";
-        String replacement = "." + tagName;
+        String productKeywordResultPage = ShopLinkUtil.getProductKeywordLink(templatingFunctions, siteRoot);
+        String replacement = "~" + tagName;
         if(StringUtils.isNotEmpty(tagDisplayName)) {
-            replacement += "." + tagDisplayName; 
+            replacement += "~" + tagDisplayName ; 
         }
+        replacement += "~";
         String extension = "." + MgnlContext.getAggregationState().getExtension();
         replacement += extension;
         if(productKeywordResultPage != null) {
-            link = productKeywordResultPage.replace(extension,
-                    replacement);
+            link = productKeywordResultPage.replace(extension, replacement);
         }
         
         return link;

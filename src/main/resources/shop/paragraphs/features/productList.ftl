@@ -1,8 +1,8 @@
 [#-- Include: Global --]
-[#include "/templating-kit/paragraphs/teasers/init.inc.ftl"]
+[#include "/templating-kit/components/teasers/init.inc.ftl"]
 [#include "/shop/paragraphs/macros/addForm.ftl"]
 [#include "/shop/paragraphs/macros/productListMacro.ftl"]
-[#include "/templating-kit/paragraphs/macros/pagination.ftl"]
+[#include "/templating-kit/components/macros/pagination.ftl"]
 
 
 [#assign pager=model.pager!]
@@ -17,7 +17,6 @@
 [#-- Rendering Part --]
 
 <div class="${divClass}" ${divID} >
-	[@cms.editBar /]
 		
 	[#-- Macro: Pager --]
 	[@pagination pager "top" /]

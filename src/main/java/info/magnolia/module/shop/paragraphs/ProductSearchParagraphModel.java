@@ -41,7 +41,6 @@ import org.slf4j.LoggerFactory;
 import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.module.templatingkit.templates.AbstractSTKTemplateModel;
-import info.magnolia.module.templatingkit.templates.STKTemplateModel;
 import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.rendering.template.TemplateDefinition;
 import info.magnolia.templating.functions.TemplatingFunctions;
@@ -64,10 +63,9 @@ public class ProductSearchParagraphModel<RD extends TemplateDefinition> extends 
             STKTemplatingFunctions stkFunctions,
             TemplatingFunctions templatingFunctions) {
         super(content, definition, parent, stkFunctions, templatingFunctions);
-        if(parent instanceof STKTemplateModel) {
-            this.siteRoot = ContentUtil.asContent(((STKTemplateModel) parent).getSiteRoot());
-            
-        }
+        
+        siteRoot = ContentUtil.asContent(stkFunctions.siteRoot(content));
+        
     }
     
     public String getProductListLink() {

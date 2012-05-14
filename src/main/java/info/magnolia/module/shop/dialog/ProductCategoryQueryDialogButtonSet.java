@@ -36,15 +36,19 @@ package info.magnolia.module.shop.dialog;
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.gui.control.Button;
 import info.magnolia.cms.gui.control.ControlImpl;
+import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.NodeDataUtil;
 import info.magnolia.module.shop.util.ShopUtil;
-import info.magnolia.module.templatingkit.util.STKUtil;
+import info.magnolia.module.templatingkit.templates.category.TemplateCategoryUtil;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+
+import javax.jcr.Node;
 import javax.jcr.RepositoryException;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -146,11 +150,16 @@ public class ProductCategoryQueryDialogButtonSet extends QueryDialogButtonSet {
         Content shop = ShopUtil.getShopRootByShopName(path);
         if(shop != null) {
             try {
-                List<Content> categories = STKUtil.getContentListByTemplateCategorySubCategory(shop, templateCategory, templateSubcategory);
+                List<Node> categories = TemplateCategoryUtil.getContentListByTemplateCategorySubCategory(shop.getJCRNode(), templateCategory, templateSubcategory);
+                
                 if(categories.isEmpty()) {
                     log.warn("Can not find categories for shop " + path);
                 } else {
-                    return categories;
+                    ArrayList<Content> categoriesContent = new ArrayList<Content>(); 
+                    for(Node node: categories) {
+                        categoriesContent.add(ContentUtil.asContent(node));
+                    }
+                    return categoriesContent;
                 }
             } catch (RepositoryException e) {
                 log.error("Error finding categories for shop " + path);

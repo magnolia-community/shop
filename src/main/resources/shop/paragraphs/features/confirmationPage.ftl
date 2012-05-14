@@ -1,5 +1,3 @@
-[#-- Include: Global --]
-[#assign cms=JspTaglibs["cms-taglib"]]
 
 [#-------------- RENDERING PART --------------]
 

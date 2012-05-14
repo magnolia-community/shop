@@ -1,7 +1,8 @@
 [#-- Assigns: Macro for Item iteration --]
 [#macro assignItemValues product]
     [#-- Assigns: Get Content from List Item--]
-    [#assign asset = stk.getAsset(product, 'image')!]
+    [#assign productJCRNode = model.getJCRNode(product)!]
+    [#assign asset = stkfn.getAsset(productJCRNode, 'image')!]
 	[#assign description1 = product.productDescription1!]
 	[#assign description2 = product.productDescription2!]
 	[#assign productTitle = product.title!]
@@ -20,7 +21,7 @@
 	        	[#-- Rendering: Item rendering --]
 	        	<li>
 	        		[#-- Link to open product edit dialog, dialog only used from website--]
-	        		[#if mgnl.editMode]
+	        		[#if cmsfn.editMode]
 	        		<a  target="_blank" href="${ctx.contextPath}/.magnolia/dialogs/shopProduct.html?mgnlPath=${(product?parent).@handle}&mgnlNode=${product.@name}&mgnlRepository=data&mgnlLocale=${state.locale.language}&mgnlRichE=false&mgnlRichEPaste=" >
 	        		${i18n['edit.product']}</a>
 	        		[/#if]
@@ -28,7 +29,7 @@
 			    	<h3><a  href="${itemLink!}">${productTitle}</a></h3>
 					  [#if asset?has_content]        
 	                  <a  href="${itemLink!}">
-	                  	<img src="${stk.getAssetVariation(asset, 'teaser').link}"  />
+	                  	<img src="${stkfn.getAssetVariation(asset, 'teaser').link}"  />
 	                  </a>    
 	                  
 	                  [#else]

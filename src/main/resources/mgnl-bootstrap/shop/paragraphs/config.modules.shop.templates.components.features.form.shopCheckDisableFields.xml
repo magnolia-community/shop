@@ -10,26 +10,32 @@
     <sv:value>paragraph.shopCheckDisableFields.description</sv:value>
   </sv:property>
   <sv:property sv:name="dialog" sv:type="String">
-    <sv:value>shopCheckDisableFields</sv:value>
+    <sv:value>shop:shopCheckDisableFields</sv:value>
   </sv:property>
   <sv:property sv:name="i18nBasename" sv:type="String">
     <sv:value>info.magnolia.module.shop.messages</sv:value>
   </sv:property>
-  <sv:property sv:name="modelClass" sv:type="String">
-    <sv:value>info.magnolia.module.form.paragraphs.models.FormFieldModel</sv:value>
+  <sv:property sv:name="jcr:createdBy" sv:type="String">
+    <sv:value>admin</sv:value>
   </sv:property>
-  <sv:property sv:name="templatePath" sv:type="String">
+  <sv:property sv:name="modelClass" sv:type="String">
+    <sv:value>info.magnolia.module.form.templates.components.FormFieldModel</sv:value>
+  </sv:property>
+  <sv:property sv:name="renderType" sv:type="String">
+    <sv:value>freemarker</sv:value>
+  </sv:property>
+  <sv:property sv:name="templateScript" sv:type="String">
     <sv:value>/shop/paragraphs/features/form/checkDisableFields.ftl</sv:value>
   </sv:property>
   <sv:property sv:name="title" sv:type="String">
     <sv:value>paragraph.shopCheckDisableFields.title</sv:value>
   </sv:property>
-  <sv:property sv:name="type" sv:type="String">
-    <sv:value>freemarker</sv:value>
-  </sv:property>
   <sv:node sv:name="MetaData">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>mgnl:metaData</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:createdBy" sv:type="String">
+      <sv:value>admin</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:Data" sv:type="String">
       <sv:value>MetaData</sv:value>

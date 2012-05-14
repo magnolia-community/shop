@@ -1,41 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sv:node sv:name="shopFormStepConfirmOrder" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<sv:node sv:name="shopProductDetail" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <sv:property sv:name="jcr:primaryType" sv:type="Name">
     <sv:value>mgnl:contentNode</sv:value>
   </sv:property>
-  <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+  <sv:property sv:name="jcr:mixinTypes" sv:type="Name" sv:multiple="true">
     <sv:value>mix:lockable</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:uuid" sv:type="String">
-    <sv:value>fe13ff1a-6afa-4626-847f-198f68c9d1c7</sv:value>
-  </sv:property>
-  <sv:property sv:name="class" sv:type="String">
-    <sv:value>info.magnolia.module.form.templates.FormStepParagraph</sv:value>
+    <sv:value>cb24634f-c456-4acf-9cfb-1b21f1078fed</sv:value>
   </sv:property>
   <sv:property sv:name="description" sv:type="String">
-    <sv:value>form description</sv:value>
+    <sv:value/>
   </sv:property>
   <sv:property sv:name="dialog" sv:type="String">
-    <sv:value>formStep</sv:value>
+    <sv:value>shop:shopProductList</sv:value>
   </sv:property>
   <sv:property sv:name="i18nBasename" sv:type="String">
     <sv:value>info.magnolia.module.shop.messages</sv:value>
   </sv:property>
-  <sv:property sv:name="modelClass" sv:type="String">
-    <sv:value>info.magnolia.module.shop.paragraphs.FormStepConfirmOrderParagraphModel</sv:value>
+  <sv:property sv:name="jcr:createdBy" sv:type="String">
+    <sv:value>admin</sv:value>
   </sv:property>
-  <sv:property sv:name="templatePath" sv:type="String">
-    <sv:value>/shop/paragraphs/features/formStepConfirmOrder.ftl</sv:value>
+  <sv:property sv:name="modelClass" sv:type="String">
+    <sv:value>info.magnolia.module.shop.paragraphs.ShopParagraphModel</sv:value>
+  </sv:property>
+  <sv:property sv:name="renderType" sv:type="String">
+    <sv:value>stk</sv:value>
+  </sv:property>
+  <sv:property sv:name="templateScript" sv:type="String">
+    <sv:value>/shop/paragraphs/features/productDetails.ftl</sv:value>
   </sv:property>
   <sv:property sv:name="title" sv:type="String">
-    <sv:value>Confirm Order Form Step</sv:value>
-  </sv:property>
-  <sv:property sv:name="type" sv:type="String">
-    <sv:value>stk</sv:value>
+    <sv:value>product detail</sv:value>
   </sv:property>
   <sv:node sv:name="MetaData">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>mgnl:metaData</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:createdBy" sv:type="String">
+      <sv:value>admin</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:activated" sv:type="Boolean">
       <sv:value>false</sv:value>
@@ -44,28 +47,40 @@
       <sv:value>superuser</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-      <sv:value>2008-10-10T14:55:27.084+02:00</sv:value>
+      <sv:value>2008-09-25T12:45:26.721+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2011-05-31T14:11:04.083+02:00</sv:value>
+      <sv:value>2011-02-28T14:18:06.562+01:00</sv:value>
     </sv:property>
   </sv:node>
   <sv:node sv:name="parameters">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>mgnl:contentNode</sv:value>
     </sv:property>
-    <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+    <sv:property sv:name="jcr:mixinTypes" sv:type="Name" sv:multiple="true">
       <sv:value>mix:lockable</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>548d50b3-809f-4666-a025-35ea18556048</sv:value>
+      <sv:value>457f69cf-fc49-4635-9bb0-860dd90f89ef</sv:value>
     </sv:property>
-    <sv:property sv:name="formEnctype" sv:type="String">
-      <sv:value>multipart/form-data</sv:value>
+    <sv:property sv:name="divClass" sv:type="String">
+      <sv:value>teaser</sv:value>
+    </sv:property>
+    <sv:property sv:name="divIDPrefix" sv:type="String">
+      <sv:value/>
+    </sv:property>
+    <sv:property sv:name="headingLevel" sv:type="String">
+      <sv:value>h2</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:createdBy" sv:type="String">
+      <sv:value>admin</sv:value>
     </sv:property>
     <sv:node sv:name="MetaData">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
         <sv:value>mgnl:metaData</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:createdBy" sv:type="String">
+        <sv:value>admin</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:activated" sv:type="Boolean">
         <sv:value>false</sv:value>
@@ -74,10 +89,10 @@
         <sv:value>superuser</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-        <sv:value>2009-11-10T17:21:31.109+01:00</sv:value>
+        <sv:value>2008-10-14T21:51:46.910+02:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-        <sv:value>2011-04-11T09:14:28.708+02:00</sv:value>
+        <sv:value>2011-06-08T10:31:58.929+02:00</sv:value>
       </sv:property>
     </sv:node>
   </sv:node>

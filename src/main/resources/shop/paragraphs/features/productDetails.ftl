@@ -1,13 +1,14 @@
 [#-- Assigns: Get Content --]
 [#include "/shop/paragraphs/macros/addForm.ftl"]
-[#include "/templating-kit/paragraphs/teasers/init.inc.ftl"]
+[#include "/templating-kit/components/teasers/init.inc.ftl"]
 
 [#assign maxImages = content.maxImages!6]
 
 [#assign product = model.product!]
+[#assign productJCRNode = model.getJCRNode(product)!]
 
 [#if product?has_content]
-	[#assign asset = stk.getAsset(product, 'image')!]
+	[#assign asset = stkfn.getAsset(productJCRNode, 'image')!]
 	[#assign description1 = product.productDescription1!]
 	[#assign description2 = product.productDescription2!]
 	[#assign productTitle = product.title!]
@@ -17,7 +18,7 @@
 	
 	[#assign noPicLink = ctx.contextPath + "/docroot/shop/images/box.gif"]
 	[#-- Link to open product edit dialog, dialog only used from website--]
-	[#if mgnl.editMode]
+	[#if cmsfn.editMode]
 	<a  target="_blank" href="${ctx.contextPath}/.magnolia/dialogs/shopProduct.html?mgnlPath=${(product?parent).@handle}&mgnlNode=${product.@name}&mgnlRepository=data&mgnlLocale=${state.locale.language}&mgnlRichE=false&mgnlRichEPaste=" >
 	${i18n['edit.product']}</a>
 	[/#if]
@@ -46,8 +47,8 @@
 	                    [#assign class][#if (image_index+1)%3==0]photo last[#else]photo[/#if][/#assign]
 	
 	                    <dl class="${class}">
-	                        <dt ><img src="${stk.getAssetVariation(image, 'gallery-thumbnail').link}" alt="${image.title}"/></dt>
-	                        <dd class="zoom"><a href="${stk.getAssetVariation(image, 'gallery-zoom').link}" rel="showbox" title="${i18n['link.zoom.title']}">${i18n['link.zoom']}</a></dd>
+	                        <dt ><img src="${stkfn.getAssetVariation(image, 'gallery-thumbnail').link}" alt="${image.title}"/></dt>
+	                        <dd class="zoom"><a href="${stkfn.getAssetVariation(image, 'gallery-zoom').link}" rel="showbox" title="${i18n['link.zoom.title']}">${i18n['link.zoom']}</a></dd>
 	                        	
 	                            <dd class="caption">${image.caption!"&nbsp;"}</dd>
 	                        
@@ -65,8 +66,8 @@
 	        [/#list]
 	    [#elseif asset?has_content]
 	    	<dl class="photo">
-                <dt ><img src="${stk.getAssetVariation(asset, 'gallery-thumbnail').link}" /></dt>
-                <dd class="zoom"><a href="${stk.getAssetVariation(asset, 'gallery-zoom').link}" rel="showbox" title="${i18n['link.zoom.title']}">${i18n['link.zoom']}</a></dd>
+                <dt ><img src="${stkfn.getAssetVariation(asset, 'gallery-thumbnail').link}" /></dt>
+                <dd class="zoom"><a href="${stkfn.getAssetVariation(asset, 'gallery-zoom').link}" rel="showbox" title="${i18n['link.zoom.title']}">${i18n['link.zoom']}</a></dd>
                 <dd class="caption">&nbsp;</dd>
             </dl>
             

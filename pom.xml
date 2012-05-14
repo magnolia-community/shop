@@ -15,7 +15,7 @@
   <properties>
   	<javaVersion>1.6</javaVersion>
     <magnoliaVersion>4.5.2</magnoliaVersion>
-    <stkVersion>2.0.1</stkVersion>
+    <stkVersion>2.0.2</stkVersion>
 
     <!-- dual licensed : -->
     <checkstyleHeader>magnolia-build-tools/license-header-dual.regex</checkstyleHeader>
@@ -64,6 +64,7 @@
       <groupId>ch.fastforward</groupId>
       <artifactId>magnolia-module-ocm</artifactId>
       <version>1.0</version>
+      
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
@@ -97,6 +98,11 @@
        <groupId>info.magnolia</groupId>
        <artifactId>magnolia-templating</artifactId>
        <version>${magnoliaVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-templating-compatibility</artifactId>
+	  <version>${magnoliaVersion}</version>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>

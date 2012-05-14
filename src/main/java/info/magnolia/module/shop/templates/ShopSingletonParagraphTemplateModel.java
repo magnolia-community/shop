@@ -59,7 +59,8 @@ import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.module.templatingkit.navigation.Link;
 import info.magnolia.module.templatingkit.navigation.LinkImpl;
 import info.magnolia.module.templatingkit.templates.pages.STKPage;
-import info.magnolia.module.templatingkit.templates.SingletonParagraphTemplateModel;
+import info.magnolia.module.templatingkit.templates.pages.STKPageModel;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import javax.jcr.PathNotFoundException;
@@ -73,7 +74,7 @@ import org.slf4j.LoggerFactory;
  * @author tmiyar
  *
  */
-public class ShopSingletonParagraphTemplateModel extends SingletonParagraphTemplateModel {
+public class ShopSingletonParagraphTemplateModel extends STKPageModel {
 
     public ShopSingletonParagraphTemplateModel(Node content,
             STKPage definition, RenderingModel<?> parent,
@@ -118,7 +119,6 @@ public class ShopSingletonParagraphTemplateModel extends SingletonParagraphTempl
         return currentShopName;
     }
 
-    @Override
     public Collection<Link> getBreadcrumb() throws RepositoryException {
         List<Link> items = new ArrayList<Link>();
 

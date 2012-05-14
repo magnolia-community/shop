@@ -68,7 +68,6 @@ import info.magnolia.templating.functions.TemplatingFunctions;
 import info.magnolia.module.templatingkit.STKModule;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.module.templatingkit.navigation.LinkImpl;
-import info.magnolia.module.templatingkit.templates.STKTemplateModel;
 import info.magnolia.module.templatingkit.templates.components.ImageGalleryParagraphModel;
 import info.magnolia.module.templatingkit.util.STKUtil;
 
@@ -91,9 +90,7 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
             TemplatingFunctions templatingFunctions, STKModule stkModule) {
         super(content, definition, parent, stkFunctions, templatingFunctions, stkModule);
         this.parent = parent;
-        if (parent instanceof STKTemplateModel) {
-            this.siteRoot = ContentUtil.asContent(((STKTemplateModel) parent).getSiteRoot());
-        }
+        this.siteRoot = ContentUtil.asContent(stkFunctions.siteRoot(content));
     }
 
     public ShoppingCart getShoppingCart() {
@@ -119,6 +116,10 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
 
     public ShopProductPager getPager() {
         return productListType.getPager();
+    }
+    
+    public Node getJCRNode(Content content) {
+        return content.getJCRNode();
     }
 
     
@@ -221,10 +222,10 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
     public String getShoppingCartLink() {
         Content shoppingCartPage;
         try {
-            shoppingCartPage = STKUtil.getContentByTemplateCategorySubCategory(
+            shoppingCartPage = ShopUtil.getContentByTemplateCategorySubCategory(
                     siteRoot, "feature", "shopping-cart");
             return new LinkImpl(shoppingCartPage.getJCRNode(), templatingFunctions).getHref();
-        } catch (RepositoryException e) {
+        } catch (Exception e) {
             log.error("Cant get shopping cart page", e);
         }
         return "";

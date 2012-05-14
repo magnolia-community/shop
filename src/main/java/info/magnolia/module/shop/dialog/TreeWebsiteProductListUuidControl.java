@@ -43,7 +43,6 @@ import info.magnolia.cms.util.NodeDataUtil;
 import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.shop.util.ShopUtil;
-import info.magnolia.module.templatingkit.util.STKUtil;
 
 /**
  * This control will set the shop name used in the current site, by doing this,
@@ -69,7 +68,7 @@ public class TreeWebsiteProductListUuidControl extends DialogUUIDLink {
                 }
             }
         
-            Content shopHome = STKUtil.getContentByTemplateCategorySubCategory(siteRootNode, "feature", "shopHome");
+            Content shopHome = ShopUtil.getContentByTemplateCategorySubCategory(siteRootNode, "feature", "shopHome");
             if(shopHome != null) {
                 MgnlContext.setAttribute(ShopUtil.ATTRIBUTE_SHOPNAME, NodeDataUtil.getString(shopHome, "currentShop"), Context.SESSION_SCOPE);
             }

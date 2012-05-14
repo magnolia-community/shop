@@ -56,6 +56,8 @@ import info.magnolia.module.shop.accessors.ShopProductAccesor;
 import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
 import info.magnolia.module.shop.beans.ShoppingCart;
 import info.magnolia.module.templatingkit.templates.category.TemplateCategoryUtil;
+
+import javax.jcr.Node;
 import javax.jcr.PathNotFoundException;
 
 import javax.jcr.RepositoryException;
@@ -86,7 +88,7 @@ public class ShopUtil {
         try {
             while (currContent.getLevel() >= 0) {
                 String subCategory = TemplateCategoryUtil.getTemplateSubCategory(currContent);
-                if (TemplateCategoryUtil.getTemplateSubCategory(currContent).equals("shopHome")) {
+                if (subCategory != null && subCategory.equals("shopHome")) {
                     return currContent;
                 } else {
                     currContent = currContent.getParent();
@@ -268,5 +270,19 @@ public class ShopUtil {
     public static Collection<Content> findTaggedProducts(String tagUUID) {
         return ShopProductAccesor.getTaggedProducts(tagUUID);
 
+    }
+    
+    public static Content getContentByTemplateCategorySubCategory(Content root, String category, String subCategory) {
+        
+        try {
+            List<Node> nodes = TemplateCategoryUtil.getContentListByTemplateCategorySubCategory(root.getJCRNode(), category, subCategory);
+            if(nodes.size() > 0) {
+                return ContentUtil.asContent(nodes.get(0));
+            }
+        } catch (RepositoryException e) {
+            log.error("no template found with category=" + category + " and subcategory=" + subCategory);
+        }
+        
+        return null;
     }
 }

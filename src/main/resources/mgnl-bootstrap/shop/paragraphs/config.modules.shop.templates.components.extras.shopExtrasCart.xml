@@ -1,38 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sv:node sv:name="shopProductCategory" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<sv:node sv:name="shopExtrasCart" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <sv:property sv:name="jcr:primaryType" sv:type="Name">
     <sv:value>mgnl:contentNode</sv:value>
   </sv:property>
-  <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+  <sv:property sv:name="jcr:mixinTypes" sv:type="Name" sv:multiple="true">
     <sv:value>mix:lockable</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:uuid" sv:type="String">
-    <sv:value>5037c1a5-9a09-4452-a692-61b70c7c3603</sv:value>
+    <sv:value>c1583908-0e18-45de-bf56-65b0b19461c7</sv:value>
   </sv:property>
   <sv:property sv:name="description" sv:type="String">
-    <sv:value/>
+    <sv:value>paragraphs.extras.shopExtrasCart.description</sv:value>
   </sv:property>
   <sv:property sv:name="dialog" sv:type="String">
-    <sv:value>shopProductList</sv:value>
+    <sv:value>shop:shopEmpty</sv:value>
   </sv:property>
   <sv:property sv:name="i18nBasename" sv:type="String">
     <sv:value>info.magnolia.module.shop.messages</sv:value>
   </sv:property>
-  <sv:property sv:name="modelClass" sv:type="String">
-    <sv:value>info.magnolia.module.shop.paragraphs.ShopParagraphModel</sv:value>
+  <sv:property sv:name="jcr:createdBy" sv:type="String">
+    <sv:value>admin</sv:value>
   </sv:property>
-  <sv:property sv:name="templatePath" sv:type="String">
-    <sv:value>/shop/paragraphs/features/productList.ftl</sv:value>
+  <sv:property sv:name="modelClass" sv:type="String">
+    <sv:value>info.magnolia.module.shop.paragraphs.ShoppingCartParagraphModel</sv:value>
+  </sv:property>
+  <sv:property sv:name="renderType" sv:type="String">
+    <sv:value>stk</sv:value>
+  </sv:property>
+  <sv:property sv:name="templateScript" sv:type="String">
+    <sv:value>/shop/paragraphs/extras/cart.ftl</sv:value>
   </sv:property>
   <sv:property sv:name="title" sv:type="String">
-    <sv:value>paragraphs.features.shopProductCategory.title</sv:value>
-  </sv:property>
-  <sv:property sv:name="type" sv:type="String">
-    <sv:value>stk</sv:value>
+    <sv:value>paragraphs.extras.shopExtrasCart.title</sv:value>
   </sv:property>
   <sv:node sv:name="MetaData">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>mgnl:metaData</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:createdBy" sv:type="String">
+      <sv:value>admin</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:activated" sv:type="Boolean">
       <sv:value>false</sv:value>
@@ -41,34 +47,40 @@
       <sv:value>superuser</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-      <sv:value>2008-09-25T12:45:26.721+02:00</sv:value>
+      <sv:value>2008-10-10T14:55:27.084+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2011-10-26T12:55:02.290+02:00</sv:value>
+      <sv:value>2011-11-03T11:34:29.307+01:00</sv:value>
     </sv:property>
   </sv:node>
   <sv:node sv:name="parameters">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>mgnl:contentNode</sv:value>
     </sv:property>
-    <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+    <sv:property sv:name="jcr:mixinTypes" sv:type="Name" sv:multiple="true">
       <sv:value>mix:lockable</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>8042d992-9292-4f4f-94f7-03322c86bcb8</sv:value>
+      <sv:value>9e223b78-1e8d-4dd7-ac3d-240abbf6a0fe</sv:value>
     </sv:property>
     <sv:property sv:name="divClass" sv:type="String">
-      <sv:value>teaser products</sv:value>
+      <sv:value>box shoppingCartSideDisplay</sv:value>
     </sv:property>
     <sv:property sv:name="divIDPrefix" sv:type="String">
-      <sv:value>teaser</sv:value>
+      <sv:value>box</sv:value>
     </sv:property>
     <sv:property sv:name="headingLevel" sv:type="String">
       <sv:value>h2</sv:value>
     </sv:property>
+    <sv:property sv:name="jcr:createdBy" sv:type="String">
+      <sv:value>admin</sv:value>
+    </sv:property>
     <sv:node sv:name="MetaData">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
         <sv:value>mgnl:metaData</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:createdBy" sv:type="String">
+        <sv:value>admin</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:activated" sv:type="Boolean">
         <sv:value>false</sv:value>
@@ -80,7 +92,7 @@
         <sv:value>2008-10-14T21:51:46.910+02:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-        <sv:value>2011-10-26T10:59:57.903+02:00</sv:value>
+        <sv:value>2011-06-06T14:46:58.099+02:00</sv:value>
       </sv:property>
     </sv:node>
   </sv:node>
