@@ -88,21 +88,25 @@
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-standard-templating-kit</artifactId>
       <version>${stkVersion}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-resources</artifactId>
       <version>1.5.1</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
        <groupId>info.magnolia</groupId>
        <artifactId>magnolia-templating</artifactId>
        <version>${magnoliaVersion}</version>
+       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-templating-compatibility</artifactId>
 	  <version>${magnoliaVersion}</version>
+	  <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
@@ -136,5 +140,12 @@
 		<scope>provided</scope>
     </dependency>
   </dependencies>
-
+ <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
 </project>
