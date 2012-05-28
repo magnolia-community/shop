@@ -39,8 +39,8 @@
     [/#if]
     
     <div class="text">
-        <h1>${cmsfn.encode(content).formTitle!}</h1>
-        <p>${cmsfn.encode(content).formText!}</p>
+        <h1>${content.formTitle!}</h1>
+        <p>${content.formText!}</p>
     </div>
     	
     <div class="form-wrapper" >

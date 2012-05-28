@@ -4,7 +4,7 @@
 [#-- Assigns: General --]
 [#include "/templating-kit/components/teasers/init.inc.ftl"]
 
-[#assign link = model.productListLink]
+[#assign link = model.productListLink!]
 [#-------------- RENDERING PART --------------]
 
 [#-- Rendering: Product Search --]

@@ -38,13 +38,15 @@ import static info.magnolia.nodebuilder.Ops.getNode;
 import info.magnolia.cms.beans.config.ContentRepository;
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.core.ItemType;
-import info.magnolia.module.DefaultModuleVersionHandler;
 import info.magnolia.module.InstallContext;
 import info.magnolia.module.admininterface.setup.AddMainMenuItemTask;
 import info.magnolia.module.admininterface.setup.AddSubMenuItemTask;
+import info.magnolia.module.admininterface.setup.SimpleContentVersionHandler;
 import info.magnolia.module.data.setup.RegisterNodeTypeTask;
 
+import info.magnolia.module.delta.AbstractTask;
 import info.magnolia.module.delta.AddRoleToUserTask;
+import info.magnolia.module.delta.DeltaBuilder;
 import info.magnolia.module.delta.IsAuthorInstanceDelegateTask;
 import info.magnolia.module.delta.IsInstallSamplesTask;
 import info.magnolia.module.delta.IsModuleInstalledOrRegistered;
@@ -60,9 +62,11 @@ import info.magnolia.nodebuilder.task.ErrorHandling;
 import info.magnolia.nodebuilder.task.NodeBuilderTask;
 import info.magnolia.nodebuilder.task.TaskLogErrorHandler;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jcr.ImportUUIDBehavior;
 import javax.jcr.RepositoryException;
 
 import static info.magnolia.nodebuilder.Ops.*;
@@ -70,11 +74,49 @@ import static info.magnolia.nodebuilder.Ops.*;
 /**
  * This class is used to handle installation and updates of your module.
  */
-public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
+public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
 
   public ShopModuleVersionHandler() {
-    // nothing to do here
+
+      register(DeltaBuilder.update("2.0", "")
+          
+           .addTask(new IsModuleInstalledOrRegistered("Bootstrap new sample-shop", "", "demo-project",
+                   new AbstractTask("Register new sample-shop", "Import all bootstrap files of new sample-shop.") {
+
+              public void execute(InstallContext ctx) throws TaskExecutionException {
+                  try {
+                      ctx.getJCRSession("website").importXML("/demo-features/modules", getClass().getResourceAsStream("/info/magnolia/module/shop/setup/demo-project/website.demo-features.modules.sample-shop.xml"), ImportUUIDBehavior.IMPORT_UUID_COLLISION_REMOVE_EXISTING);
+                  }
+                  catch (RepositoryException e) {
+                      throw new TaskExecutionException("Can not bootstrap new sample-shop: ",e);
+                  }
+                  catch (IOException e) {
+                      throw new TaskExecutionException("Can not bootstrap new sample-shop: ",e);
+                  }
+              }
+          }))
+          
+          
+          .addTask (new AbstractTask("Register new DMS Images", "Import all bootstrap files containing the new DMS images.") {
+
+              public void execute(InstallContext ctx) throws TaskExecutionException {
+                  try {
+                      ctx.getJCRSession("dms").importXML("/templating-kit/themes/pop/img", getClass().getResourceAsStream("/mgnl-bootstrap/shop/dms.templating-kit.themes.pop.img.shop.xml"), ImportUUIDBehavior.IMPORT_UUID_COLLISION_REMOVE_EXISTING);
+                  }
+                  catch (RepositoryException e) {
+                      throw new TaskExecutionException("Can not bootstrap new DMS Images: ",e);
+                  }
+                  catch (IOException e) {
+                      throw new TaskExecutionException("Can not bootstrap new DMS Images: ",e);
+                  }
+              }
+          })
+          
+      );
+      
   }
+
+  
 
   /**
    * 
@@ -114,25 +156,25 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
           new NodeBuilder(new TaskLogErrorHandler(ctx), siteDefinition,
               getNode("templates/availability/templates").then(
                   addNode("shopCheckoutForm", ItemType.CONTENTNODE).then(
-                      addProperty("name", "shopCheckoutForm")),
+                      addProperty("id", "shop:pages/shopCheckoutForm")),
                   addNode("shopConfirmationPage", ItemType.CONTENTNODE).then(
-                      addProperty("name", "shopConfirmationPage")),
+                      addProperty("id", "shop:pages/shopConfirmationPage")),
                   addNode("shopFormStep", ItemType.CONTENTNODE).then(
-                      addProperty("name", "shopFormStep")),
+                      addProperty("id", "shop:pages/shopFormStep")),
                   addNode("shopFormStepConfirmOrder", ItemType.CONTENTNODE).then(
-                      addProperty("name", "shopFormStepConfirmOrder")),
+                      addProperty("id", "shop:pages/shopFormStepConfirmOrder")),
                   addNode("shopHome", ItemType.CONTENTNODE).then(
-                      addProperty("name", "shopHome")),
+                      addProperty("id", "shop:pages/shopHome")),
                   addNode("shopProductCategory", ItemType.CONTENTNODE).then(
-                      addProperty("name", "shopProductCategory")),
+                      addProperty("id", "shop:pages/shopProductCategory")),
                   addNode("shopProductKeywordResult", ItemType.CONTENTNODE).then(
-                      addProperty("name", "shopProductKeywordResult")),
+                      addProperty("id", "shop:pages/shopProductKeywordResult")),
                   addNode("shopProductSearchResult", ItemType.CONTENTNODE).then(
-                      addProperty("name", "shopProductSearchResult")),
+                      addProperty("id", "shop:pages/shopProductSearchResult")),
                   addNode("shopProductDetail", ItemType.CONTENTNODE).then(
-                      addProperty("name", "shopProductDetail")),
+                      addProperty("id", "shop:pages/shopProductDetail")),
                   addNode("shopShoppingCart", ItemType.CONTENTNODE).then(
-                      addProperty("name", "shopShoppingCart"))
+                      addProperty("id", "shop:pages/shopShoppingCart"))
               )).exec();
       }
     });
@@ -164,11 +206,11 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
     installTasks.add(new IsModuleInstalledOrRegistered("Add Keyword extras paragraph", 
             "Adds an autogenerated keyword paragraph in the extras area of ProductCategory template.", "categorization", 
             new NodeBuilderTask("","", ErrorHandling.strict, "config",
-                getNode("modules/shop/templates/shopProductCategory/extrasArea/autoGeneratedParagraphs").then(
-                    addNode("shopExtrasTagCloud", ItemType.CONTENTNODE).then(
-                            addNode("defaultValues", ItemType.CONTENTNODE).then(
-                                    addProperty("catCloudTitle", "Keywords")),
-                            addProperty("name", "shopExtrasTagCloud"))
+                getNode("modules/shop/templates/pages/shopProductCategory/areas/extras/areas/extras1/autoGeneration/content").then(
+                    addNode("extrasItem2", ItemType.CONTENTNODE).then(
+                            addProperty("catCloudTitle", "Keywords"),
+                            addProperty("nodeType", "mgnl:component"),
+                            addProperty("templateId", "shop:components/extras/shopExtrasTagCloud"))
                 ))));
     installTasks.add(new IsAuthorInstanceDelegateTask("Shop role for anonymous user", "This role to anonymous users will be added just on public instances.", null, 
             new AddRoleToUserTask("", "anonymous", "shop-user-base")));

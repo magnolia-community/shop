@@ -16,7 +16,7 @@
 				[#if !model.isValid()]
 					<em>${i18n['form.error.field']}</em>
 				[/#if]
-				${cmsfn.encode(content).title!}
+				${content.title!}
 				[#if content.mandatory]
 					<dfn title="required">${model.requiredSymbol!}</dfn>
 				[/#if]
