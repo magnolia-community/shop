@@ -44,7 +44,7 @@ import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.templating.functions.TemplatingFunctions;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.module.templatingkit.templates.pages.STKPage;
-import info.magnolia.module.templatingkit.templates.STKTemplateModel;
+import info.magnolia.module.templatingkit.templates.pages.STKPageModel;
 import info.magnolia.module.templatingkit.util.STKUtil;
 
 /**
@@ -53,7 +53,7 @@ import info.magnolia.module.templatingkit.util.STKUtil;
  * @author tmiyar
  *
  */
-public class ShopHomeParagraphTemplateModel extends STKTemplateModel<STKPage> {
+public class ShopHomeParagraphTemplateModel extends STKPageModel<STKPage> {
     
     public ShopHomeParagraphTemplateModel(Node content, STKPage definition,
             RenderingModel<?> parent, STKTemplatingFunctions stkFunctions,
