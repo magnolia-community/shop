@@ -6,7 +6,7 @@
 
 [#if actionResult == "go-to-first-page"]
 	<div class="text">
-		${i18n.get("form.user.errorMessage.go-to-first-page", [cmsfn.createLink("website", model.view.firstPage)])}
+		${i18n.get("form.user.errorMessage.go-to-first-page", [cmsfn.link("website", model.view.firstPage)])}
 	</div>
 [#elseif actionResult == "success"]
     <div class="text success">
@@ -15,7 +15,7 @@
     </div>
 [#elseif actionResult == "session-expired"]
 	<div class="text error">
-		${i18n.get("form.user.errorMessage.session-expired", [cmsfn.createLink("website", model.view.firstPage)])}
+		${i18n.get("form.user.errorMessage.session-expired", [cmsfn.link("website", model.view.firstPage)])}
 	</div>
 [#elseif actionResult == "failure"]
 	<div class="text error">
