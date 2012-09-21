@@ -1,7 +1,8 @@
 
 [#-------------- RENDERING PART --------------]
 
-${model.parent.resetShoppingCart()}
+[#assign pageModel = model.root!]
+${pageModel.resetShoppingCart()}
 
 [#-- Rendering: Shopping Cart --]
 
