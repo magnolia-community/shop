@@ -46,6 +46,7 @@ import info.magnolia.module.data.setup.RegisterNodeTypeTask;
 
 import info.magnolia.module.delta.AbstractTask;
 import info.magnolia.module.delta.AddRoleToUserTask;
+import info.magnolia.module.delta.CheckAndModifyPropertyValueTask;
 import info.magnolia.module.delta.DeltaBuilder;
 import info.magnolia.module.delta.IsAuthorInstanceDelegateTask;
 import info.magnolia.module.delta.IsInstallSamplesTask;
@@ -61,6 +62,7 @@ import info.magnolia.nodebuilder.NodeBuilder;
 import info.magnolia.nodebuilder.task.ErrorHandling;
 import info.magnolia.nodebuilder.task.NodeBuilderTask;
 import info.magnolia.nodebuilder.task.TaskLogErrorHandler;
+import info.magnolia.repository.RepositoryConstants;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -78,7 +80,7 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
 
   public ShopModuleVersionHandler() {
 
-      register(DeltaBuilder.update("2.0", "")
+      register(DeltaBuilder.update("1.1", "")
           
            .addTask(new IsModuleInstalledOrRegistered("Bootstrap new sample-shop", "", "demo-project",
                    new AbstractTask("Register new sample-shop", "Import all bootstrap files of new sample-shop.") {
@@ -111,6 +113,10 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
                   }
               }
           })
+          
+          .addTask(new CheckAndModifyPropertyValueTask("Add Shop Form Model", "", RepositoryConstants.CONFIG,
+                  "/modules/shop/templates/components/features/shopForm", "modelClass",
+                  "info.magnolia.module.form.templates.components.FormModel", "info.magnolia.module.shop.paragraphs.ShopFormModel"))
           
       );
       

@@ -22,7 +22,7 @@
     <sv:value>info.magnolia.module.form.messages</sv:value>
   </sv:property>
   <sv:property sv:name="modelClass" sv:type="String">
-    <sv:value>info.magnolia.module.form.templates.components.FormModel</sv:value>
+    <sv:value>info.magnolia.module.shop.paragraphs.ShopFormModel</sv:value>
   </sv:property>
   <sv:property sv:name="renderType" sv:type="String">
     <sv:value>freemarker</sv:value>

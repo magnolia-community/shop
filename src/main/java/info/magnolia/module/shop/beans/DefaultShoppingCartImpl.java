@@ -60,6 +60,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
 
     private static final long serialVersionUID = 1L;
     private static Logger log = LoggerFactory.getLogger(DefaultShoppingCartImpl.class);
+    private String formStateToken;
     private String language;
     private Date orderDate;
     private Date targetDeliveryDate;
@@ -745,5 +746,19 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
      */
     public void setTaxIncluded(Boolean taxIncluded) {
         this.taxIncluded = taxIncluded;
+    }
+    
+    /**
+     * @return the formStateToken
+     */
+    public String getFormStateToken() {
+        return formStateToken;
+    }
+
+    /**
+     * @param formStateToken the formStateToken to set
+     */
+    public void setFormStateToken(String formStateToken) {
+        this.formStateToken = formStateToken;
     }
 }
