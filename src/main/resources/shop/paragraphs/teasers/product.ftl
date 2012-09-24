@@ -10,7 +10,7 @@
 
 [#-- Assigns: Macro assigning Values --]
 [#macro assignValues]
-	
+
     [#-- Assigns: Get Content --]
     [#assign product = model.product!]
     [#assign productJCRNode = model.getJCRNode(product)!]
@@ -64,10 +64,8 @@
         [#if hasImageLink]<a href="${teaserLink}"><img src="${imageLink}" alt="${imageAlt}" /></a>[/#if]
         [#if hasText]<p>${text + " "}<em class="more"><a href="${teaserLink}">${i18n['link.readon']} <span>${title}</span></a></em></p>[/#if]
 
-        [#if hasLinkList]
-            [#-- Macro: Link List from include --]
-            [@cms.area name="linkList"/]
-        [/#if]
+        [#-- Rendering the teaser's linkList --]
+        [@cms.area name="linkList"/]
     </div><!-- end ${divClass} -->
 
 [#else]
