@@ -57,8 +57,8 @@ public class ShopStartStepFormEngine extends StartStepFormEngine {
     }
 
     /**
-     * Finds the token from a requests parameter, shopping cart, or Ð since this
-     * is the first step Ð creates a new form state if the form is being
+     * Finds the token from a requests parameter, shopping cart, or engine since this
+     * is the first step engine creates a new form state if the form is being
      * submitted.
      */
     @Override
