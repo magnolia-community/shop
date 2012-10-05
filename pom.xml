@@ -9,7 +9,7 @@
   <groupId>info.magnolia.shop</groupId>
   <artifactId>magnolia-module-shop</artifactId>
   <packaging>jar</packaging>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.1</version>
   <name>Magnolia Simple Shop Module</name>
 
   <properties>
@@ -37,9 +37,9 @@
     <url>http://jira.magnolia-cms.com/browse/MSHOP</url>
   </issueManagement>
   <scm>
-    <connection>scm:svn:http://svn.magnolia-cms.com/svn/forge/magnolia-shop/trunk</connection>
-    <developerConnection>scm:svn:http://svn.magnolia-cms.com/svn/forge/magnolia-shop/trunk</developerConnection>
-    <url>http://svn.magnolia-cms.com/view/forge/magnolia-shop/trunk</url>
+    <connection>scm:svn:http://svn.magnolia-cms.com/svn/forge/magnolia-shop/tags/magnolia-module-shop-1.1</connection>
+    <developerConnection>scm:svn:http://svn.magnolia-cms.com/svn/forge/magnolia-shop/tags/magnolia-module-shop-1.1</developerConnection>
+    <url>http://svn.magnolia-cms.com/view/forge/magnolia-shop/tags/magnolia-module-shop-1.1</url>
   </scm>
   <dependencies>
     <dependency>
