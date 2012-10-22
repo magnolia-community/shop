@@ -33,6 +33,8 @@
  */
 package info.magnolia.module.shop.paragraphs;
 
+import info.magnolia.context.MgnlContext;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import org.apache.commons.lang.StringUtils;
@@ -59,12 +61,13 @@ public class TemplateProductPriceBean {
 
     public String getPrice() {
         try {
-            if (price >= 0 && StringUtils.isNotBlank(formatting)) {
-                NumberFormat formatter = new DecimalFormat(formatting);
-                return formatter.format(price);
+            if (price >= 0 && StringUtils.isNotBlank(this.getFormatting())) { 
+                NumberFormat formatter = NumberFormat.getNumberInstance(MgnlContext.getAggregationState().getLocale()); 
+                DecimalFormat df = (DecimalFormat)formatter; df.applyPattern(this.getFormatting()); 
+                return df.format(price); 
             }
-        } catch (Exception e) {
-            log.error("error reading price", e);
+        } catch (Exception e) { 
+            log.error("error reading price", e); 
         }
         return "" + price;
     }
