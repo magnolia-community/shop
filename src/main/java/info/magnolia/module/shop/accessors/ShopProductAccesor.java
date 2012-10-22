@@ -33,15 +33,20 @@
  */
 package info.magnolia.module.shop.accessors;
 
+import info.magnolia.cms.util.QueryUtil;
+import info.magnolia.jcr.util.NodeUtil;
+import info.magnolia.module.shop.util.ShopUtil;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import javax.jcr.Node;
+import javax.jcr.NodeIterator;
+import javax.jcr.RepositoryException;
+import javax.jcr.query.InvalidQueryException;
 
-import info.magnolia.cms.core.Content;
-import info.magnolia.cms.core.search.Query;
-import info.magnolia.cms.util.QueryUtil;
-import info.magnolia.module.shop.util.ShopUtil;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * shop product.
@@ -49,36 +54,86 @@ import info.magnolia.module.shop.util.ShopUtil;
  *
  */
 public class ShopProductAccesor extends DefaultCustomDataAccesor {
-    
+
     public static String SHOP_PRODUCTS_FOLDER = "shopProducts";
-    
+
     public ShopProductAccesor(String name) throws Exception {
         super(name);
     }
 
-    protected Content getNode(String name) throws Exception {
+    protected Node getNode(String name) throws Exception {
         String path = ShopUtil.getPath(SHOP_PRODUCTS_FOLDER, ShopUtil.getShopName());
         return super.getNodeByName(path, "shopProduct", name);
     }
-    
-    public static List<Content> getProductsByProductCategory(String productCategory) {
+
+    public static List<Node> getProductsByProductCategory(String productCategory) {
+
         String shopName = ShopUtil.getShopName();
-            if(StringUtils.isNotEmpty(shopName)) {
-            String xpath = ShopUtil.getPath("jcr:root", SHOP_PRODUCTS_FOLDER, 
-                shopName)+ "//element(*,shopProduct)[jcr:contains(productCategoryUUIDs/., '"
-                + productCategory + "')]";
-            List<Content> productList = (List<Content>) QueryUtil.query("data", xpath, Query.XPATH);
-            return ShopUtil.transformIntoI18nContentList(productList);
+
+        if(StringUtils.isNotEmpty(shopName)) {
+
+            String query = "select * from [mgnl:contentNode] as productsSubNode  where ISDESCENDANTNODE('" + ShopUtil.getPath("shopProducts", shopName) 
+            + "') and contains(productsSubNode.*, '" + productCategory + "')";
+
+            return getProductsBySQL(query);
+
         }
+
         return null;
     }
-    
-    public static Collection<Content> getTaggedProducts(String categoryUUID) {
-        
-        String query = "select * from shopProduct where jcr:path like '" + ShopUtil.getPath("shopProducts", ShopUtil.getShopName()) 
-          + "/%' and contains(tags, '" + categoryUUID + "')";
-        
-        return QueryUtil.query("data", query);
+
+    public static List<Node> getTaggedProducts(String tagUUID) {
+
+        String shopName = ShopUtil.getShopName();
+
+        if(StringUtils.isNotEmpty(shopName)) {
+
+            String query = "select * from [mgnl:contentNode] as productsSubNode where ISDESCENDANTNODE('" + ShopUtil.getPath("shopProducts", shopName) 
+            + "') and contains(productsSubNode.*, '" + tagUUID + "')";
+
+            return getProductsBySQL(query);
+
+        }
+
+        return null;
+
+    }
+
+    public static List<Node> getProductsByFulltext(String queryStr) {
+
+        String shopName = ShopUtil.getShopName();
+
+        if(StringUtils.isNotEmpty(shopName)) {
+
+            String query = "select * from [shopProduct] as products where ISDESCENDANTNODE('" + ShopUtil.getPath("shopProducts", shopName) 
+            + "') and contains(products.*, '"+queryStr+"')";
+
+            return getProductsBySQL(query);
+
+        }
+
+        return null;
+
+    }
+
+    public static List<Node> getProductsBySQL(String query) {
+
+        Collection<Node> productCollection = null;
+
+        NodeIterator test = null;
+        try {
+            test = QueryUtil.search("data", query, javax.jcr.query.Query.JCR_SQL2, "shopProduct");
+        } catch (InvalidQueryException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (RepositoryException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        productCollection = NodeUtil.getCollectionFromNodeIterator(test);
+        ArrayList<Node> productList = new ArrayList<Node>(productCollection);
+        return (List<Node>) ShopUtil.transformIntoI18nContentList(productList);
     }
 
 }

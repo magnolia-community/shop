@@ -33,57 +33,34 @@
  */
 package info.magnolia.module.shop.util;
 
+import info.magnolia.module.templatingkit.util.STKPager;
+
 import java.util.Collection;
-import java.util.List;
 
-import javax.jcr.RepositoryException;
-
-import org.apache.commons.lang.StringUtils;
-
-import info.magnolia.cms.core.Content;
-import info.magnolia.context.MgnlContext;
+import javax.jcr.Node;
 
 /**
  * Refactored STKPager.
  *
  */
-public class ShopProductPager {
+public class ShopProductPager extends STKPager {
 
     private int count;
-    private String link;
     private int maxResultsPerPage;
-    private Collection<Content> items;
-    private String position;
-    private int numPages;
 
-    public ShopProductPager(String link, Collection<Content> items, Content content) {
+    public ShopProductPager(String link, Collection<Node> items, Node content) {
+        super(link, items, content);
+
         this.count = items.size();
-        this.items = items;
-        this.link = link;
 
         getPagerProperties(content);
-        numPages = calculateNumberOfPages();
     }
-    
-    public Collection<Content> getPageItems() {
 
-        Collection<Content> subList = items;
-        int offset = getOffset();
-        if(count > 0) {
-            int limit = maxResultsPerPage + offset;
-            if(items.size() < limit) {
-                limit = count;
-            }
-            subList = ((List<Content>)items).subList(offset, limit);
-
-        }
-        return subList;
-    }
-    
     public int getCount() {
         return count;
     }
 
+    @Override
     protected int getOffset() {
         int offset = 0;
         int currentPage = getCurrentPage();
@@ -97,94 +74,6 @@ public class ShopProductPager {
         return offset;
     }
 
-    public int getCurrentPage() {
-        int currentPage = 1;
-        if(MgnlContext.getParameter("currentPage") != null && (Integer.parseInt(MgnlContext.getParameter("currentPage")) > 1)) {
-            currentPage = Integer.parseInt(MgnlContext.getParameter("currentPage"));
-        }
-
-        return currentPage;
-    }
-
-    public String getPageLink(int i) {
-        String current = "currentPage=";
-        if (this.link.indexOf('?') > 0) {
-            final String query = StringUtils.substringAfter(this.link, "?");
-            StringBuilder newQuery = new StringBuilder("?");
-            String[] params = query.split("&");
-            boolean pageSet = false;
-            int cnt = 0;
-            for (String param : params) {
-                if (param.startsWith(current)) {
-                    newQuery.append(current).append(i);
-                    pageSet = true;
-                } else {
-                    newQuery.append(param);
-                }
-                cnt++;
-                if (cnt < params.length) {
-                    newQuery.append("&");
-                }
-            }
-            if (!pageSet) {
-                if (newQuery.length() > 1) {
-                    newQuery.append("&");
-                }
-                newQuery.append(current).append(i);
-
-            }
-            return StringUtils.substringBefore(this.link, "?") + newQuery.toString();
-        } else {
-            String link =  this.link + "?" + current + i;
-            return link;
-        }
-    }
-
-    public int getNumPages() {
-        return numPages;
-    }
-
-    public int getBeginIndex() {
-        if (getCurrentPage() - 2 <= 1) {
-            return 1;
-        } else {
-            return getCurrentPage() - 2;
-        }
-    }
-
-    public int getEndIndex() {
-        if (getCurrentPage() + 2 >= getNumPages()) {
-            return getNumPages();
-        } else {
-            return getCurrentPage() + 2;
-        }
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    protected void getPagerProperties(Content content) {
-
-        maxResultsPerPage = 10000;
-        try {
-            if(content.hasNodeData("maxResultsPerPage")){
-                int max = (int) content.getNodeData("maxResultsPerPage").getLong();
-                if(max > 0) {
-                    maxResultsPerPage = max;
-                }
-            }
-
-            position = "top";
-            if( content.hasNodeData("position") ){
-                position = content.getNodeData("position").getString();
-            }
-
-        } catch (RepositoryException e) {
-            //use defaults
-        }
-    }
-
     protected int calculateNumberOfPages() {
         int numPages = count/maxResultsPerPage;
         if((count % maxResultsPerPage) > 0 ) {
@@ -193,7 +82,7 @@ public class ShopProductPager {
         return numPages;
     }
 
-    
+
 }
 
 

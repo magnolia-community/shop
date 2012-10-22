@@ -33,14 +33,8 @@
  */
 package info.magnolia.module.shop.paragraphs;
 
-import java.util.List;
-
-import javax.jcr.Node;
-
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import info.magnolia.context.MgnlContext;
+import info.magnolia.module.shop.accessors.ShopProductAccesor;
 import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
@@ -48,10 +42,12 @@ import info.magnolia.module.templatingkit.templates.AbstractSTKTemplateModel;
 import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.rendering.template.TemplateDefinition;
 import info.magnolia.templating.functions.TemplatingFunctions;
-import info.magnolia.cms.core.Content;
-import info.magnolia.cms.util.ContentUtil;
-import info.magnolia.cms.util.QueryUtil;
-import info.magnolia.context.MgnlContext;
+
+import java.util.List;
+
+import javax.jcr.Node;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Displays the tags assigned to productcategories by using categorization module.
@@ -62,29 +58,27 @@ import info.magnolia.context.MgnlContext;
  */
 public class ShopTagCloudParagraph<RD extends TemplateDefinition> extends AbstractSTKTemplateModel<TemplateDefinition> {
 
-    private static final Logger log = LoggerFactory.getLogger(ShopTagCloudParagraph.class);
-
-    private Content siteRoot = null;
+    private Node siteRoot = null;
     
     public ShopTagCloudParagraph(Node content, TemplateDefinition definition,
             RenderingModel<?> parent, STKTemplatingFunctions stkFunctions,
             TemplatingFunctions templatingFunctions) {
         super(content, definition, parent, stkFunctions, templatingFunctions);
-        siteRoot = ContentUtil.asContent(stkFunctions.siteRoot(content));
+        siteRoot = stkFunctions.siteRoot(content);
     }
 
-    public List<Content> getTagCloud() {
+    public List<Node> getTagCloud() {
       
-      List<Content> contentList = (List<Content>) QueryUtil.query("data", "select * from category");
+      List<Node> contentList = (List<Node>) templatingFunctions.search("data", "select * from category", "JCR_SQL2", "");
       if (contentList != null) {
-          return ShopUtil.transformIntoI18nContentList(contentList);
+          return (List<Node>) ShopUtil.transformIntoI18nContentList(contentList);
       }
       return null;
 
     }
     
     public int getNumberOfItemsCategorizedWith(String categoryUUID) {
-      return ShopUtil.findTaggedProducts(categoryUUID).size();
+      return ShopProductAccesor.getProductsByProductCategory(categoryUUID).size();
     }
     
     public String getProductListLink(String tagName, String tagDisplayName) {

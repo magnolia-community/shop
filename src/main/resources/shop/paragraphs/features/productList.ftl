@@ -4,15 +4,11 @@
 [#include "/shop/paragraphs/macros/productListMacro.ftl"]
 [#include "/templating-kit/components/macros/pagination.ftl"]
 
+[#assign pager = model.pager]
+[#assign productList = cmsfn.asContentMapList(pager.pageItems)!]
 
-[#assign pager=model.pager!]
-[#assign productList = pager.pageItems!]
+[#assign count=pager.count!0]
 
-[#if pager?exists]
-	[#assign count=pager.count]
-[#else]
-	[#assign count=0]
-[/#if]
 
 [#-- Rendering Part --]
 
@@ -21,7 +17,7 @@
 	[#-- Macro: Pager --]
 	[@pagination pager "top" /]
 	
-	<em>${count} ${(count>1)?string(i18n['productList.products.found'],i18n['productList.product.found'])}</em>
+	<em>${productList?size} ${(productList?size>1)?string(i18n['productList.products.found'],i18n['productList.product.found'])}</em>
 	
 	[@productListMacro productList=productList/]
 </div>

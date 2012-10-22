@@ -43,7 +43,7 @@ import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.templatingkit.sites.STKSiteManager;
 import info.magnolia.module.templatingkit.sites.Site;
-import info.magnolia.module.templatingkit.util.STKUtil;
+import info.magnolia.module.templatingkit.sites.SiteManager;
 import info.magnolia.objectfactory.Components;
 
 import java.util.ArrayList;
@@ -126,7 +126,7 @@ public class DialogLanguagesUtil {
         }
         if (site == null) {
             if (controlImpl.getStorageNode() != null) {
-                site = STKUtil.getSite(controlImpl.getStorageNode());
+                site = Components.getComponent(SiteManager.class).getAssignedSite(controlImpl.getStorageNode().getJCRNode());
             } else {
                 // new node -> we need to look at the path!
                 String path = MgnlContext.getParameter("mgnlPath");
@@ -134,13 +134,13 @@ public class DialogLanguagesUtil {
                 if (StringUtils.isNotBlank(path) && StringUtils.isNotBlank(repository)) {
                     Content parentNode = ContentUtil.getContent(repository, path);
                     if (parentNode != null) {
-                        site = STKUtil.getSite(parentNode);
+                        site = Components.getComponent(SiteManager.class).getAssignedSite(parentNode.getJCRNode());
                     }
                 }
             }
         }
         if (site == null) {
-            site = STKUtil.getSite();
+            site = Components.getComponent(SiteManager.class).getDefaultSite();
         }
         return site;
     }
@@ -152,4 +152,5 @@ public class DialogLanguagesUtil {
             return "_" + language;
         }
     }
+
 }

@@ -33,7 +33,7 @@
  */
 package info.magnolia.module.shop.accessors;
 
-import info.magnolia.cms.core.Content;
+import javax.jcr.Node;
 
 /**
  * Shop custom Data Interface.
@@ -42,7 +42,7 @@ import info.magnolia.cms.core.Content;
  */
 public interface CustomDataAccesor {
     
-    public Content getNode();
+    public Node getNode();
     public String getName();
 
 }

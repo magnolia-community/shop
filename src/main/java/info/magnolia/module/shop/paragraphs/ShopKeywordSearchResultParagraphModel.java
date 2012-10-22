@@ -33,18 +33,19 @@
  */
 package info.magnolia.module.shop.paragraphs;
 
-import javax.jcr.Node;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import info.magnolia.cms.util.ContentUtil;
-import info.magnolia.module.shop.search.ProductListTypeKeyword;
+import info.magnolia.cms.util.SelectorUtil;
+import info.magnolia.jcr.util.SessionUtil;
+import info.magnolia.module.shop.accessors.ShopProductAccesor;
 import info.magnolia.module.templatingkit.STKModule;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.rendering.template.TemplateDefinition;
 import info.magnolia.templating.functions.TemplatingFunctions;
+
+import java.util.List;
+
+import javax.jcr.Node;
+import javax.jcr.RepositoryException;
 
 /**
  * Displays the result for keyword search, keywords are assigned to products
@@ -54,19 +55,25 @@ import info.magnolia.templating.functions.TemplatingFunctions;
  * 
  */
 public class ShopKeywordSearchResultParagraphModel extends ShopParagraphModel {
-    
-    private static Logger log = LoggerFactory
-            .getLogger(ShopKeywordSearchResultParagraphModel.class);
 
     public ShopKeywordSearchResultParagraphModel(Node content,
-            TemplateDefinition definition, RenderingModel parent,
+            TemplateDefinition definition, RenderingModel<?> parent,
             STKTemplatingFunctions stkFunctions,
             TemplatingFunctions templatingFunctions, STKModule stkModule) {
         super(content, definition, parent, stkFunctions, templatingFunctions, stkModule);
     }
 
-    protected void init() {
-            productListType = new ProductListTypeKeyword(templatingFunctions, ContentUtil.asContent(getSiteRoot()), ContentUtil.asContent(content));
+    @Override
+    protected List<Node> search() throws RepositoryException {
+        String tagName = SelectorUtil.getSelector(0);
+        try {
+            Node tagNode = SessionUtil.getNode("data", tagName);            
+            return (List<Node>)ShopProductAccesor.getTaggedProducts(tagNode.getIdentifier());
+        } catch (Exception e) {
+            //TODO
+        }
+        return null;
     }
-    
+
+
 }

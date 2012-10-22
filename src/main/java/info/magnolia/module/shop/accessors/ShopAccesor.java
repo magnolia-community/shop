@@ -33,10 +33,11 @@
  */
 package info.magnolia.module.shop.accessors;
 
-import info.magnolia.cms.core.Content;
-import info.magnolia.cms.util.NodeDataUtil;
+import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.module.shop.ShopConfiguration;
 import info.magnolia.module.shop.util.ShopUtil;
+
+import javax.jcr.Node;
 
 /**
  * shop object.
@@ -51,23 +52,23 @@ public class ShopAccesor extends DefaultCustomDataAccesor {
         super(name);
     }
 
-    protected Content getNode(String name) throws Exception {
+    protected Node getNode(String name) throws Exception {
         String path = ShopUtil.getPath(SHOP_SHOPS_FOLDER);
         return super.getNodeByName(path, "shop", name);
     }
     
     public ShopConfiguration getShopConfiguration() {
-        Content shopNode = getNode();
+        Node shopNode = getNode();
         if(shopNode != null) {
             try {
                 ShopConfiguration shopConfiguration = new ShopConfiguration();
-                shopConfiguration.setCartBeanType(NodeDataUtil.getString(shopNode, "cartBeanType", ""));
-                shopConfiguration.setCartClassQualifiedName(NodeDataUtil.getString(shopNode, "cartClassQualifiedName", ""));
-                shopConfiguration.setCartSessionVariable(NodeDataUtil.getString(shopNode, "cartSessionVariable", ""));
-                shopConfiguration.setDefaultPriceCategoryName(NodeDataUtil.getString(shopNode, "defaultPriceCategoryName", ""));
-                shopConfiguration.setName(NodeDataUtil.getString(shopNode, "name", ""));
-                shopConfiguration.setPriceCategoryManagerClassQualifiedName(NodeDataUtil.getString(shopNode, "priceCategoryManagerClassQualifiedName", ""));
-                shopConfiguration.setSavedCartUUIDSessionVariable(NodeDataUtil.getString(shopNode, "savedCartUUIDSessionVariable", ""));
+                shopConfiguration.setCartBeanType(PropertyUtil.getString(shopNode, "cartBeanType"));
+                shopConfiguration.setCartClassQualifiedName(PropertyUtil.getString(shopNode, "cartClassQualifiedName"));
+                shopConfiguration.setCartSessionVariable(PropertyUtil.getString(shopNode, "cartSessionVariable"));
+                shopConfiguration.setDefaultPriceCategoryName(PropertyUtil.getString(shopNode, "defaultPriceCategoryName"));
+                shopConfiguration.setName(PropertyUtil.getString(shopNode, "name"));
+                shopConfiguration.setPriceCategoryManagerClassQualifiedName(PropertyUtil.getString(shopNode, "priceCategoryManagerClassQualifiedName"));
+                shopConfiguration.setSavedCartUUIDSessionVariable(PropertyUtil.getString(shopNode, "savedCartUUIDSessionVariable"));
                 return shopConfiguration;
             } catch (Exception e) {
                 log.error("Cant read shop configuration for " + getName(), e);

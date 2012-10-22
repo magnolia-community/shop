@@ -35,17 +35,12 @@ package info.magnolia.module.shop.paragraphs;
 
 import javax.jcr.Node;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.module.templatingkit.templates.AbstractSTKTemplateModel;
 import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.rendering.template.TemplateDefinition;
 import info.magnolia.templating.functions.TemplatingFunctions;
-import info.magnolia.cms.core.Content;
-import info.magnolia.cms.util.ContentUtil;
 
 /**
  * Performs search on products.
@@ -54,23 +49,22 @@ import info.magnolia.cms.util.ContentUtil;
  *
  */
 public class ProductSearchParagraphModel<RD extends TemplateDefinition> extends AbstractSTKTemplateModel<TemplateDefinition> {
-    
-    private static final Logger log = LoggerFactory.getLogger(ProductSearchParagraphModel.class);
-    private Content siteRoot = null;
-    
+
+    private Node siteRoot = null;
+
     public ProductSearchParagraphModel(Node content,
             TemplateDefinition definition, RenderingModel<?> parent,
             STKTemplatingFunctions stkFunctions,
             TemplatingFunctions templatingFunctions) {
         super(content, definition, parent, stkFunctions, templatingFunctions);
-        
-        siteRoot = ContentUtil.asContent(stkFunctions.siteRoot(content));
-        
+
+        siteRoot = stkFunctions.siteRoot(content);
+
     }
-    
+
     public String getProductListLink() {
         return ShopLinkUtil.getProductListSearchLink(templatingFunctions, siteRoot);
     }
 
-    
+
 }

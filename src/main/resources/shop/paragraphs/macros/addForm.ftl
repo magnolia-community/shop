@@ -6,11 +6,11 @@
 			[#if options?has_content]
 				<div class="option">
 					[#if optionSet.title?has_content]
-						<label for="option_${optionSet.@name}">${optionSet.title}</label>
+						<label for="option_${cmsfn.asContentMap(optionSet).@name}">${cmsfn.asContentMap(optionSet).title}</label>
 					[/#if]
-					<select name="option_${optionSet.@uuid}" id="option_${optionSet.@name}">
+					<select name="option_${cmsfn.asContentMap(optionSet).@uuid}" id="option_${cmsfn.asContentMap(optionSet).@name}">
 						[#list options as option]
-							<option value="${option.@uuid}">${option.title}</option>
+							<option value="${cmsfn.asContentMap(option).@uuid}">${cmsfn.asContentMap(option).title}</option>
 						[/#list]
 					</select>
 				</div>

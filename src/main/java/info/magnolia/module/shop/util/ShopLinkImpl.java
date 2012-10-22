@@ -63,7 +63,7 @@ public class ShopLinkImpl implements Link {
     }
 
     public String getHref(){
-        return ShopLinkUtil.getProductCategoryLink(functions, node);
+        return ShopLinkUtil.getProductCategoryLink(functions, node.getJCRNode());
     }
 
 }

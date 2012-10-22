@@ -33,11 +33,10 @@
  */
 package info.magnolia.module.shop.paragraphs;
 
-import info.magnolia.cms.core.Content;
-import info.magnolia.cms.i18n.I18nContentWrapper;
-import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.jcr.util.ContentMap;
+import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
+import info.magnolia.jcr.wrapper.I18nNodeWrapper;
 import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
@@ -49,6 +48,7 @@ import info.magnolia.templating.functions.TemplatingFunctions;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,50 +57,51 @@ import org.slf4j.LoggerFactory;
  * Teaser to a single product.
  * @author will
  */
-public class ProductTeaserModel extends InternalTeaserModel {
+public class ProductTeaserModel extends InternalTeaserModel<TemplateDefinition> {
 
     private static Logger log = LoggerFactory.getLogger(ProductTeaserModel.class);
-    private Content siteRoot = null;
+    private Node siteRoot = null;
 
     public ProductTeaserModel(Node content, TemplateDefinition definition,
-            RenderingModel parent, STKTemplatingFunctions stkFunctions,
+            RenderingModel<?> parent, STKTemplatingFunctions stkFunctions,
             CssSelectorBuilder cssSelectorBuilder,
             TemplatingFunctions templatingFunctions) {
         super(content, definition, parent, stkFunctions, cssSelectorBuilder,
                 templatingFunctions);
-        siteRoot = ContentUtil.asContent(stkFunctions.siteRoot(content));
+        siteRoot = stkFunctions.siteRoot(content);
     }
 
     @Override
     public ContentMap getTarget() {
-        
-         Content shopRoot = ShopUtil.getContentByTemplateCategorySubCategory(siteRoot, "feature", "product-detail");
-        
+
+        Node shopRoot = ShopUtil.getContentByTemplateCategorySubCategory(siteRoot, "feature", "product-detail");
+
         if (shopRoot != null) {
-            return templatingFunctions.asContentMap(stkFunctions.wrap(shopRoot.getJCRNode()));
+            return templatingFunctions.asContentMap(stkFunctions.wrap(shopRoot));
         } else {
             return null;
 
         }
     }
 
-    public Content getProduct() {
+    public Node getProduct() {
         String productUUID = PropertyUtil.getString(content, "productUUID");
+        Node product = null;
         if (StringUtils.isNotBlank(productUUID)) {
-            return new I18nContentWrapper(ContentUtil.getContentByUUID("data", productUUID));
+            try {
+                product = NodeUtil.getNodeByIdentifier("data", productUUID);
+            } catch (RepositoryException e) {
+                log.error("Can't find Product with UUID "+productUUID);
+            }
         }
-        return null;
+        return new I18nNodeWrapper(product);
     }
 
     public String getProductDetailPageLink() throws RepositoryException {
-        Content product = this.getProduct();
+        Node product = this.getProduct();
         if (product != null) {
             return ShopLinkUtil.getProductDetailPageLink(templatingFunctions, product, siteRoot);
         }
         return "";
-    }
-    
-    public Node getJCRNode(Content content) {
-        return content.getJCRNode();
     }
 }

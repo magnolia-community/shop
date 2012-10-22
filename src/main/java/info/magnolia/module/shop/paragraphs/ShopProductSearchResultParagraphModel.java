@@ -33,18 +33,18 @@
  */
 package info.magnolia.module.shop.paragraphs;
 
-import javax.jcr.Node;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import info.magnolia.cms.util.ContentUtil;
-import info.magnolia.module.shop.search.ProductListTypeSearch;
+import info.magnolia.context.MgnlContext;
+import info.magnolia.module.shop.accessors.ShopProductAccesor;
 import info.magnolia.module.templatingkit.STKModule;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.rendering.template.TemplateDefinition;
 import info.magnolia.templating.functions.TemplatingFunctions;
+
+import java.util.List;
+
+import javax.jcr.Node;
+import javax.jcr.RepositoryException;
 
 /**
  * Displays the result for product search.
@@ -54,18 +54,31 @@ import info.magnolia.templating.functions.TemplatingFunctions;
  */
 public class ShopProductSearchResultParagraphModel extends ShopParagraphModel {
 
-    private static Logger log = LoggerFactory
-    .getLogger(ShopProductSearchResultParagraphModel.class);
-    
     public ShopProductSearchResultParagraphModel(Node content,
-            TemplateDefinition definition, RenderingModel parent,
+            TemplateDefinition definition, RenderingModel<?> parent,
             STKTemplatingFunctions stkFunctions,
             TemplatingFunctions templatingFunctions, STKModule stkModule) {
         super(content, definition, parent, stkFunctions, templatingFunctions, stkModule);
     }
-    
-    protected void init() {
-        productListType = new ProductListTypeSearch(templatingFunctions, ContentUtil.asContent(getSiteRoot()), ContentUtil.asContent(content));
+
+    @Override
+    protected List<Node> search() throws RepositoryException {    
+
+        String queryStr = MgnlContext.getParameter("queryProductsStr");
+
+        try {           
+            return (List<Node>)ShopProductAccesor.getProductsByFulltext(queryStr);
+        } catch (Exception e) {
+            //TODO
+        }
+        return null;
+
     }
-    
+
+    /*protected String generateSimpleQuery(String searchString) {
+        //escape single quote
+        searchString = searchString.replace("'", "''");
+        return MessageFormat.format(SEARCH_QUERY_PATTERN, new String[]{ShopUtil.getShopName(), searchString});
+    }*/
+
 }

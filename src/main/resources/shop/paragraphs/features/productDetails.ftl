@@ -4,16 +4,15 @@
 
 [#assign maxImages = content.maxImages!6]
 
-[#assign product = model.product!]
-[#assign productJCRNode = model.getJCRNode(product)!]
+[#assign product = cmsfn.asContentMap(model.product)!]
 
 [#if product?has_content]
-	[#assign asset = stkfn.getAsset(productJCRNode, 'image')!]
+	[#assign asset = stkfn.getAsset(product, 'image')!]
 	[#assign description1 = product.productDescription1!]
 	[#assign description2 = product.productDescription2!]
 	[#assign productTitle = product.title!]
-	[#assign bean = model.getProductPriceBean(product)]
-	[#assign optionSets = model.getOptionSets(product)]
+	[#assign bean = model.getProductPriceBean(cmsfn.asJCRNode(product))]
+	[#assign optionSets = model.getOptionSets(cmsfn.asJCRNode(product))]
 	[#assign images = model.images!]
 	
 	[#assign noPicLink = ctx.contextPath + "/docroot/shop/images/box.gif"]

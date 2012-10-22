@@ -39,23 +39,22 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
-import info.magnolia.cms.beans.config.ContentRepository;
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.i18n.I18nContentSupportFactory;
-import info.magnolia.cms.i18n.I18nContentWrapper;
 import info.magnolia.cms.i18n.Messages;
 import info.magnolia.cms.i18n.MessagesManager;
-import info.magnolia.cms.util.ContentUtil;
-import info.magnolia.cms.util.NodeDataUtil;
 import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
+import info.magnolia.jcr.util.NodeUtil;
+import info.magnolia.jcr.util.PropertyUtil;
+import info.magnolia.jcr.wrapper.I18nNodeWrapper;
 import info.magnolia.module.shop.ShopConfiguration;
 import info.magnolia.module.shop.accessors.ShopAccesor;
-import info.magnolia.module.shop.accessors.ShopProductAccesor;
 import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
 import info.magnolia.module.shop.beans.ShoppingCart;
 import info.magnolia.module.templatingkit.templates.category.TemplateCategoryUtil;
+import info.magnolia.repository.RepositoryConstants;
 
 import javax.jcr.Node;
 import javax.jcr.PathNotFoundException;
@@ -83,10 +82,10 @@ public class ShopUtil {
     /**
      * Gets the shop current node.
      */
-    public static Content getShopRoot() {
-        Content currContent = MgnlContext.getAggregationState().getMainContent();
+    public static Node getShopRoot() {
+        Node currContent = MgnlContext.getAggregationState().getMainContent().getJCRNode();
         try {
-            while (currContent.getLevel() >= 0) {
+            while (currContent.getDepth() >= 0) {
                 String subCategory = TemplateCategoryUtil.getTemplateSubCategory(currContent);
                 if (subCategory != null && subCategory.equals("shopHome")) {
                     return currContent;
@@ -105,7 +104,7 @@ public class ShopUtil {
 
     public static Content getShopRootByShopName(String shopName) {
 
-        Collection<Content> shops = QueryUtil.query(ContentRepository.WEBSITE, "select * from mgnl:content where currentShop='"
+        Collection<Content> shops = QueryUtil.query(RepositoryConstants.WEBSITE, "select * from mgnl:content where currentShop='"
                 + shopName + "'");
         if (!shops.isEmpty()) {
             return shops.iterator().next();
@@ -189,11 +188,11 @@ public class ShopUtil {
         return (ShoppingCart) MgnlContext.getAttribute(ATTRIBUTE_SHOPPINGCART);
     }
 
-    public static List<Content> transformIntoI18nContentList(List<Content> contentList) {
-        List<Content> i18nProductList = new ArrayList<Content>();
+    public static Collection<Node> transformIntoI18nContentList(Collection<Node> contentList) {
+        Collection<Node> i18nProductList = new ArrayList<Node>();
         if (contentList != null) {
-            for (Content content : contentList) {
-                i18nProductList.add(new I18nContentWrapper(content));
+            for (Node content : contentList) {
+                i18nProductList.add(new I18nNodeWrapper(content));
             }
         }
         return i18nProductList;
@@ -206,10 +205,10 @@ public class ShopUtil {
             shopConfiguration = new ShopAccesor(getShopName()).getShopConfiguration();
 
             if (shopConfiguration != null) {
-                Content priceCategory = getShopPriceCategory(shopConfiguration);
-                Content currency = getCurrencyByUUID(NodeDataUtil.getString(priceCategory,
-                        "currencyUUID"));
-                return NodeDataUtil.getString(currency, "title");
+                Node priceCategory = getShopPriceCategory(shopConfiguration);
+                Node currency = getCurrencyByUUID(PropertyUtil.getString(priceCategory,
+                "currencyUUID"));
+                return PropertyUtil.getString(currency, "title");
             }
         } catch (Exception e) {
             //nothing
@@ -224,10 +223,10 @@ public class ShopUtil {
             shopConfiguration = new ShopAccesor(getShopName()).getShopConfiguration();
 
             if (shopConfiguration != null) {
-                Content priceCategory = getShopPriceCategory(shopConfiguration);
-                Content currency = getCurrencyByUUID(NodeDataUtil.getString(priceCategory,
-                        "currencyUUID"));
-                return NodeDataUtil.getString(currency, "formatting");
+                Node priceCategory = getShopPriceCategory(shopConfiguration);
+                Node currency = getCurrencyByUUID(PropertyUtil.getString(priceCategory,
+                "currencyUUID"));
+                return PropertyUtil.getString(currency, "formatting");
             }
         } catch (Exception e) {
             //nothing
@@ -235,7 +234,7 @@ public class ShopUtil {
         return "";
     }
 
-    public static Content getShopPriceCategory(ShopConfiguration shopConfiguration) {
+    public static Node getShopPriceCategory(ShopConfiguration shopConfiguration) {
         if (shopConfiguration != null) {
             try {
                 return shopConfiguration.getPriceCategoryManager().getPriceCategoryInUse();
@@ -246,8 +245,14 @@ public class ShopUtil {
         return null;
     }
 
-    public static Content getCurrencyByUUID(String uuid) {
-        return new I18nContentWrapper(ContentUtil.getContentByUUID("data", uuid));
+    public static Node getCurrencyByUUID(String uuid) {
+        try {
+            return new I18nNodeWrapper(NodeUtil.getNodeByIdentifier("data", uuid));
+        } catch (RepositoryException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
 
     }
 
@@ -267,22 +272,17 @@ public class ShopUtil {
         return getPath(true, strings);
     }
 
-    public static Collection<Content> findTaggedProducts(String tagUUID) {
-        return ShopProductAccesor.getTaggedProducts(tagUUID);
+    public static Node getContentByTemplateCategorySubCategory(Node siteRoot, String category, String subCategory) {
 
-    }
-    
-    public static Content getContentByTemplateCategorySubCategory(Content root, String category, String subCategory) {
-        
         try {
-            List<Node> nodes = TemplateCategoryUtil.getContentListByTemplateCategorySubCategory(root.getJCRNode(), category, subCategory);
+            List<Node> nodes = TemplateCategoryUtil.getContentListByTemplateCategorySubCategory(siteRoot, category, subCategory);
             if(nodes.size() > 0) {
-                return ContentUtil.asContent(nodes.get(0));
+                return nodes.get(0);
             }
         } catch (RepositoryException e) {
             log.error("no template found with category=" + category + " and subcategory=" + subCategory);
         }
-        
+
         return null;
     }
 }

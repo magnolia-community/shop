@@ -35,8 +35,9 @@ package info.magnolia.module.shop.beans;
 
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.i18n.I18nContentWrapper;
-import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.QueryUtil;
+import info.magnolia.jcr.util.NodeUtil;
+import info.magnolia.jcr.util.PropertyUtil;
 import ch.fastforward.magnolia.ocm.beans.OCMNumberedBean;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -45,6 +46,10 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
+
+import javax.jcr.Node;
+import javax.jcr.RepositoryException;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -121,11 +126,15 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
         this(null);
     }
 
-    public DefaultShoppingCartImpl(Content priceCategory) {
+    public DefaultShoppingCartImpl(Node priceCategory) {
         super();
-        cartItems = new ArrayList();
+        cartItems = new ArrayList<ShoppingCartItem>();
         if (priceCategory != null) {
-            setPriceCategoryUUID(priceCategory.getUUID());
+            try {
+                setPriceCategoryUUID(priceCategory.getIdentifier());
+            } catch (RepositoryException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -141,7 +150,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
         return addToShoppingCart(productUUID, quantity, null);
     }
 
-    public int addToShoppingCart(String productUUID, int quantity, Map options) {
+    public int addToShoppingCart(String productUUID, int quantity, Map<String, CartItemOption> options) {
         int quantityAdded = 0;
         if (productUUID != null) {
             int indexOfProductInCart = indexOfProduct(productUUID, options);
@@ -151,7 +160,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
             } else {
                 double price = 0.0;
                 String queryString = "//*[@jcr:uuid='" + productUUID
-                        + "']/prices/element(*,mgnl:contentNode)[@priceCategoryUUID = '" + this.getPriceCategoryUUID() + "']";
+                + "']/prices/element(*,mgnl:contentNode)[@priceCategoryUUID = '" + this.getPriceCategoryUUID() + "']";
                 Collection<Content> matching = QueryUtil.query("data", queryString, "xpath", "mgnl:contentNode");
                 if (!matching.isEmpty()) {
                     Content priceNode = new I18nContentWrapper(matching.iterator().next());
@@ -189,7 +198,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
         return indexOfProduct(productUUID, null);
     }
 
-    public int indexOfProduct(String productUUID, Map options) {
+    public int indexOfProduct(String productUUID, Map<String, CartItemOption> options) {
         ShoppingCartItem currentCartItem;
         for (int i = 0; i < cartItems.size(); i++) {
             currentCartItem = (ShoppingCartItem) cartItems.get(i);
@@ -214,11 +223,14 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     public void setPriceCategoryUUID(String uuid) {
         this.priceCategoryUUID = uuid;
         if (StringUtils.isNotBlank(uuid)) {
-            Content priceCat = ContentUtil.getContentByUUID("data", uuid);
+            Node priceCat = null;
+            try {
+                priceCat = NodeUtil.getNodeByIdentifier("data", uuid);
+            } catch (RepositoryException e) {
+                log.error("Don't find PriceCategory with uuid" + uuid, e);
+            }
             if (priceCat != null) {
-                if (priceCat.getNodeData("taxIncluded").isExist()) {
-                    setTaxIncluded(priceCat.getNodeData("taxIncluded").getBoolean());
-                }
+                setTaxIncluded(PropertyUtil.getBoolean(priceCat, "taxIncluded", false));
             }
         }
     }
@@ -633,9 +645,8 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
 
     public BigDecimal getGrossTotalExclTaxBigDecimal() {
         BigDecimal total = new BigDecimal("0");
-        Iterator itemsIter = getCartItems().iterator();
+        Iterator<ShoppingCartItem> itemsIter = getCartItems().iterator();
         ShoppingCartItem currItem;
-        int i = 0;
         while (itemsIter.hasNext()) {
             currItem = (ShoppingCartItem) itemsIter.next();
             total = total.add(currItem.getItemTotalExclTaxBigDecimal());
@@ -653,7 +664,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
 
     public BigDecimal getGrossTotalInclTaxBigDecimal() {
         BigDecimal total = new BigDecimal("0");
-        Iterator itemsIter = getCartItems().iterator();
+        Iterator<ShoppingCartItem> itemsIter = getCartItems().iterator();
         ShoppingCartItem currItem;
         while (itemsIter.hasNext()) {
             currItem = (ShoppingCartItem) itemsIter.next();
@@ -672,7 +683,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
 
     public BigDecimal getItemTaxTotalBigDecimal() {
         BigDecimal total = new BigDecimal("0");
-        Iterator itemsIter = getCartItems().iterator();
+        Iterator<ShoppingCartItem> itemsIter = getCartItems().iterator();
         ShoppingCartItem currItem;
         while (itemsIter.hasNext()) {
             currItem = (ShoppingCartItem) itemsIter.next();
@@ -691,7 +702,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
 
     public double getGrossTotal() {
         double total = 0;
-        Iterator itemsIter = getCartItems().iterator();
+        Iterator<ShoppingCartItem> itemsIter = getCartItems().iterator();
         ShoppingCartItem currItem;
         while (itemsIter.hasNext()) {
             currItem = (ShoppingCartItem) itemsIter.next();
@@ -747,7 +758,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     public void setTaxIncluded(Boolean taxIncluded) {
         this.taxIncluded = taxIncluded;
     }
-    
+
     /**
      * @return the formStateToken
      */

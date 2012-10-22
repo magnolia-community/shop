@@ -33,10 +33,11 @@
  */
 package info.magnolia.module.shop;
 
-import info.magnolia.cms.core.Content;
-import info.magnolia.cms.util.ContentUtil;
+import info.magnolia.jcr.util.SessionUtil;
 import info.magnolia.module.shop.accessors.ShopAccesor;
 import info.magnolia.module.shop.util.ShopUtil;
+
+import javax.jcr.Node;
 
 /**
  * Implement this class to get the category price used by i.e. user selected
@@ -48,16 +49,16 @@ import info.magnolia.module.shop.util.ShopUtil;
 public class DefaultPriceCategoryManagerImpl implements PriceCategoryManager {
     private String defaultPriceCategory;
     private String shopName;
-    
-    
+
+
     public DefaultPriceCategoryManagerImpl(String defaultPriceCategory, String shopName ) {
         this.defaultPriceCategory = defaultPriceCategory;
         this.shopName = shopName;
-        
+
     }
 
-    public Content getPriceCategoryInUse() {
-        Content priceCategory = ContentUtil.getContent("data", ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, shopName, "priceCategories", getDefaultPriceCategory()));
+    public Node getPriceCategoryInUse() {
+        Node priceCategory = SessionUtil.getNode("data", ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, shopName, "priceCategories", getDefaultPriceCategory()));
         return priceCategory;
     }
 

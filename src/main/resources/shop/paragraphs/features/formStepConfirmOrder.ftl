@@ -59,9 +59,6 @@
                 
             [@cms.area name="fieldsets"/]
             
-            [#if cmsfn.editMode]
-                <div>[@cms.newBar contentNodeCollectionName="fieldsets"  newLabel="${i18n['form.fieldset.newLabel']}" paragraph="formGroupFields" /]</div>
-            [/#if]
         </form>
     </div>
 [/#if]

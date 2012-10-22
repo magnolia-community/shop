@@ -33,19 +33,25 @@
  */
 package info.magnolia.module.shop.beans;
 
-import info.magnolia.cms.core.Content;
-import info.magnolia.cms.i18n.I18nContentWrapper;
-import info.magnolia.cms.util.ContentUtil;
-import info.magnolia.cms.util.NodeDataUtil;
-import ch.fastforward.magnolia.ocm.beans.OCMBean;
+import info.magnolia.jcr.util.NodeUtil;
+import info.magnolia.jcr.util.PropertyUtil;
+import info.magnolia.jcr.wrapper.I18nNodeWrapper;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Iterator;
 import java.util.Map;
+
+import javax.jcr.Node;
+import javax.jcr.RepositoryException;
+import javax.jcr.ValueFormatException;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import ch.fastforward.magnolia.ocm.beans.OCMBean;
 
 /**
  * Default shopping cart item bean containing all the product info. The item
@@ -78,55 +84,78 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
     private String productDescription;
     private Map<String,CartItemOption> options;
 
-    public ShoppingCartItem(DefaultShoppingCartImpl cart, Content product, int quantity, Content productPrice, Map<String,CartItemOption> options) {
+    public ShoppingCartItem(DefaultShoppingCartImpl cart, Node product, int quantity, Node productPrice, Map<String,CartItemOption> options) {
         this(cart, product, quantity, productPrice);
         this.setOptions(options);
     }
 
-    public ShoppingCartItem(DefaultShoppingCartImpl cart, Content product, int quantity, Content productPrice) {
+    public ShoppingCartItem(DefaultShoppingCartImpl cart, Node product, int quantity, Node productPrice) {
         super();
         this.setCart(cart);
         this.setProduct(product);
         this.setQuantity(quantity);
-        this.setProductPrice(productPrice);
+        try {
+            this.setProductPrice(productPrice);
+        } catch (ValueFormatException e) {
+            log.error("Property price is not a Double", e);
+        } catch (RepositoryException e) {
+            log.error("Can't find property price in product", e);
+        }
     }
 
     public ShoppingCartItem(DefaultShoppingCartImpl cart, String productUUID, int quantity, double unitPrice, Map<String,CartItemOption> options) {
         this(cart, productUUID, quantity, unitPrice);
         this.setOptions(options);
     }
-    
+
     public ShoppingCartItem(DefaultShoppingCartImpl cart, String productUUID, int quantity, double unitPrice) {
         super();
         this.setCart(cart);
-        Content product = new I18nContentWrapper(ContentUtil.getContentByUUID("data", productUUID));
+        Node product = null;
+        try {
+            product = new I18nNodeWrapper(NodeUtil.getNodeByIdentifier("data", productUUID));
+        } catch (RepositoryException e) {
+            log.error("Can't find product with uuid" + productUUID);
+        }
         this.setProduct(product);
         this.setQuantity(quantity);
         this.setUnitPrice(unitPrice);
     }
 
-    public Content getProduct() {
+    public Node getProduct() {
         if (StringUtils.isNotBlank(productUUID)) {
-            return ContentUtil.getContentByUUID("data", productUUID);
+            try {
+                return NodeUtil.getNodeByIdentifier("data", productUUID);
+            } catch (RepositoryException e) {
+                log.error("Can't find Product with uuid" + productUUID);
+            }
         }
         return null;
     }
 
-    public void setProduct(Content product) {
+    public void setProduct(Node product) {
         if (product != null) {
-            this.productUUID = product.getUUID();
+            try {
+                this.productUUID = product.getIdentifier();
+            } catch (RepositoryException e1) {
+                e1.printStackTrace();
+            }
             log.debug("setting product " + product + " in cart item");
-            log.debug("product number: " + NodeDataUtil.getString(product, "name"));
-            setProductNumber(NodeDataUtil.getString(product, "name"));
+            log.debug("product number: " + PropertyUtil.getString(product, "name"));
+            setProductNumber(PropertyUtil.getString(product, "name"));
 
-            setProductTitle(NodeDataUtil.getString(product, "title"));
-            setProductSubTitle(NodeDataUtil.getString(product, "productDescription1"));
-            setProductDescription(NodeDataUtil.getString(product, "productDescription2"));
-            if (product.getNodeData("taxCategoryUUID").isExist()) {
-                Content taxCategory = ContentUtil.getContentByUUID("data", product.getNodeData("taxCategoryUUID").getString());
-                if (taxCategory != null && taxCategory.getNodeData("tax").isExist()) {
-                    setItemTaxRate(new BigDecimal(taxCategory.getNodeData("tax").getString()));
+            setProductTitle(PropertyUtil.getString(product, "title"));
+            setProductSubTitle(PropertyUtil.getString(product, "productDescription1"));
+            setProductDescription(PropertyUtil.getString(product, "productDescription2"));
+            try {
+                if (product.hasProperty("taxCategoryUUID")) {
+                    Node taxCategory = NodeUtil.getNodeByIdentifier("data", PropertyUtil.getString(product, "taxCategoryUUID"));
+                    if (taxCategory != null && taxCategory.hasProperty("tax")) {
+                        setItemTaxRate(new BigDecimal(PropertyUtil.getString(taxCategory, "tax")));
+                    }
                 }
+            } catch (RepositoryException e) {
+                e.printStackTrace();
             }
 
         } else {
@@ -150,9 +179,9 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
         this.unitPrice = new BigDecimal("" + unitPrice);
     }
 
-    public void setProductPrice(Content productPrice) {
-        if (productPrice != null && productPrice.getNodeData("price").isExist()) {
-            this.setUnitPrice(productPrice.getNodeData("price").getDouble());
+    public void setProductPrice(Node productPrice) throws ValueFormatException, RepositoryException {
+        if (productPrice != null && productPrice.hasProperty("price")) {
+            this.setUnitPrice(PropertyUtil.getProperty(productPrice, "price").getDouble());
         }
     }
 
@@ -345,15 +374,15 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
     public void setOptions(Map<String,CartItemOption> options) {
         this.options = options;
     }
-    
-    public boolean isOptionsMatching(Map options) {
+
+    public boolean isOptionsMatching(Map<String,CartItemOption> options) {
         if ((options == null || options.isEmpty()) && (this.options == null || this.options.isEmpty())) {
             // both option sets are empty (or null) -> match!
             return true;
         } else if (options != null && this.options != null) {
             if (options.size() == this.options.size()) {
                 // same amount of options -> we need to compare them one by one
-                Iterator keys = options.keySet().iterator();
+                Iterator<String> keys = options.keySet().iterator();
                 String currKey;
                 while (keys.hasNext()) {
                     currKey = (String) keys.next();

@@ -35,9 +35,8 @@ package info.magnolia.module.shop.setup;
 
 import static info.magnolia.nodebuilder.Ops.addProperty;
 import static info.magnolia.nodebuilder.Ops.getNode;
-import info.magnolia.cms.beans.config.ContentRepository;
 import info.magnolia.cms.core.Content;
-import info.magnolia.cms.core.ItemType;
+import info.magnolia.cms.core.MgnlNodeType;
 import info.magnolia.module.InstallContext;
 import info.magnolia.module.admininterface.setup.AddMainMenuItemTask;
 import info.magnolia.module.admininterface.setup.AddSubMenuItemTask;
@@ -158,31 +157,31 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
     installTasks.add(new TemplatesInstallTask("/shop/.*\\.ftl", true));
     installTasks.add(new AddMainMenuItemTask("shops", "menu.shops", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shop')", "/.resources/icons/24/shoppingcart.gif", "data"));
     installTasks.add(new AddSubMenuItemTask("shops", "shoppingCarts", "menu.carts", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shoppingCarts')", "/.resources/icons/16/dot.gif"));
-    installTasks.add(new IsInstallSamplesTask("","", new OrderNodeBeforeTask("","", ContentRepository.CONFIG, "/modules/adminInterface/config/menu/sampleShop", "shops")));
+    installTasks.add(new IsInstallSamplesTask("","", new OrderNodeBeforeTask("","", RepositoryConstants.CONFIG, "/modules/adminInterface/config/menu/sampleShop", "shops")));
     installTasks.add(new InstallResourcesTask("/templating-kit/themes/pop/css/shop.css", "resources:processedCss", STKResourceModel.class.getName()));
     installTasks.add(new UpdateAllSiteDefinitions("Add new templates to Availability", "") {
       protected void updateSiteDefinition(InstallContext ctx, Content siteDefinition) throws RepositoryException, TaskExecutionException {
           new NodeBuilder(new TaskLogErrorHandler(ctx), siteDefinition,
               getNode("templates/availability/templates").then(
-                  addNode("shopCheckoutForm", ItemType.CONTENTNODE).then(
+                  addNode("shopCheckoutForm", MgnlNodeType.NT_CONTENTNODE).then(
                       addProperty("id", "shop:pages/shopCheckoutForm")),
-                  addNode("shopConfirmationPage", ItemType.CONTENTNODE).then(
+                  addNode("shopConfirmationPage", MgnlNodeType.NT_CONTENTNODE).then(
                       addProperty("id", "shop:pages/shopConfirmationPage")),
-                  addNode("shopFormStep", ItemType.CONTENTNODE).then(
+                  addNode("shopFormStep", MgnlNodeType.NT_CONTENTNODE).then(
                       addProperty("id", "shop:pages/shopFormStep")),
-                  addNode("shopFormStepConfirmOrder", ItemType.CONTENTNODE).then(
+                  addNode("shopFormStepConfirmOrder", MgnlNodeType.NT_CONTENTNODE).then(
                       addProperty("id", "shop:pages/shopFormStepConfirmOrder")),
-                  addNode("shopHome", ItemType.CONTENTNODE).then(
+                  addNode("shopHome", MgnlNodeType.NT_CONTENTNODE).then(
                       addProperty("id", "shop:pages/shopHome")),
-                  addNode("shopProductCategory", ItemType.CONTENTNODE).then(
+                  addNode("shopProductCategory", MgnlNodeType.NT_CONTENTNODE).then(
                       addProperty("id", "shop:pages/shopProductCategory")),
-                  addNode("shopProductKeywordResult", ItemType.CONTENTNODE).then(
+                  addNode("shopProductKeywordResult", MgnlNodeType.NT_CONTENTNODE).then(
                       addProperty("id", "shop:pages/shopProductKeywordResult")),
-                  addNode("shopProductSearchResult", ItemType.CONTENTNODE).then(
+                  addNode("shopProductSearchResult", MgnlNodeType.NT_CONTENTNODE).then(
                       addProperty("id", "shop:pages/shopProductSearchResult")),
-                  addNode("shopProductDetail", ItemType.CONTENTNODE).then(
+                  addNode("shopProductDetail", MgnlNodeType.NT_CONTENTNODE).then(
                       addProperty("id", "shop:pages/shopProductDetail")),
-                  addNode("shopShoppingCart", ItemType.CONTENTNODE).then(
+                  addNode("shopShoppingCart", MgnlNodeType.NT_CONTENTNODE).then(
                       addProperty("id", "shop:pages/shopShoppingCart"))
               )).exec();
       }
@@ -192,10 +191,10 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
         "Adds control to product categories dialog for asigning keywords.", "categorization",
         new NodeBuilderTask("","", ErrorHandling.strict, "config",
             getNode("modules/data/dialogs/shopProduct").then(
-                addNode("tagsTab", ItemType.CONTENTNODE).then(
+                addNode("tagsTab", MgnlNodeType.NT_CONTENTNODE).then(
                         addProperty("controlType", "tab"),
                         addProperty("label", "dialogs.generic.tabCategorization.categories.label"),
-                        addNode("tags", ItemType.CONTENTNODE).then(
+                        addNode("tags", MgnlNodeType.NT_CONTENTNODE).then(
                             addProperty("controlType", "categorizationUUIDMultiSelect"),
                             addProperty("saveHandler", "info.magnolia.module.categorization.controls.CategorizationSaveHandler"),
                             addProperty("tree", "category"),
@@ -216,7 +215,7 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
             "Adds an autogenerated keyword paragraph in the extras area of ProductCategory template.", "categorization",
             new NodeBuilderTask("","", ErrorHandling.strict, "config",
                 getNode("modules/shop/templates/pages/shopProductCategory/areas/extras/areas/extras1/autoGeneration/content").then(
-                    addNode("extrasItem2", ItemType.CONTENTNODE).then(
+                    addNode("extrasItem2", MgnlNodeType.NT_CONTENTNODE).then(
                             addProperty("catCloudTitle", "Keywords"),
                             addProperty("nodeType", "mgnl:component"),
                             addProperty("templateId", "shop:components/extras/shopExtrasTagCloud"))

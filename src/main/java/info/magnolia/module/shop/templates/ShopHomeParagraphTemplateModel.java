@@ -33,19 +33,17 @@
  */
 package info.magnolia.module.shop.templates;
 
-import javax.jcr.Node;
-import javax.jcr.RepositoryException;
-
-import info.magnolia.cms.core.Content;
-import info.magnolia.cms.core.ItemType;
+import info.magnolia.cms.core.MgnlNodeType;
 import info.magnolia.cms.security.AccessDeniedException;
-import info.magnolia.cms.util.ContentUtil;
-import info.magnolia.rendering.model.RenderingModel;
-import info.magnolia.templating.functions.TemplatingFunctions;
+import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.module.templatingkit.templates.pages.STKPage;
 import info.magnolia.module.templatingkit.templates.pages.STKPageModel;
-import info.magnolia.module.templatingkit.util.STKUtil;
+import info.magnolia.rendering.model.RenderingModel;
+import info.magnolia.templating.functions.TemplatingFunctions;
+
+import javax.jcr.Node;
+import javax.jcr.RepositoryException;
 
 /**
  * Generates shop basic page structure, one productcategory page, productsearchresult page,
@@ -54,7 +52,7 @@ import info.magnolia.module.templatingkit.util.STKUtil;
  *
  */
 public class ShopHomeParagraphTemplateModel extends STKPageModel<STKPage> {
-    
+
     public ShopHomeParagraphTemplateModel(Node content, STKPage definition,
             RenderingModel<?> parent, STKTemplatingFunctions stkFunctions,
             TemplatingFunctions templatingFunctions) {
@@ -62,49 +60,38 @@ public class ShopHomeParagraphTemplateModel extends STKPageModel<STKPage> {
     }
 
     public String execute() {
-        try {
-            STKUtil.doPrivileged(ContentUtil.asContent(content), new STKUtil.PrivilegedOperation(){
-                @Override
-                public void exec(Content contentInSystemContext) throws RepositoryException {
-                    createShopStructure(contentInSystemContext);
-                }
-            });
-        }
-        catch (RepositoryException e) {
-            throw new RuntimeException("can't auto generate the main or extra area", e);
-        }
+        createShopStructure(content);
         return super.execute();
     }
 
-    protected void createShopStructure(Content contentInSystemContext) {
-        Content contentNode = ContentUtil.asContent(content);
-        if(!contentNode.hasChildren()) {
+    protected void createShopStructure(Node contentInSystemContext) {
+        Node contentNode = content;
+        if(!contentNode.isModified()) {
             try {
-                createShopPage(contentNode, "sample-category", "shopProductCategory");
-                createShopPage(contentNode, "product-detail", "shopProductDetail");
-                createShopPage(contentNode, "product-search-result", "shopProductSearchResult");
-                createShopPage(contentNode, "keyword-search-result", "shopProductKeywordResult");
-                
-                Content shoppingCart = createShopPage(contentNode, "shopping-cart", "shopShoppingCart");
-                Content checkout = createShopPage(shoppingCart, "check-out", "shopCheckoutForm");
-                createShopPage(shoppingCart, "confirmation", "shopConfirmationPage");
-                createShopPage(checkout, "form-step", "shopFormStep");
-                createShopPage(checkout, "confirm-order", "shopFormStepConfirmOrder");
-                
-                content.save();
+                createShopPage(content, "sample-category", "shop:pages/shopProductCategory");
+                createShopPage(content, "product-detail", "shop:pages/shopProductDetail");
+                createShopPage(content, "product-search-result", "shop:pages/shopProductSearchResult");
+                createShopPage(content, "keyword-search-result", "shop:pages/shopProductKeywordResult");
+
+                Node shoppingCart = createShopPage(content, "shopping-cart", "shop:pages/shopShoppingCart");
+                Node checkout = createShopPage(shoppingCart, "check-out", "shop:pages/shopCheckoutForm");
+                createShopPage(shoppingCart, "confirmation", "shop:pages/shopConfirmationPage");
+                createShopPage(checkout, "form-step", "shop:pages/shopFormStep");
+                createShopPage(checkout, "confirm-order", "shop:pages/shopFormStepConfirmOrder");
+
             } catch (AccessDeniedException e) {
                 throw new RuntimeException("can't auto generate shop structure", e);
             } catch (RepositoryException e) {
                 throw new RuntimeException("can't auto generate shop structure", e);
             }
         }
-        
+
     }
 
-    private Content createShopPage(Content parent, String pageName, String templateName) throws AccessDeniedException,
-            RepositoryException {
-        Content page = ContentUtil.getOrCreateContent(parent, pageName, ItemType.CONTENT, true);
-        page.getMetaData().setTemplate(templateName);
+    private Node createShopPage(Node parent, String pageName, String templateName) throws AccessDeniedException,
+    RepositoryException {
+        Node page = NodeUtil.createPath(parent, pageName, MgnlNodeType.NT_CONTENT, true);
+        page.getNode("MetaData").setProperty("mgnl:template", templateName);
         return page;
     }
 }

@@ -33,15 +33,17 @@
  */
 package info.magnolia.module.shop.accessors;
 
+import info.magnolia.cms.core.Content;
+import info.magnolia.cms.util.QueryUtil;
+import info.magnolia.jcr.wrapper.I18nNodeWrapper;
+
 import java.util.Collection;
 
+import javax.jcr.Node;
+
+import org.apache.jackrabbit.util.ISO9075;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import info.magnolia.cms.core.Content;
-import info.magnolia.cms.i18n.I18nContentWrapper;
-import info.magnolia.cms.util.QueryUtil;
-import org.apache.jackrabbit.util.ISO9075;
 
 /**
  * CustomData interface implementation.
@@ -50,7 +52,7 @@ import org.apache.jackrabbit.util.ISO9075;
  */
 public abstract class DefaultCustomDataAccesor implements CustomDataAccesor {
 
-    private Content node;
+    private Node node;
     private String name;
 
     protected static Logger log = LoggerFactory.getLogger(DefaultCustomDataAccesor.class);
@@ -60,18 +62,17 @@ public abstract class DefaultCustomDataAccesor implements CustomDataAccesor {
         this.name = name;
 
     }
-    protected Content getNodeByName(String rootPath, String nodeType, String name) throws Exception {
-//        String sql = "select * from " + nodeType + " where jcr:path like '" + rootPath + "/%' and name = '" + name + "'";
+    protected Node getNodeByName(String rootPath, String nodeType, String name) throws Exception {
         String xpath = "/jcr:root" + rootPath + "//" + ISO9075.encode(name);
-//        Collection<Content> nodeCollection = QueryUtil.query("data", sql);
         Collection<Content> nodeCollection = QueryUtil.query("data", xpath, "xpath", nodeType);
+
         if(!nodeCollection.isEmpty()) {
-            return new I18nContentWrapper(nodeCollection.iterator().next());
+            return new I18nNodeWrapper(nodeCollection.iterator().next().getJCRNode());
         }
         throw new Exception(name + "of type=" + nodeType + "not found in path=" + rootPath);
     }
 
-    public Content getNode() {
+    public Node getNode() {
         return node;
     }
 
@@ -79,7 +80,7 @@ public abstract class DefaultCustomDataAccesor implements CustomDataAccesor {
         return name;
     }
 
-    protected abstract Content getNode(String name) throws Exception;
+    protected abstract Node getNode(String name) throws Exception;
 
 
 }

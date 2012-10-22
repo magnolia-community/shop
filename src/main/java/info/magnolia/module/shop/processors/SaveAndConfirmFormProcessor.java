@@ -86,7 +86,7 @@ public class SaveAndConfirmFormProcessor extends AbstractFormProcessor {
         RequestObjectCacheImpl requestObjectCache = new RequestObjectCacheImpl();
         DefaultAtomicTypeConverterProvider converterProvider = new DefaultAtomicTypeConverterProvider();
         MgnlObjectConverterImpl oc = new MgnlObjectConverterImpl(mapper, converterProvider, new ProxyManagerImpl(), requestObjectCache);
-        ObjectContentManager ocm = new ObjectContentManagerImpl(MgnlContext.getHierarchyManager("shoppingCarts").getWorkspace().getSession(), mapper);
+        ObjectContentManager ocm = new ObjectContentManagerImpl(MgnlContext.getJCRSession("shoppingCarts").getWorkspace().getSession(), mapper);
         ((ObjectContentManagerImpl) ocm).setObjectConverter(oc);
         ((ObjectContentManagerImpl) ocm).setRequestObjectCache(requestObjectCache);
     

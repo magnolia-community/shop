@@ -1,14 +1,13 @@
 [#-- Assigns: Macro for Item iteration --]
 [#macro assignItemValues product]
     [#-- Assigns: Get Content from List Item--]
-    [#assign productJCRNode = model.getJCRNode(product)!]
-    [#assign asset = stkfn.getAsset(productJCRNode, 'image')!]
+    [#assign asset = stkfn.getAsset(cmsfn.asJCRNode(product), 'image')!]
 	[#assign description1 = product.productDescription1!]
 	[#assign description2 = product.productDescription2!]
 	[#assign productTitle = product.title!]
-	[#assign itemLink = model.getProductDetailPageLink(product)]
-	[#assign bean = model.getProductPriceBean(product)]
-	[#assign optionSets = model.getOptionSets(product)]
+	[#assign itemLink = model.getProductDetailPageLink(cmsfn.asJCRNode(product))]
+	[#assign bean = model.getProductPriceBean(cmsfn.asJCRNode(product))]
+	[#assign optionSets = model.getOptionSets(cmsfn.asJCRNode(product))]
     [#assign noPicLink = ctx.contextPath + "/docroot/shop/images/box.gif"]
    	
 [/#macro]
@@ -22,7 +21,7 @@
 	        	<li>
 	        		[#-- Link to open product edit dialog, dialog only used from website--]
 	        		[#if cmsfn.editMode || cmsfn.previewMode]
-	        		<a  target="_blank" href="${ctx.contextPath}/.magnolia/dialogs/shopProduct.html?mgnlPath=${(product?parent).@handle}&mgnlNode=${product.@name}&mgnlRepository=data&mgnlLocale=${state.locale.language}&mgnlRichE=false&mgnlRichEPaste=" >
+	        		<a role="navigation" target="_blank" href="${ctx.contextPath}/.magnolia/dialogs/shopProduct.html?mgnlPath=${(product?parent).@handle}&mgnlNode=${product.@name}&mgnlRepository=data&mgnlLocale=${state.locale.language}&mgnlRichE=false&mgnlRichEPaste=" >
 	        		${i18n['edit.product']}</a>
 	        		[/#if]
 	        		

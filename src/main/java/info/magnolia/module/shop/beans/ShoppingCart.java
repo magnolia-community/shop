@@ -41,7 +41,7 @@ import java.util.Map;
  * @author will
  */
 public interface ShoppingCart {
-  public int addToShoppingCart(String productUUID, int quantity, Map options);
+  public int addToShoppingCart(String productUUID, int quantity, Map<String, CartItemOption> options);
   public int addToShoppingCart(String productUUID, int quantity);
 
   public void removeFromShoppingCart(String productUUID);

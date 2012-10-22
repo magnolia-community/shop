@@ -33,43 +33,41 @@
  */
 package info.magnolia.module.shop.paragraphs;
 
+import info.magnolia.cms.util.ContentUtil;
+import info.magnolia.cms.util.SelectorUtil;
+import info.magnolia.context.MgnlContext;
+import info.magnolia.jcr.util.NodeUtil;
+import info.magnolia.jcr.util.PropertyUtil;
+import info.magnolia.jcr.wrapper.I18nNodeWrapper;
+import info.magnolia.module.dms.beans.Document;
+import info.magnolia.module.shop.ShopConfiguration;
+import info.magnolia.module.shop.accessors.ShopAccesor;
+import info.magnolia.module.shop.accessors.ShopProductAccesor;
+import info.magnolia.module.shop.beans.ShoppingCart;
+import info.magnolia.module.shop.util.ShopLinkUtil;
+import info.magnolia.module.shop.util.ShopUtil;
+import info.magnolia.module.templatingkit.STKModule;
+import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
+import info.magnolia.module.templatingkit.navigation.LinkImpl;
+import info.magnolia.module.templatingkit.templates.components.AbstractItemListModel;
+import info.magnolia.rendering.model.RenderingModel;
+import info.magnolia.rendering.template.TemplateDefinition;
+import info.magnolia.templating.functions.TemplatingFunctions;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.jcr.Node;
+import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
+import javax.jcr.ValueFormatException;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import info.magnolia.cms.core.Content;
-import info.magnolia.cms.core.ItemType;
-import info.magnolia.cms.i18n.I18nContentWrapper;
-import info.magnolia.cms.util.ContentUtil;
-import info.magnolia.cms.util.NodeDataUtil;
-import info.magnolia.cms.util.SelectorUtil;
-import info.magnolia.context.MgnlContext;
-import info.magnolia.module.dms.beans.Document;
-import info.magnolia.module.shop.ShopConfiguration;
-import info.magnolia.module.shop.accessors.ShopAccesor;
-import info.magnolia.module.shop.beans.ShoppingCart;
-import info.magnolia.module.shop.search.AbstractProductListType;
-import info.magnolia.module.shop.search.ProductListTypeCategory;
-import info.magnolia.module.shop.util.CustomDataUtil;
-import info.magnolia.module.shop.util.ShopProductPager;
-import info.magnolia.module.shop.util.ShopUtil;
-import info.magnolia.module.shop.util.ShopLinkUtil;
-import info.magnolia.rendering.model.RenderingModel;
-import info.magnolia.rendering.template.TemplateDefinition;
-import info.magnolia.templating.functions.TemplatingFunctions;
-import info.magnolia.module.templatingkit.STKModule;
-import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
-import info.magnolia.module.templatingkit.navigation.LinkImpl;
-import info.magnolia.module.templatingkit.templates.components.ImageGalleryParagraphModel;
-import info.magnolia.module.templatingkit.util.STKUtil;
 
 /**
  * Shop paragraph model, used on productdetail and productlist paragraphs.
@@ -77,20 +75,19 @@ import info.magnolia.module.templatingkit.util.STKUtil;
  * @author tmiyar
  * 
  */
-public class ShopParagraphModel extends ImageGalleryParagraphModel {
+public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition> {
+
 
     private static Logger log = LoggerFactory
     .getLogger(ShopParagraphModel.class);
-    private Content siteRoot = null;
-    private RenderingModel parent = null;
-    protected AbstractProductListType productListType = null;
-    
+    private Node siteRoot = null;
+    protected static final String[] ALLOWED_IMAGE_TYPES = new String[]{"gif", "jpg", "jpeg", "png"};
+
     public ShopParagraphModel(Node content, TemplateDefinition definition,
-            RenderingModel parent, STKTemplatingFunctions stkFunctions,
+            RenderingModel<?> parent, STKTemplatingFunctions stkFunctions,
             TemplatingFunctions templatingFunctions, STKModule stkModule) {
-        super(content, definition, parent, stkFunctions, templatingFunctions, stkModule);
-        this.parent = parent;
-        this.siteRoot = ContentUtil.asContent(stkFunctions.siteRoot(content));
+        super(content, definition, parent, stkFunctions, templatingFunctions);
+        this.siteRoot = stkFunctions.siteRoot(content);
     }
 
     public ShoppingCart getShoppingCart() {
@@ -98,117 +95,108 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
     }
 
     public Node getSiteRoot() {
-        return siteRoot.getJCRNode();
+        return siteRoot;
     }
 
-    @Override
-    public String execute() {
-        init();
-        return "";
-    }
-
-    protected void init() {
-            productListType = new ProductListTypeCategory(templatingFunctions, 
-                    siteRoot, ContentUtil.asContent(content));
-    }
-
-
-
-    public ShopProductPager getPager() {
-        return productListType.getPager();
-    }
-    
-    public Node getJCRNode(Content content) {
-        return content.getJCRNode();
-    }
-
-    
     /**
      * Gets product selected from the url, using selector.
      * 
      */
-    public Content getProduct() {
+    public Node getProduct() {
 
-            Content product;
-            try {
-                String productId = SelectorUtil.getSelector(2);
-                if(StringUtils.isNotEmpty(productId)){
-                    product = CustomDataUtil.getProductNode(productId);
-                    return new I18nContentWrapper(product);
-                }
-            } catch (Exception e) {
-                //item not found
+        Node product;
+        try {
+            String productId = SelectorUtil.getSelector(2);
+            if(StringUtils.isNotEmpty(productId)){
+                product = new ShopProductAccesor(productId).getNode();
+                return new I18nNodeWrapper(product);
             }
-     
+        } catch (Exception e) {
+            //item not found
+        }
+
         return null;
     }
 
-    public TemplateProductPriceBean getProductPriceBean(Content product) {
+    public TemplateProductPriceBean getProductPriceBean(Node product) {
         ShopConfiguration shopConfiguration;
         try {
             shopConfiguration = new ShopAccesor(ShopUtil.getShopName()).getShopConfiguration();
-        
-            Content priceCategory = ShopUtil.getShopPriceCategory(shopConfiguration);
-            
-            Content currency = ShopUtil.getCurrencyByUUID(NodeDataUtil.getString(
+
+            Node priceCategory = ShopUtil.getShopPriceCategory(shopConfiguration);
+
+            Node currency = ShopUtil.getCurrencyByUUID(PropertyUtil.getString(
                     priceCategory, "currencyUUID"));
-            Content tax = getTaxByUUID(NodeDataUtil.getString(product,
-                    "taxCategoryUUID"));
-    
+            Node tax = getTaxByUUID(PropertyUtil.getString(product,"taxCategoryUUID"));
+
             TemplateProductPriceBean bean = new TemplateProductPriceBean();
-            bean.setFormatting(NodeDataUtil.getString(currency, "formatting"));
-            bean.setPrice(getProductPriceByCategory(product, priceCategory
-                    .getUUID()));
-            bean.setCurrency(NodeDataUtil.getString(currency, "title"));
-            boolean taxIncluded = NodeDataUtil.getBoolean(priceCategory,
+            bean.setFormatting(PropertyUtil.getString(currency, "formatting"));
+            bean.setPrice(getProductPriceByCategory(product, priceCategory.getIdentifier()));
+            bean.setCurrency(PropertyUtil.getString(currency, "title"));
+            boolean taxIncluded = PropertyUtil.getBoolean(priceCategory,
                     "taxIncluded", false);
             if (taxIncluded) {
                 bean.setTaxIncluded(ShopUtil.getMessages().get("tax.included"));
             } else {
                 bean.setTaxIncluded(ShopUtil.getMessages().get("tax.no.included"));
             }
-            
-            bean.setTax(NodeDataUtil.getString(tax, "tax"));
+
+            bean.setTax(PropertyUtil.getString(tax, "tax"));
             return bean;
         } catch (Exception e) {
             return new TemplateProductPriceBean();
         }
     }
 
-    public Collection<Content> getOptionSets(Content product) {
-        ArrayList<Content> optionSets = new ArrayList<Content>(product.getChildren(new ItemType("shopProductOptions")));
+    public Collection<Node> getOptionSets(Node product) {
+        ArrayList<Node> optionSets = null;
+        try {
+            optionSets = new ArrayList<Node>(templatingFunctions.children(product, "shopProductOptions"));
+        } catch (RepositoryException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return ShopUtil.transformIntoI18nContentList(optionSets);
     }
 
-    public Collection<Content> getOptions(Content option) {
-        ArrayList<Content> options = new ArrayList<Content>(option.getChildren(new ItemType("shopProductOption")));
+    public Collection<Node> getOptions(Node option) {
+        ArrayList<Node> options = null;
+        try {
+            options = new ArrayList<Node>(templatingFunctions.children(option,"shopProductOption"));
+        } catch (RepositoryException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return ShopUtil.transformIntoI18nContentList(options);
     }
-    
+
     public String getCurrencyTitle() {
         return ShopUtil.getCurrencyTitle();
     }
-    
+
     public String getCurrencyFormatting() {
         return ShopUtil.getCurrencyFormatting();
     }
 
-    public Content getTaxByUUID(String uuid) {
-        return new I18nContentWrapper(ContentUtil
-                .getContentByUUID("data", uuid));
+    public Node getTaxByUUID(String uuid) {
+        try {
+            return new I18nNodeWrapper(NodeUtil.getNodeByIdentifier("data", uuid));
+        } catch (RepositoryException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return siteRoot;
     }
 
-    protected Double getProductPriceByCategory(Content product,
-            String priceCategoryUUID) {
-        Content pricesNode = ContentUtil.getContent(product, "prices");
-        if (pricesNode.hasChildren()) {
-            for (Iterator<Content> iterator = pricesNode.getChildren().iterator(); iterator
-                    .hasNext();) {
-                Content price = new I18nContentWrapper((Content) iterator
-                        .next());
-                if (NodeDataUtil.getString(price, "priceCategoryUUID").equals(
+    protected Double getProductPriceByCategory(Node product,
+            String priceCategoryUUID) throws ValueFormatException, RepositoryException {
+        Node pricesNode = product.getNode("prices");
+        if (pricesNode.hasNodes()) {
+            for (NodeIterator iterator = pricesNode.getNodes(); iterator.hasNext();) {
+                Node price = new I18nNodeWrapper((Node) iterator.next());
+                if (PropertyUtil.getString(price, "priceCategoryUUID").equals(
                         priceCategoryUUID)) {
-                    return price.getNodeData("price").getDouble();
+                    return PropertyUtil.getProperty(price, "price").getDouble();
                 }
             }
         }
@@ -220,11 +208,11 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
      * category-subcategory.
      */
     public String getShoppingCartLink() {
-        Content shoppingCartPage;
+        Node shoppingCartPage;
         try {
             shoppingCartPage = ShopUtil.getContentByTemplateCategorySubCategory(
                     siteRoot, "feature", "shopping-cart");
-            return new LinkImpl(shoppingCartPage.getJCRNode(), templatingFunctions).getHref();
+            return new LinkImpl(shoppingCartPage, templatingFunctions).getHref();
         } catch (Exception e) {
             log.error("Cant get shopping cart page", e);
         }
@@ -234,10 +222,9 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
     /**
      * get images folder items.
      */
-    @Override
     protected List<String> getKeys() {
-        Content product = getProduct();
-        Content dmsFolder = STKUtil.getReferencedContent(product,
+        Node product = getProduct();
+        Node dmsFolder =  stkFunctions.getReferencedContent(product,
                 "imageDmsUUID", "dms");
         if (dmsFolder == null) {
             return new ArrayList<String>();
@@ -246,11 +233,11 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
         try {
             dmsFolder = dmsFolder.getParent();
 
-            Collection<Content> children = dmsFolder.getChildren(ItemType.CONTENTNODE);
+            Collection<Node> children = templatingFunctions.children(dmsFolder, "mgnl:contentNode");
 
-            for (Iterator<Content> iterator = children.iterator(); iterator.hasNext();) {
-                Content imageNode = iterator.next();
-                if (showImage(new Document(imageNode))) {
+            for (Iterator<Node> iterator = children.iterator(); iterator.hasNext();) {
+                Node imageNode = iterator.next();
+                if (showImage(new Document(ContentUtil.asContent(imageNode)))) {
                     keys.add(imageNode.getUUID());
                 }
             }
@@ -261,12 +248,48 @@ public class ShopParagraphModel extends ImageGalleryParagraphModel {
         return keys;
     }
 
-    public String getProductDetailPageLink(Content product) {
+    protected boolean showImage(Document doc){
+        return ArrayUtils.contains(ALLOWED_IMAGE_TYPES, doc.getFileExtension().toLowerCase());
+    }
+
+    public String getProductDetailPageLink(Node product) {
         try {
-            return ShopLinkUtil.getProductDetailPageLink(templatingFunctions, product, MgnlContext.getAggregationState().getMainContent(), siteRoot);
+            return ShopLinkUtil.getProductDetailPageLink(templatingFunctions, product, siteRoot);
         } catch (RepositoryException e) {
             return "";
         }
+    }
+
+    @Override
+    protected void filter(List<Node> itemList) {
+    }
+
+    @Override
+    protected int getMaxResults() {
+        try {
+            if (content.hasProperty("maxResults")) {
+                return (int)content.getProperty("maxResults").getLong();
+            }
+            return Integer.MAX_VALUE;
+        } catch (RepositoryException e) {
+            return Integer.MAX_VALUE;
+        }
+    }
+
+    @Override
+    protected void sort(List<Node> itemList) {
+    }
+
+    @Override
+    protected List<Node> search() throws RepositoryException {
+
+        List<Node> productList = new ArrayList<Node>();
+        String productCategory = MgnlContext.getAggregationState().getMainContent().getUUID();
+        if (StringUtils.isNotEmpty(productCategory)) {
+            productList = ShopProductAccesor.getProductsByProductCategory(productCategory);
+        } 
+
+        return productList;
     }
 
 }

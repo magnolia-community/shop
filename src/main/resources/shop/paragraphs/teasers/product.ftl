@@ -12,8 +12,8 @@
 [#macro assignValues]
 
     [#-- Assigns: Get Content --]
-    [#assign product = model.product!]
-    [#assign productJCRNode = model.getJCRNode(product)!]
+    [#assign product = cmsfn.asContentMap(model.product)!]
+    [#assign productJCRNode = model.product!]
     [#assign title = content.teaserTitle!product.title!product.@name]
     [#assign text = content.teaserAbstract!product.productDescription1!]
     [#assign kicker = target.kicker!]

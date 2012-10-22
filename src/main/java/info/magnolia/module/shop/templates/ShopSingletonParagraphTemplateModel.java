@@ -33,48 +33,40 @@
  */
 package info.magnolia.module.shop.templates;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
-import javax.jcr.Node;
-import javax.jcr.RepositoryException;
-
-import info.magnolia.cms.core.Content;
-import info.magnolia.cms.i18n.I18nContentWrapper;
 import info.magnolia.cms.security.AccessDeniedException;
-import info.magnolia.cms.util.ContentUtil;
-import info.magnolia.cms.util.NodeDataUtil;
 import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
+import info.magnolia.jcr.util.NodeUtil;
+import info.magnolia.jcr.util.PropertyUtil;
+import info.magnolia.jcr.wrapper.I18nNodeWrapper;
 import info.magnolia.module.shop.beans.CartItemOption;
 import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
 import info.magnolia.module.shop.beans.ShoppingCart;
 import info.magnolia.module.shop.beans.ShoppingCartItem;
 import info.magnolia.module.shop.util.ShopUtil;
-import info.magnolia.rendering.model.RenderingModel;
-import info.magnolia.templating.functions.TemplatingFunctions;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
-import info.magnolia.module.templatingkit.navigation.Link;
-import info.magnolia.module.templatingkit.navigation.LinkImpl;
 import info.magnolia.module.templatingkit.templates.pages.STKPage;
 import info.magnolia.module.templatingkit.templates.pages.STKPageModel;
+import info.magnolia.rendering.model.RenderingModel;
+import info.magnolia.templating.functions.TemplatingFunctions;
 
 import java.util.HashMap;
 import java.util.Iterator;
+
+import javax.jcr.Node;
 import javax.jcr.PathNotFoundException;
+import javax.jcr.RepositoryException;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Gets the extended breadcrumb and navigation for shop items.
+ * shoppingcart control.
  * @author tmiyar
  *
  */
-public class ShopSingletonParagraphTemplateModel extends STKPageModel {
+public class ShopSingletonParagraphTemplateModel extends STKPageModel<STKPage> {
 
     public ShopSingletonParagraphTemplateModel(Node content,
             STKPage definition, RenderingModel<?> parent,
@@ -86,7 +78,7 @@ public class ShopSingletonParagraphTemplateModel extends STKPageModel {
     private static Logger log = LoggerFactory.getLogger(ShopSingletonParagraphTemplateModel.class);
     private String currentShopName = "";
 
-    
+
 
     @Override
     public String execute() {
@@ -111,39 +103,18 @@ public class ShopSingletonParagraphTemplateModel extends STKPageModel {
 
     protected String getCurrentShopName() {
         if (StringUtils.isEmpty(currentShopName)) {
-            Content shopRoot = ShopUtil.getShopRoot();
+            Node shopRoot = ShopUtil.getShopRoot();
             if (shopRoot != null) {
-                currentShopName = NodeDataUtil.getString(shopRoot, "currentShop");
+                currentShopName = PropertyUtil.getString(shopRoot, "currentShop");
             }
         }
         return currentShopName;
     }
 
-    public Collection<Link> getBreadcrumb() throws RepositoryException {
-        List<Link> items = new ArrayList<Link>();
-
-        // add website nodes
-        Content root = ContentUtil.asContent(getSiteRoot());
-        Content current = ContentUtil.asContent(content);
-        while (current.getLevel() >= root.getLevel()) {
-            // only the nodes that are not hidden in navigation
-            if (!NodeDataUtil.getBoolean(current, "hideInNav", false)) {
-                items.add(new LinkImpl(current.getJCRNode(), templatingFunctions));
-            }
-            if (current.getLevel() == 0) {
-                break;
-            }
-            current = current.getParent();
-        }
-
-        Collections.reverse(items);
-        return items;
-    }
-
     public void resetShoppingCart() {
         // initialize new cart
         MgnlContext.getWebContext().getRequest().getSession().removeAttribute(
-                "shoppingCart");
+        "shoppingCart");
         ShopUtil.setShoppingCartInSession();
     }
 
@@ -156,36 +127,40 @@ public class ShopSingletonParagraphTemplateModel extends STKPageModel {
                 quantity = 1;
             }
         } catch (NumberFormatException nfe) {
-            // TODO: log error? qunatity will be set to 1
+            log.info("qunatity = 0, will be set to 1");
         }
         // get all options
-        Iterator keysIter = MgnlContext.getParameters().keySet().iterator();
+        Iterator<String> keysIter = MgnlContext.getParameters().keySet().iterator();
         HashMap<String, CartItemOption> options = new HashMap<String, CartItemOption>();
         String currKey, optionUUID;
-        Content optionNode, optionSetNode;
+        Node optionNode = null, optionSetNode;
         CartItemOption cio;
         while (keysIter.hasNext()) {
             currKey = (String) keysIter.next();
             if (currKey.startsWith("option_")) {
                 optionUUID = MgnlContext.getParameter(currKey);
-                optionNode = ContentUtil.getContentByUUID("data", optionUUID);
+                try {
+                    optionNode = NodeUtil.getNodeByIdentifier("data", optionUUID);
+                } catch (RepositoryException ex) {
+                    log.error("could not get current option", ex);
+                }
                 if (optionNode != null) {
                     try {
-                        optionNode = new I18nContentWrapper(optionNode);
+                        optionNode = new I18nNodeWrapper(optionNode);
                         optionSetNode = optionNode.getParent();
                         cio = new CartItemOption();
-                        cio.setOptionSetUUID(optionSetNode.getUUID());
-                        cio.setTitle(NodeDataUtil.getString(optionSetNode, "title"));
-                        cio.setValueTitle(NodeDataUtil.getString(optionNode, "title"));
+                        cio.setOptionSetUUID(optionSetNode.getIdentifier());
+                        cio.setTitle(PropertyUtil.getString(optionSetNode, "title"));
+                        cio.setValueTitle(PropertyUtil.getString(optionNode, "title"));
                         cio.setValueName(optionNode.getName());
-                        cio.setValueUUID(optionNode.getUUID());
+                        cio.setValueUUID(optionNode.getIdentifier());
                         options.put(currKey, cio);
                     } catch (PathNotFoundException ex) {
-                        log.error("could not get parent of " + optionNode.getHandle(), ex);
+                        log.error("could not get parent of " + NodeUtil.getPathIfPossible(optionNode), ex);
                     } catch (AccessDeniedException ex) {
-                        log.error("could not get parent of " + optionNode.getHandle(), ex);
+                        log.error("could not get parent of " + NodeUtil.getPathIfPossible(optionNode), ex);
                     } catch (RepositoryException ex) {
-                        log.error("could not get parent of " + optionNode.getHandle(), ex);
+                        log.error("could not get parent of " + NodeUtil.getPathIfPossible(optionNode), ex);
                     }
                 }
             }

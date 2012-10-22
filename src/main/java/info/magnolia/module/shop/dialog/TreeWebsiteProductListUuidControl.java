@@ -33,6 +33,7 @@
  */
 package info.magnolia.module.shop.dialog;
 
+import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 
 import info.magnolia.cms.beans.config.ContentRepository;
@@ -68,9 +69,9 @@ public class TreeWebsiteProductListUuidControl extends DialogUUIDLink {
                 }
             }
         
-            Content shopHome = ShopUtil.getContentByTemplateCategorySubCategory(siteRootNode, "feature", "shopHome");
+            Node shopHome = ShopUtil.getContentByTemplateCategorySubCategory(siteRootNode.getJCRNode(), "feature", "shopHome");
             if(shopHome != null) {
-                MgnlContext.setAttribute(ShopUtil.ATTRIBUTE_SHOPNAME, NodeDataUtil.getString(shopHome, "currentShop"), Context.SESSION_SCOPE);
+                MgnlContext.setAttribute(ShopUtil.ATTRIBUTE_SHOPNAME, NodeDataUtil.getString(ContentUtil.asContent(shopHome), "currentShop"), Context.SESSION_SCOPE);
             }
         } catch (RepositoryException e) {
             

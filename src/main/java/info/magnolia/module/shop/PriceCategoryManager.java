@@ -33,7 +33,7 @@
  */
 package info.magnolia.module.shop;
 
-import info.magnolia.cms.core.Content;
+import javax.jcr.Node;
 
 /**
  * Implement this class to get the category price used by i.e. user selected
@@ -43,6 +43,6 @@ import info.magnolia.cms.core.Content;
  * 
  */
 public interface PriceCategoryManager {
-    public Content getPriceCategoryInUse();
+    public Node getPriceCategoryInUse();
 
 }

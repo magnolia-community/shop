@@ -33,19 +33,23 @@
  */
 package info.magnolia.module.shop.paragraphs;
 
-import javax.jcr.Node;
-
-
-import info.magnolia.cms.core.Content;
-import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.context.MgnlContext;
-import info.magnolia.rendering.model.RenderingModel;
-import info.magnolia.rendering.template.TemplateDefinition;
-import info.magnolia.templating.functions.TemplatingFunctions;
+import info.magnolia.jcr.util.ContentMap;
+import info.magnolia.jcr.util.NodeUtil;
+import info.magnolia.module.shop.templates.ShopSingletonParagraphTemplateModel;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.templatingkit.STKModule;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.module.templatingkit.navigation.LinkImpl;
+import info.magnolia.rendering.model.RenderingModel;
+import info.magnolia.rendering.template.TemplateDefinition;
+import info.magnolia.templating.functions.TemplatingFunctions;
+
+import javax.jcr.Node;
+import javax.jcr.RepositoryException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Shopping cart paragraph.
@@ -55,9 +59,10 @@ import info.magnolia.module.templatingkit.navigation.LinkImpl;
  */
 public class ShoppingCartParagraphModel extends ShopParagraphModel {
 
-    
+    private static Logger log = LoggerFactory.getLogger(ShopSingletonParagraphTemplateModel.class);
+
     public ShoppingCartParagraphModel(Node content,
-            TemplateDefinition definition, RenderingModel parent,
+            TemplateDefinition definition, RenderingModel<?> parent,
             STKTemplatingFunctions stkFunctions,
             TemplatingFunctions templatingFunctions, STKModule stkModule) {
         super(content, definition, parent, stkFunctions, templatingFunctions, stkModule);
@@ -70,17 +75,26 @@ public class ShoppingCartParagraphModel extends ShopParagraphModel {
         return "";
     }
 
+    public ContentMap getContentByIdentifier(String identifier) {
+        try {
+            contentMap = new ContentMap(NodeUtil.getNodeByIdentifier("data", identifier));
+        } catch (RepositoryException e) {
+            log.error("Can't find Option with uuid"+identifier, e);
+        }
+        return contentMap;
+    }
+
 
     public String getCommandLink(String command, String productUUID, int index) {
-        return new LinkImpl(MgnlContext.getAggregationState().getMainContent().getJCRNode(), templatingFunctions).getHref()
-                + "?command=" + command + "&product=" + productUUID + "&item=" + index;
+        return new LinkImpl(MgnlContext.getAggregationState().getMainContent().getJCRNode() , templatingFunctions).getHref()
+        + "?command=" + command + "&product=" + productUUID + "&item=" + index;
     }
 
     public String getCheckoutFormLink() {
         try {
-            Content formPage = ShopUtil.getContentByTemplateCategorySubCategory(
-                    ContentUtil.asContent(getSiteRoot()), "feature", "checkoutform");
-            return new LinkImpl(formPage.getJCRNode(), templatingFunctions).getHref();
+            Node formPage = ShopUtil.getContentByTemplateCategorySubCategory(
+                    getSiteRoot(), "feature", "checkoutform");
+            return new LinkImpl(formPage, templatingFunctions).getHref();
         } catch (Exception e) {
             // TODO
         }

@@ -34,12 +34,14 @@
 package info.magnolia.module.shop.util;
 
 import info.magnolia.cms.core.Content;
+import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.templatingkit.navigation.Link;
 import info.magnolia.module.templatingkit.templates.category.TemplateCategory;
 import info.magnolia.module.templatingkit.templates.category.TemplateCategoryUtil;
 import info.magnolia.templating.functions.TemplatingFunctions;
 
+import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 
 import org.apache.commons.lang.StringUtils;
@@ -54,21 +56,21 @@ import org.slf4j.LoggerFactory;
 public class ShopProductLinkImpl implements Link {
 
     private static Logger log = LoggerFactory.getLogger(ShopProductLinkImpl.class);
-    private Content node;
+    private Node node;
     private TemplatingFunctions functions;
 
-    public ShopProductLinkImpl(TemplatingFunctions functions, Content node) {
+    public ShopProductLinkImpl(TemplatingFunctions functions, Node node) {
         this.node = node;
         this.functions = functions;
     }
 
     public String getTitle() {
-        return StringUtils.defaultIfEmpty(node.getTitle(), node.getName());
+        return StringUtils.defaultIfEmpty(ContentUtil.asContent(node).getTitle(), ContentUtil.asContent(node).getName());
     }
 
     public String getNavigationTitle() {
-        String navigationTitle = node.getNodeData("navigationTitle").getString();
-        return StringUtils.defaultIfEmpty(StringUtils.defaultIfEmpty(navigationTitle, node.getTitle()), node.getName());
+        String navigationTitle = ContentUtil.asContent(node).getNodeData("navigationTitle").getString();
+        return StringUtils.defaultIfEmpty(StringUtils.defaultIfEmpty(navigationTitle, ContentUtil.asContent(node).getTitle()), ContentUtil.asContent(node).getName());
     }
 
     public String getHref() {
@@ -84,7 +86,7 @@ public class ShopProductLinkImpl implements Link {
         }
 
         try {
-            return ShopLinkUtil.getProductDetailPageLink(functions, node, MgnlContext.getAggregationState().getMainContent(), null);
+            return ShopLinkUtil.getProductDetailPageLink(functions, node, MgnlContext.getAggregationState().getMainContent().getJCRNode(), null);
         } catch (RepositoryException ex) {
             log.error("Failed to create product detail page link.", ex);
             return "";

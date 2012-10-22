@@ -33,8 +33,9 @@
  */
 package info.magnolia.module.shop.accessors;
 
-import info.magnolia.cms.core.Content;
 import info.magnolia.module.shop.util.ShopUtil;
+
+import javax.jcr.Node;
 
 /**
  * tag object, corresponds to the categorization module.
@@ -50,7 +51,7 @@ public class TagAccesor extends DefaultCustomDataAccesor {
     }
 
     @Override
-    protected Content getNode(String name) throws Exception {
+    protected Node getNode(String name) throws Exception {
         String path = ShopUtil.getPath("categorization");
         return super.getNodeByName(path, "category", name);
     }
