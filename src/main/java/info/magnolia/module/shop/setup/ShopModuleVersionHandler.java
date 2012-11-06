@@ -53,6 +53,7 @@ import info.magnolia.module.delta.IsModuleInstalledOrRegistered;
 import info.magnolia.module.delta.ModuleDependencyBootstrapTask;
 import info.magnolia.module.delta.OrderNodeBeforeTask;
 import info.magnolia.module.delta.RemoveNodeTask;
+import info.magnolia.module.delta.SetPropertyTask;
 import info.magnolia.module.delta.Task;
 import info.magnolia.module.delta.TaskExecutionException;
 import info.magnolia.module.inplacetemplating.setup.TemplatesInstallTask;
@@ -121,6 +122,16 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
           .addTask(new RemoveNodeTask("Remove obsolete teasers tabLinkList", "", RepositoryConstants.CONFIG, "/modules/shop/dialogs/teasers/shopProductTeaser/tabLinkList"))
 
       );
+
+      register(DeltaBuilder.update("1.1.1", "")
+    		  .addTask(new SetPropertyTask("Fix activation Product prices and categories", RepositoryConstants.CONFIG,
+    				  "/modules/data/commands/data/activate/startFlow", "itemTypes", "dataItemNode, mgnl:contentNode, shop, shopCurrencies, " +
+    				  		"shopCurrency, shopPriceCategories, shopPriceCategory, shopProduct, shopProductOptions, " +
+    				  		"shopProductOption, shopTaxCategories, shopTaxCategory"))
+      			.addTask(new SetPropertyTask("Fix activation Product prices and categories", RepositoryConstants.CONFIG,
+      					"/modules/data/commands/data/deactivate/startFlow", "itemTypes", "dataItemNode, mgnl:contentNode, shop, shopCurrencies, " +
+      					"shopCurrency, shopPriceCategories, shopPriceCategory, shopProduct, shopProductOptions, " +
+      					"shopProductOption, shopTaxCategories, shopTaxCategory")));
 
   }
 
@@ -224,6 +235,14 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
             new AddRoleToUserTask("", "anonymous", "shop-user-base")));
 
     installTasks.add(new IsInstallSamplesTask("Install demo-project sample content ", "", new ModuleDependencyBootstrapTask("demo-project")));
+    installTasks.add(new SetPropertyTask("Fix activation Product prices and categories", RepositoryConstants.CONFIG,
+			  "/modules/data/commands/data/activate/startFlow", "itemTypes", "dataItemNode, mgnl:contentNode, shop, shopCurrencies, " +
+			  		"shopCurrency, shopPriceCategories, shopPriceCategory, shopProduct, shopProductOptions, " +
+			  		"shopProductOption, shopTaxCategories, shopTaxCategory"));
+    installTasks.add(new SetPropertyTask("Fix activation Product prices and categories", RepositoryConstants.CONFIG,
+				"/modules/data/commands/data/deactivate/startFlow", "itemTypes", "dataItemNode, mgnl:contentNode, shop, shopCurrencies, " +
+				"shopCurrency, shopPriceCategories, shopPriceCategory, shopProduct, shopProductOptions, " +
+				"shopProductOption, shopTaxCategories, shopTaxCategory"));
 
     return installTasks;
   }

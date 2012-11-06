@@ -38,24 +38,24 @@ import javax.servlet.http.HttpServletRequest;
 import info.magnolia.cms.gui.control.Tree;
 import info.magnolia.cms.gui.control.TreeColumn;
 import info.magnolia.module.data.DataConsts;
-import info.magnolia.module.data.trees.WorkflowDataAdminTreeConfig;
+import info.magnolia.module.data.trees.GenericDataAdminTreeConfig;
 
-/** 
+/**
  * we add a column title.
  * @author tmiyar
  *
  */
-public class GenericShopsTreeConfig extends WorkflowDataAdminTreeConfig{
+public class GenericShopsTreeConfig extends GenericDataAdminTreeConfig {
 
     @Override
     public void prepareTree(Tree tree, boolean browseMode,
             HttpServletRequest request) {
         super.prepareTree(tree, browseMode, request);
-        
+
         TreeColumn colTitle = new TreeColumn();
         colTitle.setJavascriptTree(tree.getJavascriptTree());
         colTitle.setWidth(1);
-        
+
         colTitle.setName(DataConsts.TYPE_TITLE);
         colTitle.setTitle(msgs.get("module.data.tree.type.column.title.label"));
         colTitle.setHtmlEdit();
