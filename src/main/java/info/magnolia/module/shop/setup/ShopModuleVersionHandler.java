@@ -79,171 +79,171 @@ import static info.magnolia.nodebuilder.Ops.*;
  */
 public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
 
-  public ShopModuleVersionHandler() {
+    public ShopModuleVersionHandler() {
 
-      register(DeltaBuilder.update("1.1", "")
+        register(DeltaBuilder.update("1.1", "")
 
-           .addTask(new IsModuleInstalledOrRegistered("Bootstrap new sample-shop", "", "demo-project",
-                   new AbstractTask("Register new sample-shop", "Import all bootstrap files of new sample-shop.") {
+                .addTask(new IsModuleInstalledOrRegistered("Bootstrap new sample-shop", "", "demo-project",
+                        new AbstractTask("Register new sample-shop", "Import all bootstrap files of new sample-shop.") {
 
-              public void execute(InstallContext ctx) throws TaskExecutionException {
-                  try {
-                      ctx.getJCRSession("website").importXML("/demo-features/modules", getClass().getResourceAsStream("/info/magnolia/module/shop/setup/demo-project/website.demo-features.modules.sample-shop.xml"), ImportUUIDBehavior.IMPORT_UUID_COLLISION_REMOVE_EXISTING);
-                  }
-                  catch (RepositoryException e) {
-                      throw new TaskExecutionException("Can not bootstrap new sample-shop: ",e);
-                  }
-                  catch (IOException e) {
-                      throw new TaskExecutionException("Can not bootstrap new sample-shop: ",e);
-                  }
-              }
-          }))
-
-
-          .addTask (new AbstractTask("Register new DMS Images", "Import all bootstrap files containing the new DMS images.") {
-
-              public void execute(InstallContext ctx) throws TaskExecutionException {
-                  try {
-                      ctx.getJCRSession("dms").importXML("/templating-kit/pop/img", getClass().getResourceAsStream("/mgnl-bootstrap/shop/resources.templating-kit.themes.pop.img.shop.xml"), ImportUUIDBehavior.IMPORT_UUID_COLLISION_REMOVE_EXISTING);
-                  }
-                  catch (RepositoryException e) {
-                      throw new TaskExecutionException("Can not bootstrap new DMS Images: ",e);
-                  }
-                  catch (IOException e) {
-                      throw new TaskExecutionException("Can not bootstrap new DMS Images: ",e);
-                  }
-              }
-          })
-
-          .addTask(new CheckAndModifyPropertyValueTask("Add Shop Form Model", "", RepositoryConstants.CONFIG,
-                  "/modules/shop/templates/components/features/shopForm", "modelClass",
-                  "info.magnolia.module.form.templates.components.FormModel", "info.magnolia.module.shop.paragraphs.ShopFormModel"))
-          .addTask(new RemoveNodeTask("Remove obsolete extras tabLinkList", "", RepositoryConstants.CONFIG, "/modules/shop/dialogs/extras/shopExtrasProduct/tabLinkList"))
-          .addTask(new RemoveNodeTask("Remove obsolete teasers tabLinkList", "", RepositoryConstants.CONFIG, "/modules/shop/dialogs/teasers/shopProductTeaser/tabLinkList"))
-
-      );
-
-      register(DeltaBuilder.update("1.1.1", "")
-    		  .addTask(new SetPropertyTask("Fix activation Product prices and categories", RepositoryConstants.CONFIG,
-    				  "/modules/data/commands/data/activate/startFlow", "itemTypes", "dataItemNode, mgnl:contentNode, shop, shopCurrencies, " +
-    				  		"shopCurrency, shopPriceCategories, shopPriceCategory, shopProduct, shopProductOptions, " +
-    				  		"shopProductOption, shopTaxCategories, shopTaxCategory"))
-      			.addTask(new SetPropertyTask("Fix activation Product prices and categories", RepositoryConstants.CONFIG,
-      					"/modules/data/commands/data/deactivate/startFlow", "itemTypes", "dataItemNode, mgnl:contentNode, shop, shopCurrencies, " +
-      					"shopCurrency, shopPriceCategories, shopPriceCategory, shopProduct, shopProductOptions, " +
-      					"shopProductOption, shopTaxCategories, shopTaxCategory")));
-
-  }
+                    public void execute(InstallContext ctx) throws TaskExecutionException {
+                        try {
+                            ctx.getJCRSession("website").importXML("/demo-features/modules", getClass().getResourceAsStream("/info/magnolia/module/shop/setup/demo-project/website.demo-features.modules.sample-shop.xml"), ImportUUIDBehavior.IMPORT_UUID_COLLISION_REMOVE_EXISTING);
+                        }
+                        catch (RepositoryException e) {
+                            throw new TaskExecutionException("Can not bootstrap new sample-shop: ",e);
+                        }
+                        catch (IOException e) {
+                            throw new TaskExecutionException("Can not bootstrap new sample-shop: ",e);
+                        }
+                    }
+                }))
 
 
+                .addTask (new AbstractTask("Register new DMS Images", "Import all bootstrap files containing the new DMS images.") {
 
-  /**
-   *
-   * @param installContext
-   * @return a list with all the RegisterNodeTypeTask objects needed for the
-   *         shop node types
-   */
-  @Override
-  protected List getBasicInstallTasks(InstallContext installContext) {
-    final List<Task> installTasks = new ArrayList<Task>();
-    // make sure we register the type before doing anything else
-    installTasks.add(new RegisterNodeTypeTask("shop"));
-    installTasks.add(new RegisterNodeTypeTask("shopCurrencies"));
-    installTasks.add(new RegisterNodeTypeTask("shopCurrency"));
-    installTasks.add(new RegisterNodeTypeTask("shopPriceCategories"));
-    installTasks.add(new RegisterNodeTypeTask("shopPriceCategory"));
-    installTasks.add(new RegisterNodeTypeMultipleTask("shopProduct"));
-    installTasks.add(new RegisterNodeTypeTask("shopProductOptions"));
-    installTasks.add(new RegisterNodeTypeTask("shopProductOption"));
-    installTasks.add(new RegisterNodeTypeTask("shopTaxCategories"));
-    installTasks.add(new RegisterNodeTypeTask("shopTaxCategory"));
-    installTasks.addAll(super.getBasicInstallTasks(installContext));
-    return installTasks;
-  }
+                    public void execute(InstallContext ctx) throws TaskExecutionException {
+                        try {
+                            ctx.getJCRSession("dms").importXML("/templating-kit/pop/img", getClass().getResourceAsStream("/mgnl-bootstrap/shop/resources.templating-kit.themes.pop.img.shop.xml"), ImportUUIDBehavior.IMPORT_UUID_COLLISION_REMOVE_EXISTING);
+                        }
+                        catch (RepositoryException e) {
+                            throw new TaskExecutionException("Can not bootstrap new DMS Images: ",e);
+                        }
+                        catch (IOException e) {
+                            throw new TaskExecutionException("Can not bootstrap new DMS Images: ",e);
+                        }
+                    }
+                })
 
-  @Override
-  protected List getExtraInstallTasks(InstallContext installContext) {
-    final List installTasks = new ArrayList();
-    installTasks.addAll(super.getExtraInstallTasks(installContext));
-    installTasks.add(new TemplatesInstallTask("/shop/.*\\.ftl", true));
-    installTasks.add(new AddMainMenuItemTask("shops", "menu.shops", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shop')", "/.resources/icons/24/shoppingcart.gif", "data"));
-    installTasks.add(new AddSubMenuItemTask("shops", "shoppingCarts", "menu.carts", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shoppingCarts')", "/.resources/icons/16/dot.gif"));
-    installTasks.add(new IsInstallSamplesTask("","", new OrderNodeBeforeTask("","", RepositoryConstants.CONFIG, "/modules/adminInterface/config/menu/sampleShop", "shops")));
-    installTasks.add(new InstallResourcesTask("/templating-kit/themes/pop/css/shop.css", "resources:processedCss", STKResourceModel.class.getName()));
-    installTasks.add(new UpdateAllSiteDefinitions("Add new templates to Availability", "") {
-      protected void updateSiteDefinition(InstallContext ctx, Content siteDefinition) throws RepositoryException, TaskExecutionException {
-          new NodeBuilder(new TaskLogErrorHandler(ctx), siteDefinition,
-              getNode("templates/availability/templates").then(
-                  addNode("shopCheckoutForm", MgnlNodeType.NT_CONTENTNODE).then(
-                      addProperty("id", "shop:pages/shopCheckoutForm")),
-                  addNode("shopConfirmationPage", MgnlNodeType.NT_CONTENTNODE).then(
-                      addProperty("id", "shop:pages/shopConfirmationPage")),
-                  addNode("shopFormStep", MgnlNodeType.NT_CONTENTNODE).then(
-                      addProperty("id", "shop:pages/shopFormStep")),
-                  addNode("shopFormStepConfirmOrder", MgnlNodeType.NT_CONTENTNODE).then(
-                      addProperty("id", "shop:pages/shopFormStepConfirmOrder")),
-                  addNode("shopHome", MgnlNodeType.NT_CONTENTNODE).then(
-                      addProperty("id", "shop:pages/shopHome")),
-                  addNode("shopProductCategory", MgnlNodeType.NT_CONTENTNODE).then(
-                      addProperty("id", "shop:pages/shopProductCategory")),
-                  addNode("shopProductKeywordResult", MgnlNodeType.NT_CONTENTNODE).then(
-                      addProperty("id", "shop:pages/shopProductKeywordResult")),
-                  addNode("shopProductSearchResult", MgnlNodeType.NT_CONTENTNODE).then(
-                      addProperty("id", "shop:pages/shopProductSearchResult")),
-                  addNode("shopProductDetail", MgnlNodeType.NT_CONTENTNODE).then(
-                      addProperty("id", "shop:pages/shopProductDetail")),
-                  addNode("shopShoppingCart", MgnlNodeType.NT_CONTENTNODE).then(
-                      addProperty("id", "shop:pages/shopShoppingCart"))
-              )).exec();
-      }
-    });
+                .addTask(new CheckAndModifyPropertyValueTask("Add Shop Form Model", "", RepositoryConstants.CONFIG,
+                        "/modules/shop/templates/components/features/shopForm", "modelClass",
+                        "info.magnolia.module.form.templates.components.FormModel", "info.magnolia.module.shop.paragraphs.ShopFormModel"))
+                        .addTask(new RemoveNodeTask("Remove obsolete extras tabLinkList", "", RepositoryConstants.CONFIG, "/modules/shop/dialogs/extras/shopExtrasProduct/tabLinkList"))
+                        .addTask(new RemoveNodeTask("Remove obsolete teasers tabLinkList", "", RepositoryConstants.CONFIG, "/modules/shop/dialogs/teasers/shopProductTeaser/tabLinkList"))
 
-    installTasks.add(new IsModuleInstalledOrRegistered("Keywords for product Categories",
-        "Adds control to product categories dialog for asigning keywords.", "categorization",
-        new NodeBuilderTask("","", ErrorHandling.strict, "config",
-            getNode("modules/data/dialogs/shopProduct").then(
-                addNode("tagsTab", MgnlNodeType.NT_CONTENTNODE).then(
-                        addProperty("controlType", "tab"),
-                        addProperty("label", "dialogs.generic.tabCategorization.categories.label"),
-                        addNode("tags", MgnlNodeType.NT_CONTENTNODE).then(
-                            addProperty("controlType", "categorizationUUIDMultiSelect"),
-                            addProperty("saveHandler", "info.magnolia.module.categorization.controls.CategorizationSaveHandler"),
-                            addProperty("tree", "category"),
-                            addProperty("type", "String"),
-                            addProperty("i18n", "true"),
-                            addProperty("i18nBasename", "info.magnolia.module.shop.messages"),
-                            addProperty("label", "dialogs.generic.tabCategorization.categories.label"),
-                            addProperty("description", "dialogs.generic.tabCategorization.categories.description")))
-                ))));
-    installTasks.add(new IsModuleInstalledOrRegistered("Set multilanguage on categorization",
-            "Display name in the site defined languages.", "categorization",
-            new NodeBuilderTask("","", ErrorHandling.strict, "config",
-                getNode("modules/data/dialogs/category/mainTab/displayName").then(
-                    setProperty("controlType", "shopMultiLanguageEdit")
-                ))));
+                );
 
-    installTasks.add(new IsModuleInstalledOrRegistered("Add Keyword extras paragraph",
-            "Adds an autogenerated keyword paragraph in the extras area of ProductCategory template.", "categorization",
-            new NodeBuilderTask("","", ErrorHandling.strict, "config",
-                getNode("modules/shop/templates/pages/shopProductCategory/areas/extras/areas/extras1/autoGeneration/content").then(
-                    addNode("extrasItem2", MgnlNodeType.NT_CONTENTNODE).then(
-                            addProperty("catCloudTitle", "Keywords"),
-                            addProperty("nodeType", "mgnl:component"),
-                            addProperty("templateId", "shop:components/extras/shopExtrasTagCloud"))
-                ))));
-    installTasks.add(new IsAuthorInstanceDelegateTask("Shop role for anonymous user", "This role to anonymous users will be added just on public instances.", null,
-            new AddRoleToUserTask("", "anonymous", "shop-user-base")));
+        register(DeltaBuilder.update("1.1.1", "")
+                .addTask(new SetPropertyTask("Fix activation Product prices and categories", RepositoryConstants.CONFIG,
+                        "/modules/data/commands/data/activate/startFlow", "itemTypes", "dataItemNode, mgnl:contentNode, shop, shopCurrencies, " +
+                                "shopCurrency, shopPriceCategories, shopPriceCategory, shopProduct, shopProductOptions, " +
+                        "shopProductOption, shopTaxCategories, shopTaxCategory"))
+                        .addTask(new SetPropertyTask("Fix activation Product prices and categories", RepositoryConstants.CONFIG,
+                                "/modules/data/commands/data/deactivate/startFlow", "itemTypes", "dataItemNode, mgnl:contentNode, shop, shopCurrencies, " +
+                                        "shopCurrency, shopPriceCategories, shopPriceCategory, shopProduct, shopProductOptions, " +
+                                "shopProductOption, shopTaxCategories, shopTaxCategory")));
 
-    installTasks.add(new IsInstallSamplesTask("Install demo-project sample content ", "", new ModuleDependencyBootstrapTask("demo-project")));
-    installTasks.add(new SetPropertyTask("Fix activation Product prices and categories", RepositoryConstants.CONFIG,
-			  "/modules/data/commands/data/activate/startFlow", "itemTypes", "dataItemNode, mgnl:contentNode, shop, shopCurrencies, " +
-			  		"shopCurrency, shopPriceCategories, shopPriceCategory, shopProduct, shopProductOptions, " +
-			  		"shopProductOption, shopTaxCategories, shopTaxCategory"));
-    installTasks.add(new SetPropertyTask("Fix activation Product prices and categories", RepositoryConstants.CONFIG,
-				"/modules/data/commands/data/deactivate/startFlow", "itemTypes", "dataItemNode, mgnl:contentNode, shop, shopCurrencies, " +
-				"shopCurrency, shopPriceCategories, shopPriceCategory, shopProduct, shopProductOptions, " +
-				"shopProductOption, shopTaxCategories, shopTaxCategory"));
+    }
 
-    return installTasks;
-  }
+
+
+    /**
+     *
+     * @param installContext
+     * @return a list with all the RegisterNodeTypeTask objects needed for the
+     *         shop node types
+     */
+    @Override
+    protected List getBasicInstallTasks(InstallContext installContext) {
+        final List<Task> installTasks = new ArrayList<Task>();
+        // make sure we register the type before doing anything else
+        installTasks.add(new RegisterNodeTypeTask("shop"));
+        installTasks.add(new RegisterNodeTypeTask("shopCurrencies"));
+        installTasks.add(new RegisterNodeTypeTask("shopCurrency"));
+        installTasks.add(new RegisterNodeTypeTask("shopPriceCategories"));
+        installTasks.add(new RegisterNodeTypeTask("shopPriceCategory"));
+        installTasks.add(new RegisterNodeTypeMultipleTask("shopProduct"));
+        installTasks.add(new RegisterNodeTypeTask("shopProductOptions"));
+        installTasks.add(new RegisterNodeTypeTask("shopProductOption"));
+        installTasks.add(new RegisterNodeTypeTask("shopTaxCategories"));
+        installTasks.add(new RegisterNodeTypeTask("shopTaxCategory"));
+        installTasks.addAll(super.getBasicInstallTasks(installContext));
+        return installTasks;
+    }
+
+    @Override
+    protected List getExtraInstallTasks(InstallContext installContext) {
+        final List installTasks = new ArrayList();
+        installTasks.addAll(super.getExtraInstallTasks(installContext));
+        installTasks.add(new TemplatesInstallTask("/shop/.*\\.ftl", true));
+        installTasks.add(new AddMainMenuItemTask("shops", "menu.shops", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shop')", "/.resources/icons/24/shoppingcart.gif", "data"));
+        installTasks.add(new AddSubMenuItemTask("shops", "shoppingCarts", "menu.carts", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shoppingCarts')", "/.resources/icons/16/dot.gif"));
+        installTasks.add(new IsInstallSamplesTask("","", new OrderNodeBeforeTask("","", RepositoryConstants.CONFIG, "/modules/adminInterface/config/menu/sampleShop", "shops")));
+        installTasks.add(new InstallResourcesTask("/templating-kit/themes/pop/css/shop.css", "resources:processedCss", STKResourceModel.class.getName()));
+        installTasks.add(new UpdateAllSiteDefinitions("Add new templates to Availability", "") {
+            protected void updateSiteDefinition(InstallContext ctx, Content siteDefinition) throws RepositoryException, TaskExecutionException {
+                new NodeBuilder(new TaskLogErrorHandler(ctx), siteDefinition,
+                        getNode("templates/availability/templates").then(
+                                addNode("shopCheckoutForm", MgnlNodeType.NT_CONTENTNODE).then(
+                                        addProperty("id", "shop:pages/shopCheckoutForm")),
+                                        addNode("shopConfirmationPage", MgnlNodeType.NT_CONTENTNODE).then(
+                                                addProperty("id", "shop:pages/shopConfirmationPage")),
+                                                addNode("shopFormStep", MgnlNodeType.NT_CONTENTNODE).then(
+                                                        addProperty("id", "shop:pages/shopFormStep")),
+                                                        addNode("shopFormStepConfirmOrder", MgnlNodeType.NT_CONTENTNODE).then(
+                                                                addProperty("id", "shop:pages/shopFormStepConfirmOrder")),
+                                                                addNode("shopHome", MgnlNodeType.NT_CONTENTNODE).then(
+                                                                        addProperty("id", "shop:pages/shopHome")),
+                                                                        addNode("shopProductCategory", MgnlNodeType.NT_CONTENTNODE).then(
+                                                                                addProperty("id", "shop:pages/shopProductCategory")),
+                                                                                addNode("shopProductKeywordResult", MgnlNodeType.NT_CONTENTNODE).then(
+                                                                                        addProperty("id", "shop:pages/shopProductKeywordResult")),
+                                                                                        addNode("shopProductSearchResult", MgnlNodeType.NT_CONTENTNODE).then(
+                                                                                                addProperty("id", "shop:pages/shopProductSearchResult")),
+                                                                                                addNode("shopProductDetail", MgnlNodeType.NT_CONTENTNODE).then(
+                                                                                                        addProperty("id", "shop:pages/shopProductDetail")),
+                                                                                                        addNode("shopShoppingCart", MgnlNodeType.NT_CONTENTNODE).then(
+                                                                                                                addProperty("id", "shop:pages/shopShoppingCart"))
+                                )).exec();
+            }
+        });
+
+        installTasks.add(new IsModuleInstalledOrRegistered("Keywords for product Categories",
+                "Adds control to product categories dialog for asigning keywords.", "categorization",
+                new NodeBuilderTask("","", ErrorHandling.strict, "config",
+                        getNode("modules/data/dialogs/shopProduct").then(
+                                addNode("tagsTab", MgnlNodeType.NT_CONTENTNODE).then(
+                                        addProperty("controlType", "tab"),
+                                        addProperty("label", "dialogs.generic.tabCategorization.categories.label"),
+                                        addNode("tags", MgnlNodeType.NT_CONTENTNODE).then(
+                                                addProperty("controlType", "categorizationUUIDMultiSelect"),
+                                                addProperty("saveHandler", "info.magnolia.module.categorization.controls.CategorizationSaveHandler"),
+                                                addProperty("tree", "category"),
+                                                addProperty("type", "String"),
+                                                addProperty("i18n", "true"),
+                                                addProperty("i18nBasename", "info.magnolia.module.shop.messages"),
+                                                addProperty("label", "dialogs.generic.tabCategorization.categories.label"),
+                                                addProperty("description", "dialogs.generic.tabCategorization.categories.description")))
+                                ))));
+        installTasks.add(new IsModuleInstalledOrRegistered("Set multilanguage on categorization",
+                "Display name in the site defined languages.", "categorization",
+                new NodeBuilderTask("","", ErrorHandling.strict, "config",
+                        getNode("modules/data/dialogs/category/mainTab/displayName").then(
+                                setProperty("controlType", "shopMultiLanguageEdit")
+                                ))));
+
+        installTasks.add(new IsModuleInstalledOrRegistered("Add Keyword extras paragraph",
+                "Adds an autogenerated keyword paragraph in the extras area of ProductCategory template.", "categorization",
+                new NodeBuilderTask("","", ErrorHandling.strict, "config",
+                        getNode("modules/shop/templates/pages/shopProductCategory/areas/extras/areas/extras1/autoGeneration/content").then(
+                                addNode("extrasItem2", MgnlNodeType.NT_CONTENTNODE).then(
+                                        addProperty("catCloudTitle", "Keywords"),
+                                        addProperty("nodeType", "mgnl:component"),
+                                        addProperty("templateId", "shop:components/extras/shopExtrasTagCloud"))
+                                ))));
+        installTasks.add(new IsAuthorInstanceDelegateTask("Shop role for anonymous user", "This role to anonymous users will be added just on public instances.", null,
+                new AddRoleToUserTask("", "anonymous", "shop-user-base")));
+
+        installTasks.add(new IsInstallSamplesTask("Install demo-project sample content ", "", new ModuleDependencyBootstrapTask("demo-project")));
+        installTasks.add(new SetPropertyTask("Fix activation Product prices and categories", RepositoryConstants.CONFIG,
+                "/modules/data/commands/data/activate/startFlow", "itemTypes", "dataItemNode, mgnl:contentNode, shop, shopCurrencies, " +
+                        "shopCurrency, shopPriceCategories, shopPriceCategory, shopProduct, shopProductOptions, " +
+                "shopProductOption, shopTaxCategories, shopTaxCategory"));
+        installTasks.add(new SetPropertyTask("Fix activation Product prices and categories", RepositoryConstants.CONFIG,
+                "/modules/data/commands/data/deactivate/startFlow", "itemTypes", "dataItemNode, mgnl:contentNode, shop, shopCurrencies, " +
+                        "shopCurrency, shopPriceCategories, shopPriceCategory, shopProduct, shopProductOptions, " +
+                "shopProductOption, shopTaxCategories, shopTaxCategory"));
+
+        return installTasks;
+    }
 }
