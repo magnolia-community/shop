@@ -110,7 +110,7 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
             String productId = SelectorUtil.getSelector(2);
             if(StringUtils.isNotEmpty(productId)){
                 product = new ShopProductAccesor(productId).getNode();
-                return new I18nNodeWrapper(product);
+                return product;
             }
         } catch (Exception e) {
             //item not found
