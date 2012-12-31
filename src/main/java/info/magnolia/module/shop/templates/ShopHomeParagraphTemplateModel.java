@@ -45,7 +45,6 @@ import info.magnolia.templating.functions.TemplatingFunctions;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 
-import org.apache.jackrabbit.commons.predicate.Predicate;
 
 /**
  * Generates shop basic page structure, one productcategory page, productsearchresult page,
