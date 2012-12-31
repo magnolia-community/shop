@@ -33,6 +33,7 @@
  */
 package info.magnolia.module.shop.paragraphs;
 
+import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.shop.accessors.ShopProductAccesor;
 import info.magnolia.module.shop.util.ShopLinkUtil;
@@ -43,9 +44,13 @@ import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.rendering.template.TemplateDefinition;
 import info.magnolia.templating.functions.TemplatingFunctions;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.jcr.LoginException;
 import javax.jcr.Node;
+import javax.jcr.NodeIterator;
+import javax.jcr.RepositoryException;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -59,7 +64,7 @@ import org.apache.commons.lang.StringUtils;
 public class ShopTagCloudParagraph<RD extends TemplateDefinition> extends AbstractSTKTemplateModel<TemplateDefinition> {
 
     private Node siteRoot = null;
-    
+
     public ShopTagCloudParagraph(Node content, TemplateDefinition definition,
             RenderingModel<?> parent, STKTemplatingFunctions stkFunctions,
             TemplatingFunctions templatingFunctions) {
@@ -68,25 +73,38 @@ public class ShopTagCloudParagraph<RD extends TemplateDefinition> extends Abstra
     }
 
     public List<Node> getTagCloud() {
-      
-      List<Node> contentList = (List<Node>) templatingFunctions.search("data", "select * from category", "JCR_SQL2", "");
-      if (contentList != null) {
-          return (List<Node>) ShopUtil.transformIntoI18nContentList(contentList);
+
+      NodeIterator nodeIterator=null;
+      List<Node> nodeList = new ArrayList<Node>();
+    try {
+        nodeIterator = QueryUtil.search("data", "select * from category", "JCR-SQL2", "");
+    } catch (LoginException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    } catch (RepositoryException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
+      if (nodeIterator != null) {
+          while(nodeIterator.hasNext()) {
+              nodeList.add(nodeIterator.nextNode());
+          }
+          return (List<Node>) ShopUtil.transformIntoI18nContentList(nodeList);
       }
       return null;
 
     }
-    
+
     public int getNumberOfItemsCategorizedWith(String categoryUUID) {
       return ShopProductAccesor.getProductsByProductCategory(categoryUUID).size();
     }
-    
+
     public String getProductListLink(String tagName, String tagDisplayName) {
         String link = "";
         String productKeywordResultPage = ShopLinkUtil.getProductKeywordLink(templatingFunctions, siteRoot);
         String replacement = "~" + tagName;
         if(StringUtils.isNotEmpty(tagDisplayName)) {
-            replacement += "~" + tagDisplayName ; 
+            replacement += "~" + tagDisplayName ;
         }
         replacement += "~";
         String extension = "." + MgnlContext.getAggregationState().getExtension();
@@ -94,10 +112,10 @@ public class ShopTagCloudParagraph<RD extends TemplateDefinition> extends Abstra
         if(productKeywordResultPage != null) {
             link = productKeywordResultPage.replace(extension, replacement);
         }
-        
+
         return link;
-    
+
     }
 
-    
+
 }

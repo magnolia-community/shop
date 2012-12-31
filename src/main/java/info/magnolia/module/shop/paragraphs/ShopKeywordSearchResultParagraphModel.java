@@ -42,17 +42,20 @@ import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.rendering.template.TemplateDefinition;
 import info.magnolia.templating.functions.TemplatingFunctions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * Displays the result for keyword search, keywords are assigned to products
  * EE version only.
- * 
+ *
  * @author tmiyar
- * 
+ *
  */
 public class ShopKeywordSearchResultParagraphModel extends ShopParagraphModel {
 
@@ -66,13 +69,15 @@ public class ShopKeywordSearchResultParagraphModel extends ShopParagraphModel {
     @Override
     protected List<Node> search() throws RepositoryException {
         String tagName = SelectorUtil.getSelector(0);
-        try {
-            Node tagNode = SessionUtil.getNode("data", tagName);            
-            return (List<Node>)ShopProductAccesor.getTaggedProducts(tagNode.getIdentifier());
-        } catch (Exception e) {
-            //TODO
+        if(StringUtils.isNotEmpty(tagName)) {
+            try {
+                Node tagNode = SessionUtil.getNode("data", tagName);
+                return (List<Node>)ShopProductAccesor.getTaggedProducts(tagNode.getIdentifier());
+            } catch (Exception e) {
+                //TODO
+            }
         }
-        return null;
+        return new ArrayList<Node>();
     }
 
 

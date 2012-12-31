@@ -50,12 +50,6 @@
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-module-data</artifactId>
-      <version>1.7.1</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-fckeditor</artifactId>
       <version>${magnoliaVersion}</version>
       <scope>provided</scope>
@@ -64,7 +58,6 @@
       <groupId>ch.fastforward</groupId>
       <artifactId>magnolia-module-ocm</artifactId>
       <version>1.0</version>
-
     </dependency>
     <dependency>
       <groupId>asm</groupId>
@@ -80,12 +73,6 @@
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-module-dms</artifactId>
-      <version>1.6.1</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-admininterface</artifactId>
       <version>${magnoliaVersion}</version>
       <scope>provided</scope>
@@ -97,27 +84,33 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+        <groupId>info.magnolia</groupId>
+  		<artifactId>magnolia-module-resources</artifactId>
+  		<version>1.5.4</version>
+  		<scope>provided</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>info.magnolia</groupId>
+  		<artifactId>magnolia-module-form</artifactId>
+  		<version>1.4.3</version>
+  		<scope>provided</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>info.magnolia</groupId>
+  		<artifactId>magnolia-module-data</artifactId>
+  		<version>1.7.3</version>
+  		<scope>provided</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>info.magnolia</groupId>
+  		<artifactId>magnolia-module-dms</artifactId>
+  		<version>1.6.1</version>
+  		<scope>provided</scope>
+  	</dependency>
+    <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-standard-templating-kit</artifactId>
       <version>${stkVersion}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-module-resources</artifactId>
-      <version>1.5.3</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-       <groupId>info.magnolia</groupId>
-       <artifactId>magnolia-templating</artifactId>
-       <version>${magnoliaVersion}</version>
-       <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-module-form</artifactId>
-      <version>1.4.3</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -160,6 +153,12 @@
           <artifactId>xml-apis</artifactId>
         </exclusion>
       </exclusions>
+    </dependency>
+    <dependency>
+    	<groupId>info.magnolia</groupId>
+    	<artifactId>magnolia-module-categorization</artifactId>
+    	<version>1.1.7</version>
+    	<scope>provided</scope>
     </dependency>
   </dependencies>
  <build>

@@ -45,6 +45,8 @@ import info.magnolia.templating.functions.TemplatingFunctions;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 
+import org.apache.jackrabbit.commons.predicate.Predicate;
+
 /**
  * Generates shop basic page structure, one productcategory page, productsearchresult page,
  * keywordsearchresult (to use with ee only) page, productdetail, checkoutform.
@@ -66,8 +68,9 @@ public class ShopHomeParagraphTemplateModel extends STKPageModel<STKPage> {
 
     protected void createShopStructure(Node contentInSystemContext) {
         Node contentNode = content;
-        if(!contentNode.isModified()) {
-            try {
+        try {
+        if(templatingFunctions.children(contentNode, MgnlNodeType.NT_PAGE).isEmpty()) {
+
                 createShopPage(content, "sample-category", "shop:pages/shopProductCategory");
                 createShopPage(content, "product-detail", "shop:pages/shopProductDetail");
                 createShopPage(content, "product-search-result", "shop:pages/shopProductSearchResult");
@@ -79,18 +82,19 @@ public class ShopHomeParagraphTemplateModel extends STKPageModel<STKPage> {
                 createShopPage(checkout, "form-step", "shop:pages/shopFormStep");
                 createShopPage(checkout, "confirm-order", "shop:pages/shopFormStepConfirmOrder");
 
-            } catch (AccessDeniedException e) {
-                throw new RuntimeException("can't auto generate shop structure", e);
-            } catch (RepositoryException e) {
-                throw new RuntimeException("can't auto generate shop structure", e);
-            }
+
+        }
+        } catch (AccessDeniedException e) {
+            throw new RuntimeException("can't auto generate shop structure", e);
+        } catch (RepositoryException e) {
+            throw new RuntimeException("can't auto generate shop structure", e);
         }
 
     }
 
     private Node createShopPage(Node parent, String pageName, String templateName) throws AccessDeniedException,
     RepositoryException {
-        Node page = NodeUtil.createPath(parent, pageName, MgnlNodeType.NT_CONTENT, true);
+        Node page = NodeUtil.createPath(parent, pageName, MgnlNodeType.NT_PAGE, true);
         page.getNode("MetaData").setProperty("mgnl:template", templateName);
         return page;
     }

@@ -33,6 +33,7 @@
  */
 package info.magnolia.module.shop.paragraphs;
 
+import info.magnolia.cms.core.MgnlNodeType;
 import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.SelectorUtil;
 import info.magnolia.context.MgnlContext;
@@ -71,9 +72,9 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Shop paragraph model, used on productdetail and productlist paragraphs.
- * 
+ *
  * @author tmiyar
- * 
+ *
  */
 public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition> {
 
@@ -100,7 +101,7 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
 
     /**
      * Gets product selected from the url, using selector.
-     * 
+     *
      */
     public Node getProduct() {
 
@@ -193,10 +194,13 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
         Node pricesNode = product.getNode("prices");
         if (pricesNode.hasNodes()) {
             for (NodeIterator iterator = pricesNode.getNodes(); iterator.hasNext();) {
-                Node price = new I18nNodeWrapper((Node) iterator.next());
-                if (PropertyUtil.getString(price, "priceCategoryUUID").equals(
-                        priceCategoryUUID)) {
-                    return PropertyUtil.getProperty(price, "price").getDouble();
+                Node priceNode = (Node) iterator.next();
+                if(!priceNode.isNodeType(MgnlNodeType.NT_METADATA)) {
+                    Node price = new I18nNodeWrapper(priceNode);
+                    if (PropertyUtil.getString(price, "priceCategoryUUID").equals(
+                            priceCategoryUUID)) {
+                        return PropertyUtil.getProperty(price, "price").getDouble();
+                    }
                 }
             }
         }
@@ -287,7 +291,7 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
         String productCategory = MgnlContext.getAggregationState().getMainContent().getUUID();
         if (StringUtils.isNotEmpty(productCategory)) {
             productList = ShopProductAccesor.getProductsByProductCategory(productCategory);
-        } 
+        }
 
         return productList;
     }
