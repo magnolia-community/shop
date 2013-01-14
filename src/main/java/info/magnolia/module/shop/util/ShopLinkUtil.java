@@ -34,6 +34,7 @@
 package info.magnolia.module.shop.util;
 
 import info.magnolia.jcr.util.PropertyUtil;
+import info.magnolia.cms.core.Path;
 import info.magnolia.module.templatingkit.templates.category.TemplateCategoryUtil;
 import info.magnolia.templating.functions.TemplatingFunctions;
 
@@ -106,7 +107,7 @@ public class ShopLinkUtil {
             // first check if there is a product detail page underneath the current
             // page (which should be a product category page). This will make the
             // current product category to stay highlighted in the navigation.
-            Node detailPage = ShopUtil.getContentByTemplateCategorySubCategory(currentPage.getParent(), "feature", "product-detail");
+            Node detailPage = ShopUtil.getContentByTemplateCategorySubCategory(currentPage, "feature", "product-detail");
             if (detailPage == null) {
                 // if no detail page was found search the whole site for a "generic"
                 // detail page.
@@ -120,7 +121,7 @@ public class ShopLinkUtil {
     }
 
     public static String createProductSelector(Node product) {
-        return StringUtils.replace(StringUtils.replace(PropertyUtil.getString(product, "title"), ".", "-"), " ", "-") + "~PRODUCT~" + PropertyUtil.getString(product, "name");
+        return Path.getValidatedLabel(PropertyUtil.getString(product, "title")) + "~PRODUCT~" + Path.getValidatedLabel(PropertyUtil.getString(product, "name"));
     }
 
 }

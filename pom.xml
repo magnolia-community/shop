@@ -57,7 +57,7 @@
     <dependency>
       <groupId>ch.fastforward</groupId>
       <artifactId>magnolia-module-ocm</artifactId>
-      <version>1.0</version>
+      <version>1.0.3-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>asm</groupId>

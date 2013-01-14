@@ -100,20 +100,21 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
                 }))
 
 
-                .addTask (new AbstractTask("Register new DMS Images", "Import all bootstrap files containing the new DMS images.") {
-
-                    public void execute(InstallContext ctx) throws TaskExecutionException {
-                        try {
-                            ctx.getJCRSession("dms").importXML("/templating-kit/pop/img", getClass().getResourceAsStream("/mgnl-bootstrap/shop/resources.templating-kit.themes.pop.img.shop.xml"), ImportUUIDBehavior.IMPORT_UUID_COLLISION_REMOVE_EXISTING);
-                        }
-                        catch (RepositoryException e) {
-                            throw new TaskExecutionException("Can not bootstrap new DMS Images: ",e);
-                        }
-                        catch (IOException e) {
-                            throw new TaskExecutionException("Can not bootstrap new DMS Images: ",e);
-                        }
-                    }
-                })
+                // This task fails when trying to install on 4.5 as all theme images have been moved to the resources repository!
+//                .addTask (new AbstractTask("Register new DMS Images", "Import all bootstrap files containing the new DMS images.") {
+//
+//                    public void execute(InstallContext ctx) throws TaskExecutionException {
+//                        try {
+//                            ctx.getJCRSession("dms").importXML("/templating-kit/pop/img", getClass().getResourceAsStream("/mgnl-bootstrap/shop/resources.templating-kit.themes.pop.img.shop.xml"), ImportUUIDBehavior.IMPORT_UUID_COLLISION_REMOVE_EXISTING);
+//                        }
+//                        catch (RepositoryException e) {
+//                            throw new TaskExecutionException("Can not bootstrap new DMS Images: ",e);
+//                        }
+//                        catch (IOException e) {
+//                            throw new TaskExecutionException("Can not bootstrap new DMS Images: ",e);
+//                        }
+//                    }
+//                })
 
                 .addTask(new CheckAndModifyPropertyValueTask("Add Shop Form Model", "", RepositoryConstants.CONFIG,
                         "/modules/shop/templates/components/features/shopForm", "modelClass",
