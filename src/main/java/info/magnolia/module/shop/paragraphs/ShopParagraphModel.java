@@ -154,8 +154,8 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
         try {
             optionSets = new ArrayList<Node>(templatingFunctions.children(product, "shopProductOptions"));
         } catch (RepositoryException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            log.error("Cant get product options ",e);
+            return null;
         }
         return ShopUtil.transformIntoI18nContentList(optionSets);
     }
@@ -165,8 +165,8 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
         try {
             options = new ArrayList<Node>(templatingFunctions.children(option,"shopProductOption"));
         } catch (RepositoryException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            log.error("Cant get product options ",e);
+            return null;
         }
         return ShopUtil.transformIntoI18nContentList(options);
     }
@@ -183,10 +183,9 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
         try {
             return new I18nNodeWrapper(NodeUtil.getNodeByIdentifier("data", uuid));
         } catch (RepositoryException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            log.error("Cant get tax category " + uuid, e);
         }
-        return siteRoot;
+        return null;
     }
 
     protected Double getProductPriceByCategory(Node product,

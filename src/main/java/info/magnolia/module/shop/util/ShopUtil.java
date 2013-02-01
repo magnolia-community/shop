@@ -249,8 +249,7 @@ public class ShopUtil {
         try {
             return new I18nNodeWrapper(NodeUtil.getNodeByIdentifier("data", uuid));
         } catch (RepositoryException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            log.error("Cant read the currency " + uuid, e);
         }
         return null;
 

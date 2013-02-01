@@ -53,6 +53,8 @@ import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Displays the tags assigned to productcategories by using categorization module.
@@ -63,6 +65,8 @@ import org.apache.commons.lang.StringUtils;
  */
 public class ShopTagCloudParagraph<RD extends TemplateDefinition> extends AbstractSTKTemplateModel<TemplateDefinition> {
 
+    private static Logger log = LoggerFactory
+            .getLogger(ShopTagCloudParagraph.class);
     private Node siteRoot = null;
 
     public ShopTagCloudParagraph(Node content, TemplateDefinition definition,
@@ -79,11 +83,9 @@ public class ShopTagCloudParagraph<RD extends TemplateDefinition> extends Abstra
     try {
         nodeIterator = QueryUtil.search("data", "select * from category", "JCR-SQL2", "");
     } catch (LoginException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
+        log.error("Cant log to jcr", e);
     } catch (RepositoryException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
+        log.error("Cant read categories", e);
     }
       if (nodeIterator != null) {
           while(nodeIterator.hasNext()) {

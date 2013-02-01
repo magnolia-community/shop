@@ -47,6 +47,8 @@ import javax.jcr.RepositoryException;
 import javax.jcr.query.InvalidQueryException;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * shop product.
@@ -55,6 +57,7 @@ import org.apache.commons.lang.StringUtils;
  */
 public class ShopProductAccesor extends DefaultCustomDataAccesor {
 
+    private static Logger log = LoggerFactory.getLogger(ShopProductAccesor.class);
     public static String SHOP_PRODUCTS_FOLDER = "shopProducts";
 
     public ShopProductAccesor(String name) throws Exception {
@@ -72,7 +75,7 @@ public class ShopProductAccesor extends DefaultCustomDataAccesor {
 
         if(StringUtils.isNotEmpty(shopName)) {
 
-            String query = "select * from [mgnl:contentNode] as productsSubNode  where ISDESCENDANTNODE('" + ShopUtil.getPath("shopProducts", shopName) 
+            String query = "select * from [mgnl:contentNode] as productsSubNode  where ISDESCENDANTNODE('" + ShopUtil.getPath("shopProducts", shopName)
             + "') and contains(productsSubNode.*, '" + productCategory + "')";
 
             return getProductsBySQL(query);
@@ -88,7 +91,7 @@ public class ShopProductAccesor extends DefaultCustomDataAccesor {
 
         if(StringUtils.isNotEmpty(shopName)) {
 
-            String query = "select * from [mgnl:contentNode] as productsSubNode where ISDESCENDANTNODE('" + ShopUtil.getPath("shopProducts", shopName) 
+            String query = "select * from [mgnl:contentNode] as productsSubNode where ISDESCENDANTNODE('" + ShopUtil.getPath("shopProducts", shopName)
             + "') and contains(productsSubNode.*, '" + tagUUID + "')";
 
             return getProductsBySQL(query);
@@ -105,7 +108,7 @@ public class ShopProductAccesor extends DefaultCustomDataAccesor {
 
         if(StringUtils.isNotEmpty(shopName)) {
 
-            String query = "select * from [shopProduct] as products where ISDESCENDANTNODE('" + ShopUtil.getPath("shopProducts", shopName) 
+            String query = "select * from [shopProduct] as products where ISDESCENDANTNODE('" + ShopUtil.getPath("shopProducts", shopName)
             + "') and contains(products.*, '"+queryStr+"')";
 
             return getProductsBySQL(query);
@@ -124,11 +127,9 @@ public class ShopProductAccesor extends DefaultCustomDataAccesor {
         try {
             test = QueryUtil.search("data", query, javax.jcr.query.Query.JCR_SQL2, "shopProduct");
         } catch (InvalidQueryException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            log.error("Invalid query", e);
         } catch (RepositoryException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            log.error("Cant read Products", e);
         }
 
         productCollection = NodeUtil.getCollectionFromNodeIterator(test);

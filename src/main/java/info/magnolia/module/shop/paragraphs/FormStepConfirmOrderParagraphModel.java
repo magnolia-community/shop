@@ -36,12 +36,16 @@ package info.magnolia.module.shop.paragraphs;
 
 import info.magnolia.module.form.templates.components.SubStepFormModel;
 import info.magnolia.module.shop.beans.ShoppingCart;
+import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.shop.util.ShopUtil;
+import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
+import info.magnolia.objectfactory.Components;
 import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.rendering.template.RenderableDefinition;
 import info.magnolia.templating.functions.TemplatingFunctions;
 
 import javax.jcr.Node;
+import javax.jcr.RepositoryException;
 
 /**
  * Checkout step paragraph. Need to get the current shopping cart.
@@ -49,11 +53,13 @@ import javax.jcr.Node;
  *
  */
 public class FormStepConfirmOrderParagraphModel extends SubStepFormModel {
+    private Node siteRoot = null;
 
     public FormStepConfirmOrderParagraphModel(Node content,
             RenderableDefinition definition, RenderingModel<?> parent,
             TemplatingFunctions functions) {
         super(content, definition, parent, functions);
+        siteRoot = Components.getComponent(STKTemplatingFunctions.class).siteRoot(content);
 
     }
 
@@ -67,6 +73,14 @@ public class FormStepConfirmOrderParagraphModel extends SubStepFormModel {
 
     public String getCurrencyFormatting() {
         return ShopUtil.getCurrencyFormatting();
+    }
+
+    public String getProductDetailPageLink(Node product) {
+        try {
+            return ShopLinkUtil.getProductDetailPageLink(functions, product, siteRoot);
+        } catch (RepositoryException e) {
+            return "";
+        }
     }
 
 }

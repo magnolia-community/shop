@@ -64,7 +64,7 @@ import ch.fastforward.magnolia.ocm.beans.OCMBean;
  * the repository, this leaves us with a bit of a conversion mess... and when
  * converting from double/float to BigDecimal apparently the only save way to go
  * is via a String (i.e. new BigDecimal("126.9")!
- * 
+ *
  * @author will
  */
 public class ShoppingCartItem extends OCMBean implements Serializable {
@@ -138,7 +138,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
             try {
                 this.productUUID = product.getIdentifier();
             } catch (RepositoryException e1) {
-                e1.printStackTrace();
+                log.error("Cant get the product id for " + this.productUUID,e1);
             }
             log.debug("setting product " + product + " in cart item");
             log.debug("product number: " + PropertyUtil.getString(product, "name"));
@@ -155,7 +155,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
                     }
                 }
             } catch (RepositoryException e) {
-                e.printStackTrace();
+                log.error("Cant read tax category for " + this.productUUID,e);
             }
 
         } else {

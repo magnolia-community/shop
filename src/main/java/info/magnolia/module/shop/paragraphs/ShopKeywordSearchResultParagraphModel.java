@@ -49,6 +49,8 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Displays the result for keyword search, keywords are assigned to products
@@ -58,6 +60,9 @@ import org.apache.commons.lang.StringUtils;
  *
  */
 public class ShopKeywordSearchResultParagraphModel extends ShopParagraphModel {
+
+    private static Logger log = LoggerFactory
+            .getLogger(ShopKeywordSearchResultParagraphModel.class);
 
     public ShopKeywordSearchResultParagraphModel(Node content,
             TemplateDefinition definition, RenderingModel<?> parent,
@@ -74,7 +79,7 @@ public class ShopKeywordSearchResultParagraphModel extends ShopParagraphModel {
                 Node tagNode = SessionUtil.getNode("data", tagName);
                 return (List<Node>)ShopProductAccesor.getTaggedProducts(tagNode.getIdentifier());
             } catch (Exception e) {
-                //TODO
+                log.warn("Cant get tagged products with tag " + tagName, e);
             }
         }
         return new ArrayList<Node>();

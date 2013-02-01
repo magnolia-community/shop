@@ -46,14 +46,18 @@ import java.util.List;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Displays the result for product search.
- * 
+ *
  * @author tmiyar
- * 
+ *
  */
 public class ShopProductSearchResultParagraphModel extends ShopParagraphModel {
 
+    private static Logger log = LoggerFactory.getLogger(ShopProductSearchResultParagraphModel.class);
     public ShopProductSearchResultParagraphModel(Node content,
             TemplateDefinition definition, RenderingModel<?> parent,
             STKTemplatingFunctions stkFunctions,
@@ -62,14 +66,14 @@ public class ShopProductSearchResultParagraphModel extends ShopParagraphModel {
     }
 
     @Override
-    protected List<Node> search() throws RepositoryException {    
+    protected List<Node> search() throws RepositoryException {
 
         String queryStr = MgnlContext.getParameter("queryProductsStr");
 
-        try {           
+        try {
             return (List<Node>)ShopProductAccesor.getProductsByFulltext(queryStr);
         } catch (Exception e) {
-            //TODO
+            log.error("Cant find procudt " + queryStr, e);
         }
         return null;
 

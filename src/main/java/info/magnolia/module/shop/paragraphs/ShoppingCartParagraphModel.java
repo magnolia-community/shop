@@ -36,7 +36,6 @@ package info.magnolia.module.shop.paragraphs;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.jcr.util.ContentMap;
 import info.magnolia.jcr.util.NodeUtil;
-import info.magnolia.module.shop.templates.ShopSingletonParagraphTemplateModel;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.templatingkit.STKModule;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
@@ -53,13 +52,13 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Shopping cart paragraph.
- * 
+ *
  * @author tmiyar
- * 
+ *
  */
 public class ShoppingCartParagraphModel extends ShopParagraphModel {
 
-    private static Logger log = LoggerFactory.getLogger(ShopSingletonParagraphTemplateModel.class);
+    private static Logger log = LoggerFactory.getLogger(ShoppingCartParagraphModel.class);
 
     public ShoppingCartParagraphModel(Node content,
             TemplateDefinition definition, RenderingModel<?> parent,
@@ -96,7 +95,7 @@ public class ShoppingCartParagraphModel extends ShopParagraphModel {
                     getSiteRoot(), "feature", "checkoutform");
             return new LinkImpl(formPage, templatingFunctions).getHref();
         } catch (Exception e) {
-            // TODO
+            log.error("Cant find checkout form page", e);
         }
         return "";
     }

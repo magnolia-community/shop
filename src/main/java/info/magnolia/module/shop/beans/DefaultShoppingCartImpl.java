@@ -58,7 +58,7 @@ import org.slf4j.LoggerFactory;
  * A default shopping cart implementation with order, billing and shipping
  * addresses allowing only one cart item per product (i.e. when adding the same
  * product multiple times, the quantity of the cart item will be increased).
- * 
+ *
  * @author will
  */
 public class DefaultShoppingCartImpl extends OCMNumberedBean implements ShoppingCart, Serializable {
@@ -133,7 +133,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
             try {
                 setPriceCategoryUUID(priceCategory.getIdentifier());
             } catch (RepositoryException e) {
-                e.printStackTrace();
+                log.error("Cant read the price category", e);
             }
         }
     }
