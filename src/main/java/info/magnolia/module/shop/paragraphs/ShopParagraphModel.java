@@ -62,6 +62,7 @@ import java.util.List;
 
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
+import javax.jcr.Property;
 import javax.jcr.RepositoryException;
 import javax.jcr.ValueFormatException;
 
@@ -198,7 +199,10 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
                     Node price = new I18nNodeWrapper(priceNode);
                     if (PropertyUtil.getString(price, "priceCategoryUUID").equals(
                             priceCategoryUUID)) {
-                        return PropertyUtil.getProperty(price, "price").getDouble();
+                        Property productPrice = PropertyUtil.getPropertyOrNull(price, "price");
+                        if(productPrice != null) {
+                            return productPrice.getDouble();
+                        }
                     }
                 }
             }
