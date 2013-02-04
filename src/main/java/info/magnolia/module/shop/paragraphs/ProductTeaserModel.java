@@ -86,6 +86,7 @@ public class ProductTeaserModel extends InternalTeaserModel<TemplateDefinition> 
 
     public Node getProduct() {
         String productUUID = PropertyUtil.getString(content, "productUUID");
+
         Node product = null;
         if (StringUtils.isNotBlank(productUUID)) {
             try {
