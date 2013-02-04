@@ -37,6 +37,8 @@ import info.magnolia.context.MgnlContext;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Locale;
+
 import org.apache.commons.lang.StringUtils;
 
 import org.slf4j.Logger;
@@ -44,9 +46,9 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Bean with all the price info.
- * 
+ *
  * @author tmiyar
- * 
+ *
  */
 public class TemplateProductPriceBean {
 
@@ -61,13 +63,20 @@ public class TemplateProductPriceBean {
 
     public String getPrice() {
         try {
-            if (price >= 0 && StringUtils.isNotBlank(this.getFormatting())) { 
-                NumberFormat formatter = NumberFormat.getNumberInstance(MgnlContext.getAggregationState().getLocale()); 
-                DecimalFormat df = (DecimalFormat)formatter; df.applyPattern(this.getFormatting()); 
-                return df.format(price); 
+            if (price >= 0 && StringUtils.isNotBlank(this.getFormatting())) {
+                Locale locale = MgnlContext.getLocale();
+                try {
+                    locale = MgnlContext.getAggregationState().getLocale();
+                } catch (IllegalStateException e) {
+                    //nothing, will get the default context locale
+                }
+
+                NumberFormat formatter = NumberFormat.getNumberInstance(locale);
+                DecimalFormat df = (DecimalFormat)formatter; df.applyPattern(this.getFormatting());
+                return df.format(price);
             }
-        } catch (Exception e) { 
-            log.error("error reading price", e); 
+        } catch (Exception e) {
+            log.error("error reading price", e);
         }
         return "" + price;
     }
