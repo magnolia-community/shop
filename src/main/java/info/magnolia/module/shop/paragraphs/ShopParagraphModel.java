@@ -197,7 +197,7 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
                 Node priceNode = (Node) iterator.next();
                 if(!priceNode.isNodeType(MgnlNodeType.NT_METADATA)) {
                     Node price = new I18nNodeWrapper(priceNode);
-                    if (PropertyUtil.getString(price, "priceCategoryUUID").equals(
+                    if (price.hasProperty("priceCategoryUUID") && PropertyUtil.getString(price, "priceCategoryUUID").equals(
                             priceCategoryUUID)) {
                         Property productPrice = PropertyUtil.getPropertyOrNull(price, "price");
                         if(productPrice != null) {

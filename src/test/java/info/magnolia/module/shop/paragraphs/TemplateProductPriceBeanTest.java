@@ -45,7 +45,7 @@ import info.magnolia.test.mock.MockWebContext;
 import static org.junit.Assert.*;
 
 /**
- * Test case
+ * Test case.
  * @author tmiyar
  *
  */
