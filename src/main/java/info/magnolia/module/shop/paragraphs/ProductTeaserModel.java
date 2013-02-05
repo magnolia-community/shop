@@ -91,11 +91,12 @@ public class ProductTeaserModel extends InternalTeaserModel<TemplateDefinition> 
         if (StringUtils.isNotBlank(productUUID)) {
             try {
                 product = NodeUtil.getNodeByIdentifier("data", productUUID);
+                return new I18nNodeWrapper(product);
             } catch (RepositoryException e) {
                 log.error("Can't find Product with UUID "+productUUID);
             }
         }
-        return new I18nNodeWrapper(product);
+        return null;
     }
 
     public String getProductDetailPageLink() throws RepositoryException {

@@ -62,7 +62,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * shoppingcart control.
+ * Singleton paragraph model, used in shopping cart paragraph.
  * @author tmiyar
  *
  */
@@ -127,7 +127,7 @@ public class ShopSingletonParagraphTemplateModel extends STKPageModel<STKPage> {
                 quantity = 1;
             }
         } catch (NumberFormatException nfe) {
-            log.info("qunatity = 0, will be set to 1");
+            log.info("quantity = 0, will be set to 1");
         }
         // get all options
         Iterator<String> keysIter = MgnlContext.getParameters().keySet().iterator();
