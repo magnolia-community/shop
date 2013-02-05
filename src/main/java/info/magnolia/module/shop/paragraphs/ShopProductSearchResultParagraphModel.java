@@ -79,10 +79,4 @@ public class ShopProductSearchResultParagraphModel extends ShopParagraphModel {
 
     }
 
-    /*protected String generateSimpleQuery(String searchString) {
-        //escape single quote
-        searchString = searchString.replace("'", "''");
-        return MessageFormat.format(SEARCH_QUERY_PATTERN, new String[]{ShopUtil.getShopName(), searchString});
-    }*/
-
 }
