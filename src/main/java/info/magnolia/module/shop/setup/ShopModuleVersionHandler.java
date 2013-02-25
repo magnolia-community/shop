@@ -51,6 +51,7 @@ import info.magnolia.module.delta.IsAuthorInstanceDelegateTask;
 import info.magnolia.module.delta.IsInstallSamplesTask;
 import info.magnolia.module.delta.IsModuleInstalledOrRegistered;
 import info.magnolia.module.delta.ModuleDependencyBootstrapTask;
+import info.magnolia.module.delta.NodeExistsDelegateTask;
 import info.magnolia.module.delta.OrderNodeBeforeTask;
 import info.magnolia.module.delta.RemoveNodeTask;
 import info.magnolia.module.delta.SetPropertyTask;
@@ -125,14 +126,10 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
                 );
 
         register(DeltaBuilder.update("1.1.1", "")
-                .addTask(new SetPropertyTask("Fix activation Product prices and categories", RepositoryConstants.CONFIG,
+                .addTask(new NodeExistsDelegateTask("Check is data workflow is installed", "", RepositoryConstants.CONFIG, "/modules/data/commands/data/activate/startFlow", new SetPropertyTask("Fix activation Product prices and categories", RepositoryConstants.CONFIG,
                         "/modules/data/commands/data/activate/startFlow", "itemTypes", "dataItemNode, mgnl:contentNode, shop, shopCurrencies, " +
                                 "shopCurrency, shopPriceCategories, shopPriceCategory, shopProduct, shopProductOptions, " +
-                        "shopProductOption, shopTaxCategories, shopTaxCategory"))
-                        .addTask(new SetPropertyTask("Fix activation Product prices and categories", RepositoryConstants.CONFIG,
-                                "/modules/data/commands/data/deactivate/startFlow", "itemTypes", "dataItemNode, mgnl:contentNode, shop, shopCurrencies, " +
-                                        "shopCurrency, shopPriceCategories, shopPriceCategory, shopProduct, shopProductOptions, " +
-                                "shopProductOption, shopTaxCategories, shopTaxCategory")));
+                        "shopProductOption, shopTaxCategories, shopTaxCategory"))));
 
     }
 
