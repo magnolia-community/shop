@@ -88,8 +88,8 @@ public class ShopParagraphModelTest {
     public void getProductPriceByCategoryTest() throws RepositoryException {
         //GIVEN
         Node productNode = NodeUtil.getNodeByIdentifier("data", "productid");
-        ShopParagraphModel model = new ShopParagraphModel(productNode, new STKPage(), null, mock(STKTemplatingFunctions.class), mock(TemplatingFunctions.class), null);
         //WHEN
+        ShopParagraphModel model = new ShopParagraphModel(productNode, new STKPage(), null, mock(STKTemplatingFunctions.class), mock(TemplatingFunctions.class), null);
         //THEN
         assertNotNull(model.getProductPriceByCategory(productNode, "pricecat2"));
     }
@@ -98,8 +98,8 @@ public class ShopParagraphModelTest {
     public void getProductPriceByCategoryNullTest() throws RepositoryException {
         //GIVEN
         Node productNode = NodeUtil.getNodeByIdentifier("data", "productid");
-        ShopParagraphModel model = new ShopParagraphModel(productNode, new STKPage(), null, mock(STKTemplatingFunctions.class), mock(TemplatingFunctions.class), null);
         //WHEN
+        ShopParagraphModel model = new ShopParagraphModel(productNode, new STKPage(), null, mock(STKTemplatingFunctions.class), mock(TemplatingFunctions.class), null);
         //THEN
         assertNull(model.getProductPriceByCategory(productNode, "xxx"));
     }
