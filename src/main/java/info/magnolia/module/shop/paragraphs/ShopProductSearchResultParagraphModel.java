@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2010-2011 Magnolia International
+ * This file Copyright (c) 2010-2013 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -41,6 +41,7 @@ import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.rendering.template.TemplateDefinition;
 import info.magnolia.templating.functions.TemplatingFunctions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jcr.Node;
@@ -71,12 +72,11 @@ public class ShopProductSearchResultParagraphModel extends ShopParagraphModel {
         String queryStr = MgnlContext.getParameter("queryProductsStr");
 
         try {
-            return (List<Node>)ShopProductAccesor.getProductsByFulltext(queryStr);
+            return ShopProductAccesor.getProductsByFulltext(queryStr);
         } catch (Exception e) {
-            log.error("Cant find procudt " + queryStr, e);
+            log.error("Cant find product " + queryStr, e);
         }
-        return null;
-
+        return new ArrayList<Node>();
     }
 
 }
