@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2010-2011 Magnolia International
+ * This file Copyright (c) 2010-2013 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -35,7 +35,7 @@ package info.magnolia.module.shop.accessors;
 
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.util.QueryUtil;
-import info.magnolia.jcr.wrapper.I18nNodeWrapper;
+import info.magnolia.module.shop.util.ShopUtil;
 
 import java.util.Collection;
 
@@ -52,8 +52,8 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class DefaultCustomDataAccesor implements CustomDataAccesor {
 
-    private Node node;
-    private String name;
+    private final Node node;
+    private final String name;
 
     protected static Logger log = LoggerFactory.getLogger(DefaultCustomDataAccesor.class);
 
@@ -67,15 +67,18 @@ public abstract class DefaultCustomDataAccesor implements CustomDataAccesor {
         Collection<Content> nodeCollection = QueryUtil.query("data", xpath, "xpath", nodeType);
 
         if(!nodeCollection.isEmpty()) {
-            return new I18nNodeWrapper(nodeCollection.iterator().next().getJCRNode());
+            Node node = nodeCollection.iterator().next().getJCRNode();
+            return ShopUtil.wrapWithI18n(node);
         }
         throw new Exception(name + "of type=" + nodeType + "not found in path=" + rootPath);
     }
 
+    @Override
     public Node getNode() {
         return node;
     }
 
+    @Override
     public String getName() {
         return name;
     }

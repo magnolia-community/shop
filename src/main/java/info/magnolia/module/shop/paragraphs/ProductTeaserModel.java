@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2010-2011 Magnolia International
+ * This file Copyright (c) 2010-2013 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -36,7 +36,6 @@ package info.magnolia.module.shop.paragraphs;
 import info.magnolia.jcr.util.ContentMap;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
-import info.magnolia.jcr.wrapper.I18nNodeWrapper;
 import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
@@ -77,7 +76,8 @@ public class ProductTeaserModel extends InternalTeaserModel<TemplateDefinition> 
         Node shopRoot = ShopUtil.getContentByTemplateCategorySubCategory(siteRoot, "feature", "product-detail");
 
         if (shopRoot != null) {
-            return templatingFunctions.asContentMap(stkFunctions.wrap(shopRoot));
+            shopRoot = ShopUtil.wrapWithHTML(ShopUtil.wrapWithI18n(shopRoot), true);
+            return templatingFunctions.asContentMap(shopRoot);
         } else {
             return null;
 
@@ -91,7 +91,7 @@ public class ProductTeaserModel extends InternalTeaserModel<TemplateDefinition> 
         if (StringUtils.isNotBlank(productUUID)) {
             try {
                 product = NodeUtil.getNodeByIdentifier("data", productUUID);
-                return new I18nNodeWrapper(product);
+                return ShopUtil.wrapWithI18n(product);
             } catch (RepositoryException e) {
                 log.error("Can't find Product with UUID "+productUUID);
             }

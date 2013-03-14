@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2010-2011 Magnolia International
+ * This file Copyright (c) 2010-2013 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -33,21 +33,17 @@
  */
 package info.magnolia.module.shop.util;
 
-import info.magnolia.cms.security.AccessDeniedException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Locale;
-
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.i18n.I18nContentSupportFactory;
 import info.magnolia.cms.i18n.Messages;
 import info.magnolia.cms.i18n.MessagesManager;
+import info.magnolia.cms.security.AccessDeniedException;
 import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
+import info.magnolia.jcr.wrapper.HTMLEscapingNodeWrapper;
 import info.magnolia.jcr.wrapper.I18nNodeWrapper;
 import info.magnolia.module.shop.ShopConfiguration;
 import info.magnolia.module.shop.accessors.ShopAccesor;
@@ -56,9 +52,13 @@ import info.magnolia.module.shop.beans.ShoppingCart;
 import info.magnolia.module.templatingkit.templates.category.TemplateCategoryUtil;
 import info.magnolia.repository.RepositoryConstants;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Locale;
+
 import javax.jcr.Node;
 import javax.jcr.PathNotFoundException;
-
 import javax.jcr.RepositoryException;
 
 import org.apache.commons.lang.StringUtils;
@@ -71,13 +71,16 @@ import org.slf4j.LoggerFactory;
  * @author tmiyar
  *
  */
-public class ShopUtil {
+public final class ShopUtil {
 
     private static Logger log = LoggerFactory.getLogger(ShopUtil.class);
     public static String ATTRIBUTE_SHOPNAME = "shopName";
     public static String ATTRIBUTE_SHOPPINGCART = "shoppingCart";
     public static String SHOP_TEMPLATE_NAME = "shopHome";
     public static String I18N_BASENAME = "info.magnolia.module.shop.messages";
+
+    private ShopUtil() {
+    }
 
     /**
      * Gets the shop current node.
@@ -192,7 +195,7 @@ public class ShopUtil {
         Collection<Node> i18nProductList = new ArrayList<Node>();
         if (contentList != null) {
             for (Node content : contentList) {
-                i18nProductList.add(new I18nNodeWrapper(content));
+                i18nProductList.add(ShopUtil.wrapWithI18n(content));
             }
         }
         return i18nProductList;
@@ -283,5 +286,19 @@ public class ShopUtil {
         }
 
         return null;
+    }
+
+    public static Node wrapWithI18n(Node node) {
+        if (node == null) {
+            return null;
+        }
+        return NodeUtil.isWrappedWith(node, I18nNodeWrapper.class) ? node : new I18nNodeWrapper(node);
+    }
+
+    public static Node wrapWithHTML(Node node, boolean linebreaks) {
+        if (node == null) {
+            return null;
+        }
+        return NodeUtil.isWrappedWith(node, HTMLEscapingNodeWrapper.class) ? node : new HTMLEscapingNodeWrapper(node, linebreaks);
     }
 }

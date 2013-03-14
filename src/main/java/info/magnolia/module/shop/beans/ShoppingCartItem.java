@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2010-2011 Magnolia International
+ * This file Copyright (c) 2010-2013 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -35,7 +35,7 @@ package info.magnolia.module.shop.beans;
 
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
-import info.magnolia.jcr.wrapper.I18nNodeWrapper;
+import info.magnolia.module.shop.util.ShopUtil;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -113,7 +113,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
         this.setCart(cart);
         Node product = null;
         try {
-            product = new I18nNodeWrapper(NodeUtil.getNodeByIdentifier("data", productUUID));
+            product = ShopUtil.wrapWithI18n(NodeUtil.getNodeByIdentifier("data", productUUID));
         } catch (RepositoryException e) {
             log.error("Can't find product with uuid" + productUUID);
         }
@@ -247,7 +247,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
         if (total != null) {
             return total.doubleValue();
         } else {
-            return (double) 0;
+            return 0;
         }
     }
 
@@ -285,7 +285,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
         if (tax != null) {
             return tax.doubleValue();
         } else {
-            return (double) 0;
+            return 0;
         }
     }
 
@@ -385,7 +385,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
                 Iterator<String> keys = options.keySet().iterator();
                 String currKey;
                 while (keys.hasNext()) {
-                    currKey = (String) keys.next();
+                    currKey = keys.next();
                     if (!this.options.containsKey(currKey) || !options.get(currKey).equals(this.options.get(currKey))) {
                         return false;
                     }

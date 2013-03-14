@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2010-2011 Magnolia International
+ * This file Copyright (c) 2010-2013 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -38,7 +38,6 @@ import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
-import info.magnolia.jcr.wrapper.I18nNodeWrapper;
 import info.magnolia.module.shop.beans.CartItemOption;
 import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
 import info.magnolia.module.shop.beans.ShoppingCart;
@@ -136,7 +135,7 @@ public class ShopSingletonParagraphTemplateModel extends STKPageModel<STKPage> {
         Node optionNode = null, optionSetNode;
         CartItemOption cio;
         while (keysIter.hasNext()) {
-            currKey = (String) keysIter.next();
+            currKey = keysIter.next();
             if (currKey.startsWith("option_")) {
                 optionUUID = MgnlContext.getParameter(currKey);
                 try {
@@ -146,7 +145,7 @@ public class ShopSingletonParagraphTemplateModel extends STKPageModel<STKPage> {
                 }
                 if (optionNode != null) {
                     try {
-                        optionNode = new I18nNodeWrapper(optionNode);
+                        optionNode = ShopUtil.wrapWithI18n(optionNode);
                         optionSetNode = optionNode.getParent();
                         cio = new CartItemOption();
                         cio.setOptionSetUUID(optionSetNode.getIdentifier());
@@ -195,7 +194,7 @@ public class ShopSingletonParagraphTemplateModel extends STKPageModel<STKPage> {
             indexOfProductInCart = ((DefaultShoppingCartImpl) shoppingCart).indexOfProduct(productUUID);
         }
         if (indexOfProductInCart >= 0 && indexOfProductInCart < shoppingCart.getCartItemsCount()) {
-            ShoppingCartItem shoppingCartItem = (ShoppingCartItem) shoppingCart.getCartItems().get(indexOfProductInCart);
+            ShoppingCartItem shoppingCartItem = shoppingCart.getCartItems().get(indexOfProductInCart);
             int quantity = shoppingCartItem.getQuantity();
 
             if (command.equals("add")) {

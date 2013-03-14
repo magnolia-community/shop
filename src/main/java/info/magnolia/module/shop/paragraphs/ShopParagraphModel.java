@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2010-2011 Magnolia International
+ * This file Copyright (c) 2010-2013 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -39,7 +39,6 @@ import info.magnolia.cms.util.SelectorUtil;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
-import info.magnolia.jcr.wrapper.I18nNodeWrapper;
 import info.magnolia.module.dms.beans.Document;
 import info.magnolia.module.shop.ShopConfiguration;
 import info.magnolia.module.shop.accessors.ShopAccesor;
@@ -96,6 +95,7 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
         return ShopUtil.getShoppingCart();
     }
 
+    @Override
     public Node getSiteRoot() {
         return siteRoot;
     }
@@ -182,7 +182,7 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
 
     public Node getTaxByUUID(String uuid) {
         try {
-            return new I18nNodeWrapper(NodeUtil.getNodeByIdentifier("data", uuid));
+            return ShopUtil.wrapWithI18n(NodeUtil.getNodeByIdentifier("data", uuid));
         } catch (RepositoryException e) {
             log.error("Cant get tax category " + uuid, e);
         }
@@ -196,7 +196,7 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
             for (NodeIterator iterator = pricesNode.getNodes(); iterator.hasNext();) {
                 Node priceNode = (Node) iterator.next();
                 if(!priceNode.isNodeType(MgnlNodeType.NT_METADATA)) {
-                    Node price = new I18nNodeWrapper(priceNode);
+                    Node price = ShopUtil.wrapWithI18n(priceNode);
                     if (price.hasProperty("priceCategoryUUID") && PropertyUtil.getString(price, "priceCategoryUUID").equals(
                             priceCategoryUUID)) {
                         Property productPrice = PropertyUtil.getPropertyOrNull(price, "price");
