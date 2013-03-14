@@ -5,7 +5,7 @@
 [#include "/templating-kit/components/teasers/init.inc.ftl"]
 
 [#-- Assigns: Get and check tags --]
-[#assign categories = model.tagCloud!]
+[#assign categories = cmsfn.asContentMapList(model.tagCloud!)]
 [#assign has_categories = categories?has_content]
 [#assign catCloudTitle = content.catCloudTitle!]
 

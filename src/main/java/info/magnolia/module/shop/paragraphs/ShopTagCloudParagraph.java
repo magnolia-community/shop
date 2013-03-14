@@ -81,7 +81,7 @@ public class ShopTagCloudParagraph<RD extends TemplateDefinition> extends Abstra
       NodeIterator nodeIterator=null;
       List<Node> nodeList = new ArrayList<Node>();
     try {
-        nodeIterator = QueryUtil.search("data", "select * from category", "JCR-SQL2", "");
+        nodeIterator = QueryUtil.search("data", "select * from [category]", "JCR-SQL2", "category");
     } catch (LoginException e) {
         log.error("Cant log to jcr", e);
     } catch (RepositoryException e) {
