@@ -114,6 +114,11 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-4-5-migration</artifactId>
+      <version>1.2.2-SNAPSHOT</version>
+    </dependency>
+    <dependency>
       <groupId>org.apache.jackrabbit</groupId>
       <artifactId>jackrabbit-ocm</artifactId>
       <version>1.5.3</version>

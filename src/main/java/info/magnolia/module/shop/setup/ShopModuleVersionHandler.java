@@ -83,7 +83,7 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
     public ShopModuleVersionHandler() {
 
         register(DeltaBuilder.update("1.1", "")
-
+                .addTask(new ShopMigrationTask("Migration task: migrate Shop configuration", "Migrate configuration of templates, dialogs and site definitions", "shop", false, new ArrayList<String>()))
                 .addTask(new IsModuleInstalledOrRegistered("Bootstrap new sample-shop", "", "demo-project",
                         new AbstractTask("Register new sample-shop", "Import all bootstrap files of new sample-shop.") {
 
