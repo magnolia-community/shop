@@ -124,7 +124,8 @@ public class ShopMigrationTask extends AbstractSTKRelatedModuleMigrationTask {
             MigrationUtil.transformForm(installContext.getJCRSession("config"), "/modules/shop/templates/components/features/shopForm", Arrays.asList("formGroupFields"), getPersistentMapService().getComponentsMap(), "/form/generic/listArea.ftl", "availableComponents", "fieldsets");
             MigrationUtil.transformForm(installContext.getJCRSession("config"), "/modules/shop/templates/components/features/shopFormStepConfirmOrder", Arrays.asList("formGroupFields"), getPersistentMapService().getComponentsMap(), "/form/generic/listArea.ftl", "availableComponents", "fieldsets");
         } catch (RepositoryException e) {
-            e.printStackTrace();
+            installContext.error("Could not migrate forms.", e);
+            throw new TaskExecutionException(e.getMessage());
         }
     }
 
