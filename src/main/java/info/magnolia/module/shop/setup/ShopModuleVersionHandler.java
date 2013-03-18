@@ -33,8 +33,8 @@
  */
 package info.magnolia.module.shop.setup;
 
-import static info.magnolia.nodebuilder.Ops.addProperty;
-import static info.magnolia.nodebuilder.Ops.getNode;
+import static info.magnolia.nodebuilder.Ops.*;
+
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.core.MgnlNodeType;
 import info.magnolia.module.InstallContext;
@@ -42,7 +42,6 @@ import info.magnolia.module.admininterface.setup.AddMainMenuItemTask;
 import info.magnolia.module.admininterface.setup.AddSubMenuItemTask;
 import info.magnolia.module.admininterface.setup.SimpleContentVersionHandler;
 import info.magnolia.module.data.setup.RegisterNodeTypeTask;
-
 import info.magnolia.module.delta.AbstractTask;
 import info.magnolia.module.delta.AddRoleToUserTask;
 import info.magnolia.module.delta.CheckAndModifyPropertyValueTask;
@@ -73,8 +72,6 @@ import java.util.List;
 import javax.jcr.ImportUUIDBehavior;
 import javax.jcr.RepositoryException;
 
-import static info.magnolia.nodebuilder.Ops.*;
-
 /**
  * This class is used to handle installation and updates of your module.
  */
@@ -84,22 +81,6 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
 
         register(DeltaBuilder.update("1.1", "")
                 .addTask(new ShopMigrationTask("Migration task: migrate Shop configuration", "Migrate configuration of templates, dialogs and site definitions", "shop", false, new ArrayList<String>()))
-                .addTask(new IsModuleInstalledOrRegistered("Bootstrap new sample-shop", "", "demo-project",
-                        new AbstractTask("Register new sample-shop", "Import all bootstrap files of new sample-shop.") {
-
-                    public void execute(InstallContext ctx) throws TaskExecutionException {
-                        try {
-                            ctx.getJCRSession("website").importXML("/demo-features/modules", getClass().getResourceAsStream("/info/magnolia/module/shop/setup/demo-project/website.demo-features.modules.sample-shop.xml"), ImportUUIDBehavior.IMPORT_UUID_COLLISION_REMOVE_EXISTING);
-                        }
-                        catch (RepositoryException e) {
-                            throw new TaskExecutionException("Can not bootstrap new sample-shop: ",e);
-                        }
-                        catch (IOException e) {
-                            throw new TaskExecutionException("Can not bootstrap new sample-shop: ",e);
-                        }
-                    }
-                }))
-
 
                 // This task fails when trying to install on 4.5 as all theme images have been moved to the resources repository!
 //                .addTask (new AbstractTask("Register new DMS Images", "Import all bootstrap files containing the new DMS images.") {
@@ -129,7 +110,22 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
                 .addTask(new NodeExistsDelegateTask("Check is data workflow is installed", "", RepositoryConstants.CONFIG, "/modules/data/commands/data/activate/startFlow", new SetPropertyTask("Fix activation Product prices and categories", RepositoryConstants.CONFIG,
                         "/modules/data/commands/data/activate/startFlow", "itemTypes", "dataItemNode, mgnl:contentNode, shop, shopCurrencies, " +
                                 "shopCurrency, shopPriceCategories, shopPriceCategory, shopProduct, shopProductOptions, " +
-                        "shopProductOption, shopTaxCategories, shopTaxCategory"))));
+                                "shopProductOption, shopTaxCategories, shopTaxCategory")))
+                .addTask(new IsModuleInstalledOrRegistered("Bootstrap new sample-shop", "", "demo-project",
+                        new AbstractTask("Register new sample-shop", "Import all bootstrap files of new sample-shop.") {
+
+                            public void execute(InstallContext ctx) throws TaskExecutionException {
+                                try {
+                                    ctx.getJCRSession("website").importXML("/demo-features/modules", getClass().getResourceAsStream("/info/magnolia/module/shop/setup/demo-project/website.demo-features.modules.sample-shop.xml"), ImportUUIDBehavior.IMPORT_UUID_COLLISION_REMOVE_EXISTING);
+                                }
+                                catch (RepositoryException e) {
+                                    throw new TaskExecutionException("Can not bootstrap new sample-shop: ", e);
+                                }
+                                catch (IOException e) {
+                                    throw new TaskExecutionException("Can not bootstrap new sample-shop: ", e);
+                                }
+                            }
+                        })));
 
     }
 
