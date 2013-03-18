@@ -40,6 +40,7 @@ import info.magnolia.module.delta.BootstrapSingleResource;
 import info.magnolia.module.delta.CheckAndModifyPropertyValueTask;
 import info.magnolia.module.delta.RemoveNodeTask;
 import info.magnolia.module.delta.RenameNodesTask;
+import info.magnolia.module.delta.Task;
 import info.magnolia.module.delta.TaskExecutionException;
 import info.magnolia.templatingkit.migration.util.MigrationUtil;
 
@@ -53,15 +54,16 @@ import javax.jcr.RepositoryException;
  */
 public class ShopMigrationTask extends AbstractSTKRelatedModuleMigrationTask {
 
+    private ArrayDelegateTask cleanupOfUnusedNodesTask;
+    private ArrayDelegateTask cleanupOfOcmShoppigCardFieldsTask;
+    private ArrayDelegateTask renameShoppingCartNodesInOcmConfigTask;
+    private Task installCssTask;
+    private Task installImagesTask;
+
     public ShopMigrationTask(String taskName, String taskDescription, String moduleName, boolean disposeObservation, List<String> siteDefinition) {
         super(taskName, taskDescription, moduleName, disposeObservation, siteDefinition);
-    }
 
-    @Override
-    protected void executeExtraMigrationTask(InstallContext installContext) throws TaskExecutionException {
-        installContext.warn("Please fix categories of products after shop migration if you use sample-shop!");
-        // do cleanup of unused nodes in SHOP 1.1
-        ArrayDelegateTask task = new ArrayDelegateTask("Cleanup of nodes that are not used in shop 1.1 anymore.",
+        cleanupOfUnusedNodesTask = new ArrayDelegateTask("Cleanup of nodes that are not used in shop 1.1 anymore.",
                 new RemoveNodeTask("Remove node", "Remove shopGrid node.", "config", "/modules/shop/controls/shopGrid"),
                 new RemoveNodeTask("Remove node", "Remove shopGridDate node.", "config", "/modules/shop/controls/shopGridDate"),
                 new RemoveNodeTask("Remove node", "Remove shopGridEdit node.", "config", "/modules/shop/controls/shopGridEdit"),
@@ -83,10 +85,8 @@ public class ShopMigrationTask extends AbstractSTKRelatedModuleMigrationTask {
                 new RemoveNodeTask("Remove node", "Remove shopCountries dialogs from shop type.", "config", "/modules/data/config/types/shop/shopCountries"),
                 new RemoveNodeTask("Remove node", "Remove shopShippingOptions dialog from shop type.", "config", "/modules/data/config/types/shop/shopShippingOptions")
                 );
-        task.execute(installContext);
 
-        // do cleanup of ocm shopping cart fields
-        task = new ArrayDelegateTask("Cleanup of OCM shopping cart properties.");
+        cleanupOfOcmShoppigCardFieldsTask = new ArrayDelegateTask("Cleanup of OCM shopping cart properties.");
         String[] fields = new String[] { "paymentDate", "paymentType", "paymentID", "shippingOptionUUID", "shippingOptionTitle", "shippingCost", "shippingCostTaxRate",
                 "shippingCostTaxIncluded", "orderAddressCompany", "orderAddressCompany2", "orderAddressFirstname", "orderAddressLastname",
                 "orderAddressSex", "orderAddressTitle", "orderAddressStreet", "orderAddressStreet2", "orderAddressZip", "orderAddressCity",
@@ -95,12 +95,10 @@ public class ShopMigrationTask extends AbstractSTKRelatedModuleMigrationTask {
                 "shippingAddressCompany2", "shippingAddressSex", "shippingAddressTitle", "shippingAddressStreet2", "shippingAddressState", "shippingAddressCountry",
                 "shippingAddressMobile" };
         for (String field : fields) {
-            task.addTask(new RemoveNodeTask("Remove node", "Remove unused field from shopping cart ocm.", "config", "/modules/ocm/config/classDescriptors/defaultShoppingCart/fieldDescriptors/" + field));
+            cleanupOfOcmShoppigCardFieldsTask.addTask(new RemoveNodeTask("Remove node", "Remove unused field from shopping cart ocm.", "config", "/modules/ocm/config/classDescriptors/defaultShoppingCart/fieldDescriptors/" + field));
         }
-        task.execute(installContext);
 
-        // rename shopping cart nodes in ocm config
-        task = new ArrayDelegateTask("Rename shopping cart nodes in ocm config.",
+        renameShoppingCartNodesInOcmConfigTask = new ArrayDelegateTask("Rename shopping cart nodes in ocm config.",
                 new RenameNodesTask("Rename node", "Rename defaultShoppingCart to testShoppingCart.", "config", "/modules/ocm/config/classDescriptors", "defaultShoppingCart", "testShoppingCart", "mgnl:contentNode"),
                 new RenameNodesTask("Rename node", "Rename defaultShoppingCartItem to testShoppingCartItem.", "config", "/modules/ocm/config/classDescriptors", "defaultShoppingCartItem", "testShoppingCartItem", "mgnl:contentNode"),
                 new RenameNodesTask("Rename node", "Rename defaultShoppingCartItemOption to testShoppingCartItemOption.", "config", "/modules/ocm/config/classDescriptors", "defaultShoppingCartItemOption", "testShoppingCartItemOption", "mgnl:contentNode"),
@@ -111,13 +109,28 @@ public class ShopMigrationTask extends AbstractSTKRelatedModuleMigrationTask {
                 new CheckAndModifyPropertyValueTask("Modify property", "Modify fieldName property of termsAccepted node", "config", "/modules/ocm/config/classDescriptors/testShoppingCart/fieldDescriptors/cartDiscountRate", "fieldName", "cartDiscountRate", "termsAccepted"),
                 new CheckAndModifyPropertyValueTask("Modify property", "Modify fieldName property of termsAccepted node", "config", "/modules/ocm/config/classDescriptors/testShoppingCart/fieldDescriptors/cartDiscountRate", "jcrName", "cartDiscountRate", "termsAccepted")
                 );
-        task.execute(installContext);
+
+        installCssTask = new BootstrapSingleResource("Bootstrap theme.", "Install css theme for shop module.", "/mgnl-bootstrap/shop/config.modules.standard-templating-kit.config.themes.pop.cssFiles.shop.xml");
+        installImagesTask = new BootstrapSingleResource("Bootstrap images.", "Install images for shop module", "/mgnl-bootstrap/shop/resources.templating-kit.themes.pop.img.shop.xml");
+    }
+
+    @Override
+    protected void executeExtraMigrationTask(InstallContext installContext) throws TaskExecutionException {
+        installContext.warn("Please fix categories of products after shop migration if you use sample-shop!");
+        // do cleanup of unused nodes in SHOP 1.1
+        cleanupOfUnusedNodesTask.execute(installContext);
+
+        // do cleanup of ocm shopping cart fields
+        cleanupOfOcmShoppigCardFieldsTask.execute(installContext);
+
+        // rename shopping cart nodes in ocm config
+        renameShoppingCartNodesInOcmConfigTask.execute(installContext);
 
         // install css
-        new BootstrapSingleResource("Bootstrap theme.", "Install css theme for shop module.", "/mgnl-bootstrap/shop/config.modules.standard-templating-kit.config.themes.pop.cssFiles.shop.xml").execute(installContext);
+        installCssTask.execute(installContext);
 
         // install images
-        new BootstrapSingleResource("Bootstrap images.", "Install images for shop module", "/mgnl-bootstrap/shop/resources.templating-kit.themes.pop.img.shop.xml").execute(installContext);
+        installImagesTask.execute(installContext);
 
         // migrate forms
         try {
