@@ -74,7 +74,7 @@ public class ShopProductSearchResultParagraphModel extends ShopParagraphModel {
         try {
             return ShopProductAccesor.getProductsByFulltext(queryStr);
         } catch (Exception e) {
-            log.error("Cant find product " + queryStr, e);
+            log.warn("Cant find product " + queryStr);
         }
         return new ArrayList<Node>();
     }
