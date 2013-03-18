@@ -33,6 +33,8 @@
  */
 package info.magnolia.module.shop.paragraphs;
 
+//import groovyjarjarantlr.StringUtils;
+
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.shop.accessors.ShopProductAccesor;
 import info.magnolia.module.templatingkit.STKModule;
@@ -47,6 +49,7 @@ import java.util.List;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,14 +72,18 @@ public class ShopProductSearchResultParagraphModel extends ShopParagraphModel {
     @Override
     protected List<Node> search() throws RepositoryException {
 
-        String queryStr = MgnlContext.getParameter("queryProductsStr");
+        final String queryStr = MgnlContext.getParameter("queryProductsStr");
+        final String checkedQueryStr = StringUtils.strip(queryStr, "<>!+-^()[]%^'\\\"{}_"); //remove problematic characters
+        if (StringUtils.isEmpty(checkedQueryStr)) {
+            log.error("The query '{}' contains only forbidden characters.", queryStr);
+            return new ArrayList<Node>();
+        }
 
         try {
-            return ShopProductAccesor.getProductsByFulltext(queryStr);
+            return ShopProductAccesor.getProductsByFulltext(checkedQueryStr);
         } catch (Exception e) {
-            log.warn("Cant find product " + queryStr);
+            log.warn("Can't find product " + queryStr, e);
         }
         return new ArrayList<Node>();
     }
-
 }
