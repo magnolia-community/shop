@@ -4,7 +4,7 @@
   <parent>
     <groupId>info.magnolia.forge</groupId>
     <artifactId>magnolia-parent-pom-forge</artifactId>
-    <version>20</version>
+    <version>25</version>
   </parent>
   <groupId>info.magnolia.shop</groupId>
   <artifactId>magnolia-module-shop</artifactId>
@@ -37,9 +37,10 @@
     <url>http://jira.magnolia-cms.com/browse/MSHOP</url>
   </issueManagement>
   <scm>
-    <connection>scm:svn:http://svn.magnolia-cms.com/svn/forge/magnolia-shop/trunk</connection>
-    <developerConnection>scm:svn:http://svn.magnolia-cms.com/svn/forge/magnolia-shop/trunk</developerConnection>
-    <url>http://svn.magnolia-cms.com/view/forge/magnolia-shop/trunk</url>
+    <connection>scm:git:http://git.magnolia-cms.com/forge/shop.git</connection>
+    <developerConnection>scm:git:https://git.magnolia-cms.com/forge/shop.git</developerConnection>
+    <url>http://git.magnolia-cms.com/gitweb/?p=forge/shop.git</url>
+    <tag>HEAD</tag>
   </scm>
   <dependencies>
     <dependency>
