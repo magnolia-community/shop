@@ -33,7 +33,7 @@
  */
 package info.magnolia.module.shop.accessors;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
@@ -76,12 +76,22 @@ public class ShopProductAccesorTest extends MgnlTestCase {
     }
 
     @Test
-    public void getProductsBySQLParseException() throws Exception {
+    public void getProductsBySQLParseExceptionTest() throws Exception {
         // GIVEN
         when(ctx.getJCRSession(anyString())).thenThrow(new RepositoryException(new ParseException()));
         // WHEN
         List<Node> result = ShopProductAccesor.getProductsBySQL("someQueryStr");
         // THEN no exception occurs and the result is empty list
         assertNotNull(result);
+    }
+
+    @Test
+    public void escapeSqlTest() throws Exception {
+        // GIVEN
+        final String querry = "- \\ ' \" ";
+        // WHEN
+        final String result = ShopProductAccesor.escapeSql(querry);
+        // THEN no exception occurs and the result is empty list
+        assertEquals("\\- \\\\ '' \\\" ", result);
     }
 }

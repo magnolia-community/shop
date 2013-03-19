@@ -46,6 +46,7 @@ import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
 import javax.jcr.query.InvalidQueryException;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.queryParser.ParseException;
 import org.slf4j.Logger;
@@ -111,7 +112,7 @@ public class ShopProductAccesor extends DefaultCustomDataAccesor {
         if(StringUtils.isNotEmpty(shopName)) {
 
             String query = "select * from [shopProduct] as products where ISDESCENDANTNODE('" + ShopUtil.getPath("shopProducts", shopName)
-            + "') and contains(products.*, '"+queryStr+"')";
+                    + "') and contains(products.*, '" + escapeSql(queryStr) + "')";
 
             return getProductsBySQL(query);
 
@@ -150,6 +151,13 @@ public class ShopProductAccesor extends DefaultCustomDataAccesor {
         productCollection = NodeUtil.getCollectionFromNodeIterator(test);
         ArrayList<Node> productList = new ArrayList<Node>(productCollection);
         return (List<Node>) ShopUtil.transformIntoI18nContentList(productList);
+    }
+
+    public static String escapeSql(final String input) {
+        String output = StringEscapeUtils.escapeSql(input); // escape '
+        output = output.replace("\\", "\\\\"); // escape \ first!
+        output = output.replace("-", "\\-").replace("\"", "\\\""); // escape the rest of the SQL characters (-,")
+        return output;
     }
 
 }
