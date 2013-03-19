@@ -38,6 +38,7 @@ import info.magnolia.module.InstallContext;
 import info.magnolia.module.delta.ArrayDelegateTask;
 import info.magnolia.module.delta.BootstrapSingleResource;
 import info.magnolia.module.delta.CheckAndModifyPropertyValueTask;
+import info.magnolia.module.delta.NodeExistsDelegateTask;
 import info.magnolia.module.delta.RemoveNodeTask;
 import info.magnolia.module.delta.RenameNodesTask;
 import info.magnolia.module.delta.Task;
@@ -57,6 +58,7 @@ public class ShopMigrationTask extends AbstractSTKRelatedModuleMigrationTask {
     private ArrayDelegateTask cleanupOfUnusedNodesTask;
     private ArrayDelegateTask cleanupOfOcmShoppigCardFieldsTask;
     private ArrayDelegateTask renameShoppingCartNodesInOcmConfigTask;
+    private ArrayDelegateTask cleanupOfSiteDefinitions;
     private Task installCssTask;
     private Task installImagesTask;
 
@@ -110,6 +112,18 @@ public class ShopMigrationTask extends AbstractSTKRelatedModuleMigrationTask {
                 new CheckAndModifyPropertyValueTask("Modify property", "Modify fieldName property of termsAccepted node", "config", "/modules/ocm/config/classDescriptors/testShoppingCart/fieldDescriptors/cartDiscountRate", "jcrName", "cartDiscountRate", "termsAccepted")
                 );
 
+        cleanupOfSiteDefinitions = new ArrayDelegateTask("Cleanup of messy site def config");
+        String[] templates = new String[] { "shopCheckoutForm", "shopConfirmationPage", "shopFormStep", "shopFormStepConfirmOrder", "shopHome",
+                "shopProductCategory", "shopProductSearchResult", "shopProductDetail", "shopShoppingCart", "shopProductKeywordResult" };
+        String[] siteDefs = new String[] { "demo-project", "demo-features", "demo-project-de" };
+        for (String siteDef : siteDefs) {
+            for (String template : templates) {
+                // site defs are not supported in CE edition so we'll rather check if such path exists before actually trying to delete it directly
+                cleanupOfSiteDefinitions.addTask(new NodeExistsDelegateTask("Remove node if exists", "Remove node " + template + " from " + siteDef + " site definition if exists.", "config", "/modules/extended-templating-kit/" + siteDef,
+                        new RemoveNodeTask("Remove node", "Remove node " + template + " from " + siteDef + " site definition", "config", "/modules/extended-templating-kit/config/sites/" + siteDef + "/" + template)));
+            }
+        }
+
         installCssTask = new BootstrapSingleResource("Bootstrap theme.", "Install css theme for shop module.", "/mgnl-bootstrap/shop/config.modules.standard-templating-kit.config.themes.pop.cssFiles.shop.xml");
         installImagesTask = new BootstrapSingleResource("Bootstrap images.", "Install images for shop module", "/mgnl-bootstrap/shop/resources.templating-kit.themes.pop.img.shop.xml");
     }
@@ -122,6 +136,9 @@ public class ShopMigrationTask extends AbstractSTKRelatedModuleMigrationTask {
 
         // do cleanup of ocm shopping cart fields
         cleanupOfOcmShoppigCardFieldsTask.execute(installContext);
+
+        // do cleanup of site defs
+        cleanupOfSiteDefinitions.execute(installContext);
 
         // rename shopping cart nodes in ocm config
         renameShoppingCartNodesInOcmConfigTask.execute(installContext);
