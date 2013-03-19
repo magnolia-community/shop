@@ -112,7 +112,7 @@ public class ShopMigrationTask extends AbstractSTKRelatedModuleMigrationTask {
                 new CheckAndModifyPropertyValueTask("Modify property", "Modify fieldName property of termsAccepted node", "config", "/modules/ocm/config/classDescriptors/testShoppingCart/fieldDescriptors/cartDiscountRate", "jcrName", "cartDiscountRate", "termsAccepted")
                 );
 
-        cleanupOfSiteDefinitions = new ArrayDelegateTask("Cleanup of messy site def config");
+        cleanupOfSiteDefinitions = new ArrayDelegateTask("Cleanup template availability markers incorrectly added to site definitions");
         String[] templates = new String[] { "shopCheckoutForm", "shopConfirmationPage", "shopFormStep", "shopFormStepConfirmOrder", "shopHome",
                 "shopProductCategory", "shopProductSearchResult", "shopProductDetail", "shopShoppingCart", "shopProductKeywordResult" };
         String[] siteDefs = new String[] { "demo-project", "demo-features", "demo-project-de" };
