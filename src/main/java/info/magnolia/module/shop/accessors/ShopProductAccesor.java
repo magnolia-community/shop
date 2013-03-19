@@ -47,6 +47,7 @@ import javax.jcr.RepositoryException;
 import javax.jcr.query.InvalidQueryException;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.lucene.queryParser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,6 +65,7 @@ public class ShopProductAccesor extends DefaultCustomDataAccesor {
         super(name);
     }
 
+    @Override
     protected Node getNode(String name) throws Exception {
         String path = ShopUtil.getPath(SHOP_PRODUCTS_FOLDER, ShopUtil.getShopName());
         return super.getNodeByName(path, "shopProduct", name);
@@ -126,10 +128,23 @@ public class ShopProductAccesor extends DefaultCustomDataAccesor {
         NodeIterator test = null;
         try {
             test = QueryUtil.search("data", query, javax.jcr.query.Query.JCR_SQL2, "shopProduct");
+        } catch (NullPointerException e) {
+            if (e.getStackTrace()[0].getClassName().equals("org.apache.jackrabbit.core.query.lucene.DescendantSelfAxisQuery$DescendantSelfAxisScorer")) {
+                // ignore - lucene bug - https://issues.apache.org/jira/browse/JCR-3407
+                return new ArrayList<Node>();
+            } else {
+                throw e;
+            }
         } catch (InvalidQueryException e) {
             log.error("Invalid query", e);
         } catch (RepositoryException e) {
+
+            if (e.getCause() != null && ParseException.class.equals(e.getCause().getClass())) {
+                log.debug("Invalid querry '{}'.", query, e);
+                return new ArrayList<Node>();
+            }
             log.error("Cant read Products", e);
+            return new ArrayList<Node>();
         }
 
         productCollection = NodeUtil.getCollectionFromNodeIterator(test);
