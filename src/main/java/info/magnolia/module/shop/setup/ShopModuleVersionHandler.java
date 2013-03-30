@@ -229,14 +229,14 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
                 new AddRoleToUserTask("", "anonymous", "shop-user-base")));
 
         installTasks.add(new IsInstallSamplesTask("Install demo-project sample content ", "", new ModuleDependencyBootstrapTask("demo-project")));
-        installTasks.add(new SetPropertyTask("Fix activation Product prices and categories", RepositoryConstants.CONFIG,
+        installTasks.add(new NodeExistsDelegateTask("Check is data workflow is installed", "", RepositoryConstants.CONFIG, "/modules/data/commands/data/activate/startFlow", new SetPropertyTask("Fix activation Product prices and categories", RepositoryConstants.CONFIG,
                 "/modules/data/commands/data/activate/startFlow", "itemTypes", "dataItemNode, mgnl:contentNode, shop, shopCurrencies, " +
                         "shopCurrency, shopPriceCategories, shopPriceCategory, shopProduct, shopProductOptions, " +
-                "shopProductOption, shopTaxCategories, shopTaxCategory"));
-        installTasks.add(new SetPropertyTask("Fix activation Product prices and categories", RepositoryConstants.CONFIG,
+                "shopProductOption, shopTaxCategories, shopTaxCategory")));
+        installTasks.add(new NodeExistsDelegateTask("Check is data workflow is installed", "", RepositoryConstants.CONFIG, "/modules/data/commands/data/deactivate/startFlow", new SetPropertyTask("Fix activation Product prices and categories", RepositoryConstants.CONFIG,
                 "/modules/data/commands/data/deactivate/startFlow", "itemTypes", "dataItemNode, mgnl:contentNode, shop, shopCurrencies, " +
                         "shopCurrency, shopPriceCategories, shopPriceCategory, shopProduct, shopProductOptions, " +
-                "shopProductOption, shopTaxCategories, shopTaxCategory"));
+                "shopProductOption, shopTaxCategories, shopTaxCategory")));
 
         return installTasks;
     }
