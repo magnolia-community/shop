@@ -97,14 +97,16 @@ public class DialogLanguagesUtil {
             Collection<Locale> locales = i18nContentSupport.getLocales();
             Iterator<Locale> localesIterator = locales.iterator();
             while (localesIterator.hasNext()) {
-                languageList.add(localesIterator.next().getLanguage());
+//                languageList.add(localesIterator.next().getLanguage());
+                languageList.add(localesIterator.next().toString());
             }
         }
         return languageList;
     }
 
     public static String getSiteDefaultLanguage(DialogControlImpl controlImpl) {
-        return getSiteI18nContentSupport(controlImpl).getDefaultLocale().getLanguage();
+//        return getSiteI18nContentSupport(controlImpl).getDefaultLocale().getLanguage();
+        return getSiteI18nContentSupport(controlImpl).getDefaultLocale().toString();
     }
 
     private static AbstractI18nContentSupport getSiteI18nContentSupport(DialogControlImpl controlImpl) {

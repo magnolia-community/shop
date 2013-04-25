@@ -39,6 +39,7 @@ import info.magnolia.context.MgnlContext;
 import info.magnolia.module.fckeditor.dialogs.FckEditorDialog;
 import java.io.IOException;
 import java.io.Writer;
+import java.text.MessageFormat;
 import java.util.List;
 import javax.jcr.PathNotFoundException;
 import javax.jcr.RepositoryException;
@@ -67,7 +68,7 @@ public class MultiLanguageDialogFckEdit extends FckEditorDialog implements Multi
      * logger.
      */
     private static Logger log = LoggerFactory.getLogger(MultiLanguageDialogFckEdit.class);
-    private List<String> languages;
+    private List<String> locales;
     /**
      * Used to make sure that the javascript files are loaded only once.
      */
@@ -104,7 +105,7 @@ public class MultiLanguageDialogFckEdit extends FckEditorDialog implements Multi
         if (getConfigValue("siteKey") == null) {
             initSiteKey(storageNode);
         }
-        languages = DialogLanguagesUtil.initLanguages(this);
+        locales = DialogLanguagesUtil.initLanguages(this);
     }
 
     private void initSiteKey(Content storageNode) {
@@ -125,7 +126,7 @@ public class MultiLanguageDialogFckEdit extends FckEditorDialog implements Multi
     @Override
     public void drawHtml(Writer out) throws IOException {
         log.debug("Languages are: " + this.getLanguages());
-        if (languages != null && languages.size() > 0) {
+        if (locales != null && locales.size() > 0) {
             // get the config values
             String jsInitFile = this.getConfigValue(PARAM_JS_INIT_FILE, PARAM_JS_INIT_FILE_DEFAULT);
             String customConfigurationPath = this.getConfigValue(PARAM_CUSTOM_CONFIGURATION_PATH, this.getConfigValue(
@@ -143,22 +144,27 @@ public class MultiLanguageDialogFckEdit extends FckEditorDialog implements Multi
                 getRequest().setAttribute(ATTRIBUTE_FCKED_LOADED, "true"); //$NON-NLS-1$
             }
 
-            for (int i = 0; i < languages.size(); i++) {
+            for (int i = 0; i < locales.size(); i++) {
                 String id = getName();
 
                 if (id == null) {
                     log.error("Missing id for fckEditor instance"); //$NON-NLS-1$
                 } else {
-                    id += getLanguageSuffix(languages.get(i));
+                    id += getLanguageSuffix(locales.get(i));
                 }
 
-                String var = getVarName() + getLanguageSuffix(languages.get(i));
+                String var = getVarName() + getLanguageSuffix(locales.get(i));
 //                String value = convertToView(getValue());
                 String value = null;
                 if (getStorageNode() != null) {
-                    value = convertToView(getStorageNode().getNodeData(getName() + getLanguageSuffix(languages.get(i))).getString());
+                    value = convertToView(getStorageNode().getNodeData(getName() + getLanguageSuffix(locales.get(i))).getString());
                 }
-                out.write("<label for=\"" + id + "\">" + languages.get(i) + "</label>");
+                String label = locales.get(i);
+                if (label.contains("_")) {
+                    String[] localeParts = StringUtils.split(label, "_");
+                    label = MessageFormat.format("{0} ({1})", localeParts[0], localeParts[1]);
+                }                
+                out.write("<label for=\"" + id + "\">" + label + "</label>");
                 out.write("<script type=\"text/javascript\">"); //$NON-NLS-1$
                 out.write("// <![CDATA[\n"); //$NON-NLS-1$
 
@@ -267,11 +273,11 @@ public class MultiLanguageDialogFckEdit extends FckEditorDialog implements Multi
     }
 
     public List<String> getLanguages() {
-        return this.languages;
+        return this.locales;
     }
 
     public void setLanguages(List<String> languages) {
-        this.languages = languages;
+        this.locales = languages;
     }
     
     public String getLanguageSuffix(String language) {

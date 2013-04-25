@@ -39,6 +39,7 @@ import info.magnolia.cms.gui.misc.CssConstants;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.text.MessageFormat;
 import java.util.List;
 
 import javax.jcr.PropertyType;
@@ -69,7 +70,7 @@ public class MultiLanguageDialogEdit extends DialogEdit implements MultiLanguage
      * logger.
      */
     private static Logger log = LoggerFactory.getLogger(MultiLanguageDialogEdit.class);
-    private List<String> languages;
+    private List<String> locales;
 
     @Override
     public void init(HttpServletRequest request, HttpServletResponse response, Content storageNode, Content configNode) throws RepositoryException {
@@ -91,24 +92,29 @@ public class MultiLanguageDialogEdit extends DialogEdit implements MultiLanguage
         if (getConfigValue("siteKey") == null) {
             DialogLanguagesUtil.initSiteKey(this, storageNode);
         }
-        languages = DialogLanguagesUtil.initLanguages(this);
+        locales = DialogLanguagesUtil.initLanguages(this);
         
     }
 
     @Override
     public void drawHtml(Writer out) throws IOException {
         log.debug("Languages are: " + this.getLanguages());
-        if (languages != null && languages.size() > 0) {
+        if (locales != null && locales.size() > 0) {
             this.drawHtmlPre(out);
-            for (int i = 0; i < languages.size(); i++) {
+            for (int i = 0; i < locales.size(); i++) {
                 
-                String name = this.getName() + getLanguageSuffix(languages.get(i));
+                String name = this.getName() + getLanguageSuffix(locales.get(i));
                 String value = null;
                 if (getStorageNode() != null) {
                     value = getStorageNode().getNodeData(name).getString();
                 }
                 EditWithLabel control = new EditWithLabel(name, value);
-                control.setLabel(languages.get(i));
+                String label = locales.get(i);
+                if (label.contains("_")) {
+                    String[] localeParts = StringUtils.split(label, "_");
+                    label = MessageFormat.format("{0} ({1})", localeParts[0], localeParts[1]);
+                }
+                control.setLabel(label);
                 control.setType(this.getConfigValue("type", PropertyType.TYPENAME_STRING));
                 if (this.getConfigValue("saveInfo").equals("false")) {
                     control.setSaveInfo(false);
@@ -128,11 +134,11 @@ public class MultiLanguageDialogEdit extends DialogEdit implements MultiLanguage
     }
     
     public List<String> getLanguages() {
-        return this.languages;
+        return this.locales;
     }
 
     public void setLanguages(List<String> languages) {
-        this.languages = languages;
+        this.locales = languages;
     }
 
     public String getLanguageSuffix(String language) {
