@@ -33,6 +33,7 @@
  */
 package info.magnolia.module.shop.processors;
 
+import ch.fastforward.magnolia.ocm.atomictypeconverter.MgnlAtomicTypeConverterProvider;
 import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.form.processors.AbstractFormProcessor;
@@ -84,7 +85,7 @@ public class SaveAndConfirmFormProcessor extends AbstractFormProcessor {
         // NEW: Save via OCM
         Mapper mapper = new MgnlConfigMapperImpl();
         RequestObjectCacheImpl requestObjectCache = new RequestObjectCacheImpl();
-        DefaultAtomicTypeConverterProvider converterProvider = new DefaultAtomicTypeConverterProvider();
+        DefaultAtomicTypeConverterProvider converterProvider = new MgnlAtomicTypeConverterProvider();
         MgnlObjectConverterImpl oc = new MgnlObjectConverterImpl(mapper, converterProvider, new ProxyManagerImpl(), requestObjectCache);
         ObjectContentManager ocm = new ObjectContentManagerImpl(MgnlContext.getJCRSession("shoppingCarts").getWorkspace().getSession(), mapper);
         ((ObjectContentManagerImpl) ocm).setObjectConverter(oc);

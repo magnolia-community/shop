@@ -33,23 +33,20 @@
  */
 package info.magnolia.module.shop.beans;
 
+import ch.fastforward.magnolia.ocm.beans.OCMNumberedBean;
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.i18n.I18nContentWrapper;
+import info.magnolia.cms.util.ContentUtil;
+import info.magnolia.cms.util.NodeDataUtil;
 import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
-import ch.fastforward.magnolia.ocm.beans.OCMNumberedBean;
+import info.magnolia.module.shop.util.ShopUtil;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.Map;
-
+import java.util.*;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
-
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,9 +67,17 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     private Date orderDate;
     private Date targetDeliveryDate;
     private Date deliveryDate;
+    private Date paymentDate;
+    private String paymentType;
+    private String paymentID;
     private String userIP;
     private ArrayList<ShoppingCartItem> cartItems;
     private String priceCategoryUUID;
+    private String shippingOptionUUID;
+    private String shippingOptionTitle;
+    private BigDecimal shippingCost;
+    private BigDecimal shippingCostTaxRate;
+    private Boolean shippingCostTaxIncluded = false;
     private String orderAddressCompany;
     private String orderAddressCompany2;
     private String orderAddressFirstname;
@@ -121,6 +126,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     private Boolean termsAccepted;
     private Double cartDiscountRate;
     private Boolean taxIncluded = false;
+    private Boolean taxFree = false;
 
     public DefaultShoppingCartImpl() {
         this(null);
@@ -265,6 +271,22 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
 
     public void setTermsAccepted(Boolean termsAccepted) {
         this.termsAccepted = termsAccepted;
+    }
+
+    /**
+     * @deprecated Use {@link #getTermsAccepted()}
+     * @return
+     */
+    public Boolean getAcceptedGTC() {
+        return getTermsAccepted();
+    }
+
+    /**
+     * @deprecated Use {@link #setTermsAccepted()}
+     * @return
+     */
+    public void setAcceptedGTC(Boolean acceptedGTC) {
+    	setTermsAccepted(acceptedGTC);
     }
 
     public String getOrderAddressFirstname() {
@@ -465,6 +487,29 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
 
     public void setShippingAddressCountry(String shippingAddressCountry) {
         this.shippingAddressCountry = shippingAddressCountry;
+        // reset shippingOptionUUID
+        if (shippingAddressCountry == null) {
+            setShippingOptionUUID(null);
+        } else {
+            Collection<Content> shippingOptions = ShopUtil.getShippingOptions();
+            if (shippingOptions.isEmpty()) {
+                setShippingOptionUUID(null);
+            } else {
+                setShippingOptionUUID(shippingOptions.iterator().next().getUUID());
+            }
+        }
+        // set taxFree
+        if (StringUtils.isNotBlank(shippingAddressCountry)) {
+            // get country
+            String queryString = "/jcr:root/shops/" + ShopUtil.getShopName() + "/countries/element(*,shopCountry)[@name='" + shippingAddressCountry + "']";
+            Collection<Content> matching = QueryUtil.query("data", queryString, "xpath", "shopCountry");
+            if (!matching.isEmpty()) {
+                Content country = matching.iterator().next();
+                setTaxFree(!NodeDataUtil.getBoolean(country, "liableToVAT", true));
+            }
+        } else {
+            setTaxFree(false);
+        }
     }
 
     public String getShippingAddressPhone() {
@@ -643,7 +688,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
         this.cartDiscountRate = cartDiscountRate;
     }
 
-    public BigDecimal getGrossTotalExclTaxBigDecimal() {
+    public BigDecimal getGrossItemsTotalExclTaxBigDecimal() {
         BigDecimal total = new BigDecimal("0");
         Iterator<ShoppingCartItem> itemsIter = getCartItems().iterator();
         ShoppingCartItem currItem;
@@ -654,52 +699,109 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
         return total;
     }
 
+    public double getGrossItemsTotalExclTax() {
+        BigDecimal total = getGrossItemsTotalExclTaxBigDecimal();
+        if (total != null) {
+            return total.doubleValue();
+        }
+        return 0;
+    }
+
+    public BigDecimal getNetItemsTotalExclTaxBigDecimal() {
+        BigDecimal grossItemsTotal = getGrossItemsTotalExclTaxBigDecimal();
+        Double discountRate = getCartDiscountRate();
+        if (discountRate != null && discountRate.doubleValue() > 0) {
+            return grossItemsTotal.multiply(new BigDecimal("" + (1 - discountRate)));
+        } else {
+            return grossItemsTotal;
+        }
+    }
+
+    public double getNetItemsTotalExclTax() {
+        BigDecimal total = getNetItemsTotalExclTaxBigDecimal();
+        if (total != null) {
+            return total.doubleValue();
+        }
+        return 0;
+    }
+
+    public BigDecimal getGrossItemsTotalInclTaxBigDecimal() {
+        BigDecimal total = new BigDecimal("0");
+        Iterator<ShoppingCartItem> itemsIter = getCartItems().iterator();
+        ShoppingCartItem currItem;
+        while (itemsIter.hasNext()) {
+            currItem = (ShoppingCartItem) itemsIter.next();
+            if (getTaxFree()) {
+                total = total.add(currItem.getItemTotalExclTaxBigDecimal());
+            } else {
+                total = total.add(currItem.getItemTotalInclTaxBigDecimal());
+            }
+        }
+        return total;
+    }
+
+    public double getGrossItemsTotalInclTax() {
+        BigDecimal total = getGrossItemsTotalInclTaxBigDecimal();
+        if (total != null) {
+            return total.doubleValue();
+        }
+        return 0;
+    }
+
+    public BigDecimal getNetItemsTotalInclTaxBigDecimal() {
+        BigDecimal grossItemsTotal = getGrossItemsTotalInclTaxBigDecimal();
+        Double discountRate = getCartDiscountRate();
+        if (discountRate != null && discountRate.doubleValue() > 0) {
+            return grossItemsTotal.multiply(new BigDecimal("" + (1 - discountRate)));
+        } else {
+            return grossItemsTotal;
+        }
+    }
+
+    public double getNetItemsTotalInclTax() {
+        BigDecimal total = getNetItemsTotalInclTaxBigDecimal();
+        if (total != null) {
+            return total.doubleValue();
+        }
+        return 0;
+    }
+
+    /**
+     * @deprecated Use {@link #getGrossItemsTotalExclTaxBigDecimal()}
+     * @return
+     */
+    public BigDecimal getGrossTotalExclTaxBigDecimal() {
+        return getGrossItemsTotalExclTaxBigDecimal();
+    }
+
+    /**
+     * @deprecated Use {@link #getGrossItemsTotalExclTax()}
+     * @return
+     */
     public double getGrossTotalExclTax() {
-        BigDecimal total = getGrossTotalExclTaxBigDecimal();
-        if (total != null) {
-            return total.doubleValue();
-        }
-        return 0;
+        return getGrossItemsTotalExclTax();
     }
 
+    /**
+     * @deprecated Use {@link #getGrossItemsTotalInclTaxBigDecimal()}
+     * @return
+     */
     public BigDecimal getGrossTotalInclTaxBigDecimal() {
-        BigDecimal total = new BigDecimal("0");
-        Iterator<ShoppingCartItem> itemsIter = getCartItems().iterator();
-        ShoppingCartItem currItem;
-        while (itemsIter.hasNext()) {
-            currItem = (ShoppingCartItem) itemsIter.next();
-            total = total.add(currItem.getItemTotalInclTaxBigDecimal());
-        }
-        return total;
+        return getGrossItemsTotalInclTaxBigDecimal();
     }
 
+    /**
+     * @deprecated Use {@link #getGrossItemsTotalInclTax()}
+     * @return
+     */
     public double getGrossTotalInclTax() {
-        BigDecimal total = getGrossTotalInclTaxBigDecimal();
-        if (total != null) {
-            return total.doubleValue();
-        }
-        return 0;
+        return getGrossItemsTotalInclTax();
     }
 
-    public BigDecimal getItemTaxTotalBigDecimal() {
-        BigDecimal total = new BigDecimal("0");
-        Iterator<ShoppingCartItem> itemsIter = getCartItems().iterator();
-        ShoppingCartItem currItem;
-        while (itemsIter.hasNext()) {
-            currItem = (ShoppingCartItem) itemsIter.next();
-            total = total.add(currItem.getItemTaxBigDecimal());
-        }
-        return total;
-    }
-
-    public double getItemTaxTotal() {
-        BigDecimal total = getItemTaxTotalBigDecimal();
-        if (total != null) {
-            return total.doubleValue();
-        }
-        return 0;
-    }
-
+    /**
+     * @deprecated Use {@link #getCartTotalInclTax()}
+     * @return
+     */
     public double getGrossTotal() {
         double total = 0;
         Iterator<ShoppingCartItem> itemsIter = getCartItems().iterator();
@@ -711,6 +813,39 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
         return total;
     }
 
+    /**
+     * Sums up the cart items tax and applies the discount rate if there is any.
+     *
+     * @return
+     */
+    public BigDecimal getItemTaxTotalBigDecimal() {
+        BigDecimal total = new BigDecimal("0");
+        if (!getTaxFree()) {
+            Iterator<ShoppingCartItem> itemsIter = getCartItems().iterator();
+            ShoppingCartItem currItem;
+            while (itemsIter.hasNext()) {
+                currItem = (ShoppingCartItem) itemsIter.next();
+                total = total.add(currItem.getItemTaxBigDecimal());
+            }
+            if (getCartDiscountRate() != null && getCartDiscountRate() > 0) {
+                total = total.multiply(new BigDecimal("" + (1 - getCartDiscountRate())));
+            }
+        }
+        return total;
+    }
+
+    public double getItemTaxTotal() {
+        if (getTaxFree()) {
+            return 0;
+        } else {
+            BigDecimal total = getItemTaxTotalBigDecimal();
+            if (total != null) {
+                return total.doubleValue();
+            }
+            return 0;
+        }
+    }
+
     public double getCartDiscount() {
         double cartDiscount = 0;
         double grossTotal = getGrossTotal();
@@ -720,12 +855,106 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
         return cartDiscount;
     }
 
+    /**
+     * @deprecated Use {@link #getNetItemsTotalExclTax() } or {@link #getNetItemsTotalInclTax()}
+     * @return
+     */
     public double getNetTotal() {
         double netTotal = getGrossTotal();
         if (netTotal > 0 && cartDiscountRate != null && cartDiscountRate.doubleValue() > 0) {
             netTotal = netTotal - (netTotal * cartDiscountRate.doubleValue() / 100);
         }
         return netTotal;
+    }
+
+    /**
+     * @return the shippingCost
+     */
+    public BigDecimal getShippingCostBigDecimal() {
+        return shippingCost;
+    }
+
+    public BigDecimal getShippingCostInclTaxBigDecimal() {
+        if (getShippingCostTaxIncluded()) {
+            return shippingCost;
+        } else if (getShippingCostTaxRate() != null) {
+            return ShopUtil.getPriceIncludingTax(shippingCost, getShippingCostTaxRate());
+        } else {
+            return shippingCost;
+        }
+    }
+
+    public double getShippingCostInclTax() {
+        BigDecimal cost = getShippingCostInclTaxBigDecimal();
+        if (cost != null) {
+            return cost.doubleValue();
+        }
+        return 0;
+    }
+
+    public BigDecimal getShippingCostExclTaxBigDecimal() {
+        if (!getShippingCostTaxIncluded()) {
+            return shippingCost;
+        } else if (getShippingCostTaxRate() != null) {
+            return ShopUtil.getPriceExcludingTax(shippingCost, getShippingCostTaxRate());
+        } else {
+            return shippingCost;
+        }
+    }
+
+    public double getShippingCostExclTax() {
+        BigDecimal cost = getShippingCostExclTaxBigDecimal();
+        if (cost != null) {
+            return cost.doubleValue();
+        }
+        return 0;
+    }
+
+    public BigDecimal getShippingCostTax() {
+        return ShopUtil.getTax(getShippingCostBigDecimal(), getShippingCostTaxIncluded(), getShippingCostTaxRate());
+        /*
+         * if (getShippingCostTaxRate() != null) { if
+         * (getShippingCostTaxIncluded()) { // tax rate is in persent, e.g. 8
+         * for 8% BigDecimal factor =
+         * getShippingCostTaxRate().divide(HUNDRED.add(getShippingCostTaxRate()),
+         * 10, BigDecimal.ROUND_HALF_UP); return
+         * getShippingCostBigDecimal().multiply(factor); } else { return
+         * getShippingCostBigDecimal().divide(HUNDRED).multiply(getShippingCostTaxRate());
+         * } } else { return new BigDecimal("0");
+        }
+         */
+    }
+
+    /**
+     * Setter method for the shipping cost. Be aware that shipping cost is
+     * usually set by setShippingOptionUUID().
+     *
+     * @param shippingCost the shippingCost to set
+     */
+    public void setShippingCostBigDecimal(BigDecimal shippingCost) {
+        this.shippingCost = shippingCost;
+    }
+
+    public double getTotalWeight() {
+        BigDecimal totalWeight = getTotalWeightBigDecimal();
+        if (totalWeight != null) {
+            return totalWeight.doubleValue();
+        }
+        return 0;
+    }
+
+    public BigDecimal getTotalWeightBigDecimal() {
+        BigDecimal currItemWeight, totalWeight = new BigDecimal("0");
+		Iterator<ShoppingCartItem> itemsIter = getCartItems().iterator();
+        ShoppingCartItem currItem;
+        while (itemsIter.hasNext()) {
+            currItem = (ShoppingCartItem) itemsIter.next();
+            currItemWeight = currItem.getItemWeight();
+            if (currItemWeight != null && currItemWeight.doubleValue() > 0) {
+                totalWeight = totalWeight.add(currItemWeight);
+            }
+        }
+        return totalWeight;
     }
 
     public Date getTargetDeliveryDate() {
@@ -752,11 +981,188 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     }
 
     /**
-     * @param taxIncluded
-     *          the taxIncluded to set
+     * @param taxIncluded the taxIncluded to set
      */
     public void setTaxIncluded(Boolean taxIncluded) {
         this.taxIncluded = taxIncluded;
+    }
+
+    /**
+     * @return the paymentDate
+     */
+    public Date getPaymentDate() {
+        return paymentDate;
+    }
+
+    /**
+     * @param paymentDate the paymentDate to set
+     */
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
+    }
+
+    /**
+     * @return the paymentType
+     */
+    public String getPaymentType() {
+        return paymentType;
+    }
+
+    /**
+     * @param paymentType the paymentType to set
+     */
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
+    }
+
+    /**
+     * @return the paymentID
+     */
+    public String getPaymentID() {
+        return paymentID;
+    }
+
+    /**
+     * @param paymentID the paymentID to set
+     */
+    public void setPaymentID(String paymentID) {
+        this.paymentID = paymentID;
+    }
+
+    /**
+     * @return the taxFree
+     */
+    public Boolean getTaxFree() {
+        return taxFree;
+    }
+
+    /**
+     * @param taxFree the taxFree to set
+     */
+    public void setTaxFree(Boolean taxFree) {
+        this.taxFree = taxFree;
+    }
+
+    /**
+     * @return the shippingOptionUUID
+     */
+    public String getShippingOptionUUID() {
+        return shippingOptionUUID;
+    }
+
+    /**
+     * @param shippingOptionUUID the shippingOptionUUID to set
+     */
+    public void setShippingOptionUUID(String shippingOptionUUID) {
+        this.shippingOptionUUID = shippingOptionUUID;
+        if (StringUtils.isNotBlank(shippingOptionUUID)) {
+            Content shippingOption = ContentUtil.getContentByUUID("data", shippingOptionUUID);
+            if (shippingOption != null) {
+                setShippingCostBigDecimal(ShopUtil.getShippingPriceForOptionBigDecimal(shippingOption, this));
+                setShippingCostTaxIncluded(NodeDataUtil.getBoolean(shippingOption, "taxIncluded", false));
+                setShippingOptionTitle(NodeDataUtil.getString(shippingOption, "title"));
+                Content shippingOptionTaxCategory = ContentUtil.getContentByUUID("data", NodeDataUtil.getString(shippingOption, "taxCategoryUUID"));
+                if (shippingOptionTaxCategory != null && shippingOptionTaxCategory.getNodeData("tax").isExist()) {
+                    setShippingCostTaxRate(new BigDecimal("" + shippingOptionTaxCategory.getNodeData("tax").getDouble()));
+                }
+                return;
+            }
+            setShippingCostBigDecimal(shippingCost);
+        }
+        setShippingCostBigDecimal(null);
+    }
+
+    public BigDecimal getCartTotalInclTaxBigDecimal() {
+        BigDecimal total = getNetItemsTotalInclTaxBigDecimal();
+        if (total != null) {
+            BigDecimal shipping = getShippingCostInclTaxBigDecimal();
+            if (shipping != null) {
+                total = total.add(shipping);
+            }
+        }
+        return total;
+    }
+
+    public double getCartTotalInclTax() {
+        BigDecimal total = getCartTotalInclTaxBigDecimal();
+        if (total != null) {
+            return total.doubleValue();
+        }
+        return 0;
+    }
+
+    public BigDecimal getCartTotalExclTaxBigDecimal() {
+        BigDecimal total = getNetItemsTotalExclTaxBigDecimal();
+        if (total != null) {
+            total.add(getShippingCostExclTaxBigDecimal());
+        }
+        return total;
+    }
+
+    public double getCartTotalExclTax() {
+        BigDecimal total = getCartTotalExclTaxBigDecimal();
+        if (total != null) {
+            return total.doubleValue();
+        }
+        return 0;
+    }
+
+    public BigDecimal getCartTaxBigDecimal() {
+        BigDecimal total = getItemTaxTotalBigDecimal();
+        if (total != null) {
+            total = total.add(getShippingCostTax());
+        }
+        return total;
+    }
+
+    public double getCartTax() {
+        BigDecimal total = getCartTaxBigDecimal();
+        if (total != null) {
+            return total.doubleValue();
+        }
+        return 0;
+    }
+
+    /**
+     * @return the shippingCostTaxIncluded
+     */
+    public Boolean getShippingCostTaxIncluded() {
+        return shippingCostTaxIncluded;
+    }
+
+    /**
+     * @param shippingCostTaxIncluded the shippingCostTaxIncluded to set
+     */
+    public void setShippingCostTaxIncluded(Boolean shippingCostTaxIncluded) {
+        this.shippingCostTaxIncluded = shippingCostTaxIncluded;
+    }
+
+    /**
+     * @return the shippingCostTaxRate
+     */
+    public BigDecimal getShippingCostTaxRate() {
+        return shippingCostTaxRate;
+    }
+
+    /**
+     * @param shippingCostTaxRate the shippingCostTaxRate to set
+     */
+    public void setShippingCostTaxRate(BigDecimal shippingCostTaxRate) {
+        this.shippingCostTaxRate = shippingCostTaxRate;
+    }
+
+    /**
+     * @return the shippingOptionTitle
+     */
+    public String getShippingOptionTitle() {
+        return shippingOptionTitle;
+    }
+
+    /**
+     * @param shippingOptionTitle the shippingOptionTitle to set
+     */
+    public void setShippingOptionTitle(String shippingOptionTitle) {
+        this.shippingOptionTitle = shippingOptionTitle;
     }
 
     /**

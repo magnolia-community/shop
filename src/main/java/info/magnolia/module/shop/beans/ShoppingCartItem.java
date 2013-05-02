@@ -52,6 +52,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ch.fastforward.magnolia.ocm.beans.OCMBean;
+import javax.jcr.Property;
 
 /**
  * Default shopping cart item bean containing all the product info. The item
@@ -77,6 +78,10 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
     private BigDecimal unitPrice;
     private BigDecimal itemDiscountRate;
     private BigDecimal itemTaxRate;
+    private BigDecimal unitWeight;
+    private BigDecimal unitHeight;
+    private BigDecimal unitWidth;
+    private BigDecimal unitDepth;
     private String shoppingCartUUID;
     private DefaultShoppingCartImpl cart;
     private String productTitle;
@@ -157,6 +162,23 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
             } catch (RepositoryException e) {
                 log.error("Cant read tax category for " + this.productUUID,e);
             }
+            String value;
+            value = PropertyUtil.getString(product, "weight", "");
+            if (StringUtils.isNotBlank(value)) {
+                setUnitWeight(new BigDecimal(value));
+            }
+            value = PropertyUtil.getString(product, "height", "");
+            if (StringUtils.isNotBlank(value)) {
+                setUnitHeight(new BigDecimal(value));
+            }
+            value = PropertyUtil.getString(product, "width", "");
+            if (StringUtils.isNotBlank(value)) {
+                setUnitWidth(new BigDecimal(value));
+            }
+            value = PropertyUtil.getString(product, "depth", "");
+            if (StringUtils.isNotBlank(value)) {
+                setUnitDepth(new BigDecimal(value));
+            }
 
         } else {
             this.productUUID = null;
@@ -173,6 +195,23 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
 
     public double getUnitPrice() {
         return unitPrice.doubleValue();
+    }
+
+    /**
+     * For shops with prices inclusive tax which need to display the price 
+     * exclusive tax too.
+     * @return unit price minus tax for prices incl. tax or unit price for prices excl. tax.
+     */
+    public double getUnitPriceExclTax() {
+        if (getCart().getTaxIncluded()) {
+            // substrat tax
+            BigDecimal oneHundred = new BigDecimal("100");
+            BigDecimal taxFactor = oneHundred.divide(getItemTaxRate().add(oneHundred), 10, RoundingMode.HALF_UP);
+            BigDecimal unitPriceExclTax = unitPrice.multiply(taxFactor);
+            return unitPriceExclTax.doubleValue();
+        } else {
+            return getUnitPrice();
+        }
     }
 
     public void setUnitPrice(double unitPrice) {
@@ -394,5 +433,73 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
             }
         }
         return false;
+    }
+
+    /**
+     * @return the unitWeight
+     */
+    public BigDecimal getUnitWeight() {
+        return unitWeight;
+    }
+
+    /**
+     * @param unitWeight the unitWeight to set
+     */
+    public void setUnitWeight(BigDecimal unitWeight) {
+        this.unitWeight = unitWeight;
+    }
+
+    /**
+     *
+     * @return the total weight of this cart item or null if no weight was
+     * specified
+     */
+    public BigDecimal getItemWeight() {
+        if (unitWeight != null && unitWeight.doubleValue() > 0) {
+            return unitWeight.multiply(new BigDecimal(quantity));
+        }
+        return null;
+    }
+
+    /**
+     * @return the unitHeight
+     */
+    public BigDecimal getUnitHeight() {
+        return unitHeight;
+    }
+
+    /**
+     * @param unitHeight the unitHeight to set
+     */
+    public void setUnitHeight(BigDecimal unitHeight) {
+        this.unitHeight = unitHeight;
+    }
+
+    /**
+     * @return the unitWidth
+     */
+    public BigDecimal getUnitWidth() {
+        return unitWidth;
+    }
+
+    /**
+     * @param unitWidth the unitWidth to set
+     */
+    public void setUnitWidth(BigDecimal unitWidth) {
+        this.unitWidth = unitWidth;
+    }
+
+    /**
+     * @return the unitDepth
+     */
+    public BigDecimal getUnitDepth() {
+        return unitDepth;
+    }
+
+    /**
+     * @param unitDepth the unitDepth to set
+     */
+    public void setUnitDepth(BigDecimal unitDepth) {
+        this.unitDepth = unitDepth;
     }
 }

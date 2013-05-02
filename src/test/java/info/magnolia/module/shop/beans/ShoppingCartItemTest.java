@@ -87,6 +87,6 @@ public class ShoppingCartItemTest extends RepositoryTestCase {
         item.getProductSubTitle();
 
         //THEN
-        verify(i18n, times(6)).hasProperty((Node)anyObject(), anyString());
+        verify(i18n, times(10)).hasProperty((Node)anyObject(), anyString());
     }
 }
