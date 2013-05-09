@@ -299,4 +299,20 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
         return productList;
     }
 
+    @Override
+    public Collection<Node> getItems() throws RepositoryException {
+        List<Node> itemsList = search();
+
+        // nothing found, return empty list
+        if (itemsList == null) {
+            return new ArrayList<Node>();
+        }
+
+        this.filter(itemsList);
+        this.sort(itemsList);
+        itemsList = stkFunctions.cutList(itemsList, getMaxResults());
+
+        return itemsList;
+    }
+
 }

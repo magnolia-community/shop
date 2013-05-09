@@ -34,13 +34,14 @@
 package info.magnolia.module.shop.paragraphs;
 
 import java.io.IOException;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 
+import info.magnolia.cms.core.Content;
 import info.magnolia.cms.i18n.DefaultI18nContentSupport;
 import info.magnolia.cms.i18n.I18nContentSupport;
 import info.magnolia.content2bean.Content2BeanException;
@@ -74,6 +75,9 @@ public class ShopParagraphModelTest {
     @Before
     public void setUp() throws RepositoryException, Content2BeanException, IOException, RegistrationException {
         MockWebContext ctx = new MockWebContext();
+        Content mainContent = mock(Content.class);
+        when(mainContent.getUUID()).thenReturn("123");
+        ctx.getAggregationState().setMainContent(mainContent);
         ComponentsTestUtil.setInstance(MockWebContext.class, ctx);
         ComponentsTestUtil.setInstance(I18nContentSupport.class, new DefaultI18nContentSupport());
         MgnlContext.setInstance(ctx);
@@ -102,6 +106,26 @@ public class ShopParagraphModelTest {
         ShopParagraphModel model = new ShopParagraphModel(productNode, new STKPage(), null, mock(STKTemplatingFunctions.class), mock(TemplatingFunctions.class), null);
         //THEN
         assertNull(model.getProductPriceByCategory(productNode, "xxx"));
+    }
+
+    @Test
+    public void testGetItemsWillNotFailOnNPE() throws RepositoryException {
+        // GIVEN
+        final Node content = mock(Node.class);
+        final STKPage definition = new STKPage();
+        final TemplatingFunctions templatingFunctions = mock(TemplatingFunctions.class);
+        final STKTemplatingFunctions stkFunctions = new STKTemplatingFunctions(templatingFunctions, null, null, null, null);
+
+        when(templatingFunctions.page(content)).thenReturn(content);
+
+        final ShopParagraphModel model = new ShopParagraphModel(content, definition, null, stkFunctions, templatingFunctions, null);
+
+        // WHEN
+        model.getItems();
+
+        // THEN
+        // no exception
+
     }
 
     @After
