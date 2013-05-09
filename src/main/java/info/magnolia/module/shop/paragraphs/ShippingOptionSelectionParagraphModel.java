@@ -43,13 +43,18 @@ import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.rendering.template.RenderableDefinition;
 import info.magnolia.templating.functions.TemplatingFunctions;
+
 import java.util.Collection;
 import java.util.Iterator;
+
 import javax.jcr.Node;
+
 import org.apache.commons.lang.StringUtils;
 
 /**
  * Form element to select the shipping option taken from the shop configuration.
+ * 
+ * @param <RD> RenderableDefinition
  * @author Will Scheidegger
  */
 public class ShippingOptionSelectionParagraphModel<RD extends RenderableDefinition> extends FormFieldModel<RD> {

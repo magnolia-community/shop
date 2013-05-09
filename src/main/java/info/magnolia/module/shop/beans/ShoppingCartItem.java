@@ -52,7 +52,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ch.fastforward.magnolia.ocm.beans.OCMBean;
-import javax.jcr.Property;
 
 /**
  * Default shopping cart item bean containing all the product info. The item
@@ -198,7 +197,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
     }
 
     /**
-     * For shops with prices inclusive tax which need to display the price 
+     * For shops with prices inclusive tax which need to display the price
      * exclusive tax too.
      * @return unit price minus tax for prices incl. tax or unit price for prices excl. tax.
      */

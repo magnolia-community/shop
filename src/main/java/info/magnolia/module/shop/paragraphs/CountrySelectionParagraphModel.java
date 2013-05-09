@@ -40,11 +40,15 @@ import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.rendering.template.RenderableDefinition;
 import info.magnolia.templating.functions.TemplatingFunctions;
+
 import java.util.Collection;
+
 import javax.jcr.Node;
 
 /**
  * Form element to select the a country from a list of countries taken from the shop configuration.
+ * 
+ * @param <RD> RenderableDefinition
  * @author Will Scheidegger
  */
 public class CountrySelectionParagraphModel<RD extends RenderableDefinition> extends FormFieldModel<RD> {

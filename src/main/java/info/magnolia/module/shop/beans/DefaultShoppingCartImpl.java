@@ -33,7 +33,6 @@
  */
 package info.magnolia.module.shop.beans;
 
-import ch.fastforward.magnolia.ocm.beans.OCMNumberedBean;
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.i18n.I18nContentWrapper;
 import info.magnolia.cms.util.ContentUtil;
@@ -42,20 +41,29 @@ import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.module.shop.util.ShopUtil;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.Map;
+
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import ch.fastforward.magnolia.ocm.beans.OCMNumberedBean;
 
 /**
  * A default shopping cart implementation with order, billing and shipping
  * addresses allowing only one cart item per product (i.e. when adding the same
  * product multiple times, the quantity of the cart item will be increased).
- *
+ * 
  * @author will
  */
 public class DefaultShoppingCartImpl extends OCMNumberedBean implements ShoppingCart, Serializable {
@@ -147,26 +155,28 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     /**
      * Addes a product to the cart. If there is already a cart item for this
      * product the items quantity will be increased
-     *
+     * 
      * @param productUUID
      * @param quantity
      * @return
      */
+    @Override
     public int addToShoppingCart(String productUUID, int quantity) {
         return addToShoppingCart(productUUID, quantity, null);
     }
 
+    @Override
     public int addToShoppingCart(String productUUID, int quantity, Map<String, CartItemOption> options) {
         int quantityAdded = 0;
         if (productUUID != null) {
             int indexOfProductInCart = indexOfProduct(productUUID, options);
             if (indexOfProductInCart >= 0) {
-                ShoppingCartItem existingCartItem = (ShoppingCartItem) getCartItems().get(indexOfProductInCart);
+                ShoppingCartItem existingCartItem = getCartItems().get(indexOfProductInCart);
                 existingCartItem.setQuantity(existingCartItem.getQuantity() + quantity);
             } else {
                 double price = 0.0;
                 String queryString = "//*[@jcr:uuid='" + productUUID
-                + "']/prices/element(*,mgnl:contentNode)[@priceCategoryUUID = '" + this.getPriceCategoryUUID() + "']";
+                        + "']/prices/element(*,mgnl:contentNode)[@priceCategoryUUID = '" + this.getPriceCategoryUUID() + "']";
                 Collection<Content> matching = QueryUtil.query("data", queryString, "xpath", "mgnl:contentNode");
                 if (!matching.isEmpty()) {
                     Content priceNode = new I18nContentWrapper(matching.iterator().next());
@@ -183,11 +193,12 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
 
     /**
      * Removes the cart item containing the product with the passed in UUID.
-     *
+     * 
      * @param productUUID
      * @todo When multiple items with the same product should be allowed this will
-     *       not work anymore.
+     * not work anymore.
      */
+    @Override
     public void removeFromShoppingCart(String productUUID) {
         int indexOfProductInCart = indexOfProduct(productUUID);
         if (indexOfProductInCart >= 0) {
@@ -196,7 +207,6 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     }
 
     /**
-     *
      * @param productUUID
      * @return the index of the cart item containing the desired product
      */
@@ -207,7 +217,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     public int indexOfProduct(String productUUID, Map<String, CartItemOption> options) {
         ShoppingCartItem currentCartItem;
         for (int i = 0; i < cartItems.size(); i++) {
-            currentCartItem = (ShoppingCartItem) cartItems.get(i);
+            currentCartItem = cartItems.get(i);
             if (currentCartItem.getProductUUID().equals(productUUID)) {
                 // the product matches -> check the options
                 if (currentCartItem.isOptionsMatching(options)) {
@@ -218,6 +228,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
         return -1;
     }
 
+    @Override
     public ArrayList<ShoppingCartItem> getCartItems() {
         return cartItems;
     }
@@ -245,6 +256,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
         cartItems.add(newItem);
     }
 
+    @Override
     public int getCartItemsCount() {
         return cartItems.size();
     }
@@ -286,7 +298,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
      * @return
      */
     public void setAcceptedGTC(Boolean acceptedGTC) {
-    	setTermsAccepted(acceptedGTC);
+        setTermsAccepted(acceptedGTC);
     }
 
     public String getOrderAddressFirstname() {
@@ -536,10 +548,12 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
         this.shippingAddressMail = shippingAddressMail;
     }
 
+    @Override
     public String getLanguage() {
         return language;
     }
 
+    @Override
     public void setLanguage(String language) {
         this.language = language;
     }
@@ -693,7 +707,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
         Iterator<ShoppingCartItem> itemsIter = getCartItems().iterator();
         ShoppingCartItem currItem;
         while (itemsIter.hasNext()) {
-            currItem = (ShoppingCartItem) itemsIter.next();
+            currItem = itemsIter.next();
             total = total.add(currItem.getItemTotalExclTaxBigDecimal());
         }
         return total;
@@ -730,7 +744,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
         Iterator<ShoppingCartItem> itemsIter = getCartItems().iterator();
         ShoppingCartItem currItem;
         while (itemsIter.hasNext()) {
-            currItem = (ShoppingCartItem) itemsIter.next();
+            currItem = itemsIter.next();
             if (getTaxFree()) {
                 total = total.add(currItem.getItemTotalExclTaxBigDecimal());
             } else {
@@ -807,7 +821,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
         Iterator<ShoppingCartItem> itemsIter = getCartItems().iterator();
         ShoppingCartItem currItem;
         while (itemsIter.hasNext()) {
-            currItem = (ShoppingCartItem) itemsIter.next();
+            currItem = itemsIter.next();
             total += currItem.getItemTotal();
         }
         return total;
@@ -815,7 +829,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
 
     /**
      * Sums up the cart items tax and applies the discount rate if there is any.
-     *
+     * 
      * @return
      */
     public BigDecimal getItemTaxTotalBigDecimal() {
@@ -824,7 +838,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
             Iterator<ShoppingCartItem> itemsIter = getCartItems().iterator();
             ShoppingCartItem currItem;
             while (itemsIter.hasNext()) {
-                currItem = (ShoppingCartItem) itemsIter.next();
+                currItem = itemsIter.next();
                 total = total.add(currItem.getItemTaxBigDecimal());
             }
             if (getCartDiscountRate() != null && getCartDiscountRate() > 0) {
@@ -862,7 +876,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     public double getNetTotal() {
         double netTotal = getGrossTotal();
         if (netTotal > 0 && cartDiscountRate != null && cartDiscountRate.doubleValue() > 0) {
-            netTotal = netTotal - (netTotal * cartDiscountRate.doubleValue() / 100);
+            netTotal = netTotal - netTotal * cartDiscountRate.doubleValue() / 100;
         }
         return netTotal;
     }
@@ -921,14 +935,14 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
          * getShippingCostBigDecimal().multiply(factor); } else { return
          * getShippingCostBigDecimal().divide(HUNDRED).multiply(getShippingCostTaxRate());
          * } } else { return new BigDecimal("0");
-        }
+         * }
          */
     }
 
     /**
      * Setter method for the shipping cost. Be aware that shipping cost is
      * usually set by setShippingOptionUUID().
-     *
+     * 
      * @param shippingCost the shippingCost to set
      */
     public void setShippingCostBigDecimal(BigDecimal shippingCost) {
@@ -945,10 +959,10 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
 
     public BigDecimal getTotalWeightBigDecimal() {
         BigDecimal currItemWeight, totalWeight = new BigDecimal("0");
-		Iterator<ShoppingCartItem> itemsIter = getCartItems().iterator();
+        Iterator<ShoppingCartItem> itemsIter = getCartItems().iterator();
         ShoppingCartItem currItem;
         while (itemsIter.hasNext()) {
-            currItem = (ShoppingCartItem) itemsIter.next();
+            currItem = itemsIter.next();
             currItemWeight = currItem.getItemWeight();
             if (currItemWeight != null && currItemWeight.doubleValue() > 0) {
                 totalWeight = totalWeight.add(currItemWeight);

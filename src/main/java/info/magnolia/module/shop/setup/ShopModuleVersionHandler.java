@@ -1,29 +1,34 @@
 /**
- * This file Copyright (c) 2010-2011 Magnolia International Ltd.
- * (http://www.magnolia-cms.com). All rights reserved.
+ * This file Copyright (c) 2010-2013 Magnolia International
+ * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
- * This file is dual-licensed under both the Magnolia Network Agreement and the
- * GNU General Public License. You may elect to use one or the other of these
- * licenses.
+ * This file is dual-licensed under both the Magnolia
+ * Network Agreement and the GNU General Public License.
+ * You may elect to use one or the other of these licenses.
  *
- * This file is distributed in the hope that it will be useful, but AS-IS and
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE, TITLE, or NONINFRINGEMENT. Redistribution,
- * except as permitted by whichever of the GPL or MNA you select, is prohibited.
+ * This file is distributed in the hope that it will be
+ * useful, but AS-IS and WITHOUT ANY WARRANTY; without even the
+ * implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE, TITLE, or NONINFRINGEMENT.
+ * Redistribution, except as permitted by whichever of the GPL
+ * or MNA you select, is prohibited.
  *
- * 1. For the GPL license (GPL), you can redistribute and/or modify this file
- * under the terms of the GNU General Public License, Version 3, as published by
- * the Free Software Foundation. You should have received a copy of the GNU
- * General Public License, Version 3 along with this program; if not, write to
- * the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
- * 02110-1301 USA.
+ * 1. For the GPL license (GPL), you can redistribute and/or
+ * modify this file under the terms of the GNU General
+ * Public License, Version 3, as published by the Free Software
+ * Foundation.  You should have received a copy of the GNU
+ * General Public License, Version 3 along with this program;
+ * if not, write to the Free Software Foundation, Inc., 51
+ * Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
  *
- * 2. For the Magnolia Network Agreement (MNA), this file and the accompanying
- * materials are made available under the terms of the MNA which accompanies
- * this distribution, and is available at http://www.magnolia-cms.com/mna.html
+ * 2. For the Magnolia Network Agreement (MNA), this file
+ * and the accompanying materials are made available under the
+ * terms of the MNA which accompanies this distribution, and
+ * is available at http://www.magnolia-cms.com/mna.html
  *
- * Any modifications to this file must keep this entire header intact.
+ * Any modifications to this file must keep this entire header
+ * intact.
  *
  */
 package info.magnolia.module.shop.setup;
@@ -38,7 +43,22 @@ import info.magnolia.module.admininterface.setup.AddMainMenuItemTask;
 import info.magnolia.module.admininterface.setup.AddSubMenuItemTask;
 import info.magnolia.module.admininterface.setup.SimpleContentVersionHandler;
 import info.magnolia.module.data.setup.RegisterNodeTypeTask;
-import info.magnolia.module.delta.*;
+import info.magnolia.module.delta.AbstractTask;
+import info.magnolia.module.delta.AddRoleToUserTask;
+import info.magnolia.module.delta.BootstrapSingleResource;
+import info.magnolia.module.delta.CheckAndModifyPropertyValueTask;
+import info.magnolia.module.delta.CreateNodePathTask;
+import info.magnolia.module.delta.DeltaBuilder;
+import info.magnolia.module.delta.IsAuthorInstanceDelegateTask;
+import info.magnolia.module.delta.IsInstallSamplesTask;
+import info.magnolia.module.delta.IsModuleInstalledOrRegistered;
+import info.magnolia.module.delta.ModuleDependencyBootstrapTask;
+import info.magnolia.module.delta.NodeExistsDelegateTask;
+import info.magnolia.module.delta.OrderNodeBeforeTask;
+import info.magnolia.module.delta.RemoveNodeTask;
+import info.magnolia.module.delta.SetPropertyTask;
+import info.magnolia.module.delta.Task;
+import info.magnolia.module.delta.TaskExecutionException;
 import info.magnolia.module.inplacetemplating.setup.TemplatesInstallTask;
 import info.magnolia.module.resources.setup.InstallResourcesTask;
 import info.magnolia.module.templatingkit.resources.STKResourceModel;
@@ -97,17 +117,17 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
                         }
                     }
                 })));
-        register(DeltaBuilder.update("1.1.2", "Moving features from Shop module for Magnolia 4.4 to the version for Magnolia 4.5") 
+        register(DeltaBuilder.update("1.1.2", "Moving features from Shop module for Magnolia 4.4 to the version for Magnolia 4.5")
                 // register node types
                 .addTask(new RegisterNodeTypeTask("shopSupplier"))
                 .addTask(new RegisterNodeTypeTask("shopCountries"))
                 .addTask(new RegisterNodeTypeTask("shopCountry"))
                 .addTask(new RegisterNodeTypeTask("shopShippingOptions"))
-                .addTask(new RegisterNodeTypeTask("shopShippingOption")) 
+                .addTask(new RegisterNodeTypeTask("shopShippingOption"))
                 // data-types
                 .addTask(new BootstrapSingleResource("Install", "shopCountries data type", "/mgnl-bootstrap/shop/data-types/config.modules.data.config.types.shop.shopCountries.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING))
                 .addTask(new BootstrapSingleResource("Install", "shopSupplier data type", "/mgnl-bootstrap/shop/data-types/config.modules.data.config.types.shopSupplier.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING))
-                .addTask(new BootstrapSingleResource("Install", "shopShippingOptions data type", "/mgnl-bootstrap/shop/data-types/config.modules.data.config.types.shop.shopShippingOptions.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING)) 
+                .addTask(new BootstrapSingleResource("Install", "shopShippingOptions data type", "/mgnl-bootstrap/shop/data-types/config.modules.data.config.types.shop.shopShippingOptions.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING))
                 // data-dialogs
                 .addTask(new BootstrapSingleResource("Install", "shopCountries dialog", "/mgnl-bootstrap/shop/data-dialogs/config.modules.data.dialogs.shopCountries.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING))
                 .addTask(new BootstrapSingleResource("Install", "shopCountry dialog", "/mgnl-bootstrap/shop/data-dialogs/config.modules.data.dialogs.shopCountry.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING))
@@ -115,7 +135,7 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
                 .addTask(new BootstrapSingleResource("Install", "supplier tab in product dialog", "/mgnl-bootstrap/shop/data-dialogs/config.modules.data.dialogs.shopProduct.mainTab.supplierUUID.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING))
                 .addTask(new BootstrapSingleResource("Install", "size + weight tab in product dialog", "/mgnl-bootstrap/shop/data-dialogs/config.modules.data.dialogs.shopProduct.weightSizeTab.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING))
                 .addTask(new BootstrapSingleResource("Install", "shopShippingOptions dialog", "/mgnl-bootstrap/shop/data-dialogs/config.modules.data.dialogs.shopShippingOptions.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING))
-                .addTask(new BootstrapSingleResource("Install", "shopShippingOption dialog", "/mgnl-bootstrap/shop/data-dialogs/config.modules.data.dialogs.shopShippingOption.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING)) 
+                .addTask(new BootstrapSingleResource("Install", "shopShippingOption dialog", "/mgnl-bootstrap/shop/data-dialogs/config.modules.data.dialogs.shopShippingOption.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING))
                 // data-trees
                 .addTask(new BootstrapSingleResource("Install", "shopSupplier tree", "/mgnl-bootstrap/shop/data-trees/config.modules.data.trees.shopSupplier.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING))
                 // other
