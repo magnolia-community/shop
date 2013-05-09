@@ -34,7 +34,6 @@
 package info.magnolia.module.shop.accessors;
 
 import info.magnolia.cms.util.QueryUtil;
-import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.module.shop.util.ShopUtil;
 
 import java.util.ArrayList;
@@ -46,6 +45,7 @@ import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
 import javax.jcr.query.InvalidQueryException;
 
+import org.apache.commons.collections.IteratorUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.queryParser.ParseException;
@@ -148,9 +148,8 @@ public class ShopProductAccesor extends DefaultCustomDataAccesor {
             return new ArrayList<Node>();
         }
 
-        productCollection = NodeUtil.getCollectionFromNodeIterator(test);
-        ArrayList<Node> productList = new ArrayList<Node>(productCollection);
-        return (List<Node>) ShopUtil.transformIntoI18nContentList(productList);
+        productCollection = IteratorUtils.toList(test);
+        return (List<Node>) ShopUtil.transformIntoI18nContentList(productCollection);
     }
 
     public static String escapeSql(final String input) {

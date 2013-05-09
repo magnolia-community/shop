@@ -37,14 +37,28 @@ import static org.junit.Assert.*;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
+import info.magnolia.cms.i18n.DefaultI18nContentSupport;
+import info.magnolia.cms.i18n.I18nContentSupport;
 import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
+import info.magnolia.test.ComponentsTestUtil;
 import info.magnolia.test.MgnlTestCase;
+import info.magnolia.test.mock.jcr.MockNode;
+import info.magnolia.test.mock.jcr.MockNodeIterator;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import javax.jcr.LoginException;
 import javax.jcr.Node;
+import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
+import javax.jcr.Session;
+import javax.jcr.Workspace;
+import javax.jcr.query.Query;
+import javax.jcr.query.QueryManager;
+import javax.jcr.query.QueryResult;
 
 import org.apache.lucene.queryParser.ParseException;
 import org.junit.Before;
@@ -62,6 +76,7 @@ public class ShopProductAccesorTest extends MgnlTestCase {
     public void setUp() throws Exception {
         super.setUp();
         MgnlContext.setInstance(ctx);
+        ComponentsTestUtil.setImplementation(I18nContentSupport.class, DefaultI18nContentSupport.class);
     }
 
     @Test
@@ -93,5 +108,44 @@ public class ShopProductAccesorTest extends MgnlTestCase {
         final String result = ShopProductAccesor.escapeSql(querry);
         // THEN no exception occurs and the result is empty list
         assertEquals("\\- \\\\ '' \\\" ", result);
+    }
+
+    @Test
+    public void testOrderIsPreservedWhenGettingProductsBySQLQuery() throws LoginException, RepositoryException {
+        // GIVEN
+        final Collection<Node> nodes = new ArrayList<Node>();
+        final MockNode a = new MockNode("a");
+        a.setPrimaryType("shopProduct");
+        final MockNode b = new MockNode("b");
+        b.setPrimaryType("shopProduct");
+        final MockNode c = new MockNode("c");
+        c.setPrimaryType("shopProduct");
+
+        nodes.add(a);
+        nodes.add(b);
+        nodes.add(c);
+
+        final NodeIterator iter = new MockNodeIterator(nodes);
+
+        final Session session = mock(Session.class);
+        final Workspace wp = mock(Workspace.class);
+        final QueryManager manager = mock(QueryManager.class);
+        final Query query = mock(Query.class);
+        final QueryResult queryResult = mock(QueryResult.class);
+
+        when(ctx.getJCRSession("data")).thenReturn(session);
+        when(session.getWorkspace()).thenReturn(wp);
+        when(wp.getQueryManager()).thenReturn(manager);
+        when(manager.createQuery(anyString(), anyString())).thenReturn(query);
+        when(query.execute()).thenReturn(queryResult);
+        when(queryResult.getNodes()).thenReturn(iter);
+
+        // WHEN
+        List<Node> result = ShopProductAccesor.getProductsBySQL("amazing query");
+
+        // THEN
+        assertEquals("a", result.get(0).getName());
+        assertEquals("b", result.get(1).getName());
+        assertEquals("c", result.get(2).getName());
     }
 }
