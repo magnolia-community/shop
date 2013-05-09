@@ -54,8 +54,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * shop product.
+ * 
  * @author tmiyar
- *
  */
 public class ShopProductAccesor extends DefaultCustomDataAccesor {
 
@@ -76,10 +76,10 @@ public class ShopProductAccesor extends DefaultCustomDataAccesor {
 
         String shopName = ShopUtil.getShopName();
 
-        if(StringUtils.isNotEmpty(shopName)) {
+        if (StringUtils.isNotEmpty(shopName)) {
 
             String query = "select * from [mgnl:contentNode] as productsSubNode  where ISDESCENDANTNODE('" + ShopUtil.getPath("shopProducts", shopName)
-            + "') and contains(productsSubNode.*, '" + productCategory + "')";
+                    + "') and contains(productsSubNode.*, '" + productCategory + "')";
 
             return getProductsBySQL(query);
 
@@ -92,10 +92,10 @@ public class ShopProductAccesor extends DefaultCustomDataAccesor {
 
         String shopName = ShopUtil.getShopName();
 
-        if(StringUtils.isNotEmpty(shopName)) {
+        if (StringUtils.isNotEmpty(shopName)) {
 
             String query = "select * from [mgnl:contentNode] as productsSubNode where ISDESCENDANTNODE('" + ShopUtil.getPath("shopProducts", shopName)
-            + "') and contains(productsSubNode.*, '" + tagUUID + "')";
+                    + "') and contains(productsSubNode.*, '" + tagUUID + "')";
 
             return getProductsBySQL(query);
 
@@ -109,7 +109,7 @@ public class ShopProductAccesor extends DefaultCustomDataAccesor {
 
         String shopName = ShopUtil.getShopName();
 
-        if(StringUtils.isNotEmpty(shopName)) {
+        if (StringUtils.isNotEmpty(shopName)) {
 
             String query = "select * from [shopProduct] as products where ISDESCENDANTNODE('" + ShopUtil.getPath("shopProducts", shopName)
                     + "') and contains(products.*, '" + escapeSql(queryStr) + "')";
