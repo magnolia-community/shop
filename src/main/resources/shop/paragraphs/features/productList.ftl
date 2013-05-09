@@ -13,13 +13,13 @@
 [#-- Rendering Part --]
 
 <div class="${divClass}" ${divID} >
-		
-	[#-- Macro: Pager --]
-	[@pagination pager "top" /]
-	
-	<em>${productList?size} ${(productList?size>1)?string(i18n['productList.products.found'],i18n['productList.product.found'])}</em>
-	
-	[@productListMacro productList=productList/]
+
+    [#-- Macro: Pager --]
+    [@pagination pager "top" /]
+
+    <em>${count} ${(count>1)?string(i18n['productList.products.found'],i18n['productList.product.found'])}</em>
+
+    [@productListMacro productList=productList/]
 </div>
 
 [#-- Macro: Pager --]
