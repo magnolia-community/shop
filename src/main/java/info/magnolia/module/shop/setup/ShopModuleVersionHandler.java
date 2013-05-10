@@ -62,10 +62,8 @@ import info.magnolia.module.delta.TaskExecutionException;
 import info.magnolia.module.inplacetemplating.setup.TemplatesInstallTask;
 import info.magnolia.module.resources.setup.InstallResourcesTask;
 import info.magnolia.module.templatingkit.resources.STKResourceModel;
-import info.magnolia.nodebuilder.NodeBuilder;
 import info.magnolia.nodebuilder.task.ErrorHandling;
 import info.magnolia.nodebuilder.task.NodeBuilderTask;
-import info.magnolia.nodebuilder.task.TaskLogErrorHandler;
 import info.magnolia.repository.RepositoryConstants;
 
 import java.io.IOException;
@@ -166,7 +164,24 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
                 .addTask(new BootstrapSingleResource("Bootstrap", "Installing the shopGridQuerySelect control",
                         "/mgnl-bootstrap/shop/controls/config.modules.shop.controls.shopGridQuerySelect.xml",
                         ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING))
-           );
+
+                .addTask(new UpdateAllSiteDefinitions("Update Site Definitions", "Check all site definitions for shop templates that has been wrongly registered and  remove them.") {
+
+                            @Override
+                            protected void updateSiteDefinition(InstallContext ctx, Content siteDefinition) throws RepositoryException, TaskExecutionException {
+                                String[] templates = new String[] { "shopCheckoutForm", "shopConfirmationPage", "shopFormStep", "shopFormStepConfirmOrder",
+                                        "shopHome", "shopProductCategory", "shopProductKeywordResult", "shopProductSearchResult",
+                                        "shopProductDetail", "shopShoppingCart" };
+                                for (String template : templates) {
+                                    if (siteDefinition.hasContent(template)) {
+                                        siteDefinition.getContent(template).delete();
+                                    }
+                                }
+                                siteDefinition.save();
+                            }
+                        })
+
+                );
 
     }
 
@@ -208,33 +223,51 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
         installTasks.add(new AddSubMenuItemTask("shops", "shoppingCarts", "menu.carts", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shoppingCarts')", "/.resources/icons/16/dot.gif"));
         installTasks.add(new IsInstallSamplesTask("", "", new OrderNodeBeforeTask("", "", RepositoryConstants.CONFIG, "/modules/adminInterface/config/menu/sampleShop", "shops")));
         installTasks.add(new InstallResourcesTask("/templating-kit/themes/pop/css/shop.css", "resources:processedCss", STKResourceModel.class.getName()));
-        installTasks.add(new UpdateAllSiteDefinitions("Add new templates to Availability", "") {
-
-            protected void updateSiteDefinition(InstallContext ctx, Content siteDefinition) throws RepositoryException, TaskExecutionException {
-                new NodeBuilder(new TaskLogErrorHandler(ctx), siteDefinition,
-                        getNode("templates/availability/templates").then(
+        installTasks.add(new NodeExistsDelegateTask("Install shop templates", "Install shop templates under Site Configuration", "config", "/modules/standard-templating-kit/config/site/", new NodeBuilderTask("", "", ErrorHandling.strict, "config", "/modules/standard-templating-kit/config/site/",
+                getNode("templates/availability/templates").then(
                         addNode("shopCheckoutForm", MgnlNodeType.NT_CONTENTNODE).then(
-                        addProperty("id", "shop:pages/shopCheckoutForm")),
+                                addProperty("id", "shop:pages/shopCheckoutForm")),
                         addNode("shopConfirmationPage", MgnlNodeType.NT_CONTENTNODE).then(
-                        addProperty("id", "shop:pages/shopConfirmationPage")),
+                                addProperty("id", "shop:pages/shopConfirmationPage")),
                         addNode("shopFormStep", MgnlNodeType.NT_CONTENTNODE).then(
-                        addProperty("id", "shop:pages/shopFormStep")),
+                                addProperty("id", "shop:pages/shopFormStep")),
                         addNode("shopFormStepConfirmOrder", MgnlNodeType.NT_CONTENTNODE).then(
-                        addProperty("id", "shop:pages/shopFormStepConfirmOrder")),
+                                addProperty("id", "shop:pages/shopFormStepConfirmOrder")),
                         addNode("shopHome", MgnlNodeType.NT_CONTENTNODE).then(
-                        addProperty("id", "shop:pages/shopHome")),
+                                addProperty("id", "shop:pages/shopHome")),
                         addNode("shopProductCategory", MgnlNodeType.NT_CONTENTNODE).then(
-                        addProperty("id", "shop:pages/shopProductCategory")),
+                                addProperty("id", "shop:pages/shopProductCategory")),
                         addNode("shopProductKeywordResult", MgnlNodeType.NT_CONTENTNODE).then(
-                        addProperty("id", "shop:pages/shopProductKeywordResult")),
+                                addProperty("id", "shop:pages/shopProductKeywordResult")),
                         addNode("shopProductSearchResult", MgnlNodeType.NT_CONTENTNODE).then(
-                        addProperty("id", "shop:pages/shopProductSearchResult")),
+                                addProperty("id", "shop:pages/shopProductSearchResult")),
                         addNode("shopProductDetail", MgnlNodeType.NT_CONTENTNODE).then(
-                        addProperty("id", "shop:pages/shopProductDetail")),
+                                addProperty("id", "shop:pages/shopProductDetail")),
                         addNode("shopShoppingCart", MgnlNodeType.NT_CONTENTNODE).then(
-                        addProperty("id", "shop:pages/shopShoppingCart")))).exec();
-            }
-        });
+                                addProperty("id", "shop:pages/shopShoppingCart"))))));
+
+        installTasks.add(new NodeExistsDelegateTask("Install shop templates", "Install shop templates under default Site Definition", "config", "/modules/extended-templating-kit/config/sites/default/", new NodeBuilderTask("", "", ErrorHandling.strict, "config", "/modules/extended-templating-kit/config/sites/default/",
+                getNode("templates/availability/templates").then(
+                        addNode("shopCheckoutForm", MgnlNodeType.NT_CONTENTNODE).then(
+                                addProperty("id", "shop:pages/shopCheckoutForm")),
+                        addNode("shopConfirmationPage", MgnlNodeType.NT_CONTENTNODE).then(
+                                addProperty("id", "shop:pages/shopConfirmationPage")),
+                        addNode("shopFormStep", MgnlNodeType.NT_CONTENTNODE).then(
+                                addProperty("id", "shop:pages/shopFormStep")),
+                        addNode("shopFormStepConfirmOrder", MgnlNodeType.NT_CONTENTNODE).then(
+                                addProperty("id", "shop:pages/shopFormStepConfirmOrder")),
+                        addNode("shopHome", MgnlNodeType.NT_CONTENTNODE).then(
+                                addProperty("id", "shop:pages/shopHome")),
+                        addNode("shopProductCategory", MgnlNodeType.NT_CONTENTNODE).then(
+                                addProperty("id", "shop:pages/shopProductCategory")),
+                        addNode("shopProductKeywordResult", MgnlNodeType.NT_CONTENTNODE).then(
+                                addProperty("id", "shop:pages/shopProductKeywordResult")),
+                        addNode("shopProductSearchResult", MgnlNodeType.NT_CONTENTNODE).then(
+                                addProperty("id", "shop:pages/shopProductSearchResult")),
+                        addNode("shopProductDetail", MgnlNodeType.NT_CONTENTNODE).then(
+                                addProperty("id", "shop:pages/shopProductDetail")),
+                        addNode("shopShoppingCart", MgnlNodeType.NT_CONTENTNODE).then(
+                                addProperty("id", "shop:pages/shopShoppingCart"))))));
 
         installTasks.add(new IsModuleInstalledOrRegistered("Keywords for product Categories",
                 "Adds control to product categories dialog for asigning keywords.", "categorization",
