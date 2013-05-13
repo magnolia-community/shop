@@ -9,6 +9,10 @@
 
 [#assign count=pager.count!0]
 
+[#if count = 0]
+    [#assign count = productList?size]
+[/#if]
+
 
 [#-- Rendering Part --]
 

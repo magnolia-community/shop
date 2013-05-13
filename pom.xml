@@ -15,7 +15,7 @@
   <properties>
   	<javaVersion>1.6</javaVersion>
     <magnoliaVersion>4.5.6</magnoliaVersion>
-    <stkVersion>2.0.6</stkVersion>
+    <stkVersion>2.0.10-SNAPSHOT</stkVersion>
 
     <!-- dual licensed : -->
     <checkstyleHeader>magnolia-build-tools/license-header-dual.regex</checkstyleHeader>
