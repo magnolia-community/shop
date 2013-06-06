@@ -1,4 +1,3 @@
-
 [#-------------- INCLUDE AND ASSIGN PART --------------]
 
 [#-- Include: Global --]
@@ -23,8 +22,10 @@
     [#if !hideTeaserImage]
         [#assign imageLink = (model.image!).link!]
         [#if !(imageLink?has_content)]
-		    [#assign asset = stkfn.getAsset(productJCRNode, 'image')!]
-		    [#assign imageLink = stkfn.getAssetVariation(asset, 'teaser').link]
+        [#assign asset = stkfn.getAsset(productJCRNode, 'image')!]
+        [#if asset?has_content] [#-- folder instead of product can be selected) --]
+            [#assign imageLink = stkfn.getAssetVariation(asset, 'teaser').link]
+        [/#if]
         [/#if]
         [#if !imageLink?has_content && divIDPrefix="teaser"]  [#-- TODO: This is a hack, solution with imageLink return object must be implemented --]
             [#assign divClass = "${divClass} mod"]
