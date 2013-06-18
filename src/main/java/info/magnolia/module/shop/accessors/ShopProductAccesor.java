@@ -54,7 +54,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * shop product.
- * 
+ *
  * @author tmiyar
  */
 public class ShopProductAccesor extends DefaultCustomDataAccesor {
@@ -77,9 +77,9 @@ public class ShopProductAccesor extends DefaultCustomDataAccesor {
         String shopName = ShopUtil.getShopName();
 
         if (StringUtils.isNotEmpty(shopName)) {
-
-            String query = "select * from [mgnl:contentNode] as productsSubNode  where ISDESCENDANTNODE('" + ShopUtil.getPath("shopProducts", shopName)
-                    + "') and contains(productsSubNode.*, '" + productCategory + "')";
+            //use old JCR SQL to preserver natural order of elements
+            String query = "select * from mgnl:contentNode  where jcr:path like '" + ShopUtil.getPath("shopProducts", shopName)
+                    + "/%' and contains(*, '" + productCategory + "')";
 
             return getProductsBySQL(query);
 
@@ -93,9 +93,9 @@ public class ShopProductAccesor extends DefaultCustomDataAccesor {
         String shopName = ShopUtil.getShopName();
 
         if (StringUtils.isNotEmpty(shopName)) {
-
-            String query = "select * from [mgnl:contentNode] as productsSubNode where ISDESCENDANTNODE('" + ShopUtil.getPath("shopProducts", shopName)
-                    + "') and contains(productsSubNode.*, '" + tagUUID + "')";
+            //use old JCR SQL to preserver natural order of elements
+            String query = "select * from mgnl:contentNode where jcr:path like '" + ShopUtil.getPath("shopProducts", shopName)
+                    + "/%' and contains(*, '" + tagUUID + "')";
 
             return getProductsBySQL(query);
 
@@ -110,9 +110,9 @@ public class ShopProductAccesor extends DefaultCustomDataAccesor {
         String shopName = ShopUtil.getShopName();
 
         if (StringUtils.isNotEmpty(shopName)) {
-
-            String query = "select * from [shopProduct] as products where ISDESCENDANTNODE('" + ShopUtil.getPath("shopProducts", shopName)
-                    + "') and contains(products.*, '" + escapeSql(queryStr) + "')";
+            //use old JCR SQL to preserver natural order of elements
+            String query = "select * from shopProduct where jcr:path like '" + ShopUtil.getPath("shopProducts", shopName)
+                    + "/%' and contains(*, '" + escapeSql(queryStr) + "')";
 
             return getProductsBySQL(query);
 
@@ -128,7 +128,7 @@ public class ShopProductAccesor extends DefaultCustomDataAccesor {
 
         NodeIterator test = null;
         try {
-            test = QueryUtil.search("data", query, javax.jcr.query.Query.JCR_SQL2, "shopProduct");
+            test = QueryUtil.search("data", query, javax.jcr.query.Query.SQL, "shopProduct");
         } catch (NullPointerException e) {
             if (e.getStackTrace()[0].getClassName().equals("org.apache.jackrabbit.core.query.lucene.DescendantSelfAxisQuery$DescendantSelfAxisScorer")) {
                 // ignore - lucene bug - https://issues.apache.org/jira/browse/JCR-3407

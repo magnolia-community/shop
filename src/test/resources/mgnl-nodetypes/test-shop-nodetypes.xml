@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<nodeTypes xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:fn_old="http://www.w3.org/2004/10/xpath-functions" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:jcrfn="http://www.jcp.org/jcr/xpath-functions/1.0" xmlns:mgnl="http://www.magnolia.info/jcr/mgnl" xmlns:mix="http://www.jcp.org/jcr/mix/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:rep="internal" xmlns:stringutils="xalan://org.apache.commons.lang.StringUtils" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="shopCurrencies" primaryItemName="">
+    <supertypes>
+      <supertype>dataItem</supertype>
+    </supertypes>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="shopProduct" primaryItemName="">
+    <supertypes>
+      <supertype>dataItem</supertype>
+    </supertypes>
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="true" name="*" onParentVersion="COPY" protected="false" requiredType="undefined" />
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="shopSupplier" primaryItemName="">
+    <supertypes>
+      <supertype>dataItem</supertype>
+    </supertypes>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="shopCurrency" primaryItemName="">
+    <supertypes>
+      <supertype>dataItem</supertype>
+    </supertypes>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="shopPriceCategory" primaryItemName="">
+    <supertypes>
+      <supertype>dataItem</supertype>
+    </supertypes>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="shopCountry" primaryItemName="">
+    <supertypes>
+      <supertype>dataItem</supertype>
+    </supertypes>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="shopProductOption" primaryItemName="">
+    <supertypes>
+      <supertype>dataItem</supertype>
+    </supertypes>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="shop" primaryItemName="">
+    <supertypes>
+      <supertype>dataItem</supertype>
+    </supertypes>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="shopTaxCategories" primaryItemName="">
+    <supertypes>
+      <supertype>dataItem</supertype>
+    </supertypes>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="shopProductOptions" primaryItemName="">
+    <supertypes>
+      <supertype>dataItem</supertype>
+    </supertypes>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="shopPriceCategories" primaryItemName="">
+    <supertypes>
+      <supertype>dataItem</supertype>
+    </supertypes>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="shopShippingOptions" primaryItemName="">
+    <supertypes>
+      <supertype>dataItem</supertype>
+    </supertypes>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="shopCountries" primaryItemName="">
+    <supertypes>
+      <supertype>dataItem</supertype>
+    </supertypes>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="shopShippingOption" primaryItemName="">
+    <supertypes>
+      <supertype>dataItem</supertype>
+    </supertypes>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="shopTaxCategory" primaryItemName="">
+    <supertypes>
+      <supertype>dataItem</supertype>
+    </supertypes>
+  </nodeType>
+</nodeTypes>
