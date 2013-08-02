@@ -19,7 +19,7 @@
   <dependencies>
     <dependency>
       <name>core</name>
-      <version>4.5.2/*</version>
+      <version>4.5.6/*</version>
     </dependency>
     <dependency>
       <name>data</name>
