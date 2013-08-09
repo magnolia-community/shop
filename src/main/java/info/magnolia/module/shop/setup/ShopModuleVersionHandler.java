@@ -33,8 +33,10 @@
  */
 package info.magnolia.module.shop.setup;
 
-import static info.magnolia.nodebuilder.Ops.*;
-
+import static info.magnolia.nodebuilder.Ops.addNode;
+import static info.magnolia.nodebuilder.Ops.addProperty;
+import static info.magnolia.nodebuilder.Ops.getNode;
+import static info.magnolia.nodebuilder.Ops.setProperty;
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.core.ItemType;
 import info.magnolia.cms.core.MgnlNodeType;
@@ -56,6 +58,7 @@ import info.magnolia.module.delta.ModuleDependencyBootstrapTask;
 import info.magnolia.module.delta.NodeExistsDelegateTask;
 import info.magnolia.module.delta.OrderNodeBeforeTask;
 import info.magnolia.module.delta.RemoveNodeTask;
+import info.magnolia.module.delta.RenamePropertyAllModulesNodeTask;
 import info.magnolia.module.delta.SetPropertyTask;
 import info.magnolia.module.delta.Task;
 import info.magnolia.module.delta.TaskExecutionException;
@@ -182,6 +185,9 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
                         })
 
                 );
+        register(DeltaBuilder.update("1.1.4", "")
+                .addTask(new RenamePropertyAllModulesNodeTask("Rename obsolete properties", "Use extends instead of reference", "dialogs", "reference", "extends"))
+        );
 
     }
 

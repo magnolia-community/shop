@@ -173,7 +173,7 @@
       <sv:property sv:name="jcr:uuid" sv:type="String">
         <sv:value>74d96ecc-64e8-4f0b-9e11-9163f74a0d53</sv:value>
       </sv:property>
-      <sv:property sv:name="reference" sv:type="String">
+      <sv:property sv:name="extends" sv:type="String">
         <sv:value>/modules/standard-templating-kit/dialogs/generic/controls/hideInNav</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -207,7 +207,7 @@
       <sv:property sv:name="i18n" sv:type="Boolean">
         <sv:value>true</sv:value>
       </sv:property>
-      <sv:property sv:name="reference" sv:type="String">
+      <sv:property sv:name="extends" sv:type="String">
         <sv:value>/modules/standard-templating-kit/dialogs/generic/pages/windowTitle</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -241,7 +241,7 @@
       <sv:property sv:name="i18n" sv:type="Boolean">
         <sv:value>true</sv:value>
       </sv:property>
-      <sv:property sv:name="reference" sv:type="String">
+      <sv:property sv:name="extends" sv:type="String">
         <sv:value>/modules/standard-templating-kit/dialogs/generic/pages/navigationTitle</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">
@@ -270,7 +270,7 @@
     <sv:property sv:name="jcr:uuid" sv:type="String">
       <sv:value>550b46f8-3101-4328-be3d-47e06ff7d9b3</sv:value>
     </sv:property>
-    <sv:property sv:name="reference" sv:type="String">
+    <sv:property sv:name="extends" sv:type="String">
       <sv:value>/modules/standard-templating-kit/dialogs/generic/pages/tabMetaData</sv:value>
     </sv:property>
     <sv:node sv:name="MetaData">

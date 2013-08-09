@@ -48,7 +48,7 @@
     <sv:property sv:name="jcr:uuid" sv:type="String">
       <sv:value>f2c63642-2463-45c1-802d-dea2992e8a3e</sv:value>
     </sv:property>
-    <sv:property sv:name="reference" sv:type="String">
+    <sv:property sv:name="extends" sv:type="String">
       <sv:value>/modules/standard-templating-kit/dialogs/generic/pages/tabPagination</sv:value>
     </sv:property>
     <sv:node sv:name="MetaData">
