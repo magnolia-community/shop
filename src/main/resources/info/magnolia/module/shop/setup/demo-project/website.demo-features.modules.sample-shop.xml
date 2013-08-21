@@ -7,7 +7,7 @@
     <sv:value>mix:lockable</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:uuid" sv:type="String">
-    <sv:value>c8fafd01-38f8-4638-8b6a-caddde833734</sv:value>
+    <sv:value>30167d5d-7eb9-4bfe-8c7b-869c34c2da59</sv:value>
   </sv:property>
   <sv:property sv:name="currentShop" sv:type="String">
     <sv:value>sampleShop</sv:value>
