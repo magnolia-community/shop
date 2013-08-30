@@ -9,3 +9,5 @@
 /.project
 /.classpath
 /.settings
+/.checkstyle
+/src/main/resources/rebel.xml
