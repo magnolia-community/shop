@@ -119,7 +119,8 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
         try {
             product = ShopUtil.wrapWithI18n(NodeUtil.getNodeByIdentifier("data", productUUID));
         } catch (RepositoryException e) {
-            log.error("Can't find product with uuid" + productUUID);
+            log.warn("Can't find product with uuid" + productUUID);
+            this.productUUID = productUUID;
         }
         this.setProduct(product);
         this.setQuantity(quantity);
@@ -179,8 +180,6 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
                 setUnitDepth(new BigDecimal(value));
             }
 
-        } else {
-            this.productUUID = null;
         }
     }
 
