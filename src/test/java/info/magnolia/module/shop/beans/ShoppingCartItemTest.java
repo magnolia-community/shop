@@ -89,4 +89,20 @@ public class ShoppingCartItemTest extends RepositoryTestCase {
         //THEN
         verify(i18n, times(10)).hasProperty((Node)anyObject(), anyString());
     }
+
+    @Test
+    public void getProductPriceTest() throws Exception {
+        // GIVEN
+        product.setProperty("title", "someTitle");
+        product.setProperty("productDescription1", "someDescription");
+        product.setProperty("productDescription2", "someDescription2");
+        ShoppingCartItem item = new ShoppingCartItem(null, product.getIdentifier(), 0, 0);
+        DefaultShoppingCartImpl cart = new DefaultShoppingCartImpl();
+        cart.addCartItem(item);
+
+        // WHEN
+        cart.getGrossTotal();
+
+        // THEN no exception is thrown
+    }
 }
