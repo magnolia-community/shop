@@ -11,7 +11,7 @@
         <th class="unitprice">${i18n['table.unitprice']}</th>
         <th class="itemtotal">${i18n['table.total']}</th>
         [#if type=="cart"]
-            <th></th>  
+            <th></th>
       [/#if]
       </thead>
     <tbody>
@@ -20,7 +20,7 @@
           <tr>
             [#if productLink?has_content]
               <td>
-                <a href="${productLink}">${product.productTitle}</a>
+                <a href="${productLink}">${product.productTitle!product.@name!"--"}</a>
               [#if product.options?has_content]
                   [#assign keys = product.options?keys]
                 [#list keys as key]
@@ -53,35 +53,35 @@
             <td class="itemtotal">${product.itemTotal?string(currencyFormatting!)}</td>
             [#if type=="cart"]
               <td>
-                <a class="product-add-more" href="${model.getCommandLink('add', product.productUUID, product_index)}"><img class="shopAddRemove" src="${ctx.contextPath}/.resources/images/add.gif" /></a> 
+                <a class="product-add-more" href="${model.getCommandLink('add', product.productUUID, product_index)}"><img class="shopAddRemove" src="${ctx.contextPath}/.resources/images/add.gif" /></a>
                 <a class="product-subtract" href="${model.getCommandLink('subtract', product.productUUID, product_index)}"><img class="shopAddRemove" src="${ctx.contextPath}/.resources/images/remove.gif" /></a>
                 <a class="product-removeall" href="${model.getCommandLink('removeall', product.productUUID, product_index)}"><img class="shopAddRemove" src="${ctx.contextPath}/.resources/images/removeAll.gif" /></a>
               </td>
-            [/#if] 
+            [/#if]
           </tr>
         [/#list]
         <tr>
         <td></td>
         <td></td>
         <td>${i18n['shoppingcart.subtotal']}</td>
-        <td class="total_excl_tax">${shoppingCart.grossTotalExclTax?string(currencyFormatting!)} ${currencyTitle!}</td>
+        <td class="total_excl_tax">${shoppingCart.grossTotalExclTax!0?string(currencyFormatting!)} ${currencyTitle!}</td>
         [#if type=="cart"]<td></td>[/#if]
       </tr>
         <tr>
         <td></td>
         <td></td>
         <td>${i18n['vat']}</td>
-        <td class="tax">${shoppingCart.itemTaxTotal?string("0.00")} ${currencyTitle!}</td>
+        <td class="tax">${shoppingCart.itemTaxTotal!0?string(currencyFormatting!)} ${currencyTitle!}</td>
         [#if type=="cart"]<td></td>[/#if]
       </tr>
       <tr>
         <td></td>
         <td></td>
         <td>${i18n['shoppingCart.total']}</td>
-        <td class="total_incl_tax">${shoppingCart.grossTotalInclTax?string(currencyFormatting!)} ${currencyTitle}</td>
+        <td class="total_incl_tax">${shoppingCart.grossTotalInclTax!0?string(currencyFormatting!)} ${currencyTitle}</td>
         [#if type=="cart"]<td></td>[/#if]
       </tr>
-      </tbody> 
+      </tbody>
       </table>
   [/#if]
 [/#macro]
