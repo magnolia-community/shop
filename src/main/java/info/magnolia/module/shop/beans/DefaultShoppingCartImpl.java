@@ -79,7 +79,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     private String paymentType;
     private String paymentID;
     private String userIP;
-    private ArrayList<ShoppingCartItem> cartItems;
+    private final ArrayList<ShoppingCartItem> cartItems;
     private String priceCategoryUUID;
     private String shippingOptionUUID;
     private String shippingOptionTitle;
@@ -289,6 +289,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
      * @deprecated Use {@link #getTermsAccepted()}
      * @return
      */
+    @Deprecated
     public Boolean getAcceptedGTC() {
         return getTermsAccepted();
     }
@@ -297,6 +298,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
      * @deprecated Use {@link #setTermsAccepted()}
      * @return
      */
+    @Deprecated
     public void setAcceptedGTC(Boolean acceptedGTC) {
         setTermsAccepted(acceptedGTC);
     }
@@ -784,6 +786,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
      * @deprecated Use {@link #getGrossItemsTotalExclTaxBigDecimal()}
      * @return
      */
+    @Deprecated
     public BigDecimal getGrossTotalExclTaxBigDecimal() {
         return getGrossItemsTotalExclTaxBigDecimal();
     }
@@ -792,6 +795,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
      * @deprecated Use {@link #getGrossItemsTotalExclTax()}
      * @return
      */
+    @Deprecated
     public double getGrossTotalExclTax() {
         return getGrossItemsTotalExclTax();
     }
@@ -800,6 +804,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
      * @deprecated Use {@link #getGrossItemsTotalInclTaxBigDecimal()}
      * @return
      */
+    @Deprecated
     public BigDecimal getGrossTotalInclTaxBigDecimal() {
         return getGrossItemsTotalInclTaxBigDecimal();
     }
@@ -808,6 +813,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
      * @deprecated Use {@link #getGrossItemsTotalInclTax()}
      * @return
      */
+    @Deprecated
     public double getGrossTotalInclTax() {
         return getGrossItemsTotalInclTax();
     }
@@ -816,6 +822,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
      * @deprecated Use {@link #getCartTotalInclTax()}
      * @return
      */
+    @Deprecated
     public double getGrossTotal() {
         double total = 0;
         Iterator<ShoppingCartItem> itemsIter = getCartItems().iterator();
@@ -839,7 +846,10 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
             ShoppingCartItem currItem;
             while (itemsIter.hasNext()) {
                 currItem = itemsIter.next();
-                total = total.add(currItem.getItemTaxBigDecimal());
+                BigDecimal up = currItem.getItemTaxBigDecimal();
+                if (up != null) {
+                    total = total.add(up);
+                }
             }
             if (getCartDiscountRate() != null && getCartDiscountRate() > 0) {
                 total = total.multiply(new BigDecimal("" + (1 - getCartDiscountRate())));
@@ -873,6 +883,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
      * @deprecated Use {@link #getNetItemsTotalExclTax() } or {@link #getNetItemsTotalInclTax()}
      * @return
      */
+    @Deprecated
     public double getNetTotal() {
         double netTotal = getGrossTotal();
         if (netTotal > 0 && cartDiscountRate != null && cartDiscountRate.doubleValue() > 0) {
