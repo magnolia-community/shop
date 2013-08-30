@@ -69,16 +69,16 @@ public class ShoppingCartItemTest extends RepositoryTestCase {
         ctx.addSession("data", session);
         product = session.getRootNode().addNode("product");
         product.setProperty("name", "name");
+        product.setProperty("title", "someTitle");
+        product.setProperty("productDescription1", "someDescription");
+        product.setProperty("productDescription2", "someDescription2");
 
         MgnlContext.setInstance(ctx);
     }
 
     @Test
-    public void getProductTest() throws Exception {
+    public void isProductLocalizedTest() throws Exception {
         //GIVEN
-        product.setProperty("title", "someTitle");
-        product.setProperty("productDescription1", "someDescription");
-        product.setProperty("productDescription2", "someDescription2");
         ShoppingCartItem item = new ShoppingCartItem(null, product.getIdentifier(), 0, 0);
 
         //WHEN
@@ -87,15 +87,12 @@ public class ShoppingCartItemTest extends RepositoryTestCase {
         item.getProductSubTitle();
 
         //THEN
-        verify(i18n, times(10)).hasProperty((Node)anyObject(), anyString());
+        verify(i18n, times(9)).hasProperty((Node) anyObject(), anyString());
     }
 
     @Test
     public void getProductPriceTest() throws Exception {
         // GIVEN
-        product.setProperty("title", "someTitle");
-        product.setProperty("productDescription1", "someDescription");
-        product.setProperty("productDescription2", "someDescription2");
         ShoppingCartItem item = new ShoppingCartItem(null, product.getIdentifier(), 0, 0);
         DefaultShoppingCartImpl cart = new DefaultShoppingCartImpl();
         cart.addCartItem(item);
@@ -105,4 +102,13 @@ public class ShoppingCartItemTest extends RepositoryTestCase {
 
         // THEN no exception is thrown
     }
+
+    @Test
+    public void getProductNotThereAnymoreDuringDeserializationTest() throws Exception {
+        // WHEN
+        ShoppingCartItem item = new ShoppingCartItem(null, "some-id-that-doesn't-exist", 0, 0);
+
+        // THEN - no exception occurs
+    }
+
 }

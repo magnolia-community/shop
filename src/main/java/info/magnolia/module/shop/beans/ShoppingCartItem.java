@@ -139,15 +139,17 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
     }
 
     public void setProduct(Node product) {
-        if (product != null) {
+        if (product == null) {
+            return;
+        }
             try {
                 this.productUUID = product.getIdentifier();
             } catch (RepositoryException e1) {
                 log.error("Cant get the product id for " + this.productUUID,e1);
             }
-            log.debug("setting product " + product + " in cart item");
-            log.debug("product number: " + PropertyUtil.getString(product, "name"));
-            setProductNumber(PropertyUtil.getString(product, "name"));
+        String productNr = PropertyUtil.getString(product, "name");
+        log.debug("setting product {} in cart item with product number {}", product, productNr);
+        setProductNumber(productNr);
 
             setProductTitle(PropertyUtil.getString(product, "title"));
             setProductSubTitle(PropertyUtil.getString(product, "productDescription1"));
@@ -179,8 +181,6 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
             if (StringUtils.isNotBlank(value)) {
                 setUnitDepth(new BigDecimal(value));
             }
-
-        }
     }
 
     public int getQuantity() {
