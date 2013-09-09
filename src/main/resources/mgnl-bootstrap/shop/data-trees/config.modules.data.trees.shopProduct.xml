@@ -19,7 +19,7 @@
     <sv:value>shopProduct</sv:value>
   </sv:property>
   <sv:property sv:name="itemTypes" sv:type="String">
-    <sv:value>dataItemNode</sv:value>
+    <sv:value>dataItemNode, shopProductOption, shopProductOptions, mgnl:contentNode</sv:value>
   </sv:property>
   <sv:property sv:name="repository" sv:type="String">
     <sv:value>data</sv:value>
