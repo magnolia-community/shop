@@ -187,6 +187,7 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
                 );
         register(DeltaBuilder.update("1.1.4", "")
                 .addTask(new RenamePropertyAllModulesNodeTask("Rename obsolete properties", "Use extends instead of reference", "dialogs", "reference", "extends"))
+                .addTask(new CheckAndModifyPropertyValueTask("Update node types", "Update node types in shopProduct tree config", "config", "/modules/data/trees/shopProduct", "itemTypes", "dataItemNode", "dataItemNode, shopProductOption, shopProductOptions, mgnl:contentNode"))
         );
 
     }
