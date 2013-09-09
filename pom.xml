@@ -9,13 +9,13 @@
   <groupId>info.magnolia.shop</groupId>
   <artifactId>magnolia-module-shop</artifactId>
   <packaging>jar</packaging>
-  <version>1.1.4-SNAPSHOT</version>
+  <version>2.0-SNAPSHOT</version>
   <name>Magnolia Simple Shop Module</name>
 
   <properties>
   	<javaVersion>1.6</javaVersion>
-    <magnoliaVersion>4.5.6</magnoliaVersion>
-    <stkVersion>2.0.10</stkVersion>
+    <magnoliaVersion>5.0.3</magnoliaVersion>
+    <stkVersion>2.5.4</stkVersion>
 
     <!-- dual licensed : -->
     <checkstyleHeader>magnolia-build-tools/license-header-dual.regex</checkstyleHeader>
@@ -49,12 +49,12 @@
       <version>${magnoliaVersion}</version>
       <scope>provided</scope>
     </dependency>
-    <dependency>
+    <!--dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-fckeditor</artifactId>
       <version>${magnoliaVersion}</version>
       <scope>provided</scope>
-    </dependency>
+    </dependency-->
     <dependency>
       <groupId>ch.fastforward</groupId>
       <artifactId>magnolia-module-ocm</artifactId>
@@ -74,14 +74,14 @@
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-module-admininterface</artifactId>
-      <version>${magnoliaVersion}</version>
+      <artifactId>magnolia-module-legacy-admininterface</artifactId>
+      <version>5.0.2</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-mail</artifactId>
-      <version>${magnoliaVersion}</version>
+      <version>5.0.1</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -93,19 +93,19 @@
   	<dependency>
   		<groupId>info.magnolia</groupId>
   		<artifactId>magnolia-module-form</artifactId>
-  		<version>1.4.3</version>
+  		<version>2.0.2</version>
   		<scope>provided</scope>
   	</dependency>
   	<dependency>
   		<groupId>info.magnolia</groupId>
   		<artifactId>magnolia-module-data</artifactId>
-  		<version>1.7.3</version>
+  		<version>2.0.2</version>
   		<scope>provided</scope>
   	</dependency>
   	<dependency>
   		<groupId>info.magnolia</groupId>
   		<artifactId>magnolia-module-dms</artifactId>
-  		<version>1.6.1</version>
+  		<version>1.6.9</version>
   		<scope>provided</scope>
   	</dependency>
     <dependency>
@@ -117,7 +117,7 @@
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-4-5-migration</artifactId>
-      <version>1.2.3</version>
+      <version>1.2.4</version>
     </dependency>
     <dependency>
       <groupId>org.apache.jackrabbit</groupId>
@@ -138,7 +138,7 @@
     <dependency>
     	<groupId>info.magnolia</groupId>
     	<artifactId>magnolia-module-categorization</artifactId>
-    	<version>1.1.7</version>
+    	<version>2.0.3</version>
     	<scope>provided</scope>
     </dependency>
     <dependency>

@@ -33,37 +33,11 @@
  */
 package info.magnolia.module.shop;
 
-import info.magnolia.module.templatingkit.dam.DAMSupport;
 
 /**
  * basic config for the module.
- * @author tmiyar
  *
  */
 public class ShopModule {
-    
-    private static ShopModule instance;
-    
-    /**
-     * Special damSupport for the shop, Binary files must be using control dataFile.
-     */
-    private DAMSupport damSupport = new DAMSupport();
-    
-    public ShopModule() {
-        instance = this;
-    }
 
-    public DAMSupport getDamSupport() {
-        return damSupport;
-    }
-
-    public void setDamSupport(DAMSupport damSupport) {
-        this.damSupport = damSupport;
-    }
-
-    public static ShopModule getInstance() {
-        return instance;
-    }
-    
-    
 }

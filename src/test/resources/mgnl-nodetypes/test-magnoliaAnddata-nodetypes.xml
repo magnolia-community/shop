@@ -1,222 +1,288 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-    /*
-    * Copyright 2004-2005 The Apache Software Foundation or its licensors,
-    *                     as applicable.
-    *
-    * Licensed under the Apache License, Version 2.0 (the "License");
-    * you may not use this file except in compliance with the License.
-    * You may obtain a copy of the License at
-    *
-    *      http://www.apache.org/licenses/LICENSE-2.0
-    *
-    * Unless required by applicable law or agreed to in writing, software
-    * distributed under the License is distributed on an "AS IS" BASIS,
-    * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    * See the License for the specific language governing permissions and
-    * limitations under the License.
-    */
--->
-<!--
-<!DOCTYPE nodeTypes [
-    <!ELEMENT nodeTypes (nodeType)*>
-        <!ELEMENT nodeType (supertypes?|propertyDefinition*|childNodeDefinition*)>
-
-        <!ATTLIST nodeType
-            name CDATA #REQUIRED
-            isMixin (true|false) #REQUIRED
-             hasOrderableChildNodes (true|false) #REQUIRED
-            primaryItemName CDATA #REQUIRED
-        >
-        <!ELEMENT supertypes (supertype+)>
-        <!ELEMENT supertype (CDATA)>
-
-        <!ELEMENT propertyDefinition (valueConstraints?|defaultValues?)>
-        <!ATTLIST propertyDefinition
-            name CDATA #REQUIRED
-            requiredType (String|Date|Path|Name|Reference|Binary|Double|Long|Boolean|undefined) #REQUIRED
-            autoCreated (true|false) #REQUIRED
-            mandatory (true|false) #REQUIRED
-            onParentVersion (COPY|VERSION|INITIALIZE|COMPUTE|IGNORE|ABORT) #REQUIRED
-            protected (true|false) #REQUIRED
-            multiple  (true|false) #REQUIRED
-        >
-        <!ELEMENT valueConstraints (valueConstraint+)>
-        <!ELEMENT valueConstraint (CDATA)>
-        <!ELEMENT defaultValues (defaultValue+)>
-        <!ELEMENT defaultValue (CDATA)>
-
-        <!ELEMENT childNodeDefinition (requiredPrimaryTypes)>
-        <!ATTLIST childNodeDefinition
-            name CDATA #REQUIRED
-            defaultPrimaryType  CDATA #REQUIRED
-            autoCreated (true|false) #REQUIRED
-            mandatory (true|false) #REQUIRED
-            onParentVersion (COPY|VERSION|INITIALIZE|COMPUTE|IGNORE|ABORT) #REQUIRED
-            protected (true|false) #REQUIRED
-            sameNameSiblings (true|false) #REQUIRED
-        >
-        <!ELEMENT requiredPrimaryTypes (requiredPrimaryType+)>
-        <!ELEMENT requiredPrimaryType (CDATA)>
-]>
--->
-<nodeTypes
-    xmlns:rep="internal"
-    xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
-    xmlns:mix="http://www.jcp.org/jcr/mix/1.0"
-    xmlns:mgnl="http://www.magnolia.info/jcr/mgnl"
-    xmlns:jcr="http://www.jcp.org/jcr/1.0">
-
-    <!-- custom node types -->
-    <nodeType name="mgnl:metaData" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
-        <supertypes>
-            <supertype>nt:hierarchyNode</supertype>
-            <supertype>mix:referenceable</supertype>
-        </supertypes>
-        <propertyDefinition name="*" requiredType="undefined" autoCreated="false" mandatory="false" onParentVersion="COPY" protected="false" multiple="false"/>
-    </nodeType>
-    <nodeType name="mgnl:content" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
-        <supertypes>
-            <supertype>nt:hierarchyNode</supertype>
-            <supertype>mix:referenceable</supertype>
-        </supertypes>
-        <childNodeDefinition name="MetaData" defaultPrimaryType="mgnl:metaData" autoCreated="true" mandatory="true" onParentVersion="COPY" protected="false" sameNameSiblings="false">
-            <requiredPrimaryTypes>
-                <requiredPrimaryType>mgnl:metaData</requiredPrimaryType>
-            </requiredPrimaryTypes>
-        </childNodeDefinition>
-        <childNodeDefinition name="*" defaultPrimaryType="" autoCreated="false" mandatory="false" onParentVersion="COPY" protected="false" sameNameSiblings="true">
-            <requiredPrimaryTypes>
-                <requiredPrimaryType>nt:base</requiredPrimaryType>
-            </requiredPrimaryTypes>
-        </childNodeDefinition>
-        <propertyDefinition name="*" requiredType="undefined" autoCreated="false" mandatory="false" onParentVersion="COPY" protected="false" multiple="false"/>
-        <propertyDefinition name="*" requiredType="undefined" autoCreated="false" mandatory="false" onParentVersion="COPY" protected="false" multiple="true"/>
-    </nodeType>
-    <nodeType name="mgnl:contentNode" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
-        <supertypes>
-            <supertype>nt:hierarchyNode</supertype>
-            <supertype>mix:referenceable</supertype>
-        </supertypes>
-        <childNodeDefinition name="MetaData" defaultPrimaryType="mgnl:metaData" autoCreated="true" mandatory="true" onParentVersion="COPY" protected="false" sameNameSiblings="false">
-            <requiredPrimaryTypes>
-                <requiredPrimaryType>mgnl:metaData</requiredPrimaryType>
-            </requiredPrimaryTypes>
-        </childNodeDefinition>
-        <childNodeDefinition name="*" defaultPrimaryType="" autoCreated="false" mandatory="false" onParentVersion="COPY" protected="false" sameNameSiblings="true">
-            <requiredPrimaryTypes>
-                <requiredPrimaryType>nt:base</requiredPrimaryType>
-            </requiredPrimaryTypes>
-        </childNodeDefinition>
-        <propertyDefinition name="*" requiredType="undefined" autoCreated="false" mandatory="false" onParentVersion="COPY" protected="false" multiple="false"/>
-        <propertyDefinition name="*" requiredType="undefined" autoCreated="false" mandatory="false" onParentVersion="COPY" protected="false" multiple="true"/>
-    </nodeType>
-    <nodeType name="mgnl:folder" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
-        <supertypes>
-            <supertype>nt:folder</supertype>
-            <supertype>mix:referenceable</supertype>
-        </supertypes>
-        <childNodeDefinition name="MetaData" defaultPrimaryType="mgnl:metaData" autoCreated="true" mandatory="true" onParentVersion="COPY" protected="false" sameNameSiblings="false">
-            <requiredPrimaryTypes>
-                <requiredPrimaryType>mgnl:metaData</requiredPrimaryType>
-            </requiredPrimaryTypes>
-        </childNodeDefinition>
-        <childNodeDefinition name="*" defaultPrimaryType="" autoCreated="false" mandatory="false" onParentVersion="COPY" protected="false" sameNameSiblings="true">
-            <requiredPrimaryTypes>
-                <requiredPrimaryType>nt:base</requiredPrimaryType>
-            </requiredPrimaryTypes>
-        </childNodeDefinition>
-        <propertyDefinition name="*" requiredType="undefined" autoCreated="false" mandatory="false" onParentVersion="COPY" protected="false" multiple="false"/>
-        <propertyDefinition name="*" requiredType="undefined" autoCreated="false" mandatory="false" onParentVersion="COPY" protected="false" multiple="true"/>
-    </nodeType>
-    <nodeType name="mgnl:resource" isMixin="false" hasOrderableChildNodes="false" primaryItemName="">
-        <supertypes>
-            <supertype>nt:resource</supertype>
-        </supertypes>
-        <propertyDefinition name="*" requiredType="undefined" autoCreated="false" mandatory="false" onParentVersion="COPY" protected="false" multiple="false"/>
-    </nodeType>
-    <!--
-    magnolia system node type
-    -->
-    <nodeType name="mgnl:reserve" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
-        <supertypes>
-            <supertype>nt:hierarchyNode</supertype>
-        </supertypes>
-        <childNodeDefinition name="*" defaultPrimaryType="" autoCreated="false" mandatory="false" onParentVersion="COPY" protected="false" sameNameSiblings="true">
-            <requiredPrimaryTypes>
-                <requiredPrimaryType>nt:base</requiredPrimaryType>
-            </requiredPrimaryTypes>
-        </childNodeDefinition>
-        <propertyDefinition name="*" requiredType="undefined" autoCreated="false" mandatory="false" onParentVersion="COPY" protected="false" multiple="false"/>
-    </nodeType>
-
-    <!--
-    magnolia user node type
-    -->
-    <nodeType name="mgnl:user" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
-        <supertypes>
-            <supertype>mgnl:content</supertype>
-        </supertypes>
-    </nodeType>
-    <!--
-    magnolia role node type
-    -->
-    <nodeType name="mgnl:role" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
-        <supertypes>
-            <supertype>mgnl:content</supertype>
-        </supertypes>
-    </nodeType>
-    <!--
-    magnolia group node type
-    -->
-    <nodeType name="mgnl:group" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
-        <supertypes>
-            <supertype>mgnl:content</supertype>
-        </supertypes>
-    </nodeType>
-<!-- custom node types -->
-    <nodeType name="dataBase" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
-        <supertypes>
-            <supertype>mix:referenceable</supertype>
-            <supertype>nt:hierarchyNode</supertype>
-        </supertypes>
-        <propertyDefinition name="*" requiredType="undefined" autoCreated="false" mandatory="false" onParentVersion="COPY" protected="false" multiple="false"/>
-        <childNodeDefinition name="*" defaultPrimaryType="" autoCreated="false" mandatory="false" onParentVersion="COPY" protected="false" sameNameSiblings="true"/>
-    </nodeType>
-
-    <nodeType name="dataItemBase" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
-        <supertypes>
-            <supertype>dataBase</supertype>
-        </supertypes>
-    </nodeType>
-
-    <!-- custom node types -->
-    <nodeType name="dataFolder" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
-        <supertypes>
-            <supertype>dataBase</supertype>
-        </supertypes>
-        <childNodeDefinition name="MetaData" defaultPrimaryType="mgnl:metaData" autoCreated="true" mandatory="true" onParentVersion="COPY" protected="false" sameNameSiblings="false">
-          <requiredPrimaryTypes>
-            <requiredPrimaryType>mgnl:metaData</requiredPrimaryType>
-          </requiredPrimaryTypes>
-        </childNodeDefinition>
-    </nodeType>
-
-    <nodeType name="dataItem" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
-        <supertypes>
-            <supertype>dataItemBase</supertype>
-      </supertypes>
-      <childNodeDefinition name="MetaData" defaultPrimaryType="mgnl:metaData" autoCreated="true" mandatory="true" onParentVersion="COPY" protected="false" sameNameSiblings="false">
-        <requiredPrimaryTypes>
-          <requiredPrimaryType>mgnl:metaData</requiredPrimaryType>
-        </requiredPrimaryTypes>
-      </childNodeDefinition>
-    </nodeType>
-
-    <nodeType name="dataItemNode" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
-        <supertypes>
-            <supertype>dataItemBase</supertype>
-        </supertypes>
-    </nodeType>
-
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<nodeTypes xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:fn_old="http://www.w3.org/2004/10/xpath-functions" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:jcrfn="http://www.jcp.org/jcr/xpath-functions/1.0" xmlns:mgnl="http://www.magnolia.info/jcr/mgnl" xmlns:mix="http://www.jcp.org/jcr/mix/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:rep="internal" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="mgnl:content" primaryItemName="">
+    <supertypes>
+      <supertype>mix:referenceable</supertype>
+      <supertype>nt:hierarchyNode</supertype>
+      <supertype>mgnl:activatable</supertype>
+      <supertype>mgnl:created</supertype>
+      <supertype>mgnl:lastModified</supertype>
+      <supertype>mgnl:renderable</supertype>
+      <supertype>mgnl:versionable</supertype>
+    </supertypes>
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="*" onParentVersion="COPY" protected="false" requiredType="undefined" />
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="true" name="*" onParentVersion="COPY" protected="false" requiredType="undefined" />
+    <childNodeDefinition autoCreated="false" defaultPrimaryType="" mandatory="false" name="*" onParentVersion="COPY" protected="false" sameNameSiblings="true">
+      <requiredPrimaryTypes>
+        <requiredPrimaryType>nt:base</requiredPrimaryType>
+      </requiredPrimaryTypes>
+    </childNodeDefinition>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="false" isAbstract="false" isMixin="true" isQueryable="true" name="mgnl:deleted" primaryItemName="">
+    <supertypes>
+      <supertype>mgnl:versionable</supertype>
+    </supertypes>
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="mgnl:deleted" onParentVersion="COPY" protected="false" requiredType="Date" />
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="mgnl:deletedBy" onParentVersion="COPY" protected="false" requiredType="String" />
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="dataBase" primaryItemName="">
+    <supertypes>
+      <supertype>mix:referenceable</supertype>
+      <supertype>nt:hierarchyNode</supertype>
+      <supertype>mgnl:created</supertype>
+      <supertype>mgnl:lastModified</supertype>
+    </supertypes>
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="*" onParentVersion="COPY" protected="false" requiredType="undefined" />
+    <childNodeDefinition autoCreated="false" defaultPrimaryType="" mandatory="false" name="*" onParentVersion="COPY" protected="false" sameNameSiblings="true">
+      <requiredPrimaryTypes>
+        <requiredPrimaryType>nt:base</requiredPrimaryType>
+      </requiredPrimaryTypes>
+    </childNodeDefinition>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="dataItemBase" primaryItemName="">
+    <supertypes>
+      <supertype>dataBase</supertype>
+    </supertypes>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="dataItem" primaryItemName="">
+    <supertypes>
+      <supertype>dataItemBase</supertype>
+      <supertype>mgnl:activatable</supertype>
+      <supertype>mgnl:versionable</supertype>
+    </supertypes>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="mgnl:group" primaryItemName="">
+    <supertypes>
+      <supertype>mgnl:content</supertype>
+    </supertypes>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="false" isAbstract="false" isMixin="false" isQueryable="true" name="mgnl:resource" primaryItemName="">
+    <supertypes>
+      <supertype>nt:resource</supertype>
+      <supertype>mgnl:created</supertype>
+      <supertype>mgnl:lastModified</supertype>
+    </supertypes>
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="*" onParentVersion="COPY" protected="false" requiredType="undefined" />
+  </nodeType>
+  <nodeType hasOrderableChildNodes="false" isAbstract="false" isMixin="false" isQueryable="true" name="mgnl:messageProperties" primaryItemName="">
+    <supertypes>
+      <supertype>nt:hierarchyNode</supertype>
+    </supertypes>
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="*" onParentVersion="COPY" protected="false" requiredType="undefined" />
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="dataItemNode" primaryItemName="">
+    <supertypes>
+      <supertype>dataItemBase</supertype>
+      <supertype>mgnl:activatable</supertype>
+    </supertypes>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="mgnl:category" primaryItemName="">
+    <supertypes>
+      <supertype>mgnl:content</supertype>
+    </supertypes>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="false" isAbstract="false" isMixin="true" isQueryable="true" name="mgnl:activatable" primaryItemName="">
+    <supertypes>
+      <supertype>nt:base</supertype>
+    </supertypes>
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="mgnl:lastActivatedBy" onParentVersion="COPY" protected="false" requiredType="String" />
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="mgnl:lastActivated" onParentVersion="COPY" protected="false" requiredType="Date" />
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="mgnl:activationStatus" onParentVersion="COPY" protected="false" requiredType="String" />
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="mgnl:component" primaryItemName="">
+    <supertypes>
+      <supertype>mgnl:contentNode</supertype>
+    </supertypes>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="mgnl:favoriteGroup" primaryItemName="">
+    <supertypes>
+      <supertype>mgnl:folder</supertype>
+    </supertypes>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="mgnl:workItem" primaryItemName="">
+    <supertypes>
+      <supertype>nt:hierarchyNode</supertype>
+    </supertypes>
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="*" onParentVersion="COPY" protected="false" requiredType="undefined" />
+    <childNodeDefinition autoCreated="false" defaultPrimaryType="" mandatory="false" name="*" onParentVersion="VERSION" protected="false" sameNameSiblings="true">
+      <requiredPrimaryTypes>
+        <requiredPrimaryType>nt:hierarchyNode</requiredPrimaryType>
+      </requiredPrimaryTypes>
+    </childNodeDefinition>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="mgnl:contentNode" primaryItemName="">
+    <supertypes>
+      <supertype>mix:referenceable</supertype>
+      <supertype>nt:hierarchyNode</supertype>
+      <supertype>mgnl:created</supertype>
+      <supertype>mgnl:lastModified</supertype>
+      <supertype>mgnl:renderable</supertype>
+    </supertypes>
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="*" onParentVersion="COPY" protected="false" requiredType="undefined" />
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="true" name="*" onParentVersion="COPY" protected="false" requiredType="undefined" />
+    <childNodeDefinition autoCreated="false" defaultPrimaryType="" mandatory="false" name="*" onParentVersion="COPY" protected="false" sameNameSiblings="true">
+      <requiredPrimaryTypes>
+        <requiredPrimaryType>nt:base</requiredPrimaryType>
+      </requiredPrimaryTypes>
+    </childNodeDefinition>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="false" isAbstract="false" isMixin="true" isQueryable="true" name="mgnl:renderable" primaryItemName="">
+    <supertypes>
+      <supertype>nt:base</supertype>
+    </supertypes>
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="mgnl:template" onParentVersion="COPY" protected="false" requiredType="String" />
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="mgnl:role" primaryItemName="">
+    <supertypes>
+      <supertype>mgnl:content</supertype>
+    </supertypes>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="mgnl:asset" primaryItemName="">
+    <supertypes>
+      <supertype>mix:referenceable</supertype>
+      <supertype>nt:hierarchyNode</supertype>
+      <supertype>mgnl:activatable</supertype>
+      <supertype>mgnl:created</supertype>
+      <supertype>mgnl:lastModified</supertype>
+      <supertype>mgnl:versionable</supertype>
+    </supertypes>
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="master" onParentVersion="COPY" protected="false" requiredType="WeakReference" />
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="true" name="*" onParentVersion="COPY" protected="false" requiredType="undefined" />
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="*" onParentVersion="COPY" protected="false" requiredType="undefined" />
+    <childNodeDefinition autoCreated="false" defaultPrimaryType="" mandatory="false" name="*" onParentVersion="COPY" protected="false" sameNameSiblings="true">
+      <requiredPrimaryTypes>
+        <requiredPrimaryType>nt:base</requiredPrimaryType>
+      </requiredPrimaryTypes>
+    </childNodeDefinition>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="mgnl:area" primaryItemName="">
+    <supertypes>
+      <supertype>mgnl:contentNode</supertype>
+    </supertypes>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="dataFolder" primaryItemName="">
+    <supertypes>
+      <supertype>dataBase</supertype>
+      <supertype>mgnl:activatable</supertype>
+    </supertypes>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="mgnl:workflowInstance" primaryItemName="">
+    <supertypes>
+      <supertype>nt:hierarchyNode</supertype>
+    </supertypes>
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="*" onParentVersion="COPY" protected="false" requiredType="undefined" />
+    <childNodeDefinition autoCreated="false" defaultPrimaryType="" mandatory="false" name="*" onParentVersion="VERSION" protected="false" sameNameSiblings="true">
+      <requiredPrimaryTypes>
+        <requiredPrimaryType>nt:hierarchyNode</requiredPrimaryType>
+      </requiredPrimaryTypes>
+    </childNodeDefinition>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="mgnl:user" primaryItemName="">
+    <supertypes>
+      <supertype>mgnl:content</supertype>
+    </supertypes>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="mgnl:page" primaryItemName="">
+    <supertypes>
+      <supertype>mgnl:content</supertype>
+    </supertypes>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="mgnl:contact" primaryItemName="">
+    <supertypes>
+      <supertype>mgnl:content</supertype>
+    </supertypes>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="false" isAbstract="false" isMixin="true" isQueryable="true" name="mgnl:created" primaryItemName="">
+    <supertypes>
+      <supertype>nt:base</supertype>
+    </supertypes>
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="mgnl:createdBy" onParentVersion="COPY" protected="false" requiredType="String" />
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="mgnl:created" onParentVersion="COPY" protected="false" requiredType="Date" />
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="mgnl:metaData" primaryItemName="">
+    <supertypes>
+      <supertype>mix:referenceable</supertype>
+      <supertype>nt:hierarchyNode</supertype>
+    </supertypes>
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="*" onParentVersion="COPY" protected="false" requiredType="undefined" />
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="mgnl:favorite" primaryItemName="">
+    <supertypes>
+      <supertype>nt:base</supertype>
+    </supertypes>
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="*" onParentVersion="COPY" protected="false" requiredType="undefined" />
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="true" name="*" onParentVersion="COPY" protected="false" requiredType="undefined" />
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="mgnl:folder" primaryItemName="">
+    <supertypes>
+      <supertype>mix:referenceable</supertype>
+      <supertype>nt:folder</supertype>
+      <supertype>mgnl:activatable</supertype>
+      <supertype>mgnl:created</supertype>
+      <supertype>mgnl:lastModified</supertype>
+    </supertypes>
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="*" onParentVersion="COPY" protected="false" requiredType="undefined" />
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="true" name="*" onParentVersion="COPY" protected="false" requiredType="undefined" />
+    <childNodeDefinition autoCreated="false" defaultPrimaryType="" mandatory="false" name="*" onParentVersion="COPY" protected="false" sameNameSiblings="true">
+      <requiredPrimaryTypes>
+        <requiredPrimaryType>nt:base</requiredPrimaryType>
+      </requiredPrimaryTypes>
+    </childNodeDefinition>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="mgnl:systemMessage" primaryItemName="">
+    <supertypes>
+      <supertype>mgnl:content</supertype>
+    </supertypes>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="false" isAbstract="false" isMixin="false" isQueryable="true" name="mgnl:message" primaryItemName="mgnl:message">
+    <supertypes>
+      <supertype>mix:versionable</supertype>
+      <supertype>nt:base</supertype>
+    </supertypes>
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="true" multiple="false" name="authorId" onParentVersion="COPY" protected="false" requiredType="String" />
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="inReplyTo" onParentVersion="COPY" protected="false" requiredType="Reference" />
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="renderedContent" onParentVersion="COPY" protected="false" requiredType="String" />
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="true" name="*" onParentVersion="COPY" protected="false" requiredType="undefined" />
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="true" multiple="false" name="content" onParentVersion="COPY" protected="false" requiredType="String" />
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="title" onParentVersion="COPY" protected="false" requiredType="String" />
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="modificationDate" onParentVersion="COPY" protected="false" requiredType="Date" />
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="true" multiple="false" name="creationDate" onParentVersion="COPY" protected="false" requiredType="Date" />
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="*" onParentVersion="COPY" protected="false" requiredType="undefined" />
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="validated" onParentVersion="COPY" protected="false" requiredType="Boolean" />
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="anonymousUsername" onParentVersion="COPY" protected="false" requiredType="String" />
+    <childNodeDefinition autoCreated="false" defaultPrimaryType="mgnl:message" mandatory="false" name="*" onParentVersion="COPY" protected="false" sameNameSiblings="true">
+      <requiredPrimaryTypes>
+        <requiredPrimaryType>mgnl:message</requiredPrimaryType>
+      </requiredPrimaryTypes>
+    </childNodeDefinition>
+    <childNodeDefinition autoCreated="true" defaultPrimaryType="mgnl:messageProperties" mandatory="true" name="properties" onParentVersion="COPY" protected="false" sameNameSiblings="false">
+      <requiredPrimaryTypes>
+        <requiredPrimaryType>mgnl:messageProperties</requiredPrimaryType>
+      </requiredPrimaryTypes>
+    </childNodeDefinition>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="true" isAbstract="false" isMixin="false" isQueryable="true" name="mgnl:reserve" primaryItemName="">
+    <supertypes>
+      <supertype>nt:hierarchyNode</supertype>
+    </supertypes>
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="*" onParentVersion="COPY" protected="false" requiredType="undefined" />
+    <childNodeDefinition autoCreated="false" defaultPrimaryType="" mandatory="false" name="*" onParentVersion="COPY" protected="false" sameNameSiblings="true">
+      <requiredPrimaryTypes>
+        <requiredPrimaryType>nt:base</requiredPrimaryType>
+      </requiredPrimaryTypes>
+    </childNodeDefinition>
+  </nodeType>
+  <nodeType hasOrderableChildNodes="false" isAbstract="false" isMixin="true" isQueryable="true" name="mgnl:lastModified" primaryItemName="">
+    <supertypes>
+      <supertype>nt:base</supertype>
+    </supertypes>
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="mgnl:lastModifiedBy" onParentVersion="COPY" protected="false" requiredType="String" />
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="mgnl:lastModified" onParentVersion="COPY" protected="false" requiredType="Date" />
+  </nodeType>
+  <nodeType hasOrderableChildNodes="false" isAbstract="false" isMixin="true" isQueryable="true" name="mgnl:versionable" primaryItemName="">
+    <supertypes>
+      <supertype>nt:base</supertype>
+    </supertypes>
+    <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="false" multiple="false" name="mgnl:comment" onParentVersion="COPY" protected="false" requiredType="String" />
+  </nodeType>
 </nodeTypes>

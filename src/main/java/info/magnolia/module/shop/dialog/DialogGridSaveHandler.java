@@ -39,20 +39,24 @@ import info.magnolia.cms.core.ItemType;
 import info.magnolia.cms.gui.control.ControlImpl;
 import info.magnolia.cms.security.AccessDeniedException;
 import info.magnolia.cms.util.ContentUtil;
-import info.magnolia.cms.util.FactoryUtil;
 import info.magnolia.content2bean.Bean2ContentProcessor;
 import info.magnolia.content2bean.Content2BeanException;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.context.WebContext;
 import info.magnolia.module.admininterface.FieldSaveHandler;
 import info.magnolia.module.shop.util.SimpleBean2ContentProcessorImpl;
+import info.magnolia.objectfactory.Components;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
 import javax.jcr.PropertyType;
 import javax.jcr.RepositoryException;
+
 import net.sf.json.JSONArray;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,7 +70,6 @@ public class DialogGridSaveHandler implements FieldSaveHandler {
     private static Logger log = LoggerFactory.getLogger(DialogGridSaveHandler.class);
 
     /**
-     * 
      * @param parentNode
      * @param configNode
      * @param name
@@ -139,7 +142,7 @@ public class DialogGridSaveHandler implements FieldSaveHandler {
             }
             try {
                 log.debug("data: " + data);
-                Bean2ContentProcessor b2cp = (Bean2ContentProcessor) FactoryUtil.getSingleton(SimpleBean2ContentProcessorImpl.class);
+                Bean2ContentProcessor b2cp = (Bean2ContentProcessor) Components.getSingleton(SimpleBean2ContentProcessorImpl.class);
                 Content node = ContentUtil.getContent(parentNode, name); //parentNode.getContent(name);
                 if (node != null) {
                     // delete the old content node

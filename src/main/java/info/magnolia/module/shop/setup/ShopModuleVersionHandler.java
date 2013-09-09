@@ -33,16 +33,16 @@
  */
 package info.magnolia.module.shop.setup;
 
-import static info.magnolia.nodebuilder.Ops.addNode;
-import static info.magnolia.nodebuilder.Ops.addProperty;
-import static info.magnolia.nodebuilder.Ops.getNode;
-import static info.magnolia.nodebuilder.Ops.setProperty;
+import static info.magnolia.nodebuilder.Ops.*;
+
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.core.ItemType;
 import info.magnolia.cms.core.MgnlNodeType;
+import info.magnolia.dam.setup.migration.ChangeDataReferenceToDamMigrationTask;
+import info.magnolia.dam.setup.migration.CleanContentForDamMigrationTask;
+import info.magnolia.dam.setup.migration.MoveDataWorkspaceToDamMigrationTask;
+import info.magnolia.dam.setup.migration.MoveUploadedContentToDamMigrationTask;
 import info.magnolia.module.InstallContext;
-import info.magnolia.module.admininterface.setup.AddMainMenuItemTask;
-import info.magnolia.module.admininterface.setup.AddSubMenuItemTask;
 import info.magnolia.module.admininterface.setup.SimpleContentVersionHandler;
 import info.magnolia.module.data.setup.RegisterNodeTypeTask;
 import info.magnolia.module.delta.AbstractTask;
@@ -56,7 +56,6 @@ import info.magnolia.module.delta.IsInstallSamplesTask;
 import info.magnolia.module.delta.IsModuleInstalledOrRegistered;
 import info.magnolia.module.delta.ModuleDependencyBootstrapTask;
 import info.magnolia.module.delta.NodeExistsDelegateTask;
-import info.magnolia.module.delta.OrderNodeBeforeTask;
 import info.magnolia.module.delta.RemoveNodeTask;
 import info.magnolia.module.delta.RenamePropertyAllModulesNodeTask;
 import info.magnolia.module.delta.SetPropertyTask;
@@ -68,9 +67,11 @@ import info.magnolia.module.templatingkit.resources.STKResourceModel;
 import info.magnolia.nodebuilder.task.ErrorHandling;
 import info.magnolia.nodebuilder.task.NodeBuilderTask;
 import info.magnolia.repository.RepositoryConstants;
+import info.magnolia.ui.dialog.setup.DialogMigrationTask;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.jcr.ImportUUIDBehavior;
@@ -84,20 +85,6 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
     public ShopModuleVersionHandler() {
 
         register(DeltaBuilder.update("1.1", "").addTask(new ShopMigrationTask("Migration task: migrate Shop configuration", "Migrate configuration of templates, dialogs and site definitions", "shop", false, new ArrayList<String>())) // This task fails when trying to install on 4.5 as all theme images have been moved to the resources repository!
-                //                .addTask (new AbstractTask("Register new DMS Images", "Import all bootstrap files containing the new DMS images.") {
-                //
-                //                    public void execute(InstallContext ctx) throws TaskExecutionException {
-                //                        try {
-                //                            ctx.getJCRSession("dms").importXML("/templating-kit/pop/img", getClass().getResourceAsStream("/mgnl-bootstrap/shop/resources.templating-kit.themes.pop.img.shop.xml"), ImportUUIDBehavior.IMPORT_UUID_COLLISION_REMOVE_EXISTING);
-                //                        }
-                //                        catch (RepositoryException e) {
-                //                            throw new TaskExecutionException("Can not bootstrap new DMS Images: ",e);
-                //                        }
-                //                        catch (IOException e) {
-                //                            throw new TaskExecutionException("Can not bootstrap new DMS Images: ",e);
-                //                        }
-                //                    }
-                //                })
                 .addTask(new CheckAndModifyPropertyValueTask("Add Shop Form Model", "", RepositoryConstants.CONFIG,
                 "/modules/shop/templates/components/features/shopForm", "modelClass",
                 "info.magnolia.module.form.templates.components.FormModel", "info.magnolia.module.shop.paragraphs.ShopFormModel")).addTask(new RemoveNodeTask("Remove obsolete extras tabLinkList", "", RepositoryConstants.CONFIG, "/modules/shop/dialogs/extras/shopExtrasProduct/tabLinkList")).addTask(new RemoveNodeTask("Remove obsolete teasers tabLinkList", "", RepositoryConstants.CONFIG, "/modules/shop/dialogs/teasers/shopProductTeaser/tabLinkList")));
@@ -189,6 +176,16 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
                 .addTask(new RenamePropertyAllModulesNodeTask("Rename obsolete properties", "Use extends instead of reference", "dialogs", "reference", "extends"))
         );
 
+        register(DeltaBuilder.update("2.0.0", "")
+                .addTask(new MoveDataWorkspaceToDamMigrationTask("Migration task: Migrate DMS content to DAM", "Migrate DMS to DAM", Arrays.asList("/sampleShop"), null, "dms"))
+                .addTask(new ChangeDataReferenceToDamMigrationTask("Images to DAM migration", "Migrates image references from DMS to DAM", "website", Arrays.asList("/demo-features/modules/sample-shop")))
+                .addTask(new MoveUploadedContentToDamMigrationTask("Migration task: Migrate Uploaded content to DAM repository", "", "website",
+                        Arrays.asList("/demo-features/modules/sample-shop"), "/shop_uploaded"))
+                .addTask(
+                        new CleanContentForDamMigrationTask("Migration task: Clean Content repository", "", "website", Arrays.asList("/demo-features/modules/sample-shop")))
+                .addTask(new DialogMigrationTask("shop"))
+                .addTask(new DialogMigrationTask("data")));
+
     }
 
     /**
@@ -201,6 +198,7 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
     protected List getBasicInstallTasks(InstallContext installContext) {
         final List<Task> installTasks = new ArrayList<Task>();
         // make sure we register the type before doing anything else
+        installTasks.add(new RegisterNodeTypeTask("category"));
         installTasks.add(new RegisterNodeTypeTask("shop"));
         installTasks.add(new RegisterNodeTypeTask("shopCurrencies"));
         installTasks.add(new RegisterNodeTypeTask("shopCurrency"));
@@ -225,9 +223,11 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
         final List installTasks = new ArrayList();
         installTasks.addAll(super.getExtraInstallTasks(installContext));
         installTasks.add(new TemplatesInstallTask("/shop/.*\\.ftl", true));
-        installTasks.add(new AddMainMenuItemTask("shops", "menu.shops", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shop')", "/.resources/icons/24/shoppingcart.gif", "data"));
-        installTasks.add(new AddSubMenuItemTask("shops", "shoppingCarts", "menu.carts", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shoppingCarts')", "/.resources/icons/16/dot.gif"));
-        installTasks.add(new IsInstallSamplesTask("", "", new OrderNodeBeforeTask("", "", RepositoryConstants.CONFIG, "/modules/adminInterface/config/menu/sampleShop", "shops")));
+
+        // TODO: booboostrap + node order
+        // installTasks.add(new AddMainMenuItemTask("shops", "menu.shops", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shop')", "/.resources/icons/24/shoppingcart.gif", "data"));
+        // installTasks.add(new AddSubMenuItemTask("shops", "shoppingCarts", "menu.carts", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shoppingCarts')", "/.resources/icons/16/dot.gif"));
+        // installTasks.add(new IsInstallSamplesTask("", "", new OrderNodeBeforeTask("", "", RepositoryConstants.CONFIG, "/modules/adminInterface/config/menu/sampleShop", "shops")));
         installTasks.add(new InstallResourcesTask("/templating-kit/themes/pop/css/shop.css", "resources:processedCss", STKResourceModel.class.getName()));
         installTasks.add(new NodeExistsDelegateTask("Install shop templates", "Install shop templates under Site Configuration", "config", "/modules/standard-templating-kit/config/site/", new NodeBuilderTask("", "", ErrorHandling.strict, "config", "/modules/standard-templating-kit/config/site/",
                 getNode("templates/availability/templates").then(
@@ -291,11 +291,6 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
                 addProperty("i18nBasename", "info.magnolia.module.shop.messages"),
                 addProperty("label", "dialogs.generic.tabCategorization.categories.label"),
                 addProperty("description", "dialogs.generic.tabCategorization.categories.description")))))));
-        installTasks.add(new IsModuleInstalledOrRegistered("Set multilanguage on categorization",
-                "Display name in the site defined languages.", "categorization",
-                new NodeBuilderTask("", "", ErrorHandling.strict, "config",
-                getNode("modules/data/dialogs/category/mainTab/displayName").then(
-                setProperty("controlType", "shopMultiLanguageEdit")))));
 
         installTasks.add(new IsModuleInstalledOrRegistered("Add Keyword extras paragraph",
                 "Adds an autogenerated keyword paragraph in the extras area of ProductCategory template.", "categorization",

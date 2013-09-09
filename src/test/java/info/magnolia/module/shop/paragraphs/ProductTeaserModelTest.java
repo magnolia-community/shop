@@ -103,7 +103,7 @@ public class ProductTeaserModelTest {
         //GIVEN
         Node productNode = NodeUtil.getNodeByIdentifier("data", "productid");
         productNode.setProperty("productUUID", product.getIdentifier());
-        ProductTeaserModel model = new ProductTeaserModel(productNode, null, null, stkFunctions, null, null);
+        ProductTeaserModel model = new ProductTeaserModel(productNode, null, null, stkFunctions, null, null, null);
         //WHEN
         Node product = model.getProduct();
         //THEN

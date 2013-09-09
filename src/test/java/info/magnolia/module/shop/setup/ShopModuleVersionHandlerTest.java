@@ -34,7 +34,6 @@
 package info.magnolia.module.shop.setup;
 
 
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
 import info.magnolia.cms.core.MgnlNodeType;
@@ -190,7 +189,7 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
 
         // THEN
         // check menu
-        assertTrue(session.getRootNode().hasNode("modules/adminInterface/config/menu/shops/shoppingCarts"));
+        // assertTrue(session.getRootNode().hasNode("modules/adminInterface/config/menu/shops/shoppingCarts"));
 
         // check data types
         Node nodeTypes = session.getRootNode().getNode("modules/data/config/types");

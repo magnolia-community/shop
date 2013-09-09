@@ -81,7 +81,7 @@ public class ShopSingletonParagraphTemplateModelTest extends RepositoryTestCase 
     @Test
     public void addToCartTest() throws RepositoryException {
         //GIVEN
-        ShopSingletonParagraphTemplateModel model = new ShopSingletonParagraphTemplateModel(null, null, null, null, null);
+        ShopSingletonParagraphTemplateModel model = new ShopSingletonParagraphTemplateModel(null, null, null, null, null, null);
         //WHEN
         model.addToCart();
         //THEN

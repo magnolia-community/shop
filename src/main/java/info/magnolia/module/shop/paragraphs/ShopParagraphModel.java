@@ -231,8 +231,13 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
      */
     protected List<String> getKeys() {
         Node product = getProduct();
-        Node dmsFolder =  stkFunctions.getReferencedContent(product,
-                "imageDmsUUID", "dms");
+        Node dmsFolder = null;
+        try {
+            dmsFolder = stkFunctions.getReferencedContent(product,
+                    "imageDmsUUID", "dms");
+        } catch (RepositoryException e1) {
+            log.error("Failed to DMS retrieve folder with images with {}", new Object[] { e1.getMessage(), e1 });
+        }
         if (dmsFolder == null) {
             return new ArrayList<String>();
         }
@@ -291,7 +296,7 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
     protected List<Node> search() throws RepositoryException {
 
         List<Node> productList = new ArrayList<Node>();
-        String productCategory = MgnlContext.getAggregationState().getMainContent().getUUID();
+        String productCategory = MgnlContext.getAggregationState().getMainContentNode().getIdentifier();
         if (StringUtils.isNotEmpty(productCategory)) {
             productList = ShopProductAccesor.getProductsByProductCategory(productCategory);
         }
