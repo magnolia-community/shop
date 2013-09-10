@@ -184,6 +184,8 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
                         Arrays.asList("/demo-features/modules/sample-shop"), "/shop_uploaded"))
                 .addTask(
                         new CleanContentForDamMigrationTask("Migration task: Clean Content repository", "", "website", Arrays.asList("/demo-features/modules/sample-shop")))
+                .addTask(new ChangeDataReferenceToDamMigrationTask("DMS product image references to DAM migration", "Migrates product image references from DMS to DAM", "data", Arrays.asList("/shopProducts")))
+                .addTask(new MoveUploadedContentToDamMigrationTask("Uploaded product images to DAM migration", "Migrates uploaded shop product images to DAM", "data", Arrays.asList("/shopProducts"), "/shop_uploaded"))
                 .addTask(new DialogMigrationTask("shop"))
                 .addTask(new DialogMigrationTask("data")));
 

@@ -34,12 +34,10 @@
 package info.magnolia.module.shop.paragraphs;
 
 import info.magnolia.cms.core.MgnlNodeType;
-import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.SelectorUtil;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
-import info.magnolia.module.dms.beans.Document;
 import info.magnolia.module.shop.ShopConfiguration;
 import info.magnolia.module.shop.accessors.ShopAccesor;
 import info.magnolia.module.shop.accessors.ShopProductAccesor;
@@ -56,7 +54,6 @@ import info.magnolia.templating.functions.TemplatingFunctions;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.jcr.Node;
@@ -65,24 +62,21 @@ import javax.jcr.Property;
 import javax.jcr.RepositoryException;
 import javax.jcr.ValueFormatException;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Shop paragraph model, used on productdetail and productlist paragraphs.
- *
+ * 
  * @author tmiyar
- *
  */
 public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition> {
 
-
     private static Logger log = LoggerFactory
-    .getLogger(ShopParagraphModel.class);
+            .getLogger(ShopParagraphModel.class);
     private Node siteRoot = null;
-    protected static final String[] ALLOWED_IMAGE_TYPES = new String[]{"gif", "jpg", "jpeg", "png"};
+    protected static final String[] ALLOWED_IMAGE_TYPES = new String[] { "gif", "jpg", "jpeg", "png" };
 
     public ShopParagraphModel(Node content, TemplateDefinition definition,
             RenderingModel<?> parent, STKTemplatingFunctions stkFunctions,
@@ -102,19 +96,18 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
 
     /**
      * Gets product selected from the url, using selector.
-     *
      */
     public Node getProduct() {
 
         Node product;
         try {
             String productId = SelectorUtil.getSelector(2);
-            if(StringUtils.isNotEmpty(productId)){
+            if (StringUtils.isNotEmpty(productId)) {
                 product = new ShopProductAccesor(productId).getNode();
                 return product;
             }
         } catch (Exception e) {
-            //item not found
+            // item not found
         }
 
         return null;
@@ -129,7 +122,7 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
 
             Node currency = ShopUtil.getCurrencyByUUID(PropertyUtil.getString(
                     priceCategory, "currencyUUID"));
-            Node tax = getTaxByUUID(PropertyUtil.getString(product,"taxCategoryUUID"));
+            Node tax = getTaxByUUID(PropertyUtil.getString(product, "taxCategoryUUID"));
 
             TemplateProductPriceBean bean = new TemplateProductPriceBean();
             bean.setFormatting(PropertyUtil.getString(currency, "formatting"));
@@ -155,7 +148,7 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
         try {
             optionSets = new ArrayList<Node>(templatingFunctions.children(product, "shopProductOptions"));
         } catch (RepositoryException e) {
-            log.error("Cant get product options ",e);
+            log.error("Cant get product options ", e);
             return null;
         }
         return ShopUtil.transformIntoI18nContentList(optionSets);
@@ -164,9 +157,9 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
     public Collection<Node> getOptions(Node option) {
         ArrayList<Node> options = null;
         try {
-            options = new ArrayList<Node>(templatingFunctions.children(option,"shopProductOption"));
+            options = new ArrayList<Node>(templatingFunctions.children(option, "shopProductOption"));
         } catch (RepositoryException e) {
-            log.error("Cant get product options ",e);
+            log.error("Cant get product options ", e);
             return null;
         }
         return ShopUtil.transformIntoI18nContentList(options);
@@ -195,12 +188,12 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
         if (pricesNode.hasNodes()) {
             for (NodeIterator iterator = pricesNode.getNodes(); iterator.hasNext();) {
                 Node priceNode = (Node) iterator.next();
-                if(!priceNode.isNodeType(MgnlNodeType.NT_METADATA)) {
+                if (!priceNode.isNodeType(MgnlNodeType.NT_METADATA)) {
                     Node price = ShopUtil.wrapWithI18n(priceNode);
                     if (price.hasProperty("priceCategoryUUID") && PropertyUtil.getString(price, "priceCategoryUUID").equals(
                             priceCategoryUUID)) {
                         Property productPrice = PropertyUtil.getPropertyOrNull(price, "price");
-                        if(productPrice != null) {
+                        if (productPrice != null) {
                             return productPrice.getDouble();
                         }
                     }
@@ -226,44 +219,6 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
         return "";
     }
 
-    /**
-     * get images folder items.
-     */
-    protected List<String> getKeys() {
-        Node product = getProduct();
-        Node dmsFolder = null;
-        try {
-            dmsFolder = stkFunctions.getReferencedContent(product,
-                    "imageDmsUUID", "dms");
-        } catch (RepositoryException e1) {
-            log.error("Failed to DMS retrieve folder with images with {}", new Object[] { e1.getMessage(), e1 });
-        }
-        if (dmsFolder == null) {
-            return new ArrayList<String>();
-        }
-        List<String> keys = new ArrayList<String>();
-        try {
-            dmsFolder = dmsFolder.getParent();
-
-            Collection<Node> children = templatingFunctions.children(dmsFolder, "mgnl:contentNode");
-
-            for (Iterator<Node> iterator = children.iterator(); iterator.hasNext();) {
-                Node imageNode = iterator.next();
-                if (showImage(new Document(ContentUtil.asContent(imageNode)))) {
-                    keys.add(imageNode.getUUID());
-                }
-            }
-
-        } catch (Exception e) {
-
-        }
-        return keys;
-    }
-
-    protected boolean showImage(Document doc){
-        return ArrayUtils.contains(ALLOWED_IMAGE_TYPES, doc.getFileExtension().toLowerCase());
-    }
-
     public String getProductDetailPageLink(Node product) {
         try {
             return ShopLinkUtil.getProductDetailPageLink(templatingFunctions, product, siteRoot);
@@ -280,7 +235,7 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
     protected int getMaxResults() {
         try {
             if (content.hasProperty("maxResults")) {
-                return (int)content.getProperty("maxResults").getLong();
+                return (int) content.getProperty("maxResults").getLong();
             }
             return Integer.MAX_VALUE;
         } catch (RepositoryException e) {
