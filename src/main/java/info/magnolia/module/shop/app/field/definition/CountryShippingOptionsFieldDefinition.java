@@ -31,18 +31,17 @@
  * intact.
  *
  */
-package info.magnolia.module.shop;
+package info.magnolia.module.shop.app.field.definition;
+
+import info.magnolia.module.shop.app.field.definition.transformer.BasicPropertyTransformer;
+import info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition;
 
 /**
- * Shop repository constants.
+ * Field definition for country shipping options.
  */
-public class ShopRepositoryConstants {
+public class CountryShippingOptionsFieldDefinition extends OptionGroupFieldDefinition {
 
-    public static final String SHOPS = "shops";
-
-    public static final String SHOP_PRODUCTS = "shopProducts";
-
-    public static final String SHOPPING_CARTS = "shoppingCarts";
-
-    public static final String SHOP_SUPPLIERS = "shopSuppliers";
+    public CountryShippingOptionsFieldDefinition() {
+        setTransformerClass(BasicPropertyTransformer.class);
+    }
 }

@@ -16,7 +16,7 @@
     <sv:value>admin</sv:value>
   </sv:property>
   <sv:property sv:name="label" sv:type="String">
-    <sv:value>Shop</sv:value>
+    <sv:value>Manage shops</sv:value>
   </sv:property>
   <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
     <sv:value>false</sv:value>
@@ -31,13 +31,10 @@
     <sv:value>superuser</sv:value>
   </sv:property>
   <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-    <sv:value>2013-09-13T14:55:29.291+02:00</sv:value>
+    <sv:value>2013-10-26T22:03:38.680+02:00</sv:value>
   </sv:property>
   <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
     <sv:value>superuser</sv:value>
-  </sv:property>
-  <sv:property sv:name="permanent" sv:type="String">
-    <sv:value>true</sv:value>
   </sv:property>
   <sv:node sv:name="apps">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -56,7 +53,7 @@
       <sv:value>2012-07-12T17:16:49.747+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-      <sv:value>2012-07-12T17:16:52.333+02:00</sv:value>
+      <sv:value>2013-10-20T10:13:23.778+02:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
       <sv:value>superuser</sv:value>
@@ -125,6 +122,29 @@
       </sv:property>
       <sv:property sv:name="mgnl:lastModified" sv:type="Date">
         <sv:value>2013-09-13T13:02:34.609+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+    </sv:node>
+    <sv:node sv:name="shopSuppliers">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>27b02b02-32ff-4ca7-a647-d9796589b485</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:createdBy" sv:type="String">
+        <sv:value>admin</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:created" sv:type="Date">
+        <sv:value>2013-10-20T10:13:23.779+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:createdBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+        <sv:value>2013-10-20T10:13:37.469+02:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
         <sv:value>superuser</sv:value>

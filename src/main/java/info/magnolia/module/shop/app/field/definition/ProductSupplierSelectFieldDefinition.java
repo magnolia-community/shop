@@ -31,18 +31,13 @@
  * intact.
  *
  */
-package info.magnolia.module.shop;
+package info.magnolia.module.shop.app.field.definition;
+
+import info.magnolia.ui.form.field.definition.SelectFieldDefinition;
 
 /**
- * Shop repository constants.
+ * Field definition for product supplier.
  */
-public class ShopRepositoryConstants {
+public class ProductSupplierSelectFieldDefinition extends SelectFieldDefinition {
 
-    public static final String SHOPS = "shops";
-
-    public static final String SHOP_PRODUCTS = "shopProducts";
-
-    public static final String SHOPPING_CARTS = "shoppingCarts";
-
-    public static final String SHOP_SUPPLIERS = "shopSuppliers";
 }
