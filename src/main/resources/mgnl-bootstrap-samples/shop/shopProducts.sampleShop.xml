@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sv:node sv:name="sampleShop" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <sv:property sv:name="jcr:primaryType" sv:type="Name">
-    <sv:value>dataFolder</sv:value>
+    <sv:value>mgnl:folder</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:mixinTypes" sv:type="Name" sv:multiple="true">
     <sv:value>mix:lockable</sv:value>
@@ -23,7 +23,7 @@
   </sv:property>
   <sv:node sv:name="Books-and-Music">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
-      <sv:value>dataFolder</sv:value>
+      <sv:value>mgnl:folder</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:mixinTypes" sv:type="Name" sv:multiple="true">
       <sv:value>mix:lockable</sv:value>
@@ -1882,7 +1882,7 @@
   </sv:node>
   <sv:node sv:name="Outdoors">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
-      <sv:value>dataFolder</sv:value>
+      <sv:value>mgnl:folder</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:mixinTypes" sv:type="Name" sv:multiple="true">
       <sv:value>mix:lockable</sv:value>
@@ -1904,7 +1904,7 @@
     </sv:property>
     <sv:node sv:name="Socks">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
-        <sv:value>dataFolder</sv:value>
+        <sv:value>mgnl:folder</sv:value>
       </sv:property>
       <sv:property sv:name="jcr:mixinTypes" sv:type="Name" sv:multiple="true">
         <sv:value>mix:lockable</sv:value>
@@ -2081,7 +2081,7 @@
     </sv:node>
     <sv:node sv:name="Shorts">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
-        <sv:value>dataFolder</sv:value>
+        <sv:value>mgnl:folder</sv:value>
       </sv:property>
       <sv:property sv:name="jcr:mixinTypes" sv:type="Name" sv:multiple="true">
         <sv:value>mix:lockable</sv:value>
@@ -2255,7 +2255,7 @@
     </sv:node>
     <sv:node sv:name="Jackets">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
-        <sv:value>dataFolder</sv:value>
+        <sv:value>mgnl:folder</sv:value>
       </sv:property>
       <sv:property sv:name="jcr:mixinTypes" sv:type="Name" sv:multiple="true">
         <sv:value>mix:lockable</sv:value>
@@ -2429,7 +2429,7 @@
     </sv:node>
     <sv:node sv:name="Mountain-Bikes">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
-        <sv:value>dataFolder</sv:value>
+        <sv:value>mgnl:folder</sv:value>
       </sv:property>
       <sv:property sv:name="jcr:mixinTypes" sv:type="Name" sv:multiple="true">
         <sv:value>mix:lockable</sv:value>
@@ -2911,7 +2911,7 @@
     </sv:node>
     <sv:node sv:name="Road-Bikes">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
-        <sv:value>dataFolder</sv:value>
+        <sv:value>mgnl:folder</sv:value>
       </sv:property>
       <sv:property sv:name="jcr:mixinTypes" sv:type="Name" sv:multiple="true">
         <sv:value>mix:lockable</sv:value>
@@ -3239,7 +3239,7 @@
     </sv:node>
     <sv:node sv:name="Accessories">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
-        <sv:value>dataFolder</sv:value>
+        <sv:value>mgnl:folder</sv:value>
       </sv:property>
       <sv:property sv:name="jcr:mixinTypes" sv:type="Name" sv:multiple="true">
         <sv:value>mix:lockable</sv:value>
@@ -3707,7 +3707,7 @@
   </sv:node>
   <sv:node sv:name="Family">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
-      <sv:value>dataFolder</sv:value>
+      <sv:value>mgnl:folder</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:mixinTypes" sv:type="Name" sv:multiple="true">
       <sv:value>mix:lockable</sv:value>
@@ -3878,7 +3878,7 @@
   </sv:node>
   <sv:node sv:name="Home-and-Garden">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
-      <sv:value>dataFolder</sv:value>
+      <sv:value>mgnl:folder</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:mixinTypes" sv:type="Name" sv:multiple="true">
       <sv:value>mix:lockable</sv:value>
