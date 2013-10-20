@@ -38,7 +38,7 @@ import info.magnolia.ui.contentapp.setup.AbstractDataTypeMigrationTask;
 import java.util.HashMap;
 
 /**
- *
+ * Migrate shop suppliers to the new workspace.
  */
 public class MoveShopSuppliersToWorkspace extends AbstractDataTypeMigrationTask {
 
