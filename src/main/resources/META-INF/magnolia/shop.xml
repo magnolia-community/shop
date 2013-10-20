@@ -62,6 +62,7 @@
         <workspace>shoppingCarts</workspace>
         <workspace>shops</workspace>
         <workspace>shopProducts</workspace>
+        <workspace>shopSuppliers</workspace>
       </workspaces>
     </repository>
   </repositories>
