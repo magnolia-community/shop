@@ -33,7 +33,7 @@
  */
 package info.magnolia.module.shop.app.field.definition;
 
-import info.magnolia.module.shop.app.field.definition.transformer.ProductCategoriesTransformer;
+import info.magnolia.module.shop.app.field.definition.transformer.BasicPropertyTransformer;
 import info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition;
 
 /**
@@ -46,7 +46,7 @@ public class ProductCategoriesFieldDefinition extends OptionGroupFieldDefinition
     private String subcategory = "product-category";
 
     public ProductCategoriesFieldDefinition() {
-        setTransformerClass(ProductCategoriesTransformer.class);
+        setTransformerClass(BasicPropertyTransformer.class);
     }
 
     public String getCategory() {

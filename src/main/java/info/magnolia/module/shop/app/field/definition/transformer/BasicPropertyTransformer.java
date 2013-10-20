@@ -58,16 +58,16 @@ import com.vaadin.data.Item;
  * Transformer for product categories. Categories are saved like this:
  * <pre>
  * (+) product
- *    (+) productCategoryUUIDs
+ *    (+) fieldName
  *       - 0=uuid
  *       - 1=uuid
  * </pre>
  */
-public class ProductCategoriesTransformer extends BasicTransformer<Set<String>> {
+public class BasicPropertyTransformer extends BasicTransformer<Set<String>> {
 
-    private static final Logger log = LoggerFactory.getLogger(ProductCategoriesTransformer.class);
+    private static final Logger log = LoggerFactory.getLogger(BasicPropertyTransformer.class);
 
-    public ProductCategoriesTransformer(Item relatedFormItem, ConfiguredFieldDefinition definition, Class<Set<String>> type) {
+    public BasicPropertyTransformer(Item relatedFormItem, ConfiguredFieldDefinition definition, Class<Set<String>> type) {
         super(relatedFormItem, definition, type);
     }
 
@@ -75,7 +75,7 @@ public class ProductCategoriesTransformer extends BasicTransformer<Set<String>> 
     public Set<String> readFromItem() {
         Set<String> uuids = new HashSet<String>();
         try {
-            Node node = getProductCategoryUUIDsNode();
+            Node node = getFieldNode(definition.getName());
             if (node != null) {
                 PropertyIterator it = new JCRMgnlPropertiesFilteringNodeWrapper(node).getProperties();
                 while (it.hasNext()) {
@@ -92,7 +92,7 @@ public class ProductCategoriesTransformer extends BasicTransformer<Set<String>> 
 
     @Override
     public void writeToItem(Set<String> newValue) {
-        JcrNodeAdapter rootItem = getRootItem();
+        JcrNodeAdapter rootItem = getNodeAdapter(definition.getName());
         rootItem.getChildren().clear();
         setNewProperties(rootItem, newValue);
         removeOldProperties(rootItem);
@@ -109,13 +109,15 @@ public class ProductCategoriesTransformer extends BasicTransformer<Set<String>> 
     }
 
     private void removeOldProperties(JcrNodeAdapter rootItem) {
-        Node node = getProductCategoryUUIDsNode();
+        Node node = getFieldNode(definition.getName());
         try {
-            PropertyIterator iter = new JCRMgnlPropertiesFilteringNodeWrapper(node).getProperties();
-            while (iter.hasNext()) {
-                String propertyName = iter.nextProperty().getName();
-                if (!rootItem.getItemPropertyIds().contains(propertyName)) {
-                    rootItem.removeItemProperty(propertyName);
+            if (node != null) {
+                PropertyIterator iter = new JCRMgnlPropertiesFilteringNodeWrapper(node).getProperties();
+                while (iter.hasNext()) {
+                    String propertyName = iter.nextProperty().getName();
+                    if (!rootItem.getItemPropertyIds().contains(propertyName)) {
+                        rootItem.removeItemProperty(propertyName);
+                    }
                 }
             }
         } catch (RepositoryException e) {
@@ -123,11 +125,11 @@ public class ProductCategoriesTransformer extends BasicTransformer<Set<String>> 
         }
     }
 
-    private Node getProductCategoryUUIDsNode() {
+    protected Node getFieldNode(String name) {
         Node node = ((JcrNodeAdapter) relatedFormItem).getJcrItem();
         try {
-            if (node.hasNode("productCategoryUUIDs")) {
-                return node.getNode("productCategoryUUIDs");
+            if (node.hasNode(name)) {
+                return node.getNode(name);
             }
         } catch (RepositoryException e) {
             log.error("Unable to obtain product category uuids from product " + node);
@@ -135,16 +137,16 @@ public class ProductCategoriesTransformer extends BasicTransformer<Set<String>> 
         return null;
     }
 
-    private JcrNodeAdapter getRootItem() {
+    protected JcrNodeAdapter getNodeAdapter(String name) {
         Node rootNode = ((JcrNodeAdapter) relatedFormItem).getJcrItem();
         try {
-            if (rootNode.hasNode("productCategoryUUIDs")) {
-                return new JcrNodeAdapter(rootNode.getNode("productCategoryUUIDs"));
+            if (rootNode.hasNode(name)) {
+                return new JcrNodeAdapter(rootNode.getNode(name));
             }
         } catch (RepositoryException e) {
             log.error("Unable to obtain [prices] node from " + rootNode);
             return null;
         }
-        return new JcrNewNodeAdapter(rootNode, NodeTypes.ContentNode.NAME, "productCategoryUUIDs");
+        return new JcrNewNodeAdapter(rootNode, NodeTypes.ContentNode.NAME, name);
     }
 }
