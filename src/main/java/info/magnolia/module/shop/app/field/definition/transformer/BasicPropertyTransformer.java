@@ -85,7 +85,7 @@ public class BasicPropertyTransformer extends BasicTransformer<Set<String>> {
                 }
             }
         } catch (RepositoryException e) {
-            log.error("Could not obtain product categories.", e);
+            log.error("Could not obtain node.", e);
         }
         return uuids;
     }
@@ -132,7 +132,7 @@ public class BasicPropertyTransformer extends BasicTransformer<Set<String>> {
                 return node.getNode(name);
             }
         } catch (RepositoryException e) {
-            log.error("Unable to obtain product category uuids from product " + node);
+            log.error("Unable to obtain node with name "+ name +  " from " + node);
         }
         return null;
     }
@@ -144,7 +144,7 @@ public class BasicPropertyTransformer extends BasicTransformer<Set<String>> {
                 return new JcrNodeAdapter(rootNode.getNode(name));
             }
         } catch (RepositoryException e) {
-            log.error("Unable to obtain [prices] node from " + rootNode);
+            log.error("Unable to obtain " + name + " node from " + rootNode);
             return null;
         }
         return new JcrNewNodeAdapter(rootNode, NodeTypes.ContentNode.NAME, name);
