@@ -128,9 +128,9 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
                 .addTask(new BootstrapSingleResource("Install", "shopSupplier tree", "/mgnl-bootstrap/shop/data-trees/config.modules.data.trees.shopSupplier.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING))
                 // other
                 .addTask(new NodeExistsDelegateTask("Check supplier root node", "Looks in the data repository for a \"shopSuppliers\" node on the top level", "data", "/shopSuppliers", null,
-                new CreateNodePathTask("Create node",
-                "Creates a \"shopSuppliers\" node in the data repository on the top level", "data", "/shopSuppliers",
-                new ItemType("dataFolder"))))
+                        new CreateNodePathTask("Create node",
+                                "Creates a \"shopSuppliers\" node in the data repository on the top level", "data", "/shopSuppliers",
+                                new ItemType("dataFolder"))))
                 // ocm move
                 .addTask(new BootstrapSingleResource("Bootstrap", "Installing ocm class descriptor for ",
                         "/mgnl-bootstrap/shop/ocm/config.modules.ocm.config.classDescriptors.defaultShoppingCart.xml",
@@ -190,6 +190,7 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
                 .addTask(new DialogMigrationTask("data"))
                 .addTask(new MoveShopProductsToWorkspace("Migrate products", "Migrate products to the new workspace", "/shopProducts", "/", "shopProducts"))
                 .addTask(new MoveShopsToWorkspace("Migrate shops", "Migrate shops to the new workspace", "/shops", "/", "shops"))
+                .addTask(new MoveShopSuppliersToWorkspace("Migrate shopSuppliers", "Migrate suppliers to the new workspace", "/shopSuppliers", "/", "shopSuppliers"))
         );
 
     }
