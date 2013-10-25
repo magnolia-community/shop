@@ -35,6 +35,7 @@ package info.magnolia.module.shop.app.field.factory;
 
 import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.jcr.util.PropertyUtil;
+import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.shop.app.field.definition.TaxCategoriesSelectFieldDefinition;
 import info.magnolia.ui.form.field.definition.SelectFieldOptionDefinition;
 import info.magnolia.ui.form.field.factory.SelectFieldFactory;
@@ -70,9 +71,9 @@ public class TaxCategoriesSelectFieldFactory extends SelectFieldFactory<TaxCateg
         List<SelectFieldOptionDefinition> res = new ArrayList<SelectFieldOptionDefinition>();
         Node productNode = ((JcrNodeAdapter) item).getJcrItem();
         try {
-            String shopName = StringUtils.substringBefore(StringUtils.substringAfter(productNode.getPath(), "/shopProducts/"), "/");
-            String sql = "select * from [shopTaxCategory] where isdescendantnode([/shops/" + shopName + "])";
-            NodeIterator iter = QueryUtil.search("data", sql, Query.JCR_SQL2, "shopTaxCategory");
+            String shopName = StringUtils.substringBefore(StringUtils.substringAfter(productNode.getPath(), "/"), "/");
+            String sql = "select * from [shopTaxCategory] where isdescendantnode([/" + shopName + "])";
+            NodeIterator iter = QueryUtil.search(ShopRepositoryConstants.SHOPS, sql, Query.JCR_SQL2, "shopTaxCategory");
             while (iter.hasNext()) {
                 Node taxNode = iter.nextNode();
                 SelectFieldOptionDefinition option = new SelectFieldOptionDefinition();

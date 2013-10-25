@@ -72,7 +72,7 @@ public class ProductCategoriesFieldFactory extends OptionGroupFieldFactory {
         if (item instanceof JcrNodeAdapter) {
             Node productNode = ((JcrNodeAdapter) item).getJcrItem();
             try {
-                String shopName = StringUtils.substringBefore(StringUtils.substringAfter(productNode.getPath(), "/shopProducts/"), "/");
+                String shopName = StringUtils.substringBefore(StringUtils.substringAfter(productNode.getPath(), "/"), "/");
                 List<Node> shopCategories = getShopAssociatedCategories(shopName);
 
                 for (Node category : shopCategories) {

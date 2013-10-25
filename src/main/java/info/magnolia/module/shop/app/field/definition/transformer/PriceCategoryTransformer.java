@@ -38,6 +38,7 @@ import info.magnolia.jcr.predicate.AbstractPredicate;
 import info.magnolia.jcr.util.NodeTypes;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
+import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.ui.form.field.definition.ConfiguredFieldDefinition;
 import info.magnolia.ui.form.field.transformer.basic.BasicTransformer;
 import info.magnolia.ui.vaadin.integration.jcr.DefaultProperty;
@@ -145,7 +146,7 @@ public class PriceCategoryTransformer extends BasicTransformer<PropertysetItem> 
     private boolean priceCategoryExists(Object priceCategoryUUID) {
         if (priceCategoryUUID instanceof String) {
             try {
-                return MgnlContext.getJCRSession("data").getNodeByIdentifier((String) priceCategoryUUID) != null;
+                return MgnlContext.getJCRSession(ShopRepositoryConstants.SHOPS).getNodeByIdentifier((String) priceCategoryUUID) != null;
             } catch (RepositoryException e) {
                 return false;
             }

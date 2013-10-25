@@ -35,8 +35,10 @@ package info.magnolia.module.shop.app.field;
 
 import info.magnolia.cms.i18n.I18nContentSupport;
 import info.magnolia.cms.util.QueryUtil;
+import info.magnolia.context.MgnlContext;
 import info.magnolia.i18nsystem.SimpleTranslator;
 import info.magnolia.jcr.util.PropertyUtil;
+import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.shop.app.field.definition.PriceCategoryFieldDefinition;
 import info.magnolia.objectfactory.ComponentProvider;
 import info.magnolia.ui.form.field.AbstractCustomMultiField;
@@ -133,14 +135,14 @@ public class PriceCategoryField extends AbstractCustomMultiField<PriceCategoryFi
         if (relatedFieldItem instanceof JcrNodeAdapter) {
             Node productNode = ((JcrNodeAdapter) relatedFieldItem).getJcrItem();
             try {
-                String shopName = StringUtils.substringBefore(StringUtils.substringAfter(productNode.getPath(), "/shopProducts/"), "/");
-                String sql = "select * from [shopPriceCategory] where isdescendantnode([/shops/" + shopName + "])";
-                NodeIterator iter = QueryUtil.search("data", sql, Query.JCR_SQL2, "shopPriceCategory");
+                String shopName = StringUtils.substringBefore(StringUtils.substringAfter(productNode.getPath(), "/"), "/");
+                String sql = "select * from [shopPriceCategory] where isdescendantnode([/" + shopName + "])";
+                NodeIterator iter = QueryUtil.search(ShopRepositoryConstants.SHOPS, sql, Query.JCR_SQL2, "shopPriceCategory");
                 while (iter.hasNext()) {
                     Node priceCategoryNode = iter.nextNode();
                     String title = PropertyUtil.getString(priceCategoryNode, "title", "");
                     String tax = PropertyUtil.getBoolean(priceCategoryNode, "taxIncluded", false) ? "incl." : "excl.";
-                    String currency = PropertyUtil.getString(productNode.getSession().getNodeByIdentifier(PropertyUtil.getString(priceCategoryNode, "currencyUUID")), "title", "");
+                    String currency = PropertyUtil.getString(MgnlContext.getJCRSession(ShopRepositoryConstants.SHOPS).getNodeByIdentifier(PropertyUtil.getString(priceCategoryNode, "currencyUUID")), "title", "");
                     List<ConfiguredFieldDefinition> fieldDefinitions = new ArrayList<ConfiguredFieldDefinition>();
 
                     StaticFieldDefinition fieldDefinition = new StaticFieldDefinition();
