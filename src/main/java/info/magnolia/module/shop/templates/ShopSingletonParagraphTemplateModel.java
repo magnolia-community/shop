@@ -39,6 +39,7 @@ import info.magnolia.context.MgnlContext;
 import info.magnolia.dam.asset.functions.DamTemplatingFunctions;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
+import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.shop.beans.CartItemOption;
 import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
 import info.magnolia.module.shop.beans.ShoppingCart;
@@ -140,7 +141,7 @@ public class ShopSingletonParagraphTemplateModel extends STKPageModel<STKPage> {
             if (currKey.startsWith("option_")) {
                 optionUUID = MgnlContext.getParameter(currKey);
                 try {
-                    optionNode = NodeUtil.getNodeByIdentifier("data", optionUUID);
+                    optionNode = NodeUtil.getNodeByIdentifier(ShopRepositoryConstants.SHOP_PRODUCTS, optionUUID);
                 } catch (RepositoryException ex) {
                     log.error("could not get current option", ex);
                 }

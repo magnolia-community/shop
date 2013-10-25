@@ -34,6 +34,7 @@
 package info.magnolia.module.shop.accessors;
 
 import info.magnolia.cms.util.QueryUtil;
+import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.shop.util.ShopUtil;
 
 import java.util.ArrayList;
@@ -67,8 +68,8 @@ public class ShopProductAccesor extends DefaultCustomDataAccesor {
     }
 
     @Override
-    protected Node getNode(String name) throws Exception {
-        String path = ShopUtil.getPath(SHOP_PRODUCTS_FOLDER, ShopUtil.getShopName());
+    protected Node getNode(String name) {
+        String path = ShopUtil.getPath(ShopUtil.getShopName());
         return super.getNodeByName(path, "shopProduct", name);
     }
 
@@ -78,7 +79,7 @@ public class ShopProductAccesor extends DefaultCustomDataAccesor {
 
         if (StringUtils.isNotEmpty(shopName)) {
             //use old JCR SQL to preserver natural order of elements
-            String query = "select * from mgnl:contentNode  where jcr:path like '" + ShopUtil.getPath("shopProducts", shopName)
+            String query = "select * from mgnl:contentNode  where jcr:path like '" + ShopUtil.getPath(shopName)
                     + "/%' and contains(*, '" + productCategory + "')";
 
             return getProductsBySQL(query);
@@ -128,7 +129,7 @@ public class ShopProductAccesor extends DefaultCustomDataAccesor {
 
         NodeIterator test = null;
         try {
-            test = QueryUtil.search("data", query, javax.jcr.query.Query.SQL, "shopProduct");
+            test = QueryUtil.search(ShopRepositoryConstants.SHOP_PRODUCTS, query, javax.jcr.query.Query.SQL, "shopProduct");
         } catch (NullPointerException e) {
             if (e.getStackTrace()[0].getClassName().equals("org.apache.jackrabbit.core.query.lucene.DescendantSelfAxisQuery$DescendantSelfAxisScorer")) {
                 // ignore - lucene bug - https://issues.apache.org/jira/browse/JCR-3407

@@ -35,6 +35,7 @@ package info.magnolia.module.shop.beans;
 
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
+import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.shop.util.ShopUtil;
 
 import java.io.Serializable;
@@ -117,7 +118,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
         this.setCart(cart);
         Node product = null;
         try {
-            product = ShopUtil.wrapWithI18n(NodeUtil.getNodeByIdentifier("data", productUUID));
+            product = ShopUtil.wrapWithI18n(NodeUtil.getNodeByIdentifier(ShopRepositoryConstants.SHOP_PRODUCTS, productUUID));
         } catch (RepositoryException e) {
             log.warn("Can't find product with uuid" + productUUID);
             this.productUUID = productUUID;
@@ -130,7 +131,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
     public Node getProduct() {
         if (StringUtils.isNotBlank(productUUID)) {
             try {
-                return NodeUtil.getNodeByIdentifier("data", productUUID);
+                return NodeUtil.getNodeByIdentifier(ShopRepositoryConstants.SHOP_PRODUCTS, productUUID);
             } catch (RepositoryException e) {
                 log.error("Can't find Product with uuid" + productUUID);
             }
@@ -156,7 +157,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
             setProductDescription(PropertyUtil.getString(product, "productDescription2"));
             try {
                 if (product.hasProperty("taxCategoryUUID")) {
-                    Node taxCategory = NodeUtil.getNodeByIdentifier("data", PropertyUtil.getString(product, "taxCategoryUUID"));
+                    Node taxCategory = NodeUtil.getNodeByIdentifier(ShopRepositoryConstants.SHOPS, PropertyUtil.getString(product, "taxCategoryUUID"));
                     if (taxCategory != null && taxCategory.hasProperty("tax")) {
                         setItemTaxRate(new BigDecimal(PropertyUtil.getString(taxCategory, "tax")));
                     }

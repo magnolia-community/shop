@@ -71,7 +71,6 @@ public class ShopSaveDialogAction extends SaveDialogAction {
                 if (node.hasProperty("name")) {
                     NodeUtil.renameNode(node, PropertyUtil.getString(node, "name"));
                 }
-                updateLastModified(node);
                 node.getSession().save();
             } catch (final RepositoryException e) {
                 throw new ActionExecutionException(e);

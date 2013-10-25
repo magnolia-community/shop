@@ -35,26 +35,24 @@ package info.magnolia.module.shop.accessors;
 
 import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.module.shop.ShopConfiguration;
+import info.magnolia.module.shop.ShopNodeTypes;
+import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.shop.util.ShopUtil;
 
 import javax.jcr.Node;
 
 /**
  * shop object.
- * @author tmiyar
- *
+
  */
 public class ShopAccesor extends DefaultCustomDataAccesor {
-    
-    public static String SHOP_SHOPS_FOLDER = "shops";
-    
-    public ShopAccesor(String name) throws Exception {
+
+    public ShopAccesor(String name) {
         super(name);
     }
 
-    protected Node getNode(String name) throws Exception {
-        String path = ShopUtil.getPath(SHOP_SHOPS_FOLDER);
-        return super.getNodeByName(path, "shop", name);
+    protected Node getNode(String name) {
+        return getNodeByName("/", ShopNodeTypes.SHOP, name, ShopRepositoryConstants.SHOPS);
     }
     
     public ShopConfiguration getShopConfiguration() {

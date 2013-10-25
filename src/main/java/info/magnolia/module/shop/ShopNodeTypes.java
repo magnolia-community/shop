@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2010-2013 Magnolia International
+ * This file Copyright (c) 2013 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -31,29 +31,13 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.accessors;
-
-import info.magnolia.module.shop.util.ShopUtil;
-
-import javax.jcr.Node;
+package info.magnolia.module.shop;
 
 /**
- * tag object, corresponds to the categorization module.
- * @author tmiyar
- *
+ * Shop node types.
  */
-public class TagAccesor extends DefaultCustomDataAccesor {
+public class ShopNodeTypes {
 
-    public static String CATEGORIZATION = "categorization";
-    
-    public TagAccesor(String name) {
-        super(name);
-    }
-
-    @Override
-    protected Node getNode(String name) {
-        String path = ShopUtil.getPath(CATEGORIZATION);
-        return super.getNodeByName(path, "category", name, CATEGORIZATION);
-    }
+    public static final String SHOP = "shop";
 
 }

@@ -58,7 +58,7 @@ public class DefaultPriceCategoryManagerImpl implements PriceCategoryManager {
     }
 
     public Node getPriceCategoryInUse() {
-        Node priceCategory = SessionUtil.getNode("data", ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, shopName, "priceCategories", getDefaultPriceCategory()));
+        Node priceCategory = SessionUtil.getNode(ShopRepositoryConstants.SHOPS, ShopUtil.getPath(shopName, "priceCategories", getDefaultPriceCategory()));
         return priceCategory;
     }
 

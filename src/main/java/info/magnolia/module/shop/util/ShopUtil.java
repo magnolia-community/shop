@@ -49,6 +49,7 @@ import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.jcr.wrapper.HTMLEscapingNodeWrapper;
 import info.magnolia.jcr.wrapper.I18nNodeWrapper;
 import info.magnolia.module.shop.ShopConfiguration;
+import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.shop.accessors.ShopAccesor;
 import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
 import info.magnolia.module.shop.beans.ShoppingCart;
@@ -257,7 +258,7 @@ public final class ShopUtil {
 
     public static Node getCurrencyByUUID(String uuid) {
         try {
-            return new I18nNodeWrapper(NodeUtil.getNodeByIdentifier("data", uuid));
+            return new I18nNodeWrapper(NodeUtil.getNodeByIdentifier(ShopRepositoryConstants.SHOPS, uuid));
         } catch (RepositoryException e) {
             log.error("Cant read the currency " + uuid, e);
         }

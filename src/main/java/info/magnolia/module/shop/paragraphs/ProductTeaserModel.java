@@ -37,6 +37,7 @@ import info.magnolia.dam.asset.functions.DamTemplatingFunctions;
 import info.magnolia.jcr.util.ContentMap;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
+import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
@@ -91,7 +92,7 @@ public class ProductTeaserModel extends InternalTeaserModel<TemplateDefinition> 
         Node product = null;
         if (StringUtils.isNotBlank(productUUID)) {
             try {
-                product = NodeUtil.getNodeByIdentifier("data", productUUID);
+                product = NodeUtil.getNodeByIdentifier(ShopRepositoryConstants.SHOP_PRODUCTS, productUUID);
                 return ShopUtil.wrapWithI18n(product);
             } catch (RepositoryException e) {
                 log.error("Can't find Product with UUID "+productUUID);

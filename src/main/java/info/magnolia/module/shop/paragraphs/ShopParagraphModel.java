@@ -39,6 +39,7 @@ import info.magnolia.context.MgnlContext;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.module.shop.ShopConfiguration;
+import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.shop.accessors.ShopAccesor;
 import info.magnolia.module.shop.accessors.ShopProductAccesor;
 import info.magnolia.module.shop.beans.ShoppingCart;
@@ -175,7 +176,7 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
 
     public Node getTaxByUUID(String uuid) {
         try {
-            return ShopUtil.wrapWithI18n(NodeUtil.getNodeByIdentifier("data", uuid));
+            return ShopUtil.wrapWithI18n(NodeUtil.getNodeByIdentifier(ShopRepositoryConstants.SHOPS, uuid));
         } catch (RepositoryException e) {
             log.error("Cant get tax category " + uuid, e);
         }

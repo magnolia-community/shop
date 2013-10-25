@@ -40,6 +40,7 @@ import info.magnolia.cms.util.NodeDataUtil;
 import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
+import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.shop.util.ShopUtil;
 
 import java.io.Serializable;
@@ -177,7 +178,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
                 double price = 0.0;
                 String queryString = "//*[@jcr:uuid='" + productUUID
                         + "']/prices/element(*,mgnl:contentNode)[@priceCategoryUUID = '" + this.getPriceCategoryUUID() + "']";
-                Collection<Content> matching = QueryUtil.query("data", queryString, "xpath", "mgnl:contentNode");
+                Collection<Content> matching = QueryUtil.query(ShopRepositoryConstants.SHOP_PRODUCTS, queryString, "xpath", "mgnl:contentNode");
                 if (!matching.isEmpty()) {
                     Content priceNode = new I18nContentWrapper(matching.iterator().next());
                     if (priceNode.getNodeData("price").isExist()) {
@@ -242,7 +243,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
         if (StringUtils.isNotBlank(uuid)) {
             Node priceCat = null;
             try {
-                priceCat = NodeUtil.getNodeByIdentifier("data", uuid);
+                priceCat = NodeUtil.getNodeByIdentifier(ShopRepositoryConstants.SHOPS, uuid);
             } catch (RepositoryException e) {
                 log.error("Don't find PriceCategory with uuid" + uuid, e);
             }

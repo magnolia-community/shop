@@ -35,6 +35,7 @@ package info.magnolia.module.shop.accessors;
 
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.util.QueryUtil;
+import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.shop.util.ShopUtil;
 
 import java.util.Collection;
@@ -57,20 +58,28 @@ public abstract class DefaultCustomDataAccesor implements CustomDataAccesor {
 
     protected static Logger log = LoggerFactory.getLogger(DefaultCustomDataAccesor.class);
 
-    public DefaultCustomDataAccesor(String name) throws Exception {
+    public DefaultCustomDataAccesor(String name) {
         node = this.getNode(name);
         this.name = name;
-
     }
-    protected Node getNodeByName(String rootPath, String nodeType, String name) throws Exception {
+
+    protected Node getNodeByName(String rootPath, String nodeType, String name) {
+        return getNodeByName(rootPath, nodeType, name, ShopRepositoryConstants.SHOP_PRODUCTS);
+    }
+
+    protected Node getNodeByName(String rootPath, String nodeType, String name, String workspace) {
+        if (rootPath.equals("/")) {
+            rootPath = "";
+        }
         String xpath = "/jcr:root" + rootPath + "//" + ISO9075.encode(name);
-        Collection<Content> nodeCollection = QueryUtil.query("data", xpath, "xpath", nodeType);
+        Collection<Content> nodeCollection = QueryUtil.query(workspace, xpath, "xpath", nodeType);
 
         if(!nodeCollection.isEmpty()) {
             Node node = nodeCollection.iterator().next().getJCRNode();
             return ShopUtil.wrapWithI18n(node);
         }
-        throw new Exception(name + "of type=" + nodeType + "not found in path=" + rootPath);
+        log.error(name + " of type " + nodeType + " not found in path " + rootPath);
+        return null;
     }
 
     @Override
@@ -83,7 +92,7 @@ public abstract class DefaultCustomDataAccesor implements CustomDataAccesor {
         return name;
     }
 
-    protected abstract Node getNode(String name) throws Exception;
+    protected abstract Node getNode(String name);
 
 
 }

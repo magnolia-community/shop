@@ -36,6 +36,7 @@ package info.magnolia.module.shop.paragraphs;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.jcr.util.ContentMap;
 import info.magnolia.jcr.util.NodeUtil;
+import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.templatingkit.STKModule;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
@@ -76,7 +77,7 @@ public class ShoppingCartParagraphModel extends ShopParagraphModel {
 
     public ContentMap getContentByIdentifier(String identifier) {
         try {
-            contentMap = new ContentMap(NodeUtil.getNodeByIdentifier("data", identifier));
+            contentMap = new ContentMap(NodeUtil.getNodeByIdentifier(ShopRepositoryConstants.SHOP_PRODUCTS, identifier));
         } catch (RepositoryException e) {
             log.error("Can't find Option with uuid"+identifier, e);
         }
