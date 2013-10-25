@@ -68,23 +68,20 @@ public class TaxCategoriesSelectFieldFactory extends SelectFieldFactory<TaxCateg
     @Override
     public List<SelectFieldOptionDefinition> getSelectFieldOptionDefinition() {
         List<SelectFieldOptionDefinition> res = new ArrayList<SelectFieldOptionDefinition>();
-
-        if (this.item instanceof JcrNodeAdapter) {
-            Node productNode = ((JcrNodeAdapter) this.item).getJcrItem();
-            try {
-                String shopName = StringUtils.substringBefore(StringUtils.substringAfter(productNode.getPath(), "/shopProducts/"), "/");
-                String sql = "select * from [shopTaxCategory] where isdescendantnode([/shops/" + shopName + "])";
-                NodeIterator iter = QueryUtil.search("data", sql, Query.JCR_SQL2, "shopTaxCategory");
-                while (iter.hasNext()) {
-                    Node taxNode = iter.nextNode();
-                    SelectFieldOptionDefinition option = new SelectFieldOptionDefinition();
-                    option.setValue(taxNode.getIdentifier());
-                    option.setLabel(PropertyUtil.getString(taxNode, "title"));
-                    res.add(option);
-                }
-            } catch (RepositoryException e) {
-                log.error("Unable to obtain tax categories for product " + productNode);
+        Node productNode = ((JcrNodeAdapter) item).getJcrItem();
+        try {
+            String shopName = StringUtils.substringBefore(StringUtils.substringAfter(productNode.getPath(), "/shopProducts/"), "/");
+            String sql = "select * from [shopTaxCategory] where isdescendantnode([/shops/" + shopName + "])";
+            NodeIterator iter = QueryUtil.search("data", sql, Query.JCR_SQL2, "shopTaxCategory");
+            while (iter.hasNext()) {
+                Node taxNode = iter.nextNode();
+                SelectFieldOptionDefinition option = new SelectFieldOptionDefinition();
+                option.setValue(taxNode.getIdentifier());
+                option.setLabel(PropertyUtil.getString(taxNode, "title"));
+                res.add(option);
             }
+        } catch (RepositoryException e) {
+            log.error("Unable to obtain tax categories for product " + productNode);
         }
         return res;
     }

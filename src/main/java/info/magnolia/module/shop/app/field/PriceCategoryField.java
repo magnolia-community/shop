@@ -34,18 +34,36 @@
 package info.magnolia.module.shop.app.field;
 
 import info.magnolia.cms.i18n.I18nContentSupport;
+import info.magnolia.cms.util.QueryUtil;
+import info.magnolia.i18nsystem.SimpleTranslator;
+import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.module.shop.app.field.definition.PriceCategoryFieldDefinition;
 import info.magnolia.objectfactory.ComponentProvider;
 import info.magnolia.ui.form.field.AbstractCustomMultiField;
+import info.magnolia.ui.form.field.StaticField;
 import info.magnolia.ui.form.field.definition.ConfiguredFieldDefinition;
+import info.magnolia.ui.form.field.definition.StaticFieldDefinition;
+import info.magnolia.ui.form.field.definition.TextFieldDefinition;
 import info.magnolia.ui.form.field.factory.FieldFactoryFactory;
 import info.magnolia.ui.vaadin.integration.jcr.JcrNodeAdapter;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
+import javax.jcr.Node;
+import javax.jcr.NodeIterator;
+import javax.jcr.RepositoryException;
+import javax.jcr.query.Query;
+
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.vaadin.data.Item;
 import com.vaadin.data.util.PropertysetItem;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.Field;
 import com.vaadin.ui.GridLayout;
 
 /**
@@ -53,11 +71,16 @@ import com.vaadin.ui.GridLayout;
  */
 public class PriceCategoryField extends AbstractCustomMultiField<PriceCategoryFieldDefinition, PropertysetItem> {
 
-    public PriceCategoryField(PriceCategoryFieldDefinition definition, FieldFactoryFactory fieldFactoryFactory, I18nContentSupport i18nContentSupport, ComponentProvider componentProvider, Item relatedFieldItem) {
-        super(definition, fieldFactoryFactory, i18nContentSupport, componentProvider, relatedFieldItem);
-    }
-
     private GridLayout root;
+    private SimpleTranslator i18n;
+
+    private static final Logger log = LoggerFactory.getLogger(PriceCategoryField.class);
+
+    public PriceCategoryField(PriceCategoryFieldDefinition definition, FieldFactoryFactory fieldFactoryFactory, I18nContentSupport i18nContentSupport, ComponentProvider componentProvider, Item relatedFieldItem, SimpleTranslator i18n) {
+        super(definition, fieldFactoryFactory, i18nContentSupport, componentProvider, relatedFieldItem);
+        this.i18n = i18n;
+
+    }
 
     @Override
     protected Component initContent() {
@@ -72,19 +95,88 @@ public class PriceCategoryField extends AbstractCustomMultiField<PriceCategoryFi
 
     @Override
     protected void initFields(PropertysetItem fieldValues) {
-        // FIXME fields are not initialized properly
-        if (relatedFieldItem instanceof JcrNodeAdapter) {
-            List<ConfiguredFieldDefinition> fields = definition.getFields(((JcrNodeAdapter) relatedFieldItem).getJcrItem());
-            for (ConfiguredFieldDefinition field : fields) {
-                root.addComponent(createLocalField(field, relatedFieldItem, false));
+        root.removeAllComponents();
+        List<List<ConfiguredFieldDefinition>> fields = createFiledDefinitions();
+        if (fields.size() > 1) {
+            root.setRows(fields.size());
+        } else {
+            root.setRows(1);
+        }
+        Iterator iter = fields.iterator();
+        root.addComponent(new StaticField(i18n.translate("shopProducts.pricing.prices.title.label")));
+        root.addComponent(new StaticField(i18n.translate("shopProducts.pricing.prices.currency.label")));
+        root.addComponent(new StaticField(i18n.translate("shopProducts.pricing.prices.tax.label")));
+        root.addComponent(new StaticField(i18n.translate("shopProducts.pricing.prices.price.label")));
+        while (iter.hasNext()) {
+            List<ConfiguredFieldDefinition> list = (List<ConfiguredFieldDefinition>) iter.next();
+            for (ConfiguredFieldDefinition fieldDefinition : list) {
+                Field<?> field = createLocalField(fieldDefinition, fieldValues, false);
+                if (fieldDefinition instanceof TextFieldDefinition) {
+                    if (fieldValues.getItemProperty(fieldDefinition.getName()) != null) {
+                        field.setPropertyDataSource(fieldValues.getItemProperty(fieldDefinition.getName()));
+                    } else {
+                        fieldValues.addItemProperty(fieldDefinition.getName(), field.getPropertyDataSource());
+                    }
+                    field.addValueChangeListener(selectionListener);
+                }
+                root.addComponent(field);
             }
         }
-        root.setRows(definition.getRows());
+    }
+
+    /**
+     * Shop needs special handling of the price categories. We need to construct fields accroding to the price categories defined under shops/priceCategories.
+     * We can have zero to x priceCategories and each of them consists of three static fields and one text field
+     */
+    private List<List<ConfiguredFieldDefinition>> createFiledDefinitions() {
+        List<List<ConfiguredFieldDefinition>> res = new ArrayList<List<ConfiguredFieldDefinition>>();
+        if (relatedFieldItem instanceof JcrNodeAdapter) {
+            Node productNode = ((JcrNodeAdapter) relatedFieldItem).getJcrItem();
+            try {
+                String shopName = StringUtils.substringBefore(StringUtils.substringAfter(productNode.getPath(), "/shopProducts/"), "/");
+                String sql = "select * from [shopPriceCategory] where isdescendantnode([/shops/" + shopName + "])";
+                NodeIterator iter = QueryUtil.search("data", sql, Query.JCR_SQL2, "shopPriceCategory");
+                while (iter.hasNext()) {
+                    Node priceCategoryNode = iter.nextNode();
+                    String title = PropertyUtil.getString(priceCategoryNode, "title", "");
+                    String tax = PropertyUtil.getBoolean(priceCategoryNode, "taxIncluded", false) ? "incl." : "excl.";
+                    String currency = PropertyUtil.getString(productNode.getSession().getNodeByIdentifier(PropertyUtil.getString(priceCategoryNode, "currencyUUID")), "title", "");
+                    List<ConfiguredFieldDefinition> fieldDefinitions = new ArrayList<ConfiguredFieldDefinition>();
+
+                    StaticFieldDefinition fieldDefinition = new StaticFieldDefinition();
+                    fieldDefinition.setLabel("");
+                    fieldDefinition.setValue(title);
+                    fieldDefinition.setName("title");
+                    fieldDefinitions.add(fieldDefinition);
+
+                    fieldDefinition = new StaticFieldDefinition();
+                    fieldDefinition.setLabel("");
+                    fieldDefinition.setValue(currency);
+                    fieldDefinition.setName("currency");
+                    fieldDefinitions.add(fieldDefinition);
+
+                    fieldDefinition = new StaticFieldDefinition();
+                    fieldDefinition.setLabel("");
+                    fieldDefinition.setValue(tax);
+                    fieldDefinition.setName("tax");
+                    fieldDefinitions.add(fieldDefinition);
+
+                    TextFieldDefinition textFieldDefinition = new TextFieldDefinition();
+                    textFieldDefinition.setLabel("");
+                    textFieldDefinition.setName(priceCategoryNode.getIdentifier());
+                    fieldDefinitions.add(textFieldDefinition);
+
+                    res.add(fieldDefinitions);
+                }
+            } catch (RepositoryException e) {
+                log.error("Unable to create price fields.", e);
+            }
+        }
+        return res;
     }
 
     @Override
     public Class<? extends PropertysetItem> getType() {
         return PropertysetItem.class;
     }
-
 }

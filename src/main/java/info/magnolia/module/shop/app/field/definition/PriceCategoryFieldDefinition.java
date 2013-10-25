@@ -33,92 +33,15 @@
  */
 package info.magnolia.module.shop.app.field.definition;
 
-import info.magnolia.cms.util.QueryUtil;
-import info.magnolia.jcr.util.NodeUtil;
-import info.magnolia.jcr.util.PropertyUtil;
+import info.magnolia.module.shop.app.field.definition.transformer.PriceCategoryTransformer;
 import info.magnolia.ui.form.field.definition.ConfiguredFieldDefinition;
-import info.magnolia.ui.form.field.definition.StaticFieldDefinition;
-import info.magnolia.ui.form.field.definition.TextFieldDefinition;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.jcr.Node;
-import javax.jcr.NodeIterator;
-import javax.jcr.RepositoryException;
-import javax.jcr.query.Query;
-
-import org.apache.commons.lang.StringUtils;
 
 /**
  * Definition class for price categories.
  */
 public class PriceCategoryFieldDefinition extends ConfiguredFieldDefinition {
 
-    private List<ConfiguredFieldDefinition> fields;
-    private int rows;
-
-    public int getRows() {
-        return rows > 0 ? rows : 1;
-    }
-
-    public List<ConfiguredFieldDefinition> getFields(Node productNode) {
-        initFields(productNode);
-        return fields;
-    }
-
-    protected void initFields(Node productNode) {
-        fields = new ArrayList<ConfiguredFieldDefinition>();
-        if (productNode != null) {
-            try {
-                // TODO cleanup, move it to field or to factory?
-                String shopName = StringUtils.substringBefore(StringUtils.substringAfter(productNode.getPath(), "/shopProducts/"), "/");
-                String sql = "select * from [shopPriceCategory] where isdescendantnode([/shops/" + shopName + "])";
-                NodeIterator iter = QueryUtil.search("data", sql, Query.JCR_SQL2, "shopPriceCategory");
-                rows = 0;
-                while (iter.hasNext()) {
-                    Node node = iter.nextNode();
-                    String priceCategory = PropertyUtil.getString(node, "title");
-                    String tax = PropertyUtil.getBoolean(node, "taxIncluded", false) ? "incl." : "excl.";
-                    Node currencyNode = NodeUtil.getNodeByIdentifier("data", PropertyUtil.getString(node, "currencyUUID"));
-                    String currency = PropertyUtil.getString(currencyNode, "title");
-                    Node pricesNode = productNode.getNode("prices");
-                    String price = "";
-                    Iterable<Node> iterable = NodeUtil.collectAllChildren(pricesNode);
-                    for (Node n : iterable) {
-                        if (n.hasProperty("priceCategoryUUID")) {
-                            if (node.getIdentifier().equals(PropertyUtil.getString(n, "priceCategoryUUID"))) {
-                                price = PropertyUtil.getString(n, "price");
-                                break;
-                            }
-                        }
-                    }
-
-                    StaticFieldDefinition staticFieldDefinition = new StaticFieldDefinition();
-                    staticFieldDefinition.setLabel("Price category");
-                    staticFieldDefinition.setValue(priceCategory);
-                    fields.add(staticFieldDefinition);
-
-                    staticFieldDefinition = new StaticFieldDefinition();
-                    staticFieldDefinition.setLabel("Currency");
-                    staticFieldDefinition.setValue(currency);
-                    fields.add(staticFieldDefinition);
-
-                    staticFieldDefinition = new StaticFieldDefinition();
-                    staticFieldDefinition.setLabel("VAT");
-                    staticFieldDefinition.setValue(tax);
-                    fields.add(staticFieldDefinition);
-
-                    TextFieldDefinition textFieldDefinition = new TextFieldDefinition();
-                    textFieldDefinition.setLabel("Price");
-                    textFieldDefinition.setDefaultValue(price);
-                    fields.add(textFieldDefinition);
-
-                    rows++;
-                }
-            } catch (RepositoryException e) {
-                // TODO log error
-            }
-        }
+    public PriceCategoryFieldDefinition() {
+        setTransformerClass(PriceCategoryTransformer.class);
     }
 }

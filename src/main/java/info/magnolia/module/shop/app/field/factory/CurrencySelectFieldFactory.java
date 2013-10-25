@@ -68,22 +68,20 @@ public class CurrencySelectFieldFactory extends SelectFieldFactory<CurrencySelec
     @Override
     public List<SelectFieldOptionDefinition> getSelectFieldOptionDefinition() {
         List<SelectFieldOptionDefinition> res = new ArrayList<SelectFieldOptionDefinition>();
-        if (item instanceof JcrNodeAdapter) {
-            Node currencyNode = ((JcrNodeAdapter) item).getJcrItem();
-            try {
-                String shopName = StringUtils.substringBefore(StringUtils.substringAfter(currencyNode.getPath(), "/shops/"), "/");
-                String sql = "select * from shopCurrency where isdescendantnode([/shops/" + shopName + "])";
-                NodeIterator iter = QueryUtil.search("data", sql, Query.JCR_SQL2, "shopCurrency");
-                while (iter.hasNext()) {
-                    Node node = iter.nextNode();
-                    SelectFieldOptionDefinition option = new SelectFieldOptionDefinition();
-                    option.setValue(node.getIdentifier());
-                    option.setLabel(PropertyUtil.getString(node, "title"));
-                    res.add(option);
-                }
-            } catch (RepositoryException e) {
-                log.error("Unable to obtain currencies", e);
+        Node currencyNode = ((JcrNodeAdapter) item).getJcrItem();
+        try {
+            String shopName = StringUtils.substringBefore(StringUtils.substringAfter(currencyNode.getPath(), "/shops/"), "/");
+            String sql = "select * from shopCurrency where isdescendantnode([/shops/" + shopName + "])";
+            NodeIterator iter = QueryUtil.search("data", sql, Query.JCR_SQL2, "shopCurrency");
+            while (iter.hasNext()) {
+                Node node = iter.nextNode();
+                SelectFieldOptionDefinition option = new SelectFieldOptionDefinition();
+                option.setValue(node.getIdentifier());
+                option.setLabel(PropertyUtil.getString(node, "title"));
+                res.add(option);
             }
+        } catch (RepositoryException e) {
+            log.error("Unable to obtain currencies", e);
         }
         return res;
     }

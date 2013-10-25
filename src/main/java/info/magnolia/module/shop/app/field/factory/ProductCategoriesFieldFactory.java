@@ -33,38 +33,73 @@
  */
 package info.magnolia.module.shop.app.field.factory;
 
-import info.magnolia.cms.i18n.I18nContentSupport;
-import info.magnolia.module.shop.app.field.ProductCategoriesField;
+import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.module.shop.app.field.definition.ProductCategoriesFieldDefinition;
+import info.magnolia.module.shop.util.ShopUtil;
+import info.magnolia.module.templatingkit.templates.category.TemplateCategoryUtil;
 import info.magnolia.objectfactory.ComponentProvider;
-import info.magnolia.ui.form.field.factory.AbstractFieldFactory;
-import info.magnolia.ui.form.field.factory.FieldFactoryFactory;
+import info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition;
+import info.magnolia.ui.form.field.definition.SelectFieldOptionDefinition;
+import info.magnolia.ui.form.field.factory.OptionGroupFieldFactory;
+import info.magnolia.ui.vaadin.integration.jcr.JcrNodeAdapter;
 
-import com.google.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.jcr.Node;
+import javax.jcr.RepositoryException;
+
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vaadin.data.Item;
-import com.vaadin.data.util.PropertysetItem;
-import com.vaadin.ui.Field;
 
 /**
- * Factory class for {@link ProductCategoriesField}.
+ * Factory class for ProductCategoriesField.
  */
-public class ProductCategoriesFieldFactory extends AbstractFieldFactory<ProductCategoriesFieldDefinition, PropertysetItem> {
+public class ProductCategoriesFieldFactory extends OptionGroupFieldFactory {
 
-    private FieldFactoryFactory fieldFactoryFactory;
-    private ComponentProvider componentProvider;
-    private I18nContentSupport i18nContentSupport;
+    private static final Logger log = LoggerFactory.getLogger(ProductCategoriesFieldFactory.class);
 
-    @Inject
-    public ProductCategoriesFieldFactory(ProductCategoriesFieldDefinition definition, Item relatedFieldItem, FieldFactoryFactory fieldFactoryFactory, I18nContentSupport i18nContentSupport, ComponentProvider componentProvider) {
-        super(definition, relatedFieldItem);
-        this.fieldFactoryFactory = fieldFactoryFactory;
-        this.componentProvider = componentProvider;
-        this.i18nContentSupport = i18nContentSupport;
+    public ProductCategoriesFieldFactory(OptionGroupFieldDefinition definition, Item relatedFieldItem, ComponentProvider componentProvider) {
+        super(definition, relatedFieldItem, componentProvider);
     }
 
     @Override
-    protected Field<PropertysetItem> createFieldComponent() {
-        return new ProductCategoriesField(definition, fieldFactoryFactory, i18nContentSupport, componentProvider, item);
+    public List<SelectFieldOptionDefinition> getSelectFieldOptionDefinition() {
+        List<SelectFieldOptionDefinition> res = new ArrayList<SelectFieldOptionDefinition>();
+        if (item instanceof JcrNodeAdapter) {
+            Node productNode = ((JcrNodeAdapter) item).getJcrItem();
+            try {
+                String shopName = StringUtils.substringBefore(StringUtils.substringAfter(productNode.getPath(), "/shopProducts/"), "/");
+                List<Node> shopCategories = getShopAssociatedCategories(shopName);
+
+                for (Node category : shopCategories) {
+                    SelectFieldOptionDefinition field = new SelectFieldOptionDefinition();
+                    field.setLabel(PropertyUtil.getString(category, "title"));
+                    field.setValue(category.getIdentifier());
+                    res.add(field);
+                }
+            } catch (RepositoryException e) {
+                log.error("Error while creating product category fields.", e);
+            }
+        }
+        return res;
     }
 
+    private List<Node> getShopAssociatedCategories(String shopName) {
+        List<Node> categories = new ArrayList<Node>();
+        if (StringUtils.isBlank(shopName)) {
+            return categories;
+        }
+        try {
+            ProductCategoriesFieldDefinition definition = (ProductCategoriesFieldDefinition) this.definition;
+            Node shop = ShopUtil.getShopRootByShopName(shopName).getJCRNode();
+            categories = TemplateCategoryUtil.getContentListByTemplateCategorySubCategory(shop, definition.getCategory(), definition.getSubcategory());
+        } catch (RepositoryException e) {
+            log.error("Unable to obtain categories for shop " + shopName + ".", e);
+        }
+        return categories;
+    }
 }

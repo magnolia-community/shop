@@ -34,6 +34,7 @@
 package info.magnolia.module.shop.app.field.factory;
 
 import info.magnolia.cms.i18n.I18nContentSupport;
+import info.magnolia.i18nsystem.SimpleTranslator;
 import info.magnolia.module.shop.app.field.PriceCategoryField;
 import info.magnolia.module.shop.app.field.definition.PriceCategoryFieldDefinition;
 import info.magnolia.objectfactory.ComponentProvider;
@@ -53,18 +54,20 @@ public class PriceCategoryFieldFactory extends AbstractFieldFactory<PriceCategor
     private FieldFactoryFactory fieldFactoryFactory;
     private ComponentProvider componentProvider;
     private I18nContentSupport i18nContentSupport;
+    private SimpleTranslator i18n;
 
     @Inject
-    public PriceCategoryFieldFactory(PriceCategoryFieldDefinition definition, Item relatedFieldItem, FieldFactoryFactory fieldFactoryFactory, I18nContentSupport i18nContentSupport, ComponentProvider componentProvider) {
+    public PriceCategoryFieldFactory(PriceCategoryFieldDefinition definition, Item relatedFieldItem, FieldFactoryFactory fieldFactoryFactory, I18nContentSupport i18nContentSupport, ComponentProvider componentProvider, SimpleTranslator i18n) {
         super(definition, relatedFieldItem);
         this.fieldFactoryFactory = fieldFactoryFactory;
         this.componentProvider = componentProvider;
         this.i18nContentSupport = i18nContentSupport;
+        this.i18n = i18n;
     }
 
     @Override
     protected Field<PropertysetItem> createFieldComponent() {
-        return new PriceCategoryField(definition, fieldFactoryFactory, i18nContentSupport, componentProvider, item);
+        return new PriceCategoryField(definition, fieldFactoryFactory, i18nContentSupport, componentProvider, item, i18n);
     }
 
 }

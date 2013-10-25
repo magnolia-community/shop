@@ -33,33 +33,21 @@
  */
 package info.magnolia.module.shop.app.field.definition;
 
-import info.magnolia.jcr.util.NodeUtil;
-import info.magnolia.jcr.util.PropertyUtil;
-import info.magnolia.jcr.wrapper.JCRMgnlPropertiesFilteringNodeWrapper;
-import info.magnolia.module.shop.util.ShopUtil;
-import info.magnolia.module.templatingkit.templates.category.TemplateCategoryUtil;
-import info.magnolia.ui.form.field.definition.CheckboxFieldDefinition;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.jcr.Node;
-import javax.jcr.Property;
-import javax.jcr.PropertyIterator;
-import javax.jcr.RepositoryException;
-
-import org.apache.commons.lang.StringUtils;
+import info.magnolia.module.shop.app.field.definition.transformer.ProductCategoriesTransformer;
+import info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition;
 
 /**
  * Field definition of product categories.
  */
-public class ProductCategoriesFieldDefinition extends CheckboxFieldDefinition {
+public class ProductCategoriesFieldDefinition extends OptionGroupFieldDefinition {
 
     private String category = "feature";
 
     private String subcategory = "product-category";
 
-    private List<CheckboxFieldDefinition> fields;
+    public ProductCategoriesFieldDefinition() {
+        setTransformerClass(ProductCategoriesTransformer.class);
+    }
 
     public String getCategory() {
         return category;
@@ -75,51 +63,5 @@ public class ProductCategoriesFieldDefinition extends CheckboxFieldDefinition {
 
     public String getSubcategory() {
         return subcategory;
-    }
-
-    public List<CheckboxFieldDefinition> getFields(Node productNode) {
-        initFields(productNode);
-        return fields;
-    }
-
-    protected void initFields(Node productNode) {
-        fields = new ArrayList<CheckboxFieldDefinition>();
-        if (productNode != null) {
-            try {
-                // TODO cleanup, move it to field or factory?
-                if (productNode.hasNode("productCategoryUUIDs")) {
-                    Node categoryUUIDs = productNode.getNode("productCategoryUUIDs");
-                    PropertyIterator it = new JCRMgnlPropertiesFilteringNodeWrapper(categoryUUIDs).getProperties();
-                    List<Node> productCategories = new ArrayList<Node>();
-                    String shopName = StringUtils.substringBefore(StringUtils.substringAfter(productNode.getPath(), "/shopProducts/"), "/");
-                    while (it.hasNext()) {
-                        Property prop = it.nextProperty();
-                        String uuid = prop.getValue().getString();
-                        Node categoryNode = NodeUtil.getNodeByIdentifier("website", uuid);
-                        productCategories.add(categoryNode);
-                    }
-
-                    Node shop = ShopUtil.getShopRootByShopName(shopName).getJCRNode();
-                    List<Node> categories = new ArrayList<Node>();
-                    if (shop != null) {
-                        categories = TemplateCategoryUtil.getContentListByTemplateCategorySubCategory(shop, getCategory(), getSubcategory());
-                    }
-
-                    for (Node category : categories) {
-                        CheckboxFieldDefinition checkboxFieldDefinition = new CheckboxFieldDefinition();
-                        checkboxFieldDefinition.setButtonLabel(PropertyUtil.getString(category, "title"));
-                        checkboxFieldDefinition.setLabel("");
-                        for (Node productCategory : productCategories) {
-                            if (productCategory.getName().equals(category.getName())) {
-                                checkboxFieldDefinition.setDefaultValue("true");
-                            }
-                        }
-                        fields.add(checkboxFieldDefinition);
-                    }
-                }
-            } catch (RepositoryException e) {
-                // TODO log error
-            }
-        }
     }
 }
