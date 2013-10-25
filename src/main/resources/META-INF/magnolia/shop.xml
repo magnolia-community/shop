@@ -60,6 +60,8 @@
       <name>magnolia</name>
       <workspaces>
         <workspace>shoppingCarts</workspace>
+        <workspace>shops</workspace>
+        <workspace>shopProducts</workspace>
       </workspaces>
     </repository>
   </repositories>

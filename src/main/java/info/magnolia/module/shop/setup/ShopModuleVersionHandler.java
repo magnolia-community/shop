@@ -187,7 +187,10 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
                 .addTask(new ChangeDataReferenceToDamMigrationTask("DMS product image references to DAM migration", "Migrates product image references from DMS to DAM", "data", Arrays.asList("/shopProducts")))
                 .addTask(new MoveUploadedContentToDamMigrationTask("Uploaded product images to DAM migration", "Migrates uploaded shop product images to DAM", "data", Arrays.asList("/shopProducts"), "/shop_uploaded"))
                 .addTask(new DialogMigrationTask("shop"))
-                .addTask(new DialogMigrationTask("data")));
+                .addTask(new DialogMigrationTask("data"))
+                .addTask(new MoveShopProductsToWorkspace("Migrate products", "Migrate products to the new workspace", "/shopProducts", "/", "shopProducts"))
+                .addTask(new MoveShopsToWorkspace("Migrate shops", "Migrate shops to the new workspace", "/shops", "/", "shops"))
+        );
 
     }
 
