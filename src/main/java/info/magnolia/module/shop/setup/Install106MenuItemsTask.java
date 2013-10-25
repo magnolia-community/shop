@@ -85,8 +85,8 @@ public class Install106MenuItemsTask extends AbstractTask {
         // check and install sub items
         if (shopMenuItem != null) {
             addShopSubMenu(shopMenuItem, "suppliers", icon, "MgnlAdminCentral.showTree('shopSupplier', '" + ShopUtil.getPath("shopSuppliers", shopNode.getName()) + "', true);", "menu.suppliers");
-            addShopSubMenu(shopMenuItem, "countries", icon, "MgnlAdminCentral.showTree('shop', '" + ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, shopNode.getName(), "countries") +"', true);", "menu.countries");
-            addShopSubMenu(shopMenuItem, "shippingOptions", icon, "MgnlAdminCentral.showTree('shop', '" + ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, shopNode.getName(), "shippingOptions") +"', true);", "menu.shippingOptions");
+            addShopSubMenu(shopMenuItem, "countries", icon, "MgnlAdminCentral.showTree('shop', '" + ShopUtil.getPath(shopNode.getName(), "countries") +"', true);", "menu.countries");
+            addShopSubMenu(shopMenuItem, "shippingOptions", icon, "MgnlAdminCentral.showTree('shop', '" + ShopUtil.getPath(shopNode.getName(), "shippingOptions") +"', true);", "menu.shippingOptions");
         }
     }
         

@@ -114,11 +114,11 @@ public class ShopSaveHandler extends DataSaveHandler {
         Content menuNode = hm.getContent("/modules/adminInterface/config/menu/" + newShopNode.getName(), true, ItemType.CONTENTNODE);
         //Adds the node datas
         addMenuNodeDatas("/.resources/icons/24/shoppingcart.gif", null, newShopNode.getTitle(), menuNode);
-        addShopSubMenu(menuNode, "taxCategories", icon, "MgnlAdminCentral.showTree('shop', '" + ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, newShopNode.getName(), "taxCategories") +"', true);", "menu.taxCategories");
-        addShopSubMenu(menuNode, "currencies", icon, "MgnlAdminCentral.showTree('shop', '" + ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, newShopNode.getName(), "currencies") +"', true);", "menu.currencies");
-        addShopSubMenu(menuNode, "priceCategories", icon, "MgnlAdminCentral.showTree('shop', '" + ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, newShopNode.getName(), "priceCategories") +"', true);", "menu.priceCategories");
-        addShopSubMenu(menuNode, "countries", icon, "MgnlAdminCentral.showTree('shop', '" + ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, newShopNode.getName(), "countries") +"', true);", "menu.countries");
-        addShopSubMenu(menuNode, "shippingOptions", icon, "MgnlAdminCentral.showTree('shop', '" + ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, newShopNode.getName(), "shippingOptions") +"', true);", "menu.shippingOptions");
+        addShopSubMenu(menuNode, "taxCategories", icon, "MgnlAdminCentral.showTree('shop', '" + ShopUtil.getPath(newShopNode.getName(), "taxCategories") +"', true);", "menu.taxCategories");
+        addShopSubMenu(menuNode, "currencies", icon, "MgnlAdminCentral.showTree('shop', '" + ShopUtil.getPath(newShopNode.getName(), "currencies") +"', true);", "menu.currencies");
+        addShopSubMenu(menuNode, "priceCategories", icon, "MgnlAdminCentral.showTree('shop', '" + ShopUtil.getPath(newShopNode.getName(), "priceCategories") +"', true);", "menu.priceCategories");
+        addShopSubMenu(menuNode, "countries", icon, "MgnlAdminCentral.showTree('shop', '" + ShopUtil.getPath(newShopNode.getName(), "countries") +"', true);", "menu.countries");
+        addShopSubMenu(menuNode, "shippingOptions", icon, "MgnlAdminCentral.showTree('shop', '" + ShopUtil.getPath(newShopNode.getName(), "shippingOptions") +"', true);", "menu.shippingOptions");
         addShopSubMenu(menuNode, "suppliers", icon, "MgnlAdminCentral.showTree('shopSupplier', '" + ShopUtil.getPath("shopSuppliers", newShopNode.getName()) +"', true);", "menu.suppliers");
         addShopSubMenu(menuNode, "products", icon, "MgnlAdminCentral.showTree('shopProduct', '" + ShopUtil.getPath(ShopProductAccesor.SHOP_PRODUCTS_FOLDER, newShopNode.getName()) +"', true);", "menu.products");
         menuNode.getParent().orderBefore(menuNode.getName(), "shops");

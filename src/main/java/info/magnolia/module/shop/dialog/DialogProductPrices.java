@@ -84,7 +84,7 @@ public class DialogProductPrices extends DialogBox {
         Messages msg = this.getMessages();
         
     
-        Content priceCategoriesNode = ContentUtil.getContent("data", ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, shopName, "priceCategories" ));
+        Content priceCategoriesNode = ContentUtil.getContent("data", ShopUtil.getPath(shopName, "priceCategories" ));
     
         if(priceCategoriesNode == null) {
             out.write("No price categories found");

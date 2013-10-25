@@ -67,7 +67,7 @@ public class DialogProductPricesSaveHandler implements FieldSaveHandler {
   public void save(Content parentNode, Content configNode, java.lang.String name, MultipartForm form, int type,
       int valueType, int isRichEditValue, int encoding) throws RepositoryException, AccessDeniedException {
     String shopName = MgnlContext.getParameter("shopName");
-    Content priceCategoriesNode = ContentUtil.getContent("data", ShopUtil.getPath(ShopAccesor.SHOP_SHOPS_FOLDER, shopName, "priceCategories"));
+    Content priceCategoriesNode = ContentUtil.getContent("data", ShopUtil.getPath(shopName, "priceCategories"));
     
     if(priceCategoriesNode != null) {
         Collection<Content> priceCategories = priceCategoriesNode.getChildren(new ItemType("shopPriceCategory"));
