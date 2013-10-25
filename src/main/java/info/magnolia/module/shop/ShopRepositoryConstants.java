@@ -34,7 +34,7 @@
 package info.magnolia.module.shop;
 
 /**
- *
+ * Shop repository constants.
  */
 public class ShopRepositoryConstants {
 
