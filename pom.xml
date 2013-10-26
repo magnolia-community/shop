@@ -50,6 +50,12 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-templating</artifactId>
+      <version>${magnoliaVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>ch.fastforward</groupId>
       <artifactId>magnolia-module-ocm</artifactId>
       <version>1.0.2</version>

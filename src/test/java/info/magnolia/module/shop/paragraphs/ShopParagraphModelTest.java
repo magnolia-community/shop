@@ -42,6 +42,7 @@ import info.magnolia.cms.i18n.I18nContentSupport;
 import info.magnolia.content2bean.Content2BeanException;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.jcr.util.NodeUtil;
+import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.module.templatingkit.templates.pages.STKPage;
 import info.magnolia.registry.RegistrationException;
@@ -80,8 +81,8 @@ public class ShopParagraphModelTest {
         ComponentsTestUtil.setInstance(MockWebContext.class, ctx);
         ComponentsTestUtil.setInstance(I18nContentSupport.class, new DefaultI18nContentSupport());
         MgnlContext.setInstance(ctx);
-        MockSession session = new MockSession("data");
-        ctx.addSession("data", session);
+        MockSession session = new MockSession(ShopRepositoryConstants.SHOP_PRODUCTS);
+        ctx.addSession(ShopRepositoryConstants.SHOP_PRODUCTS, session);
         root = (MockNode) session.getRootNode();
 
         NodeTestUtil.createSubnodes(root, getClass().getResourceAsStream(propertiesStr));
@@ -90,7 +91,7 @@ public class ShopParagraphModelTest {
     @Test
     public void getProductPriceByCategoryTest() throws RepositoryException {
         //GIVEN
-        Node productNode = NodeUtil.getNodeByIdentifier("data", "productid");
+        Node productNode = NodeUtil.getNodeByIdentifier(ShopRepositoryConstants.SHOP_PRODUCTS, "productid");
         //WHEN
         ShopParagraphModel model = new ShopParagraphModel(productNode, new STKPage(), null, mock(STKTemplatingFunctions.class), mock(TemplatingFunctions.class), null);
         //THEN
@@ -100,7 +101,7 @@ public class ShopParagraphModelTest {
     @Test
     public void getProductPriceByCategoryNullTest() throws RepositoryException {
         //GIVEN
-        Node productNode = NodeUtil.getNodeByIdentifier("data", "productid");
+        Node productNode = NodeUtil.getNodeByIdentifier(ShopRepositoryConstants.SHOP_PRODUCTS, "productid");
         //WHEN
         ShopParagraphModel model = new ShopParagraphModel(productNode, new STKPage(), null, mock(STKTemplatingFunctions.class), mock(TemplatingFunctions.class), null);
         //THEN

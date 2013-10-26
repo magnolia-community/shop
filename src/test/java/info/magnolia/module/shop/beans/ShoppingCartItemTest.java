@@ -39,6 +39,7 @@ import static org.mockito.Mockito.*;
 import info.magnolia.cms.i18n.DefaultI18nContentSupport;
 import info.magnolia.cms.i18n.I18nContentSupport;
 import info.magnolia.context.MgnlContext;
+import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.test.ComponentsTestUtil;
 import info.magnolia.test.RepositoryTestCase;
 import info.magnolia.test.mock.MockWebContext;
@@ -65,8 +66,8 @@ public class ShoppingCartItemTest extends RepositoryTestCase {
         ComponentsTestUtil.setInstance(I18nContentSupport.class, i18n);
 
         MockWebContext ctx = new MockWebContext();
-        Session session = new MockSession("data");
-        ctx.addSession("data", session);
+        Session session = new MockSession(ShopRepositoryConstants.SHOP_PRODUCTS);
+        ctx.addSession(ShopRepositoryConstants.SHOP_PRODUCTS, session);
         product = session.getRootNode().addNode("product");
         product.setProperty("name", "name");
         product.setProperty("title", "someTitle");

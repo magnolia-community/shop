@@ -41,6 +41,7 @@ import info.magnolia.cms.i18n.DefaultI18nContentSupport;
 import info.magnolia.cms.i18n.I18nContentSupport;
 import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
+import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.test.ComponentsTestUtil;
 import info.magnolia.test.MgnlTestCase;
 import info.magnolia.test.mock.jcr.MockNode;
@@ -133,7 +134,7 @@ public class ShopProductAccesorTest extends MgnlTestCase {
         final Query query = mock(Query.class);
         final QueryResult queryResult = mock(QueryResult.class);
 
-        when(ctx.getJCRSession("data")).thenReturn(session);
+        when(ctx.getJCRSession(ShopRepositoryConstants.SHOP_PRODUCTS)).thenReturn(session);
         when(session.getWorkspace()).thenReturn(wp);
         when(wp.getQueryManager()).thenReturn(manager);
         when(manager.createQuery(anyString(), anyString())).thenReturn(query);

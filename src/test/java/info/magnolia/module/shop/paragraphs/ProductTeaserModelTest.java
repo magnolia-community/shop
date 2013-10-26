@@ -43,6 +43,7 @@ import info.magnolia.content2bean.Content2BeanException;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.wrapper.I18nNodeWrapper;
+import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.module.templatingkit.templates.pages.STKPage;
 import info.magnolia.registry.RegistrationException;
@@ -88,8 +89,8 @@ public class ProductTeaserModelTest {
         ComponentsTestUtil.setInstance(I18nContentSupport.class, new DefaultI18nContentSupport());
         ComponentsTestUtil.setInstance(TemplateDefinitionRegistry.class, registry);
         MgnlContext.setInstance(ctx);
-        session = new MockSession("data");
-        ctx.addSession("data", session);
+        session = new MockSession(ShopRepositoryConstants.SHOP_PRODUCTS);
+        ctx.addSession(ShopRepositoryConstants.SHOP_PRODUCTS, session);
         product = (MockNode) session.getRootNode();
 
         NodeTestUtil.createSubnodes(product, getClass().getResourceAsStream(propertiesStr));
@@ -101,7 +102,7 @@ public class ProductTeaserModelTest {
     @Test
     public void getProductTest() throws RepositoryException {
         //GIVEN
-        Node productNode = NodeUtil.getNodeByIdentifier("data", "productid");
+        Node productNode = NodeUtil.getNodeByIdentifier(ShopRepositoryConstants.SHOP_PRODUCTS, "productid");
         productNode.setProperty("productUUID", product.getIdentifier());
         ProductTeaserModel model = new ProductTeaserModel(productNode, null, null, stkFunctions, null, null, null);
         //WHEN
