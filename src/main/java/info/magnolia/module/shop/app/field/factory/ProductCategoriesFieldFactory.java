@@ -33,6 +33,7 @@
  */
 package info.magnolia.module.shop.app.field.factory;
 
+import info.magnolia.cms.core.Content;
 import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.module.shop.app.field.definition.ProductCategoriesFieldDefinition;
 import info.magnolia.module.shop.util.ShopUtil;
@@ -95,8 +96,12 @@ public class ProductCategoriesFieldFactory extends OptionGroupFieldFactory {
         }
         try {
             ProductCategoriesFieldDefinition definition = (ProductCategoriesFieldDefinition) this.definition;
-            Node shop = ShopUtil.getShopRootByShopName(shopName).getJCRNode();
-            categories = TemplateCategoryUtil.getContentListByTemplateCategorySubCategory(shop, definition.getCategory(), definition.getSubcategory());
+            Content shop = ShopUtil.getShopRootByShopName(shopName);
+            if (shop != null) {
+                categories = TemplateCategoryUtil.getContentListByTemplateCategorySubCategory(shop.getJCRNode(), definition.getCategory(), definition.getSubcategory());
+            } else {
+                log.warn("No shop found with name " + shopName);
+            }
         } catch (RepositoryException e) {
             log.error("Unable to obtain categories for shop " + shopName + ".", e);
         }
