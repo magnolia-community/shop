@@ -43,7 +43,6 @@ import info.magnolia.content2bean.Bean2ContentProcessor;
 import info.magnolia.content2bean.Content2BeanException;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.admininterface.FieldSaveHandler;
-import info.magnolia.module.shop.accessors.ShopAccesor;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.shop.util.SimpleBean2ContentProcessorImpl;
 import java.util.ArrayList;
@@ -68,10 +67,10 @@ public class DialogProductPricesSaveHandler implements FieldSaveHandler {
       int valueType, int isRichEditValue, int encoding) throws RepositoryException, AccessDeniedException {
     String shopName = MgnlContext.getParameter("shopName");
     Content priceCategoriesNode = ContentUtil.getContent("data", ShopUtil.getPath(shopName, "priceCategories"));
-    
+
     if(priceCategoriesNode != null) {
         Collection<Content> priceCategories = priceCategoriesNode.getChildren(new ItemType("shopPriceCategory"));
-    
+
         // look for prices for each category
         String price, priceCategoryUUID;
         ArrayList<Map<String, Object>> prices = new ArrayList<Map<String, Object>>();
@@ -90,7 +89,7 @@ public class DialogProductPricesSaveHandler implements FieldSaveHandler {
           currPrice.put("priceCategoryUUID", priceCategoryUUID);
           prices.add(currPrice);
         }
-    
+
         try {
           log.debug("data: " + prices);
           Bean2ContentProcessor b2cp = (Bean2ContentProcessor) Components

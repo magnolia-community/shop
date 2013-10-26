@@ -43,7 +43,6 @@ import info.magnolia.cms.i18n.I18nContentWrapper;
 import info.magnolia.cms.i18n.Messages;
 import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.QueryUtil;
-import info.magnolia.module.shop.accessors.ShopAccesor;
 import info.magnolia.module.shop.util.ShopUtil;
 
 import java.io.IOException;

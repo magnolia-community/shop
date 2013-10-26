@@ -34,7 +34,6 @@
 package info.magnolia.module.shop;
 
 import info.magnolia.jcr.util.SessionUtil;
-import info.magnolia.module.shop.accessors.ShopAccesor;
 import info.magnolia.module.shop.util.ShopUtil;
 
 import javax.jcr.Node;

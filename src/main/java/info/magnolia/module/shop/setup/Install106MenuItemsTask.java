@@ -44,7 +44,6 @@ import info.magnolia.context.MgnlContext;
 import info.magnolia.module.InstallContext;
 import info.magnolia.module.delta.AbstractTask;
 import info.magnolia.module.delta.TaskExecutionException;
-import info.magnolia.module.shop.accessors.ShopAccesor;
 import info.magnolia.module.shop.util.ShopUtil;
 import java.util.Collection;
 import javax.jcr.RepositoryException;

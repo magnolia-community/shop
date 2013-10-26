@@ -47,7 +47,6 @@ import info.magnolia.cms.util.ExclusiveWrite;
 import info.magnolia.cms.util.NodeDataUtil;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.data.save.DataSaveHandler;
-import info.magnolia.module.shop.accessors.ShopAccesor;
 import info.magnolia.module.shop.accessors.ShopProductAccesor;
 import info.magnolia.module.shop.util.ShopUtil;
 

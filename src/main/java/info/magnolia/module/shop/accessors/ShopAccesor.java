@@ -37,7 +37,6 @@ import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.module.shop.ShopConfiguration;
 import info.magnolia.module.shop.ShopNodeTypes;
 import info.magnolia.module.shop.ShopRepositoryConstants;
-import info.magnolia.module.shop.util.ShopUtil;
 
 import javax.jcr.Node;
 
