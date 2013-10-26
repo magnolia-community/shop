@@ -3,70 +3,133 @@
   <sv:property sv:name="jcr:primaryType" sv:type="Name">
     <sv:value>mgnl:contentNode</sv:value>
   </sv:property>
-  <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+  <sv:property sv:name="jcr:mixinTypes" sv:type="Name" sv:multiple="true">
     <sv:value>mix:lockable</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:uuid" sv:type="String">
     <sv:value>1b659d19-730b-455b-bf08-df203b6a01fb</sv:value>
   </sv:property>
-  <sv:property sv:name="i18nBasename" sv:type="String">
-    <sv:value>info.magnolia.module.shop.messages</sv:value>
+  <sv:property sv:name="jcr:createdBy" sv:type="String">
+    <sv:value>admin</sv:value>
   </sv:property>
-  <sv:property sv:name="saveHandler" sv:type="String">
-    <sv:value>info.magnolia.module.data.save.DataSaveHandler</sv:value>
+  <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
+    <sv:value>false</sv:value>
   </sv:property>
-  <sv:node sv:name="MetaData">
-    <sv:property sv:name="jcr:primaryType" sv:type="Name">
-      <sv:value>mgnl:metaData</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-      <sv:value>false</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:activatorid" sv:type="String">
-      <sv:value>superuser</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:authorid" sv:type="String">
-      <sv:value>superuser</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-      <sv:value>2010-03-16T06:20:18.129+01:00</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:lastaction" sv:type="Date">
-      <sv:value>2010-03-16T15:57:05.606+01:00</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2011-04-28T12:46:38.146+02:00</sv:value>
-    </sv:property>
-  </sv:node>
-  <sv:node sv:name="tabPagination">
+  <sv:property sv:name="mgnl:created" sv:type="Date">
+    <sv:value>2010-03-16T06:20:18.129+01:00</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
+    <sv:value>2010-03-16T15:57:05.606+01:00</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
+    <sv:value>superuser</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+    <sv:value>2013-10-26T09:43:13.478+02:00</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+    <sv:value>superuser</sv:value>
+  </sv:property>
+  <sv:node sv:name="actions">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>mgnl:contentNode</sv:value>
     </sv:property>
-    <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
-      <sv:value>mix:lockable</sv:value>
+    <sv:property sv:name="jcr:uuid" sv:type="String">
+      <sv:value>607df742-1f77-4aaa-87dd-88cd5c37783d</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:createdBy" sv:type="String">
+      <sv:value>admin</sv:value>
+    </sv:property>
+    <sv:node sv:name="commit">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>38793e67-226d-4fcd-a6fa-b8a00d8c4119</sv:value>
+      </sv:property>
+      <sv:property sv:name="class" sv:type="String">
+        <sv:value>info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:createdBy" sv:type="String">
+        <sv:value>admin</sv:value>
+      </sv:property>
+      <sv:property sv:name="label" sv:type="String">
+        <sv:value>save changes</sv:value>
+      </sv:property>
+    </sv:node>
+    <sv:node sv:name="cancel">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>1da2acb3-8f47-4d2e-b301-534831ef02e5</sv:value>
+      </sv:property>
+      <sv:property sv:name="class" sv:type="String">
+        <sv:value>info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:createdBy" sv:type="String">
+        <sv:value>admin</sv:value>
+      </sv:property>
+      <sv:property sv:name="label" sv:type="String">
+        <sv:value>cancel</sv:value>
+      </sv:property>
+    </sv:node>
+  </sv:node>
+  <sv:node sv:name="form">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>mgnl:contentNode</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>f2c63642-2463-45c1-802d-dea2992e8a3e</sv:value>
+      <sv:value>eec617cb-5d27-44f3-9dbc-0c44d217352a</sv:value>
     </sv:property>
-    <sv:property sv:name="extends" sv:type="String">
-      <sv:value>/modules/standard-templating-kit/dialogs/generic/pages/tabPagination</sv:value>
+    <sv:property sv:name="jcr:createdBy" sv:type="String">
+      <sv:value>admin</sv:value>
     </sv:property>
-    <sv:node sv:name="MetaData">
+    <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+      <sv:value>2013-10-26T09:43:13.332+02:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:node sv:name="tabs">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
-        <sv:value>mgnl:metaData</sv:value>
+        <sv:value>mgnl:contentNode</sv:value>
       </sv:property>
-      <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-        <sv:value>false</sv:value>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>46ec9587-3307-4e6f-8096-4eb8f3834ed6</sv:value>
       </sv:property>
-      <sv:property sv:name="mgnl:authorid" sv:type="String">
-        <sv:value>superuser</sv:value>
+      <sv:property sv:name="jcr:createdBy" sv:type="String">
+        <sv:value>admin</sv:value>
       </sv:property>
-      <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-        <sv:value>2008-10-10T14:53:55.191+02:00</sv:value>
-      </sv:property>
-      <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-        <sv:value>2011-05-16T13:14:10.731+02:00</sv:value>
-      </sv:property>
+      <sv:node sv:name="tabPagination">
+        <sv:property sv:name="jcr:primaryType" sv:type="Name">
+          <sv:value>mgnl:contentNode</sv:value>
+        </sv:property>
+        <sv:property sv:name="jcr:mixinTypes" sv:type="Name" sv:multiple="true">
+          <sv:value>mix:lockable</sv:value>
+        </sv:property>
+        <sv:property sv:name="jcr:uuid" sv:type="String">
+          <sv:value>f2c63642-2463-45c1-802d-dea2992e8a3e</sv:value>
+        </sv:property>
+        <sv:property sv:name="extends" sv:type="String">
+          <sv:value>/modules/standard-templating-kit/dialogs/generic/pages/tabPagination</sv:value>
+        </sv:property>
+        <sv:property sv:name="jcr:createdBy" sv:type="String">
+          <sv:value>admin</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
+          <sv:value>false</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:created" sv:type="Date">
+          <sv:value>2008-10-10T14:53:55.191+02:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+          <sv:value>2011-05-16T13:14:10.731+02:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+      </sv:node>
     </sv:node>
   </sv:node>
 </sv:node>
