@@ -80,8 +80,9 @@ public class ShopSaveAndGenerateStructureAction extends SaveDialogAction {
                 }
                 if (item instanceof JcrNewNodeAdapter) {
                     createShopStructure(node);
-                    createProductsStructure(node);
-                    createShoppingCartsStructure(node);
+                    createFolderInWorkspace(ShopRepositoryConstants.SHOP_PRODUCTS, node.getName());
+                    createFolderInWorkspace(ShopRepositoryConstants.SHOPPING_CARTS, node.getName());
+                    createFolderInWorkspace(ShopRepositoryConstants.SHOP_SUPPLIERS, node.getName());
                     createShopApps(node);
                     createShopEntryInAppLauncher(node);
                 }
@@ -109,25 +110,14 @@ public class ShopSaveAndGenerateStructureAction extends SaveDialogAction {
     }
 
     /**
-     * Create folder for new shop in shopProducts workspace.
-     *
-     * @param node shop node
+     * Creates folder (if it does not exist) with specified name under root node.
      */
-    protected void createProductsStructure(Node node) throws RepositoryException {
-        Node root = MgnlContext.getJCRSession(ShopRepositoryConstants.SHOP_PRODUCTS).getRootNode();
-        root.addNode(node.getName(), NodeTypes.Folder.NAME);
-        root.getSession().save();
-    }
-
-    /**
-     * Create folder for new shop in shoppingCarts workspace.
-     *
-     * @param node shop node
-     */
-    protected void createShoppingCartsStructure(Node node) throws RepositoryException {
-        Node root = MgnlContext.getJCRSession(ShopRepositoryConstants.SHOPPING_CARTS).getRootNode();
-        root.addNode(node.getName(), NodeTypes.Folder.NAME);
-        root.getSession().save();
+    protected void createFolderInWorkspace(String workspace, String folderName) throws RepositoryException {
+        Node root = MgnlContext.getJCRSession(workspace).getRootNode();
+        if (!root.hasNode(folderName)) {
+            root.addNode(folderName, NodeTypes.Folder.NAME);
+            root.getSession().save();
+        }
     }
 
     /**
@@ -174,7 +164,6 @@ public class ShopSaveAndGenerateStructureAction extends SaveDialogAction {
         groupsNode.addNode(node.getName() + "Products", NodeTypes.ContentNode.NAME);
         groupsNode.addNode(node.getName() + "Suppliers", NodeTypes.ContentNode.NAME);
         groupsNode.addNode(node.getName() + "ShoppingCarts", NodeTypes.ContentNode.NAME);
-        groupsNode.addNode(node.getName() + "Suppliers", NodeTypes.ContentNode.NAME);
         shopNode.setProperty("color", "#000000");
         shopNode.setProperty("label", StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(node.getName()), " "));
 
