@@ -42,6 +42,7 @@ import info.magnolia.dam.setup.migration.ChangeDataReferenceToDamMigrationTask;
 import info.magnolia.dam.setup.migration.CleanContentForDamMigrationTask;
 import info.magnolia.dam.setup.migration.MoveDataWorkspaceToDamMigrationTask;
 import info.magnolia.dam.setup.migration.MoveUploadedContentToDamMigrationTask;
+import info.magnolia.jcr.util.NodeTypes;
 import info.magnolia.module.InstallContext;
 import info.magnolia.module.admininterface.setup.SimpleContentVersionHandler;
 import info.magnolia.module.data.setup.RegisterNodeTypeTask;
@@ -182,15 +183,17 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
                 .addTask(new ChangeDataReferenceToDamMigrationTask("Images to DAM migration", "Migrates image references from DMS to DAM", "website", Arrays.asList("/demo-features/modules/sample-shop")))
                 .addTask(new MoveUploadedContentToDamMigrationTask("Migration task: Migrate Uploaded content to DAM repository", "", "website",
                         Arrays.asList("/demo-features/modules/sample-shop"), "/shop_uploaded"))
-                .addTask(
-                        new CleanContentForDamMigrationTask("Migration task: Clean Content repository", "", "website", Arrays.asList("/demo-features/modules/sample-shop")))
+                .addTask(new CleanContentForDamMigrationTask("Migration task: Clean Content repository", "", "website", Arrays.asList("/demo-features/modules/sample-shop")))
                 .addTask(new ChangeDataReferenceToDamMigrationTask("DMS product image references to DAM migration", "Migrates product image references from DMS to DAM", "data", Arrays.asList("/shopProducts")))
                 .addTask(new MoveUploadedContentToDamMigrationTask("Uploaded product images to DAM migration", "Migrates uploaded shop product images to DAM", "data", Arrays.asList("/shopProducts"), "/shop_uploaded"))
                 .addTask(new DialogMigrationTask("shop"))
                 .addTask(new DialogMigrationTask("data"))
                 .addTask(new MoveShopProductsToWorkspace("Migrate products", "Migrate products to the new workspace", "/shopProducts", "/", "shopProducts"))
                 .addTask(new MoveShopsToWorkspace("Migrate shops", "Migrate shops to the new workspace", "/shops", "/", "shops"))
-                .addTask(new MoveShopSuppliersToWorkspace("Migrate shopSuppliers", "Migrate suppliers to the new workspace", "/shopSuppliers", "/", "shopSuppliers"))
+                .addTask(new MoveShopSuppliersToWorkspace("Migrate suppliers", "Migrate suppliers to the new workspace", "/shopSuppliers", "/", "shopSuppliers"))
+                .addTask(new BootstrapSingleResource("Install apps", "Install apps.", "/mgnl-bootstrap/shop/config.modules.shop.apps.xml"))
+                .addTask(new BootstrapSingleResource("Install field types", "Install field types.", "/mgnl-bootstrap/shop/config.modules.shop.fieldTypes.xml"))
+                .addTask(new BootstrapSingleResource("Install dialogs", "Install dialogs.", "/mgnl-bootstrap/shop/config.modules.shop.dialogs.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING))
         );
 
     }
@@ -231,10 +234,6 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
         installTasks.addAll(super.getExtraInstallTasks(installContext));
         installTasks.add(new TemplatesInstallTask("/shop/.*\\.ftl", true));
 
-        // TODO: booboostrap + node order
-        // installTasks.add(new AddMainMenuItemTask("shops", "menu.shops", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shop')", "/.resources/icons/24/shoppingcart.gif", "data"));
-        // installTasks.add(new AddSubMenuItemTask("shops", "shoppingCarts", "menu.carts", "info.magnolia.module.shop.messages", "MgnlAdminCentral.showTree('shoppingCarts')", "/.resources/icons/16/dot.gif"));
-        // installTasks.add(new IsInstallSamplesTask("", "", new OrderNodeBeforeTask("", "", RepositoryConstants.CONFIG, "/modules/adminInterface/config/menu/sampleShop", "shops")));
         installTasks.add(new InstallResourcesTask("/templating-kit/themes/pop/css/shop.css", "resources:processedCss", STKResourceModel.class.getName()));
         installTasks.add(new NodeExistsDelegateTask("Install shop templates", "Install shop templates under Site Configuration", "config", "/modules/standard-templating-kit/config/site/", new NodeBuilderTask("", "", ErrorHandling.strict, "config", "/modules/standard-templating-kit/config/site/",
                 getNode("templates/availability/templates").then(
@@ -285,19 +284,23 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
         installTasks.add(new IsModuleInstalledOrRegistered("Keywords for product Categories",
                 "Adds control to product categories dialog for asigning keywords.", "categorization",
                 new NodeBuilderTask("", "", ErrorHandling.strict, "config",
-                getNode("modules/data/dialogs/shopProduct").then(
-                addNode("tagsTab", MgnlNodeType.NT_CONTENTNODE).then(
-                addProperty("controlType", "tab"),
-                addProperty("label", "dialogs.generic.tabCategorization.categories.label"),
-                addNode("tags", MgnlNodeType.NT_CONTENTNODE).then(
-                addProperty("controlType", "categorizationUUIDMultiSelect"),
-                addProperty("saveHandler", "info.magnolia.module.categorization.controls.CategorizationSaveHandler"),
-                addProperty("tree", "category"),
-                addProperty("type", "String"),
-                addProperty("i18n", "true"),
-                addProperty("i18nBasename", "info.magnolia.module.shop.messages"),
-                addProperty("label", "dialogs.generic.tabCategorization.categories.label"),
-                addProperty("description", "dialogs.generic.tabCategorization.categories.description")))))));
+                getNode("modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs").then(
+                addNode("tags", NodeTypes.ContentNode.NAME).then(
+                addNode("fields", NodeTypes.ContentNode.NAME).then(
+                addNode("categories", NodeTypes.ContentNode.NAME).then(
+                addNode("field", NodeTypes.ContentNode.NAME).then(
+                addNode("identifierToPathConverter", NodeTypes.ContentNode.NAME).then(
+                addProperty("class", "info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter")),
+                addProperty("appName", "categories"),
+                addProperty("buttonSelectNewLabel", "field.link.select.new"),
+                addProperty("buttonSelectOtherLabel", "field.link.select.another"),
+                addProperty("class", "info.magnolia.ui.form.field.definition.LinkFieldDefinition"),
+                addProperty("fieldEditable", "true"),
+                addProperty("targetWorkspace", "category")),
+                addProperty("buttonSelectAddLabel", "field.link.select.add"),
+                addProperty("class", "info.magnolia.ui.form.field.definition.MultiValueFieldDefinition"),
+                addProperty("identifier", "true"),
+                addProperty("transformerClass", "info.magnolia.ui.form.field.transformer.multi.MultiValueSubChildrenNodeTransformer"))))))));
 
         installTasks.add(new IsModuleInstalledOrRegistered("Add Keyword extras paragraph",
                 "Adds an autogenerated keyword paragraph in the extras area of ProductCategory template.", "categorization",
@@ -311,14 +314,6 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
                 new AddRoleToUserTask("", "anonymous", "shop-user-base")));
 
         installTasks.add(new IsInstallSamplesTask("Install demo-project sample content ", "", new ModuleDependencyBootstrapTask("demo-project")));
-        installTasks.add(new NodeExistsDelegateTask("Check is data workflow is installed", "", RepositoryConstants.CONFIG, "/modules/data/commands/data/activate/startFlow", new SetPropertyTask("Fix activation Product prices and categories", RepositoryConstants.CONFIG,
-                "/modules/data/commands/data/activate/startFlow", "itemTypes", "dataItemNode, mgnl:contentNode, shop, shopCurrencies, "
-                + "shopCurrency, shopPriceCategories, shopPriceCategory, shopProduct, shopProductOptions, "
-                + "shopProductOption, shopTaxCategories, shopTaxCategory")));
-        installTasks.add(new NodeExistsDelegateTask("Check is data workflow is installed", "", RepositoryConstants.CONFIG, "/modules/data/commands/data/deactivate/startFlow", new SetPropertyTask("Fix activation Product prices and categories", RepositoryConstants.CONFIG,
-                "/modules/data/commands/data/deactivate/startFlow", "itemTypes", "dataItemNode, mgnl:contentNode, shop, shopCurrencies, "
-                + "shopCurrency, shopPriceCategories, shopPriceCategory, shopProduct, shopProductOptions, "
-                + "shopProductOption, shopTaxCategories, shopTaxCategory")));
 
         return installTasks;
     }
