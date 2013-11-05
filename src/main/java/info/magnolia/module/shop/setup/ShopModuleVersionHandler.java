@@ -38,7 +38,7 @@ import static info.magnolia.nodebuilder.Ops.*;
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.core.ItemType;
 import info.magnolia.cms.core.MgnlNodeType;
-import info.magnolia.dam.setup.migration.ChangeDataReferenceToDamMigrationTask;
+import info.magnolia.dam.setup.migration.ChangeWebsiteDmsReferenceToDamMigrationTask;
 import info.magnolia.dam.setup.migration.CleanContentForDamMigrationTask;
 import info.magnolia.dam.setup.migration.MoveDataWorkspaceToDamMigrationTask;
 import info.magnolia.dam.setup.migration.MoveUploadedContentToDamMigrationTask;
@@ -48,6 +48,7 @@ import info.magnolia.module.admininterface.setup.SimpleContentVersionHandler;
 import info.magnolia.module.data.setup.RegisterNodeTypeTask;
 import info.magnolia.module.delta.AbstractTask;
 import info.magnolia.module.delta.AddRoleToUserTask;
+import info.magnolia.module.delta.ArrayDelegateTask;
 import info.magnolia.module.delta.BootstrapSingleResource;
 import info.magnolia.module.delta.CheckAndModifyPropertyValueTask;
 import info.magnolia.module.delta.CreateNodePathTask;
@@ -57,7 +58,9 @@ import info.magnolia.module.delta.IsInstallSamplesTask;
 import info.magnolia.module.delta.IsModuleInstalledOrRegistered;
 import info.magnolia.module.delta.ModuleDependencyBootstrapTask;
 import info.magnolia.module.delta.NodeExistsDelegateTask;
+import info.magnolia.module.delta.PartialBootstrapTask;
 import info.magnolia.module.delta.RemoveNodeTask;
+import info.magnolia.module.delta.RemoveNodesTask;
 import info.magnolia.module.delta.RenamePropertyAllModulesNodeTask;
 import info.magnolia.module.delta.SetPropertyTask;
 import info.magnolia.module.delta.Task;
@@ -180,20 +183,60 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
 
         register(DeltaBuilder.update("2.0.0", "")
                 .addTask(new MoveDataWorkspaceToDamMigrationTask("Migration task: Migrate DMS content to DAM", "Migrate DMS to DAM", Arrays.asList("/sampleShop"), null, "dms"))
-                .addTask(new ChangeDataReferenceToDamMigrationTask("Images to DAM migration", "Migrates image references from DMS to DAM", "website", Arrays.asList("/demo-features/modules/sample-shop")))
+                .addTask(new ChangeWebsiteDmsReferenceToDamMigrationTask("Images to DAM migration", "Migrates image references from DMS to DAM", "website", Arrays.asList("/demo-features/modules/sample-shop")))
                 .addTask(new MoveUploadedContentToDamMigrationTask("Migration task: Migrate Uploaded content to DAM repository", "", "website",
                         Arrays.asList("/demo-features/modules/sample-shop"), "/shop_uploaded"))
                 .addTask(new CleanContentForDamMigrationTask("Migration task: Clean Content repository", "", "website", Arrays.asList("/demo-features/modules/sample-shop")))
-                .addTask(new ChangeDataReferenceToDamMigrationTask("DMS product image references to DAM migration", "Migrates product image references from DMS to DAM", "data", Arrays.asList("/shopProducts")))
+                .addTask(new ChangeWebsiteDmsReferenceToDamMigrationTask("DMS product image references to DAM migration", "Migrates product image references from DMS to DAM", "data", Arrays.asList("/shopProducts")))
                 .addTask(new MoveUploadedContentToDamMigrationTask("Uploaded product images to DAM migration", "Migrates uploaded shop product images to DAM", "data", Arrays.asList("/shopProducts"), "/shop_uploaded"))
-                .addTask(new DialogMigrationTask("shop"))
-                .addTask(new DialogMigrationTask("data"))
+                .addTask(new RemoveNodesTask("Remove dialogs", "Remove old dialogs from data module.", "config", Arrays.asList(
+                        new String[]{"/modules/data/dialogs/shop", "/modules/data/dialogs/shopCountry", "/modules/data/dialogs/shopProduct", "/modules/data/dialogs/shopSupplier",
+                                "/modules/data/dialogs/shopCurrency", "/modules/data/dialogs/shopCountries", "/modules/data/dialogs/shopCurrencies", "/modules/data/dialogs/shopTaxCategory",
+                                "/modules/data/dialogs/shopTaxCategories", "/modules/data/dialogs/shopPriceCategory", "/modules/data/dialogs/shopPriceCategories", "/modules/data/dialogs/shopProductOption",
+                                "/modules/data/dialogs/shopProductOptions", "/modules/data/dialogs/shopShippingOption", "/modules/data/dialogs/shopShippingOptions"}), true))
+                .addTask(new RemoveNodesTask("Remove nodes", "Remove unused config, trees and controls.", "config", Arrays.asList(
+                        new String[]{"/modules/shop/config", "/modules/shop/controls", "/modules/shop/trees"}), true))
+                .addTask(new DialogMigrationTask("Migration task", "Migration of shop dialogs.", "shop"))
                 .addTask(new MoveShopProductsToWorkspace("Migrate products", "Migrate products to the new workspace", "/shopProducts", "/", "shopProducts"))
                 .addTask(new MoveShopsToWorkspace("Migrate shops", "Migrate shops to the new workspace", "/shops", "/", "shops"))
                 .addTask(new MoveShopSuppliersToWorkspace("Migrate suppliers", "Migrate suppliers to the new workspace", "/shopSuppliers", "/", "shopSuppliers"))
                 .addTask(new BootstrapSingleResource("Install apps", "Install apps.", "/mgnl-bootstrap/shop/config.modules.shop.apps.xml"))
                 .addTask(new BootstrapSingleResource("Install field types", "Install field types.", "/mgnl-bootstrap/shop/config.modules.shop.fieldTypes.xml"))
-                .addTask(new BootstrapSingleResource("Install dialogs", "Install dialogs.", "/mgnl-bootstrap/shop/config.modules.shop.dialogs.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING))
+                .addTask(new ArrayDelegateTask("Install dialogs", "Install new dialogs.",
+                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/config.modules.shop.dialogs.xml", "/dialogs/createShop"),
+                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/config.modules.shop.dialogs.xml", "/dialogs/createCurrency"),
+                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/config.modules.shop.dialogs.xml", "/dialogs/createTaxCategory"),
+                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/config.modules.shop.dialogs.xml", "/dialogs/createPriceCategory"),
+                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/config.modules.shop.dialogs.xml", "/dialogs/createShopProductOptions"),
+                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/config.modules.shop.dialogs.xml", "/dialogs/createShopProductOption"),
+                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/config.modules.shop.dialogs.xml", "/dialogs/createShippingOption"),
+                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/config.modules.shop.dialogs.xml", "/dialogs/createCountry"),
+                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/config.modules.shop.dialogs.xml", "/dialogs/createSupplier"),
+                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/config.modules.shop.dialogs.xml", "/dialogs/editShop")
+
+                ))
+                .addTask(new IsModuleInstalledOrRegistered("Keywords for product Categories",
+                "Adds control to product categories dialog for asigning keywords.", "categorization",
+                new NodeBuilderTask("", "", ErrorHandling.strict, "config",
+                        getNode("modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs").then(
+                                addNode("tags", NodeTypes.ContentNode.NAME).then(
+                                        addNode("fields", NodeTypes.ContentNode.NAME).then(
+                                                addNode("categories", NodeTypes.ContentNode.NAME).then(
+                                                        addNode("field", NodeTypes.ContentNode.NAME).then(
+                                                                addNode("identifierToPathConverter", NodeTypes.ContentNode.NAME).then(
+                                                                        addProperty("class", "info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter")),
+                                                                addProperty("appName", "categories"),
+                                                                addProperty("buttonSelectNewLabel", "field.link.select.new"),
+                                                                addProperty("buttonSelectOtherLabel", "field.link.select.another"),
+                                                                addProperty("class", "info.magnolia.ui.form.field.definition.LinkFieldDefinition"),
+                                                                addProperty("fieldEditable", "true"),
+                                                                addProperty("targetWorkspace", "category")),
+                                                        addProperty("buttonSelectAddLabel", "field.link.select.add"),
+                                                        addProperty("class", "info.magnolia.ui.form.field.definition.MultiValueFieldDefinition"),
+                                                        addProperty("identifier", "true"),
+                                                        addProperty("transformerClass", "info.magnolia.ui.form.field.transformer.multi.MultiValueSubChildrenNodeTransformer"))))))))
+                .addTask(new BootstrapSingleResource("Register apps", "Register shop apps to the appLauncher.", "/mgnl-bootstrap/shop/config.modules.ui-admincentral.config.appLauncherLayout.groups.shop.xml"))
+                .addTask(new CreateAppsForExistingShops("Create apps", "Create shop apps for alredy existing shops."))
         );
 
     }
