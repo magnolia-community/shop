@@ -14,7 +14,7 @@
 
   <properties>
     <javaVersion>1.6</javaVersion>
-    <magnoliaVersion>5.1</magnoliaVersion>
+    <magnoliaVersion>5.2-SNAPSHOT</magnoliaVersion>
     <stkVersion>2.6</stkVersion>
 
     <!-- dual licensed : -->
@@ -53,6 +53,12 @@
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-templating</artifactId>
       <version>${magnoliaVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia.dam</groupId>
+      <artifactId>magnolia-dam</artifactId>
+      <version>1.1.2-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
