@@ -9,12 +9,12 @@
   <version>${project.version}</version>
   <components>
       <id>main</id>
-	  <component>
-		  <type>info.magnolia.module.shop.util.SimpleBean2ContentProcessorImpl</type>
-		  <implementation>info.magnolia.module.shop.util.SimpleBean2ContentProcessorImpl</implementation>
-		  <scope>singleton</scope>
-		  <lazy>true</lazy>
-	</component>
+    <component>
+      <type>info.magnolia.module.shop.util.SimpleBean2ContentProcessorImpl</type>
+      <implementation>info.magnolia.module.shop.util.SimpleBean2ContentProcessorImpl</implementation>
+      <scope>singleton</scope>
+      <lazy>true</lazy>
+  </component>
 </components>
   <dependencies>
     <dependency>
@@ -53,6 +53,10 @@
     <dependency>
       <name>ocm</name>
       <version>1.0/*</version>
+    </dependency>
+    <dependency>
+      <name>data</name>
+      <version>2.2/*</version>
     </dependency>
   </dependencies>
   <repositories>

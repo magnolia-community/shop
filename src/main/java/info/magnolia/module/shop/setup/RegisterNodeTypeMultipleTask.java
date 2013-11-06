@@ -97,7 +97,7 @@ public class RegisterNodeTypeMultipleTask extends AbstractRepositoryTask {
                 if (StringUtils.isEmpty(nodeTypes)) {
                     nodeTypes = NODE_TYPE_DEF_TEMPLATE.format(new String[] { type.getName() });
                 }
-                ContentRepository.getRepositoryProvider(DataModule.getRepository()).registerNodeTypes(new ByteArrayInputStream(nodeTypes.getBytes()));
+                ContentRepository.getRepositoryProvider(DataModule.WORKSPACE).registerNodeTypes(new ByteArrayInputStream(nodeTypes.getBytes()));
             } catch (RepositoryException e) {
                 log.error("Failed to register node type: {}", nodeTypes);
                 throw new RuntimeException(e);

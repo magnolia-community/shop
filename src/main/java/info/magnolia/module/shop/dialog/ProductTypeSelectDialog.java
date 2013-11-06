@@ -72,7 +72,7 @@ import org.slf4j.LoggerFactory;
 public class ProductTypeSelectDialog extends DataDialog {
     private final String paragraph;
     private static Logger log = LoggerFactory.getLogger(ProductTypeSelectDialog.class);
-    
+
     public ProductTypeSelectDialog(String name, HttpServletRequest request,
             HttpServletResponse response, Content configNode) {
         super(name, request, response, configNode);
@@ -133,7 +133,7 @@ public class ProductTypeSelectDialog extends DataDialog {
                     }
                 }
             }
-            // managed to get a website node, create edit dialog 
+            // managed to get a website node, create edit dialog
             return super.createDialog(configNode, websiteNode);
         }
         log.debug("Dialog.createDialog");
@@ -239,7 +239,7 @@ public class ProductTypeSelectDialog extends DataDialog {
      * Get count of number of folders in given path (minus one). This is used to determine the level of type currently dealt with.
      */
     private int getFolderCount(String path) throws RepositoryException {
-        HierarchyManager dataHm = MgnlContext.getInstance().getHierarchyManager(DataModule.getRepository());
+        HierarchyManager dataHm = MgnlContext.getInstance().getHierarchyManager(DataModule.WORKSPACE);
         Content c = dataHm.getContent(path);
         int count = 0;
         do {
@@ -263,7 +263,7 @@ public class ProductTypeSelectDialog extends DataDialog {
         String parentName = null;
         String levelPath = path;
         for(int x = level; x > 1; x--) {
-            Content content = ContentUtil.getContent(DataModule.getRepository(), levelPath);
+            Content content = ContentUtil.getContent(DataModule.WORKSPACE, levelPath);
             String levelTypeName = content.getItemType().getSystemName();
             // correct level for folder
             if(levelTypeName.equals(DataConsts.FOLDER_ITEMTYPE)) {
