@@ -57,7 +57,7 @@ import org.junit.Ignore;
 /**
  * Test class.
  */
-public class ShopProductAccesorRepositoryTest extends RepositoryTestCase {
+public class ShopProductAccessorRepositoryTest extends RepositoryTestCase {
 
     @Override
     @Before
@@ -95,7 +95,7 @@ public class ShopProductAccesorRepositoryTest extends RepositoryTestCase {
         String[] correctOrder = new String[] { "p101", "p102", "p103", "p104", "p1021", "p1022", "p1023", "p1031", "p1041", "p1042", "p4011" };
 
         // WHEN
-        List<Node> books = ShopProductAccesor.getProductsByProductCategory("003de673-34a6-4b71-bab1-237f8b85b78a");
+        List<Node> books = ShopProductAccessor.getProductsByProductCategory("003de673-34a6-4b71-bab1-237f8b85b78a");
 
         // THEN
         for (int i = 0; i < correctOrder.length; i++) {

@@ -34,7 +34,7 @@
 package info.magnolia.module.shop.paragraphs;
 
 import info.magnolia.context.MgnlContext;
-import info.magnolia.module.shop.accessors.ShopProductAccesor;
+import info.magnolia.module.shop.accessors.ShopProductAccessor;
 import info.magnolia.module.templatingkit.STKModule;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.rendering.model.RenderingModel;
@@ -71,7 +71,7 @@ public class ShopProductSearchResultParagraphModel extends ShopParagraphModel {
         String queryStr = MgnlContext.getParameter("queryProductsStr");
 
         try {
-            return ShopProductAccesor.getProductsByFulltext(queryStr);
+            return ShopProductAccessor.getProductsByFulltext(queryStr);
         } catch (Exception e) {
             log.error("Cant find product " + queryStr);
         }

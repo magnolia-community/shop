@@ -66,9 +66,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Tests for ShopProductAccesor.
+ * Tests for ShopProductAccessor.
  */
-public class ShopProductAccesorTest extends MgnlTestCase {
+public class ShopProductAccessorTest extends MgnlTestCase {
 
     Context ctx = mock(Context.class);
 
@@ -85,7 +85,7 @@ public class ShopProductAccesorTest extends MgnlTestCase {
         // GIVEN
         when(ctx.getJCRSession(anyString())).thenThrow(new RepositoryException());
         // WHEN
-        List<Node> result = ShopProductAccesor.getProductsBySQL("someQueryStr");
+        List<Node> result = ShopProductAccessor.getProductsBySQL("someQueryStr");
         // THEN no exception occurs and the result is empty list
         assertNotNull(result);
 
@@ -96,7 +96,7 @@ public class ShopProductAccesorTest extends MgnlTestCase {
         // GIVEN
         when(ctx.getJCRSession(anyString())).thenThrow(new RepositoryException(new ParseException()));
         // WHEN
-        List<Node> result = ShopProductAccesor.getProductsBySQL("someQueryStr");
+        List<Node> result = ShopProductAccessor.getProductsBySQL("someQueryStr");
         // THEN no exception occurs and the result is empty list
         assertNotNull(result);
     }
@@ -106,7 +106,7 @@ public class ShopProductAccesorTest extends MgnlTestCase {
         // GIVEN
         final String querry = "- \\ ' \" ";
         // WHEN
-        final String result = ShopProductAccesor.escapeSql(querry);
+        final String result = ShopProductAccessor.escapeSql(querry);
         // THEN no exception occurs and the result is empty list
         assertEquals("\\- \\\\ '' \\\" ", result);
     }
@@ -142,7 +142,7 @@ public class ShopProductAccesorTest extends MgnlTestCase {
         when(queryResult.getNodes()).thenReturn(iter);
 
         // WHEN
-        List<Node> result = ShopProductAccesor.getProductsBySQL("amazing query");
+        List<Node> result = ShopProductAccessor.getProductsBySQL("amazing query");
 
         // THEN
         assertEquals("a", result.get(0).getName());

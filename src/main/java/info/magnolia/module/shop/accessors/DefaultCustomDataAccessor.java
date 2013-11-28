@@ -51,14 +51,14 @@ import org.slf4j.LoggerFactory;
  * @author tmiyar
  *
  */
-public abstract class DefaultCustomDataAccesor implements CustomDataAccesor {
+public abstract class DefaultCustomDataAccessor implements CustomDataAccessor {
 
     private final Node node;
     private final String name;
 
-    protected static Logger log = LoggerFactory.getLogger(DefaultCustomDataAccesor.class);
+    protected static Logger log = LoggerFactory.getLogger(DefaultCustomDataAccessor.class);
 
-    public DefaultCustomDataAccesor(String name) {
+    public DefaultCustomDataAccessor(String name) {
         node = this.getNode(name);
         this.name = name;
     }

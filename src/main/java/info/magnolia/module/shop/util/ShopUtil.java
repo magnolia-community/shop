@@ -50,7 +50,7 @@ import info.magnolia.jcr.wrapper.HTMLEscapingNodeWrapper;
 import info.magnolia.jcr.wrapper.I18nNodeWrapper;
 import info.magnolia.module.shop.ShopConfiguration;
 import info.magnolia.module.shop.ShopRepositoryConstants;
-import info.magnolia.module.shop.accessors.ShopAccesor;
+import info.magnolia.module.shop.accessors.ShopAccessor;
 import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
 import info.magnolia.module.shop.beans.ShoppingCart;
 import info.magnolia.module.templatingkit.templates.category.TemplateCategoryUtil;
@@ -139,7 +139,7 @@ public final class ShopUtil {
             DefaultShoppingCartImpl cart = (DefaultShoppingCartImpl) getShoppingCart();
             ShopConfiguration shopConfiguration = null;
             try {
-                shopConfiguration = new ShopAccesor(getShopName()).getShopConfiguration();
+                shopConfiguration = new ShopAccessor(getShopName()).getShopConfiguration();
             } catch (Exception e) {
                 log.error("cant get shop configuration for " + getShopName());
             }
@@ -213,7 +213,7 @@ public final class ShopUtil {
 
         ShopConfiguration shopConfiguration;
         try {
-            shopConfiguration = new ShopAccesor(getShopName()).getShopConfiguration();
+            shopConfiguration = new ShopAccessor(getShopName()).getShopConfiguration();
 
             if (shopConfiguration != null) {
                 Node priceCategory = getShopPriceCategory(shopConfiguration);
@@ -231,7 +231,7 @@ public final class ShopUtil {
 
         ShopConfiguration shopConfiguration;
         try {
-            shopConfiguration = new ShopAccesor(getShopName()).getShopConfiguration();
+            shopConfiguration = new ShopAccessor(getShopName()).getShopConfiguration();
 
             if (shopConfiguration != null) {
                 Node priceCategory = getShopPriceCategory(shopConfiguration);

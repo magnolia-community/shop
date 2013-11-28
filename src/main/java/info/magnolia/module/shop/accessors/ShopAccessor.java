@@ -43,9 +43,9 @@ import javax.jcr.Node;
 /**
  * Shop object.
  */
-public class ShopAccesor extends DefaultCustomDataAccesor {
+public class ShopAccessor extends DefaultCustomDataAccessor {
 
-    public ShopAccesor(String name) {
+    public ShopAccessor(String name) {
         super(name);
     }
 

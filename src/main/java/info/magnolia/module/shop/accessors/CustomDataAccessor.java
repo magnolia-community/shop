@@ -40,7 +40,7 @@ import javax.jcr.Node;
  * @author tmiyar
  *
  */
-public interface CustomDataAccesor {
+public interface CustomDataAccessor {
     
     public Node getNode();
     public String getName();

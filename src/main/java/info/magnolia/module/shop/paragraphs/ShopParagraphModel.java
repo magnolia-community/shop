@@ -40,8 +40,8 @@ import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.module.shop.ShopConfiguration;
 import info.magnolia.module.shop.ShopRepositoryConstants;
-import info.magnolia.module.shop.accessors.ShopAccesor;
-import info.magnolia.module.shop.accessors.ShopProductAccesor;
+import info.magnolia.module.shop.accessors.ShopAccessor;
+import info.magnolia.module.shop.accessors.ShopProductAccessor;
 import info.magnolia.module.shop.beans.ShoppingCart;
 import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.shop.util.ShopUtil;
@@ -104,7 +104,7 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
         try {
             String productId = SelectorUtil.getSelector(2);
             if (StringUtils.isNotEmpty(productId)) {
-                product = new ShopProductAccesor(productId).getNode();
+                product = new ShopProductAccessor(productId).getNode();
                 return product;
             }
         } catch (Exception e) {
@@ -117,7 +117,7 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
     public TemplateProductPriceBean getProductPriceBean(Node product) {
         ShopConfiguration shopConfiguration;
         try {
-            shopConfiguration = new ShopAccesor(ShopUtil.getShopName()).getShopConfiguration();
+            shopConfiguration = new ShopAccessor(ShopUtil.getShopName()).getShopConfiguration();
 
             Node priceCategory = ShopUtil.getShopPriceCategory(shopConfiguration);
 
@@ -254,7 +254,7 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
         List<Node> productList = new ArrayList<Node>();
         String productCategory = MgnlContext.getAggregationState().getMainContentNode().getIdentifier();
         if (StringUtils.isNotEmpty(productCategory)) {
-            productList = ShopProductAccesor.getProductsByProductCategory(productCategory);
+            productList = ShopProductAccessor.getProductsByProductCategory(productCategory);
         }
 
         return productList;

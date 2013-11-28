@@ -58,12 +58,12 @@ import org.slf4j.LoggerFactory;
  *
  * @author tmiyar
  */
-public class ShopProductAccesor extends DefaultCustomDataAccesor {
+public class ShopProductAccessor extends DefaultCustomDataAccessor {
 
-    private static Logger log = LoggerFactory.getLogger(ShopProductAccesor.class);
+    private static Logger log = LoggerFactory.getLogger(ShopProductAccessor.class);
     public static String SHOP_PRODUCTS_FOLDER = "shopProducts";
 
-    public ShopProductAccesor(String name) throws Exception {
+    public ShopProductAccessor(String name) throws Exception {
         super(name);
     }
 

@@ -42,11 +42,11 @@ import javax.jcr.Node;
  * @author tmiyar
  *
  */
-public class TagAccesor extends DefaultCustomDataAccesor {
+public class TagAccessor extends DefaultCustomDataAccessor {
 
     public static String CATEGORIZATION = "categorization";
     
-    public TagAccesor(String name) {
+    public TagAccessor(String name) {
         super(name);
     }
 

@@ -35,7 +35,7 @@ package info.magnolia.module.shop.paragraphs;
 
 import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.context.MgnlContext;
-import info.magnolia.module.shop.accessors.ShopProductAccesor;
+import info.magnolia.module.shop.accessors.ShopProductAccessor;
 import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
@@ -98,7 +98,7 @@ public class ShopTagCloudParagraph<RD extends TemplateDefinition> extends Abstra
     }
 
     public int getNumberOfItemsCategorizedWith(String categoryUUID) {
-      return ShopProductAccesor.getProductsByProductCategory(categoryUUID).size();
+      return ShopProductAccessor.getProductsByProductCategory(categoryUUID).size();
     }
 
     public String getProductListLink(String tagName, String tagDisplayName) {
