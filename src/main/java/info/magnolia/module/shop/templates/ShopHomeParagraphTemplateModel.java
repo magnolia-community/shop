@@ -61,6 +61,7 @@ public class ShopHomeParagraphTemplateModel extends STKPageModel<STKPage> {
         super(content, definition, parent, stkFunctions, templatingFunctions, damFunctions);
     }
 
+    @Override
     public String execute() {
         createShopStructure(content);
         return super.execute();

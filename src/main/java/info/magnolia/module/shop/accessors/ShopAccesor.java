@@ -41,8 +41,7 @@ import info.magnolia.module.shop.ShopRepositoryConstants;
 import javax.jcr.Node;
 
 /**
- * shop object.
-
+ * Shop object.
  */
 public class ShopAccesor extends DefaultCustomDataAccesor {
 
@@ -50,13 +49,14 @@ public class ShopAccesor extends DefaultCustomDataAccesor {
         super(name);
     }
 
+    @Override
     protected Node getNode(String name) {
         return getNodeByName("/", ShopNodeTypes.SHOP, name, ShopRepositoryConstants.SHOPS);
     }
-    
+
     public ShopConfiguration getShopConfiguration() {
         Node shopNode = getNode();
-        if(shopNode != null) {
+        if (shopNode != null) {
             try {
                 ShopConfiguration shopConfiguration = new ShopConfiguration();
                 shopConfiguration.setCartBeanType(PropertyUtil.getString(shopNode, "cartBeanType"));
@@ -70,7 +70,7 @@ public class ShopAccesor extends DefaultCustomDataAccesor {
             } catch (Exception e) {
                 log.error("Cant read shop configuration for " + getName(), e);
             }
-            
+
         }
         return null;
     }

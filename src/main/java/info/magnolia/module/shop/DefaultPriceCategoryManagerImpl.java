@@ -41,9 +41,9 @@ import javax.jcr.Node;
 /**
  * Implement this class to get the category price used by i.e. user selected
  * shop
- * 
+ *
  * @author tmiyar
- * 
+ *
  */
 public class DefaultPriceCategoryManagerImpl implements PriceCategoryManager {
     private String defaultPriceCategory;
@@ -56,6 +56,7 @@ public class DefaultPriceCategoryManagerImpl implements PriceCategoryManager {
 
     }
 
+    @Override
     public Node getPriceCategoryInUse() {
         Node priceCategory = SessionUtil.getNode(ShopRepositoryConstants.SHOPS, ShopUtil.getPath(shopName, "priceCategories", getDefaultPriceCategory()));
         return priceCategory;

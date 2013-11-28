@@ -64,15 +64,18 @@ public class ShopProductLinkImpl implements Link {
         this.functions = functions;
     }
 
+    @Override
     public String getTitle() {
         return StringUtils.defaultIfEmpty(ContentUtil.asContent(node).getTitle(), ContentUtil.asContent(node).getName());
     }
 
+    @Override
     public String getNavigationTitle() {
         String navigationTitle = ContentUtil.asContent(node).getNodeData("navigationTitle").getString();
         return StringUtils.defaultIfEmpty(StringUtils.defaultIfEmpty(navigationTitle, ContentUtil.asContent(node).getTitle()), ContentUtil.asContent(node).getName());
     }
 
+    @Override
     public String getHref() {
         Content currentPage = MgnlContext.getAggregationState().getMainContent();
         Content siteRoot = null;

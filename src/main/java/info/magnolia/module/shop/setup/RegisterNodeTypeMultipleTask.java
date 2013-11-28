@@ -86,6 +86,7 @@ public class RegisterNodeTypeMultipleTask extends AbstractRepositoryTask {
         this.typeName = typeName;
     }
 
+    @Override
     protected void doExecute(InstallContext installContext)
             throws RepositoryException, TaskExecutionException {
         TypeDefinition type = new TypeDefinition();

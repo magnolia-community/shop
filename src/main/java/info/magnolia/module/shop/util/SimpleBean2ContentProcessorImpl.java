@@ -65,11 +65,13 @@ public class SimpleBean2ContentProcessorImpl implements Bean2ContentProcessor {
 
     private Logger log = LoggerFactory.getLogger(SimpleBean2ContentProcessorImpl.class);
 
+    @Override
     public Content toContent(Content arg0, Object arg1, boolean arg2, Bean2ContentTransformer arg3) {
         log.error("Not supported yet.");
         return null;
     }
 
+    @Override
     public Content setNodeDatas(Content node, Object bean, Bean2ContentTransformer transformer) throws Content2BeanException {
         if (node != null && bean != null) {
             if (transformer != null) {

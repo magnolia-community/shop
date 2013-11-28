@@ -53,15 +53,18 @@ public class ShopLinkImpl implements Link {
         this.functions = functions;
     }
 
+    @Override
     public String getTitle(){
         return StringUtils.defaultIfEmpty(node.getTitle(), node.getName());
     }
 
+    @Override
     public String getNavigationTitle(){
         String navigationTitle = node.getNodeData("navigationTitle").getString();
         return StringUtils.defaultIfEmpty(StringUtils.defaultIfEmpty(navigationTitle, node.getTitle()), node.getName());
     }
 
+    @Override
     public String getHref(){
         return ShopLinkUtil.getProductCategoryLink(functions, node.getJCRNode());
     }

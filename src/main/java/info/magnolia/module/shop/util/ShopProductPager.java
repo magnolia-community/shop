@@ -56,6 +56,7 @@ public class ShopProductPager extends STKPager {
         getPagerProperties(content);
     }
 
+    @Override
     public int getCount() {
         return count;
     }
