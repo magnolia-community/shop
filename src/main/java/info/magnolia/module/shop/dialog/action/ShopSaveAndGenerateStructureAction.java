@@ -163,12 +163,15 @@ public class ShopSaveAndGenerateStructureAction extends SaveDialogAction {
         Node appLauncherNode = MgnlContext.getJCRSession(RepositoryConstants.CONFIG).getNode("/modules/ui-admincentral/config/appLauncherLayout/groups");
         Node shopNode = appLauncherNode.addNode(node.getName(), NodeTypes.ContentNode.NAME);
         Node groupsNode = shopNode.addNode("apps", NodeTypes.ContentNode.NAME);
-        groupsNode.addNode(node.getName(), NodeTypes.ContentNode.NAME);
+        groupsNode.addNode(node.getName() + "ShoppingCarts", NodeTypes.ContentNode.NAME);
         groupsNode.addNode(node.getName() + "Products", NodeTypes.ContentNode.NAME);
         groupsNode.addNode(node.getName() + "Suppliers", NodeTypes.ContentNode.NAME);
-        groupsNode.addNode(node.getName() + "ShoppingCarts", NodeTypes.ContentNode.NAME);
-        shopNode.setProperty("color", "#000000");
+        groupsNode.addNode(node.getName(), NodeTypes.ContentNode.NAME);
+        shopNode.setProperty("color", "#9A3332");
         shopNode.setProperty("label", StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(node.getName()), " "));
+        shopNode.setProperty("permanent", true);
+
+        NodeUtil.orderAfter(shopNode, "edit");
 
         appLauncherNode.getSession().save();
     }
