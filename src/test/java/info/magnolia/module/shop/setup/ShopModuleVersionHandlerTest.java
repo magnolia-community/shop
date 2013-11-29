@@ -144,6 +144,10 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
 
         this.setupConfigNode("/modules/standard-templating-kit/config/site/templates/availability/templates");
         this.setupConfigNode("/modules/multisite/config/sites/default/templates/availability/templates");
+        this.setupConfigNode("/modules/ui-admincentral/config/appLauncherLayout/groups/edit");
+        this.setupConfigNode("/modules/ui-admincentral/config/appLauncherLayout/groups/stk");
+        this.setupConfigNode("/modules/ui-admincentral/config/appLauncherLayout/groups/sampleShop");
+        this.setupConfigNode("/modules/ui-admincentral/config/appLauncherLayout/groups/shop");
 
         // WHEN
         executeUpdatesAsIfTheCurrentlyInstalledVersionWas(null);

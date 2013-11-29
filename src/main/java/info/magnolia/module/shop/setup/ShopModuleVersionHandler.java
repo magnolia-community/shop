@@ -53,6 +53,7 @@ import info.magnolia.module.delta.IsModuleInstalledOrRegistered;
 import info.magnolia.module.delta.ModuleDependencyBootstrapTask;
 import info.magnolia.module.delta.NodeExistsDelegateTask;
 import info.magnolia.module.delta.OrderNodeAfterTask;
+import info.magnolia.module.delta.OrderNodeBeforeTask;
 import info.magnolia.module.delta.PartialBootstrapTask;
 import info.magnolia.module.delta.RemoveNodesTask;
 import info.magnolia.module.delta.Task;
@@ -255,7 +256,7 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
         installTasks.add(new IsInstallSamplesTask("Install demo-project sample content ", "", new ModuleDependencyBootstrapTask("demo-project")));
 
         installTasks.add(new OrderNodeAfterTask("Order node", "Order entry in appLauncher", "config", "/modules/ui-admincentral/config/appLauncherLayout/groups/sampleShop", "edit"));
-        installTasks.add(new OrderNodeAfterTask("Order node", "Order entry in appLauncher", "config", "/modules/ui-admincentral/config/appLauncherLayout/groups/shop", "manage"));
+        installTasks.add(new OrderNodeBeforeTask("Order node", "Order entry in appLauncher", "config", "/modules/ui-admincentral/config/appLauncherLayout/groups/shop", "stk"));
 
         return installTasks;
     }
