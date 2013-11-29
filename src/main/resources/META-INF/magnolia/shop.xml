@@ -22,7 +22,7 @@
       <version>5.2/*</version>
     </dependency>
     <dependency>
-      <name>ui-dialog</name>
+      <name>ui-framework</name>
       <version>5.2/*</version>
     </dependency>
     <dependency>
