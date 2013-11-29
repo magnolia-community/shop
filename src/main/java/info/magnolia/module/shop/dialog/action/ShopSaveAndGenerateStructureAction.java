@@ -128,25 +128,28 @@ public class ShopSaveAndGenerateStructureAction extends SaveDialogAction {
     protected void createShopApps(Node node) throws RepositoryException {
         Node appsNode = MgnlContext.getJCRSession(RepositoryConstants.CONFIG).getNode("/modules/shop/apps");
 
-        // shop app
-        Node shopNode = appsNode.addNode(node.getName(), NodeTypes.ContentNode.NAME);
-        shopNode.setProperty("extends", "../shop");
-        shopNode.addNode("subApps", NodeTypes.Folder.NAME).addNode("browser", NodeTypes.ContentNode.NAME).addNode("workbench", NodeTypes.ContentNode.NAME).setProperty("path", "/" + node.getName());
+        // shopping carts app
+        Node shoppingCartsNode = appsNode.addNode(node.getName() + "ShoppingCarts", NodeTypes.ContentNode.NAME);
+        shoppingCartsNode.setProperty("extends", "../shoppingCarts");
+        shoppingCartsNode.addNode("subApps", NodeTypes.Folder.NAME).addNode("browser", NodeTypes.ContentNode.NAME).addNode("workbench", NodeTypes.ContentNode.NAME).setProperty("path", "/" + node.getName());
+        shoppingCartsNode.setProperty("label", "shop.shoppingCarts.label");
 
         // products app
         Node productsNode = appsNode.addNode(node.getName() + "Products", NodeTypes.ContentNode.NAME);
         productsNode.setProperty("extends", "../shopProducts");
         productsNode.addNode("subApps", NodeTypes.Folder.NAME).addNode("browser", NodeTypes.ContentNode.NAME).addNode("workbench", NodeTypes.ContentNode.NAME).setProperty("path", "/" + node.getName());
-
-        // shopping carts app
-        Node shoppingCartsNode = appsNode.addNode(node.getName() + "ShoppingCarts", NodeTypes.ContentNode.NAME);
-        shoppingCartsNode.setProperty("extends", "../shoppingCarts");
-        shoppingCartsNode.addNode("subApps", NodeTypes.Folder.NAME).addNode("browser", NodeTypes.ContentNode.NAME).addNode("workbench", NodeTypes.ContentNode.NAME).setProperty("path", "/" + node.getName());
+        productsNode.setProperty("label", "shop.shopProducts.label");
 
         // shop suppliers app
         Node suppliersNode = appsNode.addNode(node.getName() + "Suppliers", NodeTypes.ContentNode.NAME);
         suppliersNode.setProperty("extends", "../shopSuppliers");
         suppliersNode.addNode("subApps", NodeTypes.Folder.NAME).addNode("browser", NodeTypes.ContentNode.NAME).addNode("workbench", NodeTypes.ContentNode.NAME).setProperty("path", "/" + node.getName());
+        suppliersNode.setProperty("label", "shop.shopSuppliers.label");
+
+        // shop app
+        Node shopNode = appsNode.addNode(node.getName(), NodeTypes.ContentNode.NAME);
+        shopNode.setProperty("extends", "../shop");
+        shopNode.addNode("subApps", NodeTypes.Folder.NAME).addNode("browser", NodeTypes.ContentNode.NAME).addNode("workbench", NodeTypes.ContentNode.NAME).setProperty("path", "/" + node.getName());
 
         appsNode.getSession().save();
     }
