@@ -35,7 +35,7 @@
       <sv:value>info.magnolia.ui.api.app.registry.ConfiguredAppDescriptor</sv:value>
     </sv:property>
     <sv:property sv:name="icon" sv:type="String">
-      <sv:value>icon-content-app</sv:value>
+      <sv:value>icon-configuration-app</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:createdBy" sv:type="String">
       <sv:value>admin</sv:value>
@@ -7734,7 +7734,7 @@
       <sv:value>info.magnolia.ui.api.app.registry.ConfiguredAppDescriptor</sv:value>
     </sv:property>
     <sv:property sv:name="icon" sv:type="String">
-      <sv:value>icon-content-app</sv:value>
+      <sv:value>icon-assets-app</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:createdBy" sv:type="String">
       <sv:value>admin</sv:value>
@@ -13008,7 +13008,7 @@
       <sv:value>/modules/ui-admincentral/apps/configuration</sv:value>
     </sv:property>
     <sv:property sv:name="icon" sv:type="String">
-      <sv:value>icon-content-app</sv:value>
+      <sv:value>icon-asset-pool</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:createdBy" sv:type="String">
       <sv:value>admin</sv:value>
@@ -13381,7 +13381,7 @@
       <sv:value>info.magnolia.ui.api.app.registry.ConfiguredAppDescriptor</sv:value>
     </sv:property>
     <sv:property sv:name="icon" sv:type="String">
-      <sv:value>icon-content-app</sv:value>
+      <sv:value>icon-companies</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:createdBy" sv:type="String">
       <sv:value>admin</sv:value>
