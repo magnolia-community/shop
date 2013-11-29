@@ -7,13 +7,16 @@
     <sv:value>d3d7a27d-7614-4cb4-b5eb-cc4055dbe60c</sv:value>
   </sv:property>
   <sv:property sv:name="color" sv:type="String">
-    <sv:value>#000000</sv:value>
+    <sv:value>#9A3332</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:createdBy" sv:type="String">
     <sv:value>admin</sv:value>
   </sv:property>
   <sv:property sv:name="label" sv:type="String">
     <sv:value>Sample shop</sv:value>
+  </sv:property>
+  <sv:property sv:name="permanent" sv:type="Boolean">
+    <sv:value>true</sv:value>
   </sv:property>
   <sv:property sv:name="mgnl:created" sv:type="Date">
     <sv:value>2013-10-26T22:03:46.305+02:00</sv:value>
