@@ -75,10 +75,10 @@ public class ShopSaveAndGenerateStructureAction extends SaveDialogAction {
             final JcrNodeAdapter itemChanged = (JcrNodeAdapter) item;
             try {
                 final Node node = itemChanged.applyChanges();
-                if (node.hasProperty("name")) {
-                    NodeUtil.renameNode(node, Path.getUniqueLabel(node.getSession(), node.getParent().getName(), PropertyUtil.getString(node, "name")));
-                }
                 if (item instanceof JcrNewNodeAdapter) {
+                    if (node.hasProperty("name")) {
+                        NodeUtil.renameNode(node, Path.getUniqueLabel(node.getSession(), node.getParent().getName(), PropertyUtil.getString(node, "name")));
+                    }
                     createShopStructure(node);
                     createFolderInWorkspace(ShopRepositoryConstants.SHOP_PRODUCTS, node.getName());
                     createFolderInWorkspace(ShopRepositoryConstants.SHOPPING_CARTS, node.getName());
