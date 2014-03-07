@@ -35,6 +35,7 @@ package info.magnolia.module.shop.setup;
 
 import static info.magnolia.nodebuilder.Ops.*;
 
+import info.magnolia.cms.security.Permission;
 import info.magnolia.dam.setup.migration.ChangeWebsiteDmsReferenceToDamMigrationTask;
 import info.magnolia.dam.setup.migration.CleanContentForDamMigrationTask;
 import info.magnolia.dam.setup.migration.MoveDataWorkspaceToDamMigrationTask;
@@ -43,6 +44,7 @@ import info.magnolia.jcr.util.NodeTypes;
 import info.magnolia.module.InstallContext;
 import info.magnolia.module.admininterface.setup.SimpleContentVersionHandler;
 import info.magnolia.module.data.setup.RegisterNodeTypeTask;
+import info.magnolia.module.delta.AddPermissionTask;
 import info.magnolia.module.delta.AddRoleToUserTask;
 import info.magnolia.module.delta.ArrayDelegateTask;
 import info.magnolia.module.delta.BootstrapSingleResource;
@@ -59,6 +61,7 @@ import info.magnolia.module.delta.RemoveNodesTask;
 import info.magnolia.module.delta.Task;
 import info.magnolia.module.inplacetemplating.setup.TemplatesInstallTask;
 import info.magnolia.module.resources.setup.InstallResourcesTask;
+import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.templatingkit.resources.STKResourceModel;
 import info.magnolia.nodebuilder.task.ErrorHandling;
 import info.magnolia.nodebuilder.task.NodeBuilderTask;
@@ -133,6 +136,12 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
                                                         addProperty("transformerClass", "info.magnolia.ui.form.field.transformer.multi.MultiValueSubChildrenNodeTransformer"))))))))
                 .addTask(new BootstrapSingleResource("Register apps", "Register shop apps to the appLauncher.", "/mgnl-bootstrap/shop/config.modules.ui-admincentral.config.appLauncherLayout.groups.shop.xml"))
                 .addTask(new CreateAppsForExistingShops("Create apps", "Create shop apps for alredy existing shops."))
+        );
+
+        register(DeltaBuilder.update("2.0.1", "")
+            .addTask(new AddPermissionTask("Grant permissions", "Grant read permissions to the shopProducts workspace for shop users.", "shop-user-base", ShopRepositoryConstants.SHOP_PRODUCTS, "/", Permission.READ, true))
+            .addTask(new AddPermissionTask("Grant permissions", "Grant read permissions to the shops workspace for shop users.", "shop-user-base", ShopRepositoryConstants.SHOPS, "/", Permission.READ, true))
+            .addTask(new AddPermissionTask("Grant permissions", "Grant read permissions to the shopping carts workspace for shop users.", "shop-user-base", ShopRepositoryConstants.SHOPPING_CARTS, "/", Permission.READ, true))
         );
 
     }
@@ -255,7 +264,6 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
 
         installTasks.add(new OrderNodeAfterTask("Order node", "Order entry in appLauncher", "config", "/modules/ui-admincentral/config/appLauncherLayout/groups/sampleShop", "edit"));
         installTasks.add(new OrderNodeBeforeTask("Order node", "Order entry in appLauncher", "config", "/modules/ui-admincentral/config/appLauncherLayout/groups/shop", "stk"));
-
         return installTasks;
     }
 }
