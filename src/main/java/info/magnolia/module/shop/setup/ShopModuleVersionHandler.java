@@ -47,7 +47,9 @@ import info.magnolia.module.data.setup.RegisterNodeTypeTask;
 import info.magnolia.module.delta.AddPermissionTask;
 import info.magnolia.module.delta.AddRoleToUserTask;
 import info.magnolia.module.delta.ArrayDelegateTask;
+import info.magnolia.module.delta.BootstrapSingleModuleResource;
 import info.magnolia.module.delta.BootstrapSingleResource;
+import info.magnolia.module.delta.CheckAndModifyPropertyValueTask;
 import info.magnolia.module.delta.DeltaBuilder;
 import info.magnolia.module.delta.IsAuthorInstanceDelegateTask;
 import info.magnolia.module.delta.IsInstallSamplesTask;
@@ -142,6 +144,8 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
             .addTask(new AddPermissionTask("Grant permissions", "Grant read permissions to the shopProducts workspace for shop users.", "shop-user-base", ShopRepositoryConstants.SHOP_PRODUCTS, "/", Permission.READ, true))
             .addTask(new AddPermissionTask("Grant permissions", "Grant read permissions to the shops workspace for shop users.", "shop-user-base", ShopRepositoryConstants.SHOPS, "/", Permission.READ, true))
             .addTask(new AddPermissionTask("Grant permissions", "Grant read permissions to the shopping carts workspace for shop users.", "shop-user-base", ShopRepositoryConstants.SHOPPING_CARTS, "/", Permission.READ, true))
+            .addTask(new BootstrapSingleModuleResource("config.modules.shop.fieldTypes.availableShops.xml"))
+            .addTask(new CheckAndModifyPropertyValueTask("/modules/shop/dialogs/pages/shopSectionProperties/form/tabs/tabShop/fields/currentShop", "class", "info.magnolia.ui.form.field.definition.SelectFieldDefinition", "info.magnolia.module.shop.app.field.definition.AvailableShopsSelectFieldDefinition"))
         );
 
     }

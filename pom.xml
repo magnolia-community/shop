@@ -14,8 +14,8 @@
 
   <properties>
     <javaVersion>1.6</javaVersion>
-    <magnoliaVersion>5.2</magnoliaVersion>
-    <magnoliaUiVersion>5.2</magnoliaUiVersion>
+    <magnoliaVersion>5.2.4-SNAPSHOT</magnoliaVersion>
+    <magnoliaUiVersion>5.2.4-SNAPSHOT</magnoliaUiVersion>
     <stkVersion>2.6</stkVersion>
 
     <!-- dual licensed : -->
