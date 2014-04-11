@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2010-2013 Magnolia International
+ * This file Copyright (c) 2014 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -33,45 +33,72 @@
  */
 package info.magnolia.module.shop.paragraphs;
 
+import static junit.framework.Assert.assertNull;
+import static org.mockito.Mockito.mock;
+
 import info.magnolia.context.MgnlContext;
-import info.magnolia.module.shop.accessors.ShopProductAccessor;
 import info.magnolia.module.templatingkit.STKModule;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.rendering.template.TemplateDefinition;
 import info.magnolia.templating.functions.TemplatingFunctions;
+import info.magnolia.test.mock.MockWebContext;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
- * Displays the result for product search.
+ * Tests for {@link ShopProductSearchResultParagraphModel}.
  */
-public class ShopProductSearchResultParagraphModel extends ShopParagraphModel {
+public class ShopProductSearchResultParagraphModelTest {
 
-    private static Logger log = LoggerFactory.getLogger(ShopProductSearchResultParagraphModel.class);
+    private ShopProductSearchResultParagraphModel model;
+    private MockWebContext context;
+    private Node content;
+    private TemplateDefinition templateDefinition;
+    private RenderingModel<?> renderingModel;
+    private STKTemplatingFunctions stkTemplatingFunctions;
+    private TemplatingFunctions templatingFunctions;
+    private STKModule stkModule;
 
-    public ShopProductSearchResultParagraphModel(Node content,
-                                                 TemplateDefinition definition, RenderingModel<?> parent,
-                                                 STKTemplatingFunctions stkFunctions,
-                                                 TemplatingFunctions templatingFunctions, STKModule stkModule) {
-        super(content, definition, parent, stkFunctions, templatingFunctions, stkModule);
+    @Before
+    public void setUp() {
+        context = new MockWebContext();
+        context.setParameters(Collections.EMPTY_MAP);
+        MgnlContext.setInstance(context);
+
+        content = mock(Node.class);
+        templateDefinition = mock(TemplateDefinition.class);
+        renderingModel = mock(RenderingModel.class);
+        stkTemplatingFunctions = mock(STKTemplatingFunctions.class);
+        templatingFunctions = mock(TemplatingFunctions.class);
+        stkModule = new STKModule();
+
+        model = new ShopProductSearchResultParagraphModel(content, templateDefinition, renderingModel, stkTemplatingFunctions, templatingFunctions, stkModule);
     }
 
-    @Override
-    protected List<Node> search() throws RepositoryException {
-        String queryStr = MgnlContext.getParameter("queryProductsStr");
-        if (StringUtils.isNotBlank(queryStr)) {
-            queryStr = StringUtils.trim(queryStr);
-            return ShopProductAccessor.getProductsByFulltext(queryStr);
-        }
-        return null;
+    @After
+    public void tearDown() {
+        MgnlContext.setInstance(null);
+    }
+
+    @Test
+    public void testReturnNullOnEmptyQuerySearchString() throws RepositoryException {
+        // GIVEN
+
+        // WHEN
+        List<Node> result = model.search();
+
+        // THEN
+        assertNull(result);
+        // no exception
     }
 
 }
