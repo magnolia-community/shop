@@ -293,7 +293,7 @@
                   <sv:value>mgnl:component</sv:value>
                 </sv:property>
                 <sv:property sv:name="templateId" sv:type="String">
-                  <sv:value>form:components/formStep</sv:value>
+                  <sv:value>shop:components/features/shopFormStep</sv:value>
                 </sv:property>
                 <sv:node sv:name="MetaData">
                   <sv:property sv:name="jcr:primaryType" sv:type="Name">

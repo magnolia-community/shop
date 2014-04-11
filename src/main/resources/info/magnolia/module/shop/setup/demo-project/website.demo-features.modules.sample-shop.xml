@@ -3877,7 +3877,7 @@
               <sv:value>superuser</sv:value>
             </sv:property>
             <sv:property sv:name="mgnl:template" sv:type="String">
-              <sv:value>form:components/formStep</sv:value>
+              <sv:value>shop:components/features/shopFormStep</sv:value>
             </sv:property>
             <sv:node sv:name="fieldsets">
               <sv:property sv:name="jcr:primaryType" sv:type="Name">

@@ -34,6 +34,8 @@
 package info.magnolia.module.shop.paragraphs;
 
 import info.magnolia.module.form.templates.components.FormModel;
+import info.magnolia.module.shop.beans.ShoppingCart;
+import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.rendering.template.RenderableDefinition;
 import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.objectfactory.Components;
@@ -51,12 +53,17 @@ import javax.jcr.Node;
 public class ShopFormModel extends FormModel {
 
     public ShopFormModel(Node content, RenderableDefinition definition, RenderingModel<?> parent, TemplatingFunctions functions) {
+
         super(content, definition, parent, functions);
     }
 
     @Override
     protected ShopStartStepFormEngine createFormEngine() {
         return Components.newInstance(ShopStartStepFormEngine.class, content, definition);
+    }
+
+    public ShoppingCart getShoppingCart() {
+        return ShopUtil.getShoppingCart();
     }
 
 }

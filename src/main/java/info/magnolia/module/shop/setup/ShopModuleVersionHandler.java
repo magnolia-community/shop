@@ -67,12 +67,12 @@ import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.templatingkit.resources.STKResourceModel;
 import info.magnolia.nodebuilder.task.ErrorHandling;
 import info.magnolia.nodebuilder.task.NodeBuilderTask;
+import info.magnolia.repository.RepositoryConstants;
 import info.magnolia.ui.dialog.setup.DialogMigrationTask;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 /**
  * This class is used to handle installation and updates of your module.
  */
@@ -146,6 +146,14 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
             .addTask(new AddPermissionTask("Grant permissions", "Grant read permissions to the shopping carts workspace for shop users.", "shop-user-base", ShopRepositoryConstants.SHOPPING_CARTS, "/", Permission.READ, true))
             .addTask(new BootstrapSingleModuleResource("config.modules.shop.fieldTypes.availableShops.xml"))
             .addTask(new CheckAndModifyPropertyValueTask("/modules/shop/dialogs/pages/shopSectionProperties/form/tabs/tabShop/fields/currentShop", "class", "info.magnolia.ui.form.field.definition.SelectFieldDefinition", "info.magnolia.module.shop.app.field.definition.AvailableShopsSelectFieldDefinition"))
+            .addTask(new ArrayDelegateTask("Disable view of checkout form when shopping cart is empty",
+                        new BootstrapSingleResource("", "", "/mgnl-bootstrap/shop/paragraphs/config.modules.shop.templates.components.features.shopFormStep.xml"),
+                        new CheckAndModifyPropertyValueTask("", "", RepositoryConstants.CONFIG, "/modules/shop/templates/components/features/shopForm", "i18nBasename", "info.magnolia.module.form.messages", "info.magnolia.module.shop.messages"),
+                        new CheckAndModifyPropertyValueTask("", "", RepositoryConstants.CONFIG, "/modules/shop/templates/components/features/shopForm", "templateScript", "/form/components/form.ftl", "/shop/paragraphs/features/shopForm.ftl"),
+                        new CheckAndModifyPropertyValueTask("", "", RepositoryConstants.CONFIG, "/modules/shop/templates/pages/shopFormStep/areas/main/areas/content/autoGeneration/content/singleton", "templateId", "form:components/formStep", "shop:components/features/shopFormStep"),
+                        new CheckAndModifyPropertyValueTask("", "", RepositoryConstants.WEBSITE, "/demo-features/modules/sample-shop/shopping-cart/checkout-form/billing-address/content/singleton", "mgnl:template", "form:components/formStep", "shop:components/features/shopFormStep"),
+                        new TemplatesInstallTask("/shop/.*\\.ftl", true)
+                ))
         );
 
     }
