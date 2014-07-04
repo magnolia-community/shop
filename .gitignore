@@ -11,3 +11,4 @@
 /.settings
 /.checkstyle
 /src/main/resources/rebel.xml
+.DS_store
