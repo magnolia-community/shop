@@ -35,7 +35,7 @@ package info.magnolia.module.shop.templates;
 
 import info.magnolia.cms.core.MgnlNodeType;
 import info.magnolia.cms.security.AccessDeniedException;
-import info.magnolia.dam.asset.functions.DamTemplatingFunctions;
+import info.magnolia.dam.templating.functions.DamTemplatingFunctions;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.module.templatingkit.templates.pages.STKPage;
@@ -55,10 +55,9 @@ import javax.jcr.RepositoryException;
  */
 public class ShopHomeParagraphTemplateModel extends STKPageModel<STKPage> {
 
-    public ShopHomeParagraphTemplateModel(Node content, STKPage definition,
-            RenderingModel<?> parent, STKTemplatingFunctions stkFunctions,
-            TemplatingFunctions templatingFunctions, DamTemplatingFunctions damFunctions) {
-        super(content, definition, parent, stkFunctions, templatingFunctions, damFunctions);
+
+    public ShopHomeParagraphTemplateModel(Node content, STKPage definition, RenderingModel<?> parent, STKTemplatingFunctions stkFunctions, TemplatingFunctions templatingFunctions, DamTemplatingFunctions damTemplatingFunctions) {
+        super(content, definition, parent, stkFunctions, templatingFunctions, damTemplatingFunctions);
     }
 
     @Override

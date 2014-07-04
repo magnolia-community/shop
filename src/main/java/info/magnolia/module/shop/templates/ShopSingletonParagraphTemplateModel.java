@@ -36,7 +36,7 @@ package info.magnolia.module.shop.templates;
 import info.magnolia.cms.security.AccessDeniedException;
 import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
-import info.magnolia.dam.asset.functions.DamTemplatingFunctions;
+import info.magnolia.dam.templating.functions.DamTemplatingFunctions;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.module.shop.ShopRepositoryConstants;
@@ -69,16 +69,12 @@ import org.slf4j.LoggerFactory;
  */
 public class ShopSingletonParagraphTemplateModel extends STKPageModel<STKPage> {
 
-    public ShopSingletonParagraphTemplateModel(Node content,
-            STKPage definition, RenderingModel<?> parent,
-            STKTemplatingFunctions stkFunctions,
-            TemplatingFunctions templatingFunctions, DamTemplatingFunctions damFunctions) {
-        super(content, definition, parent, stkFunctions, templatingFunctions, damFunctions);
-    }
-
     private static Logger log = LoggerFactory.getLogger(ShopSingletonParagraphTemplateModel.class);
     private String currentShopName = "";
 
+    public ShopSingletonParagraphTemplateModel(Node content, STKPage definition, RenderingModel<?> parent, STKTemplatingFunctions stkFunctions, TemplatingFunctions templatingFunctions, DamTemplatingFunctions damTemplatingFunctions) {
+        super(content, definition, parent, stkFunctions, templatingFunctions, damTemplatingFunctions);
+    }
 
 
     @Override

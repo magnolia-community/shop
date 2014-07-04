@@ -114,7 +114,7 @@ public class ShopParagraphModelTest {
         final Node content = mock(Node.class);
         final STKPage definition = new STKPage();
         final TemplatingFunctions templatingFunctions = mock(TemplatingFunctions.class);
-        final STKTemplatingFunctions stkFunctions = new STKTemplatingFunctions(templatingFunctions, null, null, null, null, null, null);
+        final STKTemplatingFunctions stkFunctions = new STKTemplatingFunctions(templatingFunctions, null, null, null, null, null);
 
         when(templatingFunctions.page(content)).thenReturn(content);
 

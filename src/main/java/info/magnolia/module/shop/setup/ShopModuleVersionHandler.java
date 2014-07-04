@@ -36,10 +36,10 @@ package info.magnolia.module.shop.setup;
 import static info.magnolia.nodebuilder.Ops.*;
 
 import info.magnolia.cms.security.Permission;
-import info.magnolia.dam.setup.migration.ChangeWebsiteDmsReferenceToDamMigrationTask;
-import info.magnolia.dam.setup.migration.CleanContentForDamMigrationTask;
-import info.magnolia.dam.setup.migration.MoveDataWorkspaceToDamMigrationTask;
-import info.magnolia.dam.setup.migration.MoveUploadedContentToDamMigrationTask;
+import info.magnolia.dam.app.setup.migration.ChangeWebsiteDmsReferenceToDamMigrationTask;
+import info.magnolia.dam.app.setup.migration.CleanContentForDamMigrationTask;
+import info.magnolia.dam.app.setup.migration.MoveDataWorkspaceToDamMigrationTask;
+import info.magnolia.dam.app.setup.migration.MoveUploadedContentToDamMigrationTask;
 import info.magnolia.jcr.util.NodeTypes;
 import info.magnolia.module.InstallContext;
 import info.magnolia.module.admininterface.setup.SimpleContentVersionHandler;
@@ -68,6 +68,7 @@ import info.magnolia.module.templatingkit.resources.STKResourceModel;
 import info.magnolia.nodebuilder.task.ErrorHandling;
 import info.magnolia.nodebuilder.task.NodeBuilderTask;
 import info.magnolia.repository.RepositoryConstants;
+import info.magnolia.ui.contentapp.setup.for5_3.ContentAppMigrationTask;
 import info.magnolia.ui.dialog.setup.DialogMigrationTask;
 
 import java.util.ArrayList;
@@ -156,6 +157,9 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
                 ))
         );
 
+        register(DeltaBuilder.update("2.1", "")
+              .addTask(new ContentAppMigrationTask("/modules/shop"))
+        );
     }
 
     /**

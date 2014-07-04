@@ -34,37 +34,43 @@
 package info.magnolia.module.shop.dialog.action;
 
 import info.magnolia.event.EventBus;
+import info.magnolia.i18nsystem.SimpleTranslator;
 import info.magnolia.ui.api.action.ActionExecutionException;
 import info.magnolia.ui.api.context.UiContext;
-import info.magnolia.ui.api.event.AdmincentralEventBus;
 import info.magnolia.ui.dialog.formdialog.FormDialogPresenterFactory;
 import info.magnolia.ui.framework.action.OpenEditDialogAction;
+import info.magnolia.ui.framework.action.OpenEditDialogActionDefinition;
+import info.magnolia.ui.vaadin.integration.contentconnector.ContentConnector;
 import info.magnolia.ui.vaadin.integration.jcr.JcrItemAdapter;
 
 import javax.inject.Named;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 
+import com.vaadin.data.Item;
+
 /**
  * Action that opens edit dialog based on node type. If dialog isn't defined parent class action is executed.
  */
 public class NodeTypeBasedOpenEditDialogAction extends OpenEditDialogAction {
 
-    private JcrItemAdapter itemToEdit;
+    private Item itemToEdit;
 
-    public NodeTypeBasedOpenEditDialogAction(NodeTypeBasedOpenEditDialogActionDefinition definition, JcrItemAdapter itemToEdit, FormDialogPresenterFactory formDialogPresenterFactory, UiContext uiContext, @Named(AdmincentralEventBus.NAME) EventBus eventBus) {
-        super(definition, itemToEdit, formDialogPresenterFactory, uiContext, eventBus);
+    public NodeTypeBasedOpenEditDialogAction(OpenEditDialogActionDefinition definition, Item itemToEdit, FormDialogPresenterFactory formDialogPresenterFactory, UiContext uiContext, @Named("admincentral") EventBus eventBus, SimpleTranslator i18n, ContentConnector contentConnector) {
+        super(definition, itemToEdit, formDialogPresenterFactory, uiContext, eventBus, i18n, contentConnector);
         this.itemToEdit = itemToEdit;
     }
 
+
     @Override
     public void execute() throws ActionExecutionException {
-        if (getDefinition() instanceof NodeTypeBasedOpenEditDialogActionDefinition) {
+        if (getDefinition() instanceof NodeTypeBasedOpenEditDialogActionDefinition && itemToEdit instanceof JcrItemAdapter) {
             NodeTypeBasedOpenEditDialogActionDefinition definition = (NodeTypeBasedOpenEditDialogActionDefinition) getDefinition();
+            JcrItemAdapter item = (JcrItemAdapter) itemToEdit;
             String nodeType = null;
-            if (itemToEdit.getJcrItem().isNode()) {
+            if (item.isNode()) {
                 try {
-                    nodeType = ((Node) itemToEdit.getJcrItem()).getPrimaryNodeType().getName();
+                    nodeType = ((Node) item.getJcrItem()).getPrimaryNodeType().getName();
                 } catch (RepositoryException e) {
                     throw new ActionExecutionException(e);
                 }

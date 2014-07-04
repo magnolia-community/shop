@@ -73,22 +73,22 @@ public class CreateAppsForExistingShops extends AbstractRepositoryTask {
         // shop app
         Node shopNode = appsNode.addNode(node.getName(), NodeTypes.ContentNode.NAME);
         shopNode.setProperty("extends", "../shop");
-        shopNode.addNode("subApps", NodeTypes.Folder.NAME).addNode("browser", NodeTypes.ContentNode.NAME).addNode("workbench", NodeTypes.ContentNode.NAME).setProperty("path", "/" + node.getName());
+        shopNode.addNode("subApps", NodeTypes.ContentNode.NAME).addNode("browser", NodeTypes.ContentNode.NAME).addNode("contentConnector", NodeTypes.ContentNode.NAME).setProperty("rootPath", "/" + node.getName());
 
         // products app
         Node productsNode = appsNode.addNode(node.getName() + "Products", NodeTypes.ContentNode.NAME);
         productsNode.setProperty("extends", "../shopProducts");
-        productsNode.addNode("subApps", NodeTypes.Folder.NAME).addNode("browser", NodeTypes.ContentNode.NAME).addNode("workbench", NodeTypes.ContentNode.NAME).setProperty("path", "/" + node.getName());
+        productsNode.addNode("subApps", NodeTypes.ContentNode.NAME).addNode("browser", NodeTypes.ContentNode.NAME).addNode("contentConnector", NodeTypes.ContentNode.NAME).setProperty("rootPath", "/" + node.getName());
 
         // shopping carts app
         Node shoppingCartsNode = appsNode.addNode(node.getName() + "ShoppingCarts", NodeTypes.ContentNode.NAME);
         shoppingCartsNode.setProperty("extends", "../shoppingCarts");
-        shoppingCartsNode.addNode("subApps", NodeTypes.Folder.NAME).addNode("browser", NodeTypes.ContentNode.NAME).addNode("workbench", NodeTypes.ContentNode.NAME).setProperty("path", "/" + node.getName());
+        shoppingCartsNode.addNode("subApps", NodeTypes.ContentNode.NAME).addNode("browser", NodeTypes.ContentNode.NAME).addNode("contentConnector", NodeTypes.ContentNode.NAME).setProperty("rootPath", "/" + node.getName());
 
         // shop suppliers app
         Node suppliersNode = appsNode.addNode(node.getName() + "Suppliers", NodeTypes.ContentNode.NAME);
         suppliersNode.setProperty("extends", "../shopSuppliers");
-        suppliersNode.addNode("subApps", NodeTypes.Folder.NAME).addNode("browser", NodeTypes.ContentNode.NAME).addNode("workbench", NodeTypes.ContentNode.NAME).setProperty("path", "/" + node.getName());
+        suppliersNode.addNode("subApps", NodeTypes.ContentNode.NAME).addNode("browser", NodeTypes.ContentNode.NAME).addNode("contentConnector", NodeTypes.ContentNode.NAME).setProperty("rootPath", "/" + node.getName());
     }
 
     protected void createShopEntryInAppLauncher(Node node) throws RepositoryException {
@@ -99,7 +99,7 @@ public class CreateAppsForExistingShops extends AbstractRepositoryTask {
         groupsNode.addNode(node.getName() + "Products", NodeTypes.ContentNode.NAME);
         groupsNode.addNode(node.getName() + "Suppliers", NodeTypes.ContentNode.NAME);
         groupsNode.addNode(node.getName() + "ShoppingCarts", NodeTypes.ContentNode.NAME);
-        shopNode.setProperty("color", "#000000");
+        shopNode.setProperty("color", "#9A3332");
         shopNode.setProperty("label", StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(node.getName()), " "));
     }
 }

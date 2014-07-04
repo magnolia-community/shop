@@ -47,6 +47,7 @@ import info.magnolia.ui.form.field.definition.ConfiguredFieldDefinition;
 import info.magnolia.ui.form.field.definition.StaticFieldDefinition;
 import info.magnolia.ui.form.field.definition.TextFieldDefinition;
 import info.magnolia.ui.form.field.factory.FieldFactoryFactory;
+import info.magnolia.ui.vaadin.integration.jcr.DefaultProperty;
 import info.magnolia.ui.vaadin.integration.jcr.JcrNodeAdapter;
 
 import java.util.ArrayList;
@@ -91,7 +92,7 @@ public class PriceCategoryField extends AbstractCustomMultiField<PriceCategoryFi
         root.setWidth("520px");
         root.setColumns(4);
         initFields();
-        addValueChangeListener(datasourceListener);
+        addValueChangeListener(selectionListener);
         return root;
     }
 
@@ -112,7 +113,7 @@ public class PriceCategoryField extends AbstractCustomMultiField<PriceCategoryFi
         while (iter.hasNext()) {
             List<ConfiguredFieldDefinition> list = (List<ConfiguredFieldDefinition>) iter.next();
             for (ConfiguredFieldDefinition fieldDefinition : list) {
-                Field<?> field = createLocalField(fieldDefinition, fieldValues, false);
+                Field<?> field = createLocalField(fieldDefinition, new DefaultProperty<PropertysetItem>(PropertysetItem.class, fieldValues), false);
                 if (fieldDefinition instanceof TextFieldDefinition) {
                     if (fieldValues.getItemProperty(fieldDefinition.getName()) != null) {
                         field.setPropertyDataSource(fieldValues.getItemProperty(fieldDefinition.getName()));

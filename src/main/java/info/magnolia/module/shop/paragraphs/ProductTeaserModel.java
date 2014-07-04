@@ -33,7 +33,7 @@
  */
 package info.magnolia.module.shop.paragraphs;
 
-import info.magnolia.dam.asset.functions.DamTemplatingFunctions;
+import info.magnolia.dam.templating.functions.DamTemplatingFunctions;
 import info.magnolia.jcr.util.ContentMap;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
@@ -63,14 +63,11 @@ public class ProductTeaserModel extends InternalTeaserModel<TemplateDefinition> 
     private static Logger log = LoggerFactory.getLogger(ProductTeaserModel.class);
     private Node siteRoot = null;
 
-    public ProductTeaserModel(Node content, TemplateDefinition definition,
-            RenderingModel<?> parent, STKTemplatingFunctions stkFunctions,
-            CssSelectorBuilder cssSelectorBuilder,
-            TemplatingFunctions templatingFunctions, DamTemplatingFunctions damFunctions) {
-        super(content, definition, parent, stkFunctions, cssSelectorBuilder,
-                templatingFunctions, damFunctions);
+    public ProductTeaserModel(Node content, TemplateDefinition definition, RenderingModel<?> parent, STKTemplatingFunctions stkFunctions, CssSelectorBuilder cssSelectorBuilder, TemplatingFunctions templatingFunctions, DamTemplatingFunctions damTemplatingFunctions) {
+        super(content, definition, parent, stkFunctions, cssSelectorBuilder, templatingFunctions, damTemplatingFunctions);
         siteRoot = stkFunctions.siteRoot(content);
     }
+
 
     @Override
     public ContentMap getTarget() {
