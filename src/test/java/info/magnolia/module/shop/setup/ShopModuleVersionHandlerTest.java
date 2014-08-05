@@ -74,12 +74,14 @@ import org.junit.Test;
 public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
 
     private Session config;
+    private Session templates;
 
     @Override
     @Before
     public void setUp() throws Exception {
         super.setUp();
         config = MgnlContext.getJCRSession(RepositoryConstants.CONFIG);
+        templates = MgnlContext.getJCRSession("templates");
     }
 
     @Override
@@ -105,7 +107,7 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
 
     @Override
     protected String[] getExtraWorkspaces() {
-        return new String[] { "dam", "resources", "templates" };
+        return new String[]{"dam", "resources", "templates"};
     }
 
     @Override
@@ -157,4 +159,37 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         assertTrue(config.itemExists("/modules/multisite/config/sites/default/templates/availability/templates/shopCheckoutForm"));
     }
 
+    @Test
+    public void testUpdateTo210() throws Exception {
+        // GIVEN
+        setupNode("templates","/shop/pages");
+        setupConfigNode("/modules/shop/templates/pages/shopHome/templateScript");
+        setupConfigNode("/modules/shop/templates/pages/shopHome/areas/promos");
+        setupConfigNode("/modules/shop/templates/pages/shopHome/navigation/vertical/startLevel");
+        setupConfigNode("/modules/shop/templates/pages/shopHome/navigation/vertical/template");
+        setupConfigNode("/modules/shop/templates/pages/shopHome/areas/main/areas/breadcrumb");
+
+
+        // WHEN
+        executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("2.0.1"));
+
+        // THEN
+        assertTrue(!templates.itemExists("/shop/pages"));
+        assertTrue(!config.itemExists("/modules/shop/templates/pages/shopHome/templateScript"));
+        assertTrue(!config.itemExists("/modules/shop/templates/pages/shopHome/areas/promos"));
+        assertTrue(!config.itemExists("/modules/shop/templates/pages/shopHome/navigation/vertical/startLevel"));
+        assertTrue(!config.itemExists("/modules/shop/templates/pages/shopHome/navigation/vertical/template"));
+        assertTrue(!config.itemExists("/modules/shop/templates/pages/shopHome/areas/main/areas/breadcrumb"));
+        assertTrue(config.itemExists("/modules/shop/templates/pages/shopHome/areas/sectionHeader"));
+        assertTrue(config.itemExists("/modules/shop/templates/pages/shopFormStep/areas/promos"));
+        assertTrue(config.itemExists("/modules/shop/templates/pages/shopCheckoutForm/areas/promos"));
+        assertTrue(config.itemExists("/modules/shop/templates/pages/shopShoppingCart/areas/promos"));
+        assertTrue(config.itemExists("/modules/shop/templates/pages/shopProductDetail/areas/promos"));
+        assertTrue(config.itemExists("/modules/shop/templates/pages/shopProductCategory/areas/promos"));
+        assertTrue(config.itemExists("/modules/shop/templates/pages/shopConfirmationPage/areas/promos"));
+        assertTrue(config.itemExists("/modules/shop/templates/pages/shopProductSearchResult/areas/promos"));
+        assertTrue(config.itemExists("/modules/shop/templates/pages/shopFormStepConfirmOrder/areas/promos"));
+        assertTrue(config.itemExists("/modules/shop/templates/pages/shopProductKeywordResult/areas/promos"));
+        assertTrue(config.itemExists("/modules/standard-templating-kit/config/themes/pop/cssFiles/shop"));
+    }
 }

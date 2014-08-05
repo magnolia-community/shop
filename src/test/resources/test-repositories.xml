@@ -80,6 +80,7 @@
         <Map name="mgnlVersion" repositoryName="magnolia" workspaceName="mgnlVersion" /> <!-- magnolia version workspace -->
         <Map name="data" repositoryName="magnolia" workspaceName="data" />
         <Map name="dms" repositoryName="magnolia" workspaceName="dms" />
+        <Map name="templates" repositoryName="magnolia" workspaceName="templates" />
     </RepositoryMapping>
 
     <!-- magnolia default repository -->
@@ -101,5 +102,6 @@
         <workspace name="mgnlVersion" />
         <workspace name="data" />
         <workspace name="dms" />
+        <workspace name="templates" />
     </Repository>
 </JCR>
