@@ -33,15 +33,14 @@
  */
 package info.magnolia.module.shop.processors;
 
-import ch.fastforward.magnolia.ocm.atomictypeconverter.MgnlAtomicTypeConverterProvider;
 import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
+import info.magnolia.context.SystemContext;
 import info.magnolia.module.form.processors.AbstractFormProcessor;
 import info.magnolia.module.form.processors.FormProcessorFailedException;
-import ch.fastforward.magnolia.ocm.ext.MgnlConfigMapperImpl;
-import ch.fastforward.magnolia.ocm.ext.MgnlObjectConverterImpl;
 import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
 import info.magnolia.module.shop.util.ShopUtil;
+import info.magnolia.objectfactory.Components;
 
 import java.util.Date;
 import java.util.Map;
@@ -58,6 +57,10 @@ import org.apache.jackrabbit.ocm.manager.objectconverter.impl.ProxyManagerImpl;
 import org.apache.jackrabbit.ocm.mapper.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import ch.fastforward.magnolia.ocm.atomictypeconverter.MgnlAtomicTypeConverterProvider;
+import ch.fastforward.magnolia.ocm.ext.MgnlConfigMapperImpl;
+import ch.fastforward.magnolia.ocm.ext.MgnlObjectConverterImpl;
 
 /**
  * Saves the shoppingcart into data module using ocm.
@@ -87,7 +90,8 @@ public class SaveAndConfirmFormProcessor extends AbstractFormProcessor {
         RequestObjectCacheImpl requestObjectCache = new RequestObjectCacheImpl();
         DefaultAtomicTypeConverterProvider converterProvider = new MgnlAtomicTypeConverterProvider();
         MgnlObjectConverterImpl oc = new MgnlObjectConverterImpl(mapper, converterProvider, new ProxyManagerImpl(), requestObjectCache);
-        ObjectContentManager ocm = new ObjectContentManagerImpl(MgnlContext.getJCRSession("shoppingCarts").getWorkspace().getSession(), mapper);
+
+        ObjectContentManager ocm = new ObjectContentManagerImpl(Components.getComponent(SystemContext.class).getJCRSession("shoppingCarts"), mapper);
         ((ObjectContentManagerImpl) ocm).setObjectConverter(oc);
         ((ObjectContentManagerImpl) ocm).setRequestObjectCache(requestObjectCache);
     
