@@ -93,7 +93,6 @@ public class PriceCategoryField extends AbstractCustomMultiField<PriceCategoryFi
         root.setWidth("520px");
         root.setColumns(4);
         initFields();
-        // addValueChangeListener(selectionListener);
         return root;
     }
 
