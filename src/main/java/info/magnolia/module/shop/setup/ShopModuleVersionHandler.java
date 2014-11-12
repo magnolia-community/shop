@@ -162,8 +162,7 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
               .addTask(new RemoveNodesTask("Remove nodes from config", "Remove not needed nodes.", "config", Arrays.asList(
                       new String[]{"/modules/shop/templates/pages/shopHome/templateScript", "/modules/shop/templates/pages/shopHome/areas/promos", "/modules/shop/templates/pages/shopHome/navigation/vertical/startLevel", "/modules/shop/templates/pages/shopHome/navigation/vertical/template", "/modules/shop/templates/pages/shopHome/areas/main/areas/breadcrumb"}), true))
               .addTask(new RemoveNodesTask("Remove nodes from templates", "Remove not needed nodes.", "templates", Arrays.asList(new String[]{"/shop/pages"}), true))
-              .addTask(new ArrayDelegateTask("Add sectionHeader node with right properties",
-                      new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopHome.xml", "/shopHome/areas/sectionHeader")))
+              .addTask(new PartialBootstrapTask("Add sectionHeader node with right properties", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopHome.xml", "/shopHome/areas/sectionHeader"))
               .addTask(new ArrayDelegateTask("Add promos with enable=false for subpages",
                       new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopFormStep.xml", "/shopFormStep/areas/promos"),
                       new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopCheckoutForm.xml", "/shopCheckoutForm/areas/promos"),
@@ -174,8 +173,7 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
                       new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopProductSearchResult.xml", "/shopProductSearchResult/areas/promos"),
                       new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopFormStepConfirmOrder.xml", "/shopFormStepConfirmOrder/areas/promos"),
                       new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopProductKeywordResult.xml", "/shopProductKeywordResult/areas/promos")))
-                .addTask(new ArrayDelegateTask("Add shop css to themes",
-                      new BootstrapSingleResource("", "", "/mgnl-bootstrap/shop/config.modules.standard-templating-kit.config.themes.pop.cssFiles.shop.xml")))
+              .addTask(new BootstrapSingleResource("Add shop css to themes", "", "/mgnl-bootstrap/shop/config.modules.standard-templating-kit.config.themes.pop.cssFiles.shop.xml"))
         );
     }
 
