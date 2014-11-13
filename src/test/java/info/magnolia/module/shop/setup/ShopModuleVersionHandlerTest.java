@@ -53,6 +53,7 @@ import info.magnolia.module.ModuleVersionHandlerTestCase;
 import info.magnolia.module.model.ModuleDefinition;
 import info.magnolia.module.model.Version;
 import info.magnolia.module.model.reader.BetwixtModuleDefinitionReader;
+import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.objectfactory.Components;
 import info.magnolia.repository.RepositoryConstants;
 import info.magnolia.test.ComponentsTestUtil;
@@ -191,5 +192,19 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         assertTrue(config.itemExists("/modules/shop/templates/pages/shopFormStepConfirmOrder/areas/promos"));
         assertTrue(config.itemExists("/modules/shop/templates/pages/shopProductKeywordResult/areas/promos"));
         assertTrue(config.itemExists("/modules/standard-templating-kit/config/themes/pop/cssFiles/shop"));
+    }
+
+    @Test
+    public void testUpdateTo210AddSampleShopFolders() throws Exception {
+        // GIVEN
+        setupConfigNode("/modules/shop");
+        setupNode(ShopRepositoryConstants.SHOPPING_CARTS, "/sampleShop/userSpecifiedNode");
+
+        // WHEN
+        executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("2.0.1"));
+
+        // THEN
+        assertTrue(MgnlContext.getJCRSession(ShopRepositoryConstants.SHOPPING_CARTS).itemExists("/sampleShop/userSpecifiedNode"));
+        assertTrue(MgnlContext.getJCRSession(ShopRepositoryConstants.SHOP_SUPPLIERS).itemExists("/sampleShop"));
     }
 }

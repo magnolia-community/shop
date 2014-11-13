@@ -174,6 +174,11 @@ public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
                       new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopFormStepConfirmOrder.xml", "/shopFormStepConfirmOrder/areas/promos"),
                       new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopProductKeywordResult.xml", "/shopProductKeywordResult/areas/promos")))
               .addTask(new BootstrapSingleResource("Add shop css to themes", "", "/mgnl-bootstrap/shop/config.modules.standard-templating-kit.config.themes.pop.cssFiles.shop.xml"))
+              .addTask(new ArrayDelegateTask("Add rootFolders 'sampleShop' to sampleSuppliers and sampleShopingCarts if not there yet",
+                      new NodeExistsDelegateTask("", "", ShopRepositoryConstants.SHOPPING_CARTS, "/sampleShop", null,
+                              new BootstrapSingleResource("Bootstrap shoppingCarts", "", "/mgnl-bootstrap-samples/shop/shoppingCarts.sampleShop.xml")),
+                      new NodeExistsDelegateTask("", "", ShopRepositoryConstants.SHOP_SUPPLIERS, "/sampleShop", null,
+                              new BootstrapSingleResource("Bootstrap shopSuppliers", "", "/mgnl-bootstrap-samples/shop/shopSuppliers.sampleShop.xml"))))
         );
     }
 
