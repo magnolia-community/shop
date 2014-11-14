@@ -2,9 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd ">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>info.magnolia.forge</groupId>
+    <groupId>info.magnolia.maven.poms-forge</groupId>
     <artifactId>magnolia-parent-pom-forge</artifactId>
-    <version>28</version>
+    <version>30</version>
   </parent>
   <groupId>info.magnolia.shop</groupId>
   <artifactId>magnolia-module-shop</artifactId>
@@ -19,8 +19,8 @@
     <stkVersion>2.8</stkVersion>
 
     <!-- dual licensed : -->
-    <checkstyleHeader>magnolia-build-tools/license-header-dual.regex</checkstyleHeader>
-    <magnoliaBuildToolsArtifactId>magnolia-build-tools-dual-licensed</magnoliaBuildToolsArtifactId>
+    <checkstyleHeader>magnolia-build-resources/license-header-dual.regex</checkstyleHeader>
+    <magnoliaBuildToolsArtifactId>magnolia-build-resources-dual-licensed</magnoliaBuildToolsArtifactId>
     <magnoliaLicenseStyle>dual</magnoliaLicenseStyle>
   </properties>
   <licenses>
