@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2010-2014 Magnolia International
+ * This file Copyright (c) 2014 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -31,51 +31,13 @@
  * intact.
  *
  */
-package info.magnolia.module.shop;
+package info.magnolia.module.shop.app.field.definition;
 
-import info.magnolia.jcr.util.SessionUtil;
-import info.magnolia.module.shop.util.ShopUtil;
-
-import javax.jcr.Node;
+import info.magnolia.ui.form.field.definition.SelectFieldDefinition;
 
 /**
- * Implement this class to get the category price used by i.e. user selected
- * shop
- *
- * @author tmiyar
- *
+ * Field definition of price categories.
  */
-public class DefaultPriceCategoryManagerImpl implements PriceCategoryManager {
-    private String defaultPriceCategory;
-    private String shopName;
-
-
-    public DefaultPriceCategoryManagerImpl(String defaultPriceCategory, String shopName ) {
-        this.defaultPriceCategory = defaultPriceCategory;
-        this.shopName = shopName;
-
-    }
-
-    @Override
-    public Node getPriceCategoryInUse() {
-        Node priceCategory = SessionUtil.getNode(ShopRepositoryConstants.SHOPS, ShopUtil.getPath(shopName, "priceCategories", getDefaultPriceCategory()));
-        return priceCategory;
-    }
-
-    public void setDefaultPriceCategory(String defaultPriceCategory) {
-        this.defaultPriceCategory = defaultPriceCategory;
-    }
-
-    public String getDefaultPriceCategory() {
-        return defaultPriceCategory;
-    }
-
-    public String getShopName() {
-        return shopName;
-    }
-
-    public void setShopName(String shopName) {
-        this.shopName = shopName;
-    }
+public class PriceCategoriesSelectFieldDefinition extends SelectFieldDefinition {
 
 }

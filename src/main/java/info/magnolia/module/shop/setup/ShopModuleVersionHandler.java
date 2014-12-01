@@ -60,6 +60,7 @@ import info.magnolia.module.delta.OrderNodeAfterTask;
 import info.magnolia.module.delta.OrderNodeBeforeTask;
 import info.magnolia.module.delta.PartialBootstrapTask;
 import info.magnolia.module.delta.RemoveNodesTask;
+import info.magnolia.module.delta.SetPropertyTask;
 import info.magnolia.module.delta.Task;
 import info.magnolia.module.inplacetemplating.setup.TemplatesInstallTask;
 import info.magnolia.module.resources.setup.InstallResourcesTask;
@@ -179,6 +180,10 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                               new BootstrapSingleResource("Bootstrap shoppingCarts", "", "/mgnl-bootstrap-samples/shop/shoppingCarts.sampleShop.xml")),
                       new NodeExistsDelegateTask("", "", ShopRepositoryConstants.SHOP_SUPPLIERS, "/sampleShop", null,
                               new BootstrapSingleResource("Bootstrap shopSuppliers", "", "/mgnl-bootstrap-samples/shop/shopSuppliers.sampleShop.xml"))))
+              .addTask(new ArrayDelegateTask("Add default price category select field.",
+                      new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/config.modules.shop.fieldTypes.xml", "/fieldTypes/priceCategorySelect"),
+                      new SetPropertyTask(RepositoryConstants.CONFIG, "/modules/shop/dialogs/createShop/form/tabs/system/fields/defaultPriceCategoryName" , "class", "info.magnolia.module.shop.app.field.definition.PriceCategoriesSelectFieldDefinition")
+              ))
         );
     }
 

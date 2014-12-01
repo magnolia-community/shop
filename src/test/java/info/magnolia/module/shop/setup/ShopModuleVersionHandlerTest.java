@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2010-2013 Magnolia International
+ * This file Copyright (c) 2010-2014 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -33,6 +33,8 @@
  */
 package info.magnolia.module.shop.setup;
 
+
+import static org.junit.Assert.assertEquals;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
@@ -76,6 +78,7 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
 
     private Session config;
     private Session templates;
+    private Session shops;
 
     @Override
     @Before
@@ -83,6 +86,7 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         super.setUp();
         config = MgnlContext.getJCRSession(RepositoryConstants.CONFIG);
         templates = MgnlContext.getJCRSession("templates");
+        shops = MgnlContext.getJCRSession("shops");
     }
 
     @Override
@@ -169,6 +173,9 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         setupConfigNode("/modules/shop/templates/pages/shopHome/navigation/vertical/startLevel");
         setupConfigNode("/modules/shop/templates/pages/shopHome/navigation/vertical/template");
         setupConfigNode("/modules/shop/templates/pages/shopHome/areas/main/areas/breadcrumb");
+        setupConfigNode("/modules/shop/dialogs/createShop/form/tabs/system/fields/defaultPriceCategoryName");
+        setupConfigNode("/modules/shop/fieldTypes");
+        setupNode("shops", "/sampleShop");
 
 
         // WHEN
@@ -192,12 +199,16 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         assertTrue(config.itemExists("/modules/shop/templates/pages/shopFormStepConfirmOrder/areas/promos"));
         assertTrue(config.itemExists("/modules/shop/templates/pages/shopProductKeywordResult/areas/promos"));
         assertTrue(config.itemExists("/modules/standard-templating-kit/config/themes/pop/cssFiles/shop"));
+        assertTrue(config.itemExists("/modules/shop/fieldTypes/priceCategorySelect"));
+        assertEquals("info.magnolia.module.shop.app.field.definition.PriceCategoriesSelectFieldDefinition", config.getNode("/modules/shop/dialogs/createShop/form/tabs/system/fields/defaultPriceCategoryName").getProperty("class").getValue().getString());
     }
 
     @Test
     public void testUpdateTo210AddSampleShopFolders() throws Exception {
         // GIVEN
+        setupNode("shops", "/sampleShop");
         setupConfigNode("/modules/shop");
+        setupConfigNode("/modules/shop/dialogs/createShop/form/tabs/system/fields/defaultPriceCategoryName");
         setupNode(ShopRepositoryConstants.SHOPPING_CARTS, "/sampleShop/userSpecifiedNode");
 
         // WHEN
