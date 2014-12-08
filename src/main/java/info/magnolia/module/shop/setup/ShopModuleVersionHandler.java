@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2010-2013 Magnolia International
+ * This file Copyright (c) 2010-2014 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -41,8 +41,8 @@ import info.magnolia.dam.app.setup.migration.CleanContentForDamMigrationTask;
 import info.magnolia.dam.app.setup.migration.MoveDataWorkspaceToDamMigrationTask;
 import info.magnolia.dam.app.setup.migration.MoveUploadedContentToDamMigrationTask;
 import info.magnolia.jcr.util.NodeTypes;
+import info.magnolia.module.DefaultModuleVersionHandler;
 import info.magnolia.module.InstallContext;
-import info.magnolia.module.admininterface.setup.SimpleContentVersionHandler;
 import info.magnolia.module.data.setup.RegisterNodeTypeTask;
 import info.magnolia.module.delta.AddPermissionTask;
 import info.magnolia.module.delta.AddRoleToUserTask;
@@ -77,7 +77,7 @@ import java.util.List;
 /**
  * This class is used to handle installation and updates of your module.
  */
-public class ShopModuleVersionHandler extends SimpleContentVersionHandler {
+public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
 
     public ShopModuleVersionHandler() {
 
