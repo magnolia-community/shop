@@ -33,13 +33,14 @@
  */
 package info.magnolia.module.shop.setup;
 
-
-import static org.junit.Assert.assertEquals;
-
-import static org.junit.Assert.assertTrue;
+import static info.magnolia.test.hamcrest.NodeMatchers.*;
+import static org.hamcrest.core.IsNot.not;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import info.magnolia.cms.exchange.ActivationManager;
+import info.magnolia.cms.security.MgnlRoleManager;
+import info.magnolia.cms.security.Permission;
 import info.magnolia.cms.security.Realm;
 import info.magnolia.cms.security.Role;
 import info.magnolia.cms.security.RoleManager;
@@ -49,9 +50,11 @@ import info.magnolia.cms.security.SystemUserManager;
 import info.magnolia.cms.security.UserManager;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.context.SystemContext;
+import info.magnolia.module.InstallContext;
 import info.magnolia.module.ModuleManagementException;
 import info.magnolia.module.ModuleVersionHandler;
 import info.magnolia.module.ModuleVersionHandlerTestCase;
+import info.magnolia.module.data.DataModule;
 import info.magnolia.module.model.ModuleDefinition;
 import info.magnolia.module.model.Version;
 import info.magnolia.module.model.reader.BetwixtModuleDefinitionReader;
@@ -78,7 +81,7 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
 
     private Session config;
     private Session templates;
-    private Session shops;
+    private Session userRoles;
 
     @Override
     @Before
@@ -86,7 +89,7 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         super.setUp();
         config = MgnlContext.getJCRSession(RepositoryConstants.CONFIG);
         templates = MgnlContext.getJCRSession("templates");
-        shops = MgnlContext.getJCRSession("shops");
+        userRoles = MgnlContext.getJCRSession(RepositoryConstants.USER_ROLES);
     }
 
     @Override
@@ -167,7 +170,10 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
     @Test
     public void testUpdateTo210() throws Exception {
         // GIVEN
-        setupNode("templates","/shop/pages");
+        setupNode("shops", "/sampleShop");
+        setupNode(ShopRepositoryConstants.SHOPPING_CARTS, "/sampleShop/userSpecifiedNode");
+
+        setupNode("templates", "/shop/pages");
         setupConfigNode("/modules/shop/templates/pages/shopHome/templateScript");
         setupConfigNode("/modules/shop/templates/pages/shopHome/areas/promos");
         setupConfigNode("/modules/shop/templates/pages/shopHome/navigation/vertical/startLevel");
@@ -175,11 +181,23 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         setupConfigNode("/modules/shop/templates/pages/shopHome/areas/main/areas/breadcrumb");
         setupConfigNode("/modules/shop/dialogs/createShop/form/tabs/system/fields/defaultPriceCategoryName");
         setupConfigNode("/modules/shop/fieldTypes");
+        setupConfigNode("/modules/shop/apps/sampleShopProducts/subApps/browser");
+        setupConfigNode("/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/categories/fields/productCategoryUUIDs");
         setupNode("shops", "/sampleShop");
 
+        SecuritySupportImpl securitySupport = new SecuritySupportImpl();
+        ComponentsTestUtil.setInstance(SecuritySupport.class, securitySupport);
+        RoleManager roleManager = new MgnlRoleManager();
+        securitySupport.setRoleManager(roleManager);
+        Role shopUserBase = roleManager.createRole("shop-user-base");
+        roleManager.addPermission(shopUserBase, DataModule.WORKSPACE, "/", Permission.READ);
+        roleManager.addPermission(shopUserBase, "dms", "/", Permission.READ);
+        roleManager.addPermission(shopUserBase, ShopRepositoryConstants.SHOPPING_CARTS, "/", Permission.READ);
+        roleManager.addPermission(shopUserBase, ShopRepositoryConstants.SHOP_PRODUCTS, "/", Permission.READ);
+        roleManager.addPermission(shopUserBase, ShopRepositoryConstants.SHOPS, "/", Permission.READ);
 
         // WHEN
-        executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("2.0.1"));
+        InstallContext ctx = executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("2.0.1"));
 
         // THEN
         assertTrue(!templates.itemExists("/shop/pages"));
@@ -201,21 +219,21 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         assertTrue(config.itemExists("/modules/standard-templating-kit/config/themes/pop/cssFiles/shop"));
         assertTrue(config.itemExists("/modules/shop/fieldTypes/priceCategorySelect"));
         assertEquals("info.magnolia.module.shop.app.field.definition.PriceCategoriesSelectFieldDefinition", config.getNode("/modules/shop/dialogs/createShop/form/tabs/system/fields/defaultPriceCategoryName").getProperty("class").getValue().getString());
-    }
 
-    @Test
-    public void testUpdateTo210AddSampleShopFolders() throws Exception {
-        // GIVEN
-        setupNode("shops", "/sampleShop");
-        setupConfigNode("/modules/shop");
-        setupConfigNode("/modules/shop/dialogs/createShop/form/tabs/system/fields/defaultPriceCategoryName");
-        setupNode(ShopRepositoryConstants.SHOPPING_CARTS, "/sampleShop/userSpecifiedNode");
-
-        // WHEN
-        executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("2.0.1"));
-
-        // THEN
+        //testUpdateTo210AddSampleShopFolders
         assertTrue(MgnlContext.getJCRSession(ShopRepositoryConstants.SHOPPING_CARTS).itemExists("/sampleShop/userSpecifiedNode"));
         assertTrue(MgnlContext.getJCRSession(ShopRepositoryConstants.SHOP_SUPPLIERS).itemExists("/sampleShop"));
+
+        assertThat(config.getNode("/modules/shop/apps/sampleShopProducts/subApps/browser"), hasNode("actions"));
+        assertThat(config.getNode("/modules/shop/apps/sampleShopProducts/subApps/"), hasNode("detail"));
+        assertThat(config.getNode("/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/categories/fields/productCategoryUUIDs"), hasProperty("sortOptions", false));
+        assertThat(userRoles.getNode("/shop-user-base/"), not(hasNode("acl_data")));
+        assertThat(userRoles.getNode("/shop-user-base/"), not(hasNode("acl_dms")));
+        assertThat(userRoles.getRootNode(), not(hasNode("shop-user-base/acl_shoppingCarts/0")));
+        assertThat(userRoles.getRootNode(), not(hasNode("shop-user-base/acl_shopProducts/0")));
+        assertThat(userRoles.getRootNode(), not(hasNode("shop-user-base/acl_shops/0")));
+
+        this.assertNoMessages(ctx);
     }
+
 }

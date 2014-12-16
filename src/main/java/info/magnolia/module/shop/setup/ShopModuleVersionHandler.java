@@ -55,11 +55,14 @@ import info.magnolia.module.delta.IsAuthorInstanceDelegateTask;
 import info.magnolia.module.delta.IsInstallSamplesTask;
 import info.magnolia.module.delta.IsModuleInstalledOrRegistered;
 import info.magnolia.module.delta.ModuleDependencyBootstrapTask;
+import info.magnolia.module.delta.NewPropertyTask;
 import info.magnolia.module.delta.NodeExistsDelegateTask;
 import info.magnolia.module.delta.OrderNodeAfterTask;
 import info.magnolia.module.delta.OrderNodeBeforeTask;
 import info.magnolia.module.delta.PartialBootstrapTask;
+import info.magnolia.module.delta.RemoveNodeTask;
 import info.magnolia.module.delta.RemoveNodesTask;
+import info.magnolia.module.delta.RemovePermissionTask;
 import info.magnolia.module.delta.SetPropertyTask;
 import info.magnolia.module.delta.Task;
 import info.magnolia.module.inplacetemplating.setup.TemplatesInstallTask;
@@ -185,7 +188,16 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                         new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/config.modules.shop.fieldTypes.xml", "/fieldTypes/priceCategorySelect"),
                         new SetPropertyTask(RepositoryConstants.CONFIG, "/modules/shop/dialogs/createShop/form/tabs/system/fields/defaultPriceCategoryName", "class", "info.magnolia.module.shop.app.field.definition.PriceCategoriesSelectFieldDefinition")
                 ))
-        );
+                .addTask(new ArrayDelegateTask("Migrate old configuration",
+                        new PartialBootstrapTask("", "", "/mgnl-bootstrap-samples/shop/config.modules.shop.apps.sampleShopProducts.xml", "/sampleShopProducts/subApps/"),
+                        new NodeExistsDelegateTask("", "/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/categories/fields/productCategoryUUIDs",
+                                new NewPropertyTask("", "/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/categories/fields/productCategoryUUIDs", "sortOptions", false)),
+                        new RemoveNodeTask("", "", RepositoryConstants.USER_ROLES, "/shop-user-base/acl_data"),
+                        new RemoveNodeTask("", "", RepositoryConstants.USER_ROLES, "/shop-user-base/acl_dms"),
+                        new RemovePermissionTask("", "shop-user-base", ShopRepositoryConstants.SHOPPING_CARTS, "/", Permission.READ),
+                        new RemovePermissionTask("", "shop-user-base", ShopRepositoryConstants.SHOP_PRODUCTS, "/", Permission.READ),
+                        new RemovePermissionTask("", "shop-user-base", ShopRepositoryConstants.SHOPS, "/", Permission.READ)
+                )));
     }
 
     /**

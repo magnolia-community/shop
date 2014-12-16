@@ -383,7 +383,7 @@
                 <sv:value>d52b9c83-9c0e-43b2-9633-2caf0b8e51ea</sv:value>
               </sv:property>
               <sv:property sv:name="contentPreviewClass" sv:type="String">
-                <sv:value>info.magnolia.dam.asset.field.DamFilePreviewComponent</sv:value>
+                <sv:value>info.magnolia.dam.app.ui.field.DamFilePreviewComponent</sv:value>
               </sv:property>
               <sv:property sv:name="jcr:createdBy" sv:type="String">
                 <sv:value>admin</sv:value>

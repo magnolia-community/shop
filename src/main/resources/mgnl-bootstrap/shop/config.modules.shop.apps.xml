@@ -12651,7 +12651,7 @@
           <sv:value>0b962761-0548-4d81-9660-f1e613994f44</sv:value>
         </sv:property>
         <sv:property sv:name="class" sv:type="String">
-          <sv:value>info.magnolia.ui.contentapp.detail.ConfiguredDetailSubAppDescriptor</sv:value>
+          <sv:value>info.magnolia.ui.contentapp.detail.DetailSubAppDescriptor</sv:value>
         </sv:property>
         <sv:property sv:name="jcr:createdBy" sv:type="String">
           <sv:value>admin</sv:value>
