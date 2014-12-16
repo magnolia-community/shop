@@ -75,6 +75,7 @@ import info.magnolia.ui.dialog.setup.DialogMigrationTask;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 /**
  * This class is used to handle installation and updates of your module.
  */
@@ -119,36 +120,36 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
 
                 ))
                 .addTask(new IsModuleInstalledOrRegistered("Keywords for product Categories",
-                "Adds control to product categories dialog for asigning keywords.", "categorization",
-                new NodeBuilderTask("", "", ErrorHandling.strict, "config",
-                        getNode("modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs").then(
-                                addNode("tags", NodeTypes.ContentNode.NAME).then(
-                                        addNode("fields", NodeTypes.ContentNode.NAME).then(
-                                                addNode("categories", NodeTypes.ContentNode.NAME).then(
-                                                        addNode("field", NodeTypes.ContentNode.NAME).then(
-                                                                addNode("identifierToPathConverter", NodeTypes.ContentNode.NAME).then(
-                                                                        addProperty("class", "info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter")),
-                                                                addProperty("appName", "categories"),
-                                                                addProperty("buttonSelectNewLabel", "field.link.select.new"),
-                                                                addProperty("buttonSelectOtherLabel", "field.link.select.another"),
-                                                                addProperty("class", "info.magnolia.ui.form.field.definition.LinkFieldDefinition"),
-                                                                addProperty("fieldEditable", "true"),
-                                                                addProperty("targetWorkspace", "category")),
-                                                        addProperty("buttonSelectAddLabel", "field.link.select.add"),
-                                                        addProperty("class", "info.magnolia.ui.form.field.definition.MultiValueFieldDefinition"),
-                                                        addProperty("identifier", "true"),
-                                                        addProperty("transformerClass", "info.magnolia.ui.form.field.transformer.multi.MultiValueSubChildrenNodeTransformer"))))))))
+                        "Adds control to product categories dialog for asigning keywords.", "categorization",
+                        new NodeBuilderTask("", "", ErrorHandling.strict, "config",
+                                getNode("modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs").then(
+                                        addNode("tags", NodeTypes.ContentNode.NAME).then(
+                                                addNode("fields", NodeTypes.ContentNode.NAME).then(
+                                                        addNode("categories", NodeTypes.ContentNode.NAME).then(
+                                                                addNode("field", NodeTypes.ContentNode.NAME).then(
+                                                                        addNode("identifierToPathConverter", NodeTypes.ContentNode.NAME).then(
+                                                                                addProperty("class", "info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter")),
+                                                                        addProperty("appName", "categories"),
+                                                                        addProperty("buttonSelectNewLabel", "field.link.select.new"),
+                                                                        addProperty("buttonSelectOtherLabel", "field.link.select.another"),
+                                                                        addProperty("class", "info.magnolia.ui.form.field.definition.LinkFieldDefinition"),
+                                                                        addProperty("fieldEditable", "true"),
+                                                                        addProperty("targetWorkspace", "category")),
+                                                                addProperty("buttonSelectAddLabel", "field.link.select.add"),
+                                                                addProperty("class", "info.magnolia.ui.form.field.definition.MultiValueFieldDefinition"),
+                                                                addProperty("identifier", "true"),
+                                                                addProperty("transformerClass", "info.magnolia.ui.form.field.transformer.multi.MultiValueSubChildrenNodeTransformer"))))))))
                 .addTask(new BootstrapSingleResource("Register apps", "Register shop apps to the appLauncher.", "/mgnl-bootstrap/shop/config.modules.ui-admincentral.config.appLauncherLayout.groups.shop.xml"))
                 .addTask(new CreateAppsForExistingShops("Create apps", "Create shop apps for alredy existing shops."))
         );
 
         register(DeltaBuilder.update("2.0.1", "")
-            .addTask(new AddPermissionTask("Grant permissions", "Grant read permissions to the shopProducts workspace for shop users.", "shop-user-base", ShopRepositoryConstants.SHOP_PRODUCTS, "/", Permission.READ, true))
-            .addTask(new AddPermissionTask("Grant permissions", "Grant read permissions to the shops workspace for shop users.", "shop-user-base", ShopRepositoryConstants.SHOPS, "/", Permission.READ, true))
-            .addTask(new AddPermissionTask("Grant permissions", "Grant read permissions to the shopping carts workspace for shop users.", "shop-user-base", ShopRepositoryConstants.SHOPPING_CARTS, "/", Permission.READ, true))
-            .addTask(new BootstrapSingleModuleResource("config.modules.shop.fieldTypes.availableShops.xml"))
-            .addTask(new CheckAndModifyPropertyValueTask("/modules/shop/dialogs/pages/shopSectionProperties/form/tabs/tabShop/fields/currentShop", "class", "info.magnolia.ui.form.field.definition.SelectFieldDefinition", "info.magnolia.module.shop.app.field.definition.AvailableShopsSelectFieldDefinition"))
-            .addTask(new ArrayDelegateTask("Disable view of checkout form when shopping cart is empty",
+                .addTask(new AddPermissionTask("Grant permissions", "Grant read permissions to the shopProducts workspace for shop users.", "shop-user-base", ShopRepositoryConstants.SHOP_PRODUCTS, "/", Permission.READ, true))
+                .addTask(new AddPermissionTask("Grant permissions", "Grant read permissions to the shops workspace for shop users.", "shop-user-base", ShopRepositoryConstants.SHOPS, "/", Permission.READ, true))
+                .addTask(new AddPermissionTask("Grant permissions", "Grant read permissions to the shopping carts workspace for shop users.", "shop-user-base", ShopRepositoryConstants.SHOPPING_CARTS, "/", Permission.READ, true))
+                .addTask(new BootstrapSingleModuleResource("config.modules.shop.fieldTypes.availableShops.xml"))
+                .addTask(new CheckAndModifyPropertyValueTask("/modules/shop/dialogs/pages/shopSectionProperties/form/tabs/tabShop/fields/currentShop", "class", "info.magnolia.ui.form.field.definition.SelectFieldDefinition", "info.magnolia.module.shop.app.field.definition.AvailableShopsSelectFieldDefinition"))
+                .addTask(new ArrayDelegateTask("Disable view of checkout form when shopping cart is empty",
                         new BootstrapSingleResource("", "", "/mgnl-bootstrap/shop/paragraphs/config.modules.shop.templates.components.features.shopFormStep.xml"),
                         new CheckAndModifyPropertyValueTask("", "", RepositoryConstants.CONFIG, "/modules/shop/templates/components/features/shopForm", "i18nBasename", "info.magnolia.module.form.messages", "info.magnolia.module.shop.messages"),
                         new CheckAndModifyPropertyValueTask("", "", RepositoryConstants.CONFIG, "/modules/shop/templates/components/features/shopForm", "templateScript", "/form/components/form.ftl", "/shop/paragraphs/features/shopForm.ftl"),
@@ -159,39 +160,37 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
         );
 
         register(DeltaBuilder.update("2.1.0", "")
-              .addTask(new ContentAppMigrationTask("/modules/shop"))
-              .addTask(new RemoveNodesTask("Remove nodes from config", "Remove not needed nodes.", "config", Arrays.asList(
-                      new String[]{"/modules/shop/templates/pages/shopHome/templateScript", "/modules/shop/templates/pages/shopHome/areas/promos", "/modules/shop/templates/pages/shopHome/navigation/vertical/startLevel", "/modules/shop/templates/pages/shopHome/navigation/vertical/template", "/modules/shop/templates/pages/shopHome/areas/main/areas/breadcrumb"}), true))
-              .addTask(new RemoveNodesTask("Remove nodes from templates", "Remove not needed nodes.", "templates", Arrays.asList(new String[]{"/shop/pages"}), true))
-              .addTask(new PartialBootstrapTask("Add sectionHeader node with right properties", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopHome.xml", "/shopHome/areas/sectionHeader"))
-              .addTask(new ArrayDelegateTask("Add promos with enable=false for subpages",
-                      new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopFormStep.xml", "/shopFormStep/areas/promos"),
-                      new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopCheckoutForm.xml", "/shopCheckoutForm/areas/promos"),
-                      new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopShoppingCart.xml", "/shopShoppingCart/areas/promos"),
-                      new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopProductDetail.xml", "/shopProductDetail/areas/promos"),
-                      new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopProductCategory.xml", "/shopProductCategory/areas/promos"),
-                      new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopConfirmationPage.xml", "/shopConfirmationPage/areas/promos"),
-                      new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopProductSearchResult.xml", "/shopProductSearchResult/areas/promos"),
-                      new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopFormStepConfirmOrder.xml", "/shopFormStepConfirmOrder/areas/promos"),
-                      new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopProductKeywordResult.xml", "/shopProductKeywordResult/areas/promos")))
-              .addTask(new BootstrapSingleResource("Add shop css to themes", "", "/mgnl-bootstrap/shop/config.modules.standard-templating-kit.config.themes.pop.cssFiles.shop.xml"))
-              .addTask(new ArrayDelegateTask("Add rootFolders 'sampleShop' to sampleSuppliers and sampleShopingCarts if not there yet",
-                      new NodeExistsDelegateTask("", "", ShopRepositoryConstants.SHOPPING_CARTS, "/sampleShop", null,
-                              new BootstrapSingleResource("Bootstrap shoppingCarts", "", "/mgnl-bootstrap-samples/shop/shoppingCarts.sampleShop.xml")),
-                      new NodeExistsDelegateTask("", "", ShopRepositoryConstants.SHOP_SUPPLIERS, "/sampleShop", null,
-                              new BootstrapSingleResource("Bootstrap shopSuppliers", "", "/mgnl-bootstrap-samples/shop/shopSuppliers.sampleShop.xml"))))
-              .addTask(new ArrayDelegateTask("Add default price category select field.",
-                      new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/config.modules.shop.fieldTypes.xml", "/fieldTypes/priceCategorySelect"),
-                      new SetPropertyTask(RepositoryConstants.CONFIG, "/modules/shop/dialogs/createShop/form/tabs/system/fields/defaultPriceCategoryName" , "class", "info.magnolia.module.shop.app.field.definition.PriceCategoriesSelectFieldDefinition")
-              ))
+                .addTask(new ContentAppMigrationTask("/modules/shop"))
+                .addTask(new RemoveNodesTask("Remove nodes from config", "Remove not needed nodes.", "config", Arrays.asList(
+                        new String[]{"/modules/shop/templates/pages/shopHome/templateScript", "/modules/shop/templates/pages/shopHome/areas/promos", "/modules/shop/templates/pages/shopHome/navigation/vertical/startLevel", "/modules/shop/templates/pages/shopHome/navigation/vertical/template", "/modules/shop/templates/pages/shopHome/areas/main/areas/breadcrumb"}), true))
+                .addTask(new RemoveNodesTask("Remove nodes from templates", "Remove not needed nodes.", "templates", Arrays.asList(new String[]{"/shop/pages"}), true))
+                .addTask(new PartialBootstrapTask("Add sectionHeader node with right properties", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopHome.xml", "/shopHome/areas/sectionHeader"))
+                .addTask(new ArrayDelegateTask("Add promos with enable=false for subpages",
+                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopFormStep.xml", "/shopFormStep/areas/promos"),
+                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopCheckoutForm.xml", "/shopCheckoutForm/areas/promos"),
+                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopShoppingCart.xml", "/shopShoppingCart/areas/promos"),
+                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopProductDetail.xml", "/shopProductDetail/areas/promos"),
+                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopProductCategory.xml", "/shopProductCategory/areas/promos"),
+                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopConfirmationPage.xml", "/shopConfirmationPage/areas/promos"),
+                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopProductSearchResult.xml", "/shopProductSearchResult/areas/promos"),
+                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopFormStepConfirmOrder.xml", "/shopFormStepConfirmOrder/areas/promos"),
+                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/templates/config.modules.shop.templates.pages.shopProductKeywordResult.xml", "/shopProductKeywordResult/areas/promos")))
+                .addTask(new BootstrapSingleResource("Add shop css to themes", "", "/mgnl-bootstrap/shop/config.modules.standard-templating-kit.config.themes.pop.cssFiles.shop.xml"))
+                .addTask(new ArrayDelegateTask("Add rootFolders 'sampleShop' to sampleSuppliers and sampleShopingCarts if not there yet",
+                        new NodeExistsDelegateTask("", "", ShopRepositoryConstants.SHOPPING_CARTS, "/sampleShop", null,
+                                new BootstrapSingleResource("Bootstrap shoppingCarts", "", "/mgnl-bootstrap-samples/shop/shoppingCarts.sampleShop.xml")),
+                        new NodeExistsDelegateTask("", "", ShopRepositoryConstants.SHOP_SUPPLIERS, "/sampleShop", null,
+                                new BootstrapSingleResource("Bootstrap shopSuppliers", "", "/mgnl-bootstrap-samples/shop/shopSuppliers.sampleShop.xml"))))
+                .addTask(new ArrayDelegateTask("Add default price category select field.",
+                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/config.modules.shop.fieldTypes.xml", "/fieldTypes/priceCategorySelect"),
+                        new SetPropertyTask(RepositoryConstants.CONFIG, "/modules/shop/dialogs/createShop/form/tabs/system/fields/defaultPriceCategoryName", "class", "info.magnolia.module.shop.app.field.definition.PriceCategoriesSelectFieldDefinition")
+                ))
         );
     }
 
     /**
-     *
-     * @param installContext
      * @return a list with all the RegisterNodeTypeTask objects needed for the
-     * shop node types
+     *         shop node types
      */
     @Override
     protected List<Task> getBasicInstallTasks(InstallContext installContext) {
@@ -249,55 +248,55 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
 
         installTasks.add(new NodeExistsDelegateTask("Install shop templates", "Install shop templates under default Site Definition", "config", "/modules/multisite/config/sites/default/",
                 new NodeBuilderTask("", "", ErrorHandling.strict, "config", "/modules/multisite/config/sites/default/",
-                getNode("templates/availability/templates").then(
-                        addNode("shopCheckoutForm", NodeTypes.ContentNode.NAME).then(
-                                addProperty("id", "shop:pages/shopCheckoutForm")),
-                        addNode("shopConfirmationPage", NodeTypes.ContentNode.NAME).then(
-                                addProperty("id", "shop:pages/shopConfirmationPage")),
-                        addNode("shopFormStep", NodeTypes.ContentNode.NAME).then(
-                                addProperty("id", "shop:pages/shopFormStep")),
-                        addNode("shopFormStepConfirmOrder", NodeTypes.ContentNode.NAME).then(
-                                addProperty("id", "shop:pages/shopFormStepConfirmOrder")),
-                        addNode("shopHome", NodeTypes.ContentNode.NAME).then(
-                                addProperty("id", "shop:pages/shopHome")),
-                        addNode("shopProductCategory", NodeTypes.ContentNode.NAME).then(
-                                addProperty("id", "shop:pages/shopProductCategory")),
-                        addNode("shopProductKeywordResult", NodeTypes.ContentNode.NAME).then(
-                                addProperty("id", "shop:pages/shopProductKeywordResult")),
-                        addNode("shopProductSearchResult", NodeTypes.ContentNode.NAME).then(
-                                addProperty("id", "shop:pages/shopProductSearchResult")),
-                        addNode("shopProductDetail", NodeTypes.ContentNode.NAME).then(
-                                addProperty("id", "shop:pages/shopProductDetail")),
-                        addNode("shopShoppingCart", NodeTypes.ContentNode.NAME).then(
-                                addProperty("id", "shop:pages/shopShoppingCart"))))));
+                        getNode("templates/availability/templates").then(
+                                addNode("shopCheckoutForm", NodeTypes.ContentNode.NAME).then(
+                                        addProperty("id", "shop:pages/shopCheckoutForm")),
+                                addNode("shopConfirmationPage", NodeTypes.ContentNode.NAME).then(
+                                        addProperty("id", "shop:pages/shopConfirmationPage")),
+                                addNode("shopFormStep", NodeTypes.ContentNode.NAME).then(
+                                        addProperty("id", "shop:pages/shopFormStep")),
+                                addNode("shopFormStepConfirmOrder", NodeTypes.ContentNode.NAME).then(
+                                        addProperty("id", "shop:pages/shopFormStepConfirmOrder")),
+                                addNode("shopHome", NodeTypes.ContentNode.NAME).then(
+                                        addProperty("id", "shop:pages/shopHome")),
+                                addNode("shopProductCategory", NodeTypes.ContentNode.NAME).then(
+                                        addProperty("id", "shop:pages/shopProductCategory")),
+                                addNode("shopProductKeywordResult", NodeTypes.ContentNode.NAME).then(
+                                        addProperty("id", "shop:pages/shopProductKeywordResult")),
+                                addNode("shopProductSearchResult", NodeTypes.ContentNode.NAME).then(
+                                        addProperty("id", "shop:pages/shopProductSearchResult")),
+                                addNode("shopProductDetail", NodeTypes.ContentNode.NAME).then(
+                                        addProperty("id", "shop:pages/shopProductDetail")),
+                                addNode("shopShoppingCart", NodeTypes.ContentNode.NAME).then(
+                                        addProperty("id", "shop:pages/shopShoppingCart"))))));
 
         installTasks.add(new IsModuleInstalledOrRegistered("Keywords for product Categories",
                 "Adds control to product categories dialog for asigning keywords.", "categorization",
                 new NodeBuilderTask("", "", ErrorHandling.strict, "config",
-                getNode("modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/categories/fields").then(
-                addNode("categories", NodeTypes.ContentNode.NAME).then(
-                addNode("field", NodeTypes.ContentNode.NAME).then(
-                addNode("identifierToPathConverter", NodeTypes.ContentNode.NAME).then(
-                addProperty("class", "info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter")),
-                addProperty("appName", "categories"),
-                addProperty("buttonSelectNewLabel", "field.link.select.new"),
-                addProperty("buttonSelectOtherLabel", "field.link.select.another"),
-                addProperty("class", "info.magnolia.ui.form.field.definition.LinkFieldDefinition"),
-                addProperty("fieldEditable", "true"),
-                addProperty("targetWorkspace", "category")),
-                addProperty("buttonSelectAddLabel", "field.link.select.add"),
-                addProperty("class", "info.magnolia.ui.form.field.definition.MultiValueFieldDefinition"),
-                addProperty("identifier", "true"),
-                addProperty("transformerClass", "info.magnolia.ui.form.field.transformer.multi.MultiValueSubChildrenNodeTransformer"))))));
+                        getNode("modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/categories/fields").then(
+                                addNode("categories", NodeTypes.ContentNode.NAME).then(
+                                        addNode("field", NodeTypes.ContentNode.NAME).then(
+                                                addNode("identifierToPathConverter", NodeTypes.ContentNode.NAME).then(
+                                                        addProperty("class", "info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter")),
+                                                addProperty("appName", "categories"),
+                                                addProperty("buttonSelectNewLabel", "field.link.select.new"),
+                                                addProperty("buttonSelectOtherLabel", "field.link.select.another"),
+                                                addProperty("class", "info.magnolia.ui.form.field.definition.LinkFieldDefinition"),
+                                                addProperty("fieldEditable", "true"),
+                                                addProperty("targetWorkspace", "category")),
+                                        addProperty("buttonSelectAddLabel", "field.link.select.add"),
+                                        addProperty("class", "info.magnolia.ui.form.field.definition.MultiValueFieldDefinition"),
+                                        addProperty("identifier", "true"),
+                                        addProperty("transformerClass", "info.magnolia.ui.form.field.transformer.multi.MultiValueSubChildrenNodeTransformer"))))));
 
         installTasks.add(new IsModuleInstalledOrRegistered("Add Keyword extras paragraph",
                 "Adds an autogenerated keyword paragraph in the extras area of ProductCategory template.", "categorization",
                 new NodeBuilderTask("", "", ErrorHandling.strict, "config",
-                getNode("modules/shop/templates/pages/shopProductCategory/areas/extras/areas/extras1/autoGeneration/content").then(
+                        getNode("modules/shop/templates/pages/shopProductCategory/areas/extras/areas/extras1/autoGeneration/content").then(
                                 addNode("extrasItem2", NodeTypes.ContentNode.NAME).then(
-                addProperty("catCloudTitle", "Keywords"),
-                addProperty("nodeType", "mgnl:component"),
-                addProperty("templateId", "shop:components/extras/shopExtrasTagCloud"))))));
+                                        addProperty("catCloudTitle", "Keywords"),
+                                        addProperty("nodeType", "mgnl:component"),
+                                        addProperty("templateId", "shop:components/extras/shopExtrasTagCloud"))))));
         installTasks.add(new IsAuthorInstanceDelegateTask("Shop role for anonymous user", "This role to anonymous users will be added just on public instances.", null,
                 new AddRoleToUserTask("", "anonymous", "shop-user-base")));
 
