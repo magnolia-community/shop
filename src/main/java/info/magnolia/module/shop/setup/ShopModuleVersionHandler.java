@@ -147,17 +147,31 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
         );
 
         register(DeltaBuilder.update("2.0.1", "")
-                .addTask(new AddPermissionTask("Grant permissions", "Grant read permissions to the shopProducts workspace for shop users.", "shop-user-base", ShopRepositoryConstants.SHOP_PRODUCTS, "/", Permission.READ, true))
-                .addTask(new AddPermissionTask("Grant permissions", "Grant read permissions to the shops workspace for shop users.", "shop-user-base", ShopRepositoryConstants.SHOPS, "/", Permission.READ, true))
-                .addTask(new AddPermissionTask("Grant permissions", "Grant read permissions to the shopping carts workspace for shop users.", "shop-user-base", ShopRepositoryConstants.SHOPPING_CARTS, "/", Permission.READ, true))
+                .addTask(new ArrayDelegateTask("Rename permission nodes to match fresh install",
+                        new RemovePermissionTask("", "shop-user-base", ShopRepositoryConstants.SHOP_PRODUCTS, "/", Permission.READ),
+                        new AddPermissionTask("", "shop-user-base", ShopRepositoryConstants.SHOP_PRODUCTS, "/*", Permission.READ, false),
+                        new RemovePermissionTask("", "shop-user-base", ShopRepositoryConstants.SHOPPING_CARTS, "/", Permission.READ),
+                        new AddPermissionTask("", "shop-user-base", ShopRepositoryConstants.SHOPPING_CARTS, "/*", Permission.READ,false),
+                        new RemovePermissionTask("", "shop-user-base", ShopRepositoryConstants.SHOPS, "/", Permission.READ),
+                        new AddPermissionTask("", "shop-user-base", ShopRepositoryConstants.SHOPS, "/*", Permission.READ, false)
+                ))
                 .addTask(new BootstrapSingleModuleResource("config.modules.shop.fieldTypes.availableShops.xml"))
-                .addTask(new CheckAndModifyPropertyValueTask("/modules/shop/dialogs/pages/shopSectionProperties/form/tabs/tabShop/fields/currentShop", "class", "info.magnolia.ui.form.field.definition.SelectFieldDefinition", "info.magnolia.module.shop.app.field.definition.AvailableShopsSelectFieldDefinition"))
+                .addTask(new NodeExistsDelegateTask("", "/modules/shop/dialogs/pages/shopSectionProperties/form/tabs/tabShop/fields/currentShop",
+                        new CheckAndModifyPropertyValueTask("/modules/shop/dialogs/pages/shopSectionProperties/form/tabs/tabShop/fields/currentShop", "class", "info.magnolia.ui.form.field.definition.SelectFieldDefinition", "info.magnolia.module.shop.app.field.definition.AvailableShopsSelectFieldDefinition"))
+                )
                 .addTask(new ArrayDelegateTask("Disable view of checkout form when shopping cart is empty",
                         new BootstrapSingleResource("", "", "/mgnl-bootstrap/shop/paragraphs/config.modules.shop.templates.components.features.shopFormStep.xml"),
-                        new CheckAndModifyPropertyValueTask("", "", RepositoryConstants.CONFIG, "/modules/shop/templates/components/features/shopForm", "i18nBasename", "info.magnolia.module.form.messages", "info.magnolia.module.shop.messages"),
-                        new CheckAndModifyPropertyValueTask("", "", RepositoryConstants.CONFIG, "/modules/shop/templates/components/features/shopForm", "templateScript", "/form/components/form.ftl", "/shop/paragraphs/features/shopForm.ftl"),
-                        new CheckAndModifyPropertyValueTask("", "", RepositoryConstants.CONFIG, "/modules/shop/templates/pages/shopFormStep/areas/main/areas/content/autoGeneration/content/singleton", "templateId", "form:components/formStep", "shop:components/features/shopFormStep"),
-                        new CheckAndModifyPropertyValueTask("", "", RepositoryConstants.WEBSITE, "/demo-features/modules/sample-shop/shopping-cart/checkout-form/billing-address/content/singleton", "mgnl:template", "form:components/formStep", "shop:components/features/shopFormStep"),
+                        new NodeExistsDelegateTask("", "/modules/shop/templates/components/features/shopForm",
+                                new ArrayDelegateTask("",
+                                        new CheckAndModifyPropertyValueTask("", "", RepositoryConstants.CONFIG, "/modules/shop/templates/components/features/shopForm", "i18nBasename", "info.magnolia.module.form.messages", "info.magnolia.module.shop.messages"),
+                                        new CheckAndModifyPropertyValueTask("", "", RepositoryConstants.CONFIG, "/modules/shop/templates/components/features/shopForm", "templateScript", "/form/components/form.ftl", "/shop/paragraphs/features/shopForm.ftl")
+                                )),
+                        new NodeExistsDelegateTask("", "/modules/shop/templates/pages/shopFormStep/areas/main/areas/content/autoGeneration/content/singleton",
+                                new CheckAndModifyPropertyValueTask("", "", RepositoryConstants.CONFIG, "/modules/shop/templates/pages/shopFormStep/areas/main/areas/content/autoGeneration/content/singleton", "templateId", "form:components/formStep", "shop:components/features/shopFormStep")
+                        ),
+                        new NodeExistsDelegateTask("", "/demo-features/modules/sample-shop/shopping-cart/checkout-form/billing-address/content/singleton",
+                                new CheckAndModifyPropertyValueTask("", "", RepositoryConstants.WEBSITE, "/demo-features/modules/sample-shop/shopping-cart/checkout-form/billing-address/content/singleton", "mgnl:template", "form:components/formStep", "shop:components/features/shopFormStep")
+                        ),
                         new TemplatesInstallTask("/shop/.*\\.ftl", true)
                 ))
         );
@@ -193,10 +207,7 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                         new NodeExistsDelegateTask("", "/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/categories/fields/productCategoryUUIDs",
                                 new NewPropertyTask("", "/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/categories/fields/productCategoryUUIDs", "sortOptions", false)),
                         new RemoveNodeTask("", "", RepositoryConstants.USER_ROLES, "/shop-user-base/acl_data"),
-                        new RemoveNodeTask("", "", RepositoryConstants.USER_ROLES, "/shop-user-base/acl_dms"),
-                        new RemovePermissionTask("", "shop-user-base", ShopRepositoryConstants.SHOPPING_CARTS, "/", Permission.READ),
-                        new RemovePermissionTask("", "shop-user-base", ShopRepositoryConstants.SHOP_PRODUCTS, "/", Permission.READ),
-                        new RemovePermissionTask("", "shop-user-base", ShopRepositoryConstants.SHOPS, "/", Permission.READ)
+                        new RemoveNodeTask("", "", RepositoryConstants.USER_ROLES, "/shop-user-base/acl_dms")
                 )));
     }
 

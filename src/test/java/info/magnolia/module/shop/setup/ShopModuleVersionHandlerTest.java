@@ -159,6 +159,7 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         this.setupConfigNode("/modules/ui-admincentral/config/appLauncherLayout/groups/sampleShop");
         this.setupConfigNode("/modules/ui-admincentral/config/appLauncherLayout/groups/shop");
 
+
         // WHEN
         executeUpdatesAsIfTheCurrentlyInstalledVersionWas(null);
 
@@ -183,7 +184,7 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         setupConfigNode("/modules/shop/fieldTypes");
         setupConfigNode("/modules/shop/apps/sampleShopProducts/subApps/browser");
         setupConfigNode("/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/categories/fields/productCategoryUUIDs");
-        setupNode("shops", "/sampleShop");
+        setupNode(ShopRepositoryConstants.SHOPS, "/sampleShop");
 
         SecuritySupportImpl securitySupport = new SecuritySupportImpl();
         ComponentsTestUtil.setInstance(SecuritySupport.class, securitySupport);
@@ -192,12 +193,9 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         Role shopUserBase = roleManager.createRole("shop-user-base");
         roleManager.addPermission(shopUserBase, DataModule.WORKSPACE, "/", Permission.READ);
         roleManager.addPermission(shopUserBase, "dms", "/", Permission.READ);
-        roleManager.addPermission(shopUserBase, ShopRepositoryConstants.SHOPPING_CARTS, "/", Permission.READ);
-        roleManager.addPermission(shopUserBase, ShopRepositoryConstants.SHOP_PRODUCTS, "/", Permission.READ);
-        roleManager.addPermission(shopUserBase, ShopRepositoryConstants.SHOPS, "/", Permission.READ);
 
         // WHEN
-        InstallContext ctx = executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("2.0.1"));
+        InstallContext ctx = executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("2.0"));
 
         // THEN
         assertTrue(!templates.itemExists("/shop/pages"));
@@ -229,9 +227,6 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         assertThat(config.getNode("/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/categories/fields/productCategoryUUIDs"), hasProperty("sortOptions", false));
         assertThat(userRoles.getNode("/shop-user-base/"), not(hasNode("acl_data")));
         assertThat(userRoles.getNode("/shop-user-base/"), not(hasNode("acl_dms")));
-        assertThat(userRoles.getRootNode(), not(hasNode("shop-user-base/acl_shoppingCarts/0")));
-        assertThat(userRoles.getRootNode(), not(hasNode("shop-user-base/acl_shopProducts/0")));
-        assertThat(userRoles.getRootNode(), not(hasNode("shop-user-base/acl_shops/0")));
 
         this.assertNoMessages(ctx);
     }
