@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2010-2013 Magnolia International
+ * This file Copyright (c) 2010-2014 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -81,7 +81,7 @@ public class ShopTagCloudParagraph<RD extends TemplateDefinition> extends Abstra
       NodeIterator nodeIterator=null;
       List<Node> nodeList = new ArrayList<Node>();
     try {
-        nodeIterator = QueryUtil.search("data", "select * from [category]", "JCR-SQL2", "category");
+        nodeIterator = QueryUtil.search("category", "select * from [mgnl:category]", "JCR-SQL2", "mgnl:category");
     } catch (LoginException e) {
         log.error("Cant log to jcr", e);
     } catch (RepositoryException e) {
@@ -99,6 +99,10 @@ public class ShopTagCloudParagraph<RD extends TemplateDefinition> extends Abstra
 
     public int getNumberOfItemsCategorizedWith(String categoryUUID) {
       return ShopProductAccessor.getProductsByProductCategory(categoryUUID).size();
+    }
+
+    public int getNumberOfItemsTaggedWith(String tagUUID) {
+      return ShopProductAccessor.getTaggedProducts(tagUUID).size();
     }
 
     public String getProductListLink(String tagName, String tagDisplayName) {

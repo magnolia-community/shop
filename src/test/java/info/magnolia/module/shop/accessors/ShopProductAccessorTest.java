@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2013 Magnolia International
+ * This file Copyright (c) 2013-2014 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -42,6 +42,7 @@ import info.magnolia.cms.i18n.I18nContentSupport;
 import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.shop.ShopRepositoryConstants;
+import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.test.ComponentsTestUtil;
 import info.magnolia.test.MgnlTestCase;
 import info.magnolia.test.mock.jcr.MockNode;
@@ -49,6 +50,7 @@ import info.magnolia.test.mock.jcr.MockNodeIterator;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.jcr.LoginException;
@@ -64,6 +66,7 @@ import javax.jcr.query.QueryResult;
 import org.apache.lucene.queryParser.ParseException;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  * Tests for ShopProductAccessor.
@@ -148,5 +151,32 @@ public class ShopProductAccessorTest extends MgnlTestCase {
         assertEquals("a", result.get(0).getName());
         assertEquals("b", result.get(1).getName());
         assertEquals("c", result.get(2).getName());
+    }
+
+    @Test
+    public void testCreateGetProductsByProductCategoryQuery() throws LoginException, RepositoryException {
+        // GIVEN
+        final NodeIterator iter = new MockNodeIterator(new HashSet<Node>());
+        final Session session = mock(Session.class);
+        final Workspace wp = mock(Workspace.class);
+        final QueryManager manager = mock(QueryManager.class);
+        final Query query = mock(Query.class);
+        final QueryResult queryResult = mock(QueryResult.class);
+
+        when(ctx.getJCRSession("shopProducts")).thenReturn(session);
+        when(ctx.getAttribute(ShopUtil.ATTRIBUTE_SHOPNAME)).thenReturn("sampleShop");
+        when(session.getWorkspace()).thenReturn(wp);
+        when(wp.getQueryManager()).thenReturn(manager);
+        when(manager.createQuery(anyString(), anyString())).thenReturn(query);
+        when(query.execute()).thenReturn(queryResult);
+        when(queryResult.getNodes()).thenReturn(iter);
+
+        // WHEN
+        ShopProductAccessor.getTaggedProducts("tag-uuid");
+
+        // THEN
+        Mockito.verify(manager, Mockito.times(1)).createQuery(
+                Mockito.contains("tag-uuid"),
+                Mockito.eq(javax.jcr.query.Query.SQL));
     }
 }

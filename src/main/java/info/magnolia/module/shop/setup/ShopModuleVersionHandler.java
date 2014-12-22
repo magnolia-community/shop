@@ -208,6 +208,9 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                                 new NewPropertyTask("", "/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/categories/fields/productCategoryUUIDs", "sortOptions", false)),
                         new RemoveNodeTask("", "", RepositoryConstants.USER_ROLES, "/shop-user-base/acl_data"),
                         new RemoveNodeTask("", "", RepositoryConstants.USER_ROLES, "/shop-user-base/acl_dms")
+                ))
+                .addTask(new ArrayDelegateTask("Extract new templates",
+                        new TemplatesInstallTask("/shop/.*\\.ftl", true)
                 )));
     }
 

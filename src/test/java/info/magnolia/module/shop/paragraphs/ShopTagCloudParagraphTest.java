@@ -69,8 +69,8 @@ public class ShopTagCloudParagraphTest extends MgnlTestCase {
     public void setUp() throws Exception {
         super.setUp();
         MockWebContext ctx = new MockWebContext();
-        Session session = new MockSession("data");
-        ctx.addSession("data", session);
+        Session session = new MockSession("category");
+        ctx.addSession("category", session);
         MgnlContext.setInstance(ctx);
         ComponentsTestUtil.setInstance(I18nContentSupport.class, new DefaultI18nContentSupport());
 
@@ -80,7 +80,7 @@ public class ShopTagCloudParagraphTest extends MgnlTestCase {
     @Test
     public void getProductTest() throws RepositoryException {
         //GIVEN
-        final String itemType = "category";
+        final String itemType = "mgnl:category";
         rootNode.addNode("item1", itemType);
         rootNode.addNode("item2", "someOtherItemType");
         rootNode.addNode("item3", itemType);

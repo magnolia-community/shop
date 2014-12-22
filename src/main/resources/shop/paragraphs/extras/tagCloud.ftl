@@ -16,7 +16,7 @@
     [#assign itemDisplayName = item.displayName!itemName]
     [#assign itemLevel = item.level]
     [#assign itemLink = model.getProductListLink(itemName, item.displayName!)]
-    [#assign itemNumberOfItems = model.getNumberOfItemsCategorizedWith(item.@uuid)]
+    [#assign itemNumberOfItems = model.getNumberOfItemsTaggedWith(item.@uuid)]
 [/#macro]
 
 [#-------------- RENDERING PART --------------]

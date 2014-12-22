@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2010-2013 Magnolia International
+ * This file Copyright (c) 2010-2014 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -95,7 +95,7 @@ public class ShopProductAccessor extends DefaultCustomDataAccessor {
 
         if (StringUtils.isNotEmpty(shopName)) {
             //use old JCR SQL to preserver natural order of elements
-            String query = "select * from mgnl:contentNode where jcr:path like '" + ShopUtil.getPath("shopProducts", shopName)
+            String query = "select * from mgnl:contentNode  where jcr:path like '" + ShopUtil.getPath(shopName)
                     + "/%' and contains(*, '" + tagUUID + "')";
 
             return getProductsBySQL(query);
