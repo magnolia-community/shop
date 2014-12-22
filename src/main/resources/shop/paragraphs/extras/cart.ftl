@@ -17,7 +17,7 @@
 		    <ul class="shopping_cart">
 		    	[#list shoppingCart.getCartItems() as product]
 		    		<li>
-		    			${product.quantity}x ${product.productTitle} [#if product.options?has_content]
+		    			${product.quantity}x ${product.productTitle!} [#if product.options?has_content]
 		    				[#assign keys = product.options?keys]
 							[#list keys as key]
 								<span class="option">[#assign option = model.getContentByIdentifier(product.options[key].valueUUID)!]
