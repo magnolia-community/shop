@@ -35,6 +35,7 @@ package info.magnolia.module.shop.paragraphs;
 
 import info.magnolia.cms.util.SelectorUtil;
 import info.magnolia.jcr.util.SessionUtil;
+import info.magnolia.module.categorization.CategorizationModule;
 import info.magnolia.module.shop.accessors.ShopProductAccessor;
 import info.magnolia.module.templatingkit.STKModule;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
@@ -76,8 +77,9 @@ public class ShopKeywordSearchResultParagraphModel extends ShopParagraphModel {
         String tagName = SelectorUtil.getSelector(0);
         if(StringUtils.isNotEmpty(tagName)) {
             try {
-                Node tagNode = SessionUtil.getNode("data", tagName);
-                return (List<Node>)ShopProductAccessor.getTaggedProducts(tagNode.getIdentifier());
+                String workspace = StringUtils.defaultString((String) definition.getParameters().get("workspace"), CategorizationModule.CATEGORIZATION_WORKSPACE);
+                Node tagNode = SessionUtil.getNode(workspace, tagName);
+                return ShopProductAccessor.getTaggedProducts(tagNode.getIdentifier());
             } catch (Exception e) {
                 log.warn("Cant get tagged products with tag " + tagName, e);
             }
