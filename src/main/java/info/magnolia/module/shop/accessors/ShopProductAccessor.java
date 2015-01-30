@@ -112,7 +112,7 @@ public class ShopProductAccessor extends DefaultCustomDataAccessor {
 
         if (StringUtils.isNotEmpty(shopName)) {
             //use old JCR SQL to preserver natural order of elements
-            String query = "select * from shopProduct where jcr:path like '" + ShopUtil.getPath("shopProducts", shopName)
+            String query = "select * from shopProduct where jcr:path like '/" + shopName
                     + "/%' and contains(*, '" + escapeSql(queryStr) + "')";
 
             return getProductsBySQL(query);
