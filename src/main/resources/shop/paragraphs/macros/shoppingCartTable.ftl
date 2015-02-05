@@ -24,7 +24,7 @@
               [#if product.options?has_content]
                   [#assign keys = product.options?keys]
                 [#list keys as key]
-                  [#assign option = cmsfn.contentByIdentifier("shopProucts", product.options[key].valueUUID)!]
+                  [#assign option = cmsfn.contentByIdentifier("shopProducts", product.options[key].valueUUID)!]
                     [#if option?has_content]
                         <span class="option">
                         [#assign option = cmsfn.asContentMap(option) /]
@@ -40,7 +40,7 @@
               [#if product.options?has_content]
                   [#assign keys = product.options?keys]
                 [#list keys as key]
-                  <span class="option">[#assign option = cmsfn.getContentByUUID("shopProucts", product.options[key].valueUUID)!]
+                  <span class="option">[#assign option = cmsfn.getContentByUUID("shopProducts", product.options[key].valueUUID)!]
                   [#assign option = cmsfn.i18n(option) /]
                   [#assign optionSet = cmsfn.i18n(option?parent)]
                   <span class="label">${optionSet.title}:</span> <span class="value">${option.title}</span>[#if key_has_next], [/#if]</span>
