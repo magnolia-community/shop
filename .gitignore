@@ -1,6 +1,7 @@
 
 # /
 /target
+/docroot
 /*.log
 /*.iml
 /*.ipr
