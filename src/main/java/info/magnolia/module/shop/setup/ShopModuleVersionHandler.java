@@ -151,7 +151,7 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                         new RemovePermissionTask("", "shop-user-base", ShopRepositoryConstants.SHOP_PRODUCTS, "/", Permission.READ),
                         new AddPermissionTask("", "shop-user-base", ShopRepositoryConstants.SHOP_PRODUCTS, "/*", Permission.READ, false),
                         new RemovePermissionTask("", "shop-user-base", ShopRepositoryConstants.SHOPPING_CARTS, "/", Permission.READ),
-                        new AddPermissionTask("", "shop-user-base", ShopRepositoryConstants.SHOPPING_CARTS, "/*", Permission.READ,false),
+                        new AddPermissionTask("", "shop-user-base", ShopRepositoryConstants.SHOPPING_CARTS, "/*", Permission.READ, false),
                         new RemovePermissionTask("", "shop-user-base", ShopRepositoryConstants.SHOPS, "/", Permission.READ),
                         new AddPermissionTask("", "shop-user-base", ShopRepositoryConstants.SHOPS, "/*", Permission.READ, false)
                 ))
@@ -212,6 +212,11 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                 .addTask(new ArrayDelegateTask("Extract new templates",
                         new TemplatesInstallTask("/shop/.*\\.ftl", true)
                 )));
+
+        register(DeltaBuilder.update("2.1.1", "")
+                .addTask(new NodeExistsDelegateTask("Setting name property of folderNodeType in shoppingCarts", "Setting name property in folderNodeType to value mgnl:folder in shoppingCarts contentConnector.", RepositoryConstants.CONFIG, "/modules/shop/apps/shoppingCarts/subApps/browser/contentConnector/nodeTypes", null,
+                        new PartialBootstrapTask("Setting folderNodeType in shoppingCarts", "Setting name property in folderNodeType to mgnl:folder in shoppingCarts contentConnector.", "/mgnl-bootstrap/shop/config.modules.shop.apps.xml", "/apps/shoppingCarts/subApps/browser/contentConnector/nodeTypes")))
+        );
     }
 
     /**

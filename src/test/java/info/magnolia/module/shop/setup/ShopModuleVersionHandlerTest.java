@@ -50,21 +50,18 @@ import info.magnolia.cms.security.SystemUserManager;
 import info.magnolia.cms.security.UserManager;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.context.SystemContext;
+import info.magnolia.jcr.util.NodeTypes;
 import info.magnolia.module.InstallContext;
-import info.magnolia.module.ModuleManagementException;
 import info.magnolia.module.ModuleVersionHandler;
 import info.magnolia.module.ModuleVersionHandlerTestCase;
 import info.magnolia.module.data.DataModule;
-import info.magnolia.module.model.ModuleDefinition;
 import info.magnolia.module.model.Version;
-import info.magnolia.module.model.reader.BetwixtModuleDefinitionReader;
 import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.objectfactory.Components;
 import info.magnolia.repository.RepositoryConstants;
 import info.magnolia.test.ComponentsTestUtil;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,6 +79,8 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
     private Session config;
     private Session templates;
     private Session userRoles;
+    private SecuritySupportImpl securitySupportImpl;
+    private RoleManager roleManager;
 
     @Override
     @Before
@@ -90,17 +89,15 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         config = MgnlContext.getJCRSession(RepositoryConstants.CONFIG);
         templates = MgnlContext.getJCRSession("templates");
         userRoles = MgnlContext.getJCRSession(RepositoryConstants.USER_ROLES);
+        securitySupportImpl = new SecuritySupportImpl();
+        roleManager = mock(RoleManager.class);
+        securitySupportImpl.setRoleManager(roleManager);
+        ComponentsTestUtil.setInstance(SecuritySupport.class, securitySupportImpl);
     }
 
     @Override
     protected String getModuleDescriptorPath() {
         return "/META-INF/magnolia/shop.xml";
-    }
-
-    @Override
-    protected List<ModuleDefinition> getModuleDefinitionsForTests() throws ModuleManagementException {
-        final ModuleDefinition core = new BetwixtModuleDefinitionReader().readFromResource("/META-INF/magnolia/core.xml");
-        return Collections.singletonList(core);
     }
 
     @Override
@@ -142,8 +139,6 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         Components.getComponent(SystemContext.class).getJCRSession(RepositoryConstants.USER_ROLES).getRootNode().addNode("superuser");
         ComponentsTestUtil.setInstance(ActivationManager.class, mock(ActivationManager.class));
 
-        SecuritySupportImpl securitySupportImpl = new SecuritySupportImpl();
-        RoleManager roleManager = mock(RoleManager.class);
         Role role = mock(Role.class);
         when(roleManager.getRole("superuser")).thenReturn(role);
         securitySupportImpl.setRoleManager(roleManager);
@@ -186,10 +181,9 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         setupConfigNode("/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/categories/fields/productCategoryUUIDs");
         setupNode(ShopRepositoryConstants.SHOPS, "/sampleShop");
 
-        SecuritySupportImpl securitySupport = new SecuritySupportImpl();
-        ComponentsTestUtil.setInstance(SecuritySupport.class, securitySupport);
+        ComponentsTestUtil.setInstance(SecuritySupport.class, securitySupportImpl);
         RoleManager roleManager = new MgnlRoleManager();
-        securitySupport.setRoleManager(roleManager);
+        securitySupportImpl.setRoleManager(roleManager);
         Role shopUserBase = roleManager.createRole("shop-user-base");
         roleManager.addPermission(shopUserBase, DataModule.WORKSPACE, "/", Permission.READ);
         roleManager.addPermission(shopUserBase, "dms", "/", Permission.READ);
@@ -229,6 +223,33 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         assertThat(userRoles.getNode("/shop-user-base/"), not(hasNode("acl_dms")));
 
         this.assertNoMessages(ctx);
+    }
+
+    @Test
+    public void testShoppingCartsHaveFolderNodeTypeWithNamePropertyValueMgnlFolderAfterUpgrade() throws Exception {
+        // GIVEN
+        this.setupConfigNode("/modules/shop/dialogs/pages/shopSectionProperties/form/tabs/tabShop/fields/currentShop");
+        this.setupConfigNode("/modules/shop/apps/shoppingCarts/subApps/browser/contentConnector");
+
+        // WHEN
+        executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("2.1.0"));
+
+        // THEN
+        assertTrue(config.propertyExists("/modules/shop/apps/shoppingCarts/subApps/browser/contentConnector/nodeTypes/folderNodeType/name"));
+        assertEquals(config.getNode("/modules/shop/apps/shoppingCarts/subApps/browser/contentConnector/nodeTypes/folderNodeType").getProperty("name").getString(), NodeTypes.Folder.NAME);
+    }
+
+    @Test
+    public void testShoppingCartsAreNotChangedAfterUpgradeIfNodeTypesExists() throws Exception {
+        // GIVEN
+        this.setupConfigNode("/modules/shop/dialogs/pages/shopSectionProperties/form/tabs/tabShop/fields/currentShop");
+        this.setupConfigProperty("/modules/shop/apps/shoppingCarts/subApps/browser/contentConnector/nodeTypes/folderNodeType", "name", "testValue");
+
+        // WHEN
+        executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("2.1.0"));
+
+        // THEN
+        assertEquals(config.getNode("/modules/shop/apps/shoppingCarts/subApps/browser/contentConnector/nodeTypes/folderNodeType").getProperty("name").getString(), "testValue");
     }
 
 }
