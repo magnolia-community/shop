@@ -49,8 +49,8 @@
             </td>
             [/#if]
             <td class="quantity">${product.quantity}</td>
-            <td class="unitprice">${product.unitPrice?string(currencyFormatting!)}</td>
-            <td class="itemtotal">${product.itemTotal?string(currencyFormatting!)}</td>
+            <td class="unitprice">${product.unitPrice?string(currencyFormatting!)} ${currencyTitle!}</td>
+            <td class="itemtotal">${product.itemTotal?string(currencyFormatting!)} ${currencyTitle!}</td>
             [#if type=="cart"]
               <td>
                 <a class="product-add-more" href="${model.getCommandLink('add', product.productUUID, product_index)}"><img class="shopAddRemove" src="${ctx.contextPath}/.resources/images/add.gif" /></a>
@@ -63,22 +63,22 @@
         <tr>
         <td></td>
         <td></td>
-        <td>${i18n['shoppingcart.subtotal']}</td>
-        <td class="total_excl_tax">${shoppingCart.grossTotalExclTax!0?string(currencyFormatting!)} ${currencyTitle!}</td>
+        <td class="subtotal">${i18n['shoppingcart.subtotal']}</td>
+        <td class="total_excl_tax">${(shoppingCart.grossTotalExclTax!0)?string(currencyFormatting!)} ${currencyTitle!}</td>
         [#if type=="cart"]<td></td>[/#if]
       </tr>
         <tr>
         <td></td>
         <td></td>
-        <td>${i18n['vat']}</td>
-        <td class="tax">${shoppingCart.itemTaxTotal!0?string(currencyFormatting!)} ${currencyTitle!}</td>
+        <td class="vat">${i18n['vat']}</td>
+        <td class="tax">${(shoppingCart.itemTaxTotal!0)?string(currencyFormatting!)} ${currencyTitle!}</td>
         [#if type=="cart"]<td></td>[/#if]
       </tr>
       <tr>
         <td></td>
         <td></td>
-        <td>${i18n['shoppingCart.total']}</td>
-        <td class="total_incl_tax">${shoppingCart.grossTotalInclTax!0?string(currencyFormatting!)} ${currencyTitle}</td>
+        <td class="total">${i18n['shoppingCart.total']}</td>
+        <td class="total_incl_tax">${(shoppingCart.grossTotalInclTax!0)?string(currencyFormatting!)} ${currencyTitle}</td>
         [#if type=="cart"]<td></td>[/#if]
       </tr>
       </tbody>
