@@ -10,7 +10,7 @@
     <sv:value>c7ac4ed3-da2c-4997-8fd6-3584223b601a</sv:value>
   </sv:property>
   <sv:property sv:name="description" sv:type="String">
-    <sv:value>Used to get the users acceptance of the terms.</sv:value>
+    <sv:value>shop.templates.components.features.form.shopConfirmTerms.description</sv:value>
   </sv:property>
   <sv:property sv:name="dialog" sv:type="String">
     <sv:value>shop:shopConfirmTerms</sv:value>
@@ -25,7 +25,7 @@
     <sv:value>/shop/paragraphs/features/form/formTermsConfirmation.ftl</sv:value>
   </sv:property>
   <sv:property sv:name="title" sv:type="String">
-    <sv:value>Terms Checkbox</sv:value>
+    <sv:value>shop.templates.components.features.form.shopConfirmTerms.title</sv:value>
   </sv:property>
   <sv:node sv:name="MetaData">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">

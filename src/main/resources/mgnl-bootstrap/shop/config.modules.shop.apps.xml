@@ -13032,9 +13032,6 @@
                     <sv:property sv:name="jcr:createdBy" sv:type="String">
                       <sv:value>admin</sv:value>
                     </sv:property>
-                    <sv:property sv:name="label" sv:type="String">
-                      <sv:value>Image</sv:value>
-                    </sv:property>
                     <sv:property sv:name="mgnl:created" sv:type="Date">
                       <sv:value>2013-04-08T17:29:30.994+02:00</sv:value>
                     </sv:property>
@@ -13370,9 +13367,6 @@
                         <sv:property sv:name="jcr:createdBy" sv:type="String">
                           <sv:value>admin</sv:value>
                         </sv:property>
-                        <sv:property sv:name="label" sv:type="String">
-                          <sv:value>kg</sv:value>
-                        </sv:property>
                         <sv:property sv:name="mgnl:created" sv:type="Date">
                           <sv:value>2012-07-06T07:40:16.532+02:00</sv:value>
                         </sv:property>
@@ -13398,9 +13392,6 @@
                         </sv:property>
                         <sv:property sv:name="jcr:createdBy" sv:type="String">
                           <sv:value>admin</sv:value>
-                        </sv:property>
-                        <sv:property sv:name="label" sv:type="String">
-                          <sv:value>lbs</sv:value>
                         </sv:property>
                         <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
                           <sv:value>false</sv:value>
@@ -13582,9 +13573,6 @@
                         <sv:property sv:name="jcr:createdBy" sv:type="String">
                           <sv:value>admin</sv:value>
                         </sv:property>
-                        <sv:property sv:name="label" sv:type="String">
-                          <sv:value>cm</sv:value>
-                        </sv:property>
                         <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
                           <sv:value>false</sv:value>
                         </sv:property>
@@ -13613,9 +13601,6 @@
                         </sv:property>
                         <sv:property sv:name="jcr:createdBy" sv:type="String">
                           <sv:value>admin</sv:value>
-                        </sv:property>
-                        <sv:property sv:name="label" sv:type="String">
-                          <sv:value>in</sv:value>
                         </sv:property>
                         <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
                           <sv:value>false</sv:value>

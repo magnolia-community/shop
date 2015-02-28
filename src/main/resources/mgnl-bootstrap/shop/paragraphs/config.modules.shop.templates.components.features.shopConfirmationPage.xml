@@ -10,7 +10,7 @@
     <sv:value>bf731ec1-1730-4ab7-91da-279f96451f23</sv:value>
   </sv:property>
   <sv:property sv:name="description" sv:type="String">
-    <sv:value/>
+    <sv:value>shop.templates.components.features.shopConfirmationPage.description</sv:value>
   </sv:property>
   <sv:property sv:name="dialog" sv:type="String">
     <sv:value>shop:shopEmpty</sv:value>
@@ -31,7 +31,7 @@
     <sv:value>/shop/paragraphs/features/confirmationPage.ftl</sv:value>
   </sv:property>
   <sv:property sv:name="title" sv:type="String">
-    <sv:value>confirmation page</sv:value>
+    <sv:value>shop.templates.components.features.shopConfirmationPage.title</sv:value>
   </sv:property>
   <sv:node sv:name="MetaData">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">

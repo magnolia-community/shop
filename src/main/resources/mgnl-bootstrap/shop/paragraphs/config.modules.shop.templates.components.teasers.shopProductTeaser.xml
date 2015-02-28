@@ -10,7 +10,7 @@
     <sv:value>727bcf34-e9b6-4a44-aeba-da37cded295b</sv:value>
   </sv:property>
   <sv:property sv:name="description" sv:type="String">
-    <sv:value>paragraphs.teasers.shopProductTeaser.description</sv:value>
+    <sv:value>shop.templates.components.teasers.shopProductTeaser.areas.linkList.description</sv:value>
   </sv:property>
   <sv:property sv:name="dialog" sv:type="String">
     <sv:value>shop:teasers/shopProductTeaser</sv:value>

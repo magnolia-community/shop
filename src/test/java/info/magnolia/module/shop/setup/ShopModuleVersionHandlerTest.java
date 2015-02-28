@@ -93,6 +93,7 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         roleManager = mock(RoleManager.class);
         securitySupportImpl.setRoleManager(roleManager);
         ComponentsTestUtil.setInstance(SecuritySupport.class, securitySupportImpl);
+
     }
 
     @Override
@@ -250,6 +251,177 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
 
         // THEN
         assertEquals(config.getNode("/modules/shop/apps/shoppingCarts/subApps/browser/contentConnector/nodeTypes/folderNodeType").getProperty("name").getString(), "testValue");
+    }
+
+    @Test
+    public void testPropertiesNotExistAfterUpgradeTo211() throws Exception {
+        // GIVEN
+        this.setupConfigProperty("/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/product/fields/image", "label", "testValue");
+        this.setupConfigProperty("/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/weightSize/fields/weightUnit/options/kg", "label", "testValue");
+        this.setupConfigProperty("/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/weightSize/fields/weightUnit/options/lbs", "label", "testValue");
+        this.setupConfigProperty("/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/weightSize/fields/sizeUnit/options/cm", "label", "testValue");
+        this.setupConfigProperty("/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/weightSize/fields/sizeUnit/options/in", "label", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/createPriceCategory/form/tabs/main/fields/taxIncluded/options/including", "label", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/createPriceCategory/form/tabs/main/fields/taxIncluded/options/excluding", "label", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/createShippingOption/form/tabs/main/fields/taxIncluded/options/including", "label", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/createShippingOption/form/tabs/main/fields/taxIncluded/options/excluding", "label", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/createSupplier/form/tabs/logo/fields/logoUUID_bak", "description", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/createSupplier/form/tabs/logo/fields/terms", "description", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/pages/shopSectionProperties/actions/commit", "label", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/pages/shopSectionProperties/actions/cancel", "label", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/extras/shopCatCloud/actions/commit", "label", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/extras/shopCatCloud/actions/cancel", "label", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/extras/shopCatCloud/form/tabs/tabMain/fields/catCloudTitle", "description", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/extras/shopExtrasProduct/actions/commit", "label", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/extras/shopExtrasProduct/actions/cancel", "label", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/teasers/shopProductTeaser/actions/commit", "label", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/teasers/shopProductTeaser/actions/cancel", "label", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/teasers/shopProductTeaser/form/tabs/tabTeaser", "label", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/teasers/shopProductTeaser/form/tabs/tabTeaser/fields/productUUID", "description", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/shoppingCarts/actions/commit", "label", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/shoppingCarts/actions/cancel", "label", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/shoppingCarts/form/tabs/mainTab/fields/customerReference", "description", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/shoppingCarts/form/tabs/mainTab/fields/priceCategoryReference", "description", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/shoppingCarts/form/tabs/shippingAddress/fields/shippingAddressSameAsBilling", "description", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/shoppingCarts/form/tabs/orderAddress/fields/orderSameAsBilling", "buttonLabel", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/shoppingCarts/form/tabs/orderAddress/fields/orderSameAsBilling", "description", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/shopProductList/actions/commit", "label", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/shopProductList/actions/cancel", "label", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/shopConfirmTerms/actions/commit", "label", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/shopConfirmTerms/actions/cancel", "label", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/shopConfirmTerms/form/tabs/tabMain/fields/title", "description", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/shopConfirmTerms/form/tabs/tabMain/fields/checkboxLabel", "description", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/shopConfirmTerms/form/tabs/tabMain/fields/checkboxLabel", "label", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/shopConfirmTerms/form/tabs/tabMain/fields/termsDocumentUUID", "description", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/shopConfirmTerms/form/tabs/tabMain/fields/termsDocumentUUID", "label", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/shopConfirmTerms/form/tabs/tabMain/fields/termsPageUUID", "description", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/shopConfirmTerms/form/tabs/tabMain/fields/termsPageUUID", "label", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/shopConfirmTerms/form/tabs/tabMain/fields/mandatory", "buttonLabel", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/shopConfirmTerms/form/tabs/tabMain/fields/controlName", "description", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/shopCheckDisableFields/actions/cancel", "label", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/shopCheckDisableFields/form/tabs/tabMain/fields/controlName", "description", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/shopCheckDisableFields/form/tabs/tabMain/fields/legend", "description", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/shopCheckDisableFields/form/tabs/tabMain/fields/mandatory", "buttonLabel", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/shopCheckDisableFields/form/tabs/tabMain/fields/controlLabel", "description", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/shopCheckDisableFields/form/tabs/tabMain/fields/controlValue", "description", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/extras/shopExtrasProduct/form/tabs/tabTeaser/fields/productUUID", "description", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/extras/shopExtrasProduct/form/tabs/tabTeaserOverwrite/fields/teaserTitle", "description", "testValue");
+        this.setupConfigProperty("/modules/shop/dialogs/extras/shopExtrasProduct/form/tabs/tabTeaserOverwrite", "label", "testValue");
+
+        // WHEN
+        executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("2.1.0"));
+
+        // THEN
+        assertFalse(config.propertyExists("/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/product/fields/image/label"));
+        assertFalse(config.propertyExists("/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/weightSize/fields/weightUnit/options/kg/label"));
+        assertFalse(config.propertyExists("/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/weightSize/fields/weightUnit/options/lbs/label"));
+        assertFalse(config.propertyExists("/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/weightSize/fields/sizeUnit/options/cm/label"));
+        assertFalse(config.propertyExists("/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/weightSize/fields/sizeUnit/options/in/label"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/createPriceCategory/form/tabs/main/fields/taxIncluded/options/including/label"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/createPriceCategory/form/tabs/main/fields/taxIncluded/options/excluding/label"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/createShippingOption/form/tabs/main/fields/taxIncluded/options/including/label"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/createShippingOption/form/tabs/main/fields/taxIncluded/options/excluding/label"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/createSupplier/form/tabs/logo/fields/logoUUID_bak/description"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/createSupplier/form/tabs/logo/fields/terms/description"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/pages/shopSectionProperties/actions/commit/label"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/pages/shopSectionProperties/actions/cancel/label"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/extras/shopCatCloud/actions/commit/label"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/extras/shopCatCloud/actions/cancel/label"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/extras/shopCatCloud/form/tabs/tabMain/fields/catCloudTitle/description"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/extras/shopExtrasProduct/actions/commit/label"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/extras/shopExtrasProduct/actions/cancel/label"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/teasers/shopProductTeaser/actions/commit/label"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/teasers/shopProductTeaser/actions/cancel/label"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/teasers/shopProductTeaser/form/tabs/tabTeaser/label"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/teasers/shopProductTeaser/form/tabs/tabTeaser/fields/productUUID/description"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/shoppingCarts/actions/commit/label"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/shoppingCarts/actions/cancel/label"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/shoppingCarts/form/tabs/mainTab/fields/customerReference/description"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/shoppingCarts/form/tabs/mainTab/fields/priceCategoryReference/description"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/shoppingCarts/form/tabs/shippingAddress/fields/shippingAddressSameAsBilling/description"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/shoppingCarts/form/tabs/orderAddress/fields/orderSameAsBilling/buttonLabel"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/shoppingCarts/form/tabs/orderAddress/fields/orderSameAsBilling/description"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/shopProductList/actions/commit/label"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/shopConfirmTerms/actions/commit/label"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/shopConfirmTerms/actions/cancel/label"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/shopConfirmTerms/form/tabs/tabMain/fields/title/description"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/shopConfirmTerms/form/tabs/tabMain/fields/checkboxLabel/description"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/shopConfirmTerms/form/tabs/tabMain/fields/checkboxLabel/label"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/shopConfirmTerms/form/tabs/tabMain/fields/termsDocumentUUID/description"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/shopConfirmTerms/form/tabs/tabMain/fields/termsDocumentUUID/label"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/shopConfirmTerms/form/tabs/tabMain/fields/termsPageUUID/description"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/shopConfirmTerms/form/tabs/tabMain/fields/termsPageUUID/label"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/shopConfirmTerms/form/tabs/tabMain/fields/mandatory/buttonLabel"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/shopConfirmTerms/form/tabs/tabMain/fields/controlName/description"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/shopCheckDisableFields/actions/cancel/label"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/shopCheckDisableFields/form/tabs/tabMain/fields/controlName/description"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/shopCheckDisableFields/form/tabs/tabMain/fields/legend/description"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/shopCheckDisableFields/form/tabs/tabMain/fields/mandatory/buttonLabel"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/shopCheckDisableFields/form/tabs/tabMain/fields/controlLabel/description"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/shopCheckDisableFields/form/tabs/tabMain/fields/controlValue/description"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/extras/shopExtrasProduct/form/tabs/tabTeaser/fields/productUUID/description"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/extras/shopExtrasProduct/form/tabs/tabTeaserOverwrite/fields/teaserTitle/description"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/extras/shopExtrasProduct/form/tabs/tabTeaserOverwrite/label"));
+    }
+
+    @Test
+    public void testPropertiesAreSetAfterUpgradeTo211() throws Exception {
+        // GIVEN
+        this.setupConfigNode("/modules/shop/dialogs/pages/shopSectionProperties/form/tabs/tabShop/fields/currentShop");
+        this.setupConfigNode("/modules/shop/templates/pages/shopFormStep");
+        this.setupConfigNode("/modules/shop/templates/pages/shopCheckoutForm");
+        this.setupConfigNode("/modules/shop/templates/pages/shopFormStepConfirmOrder");
+        this.setupConfigNode("/modules/shop/templates/components/features/shopForm");
+        this.setupConfigNode("/modules/shop/templates/components/features/shopForm");
+        this.setupConfigNode("/modules/shop/templates/components/features/shopProductList");
+        this.setupConfigNode("/modules/shop/templates/components/features/shopProductList");
+        this.setupConfigNode("/modules/shop/templates/components/features/shopShoppingCart");
+        this.setupConfigNode("/modules/shop/templates/components/features/shopShoppingCart");
+        this.setupConfigNode("/modules/shop/templates/components/features/shopProductDetail");
+        this.setupConfigNode("/modules/shop/templates/components/features/shopProductDetail");
+        this.setupConfigNode("/modules/shop/templates/components/features/shopProductCategory");
+        this.setupConfigNode("/modules/shop/templates/components/features/shopProductCategory");
+        this.setupConfigNode("/modules/shop/templates/components/features/shopConfirmationPage");
+        this.setupConfigNode("/modules/shop/templates/components/features/shopConfirmationPage");
+        this.setupConfigNode("/modules/shop/templates/components/features/form/shopConfirmTerms");
+        this.setupConfigNode("/modules/shop/templates/components/features/form/shopConfirmTerms");
+        this.setupConfigNode("/modules/shop/templates/components/features/shopProductSearchResult");
+        this.setupConfigNode("/modules/shop/templates/components/features/shopProductSearchResult");
+        this.setupConfigNode("/modules/shop/templates/components/features/shopFormStepConfirmOrder");
+        this.setupConfigNode("/modules/shop/templates/components/features/shopFormStepConfirmOrder");
+        this.setupConfigNode("/modules/shop/templates/components/features/shopProductKeywordResult");
+        this.setupConfigNode("/modules/shop/templates/components/features/shopProductKeywordResult");
+        this.setupConfigNode("/modules/shop/templates/components/teasers/shopProductTeaser/areas/linkList");
+
+        // WHEN
+        executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("2.1.0"));
+
+        // THEN
+        assertEquals("shop.templates.pages.shopFormStep.title", config.getProperty("/modules/shop/templates/pages/shopFormStep/title").getString());
+        assertEquals("shop.templates.pages.shopCheckoutForm.title", config.getProperty("/modules/shop/templates/pages/shopCheckoutForm/title").getString());
+        assertEquals("shop.templates.pages.shopFormStepConfirmOrder.title", config.getProperty("/modules/shop/templates/pages/shopFormStepConfirmOrder/title").getString());
+        assertEquals("shop.templates.components.features.shopForm.description", config.getProperty("/modules/shop/templates/components/features/shopForm/description").getString());
+        assertEquals("shop.templates.components.features.shopForm.title", config.getProperty("/modules/shop/templates/components/features/shopForm/title").getString());
+        assertEquals("shop.templates.components.features.shopProductList.description", config.getProperty("/modules/shop/templates/components/features/shopProductList/description").getString());
+        assertEquals("shop.templates.components.features.shopProductList.title", config.getProperty("/modules/shop/templates/components/features/shopProductList/title").getString());
+        assertEquals("shop.templates.components.features.shopShoppingCart.description", config.getProperty("/modules/shop/templates/components/features/shopShoppingCart/description").getString());
+        assertEquals("shop.templates.components.features.shopShoppingCart.title", config.getProperty("/modules/shop/templates/components/features/shopShoppingCart/title").getString());
+        assertEquals("shop.templates.components.features.shopProductDetail.description", config.getProperty("/modules/shop/templates/components/features/shopProductDetail/description").getString());
+        assertEquals("shop.templates.components.features.shopProductDetail.title", config.getProperty("/modules/shop/templates/components/features/shopProductDetail/title").getString());
+        assertEquals("shop.templates.components.features.shopProductCategory.description", config.getProperty("/modules/shop/templates/components/features/shopProductCategory/description").getString());
+        assertEquals("shop.templates.components.features.shopProductCategory.title", config.getProperty("/modules/shop/templates/components/features/shopProductCategory/title").getString());
+        assertEquals("shop.templates.components.features.shopConfirmationPage.description", config.getProperty("/modules/shop/templates/components/features/shopConfirmationPage/description").getString());
+        assertEquals("shop.templates.components.features.shopConfirmationPage.title", config.getProperty("/modules/shop/templates/components/features/shopConfirmationPage/title").getString());
+        assertEquals("shop.templates.components.features.form.shopConfirmTerms.description", config.getProperty("/modules/shop/templates/components/features/form/shopConfirmTerms/description").getString());
+        assertEquals("shop.templates.components.features.form/shopConfirmTerms.title", config.getProperty("/modules/shop/templates/components/features/form/shopConfirmTerms/title").getString());
+        assertEquals("shop.templates.components.features.shopProductSearchResult.description", config.getProperty("/modules/shop/templates/components/features/shopProductSearchResult/description").getString());
+        assertEquals("shop.templates.components.features.shopProductSearchResult.title", config.getProperty("/modules/shop/templates/components/features/shopProductSearchResult/title").getString());
+        assertEquals("shop.templates.components.features.shopFormStepConfirmOrder.description", config.getProperty("/modules/shop/templates/components/features/shopFormStepConfirmOrder/description").getString());
+        assertEquals("shop.templates.components.features.shopFormStepConfirmOrder.title", config.getProperty("/modules/shop/templates/components/features/shopFormStepConfirmOrder/title").getString());
+        assertEquals("shop.templates.components.features.shopProductKeywordResult.description", config.getProperty("/modules/shop/templates/components/features/shopProductKeywordResult/description").getString());
+        assertEquals("shop.templates.components.features.shopProductKeywordResult.title", config.getProperty("/modules/shop/templates/components/features/shopProductKeywordResult/title").getString());
+        assertEquals("shop.templates.components.teasers.shopProductTeaser.areas.linkList.description", config.getProperty("/modules/shop/templates/components/teasers/shopProductTeaser/areas/linkList/description").getString());
+        assertEquals("info.magnolia.module.shop.messages", config.getProperty("/modules/shop/templates/components/features/shopForm/i18nBasename").getString());
     }
 
 }

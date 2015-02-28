@@ -40,7 +40,7 @@
     <sv:value>form</sv:value>
   </sv:property>
   <sv:property sv:name="title" sv:type="String">
-    <sv:value>Confirm Order Form Step</sv:value>
+    <sv:value>shop.templates.pages.shopFormStepConfirmOrder.title</sv:value>
   </sv:property>
   <sv:property sv:name="visible" sv:type="String">
     <sv:value>true</sv:value>

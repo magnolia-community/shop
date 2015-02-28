@@ -10,7 +10,7 @@
     <sv:value>bdc039ad-6b50-43d3-8d63-9bc731422389</sv:value>
   </sv:property>
   <sv:property sv:name="description" sv:type="String">
-    <sv:value/>
+    <sv:value>shop.templates.components.features.shopShoppingCart.description</sv:value>
   </sv:property>
   <sv:property sv:name="dialog" sv:type="String">
     <sv:value>shop:shopProductList</sv:value>
@@ -31,7 +31,7 @@
     <sv:value>/shop/paragraphs/features/shoppingCart.ftl</sv:value>
   </sv:property>
   <sv:property sv:name="title" sv:type="String">
-    <sv:value>shopping cart</sv:value>
+    <sv:value>shop.templates.components.features.shopShoppingCart.title</sv:value>
   </sv:property>
   <sv:node sv:name="MetaData">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">

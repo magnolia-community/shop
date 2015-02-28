@@ -1496,9 +1496,6 @@
                   <sv:property sv:name="jcr:createdBy" sv:type="String">
                     <sv:value>admin</sv:value>
                   </sv:property>
-                  <sv:property sv:name="label" sv:type="String">
-                    <sv:value>Included</sv:value>
-                  </sv:property>
                   <sv:property sv:name="mgnl:created" sv:type="Date">
                     <sv:value>2013-09-13T12:44:08.548+02:00</sv:value>
                   </sv:property>
@@ -1527,9 +1524,6 @@
                   </sv:property>
                   <sv:property sv:name="jcr:createdBy" sv:type="String">
                     <sv:value>admin</sv:value>
-                  </sv:property>
-                  <sv:property sv:name="label" sv:type="String">
-                    <sv:value>Excluded</sv:value>
                   </sv:property>
                   <sv:property sv:name="mgnl:created" sv:type="Date">
                     <sv:value>2013-09-13T12:44:09.925+02:00</sv:value>
@@ -2521,9 +2515,6 @@
                   <sv:property sv:name="jcr:createdBy" sv:type="String">
                     <sv:value>admin</sv:value>
                   </sv:property>
-                  <sv:property sv:name="label" sv:type="String">
-                    <sv:value>Included</sv:value>
-                  </sv:property>
                   <sv:property sv:name="mgnl:created" sv:type="Date">
                     <sv:value>2013-09-13T12:44:08.548+02:00</sv:value>
                   </sv:property>
@@ -2552,9 +2543,6 @@
                   </sv:property>
                   <sv:property sv:name="jcr:createdBy" sv:type="String">
                     <sv:value>admin</sv:value>
-                  </sv:property>
-                  <sv:property sv:name="label" sv:type="String">
-                    <sv:value>Excluded</sv:value>
                   </sv:property>
                   <sv:property sv:name="mgnl:created" sv:type="Date">
                     <sv:value>2013-09-13T12:44:09.925+02:00</sv:value>
@@ -3806,9 +3794,6 @@
               <sv:property sv:name="class" sv:type="String">
                 <sv:value>info.magnolia.ui.form.field.definition.LinkFieldDefinition</sv:value>
               </sv:property>
-              <sv:property sv:name="description" sv:type="String">
-                <sv:value>Select an asset</sv:value>
-              </sv:property>
               <sv:property sv:name="jcr:createdBy" sv:type="String">
                 <sv:value>admin</sv:value>
               </sv:property>
@@ -3918,9 +3903,6 @@
               </sv:property>
               <sv:property sv:name="controlType" sv:type="String">
                 <sv:value>shopDam</sv:value>
-              </sv:property>
-              <sv:property sv:name="description" sv:type="String">
-                <sv:value>The terms document of the suppliers is added to the checkout process.</sv:value>
               </sv:property>
               <sv:property sv:name="jcr:createdBy" sv:type="String">
                 <sv:value>admin</sv:value>

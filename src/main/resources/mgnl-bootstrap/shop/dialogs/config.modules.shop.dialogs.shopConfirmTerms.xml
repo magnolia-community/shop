@@ -53,9 +53,6 @@
       <sv:property sv:name="jcr:createdBy" sv:type="String">
         <sv:value>admin</sv:value>
       </sv:property>
-      <sv:property sv:name="label" sv:type="String">
-        <sv:value>save changes</sv:value>
-      </sv:property>
     </sv:node>
     <sv:node sv:name="cancel">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -69,9 +66,6 @@
       </sv:property>
       <sv:property sv:name="jcr:createdBy" sv:type="String">
         <sv:value>admin</sv:value>
-      </sv:property>
-      <sv:property sv:name="label" sv:type="String">
-        <sv:value>cancel</sv:value>
       </sv:property>
     </sv:node>
   </sv:node>
@@ -149,9 +143,6 @@
             <sv:property sv:name="class" sv:type="String">
               <sv:value>info.magnolia.ui.form.field.definition.TextFieldDefinition</sv:value>
             </sv:property>
-            <sv:property sv:name="description" sv:type="String">
-              <sv:value>Title</sv:value>
-            </sv:property>
             <sv:property sv:name="i18n" sv:type="Boolean">
               <sv:value>true</sv:value>
             </sv:property>
@@ -196,9 +187,6 @@
             <sv:property sv:name="class" sv:type="String">
               <sv:value>info.magnolia.ui.form.field.definition.TextFieldDefinition</sv:value>
             </sv:property>
-            <sv:property sv:name="description" sv:type="String">
-              <sv:value>dialog.form.edit.tabMain.controlName.description</sv:value>
-            </sv:property>
             <sv:property sv:name="jcr:createdBy" sv:type="String">
               <sv:value>admin</sv:value>
             </sv:property>
@@ -240,17 +228,11 @@
             <sv:property sv:name="class" sv:type="String">
               <sv:value>info.magnolia.ui.form.field.definition.TextFieldDefinition</sv:value>
             </sv:property>
-            <sv:property sv:name="description" sv:type="String">
-              <sv:value>Use "[link_start]" and "[link_end]" for the placement of the terms link, e.g.:&lt;br /&gt;I have read and and agree with the [link_start]terms and conditions[link_end] of this shop.</sv:value>
-            </sv:property>
             <sv:property sv:name="i18n" sv:type="Boolean">
               <sv:value>true</sv:value>
             </sv:property>
             <sv:property sv:name="jcr:createdBy" sv:type="String">
               <sv:value>admin</sv:value>
-            </sv:property>
-            <sv:property sv:name="label" sv:type="String">
-              <sv:value>Checkbox label</sv:value>
             </sv:property>
             <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
               <sv:value>false</sv:value>
@@ -286,9 +268,6 @@
             </sv:property>
             <sv:property sv:name="jcr:uuid" sv:type="String">
               <sv:value>de415066-4ba6-4b1e-a787-18799a96ab22</sv:value>
-            </sv:property>
-            <sv:property sv:name="buttonLabel" sv:type="String">
-              <sv:value>dialog.form.edit.tabMain.mandatory.buttonLabel</sv:value>
             </sv:property>
             <sv:property sv:name="class" sv:type="String">
               <sv:value>info.magnolia.ui.form.field.definition.CheckboxFieldDefinition</sv:value>
@@ -340,14 +319,8 @@
             <sv:property sv:name="class" sv:type="String">
               <sv:value>info.magnolia.ui.form.field.definition.LinkFieldDefinition</sv:value>
             </sv:property>
-            <sv:property sv:name="description" sv:type="String">
-              <sv:value>PDF in the "Documents" area which contains the terms</sv:value>
-            </sv:property>
             <sv:property sv:name="jcr:createdBy" sv:type="String">
               <sv:value>admin</sv:value>
-            </sv:property>
-            <sv:property sv:name="label" sv:type="String">
-              <sv:value>Terms document</sv:value>
             </sv:property>
             <sv:property sv:name="mgnl:created" sv:type="Date">
               <sv:value>2011-12-08T15:04:25.697+01:00</sv:value>
@@ -406,14 +379,8 @@
             <sv:property sv:name="class" sv:type="String">
               <sv:value>info.magnolia.ui.form.field.definition.LinkFieldDefinition</sv:value>
             </sv:property>
-            <sv:property sv:name="description" sv:type="String">
-              <sv:value>Website which contains the terms - overwrites "Terms document"</sv:value>
-            </sv:property>
             <sv:property sv:name="jcr:createdBy" sv:type="String">
               <sv:value>admin</sv:value>
-            </sv:property>
-            <sv:property sv:name="label" sv:type="String">
-              <sv:value>Terms web page</sv:value>
             </sv:property>
             <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
               <sv:value>false</sv:value>
