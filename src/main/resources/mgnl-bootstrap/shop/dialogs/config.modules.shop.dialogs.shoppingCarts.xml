@@ -1585,6 +1585,9 @@
             <sv:property sv:name="type" sv:type="String">
               <sv:value>Boolean</sv:value>
             </sv:property>
+            <sv:property sv:name="class" sv:type="String">
+              <sv:value>info.magnolia.ui.form.field.definition.CheckboxFieldDefinition</sv:value>
+            </sv:property>
           </sv:node>
           <sv:node sv:name="orderAddressLastname">
             <sv:property sv:name="jcr:primaryType" sv:type="Name">

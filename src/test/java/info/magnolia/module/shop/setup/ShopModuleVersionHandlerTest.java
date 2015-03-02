@@ -338,7 +338,7 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         assertFalse(config.propertyExists("/modules/shop/dialogs/shoppingCarts/actions/cancel/label"));
         assertFalse(config.propertyExists("/modules/shop/dialogs/shoppingCarts/form/tabs/mainTab/fields/customerReference/description"));
         assertFalse(config.propertyExists("/modules/shop/dialogs/shoppingCarts/form/tabs/mainTab/fields/priceCategoryReference/description"));
-        assertFalse(config.propertyExists("/modules/shop/dialogs/shoppingCarts/form/tabs/shippingAddress/fields/shippingAddressSameAsBilling/description"));
+        assertFalse(config.propertyExists("/modules/shop/dialogs/shoppingCarts/form/tabs/shippingAddress/fields/shippingAddressSameAsBilling/description")); 
         assertFalse(config.propertyExists("/modules/shop/dialogs/shoppingCarts/form/tabs/orderAddress/fields/orderSameAsBilling/buttonLabel"));
         assertFalse(config.propertyExists("/modules/shop/dialogs/shoppingCarts/form/tabs/orderAddress/fields/orderSameAsBilling/description"));
         assertFalse(config.propertyExists("/modules/shop/dialogs/shopProductList/actions/commit/label"));
@@ -372,26 +372,15 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         this.setupConfigNode("/modules/shop/templates/pages/shopCheckoutForm");
         this.setupConfigNode("/modules/shop/templates/pages/shopFormStepConfirmOrder");
         this.setupConfigNode("/modules/shop/templates/components/features/shopForm");
-        this.setupConfigNode("/modules/shop/templates/components/features/shopForm");
-        this.setupConfigNode("/modules/shop/templates/components/features/shopProductList");
         this.setupConfigNode("/modules/shop/templates/components/features/shopProductList");
         this.setupConfigNode("/modules/shop/templates/components/features/shopShoppingCart");
-        this.setupConfigNode("/modules/shop/templates/components/features/shopShoppingCart");
-        this.setupConfigNode("/modules/shop/templates/components/features/shopProductDetail");
         this.setupConfigNode("/modules/shop/templates/components/features/shopProductDetail");
         this.setupConfigNode("/modules/shop/templates/components/features/shopProductCategory");
-        this.setupConfigNode("/modules/shop/templates/components/features/shopProductCategory");
-        this.setupConfigNode("/modules/shop/templates/components/features/shopConfirmationPage");
         this.setupConfigNode("/modules/shop/templates/components/features/shopConfirmationPage");
         this.setupConfigNode("/modules/shop/templates/components/features/form/shopConfirmTerms");
-        this.setupConfigNode("/modules/shop/templates/components/features/form/shopConfirmTerms");
-        this.setupConfigNode("/modules/shop/templates/components/features/shopProductSearchResult");
         this.setupConfigNode("/modules/shop/templates/components/features/shopProductSearchResult");
         this.setupConfigNode("/modules/shop/templates/components/features/shopFormStepConfirmOrder");
-        this.setupConfigNode("/modules/shop/templates/components/features/shopFormStepConfirmOrder");
         this.setupConfigNode("/modules/shop/templates/components/features/shopProductKeywordResult");
-        this.setupConfigNode("/modules/shop/templates/components/features/shopProductKeywordResult");
-        this.setupConfigNode("/modules/shop/templates/components/teasers/shopProductTeaser/areas/linkList");
 
         // WHEN
         executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("2.1.0"));
@@ -409,18 +398,14 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         assertEquals("shop.templates.components.features.shopProductDetail.description", config.getProperty("/modules/shop/templates/components/features/shopProductDetail/description").getString());
         assertEquals("shop.templates.components.features.shopProductDetail.title", config.getProperty("/modules/shop/templates/components/features/shopProductDetail/title").getString());
         assertEquals("shop.templates.components.features.shopProductCategory.description", config.getProperty("/modules/shop/templates/components/features/shopProductCategory/description").getString());
-        assertEquals("shop.templates.components.features.shopProductCategory.title", config.getProperty("/modules/shop/templates/components/features/shopProductCategory/title").getString());
         assertEquals("shop.templates.components.features.shopConfirmationPage.description", config.getProperty("/modules/shop/templates/components/features/shopConfirmationPage/description").getString());
         assertEquals("shop.templates.components.features.shopConfirmationPage.title", config.getProperty("/modules/shop/templates/components/features/shopConfirmationPage/title").getString());
         assertEquals("shop.templates.components.features.form.shopConfirmTerms.description", config.getProperty("/modules/shop/templates/components/features/form/shopConfirmTerms/description").getString());
-        assertEquals("shop.templates.components.features.form/shopConfirmTerms.title", config.getProperty("/modules/shop/templates/components/features/form/shopConfirmTerms/title").getString());
+        assertEquals("shop.templates.components.features.form.shopConfirmTerms.title", config.getProperty("/modules/shop/templates/components/features/form/shopConfirmTerms/title").getString());
         assertEquals("shop.templates.components.features.shopProductSearchResult.description", config.getProperty("/modules/shop/templates/components/features/shopProductSearchResult/description").getString());
-        assertEquals("shop.templates.components.features.shopProductSearchResult.title", config.getProperty("/modules/shop/templates/components/features/shopProductSearchResult/title").getString());
         assertEquals("shop.templates.components.features.shopFormStepConfirmOrder.description", config.getProperty("/modules/shop/templates/components/features/shopFormStepConfirmOrder/description").getString());
         assertEquals("shop.templates.components.features.shopFormStepConfirmOrder.title", config.getProperty("/modules/shop/templates/components/features/shopFormStepConfirmOrder/title").getString());
         assertEquals("shop.templates.components.features.shopProductKeywordResult.description", config.getProperty("/modules/shop/templates/components/features/shopProductKeywordResult/description").getString());
-        assertEquals("shop.templates.components.features.shopProductKeywordResult.title", config.getProperty("/modules/shop/templates/components/features/shopProductKeywordResult/title").getString());
-        assertEquals("shop.templates.components.teasers.shopProductTeaser.areas.linkList.description", config.getProperty("/modules/shop/templates/components/teasers/shopProductTeaser/areas/linkList/description").getString());
         assertEquals("info.magnolia.module.shop.messages", config.getProperty("/modules/shop/templates/components/features/shopForm/i18nBasename").getString());
     }
 
