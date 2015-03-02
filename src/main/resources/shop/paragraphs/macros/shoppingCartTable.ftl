@@ -3,7 +3,7 @@
       <p>${i18n['shoppingcart.empty']}</p>
   [#else]
     [#assign currencyTitle = model.currencyTitle!]
-    [#assign currencyFormatting = model.currencyFormatting]
+    [#assign currencyFormatting = model.currencyFormatting!]
       <table cellspacing="1" cellpadding="1" border="0" width="100%" class="shopping_cart">
       <thead>
         <th id="prod-name-col-width">${i18n['table.product']}</th>
