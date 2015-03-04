@@ -381,6 +381,7 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         this.setupConfigNode("/modules/shop/templates/components/features/shopProductSearchResult");
         this.setupConfigNode("/modules/shop/templates/components/features/shopFormStepConfirmOrder");
         this.setupConfigNode("/modules/shop/templates/components/features/shopProductKeywordResult");
+        this.setupConfigProperty("/modules/shop/templates/components/features/form/shopCheckDisableFields", "modelClass", "info.magnolia.module.form.templates.components.FormFieldModel");
 
         // WHEN
         executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("2.1.0"));
@@ -407,6 +408,8 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         assertEquals("shop.templates.components.features.shopFormStepConfirmOrder.title", config.getProperty("/modules/shop/templates/components/features/shopFormStepConfirmOrder/title").getString());
         assertEquals("shop.templates.components.features.shopProductKeywordResult.description", config.getProperty("/modules/shop/templates/components/features/shopProductKeywordResult/description").getString());
         assertEquals("info.magnolia.module.shop.messages", config.getProperty("/modules/shop/templates/components/features/shopForm/i18nBasename").getString());
+        assertThat(config.getNode("/modules/shop/templates/components/features/form/shopCheckDisableFields"), hasProperty("modelClass", "info.magnolia.module.shop.paragraphs.CheckDisableFieldsModel"));
+
     }
 
 }
