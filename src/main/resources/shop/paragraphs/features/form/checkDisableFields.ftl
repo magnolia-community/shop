@@ -1,4 +1,4 @@
-[#assign formStateValsMap = model.getFormStateValues()]
+[#assign formStateValsMap = model.formStateValues!]
 
 <script type="text/javascript">
 
