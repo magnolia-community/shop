@@ -67,6 +67,7 @@ import info.magnolia.module.delta.RemovePermissionTask;
 import info.magnolia.module.delta.RemovePropertyTask;
 import info.magnolia.module.delta.SetPropertyTask;
 import info.magnolia.module.delta.Task;
+import info.magnolia.module.form.setup.ChangeValidationToMultiValuedPropertyTask;
 import info.magnolia.module.inplacetemplating.setup.TemplatesInstallTask;
 import info.magnolia.module.resources.setup.InstallResourcesTask;
 import info.magnolia.module.shop.ShopRepositoryConstants;
@@ -293,7 +294,8 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                         new NodeExistsDelegateTask("Set title property if /modules/shop/templates/components/features/shopFormStepConfirmOrder node exists", "", RepositoryConstants.CONFIG, "/modules/shop/templates/components/features/shopFormStepConfirmOrder", new SetPropertyTask("", RepositoryConstants.CONFIG, "/modules/shop/templates/components/features/shopFormStepConfirmOrder", "title", "shop.templates.components.features.shopFormStepConfirmOrder.title")),
                         new NodeExistsDelegateTask("Set description property if /modules/shop/templates/components/features/shopProductKeywordResult node exists", "", RepositoryConstants.CONFIG, "/modules/shop/templates/components/features/shopProductKeywordResult", new SetPropertyTask("", RepositoryConstants.CONFIG, "/modules/shop/templates/components/features/shopProductKeywordResult", "description", "shop.templates.components.features.shopProductKeywordResult.description")),
                         new NodeExistsDelegateTask("Set i18nBasename property if /modules/shop/templates/components/features/shopForm node exists", "", RepositoryConstants.CONFIG, "/modules/shop/templates/components/features/shopForm", new SetPropertyTask("", RepositoryConstants.CONFIG, "/modules/shop/templates/components/features/shopForm", "i18nBasename", "info.magnolia.module.shop.messages")),
-                        new NodeExistsDelegateTask("Set modelClass property in /modules/shop/templates/components/features/form/shopCheckDisableFields node", "/modules/shop/templates/components/features/form/shopCheckDisableFields", new SetPropertyTask(RepositoryConstants.CONFIG, "/modules/shop/templates/components/features/form/shopCheckDisableFields", "modelClass", "info.magnolia.module.shop.paragraphs.CheckDisableFieldsModel"))
+                        new NodeExistsDelegateTask("Set modelClass property in /modules/shop/templates/components/features/form/shopCheckDisableFields node", "/modules/shop/templates/components/features/form/shopCheckDisableFields", new SetPropertyTask(RepositoryConstants.CONFIG, "/modules/shop/templates/components/features/form/shopCheckDisableFields", "modelClass", "info.magnolia.module.shop.paragraphs.CheckDisableFieldsModel")),
+                        new ChangeValidationToMultiValuedPropertyTask("", Arrays.asList("form:components/formEdit"))
                 )));
     }
 

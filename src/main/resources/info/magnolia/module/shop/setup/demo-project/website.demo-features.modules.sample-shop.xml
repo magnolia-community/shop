@@ -4026,7 +4026,7 @@
                     <sv:property sv:name="title" sv:type="String">
                       <sv:value>Name</sv:value>
                     </sv:property>
-                    <sv:property sv:name="validation" sv:type="String">
+                    <sv:property sv:name="validation" sv:type="String" sv:multiple="true">
                       <sv:value>noHTML</sv:value>
                     </sv:property>
                   </sv:node>
@@ -4070,7 +4070,7 @@
                     <sv:property sv:name="title" sv:type="String">
                       <sv:value>Email</sv:value>
                     </sv:property>
-                    <sv:property sv:name="validation" sv:type="String">
+                    <sv:property sv:name="validation" sv:type="String" sv:multiple="true">
                       <sv:value>email</sv:value>
                     </sv:property>
                   </sv:node>
@@ -4114,7 +4114,7 @@
                     <sv:property sv:name="title" sv:type="String">
                       <sv:value>Address</sv:value>
                     </sv:property>
-                    <sv:property sv:name="validation" sv:type="String">
+                    <sv:property sv:name="validation" sv:type="String" sv:multiple="true">
                       <sv:value>noHTML</sv:value>
                     </sv:property>
                   </sv:node>
@@ -4740,7 +4740,7 @@
                   <sv:property sv:name="title" sv:type="String">
                     <sv:value>Name</sv:value>
                   </sv:property>
-                  <sv:property sv:name="validation" sv:type="String">
+                  <sv:property sv:name="validation" sv:type="String" sv:multiple="true">
                     <sv:value>noHTML</sv:value>
                   </sv:property>
                 </sv:node>
@@ -4790,7 +4790,7 @@
                   <sv:property sv:name="title" sv:type="String">
                     <sv:value>Email</sv:value>
                   </sv:property>
-                  <sv:property sv:name="validation" sv:type="String">
+                  <sv:property sv:name="validation" sv:type="String" sv:multiple="true">
                     <sv:value>email</sv:value>
                   </sv:property>
                 </sv:node>
@@ -4840,7 +4840,7 @@
                   <sv:property sv:name="title" sv:type="String">
                     <sv:value>Address</sv:value>
                   </sv:property>
-                  <sv:property sv:name="validation" sv:type="String">
+                  <sv:property sv:name="validation" sv:type="String" sv:multiple="true">
                     <sv:value>noHTML</sv:value>
                   </sv:property>
                 </sv:node>

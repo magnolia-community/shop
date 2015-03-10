@@ -48,7 +48,7 @@
     </dependency>
     <dependency>
       <name>form</name>
-      <version>2.0/*</version>
+      <version>2.2.6/*</version>
     </dependency>
     <dependency>
       <name>categorization</name>
