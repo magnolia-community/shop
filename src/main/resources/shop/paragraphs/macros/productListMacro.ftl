@@ -44,6 +44,7 @@
 			    	  	<div class="product-add">
 			    	  		[@addForm product=product model=model/]
 			    	  	</div>
+                        <div class="separator"></div>
 			    	  </div>
 				</li>
 			[/#list]

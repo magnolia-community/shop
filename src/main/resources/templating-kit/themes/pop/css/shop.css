@@ -161,13 +161,13 @@ margin-left: 0px;
 
 
 .product-price-container {
-  padding-top: 40px;
+  padding-top: 10px;
   clear: both;
   position: relative;
+  display:block;
 }
-.product-price, .product-add {
-  position:absolute;
-    bottom:0;
+.product-add {
+  position:relative;
 }
 .product-price {
   float: left;
@@ -263,4 +263,7 @@ td.total {
 }
 td.total_incl_tax {
     text-align: right;
+}
+.separator {
+    clear: both;
 }
