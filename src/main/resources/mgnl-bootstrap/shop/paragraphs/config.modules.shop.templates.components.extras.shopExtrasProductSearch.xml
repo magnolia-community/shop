@@ -12,9 +12,6 @@
   <sv:property sv:name="description" sv:type="String">
     <sv:value>paragraphs.extras.shopExtrasProductSearch.description</sv:value>
   </sv:property>
-  <sv:property sv:name="dialog" sv:type="String">
-    <sv:value>shop:shopEmpty</sv:value>
-  </sv:property>
   <sv:property sv:name="i18nBasename" sv:type="String">
     <sv:value>info.magnolia.module.shop.messages</sv:value>
   </sv:property>

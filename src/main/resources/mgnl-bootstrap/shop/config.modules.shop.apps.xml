@@ -1313,9 +1313,6 @@
             <sv:property sv:name="class" sv:type="String">
               <sv:value>info.magnolia.module.shop.dialog.action.NodeTypeBasedOpenEditDialogActionDefinition</sv:value>
             </sv:property>
-            <sv:property sv:name="dialogName" sv:type="String">
-              <sv:value>shop:shopEmpty</sv:value>
-            </sv:property>
             <sv:property sv:name="icon" sv:type="String">
               <sv:value>icon-edit</sv:value>
             </sv:property>
