@@ -102,7 +102,11 @@ public class ShopTagCloudParagraph<RD extends TemplateDefinition> extends Abstra
     }
 
     public int getNumberOfItemsTaggedWith(String tagUUID) {
-      return ShopProductAccessor.getTaggedProducts(tagUUID).size();
+        int result = 0;
+        if (ShopProductAccessor.getTaggedProducts(tagUUID) != null) {
+            result = ShopProductAccessor.getTaggedProducts(tagUUID).size();
+        }
+        return result;
     }
 
     public String getProductListLink(String tagName, String tagDisplayName) {

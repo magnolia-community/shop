@@ -36,6 +36,7 @@ package info.magnolia.module.shop.templates;
 import info.magnolia.cms.core.MgnlNodeType;
 import info.magnolia.cms.security.AccessDeniedException;
 import info.magnolia.dam.templating.functions.DamTemplatingFunctions;
+import info.magnolia.jcr.util.NodeTypes;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.module.templatingkit.templates.pages.STKPage;
@@ -95,7 +96,8 @@ public class ShopHomeParagraphTemplateModel extends STKPageModel<STKPage> {
     private Node createShopPage(Node parent, String pageName, String templateName) throws AccessDeniedException,
     RepositoryException {
         Node page = NodeUtil.createPath(parent, pageName, MgnlNodeType.NT_PAGE, true);
-        page.getNode("MetaData").setProperty("mgnl:template", templateName);
+        NodeTypes.Renderable.set(page, templateName);
+        page.getSession().save();
         return page;
     }
 }
