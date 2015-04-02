@@ -155,7 +155,6 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         this.setupConfigNode("/modules/ui-admincentral/config/appLauncherLayout/groups/sampleShop");
         this.setupConfigNode("/modules/ui-admincentral/config/appLauncherLayout/groups/shop");
 
-
         // WHEN
         executeUpdatesAsIfTheCurrentlyInstalledVersionWas(null);
 
@@ -278,13 +277,6 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         this.setupConfigProperty("/modules/shop/dialogs/teasers/shopProductTeaser/actions/cancel", "label", "testValue");
         this.setupConfigProperty("/modules/shop/dialogs/teasers/shopProductTeaser/form/tabs/tabTeaser", "label", "testValue");
         this.setupConfigProperty("/modules/shop/dialogs/teasers/shopProductTeaser/form/tabs/tabTeaser/fields/productUUID", "description", "testValue");
-        this.setupConfigProperty("/modules/shop/dialogs/shoppingCarts/actions/commit", "label", "testValue");
-        this.setupConfigProperty("/modules/shop/dialogs/shoppingCarts/actions/cancel", "label", "testValue");
-        this.setupConfigProperty("/modules/shop/dialogs/shoppingCarts/form/tabs/mainTab/fields/customerReference", "description", "testValue");
-        this.setupConfigProperty("/modules/shop/dialogs/shoppingCarts/form/tabs/mainTab/fields/priceCategoryReference", "description", "testValue");
-        this.setupConfigProperty("/modules/shop/dialogs/shoppingCarts/form/tabs/shippingAddress/fields/shippingAddressSameAsBilling", "description", "testValue");
-        this.setupConfigProperty("/modules/shop/dialogs/shoppingCarts/form/tabs/orderAddress/fields/orderSameAsBilling", "buttonLabel", "testValue");
-        this.setupConfigProperty("/modules/shop/dialogs/shoppingCarts/form/tabs/orderAddress/fields/orderSameAsBilling", "description", "testValue");
         this.setupConfigProperty("/modules/shop/dialogs/shopProductList/actions/commit", "label", "testValue");
         this.setupConfigProperty("/modules/shop/dialogs/shopProductList/actions/cancel", "label", "testValue");
         this.setupConfigProperty("/modules/shop/dialogs/shopConfirmTerms/actions/commit", "label", "testValue");
@@ -307,29 +299,20 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         this.setupConfigProperty("/modules/shop/dialogs/extras/shopExtrasProduct/form/tabs/tabTeaser/fields/productUUID", "description", "testValue");
         this.setupConfigProperty("/modules/shop/dialogs/extras/shopExtrasProduct/form/tabs/tabTeaserOverwrite/fields/teaserTitle", "description", "testValue");
         this.setupConfigProperty("/modules/shop/dialogs/extras/shopExtrasProduct/form/tabs/tabTeaserOverwrite", "label", "testValue");
-        this.setupConfigProperty("/modules/shop/templates/pages/shopHome/areas/sectionHeader", "dialog", "testValue");
-        this.setupConfigProperty("/modules/shop/templates/pages/shopHome/areas/sectionHeader", "modelClass", "testValue");
-        this.setupConfigProperty("/modules/shop/templates/pages/shopHome/areas/sectionHeader", "templateScript", "testValue");
-        this.setupConfigProperty("/modules/shop/templates/pages/shopHome/areas/sectionHeader", "type", "testValue");
-        this.setupConfigProperty("/modules/shop/templates/pages/shopShoppingCart/areas/sectionHeader", "dialog", "testValue");
-        this.setupConfigProperty("/modules/shop/templates/pages/shopShoppingCart/areas/sectionHeader", "modelClass", "testValue");
-        this.setupConfigProperty("/modules/shop/templates/pages/shopShoppingCart/areas/sectionHeader", "type", "testValue");
-        this.setupConfigProperty("/modules/shop/templates/pages/shopProductDetail/areas/sectionHeader", "dialog", "testValue");
-        this.setupConfigProperty("/modules/shop/templates/pages/shopProductDetail/areas/sectionHeader", "modelClass", "testValue");
-        this.setupConfigProperty("/modules/shop/templates/pages/shopProductDetail/areas/sectionHeader", "type", "testValue");
-        this.setupConfigProperty("/modules/shop/templates/pages/shopConfirmationPage/areas/sectionHeader", "dialog", "testValue");
-        this.setupConfigProperty("/modules/shop/templates/pages/shopConfirmationPage/areas/sectionHeader", "modelClass", "testValue");
-        this.setupConfigProperty("/modules/shop/templates/pages/shopConfirmationPage/areas/sectionHeader", "type", "testValue");
-        this.setupConfigProperty("/modules/shop/templates/pages/shopFormStep/areas/sectionHeader", "dialog", "testValue");
-        this.setupConfigProperty("/modules/shop/templates/pages/shopFormStep/areas/sectionHeader", "modelClass", "testValue");
-        this.setupConfigProperty("/modules/shop/templates/pages/shopFormStep/areas/sectionHeader", "type", "testValue");
-        this.setupConfigProperty("/modules/shop/templates/pages/shopCheckoutForm/areas/sectionHeader", "dialog", "testValue");
-        this.setupConfigProperty("/modules/shop/templates/pages/shopCheckoutForm/areas/sectionHeader", "modelClass", "testValue");
-        this.setupConfigProperty("/modules/shop/templates/pages/shopCheckoutForm/areas/sectionHeader", "type", "testValue");
-        this.setupConfigProperty("/modules/shop/templates/components/extras/shopExtrasCart", "dialog", "testValue");
-        this.setupConfigProperty("/modules/shop/templates/components/extras/shopExtrasProductSearch", "dialog", "testValue");
-        this.setupConfigProperty("/modules/shop/templates/components/features/shopConfirmationPage", "dialog", "testValue");
-        this.setupConfigProperty("/modules/shop/apps/shop/subApps/browser/actions/edit", "dialogName", "testValue");
+        this.setupConfigProperty("/modules/shop/apps/shop/subApps/browser/actions/activate", "class", "testValue");
+        this.setupConfigProperty("/modules/shop/apps/shop/subApps/browser/actions/deactivate", "class", "testValue");
+        this.setupConfigProperty("/modules/shop/apps/shopProducts/subApps/browser/actions/activate", "class", "info.magnolia.ui.framework.action.ActivationActionDefinition");
+        this.setupConfigProperty("/modules/shop/apps/shopProducts/subApps/browser/actions/activate", "command", "testValue");
+        this.setupConfigProperty("/modules/shop/apps/shopProducts/subApps/browser/actions/activate", "icon", "testValue");
+        this.setupConfigProperty("/modules/shop/apps/shopProducts/subApps/browser/actions/deactivate", "class", "info.magnolia.ui.framework.action.DeactivationActionDefinition");
+        this.setupConfigProperty("/modules/shop/apps/shopProducts/subApps/browser/actions/deactivate", "command", "testValue");
+        this.setupConfigProperty("/modules/shop/apps/shopProducts/subApps/browser/actions/deactivate", "icon", "testValue");
+        this.setupConfigProperty("/modules/shop/apps/shopSuppliers/subApps/browser/actions/activate", "class", "info.magnolia.ui.framework.action.ActivationActionDefinition");
+        this.setupConfigProperty("/modules/shop/apps/shopSuppliers/subApps/browser/actions/activate", "command", "testValue");
+        this.setupConfigProperty("/modules/shop/apps/shopSuppliers/subApps/browser/actions/activate", "icon", "testValue");
+        this.setupConfigProperty("/modules/shop/apps/shopSuppliers/subApps/browser/actions/deactivate", "class", "info.magnolia.ui.framework.action.DeactivationActionDefinition");
+        this.setupConfigProperty("/modules/shop/apps/shopSuppliers/subApps/browser/actions/deactivate", "command", "testValue");
+        this.setupConfigProperty("/modules/shop/apps/shopSuppliers/subApps/browser/actions/deactivate", "icon", "testValue");
 
         // WHEN
         executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("2.1.0"));
@@ -357,13 +340,6 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         assertFalse(config.propertyExists("/modules/shop/dialogs/teasers/shopProductTeaser/actions/cancel/label"));
         assertFalse(config.propertyExists("/modules/shop/dialogs/teasers/shopProductTeaser/form/tabs/tabTeaser/label"));
         assertFalse(config.propertyExists("/modules/shop/dialogs/teasers/shopProductTeaser/form/tabs/tabTeaser/fields/productUUID/description"));
-        assertFalse(config.propertyExists("/modules/shop/dialogs/shoppingCarts/actions/commit/label"));
-        assertFalse(config.propertyExists("/modules/shop/dialogs/shoppingCarts/actions/cancel/label"));
-        assertFalse(config.propertyExists("/modules/shop/dialogs/shoppingCarts/form/tabs/mainTab/fields/customerReference/description"));
-        assertFalse(config.propertyExists("/modules/shop/dialogs/shoppingCarts/form/tabs/mainTab/fields/priceCategoryReference/description"));
-        assertFalse(config.propertyExists("/modules/shop/dialogs/shoppingCarts/form/tabs/shippingAddress/fields/shippingAddressSameAsBilling/description")); 
-        assertFalse(config.propertyExists("/modules/shop/dialogs/shoppingCarts/form/tabs/orderAddress/fields/orderSameAsBilling/buttonLabel"));
-        assertFalse(config.propertyExists("/modules/shop/dialogs/shoppingCarts/form/tabs/orderAddress/fields/orderSameAsBilling/description"));
         assertFalse(config.propertyExists("/modules/shop/dialogs/shopProductList/actions/commit/label"));
         assertFalse(config.propertyExists("/modules/shop/dialogs/shopConfirmTerms/actions/commit/label"));
         assertFalse(config.propertyExists("/modules/shop/dialogs/shopConfirmTerms/actions/cancel/label"));
@@ -385,29 +361,16 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         assertFalse(config.propertyExists("/modules/shop/dialogs/extras/shopExtrasProduct/form/tabs/tabTeaser/fields/productUUID/description"));
         assertFalse(config.propertyExists("/modules/shop/dialogs/extras/shopExtrasProduct/form/tabs/tabTeaserOverwrite/fields/teaserTitle/description"));
         assertFalse(config.propertyExists("/modules/shop/dialogs/extras/shopExtrasProduct/form/tabs/tabTeaserOverwrite/label"));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopHome/areas/sectionHeader"), not(hasProperty("dialog")));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopHome/areas/sectionHeader"), not(hasProperty("modelClass")));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopHome/areas/sectionHeader"), not(hasProperty("templateScript")));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopHome/areas/sectionHeader"), not(hasProperty("type")));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopShoppingCart/areas/sectionHeader"), not(hasProperty("dialog")));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopShoppingCart/areas/sectionHeader"), not(hasProperty("modelClass")));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopShoppingCart/areas/sectionHeader"), not(hasProperty("type")));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopProductDetail/areas/sectionHeader"), not(hasProperty("dialog")));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopProductDetail/areas/sectionHeader"), not(hasProperty("modelClass")));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopProductDetail/areas/sectionHeader"), not(hasProperty("type")));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopConfirmationPage/areas/sectionHeader"), not(hasProperty("dialog")));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopConfirmationPage/areas/sectionHeader"), not(hasProperty("modelClass")));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopConfirmationPage/areas/sectionHeader"), not(hasProperty("type")));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopFormStep/areas/sectionHeader"), not(hasProperty("dialog")));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopFormStep/areas/sectionHeader"), not(hasProperty("modelClass")));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopFormStep/areas/sectionHeader"), not(hasProperty("type")));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopCheckoutForm/areas/sectionHeader"), not(hasProperty("dialog")));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopCheckoutForm/areas/sectionHeader"), not(hasProperty("modelClass")));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopCheckoutForm/areas/sectionHeader"), not(hasProperty("type")));
-        assertThat(config.getNode("/modules/shop/templates/components/extras/shopExtrasCart"), not(hasProperty("dialog")));
-        assertThat(config.getNode("/modules/shop/templates/components/extras/shopExtrasProductSearch"), not(hasProperty("dialog")));
-        assertThat(config.getNode("/modules/shop/templates/components/features/shopConfirmationPage"), not(hasProperty("dialog")));
-        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actions/edit"), not(hasProperty("dialogName")));
+        assertThat(config.getNode("/modules/shop/apps/shopProducts/subApps/browser/actions/activate"), not(hasProperty("class")));
+        assertThat(config.getNode("/modules/shop/apps/shopProducts/subApps/browser/actions/activate"), not(hasProperty("command")));
+        assertThat(config.getNode("/modules/shop/apps/shopProducts/subApps/browser/actions/activate"), not(hasProperty("icon")));
+        assertThat(config.getNode("/modules/shop/apps/shopProducts/subApps/browser/actions/deactivate"), not(hasProperty("class")));
+        assertThat(config.getNode("/modules/shop/apps/shopProducts/subApps/browser/actions/deactivate"), not(hasProperty("command")));
+        assertThat(config.getNode("/modules/shop/apps/shopProducts/subApps/browser/actions/deactivate"), not(hasProperty("icon")));
+        assertThat(config.getNode("/modules/shop/apps/shopSuppliers/subApps/browser/actions/activate"), not(hasProperty("command")));
+        assertThat(config.getNode("/modules/shop/apps/shopSuppliers/subApps/browser/actions/activate"), not(hasProperty("icon")));
+        assertThat(config.getNode("/modules/shop/apps/shopSuppliers/subApps/browser/actions/deactivate"), not(hasProperty("command")));
+        assertThat(config.getNode("/modules/shop/apps/shopSuppliers/subApps/browser/actions/deactivate"), not(hasProperty("icon")));
 
     }
 
@@ -429,14 +392,22 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         this.setupConfigNode("/modules/shop/templates/components/features/shopFormStepConfirmOrder");
         this.setupConfigNode("/modules/shop/templates/components/features/shopProductKeywordResult");
         this.setupConfigProperty("/modules/shop/templates/components/features/form/shopCheckDisableFields", "modelClass", "info.magnolia.module.form.templates.components.FormFieldModel");
-        this.setupConfigNode("/modules/shop/templates/pages/shopHome/areas/sectionHeader");
-        this.setupConfigProperty("/modules/shop/templates/pages/shopHome/areas/main/areas/intro", "dialog", "standard-templating-kit:pages/section/stkSectionHeader");
-        this.setupConfigProperty("/modules/shop/templates/pages/shopShoppingCart/areas/main/areas/intro", "dialog", "standard-templating-kit:pages/section/stkSectionHeader");
-        this.setupConfigProperty("/modules/shop/templates/pages/shopProductDetail/areas/main/areas/intro", "dialog", "standard-templating-kit:pages/section/stkSectionHeader");
-        this.setupConfigProperty("/modules/shop/templates/pages/shopProductCategory/areas/main/areas/intro", "dialog", "standard-templating-kit:pages/section/stkSectionHeader");
-        this.setupConfigProperty("/modules/shop/templates/pages/shopConfirmationPage/areas/main/areas/intro", "dialog", "standard-templating-kit:pages/section/stkSectionHeader");
-        this.setupConfigProperty("/modules/shop/templates/pages/shopProductSearchResult/areas/main/areas/intro", "dialog", "standard-templating-kit:pages/section/stkSectionHeader");
-        this.setupConfigProperty("/modules/shop/templates/pages/shopProductKeywordResult/areas/main/areas/intro", "dialog", "standard-templating-kit:pages/section/stkSectionHeader");
+        this.setupConfigNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/country/availability");
+        this.setupConfigNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/currencies/availability");
+        this.setupConfigNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/currency/availability");
+        this.setupConfigNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/priceCategories/availability");
+        this.setupConfigNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/priceCategory/availability");
+        this.setupConfigNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/shippingOption/availability");
+        this.setupConfigNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/shop/availability");
+        this.setupConfigNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/taxCategories/availability");
+        this.setupConfigNode("/modules/shop/apps/shop/subApps/browser/actions/activate");
+        this.setupConfigNode("/modules/shop/apps/shop/subApps/browser/actions/deactivate");
+        this.setupConfigProperty("/modules/shop/apps/shop/subApps/browser/actions/activate", "class", "info.magnolia.ui.framework.action.ActivationActionDefinition");
+        this.setupConfigProperty("/modules/shop/apps/shop/subApps/browser/actions/deactivate", "class", "info.magnolia.ui.framework.action.DeactivationActionDefinition");
+        this.setupConfigProperty("/modules/shop/apps/shopProducts/subApps/browser/actions/activate", "class", "info.magnolia.ui.framework.action.ActivationActionDefinition");
+        this.setupConfigProperty("/modules/shop/apps/shopProducts/subApps/browser/actions/deactivate", "class", "info.magnolia.ui.framework.action.DeactivationActionDefinition");
+        this.setupConfigProperty("/modules/shop/apps/shopSuppliers/subApps/browser/actions/activate", "class", "info.magnolia.ui.framework.action.ActivationActionDefinition");
+        this.setupConfigProperty("/modules/shop/apps/shopSuppliers/subApps/browser/actions/deactivate", "class", "info.magnolia.ui.framework.action.DeactivationActionDefinition");
 
         // WHEN
         executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("2.1.0"));
@@ -464,41 +435,160 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         assertEquals("shop.templates.components.features.shopProductKeywordResult.description", config.getProperty("/modules/shop/templates/components/features/shopProductKeywordResult/description").getString());
         assertEquals("info.magnolia.module.shop.messages", config.getProperty("/modules/shop/templates/components/features/shopForm/i18nBasename").getString());
         assertThat(config.getNode("/modules/shop/templates/components/features/form/shopCheckDisableFields"), hasProperty("modelClass", "info.magnolia.module.shop.paragraphs.CheckDisableFieldsModel"));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopHome/areas/sectionHeader"), hasProperty("editable", "true"));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopHome/areas/main/areas/intro"), hasProperty("dialog", "standard-templating-kit:pages/section/stkSectionIntro"));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopShoppingCart/areas/main/areas/intro"), hasProperty("dialog", "standard-templating-kit:pages/section/stkSectionIntro"));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopProductDetail/areas/main/areas/intro"), hasProperty("dialog", "standard-templating-kit:pages/section/stkSectionIntro"));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopProductCategory/areas/main/areas/intro"), hasProperty("dialog", "standard-templating-kit:pages/section/stkSectionIntro"));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopConfirmationPage/areas/main/areas/intro"), hasProperty("dialog", "standard-templating-kit:pages/section/stkSectionIntro"));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopProductSearchResult/areas/main/areas/intro"), hasProperty("dialog", "standard-templating-kit:pages/section/stkSectionIntro"));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopProductKeywordResult/areas/main/areas/intro"), hasProperty("dialog", "standard-templating-kit:pages/section/stkSectionIntro"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/country/availability/rules/IsNotDeletedRule"), hasProperty("implementationClass", "info.magnolia.ui.framework.availability.IsNotDeletedRule"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/currencies/availability/rules/IsNotDeletedRule"), hasProperty("implementationClass", "info.magnolia.ui.framework.availability.IsNotDeletedRule"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/currency/availability/rules/IsNotDeletedRule"), hasProperty("implementationClass", "info.magnolia.ui.framework.availability.IsNotDeletedRule"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/priceCategories/availability/rules/IsNotDeletedRule"), hasProperty("implementationClass", "info.magnolia.ui.framework.availability.IsNotDeletedRule"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/priceCategory/availability/rules/IsNotDeletedRule"), hasProperty("implementationClass", "info.magnolia.ui.framework.availability.IsNotDeletedRule"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/shippingOption/availability/rules/IsNotDeletedRule"), hasProperty("implementationClass", "info.magnolia.ui.framework.availability.IsNotDeletedRule"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/shop/availability/rules/IsNotDeletedRule"), hasProperty("implementationClass", "info.magnolia.ui.framework.availability.IsNotDeletedRule"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/taxCategories/availability/rules/IsNotDeletedRule"), hasProperty("implementationClass", "info.magnolia.ui.framework.availability.IsNotDeletedRule"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actions/activate/availability/rules/IsNotDeletedRule"), hasProperty("implementationClass", "info.magnolia.ui.framework.availability.IsNotDeletedRule"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actions/activate/availability/rules/IsPublishableRule"), hasProperty("implementationClass", "info.magnolia.ui.framework.availability.IsPublishableRule"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actions/activate"), hasProperty("catalog", "shop"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actions/activate"), hasProperty("asynchronous", "true"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actions/activate"), hasProperty("class", "info.magnolia.ui.framework.action.ActivationActionDefinition"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actions/activate"), hasProperty("recursive", "true"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actions/deactivate"), hasProperty("class", "info.magnolia.ui.framework.action.DeactivationActionDefinition"));
+        assertThat(config.getNode("/modules/shop/apps/shopSuppliers/subApps/browser/actionbar/sections/folder"), hasProperty("label", "shopSuppliers.browser.actionbar.sections.folder.label"));
+        assertThat(config.getNode("/modules/shop/apps/shopProducts/subApps/browser/actions/activate"), hasProperty("extends", "/modules/shop/apps/shop/subApps/browser/actions/activate"));
+        assertThat(config.getNode("/modules/shop/apps/shopProducts/subApps/browser/actions/activate"), not(hasProperty("class")));
+        assertThat(config.getNode("/modules/shop/apps/shopProducts/subApps/browser/actions/deactivate"), hasProperty("extends", "/modules/shop/apps/shop/subApps/browser/actions/deactivate"));
+        assertThat(config.getNode("/modules/shop/apps/shopSuppliers/subApps/browser/actions/activate"), hasProperty("extends", "/modules/shop/apps/shop/subApps/browser/actions/activate"));
+        assertThat(config.getNode("/modules/shop/apps/shopSuppliers/subApps/browser/actions/activate"), not(hasProperty("class")));
+        assertThat(config.getNode("/modules/shop/apps/shopSuppliers/subApps/browser/actions/deactivate"), hasProperty("extends", "/modules/shop/apps/shop/subApps/browser/actions/deactivate"));
 
     }
 
     @Test
-    public void testNodesAreRemovedAfterUpgradeTo211() throws Exception {
+    public void testPropertiesAreSetAfterUpgradeTo211IfWorkflowIsInstalled() throws Exception {
         // GIVEN
-        this.setupConfigNode("/modules/shop/templates/pages/shopHome/navigation/metaNavigation");
-        this.setupConfigNode("/modules/shop/templates/pages/shopShoppingCart/navigation/metaNavigation");
-        this.setupConfigNode("/modules/shop/templates/pages/shopProductDetail/navigation/metaNavigation");
-        this.setupConfigNode("/modules/shop/templates/pages/shopProductCategory/navigation/metaNavigation");
-        this.setupConfigNode("/modules/shop/templates/pages/shopConfirmationPage/navigation/metaNavigation");
-        this.setupConfigNode("/modules/shop/templates/pages/shopProductSearchResult/navigation/metaNavigation");
-        this.setupConfigNode("/modules/shop/templates/pages/shopProductKeywordResult/navigation/metaNavigation");
-        this.setupConfigNode("/modules/shop/dialogs/shopEmpty");
+        this.setupConfigNode("/modules/workflow");
+        this.setupConfigProperty("/modules/shop/apps/shop/subApps/browser/actions/activate", "class", "info.magnolia.ui.framework.action.ActivationActionDefinition");
+        this.setupConfigProperty("/modules/shop/apps/shop/subApps/browser/actions/deactivate", "class", "info.magnolia.ui.framework.action.DeactivationActionDefinition");
 
         // WHEN
         executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("2.1.0"));
 
         // THEN
-        assertThat(config.getNode("/modules/shop/templates/pages/shopHome/navigation"), not(hasNode("metaNavigation")));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopShoppingCart/navigation"), not(hasNode("metaNavigation")));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopProductDetail/navigation"), not(hasNode("metaNavigation")));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopProductCategory/navigation"), not(hasNode("metaNavigation")));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopConfirmationPage/navigation"), not(hasNode("metaNavigation")));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopProductSearchResult/navigation"), not(hasNode("metaNavigation")));
-        assertThat(config.getNode("/modules/shop/templates/pages/shopProductKeywordResult/navigation"), not(hasNode("metaNavigation")));
-        assertThat(config.getNode("/modules/shop/dialogs"), not(hasNode("shopEmpty")));
+        assertThat(config.getNode("/modules/shop/commands/shop/activate"), hasProperty("commandName", "workflow-activate"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actions/activate"), hasProperty("extends", "/modules/workflow/generic/actions/schedulePublication"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actions/deactivate"), hasProperty("dialogName", "workflow:unpublish"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actions/activateDeletion"), hasProperty("dialogName", "workflow:publishDeletion"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actions/restorePreviousVersion"), hasProperty("command", "restorePreviousVersion"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actions/activate/availability/rules/IsNotDeletedRule"), hasProperty("implementationClass", "info.magnolia.ui.framework.availability.IsNotDeletedRule"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actions/activate/availability/rules/IsPublishableRule"), hasProperty("implementationClass", "info.magnolia.ui.framework.availability.IsPublishableRule"));
+
+    }
+
+    @Test
+    public void testNodesAreAddedAfterUpgradeTo211() throws Exception {
+        // GIVEN
+        this.setupConfigNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/currencies/groups");
+        this.setupConfigNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/currency/groups");
+        this.setupConfigNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/shop/groups");
+        this.setupConfigNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/taxCategories/groups");
+        this.setupConfigNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/taxCategory/groups");
+        this.setupConfigNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/priceCategories/groups");
+        this.setupConfigNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/priceCategory/groups");
+        this.setupConfigNode("/modules/shop/apps/shop/subApps/browser/actions/activate");
+        this.setupConfigProperty("/modules/shop/apps/shop/subApps/browser/actions/activate", "class", "info.magnolia.ui.framework.action.ActivationActionDefinition");
+        this.setupConfigProperty("/modules/shop/apps/shop/subApps/browser/actions/deactivate", "class", "info.magnolia.ui.framework.action.DeactivationActionDefinition");
+
+        // WHEN
+        executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("2.1.0"));
+
+        // THEN
+        assertThat(config.getNode("/modules/shop"), hasNode("commands"));
+        assertThat(config.getNode("/modules/shop/commands"), hasNode("shop"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/currencies/groups"), hasNode("previousVersionActions/items/restorePreviousVersion"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/currency/groups"), hasNode("previousVersionActions/items/restorePreviousVersion"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/shop/groups"), hasNode("previousVersionActions/items/restorePreviousVersion"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/taxCategories/groups"), hasNode("previousVersionActions/items/restorePreviousVersion"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/taxCategory/groups"), hasNode("previousVersionActions/items/restorePreviousVersion"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/priceCategories/groups"), hasNode("previousVersionActions/items/restorePreviousVersion"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections/priceCategory/groups"), hasNode("previousVersionActions/items/restorePreviousVersion"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actions"), hasNode("activateDeletion"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actions"), hasNode("restorePreviousVersion"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actions/activate"), hasNode("availability"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actions/deactivate"), hasNode("availability"));
+        assertThat(config.getNode("/modules/shop/apps/shoppingCarts/subApps/browser/actions"), hasNode("addFolder"));
+        assertThat(config.getNode("/modules/shop/apps/shopProducts/subApps/browser/actionbar/sections"), hasNode("deletedFolder"));
+        assertThat(config.getNode("/modules/shop/apps/shopProducts/subApps/browser/actionbar/sections"), hasNode("deletedShopProduct"));
+        assertThat(config.getNode("/modules/shop/apps/shopProducts/subApps/browser/actionbar/sections"), hasNode("deletedShopProductOption"));
+        assertThat(config.getNode("/modules/shop/apps/shopProducts/subApps/browser/actionbar/sections"), hasNode("deletedShopProductOptions"));
+        assertThat(config.getNode("/modules/shop/apps/shopProducts/subApps/browser/actionbar/sections/folder/availability"), hasNode("rules"));
+        assertThat(config.getNode("/modules/shop/apps/shopProducts/subApps/browser/actionbar/sections/folder/groups"), hasNode("previousVersionActions"));
+        assertThat(config.getNode("/modules/shop/apps/shopProducts/subApps/browser/actionbar/sections/shopProduct/availability"), hasNode("rules"));
+        assertThat(config.getNode("/modules/shop/apps/shopProducts/subApps/browser/actionbar/sections/shopProduct/groups"), hasNode("previousVersionActions"));
+        assertThat(config.getNode("/modules/shop/apps/shopProducts/subApps/browser/actionbar/sections/shopProductOption/availability"), hasNode("rules"));
+        assertThat(config.getNode("/modules/shop/apps/shopProducts/subApps/browser/actionbar/sections/shopProductOption/groups"), hasNode("previousVersionActions"));
+        assertThat(config.getNode("/modules/shop/apps/shopProducts/subApps/browser/actionbar/sections/shopProductOptions/availability"), hasNode("rules"));
+        assertThat(config.getNode("/modules/shop/apps/shopProducts/subApps/browser/actionbar/sections/shopProductOptions/groups"), hasNode("previousVersionActions"));
+        assertThat(config.getNode("/modules/shop/apps/shopProducts/subApps/browser/actions"), hasNode("activateDeletion"));
+        assertThat(config.getNode("/modules/shop/apps/shopProducts/subApps/browser/actions"), hasNode("restorePreviousVersion"));
+        assertThat(config.getNode("/modules/shop/apps/shopProducts/subApps/browser/actions/editShopProductOption/availability"), hasNode("rules"));
+        assertThat(config.getNode("/modules/shop/apps/shopProducts/subApps/browser/actions/editShopProductOptions/availability"), hasNode("rules"));
+        assertThat(config.getNode("/modules/shop/apps/shopSuppliers/subApps/browser/actionbar/sections"), hasNode("deletedFolder"));
+        assertThat(config.getNode("/modules/shop/apps/shopSuppliers/subApps/browser/actionbar/sections"), hasNode("deletedSupplier"));
+        assertThat(config.getNode("/modules/shop/apps/shopSuppliers/subApps/browser/actionbar/sections/folder/availability"), hasNode("rules"));
+        assertThat(config.getNode("/modules/shop/apps/shopSuppliers/subApps/browser/actionbar/sections/folder/groups"), hasNode("previousVersionActions"));
+        assertThat(config.getNode("/modules/shop/apps/shopSuppliers/subApps/browser/actionbar/sections/supplier/availability"), hasNode("rules"));
+        assertThat(config.getNode("/modules/shop/apps/shopSuppliers/subApps/browser/actionbar/sections/supplier/groups"), hasNode("previousVersionActions"));
+        assertThat(config.getNode("/modules/shop/apps/shopSuppliers/subApps/browser/actions"), hasNode("activateDeletion"));
+        assertThat(config.getNode("/modules/shop/apps/shopSuppliers/subApps/browser/actions"), hasNode("restorePreviousVersion"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections"), hasNode("deletedCountries"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections"), hasNode("deletedCountry"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections"), hasNode("deletedCurrencies"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections"), hasNode("deletedCurrency"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections"), hasNode("deletedPriceCategories"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections"), hasNode("deletedPriceCategory"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections"), hasNode("deletedShippingOption"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections"), hasNode("deletedShippingOptions"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections"), hasNode("deletedShop"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections"), hasNode("deletedTaxCategories"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actionbar/sections"), hasNode("deletedTaxCategory"));
+
+    }
+
+    @Test
+    public void testCleanInstallIfWorkflowIsInstalled() throws Exception {
+        // GIVEN
+        ComponentsTestUtil.setInstance(ActivationManager.class, mock(ActivationManager.class));
+        this.setupConfigNode("/modules/ui-admincentral/config/appLauncherLayout/groups/stk");
+        this.setupConfigNode("/modules/ui-admincentral/config/appLauncherLayout/groups/sampleShop");
+        this.setupConfigNode("/modules/ui-admincentral/config/appLauncherLayout/groups/shop");
+        this.setupConfigNode("/modules/workflow");
+
+        // WHEN
+        executeUpdatesAsIfTheCurrentlyInstalledVersionWas(null);
+
+        // THEN
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actions/activate"), hasProperty("extends", "/modules/workflow/generic/actions/schedulePublication"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actions/deactivate"), hasProperty("dialogName", "workflow:unpublish"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actions/activateDeletion"), hasProperty("dialogName", "workflow:publishDeletion"));
+        assertThat(config.getNode("/modules/shop/commands/shop/activate"), hasProperty("commandName", "workflow-activate"));
+        assertThat(config.getNode("/modules/shop/commands/shop/deactivate"), hasProperty("commandName", "workflow-deactivate"));
+
+    }
+
+    @Test
+    public void testCleanInstallIfWorkflowIsNotInstalled() throws Exception {
+        // GIVEN
+        ComponentsTestUtil.setInstance(ActivationManager.class, mock(ActivationManager.class));
+        this.setupConfigNode("/modules/ui-admincentral/config/appLauncherLayout/groups/stk");
+        this.setupConfigNode("/modules/ui-admincentral/config/appLauncherLayout/groups/sampleShop");
+        this.setupConfigNode("/modules/ui-admincentral/config/appLauncherLayout/groups/shop");
+
+        // WHEN
+        executeUpdatesAsIfTheCurrentlyInstalledVersionWas(null);
+
+        // THEN
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actions/activate"), hasProperty("class", "info.magnolia.ui.framework.action.ActivationActionDefinition"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actions/deactivate"), hasProperty("class", "info.magnolia.ui.framework.action.DeactivationActionDefinition"));
+        assertThat(config.getNode("/modules/shop/apps/shop/subApps/browser/actions/activateDeletion"), not(hasProperty("dialogName", "workflow:publishDeletion")));
+        assertThat(config.getNode("/modules/shop/commands/shop/activate"), hasProperty("class", "info.magnolia.module.activation.commands.ActivationCommand"));
+        assertThat(config.getNode("/modules/shop/commands/shop"), not(hasNode("deactivate")));
 
     }
 
