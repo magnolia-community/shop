@@ -18,6 +18,9 @@
   <sv:property sv:name="extends" sv:type="String">
     <sv:value>../../form/templates/components/formEdit</sv:value>
   </sv:property>
+  <sv:property sv:name="i18nBasename" sv:type="String">
+    <sv:value>info.magnolia.module.shop.messages</sv:value>
+  </sv:property>
   <sv:property sv:name="jcr:createdBy" sv:type="String">
     <sv:value>admin</sv:value>
   </sv:property>

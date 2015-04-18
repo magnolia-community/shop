@@ -177,6 +177,15 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                         ),
                         new TemplatesInstallTask("/shop/.*\\.ftl", true)
                 ))
+                .addTask(new ValueOfPropertyDelegateTask("Configure i18nBasename property in /modules/shop/templates/pages/shopCheckoutForm node",  "/modules/shop/templates/pages/shopCheckoutForm", "i18nBasename", "info.magnolia.module.templatingkit.messages", false,
+                        new SetPropertyTask("", RepositoryConstants.CONFIG, "/modules/shop/templates/pages/shopCheckoutForm", "i18nBasename", "info.magnolia.module.shop.messages")))
+                .addTask(new ValueOfPropertyDelegateTask("Configure i18nBasename property in /modules/shop/templates/pages/shopFormStep node",  "/modules/shop/templates/pages/shopFormStep", "i18nBasename", "info.magnolia.module.templatingkit.messages", false,
+                        new SetPropertyTask("", RepositoryConstants.CONFIG, "/modules/shop/templates/pages/shopFormStep", "i18nBasename", "info.magnolia.module.shop.messages")))
+                .addTask(new ValueOfPropertyDelegateTask("Configure i18nBasename property in /modules/shop/templates/pages/shopFormStepConfirmOrder node",  "/modules/shop/templates/pages/shopFormStepConfirmOrder", "i18nBasename", "info.magnolia.module.templatingkit.messages", false,
+                        new SetPropertyTask("", RepositoryConstants.CONFIG, "/modules/shop/templates/pages/shopFormStepConfirmOrder", "i18nBasename", "info.magnolia.module.shop.messages")))
+                .addTask(new NodeExistsDelegateTask("Configure i18nBasename property in /modules/shop/templates/components/features/form/shopConfirmTerms node", "/modules/shop/templates/components/features/form/shopConfirmTerms",
+                        new PropertyExistsDelegateTask("", "/modules/shop/templates/components/features/form/shopConfirmTerms", "i18nBasename", null,
+                                new SetPropertyTask("", RepositoryConstants.CONFIG, "/modules/shop/templates/components/features/form/shopConfirmTerms", "i18nBasename", "info.magnolia.module.shop.messages"))))
         );
 
         register(DeltaBuilder.update("2.1.0", "")
