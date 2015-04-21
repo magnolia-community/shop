@@ -191,7 +191,7 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         setupConfigProperty("/modules/shop/templates/pages/shopCheckoutForm", "i18nBasename", "info.magnolia.module.templatingkit.messages");
         setupConfigProperty("/modules/shop/templates/pages/shopFormStep", "i18nBasename", "info.magnolia.module.templatingkit.messages");
         setupConfigProperty("/modules/shop/templates/pages/shopFormStepConfirmOrder", "i18nBasename", "info.magnolia.module.templatingkit.messages");
-        setupConfigNode("/modules/shop/templates/components/features/form/shopConfirmTerms");
+        setupConfigProperty("/modules/shop/templates/components/features/form/shopConfirmTerms", "extends", "../../form/templates/components/formEdit");
 
         // WHEN
         InstallContext ctx = executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("2.0"));
@@ -228,7 +228,6 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         assertThat(userRoles.getNode("/shop-user-base/"), not(hasNode("acl_dms")));
 
         this.assertNoMessages(ctx);
-
         assertThat(config.getNode("/modules/shop/templates/pages/shopCheckoutForm"), hasProperty("i18nBasename", "info.magnolia.module.shop.messages"));
         assertThat(config.getNode("/modules/shop/templates/pages/shopFormStep"), hasProperty("i18nBasename", "info.magnolia.module.shop.messages"));
         assertThat(config.getNode("/modules/shop/templates/pages/shopFormStepConfirmOrder"), hasProperty("i18nBasename", "info.magnolia.module.shop.messages"));
@@ -472,6 +471,8 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         this.setupConfigProperty("/modules/shop/apps/shopProducts/subApps/browser/actions/deactivate", "class", "info.magnolia.ui.framework.action.DeactivationActionDefinition");
         this.setupConfigProperty("/modules/shop/apps/shopSuppliers/subApps/browser/actions/activate", "class", "info.magnolia.ui.framework.action.ActivationActionDefinition");
         this.setupConfigProperty("/modules/shop/apps/shopSuppliers/subApps/browser/actions/deactivate", "class", "info.magnolia.ui.framework.action.DeactivationActionDefinition");
+        this.setupConfigProperty("/modules/shop/templates/components/features/form/shopConfirmTerms", "extends", "../../form/templates/components/formEdit");
+        this.setupConfigNode("/modules/shop/dialogs/shopConfirmTerms");
 
         // WHEN
         executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("2.1.0"));
@@ -529,6 +530,9 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         assertThat(config.getNode("/modules/shop/apps/shopSuppliers/subApps/browser/actions/activate"), hasProperty("extends", "/modules/shop/apps/shop/subApps/browser/actions/activate"));
         assertThat(config.getNode("/modules/shop/apps/shopSuppliers/subApps/browser/actions/activate"), not(hasProperty("class")));
         assertThat(config.getNode("/modules/shop/apps/shopSuppliers/subApps/browser/actions/deactivate"), hasProperty("extends", "/modules/shop/apps/shop/subApps/browser/actions/deactivate"));
+        assertThat(config.getNode("/modules/shop/templates/components/features/form/shopConfirmTerms"), hasProperty("extends", "/modules/form/templates/components/formEdit"));
+        assertThat(config.getNode("/modules/shop/templates/components/features/form/shopConfirmTerms"), hasProperty("i18nBasename", "info.magnolia.module.shop.messages"));
+        assertThat(config.getNode("/modules/shop/dialogs/shopConfirmTerms"), hasProperty("label", "dialog.shopConfirmTerms.label"));
 
     }
 

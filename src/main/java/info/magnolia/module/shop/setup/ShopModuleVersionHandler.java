@@ -505,6 +505,11 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                 .addTask(new RegisterShopNodeTypeTask("shopProducts", "shopProductOptions", true))
                 .addTask(new RegisterShopNodeTypeTask("shopProducts", "shopProductOption", true))
                 .addTask(new RegisterShopNodeTypeTask("shopSuppliers", "shopSupplier", true))
+                .addTask(new ValueOfPropertyDelegateTask("Configure shopConfirmTerms component in /modules/shop/templates/components/features/form node", "/modules/shop/templates/components/features/form/shopConfirmTerms", "extends", "../../form/templates/components/formEdit", false,
+                        new BootstrapSingleModuleResource("", "", "paragraphs/config.modules.shop.templates.components.features.form.shopConfirmTerms.xml")))
+                .addTask(new NodeExistsDelegateTask("Set property label if not exist for shopConfirmTerms dialog", "/modules/shop/dialogs/shopConfirmTerms",
+                        new PropertyExistsDelegateTask("", "/modules/shop/dialogs/shopConfirmTerms", "label", null,
+                                new SetPropertyTask(RepositoryConstants.CONFIG, "/modules/shop/dialogs/shopConfirmTerms", "label", "dialog.shopConfirmTerms.label"))))
         );
     }
 

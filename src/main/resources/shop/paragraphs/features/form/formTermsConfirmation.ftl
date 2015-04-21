@@ -1,9 +1,9 @@
 
 [#if content.termsDocumentUUID?has_content]
-	[#assign linkURL = cmsfn.link("dms", content.termsDocumentUUID) /]
+    [#assign linkURL = damfn.getAssetLink(content.termsDocumentUUID)! /]
 [/#if]
 [#if content.termsPageUUID?has_content]
-	[#assign linkURL = cmsfn.link("website", content.termsPageUUID) /]
+	[#assign linkURL = cmsfn.link("website", content.termsPageUUID)! /]
 [/#if]
 
 [#if linkURL?has_content]
