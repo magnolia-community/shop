@@ -45,7 +45,6 @@ import info.magnolia.jcr.nodebuilder.task.NodeBuilderTask;
 import info.magnolia.jcr.util.NodeTypes;
 import info.magnolia.module.DefaultModuleVersionHandler;
 import info.magnolia.module.InstallContext;
-import info.magnolia.module.data.setup.RegisterNodeTypeTask;
 import info.magnolia.module.delta.AddPermissionTask;
 import info.magnolia.module.delta.AddRoleToUserTask;
 import info.magnolia.module.delta.ArrayDelegateTask;
@@ -481,35 +480,22 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                                                 new PartialBootstrapTask("", "/mgnl-bootstrap/shop_default/config.modules.shop.apps.shop.subApps.browser.actions.xml", "/actions/deactivate")))
                         )
                 ))
+                .addTask(new RegisterShopNodeTypeTask("shops", "shop", true))
+                .addTask(new RegisterShopNodeTypeTask("shops", "shopCurrencies", true))
+                .addTask(new RegisterShopNodeTypeTask("shops", "shopCurrency", true))
+                .addTask(new RegisterShopNodeTypeTask("shops", "shopPriceCategories", true))
+                .addTask(new RegisterShopNodeTypeTask("shops", "shopPriceCategory", true))
+                .addTask(new RegisterShopNodeTypeTask("shops", "shopTaxCategories", true))
+                .addTask(new RegisterShopNodeTypeTask("shops", "shopTaxCategory", true))
+                .addTask(new RegisterShopNodeTypeTask("shops", "shopCountries", true))
+                .addTask(new RegisterShopNodeTypeTask("shops", "shopCountry", true))
+                .addTask(new RegisterShopNodeTypeTask("shops", "shopShippingOptions", true))
+                .addTask(new RegisterShopNodeTypeTask("shops", "shopShippingOption", true))
+                .addTask(new RegisterShopNodeTypeTask("shopProducts", "shopProduct", true))
+                .addTask(new RegisterShopNodeTypeTask("shopProducts", "shopProductOptions", true))
+                .addTask(new RegisterShopNodeTypeTask("shopProducts", "shopProductOption", true))
+                .addTask(new RegisterShopNodeTypeTask("shopSuppliers", "shopSupplier", true))
         );
-    }
-
-    /**
-     * @return a list with all the RegisterNodeTypeTask objects needed for the
-     *         shop node types
-     */
-    @Override
-    protected List<Task> getBasicInstallTasks(InstallContext installContext) {
-        final List<Task> installTasks = new ArrayList<Task>();
-        // make sure we register the type before doing anything else
-        installTasks.add(new RegisterNodeTypeTask("category"));
-        installTasks.add(new RegisterNodeTypeTask("shop"));
-        installTasks.add(new RegisterNodeTypeTask("shopCurrencies"));
-        installTasks.add(new RegisterNodeTypeTask("shopCurrency"));
-        installTasks.add(new RegisterNodeTypeTask("shopPriceCategories"));
-        installTasks.add(new RegisterNodeTypeTask("shopPriceCategory"));
-        installTasks.add(new RegisterNodeTypeMultipleTask("shopProduct"));
-        installTasks.add(new RegisterNodeTypeTask("shopProductOptions"));
-        installTasks.add(new RegisterNodeTypeTask("shopProductOption"));
-        installTasks.add(new RegisterNodeTypeTask("shopTaxCategories"));
-        installTasks.add(new RegisterNodeTypeTask("shopTaxCategory"));
-        installTasks.add(new RegisterNodeTypeTask("shopSupplier"));
-        installTasks.add(new RegisterNodeTypeTask("shopCountries"));
-        installTasks.add(new RegisterNodeTypeTask("shopCountry"));
-        installTasks.add(new RegisterNodeTypeTask("shopShippingOptions"));
-        installTasks.add(new RegisterNodeTypeTask("shopShippingOption"));
-        installTasks.addAll(super.getBasicInstallTasks(installContext));
-        return installTasks;
     }
 
     @Override

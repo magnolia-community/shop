@@ -276,8 +276,8 @@
           <sv:property sv:name="jcr:uuid" sv:type="String">
             <sv:value>6b2af2ff-e17b-45a7-bed2-882c3aed8bb4</sv:value>
           </sv:property>
-          <sv:property sv:name="contentNode" sv:type="String">
-            <sv:value>mgnl:contentNode</sv:value>
+          <sv:property sv:name="content" sv:type="String">
+            <sv:value>mgnl:content</sv:value>
           </sv:property>
           <sv:property sv:name="folder" sv:type="String">
             <sv:value>mgnl:folder</sv:value>
@@ -296,45 +296,6 @@
           </sv:property>
           <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
             <sv:value>superuser</sv:value>
-          </sv:property>
-          <sv:property sv:name="shop" sv:type="String">
-            <sv:value>shop</sv:value>
-          </sv:property>
-          <sv:property sv:name="shopCountries" sv:type="String">
-            <sv:value>shopCountries</sv:value>
-          </sv:property>
-          <sv:property sv:name="shopCountry" sv:type="String">
-            <sv:value>shopCountry</sv:value>
-          </sv:property>
-          <sv:property sv:name="shopCurrencies" sv:type="String">
-            <sv:value>shopCurrencies</sv:value>
-          </sv:property>
-          <sv:property sv:name="shopCurrency" sv:type="String">
-            <sv:value>shopCurrency</sv:value>
-          </sv:property>
-          <sv:property sv:name="shopPriceCategories" sv:type="String">
-            <sv:value>shopPriceCategories</sv:value>
-          </sv:property>
-          <sv:property sv:name="shopPriceCategory" sv:type="String">
-            <sv:value>shopPriceCategory</sv:value>
-          </sv:property>
-          <sv:property sv:name="shopProduct" sv:type="String">
-            <sv:value>shopProduct</sv:value>
-          </sv:property>
-          <sv:property sv:name="shopShippingOption" sv:type="String">
-            <sv:value>shopShippingOption</sv:value>
-          </sv:property>
-          <sv:property sv:name="shopShippingOptions" sv:type="String">
-            <sv:value>shopShippingOptions</sv:value>
-          </sv:property>
-          <sv:property sv:name="shopSupplier" sv:type="String">
-            <sv:value>shopSupplier</sv:value>
-          </sv:property>
-          <sv:property sv:name="shopTaxCategories" sv:type="String">
-            <sv:value>shopTaxCategories</sv:value>
-          </sv:property>
-          <sv:property sv:name="shopTaxCategory" sv:type="String">
-            <sv:value>shopTaxCategory</sv:value>
           </sv:property>
         </sv:node>
       </sv:node>

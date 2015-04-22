@@ -58,10 +58,6 @@
       <name>ocm</name>
       <version>1.2/*</version>
     </dependency>
-    <dependency>
-      <name>data</name>
-      <version>2.2/*</version>
-    </dependency>
   </dependencies>
   <repositories>
     <repository>
@@ -72,6 +68,7 @@
         <workspace>shopProducts</workspace>
         <workspace>shopSuppliers</workspace>
       </workspaces>
+      <nodeTypeFile>/mgnl-nodetypes/magnolia-module-shop-nodetypes.xml</nodeTypeFile>
     </repository>
   </repositories>
 </module>
