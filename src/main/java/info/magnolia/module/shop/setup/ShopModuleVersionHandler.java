@@ -510,6 +510,10 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                 .addTask(new NodeExistsDelegateTask("Set property label if not exist for shopConfirmTerms dialog", "/modules/shop/dialogs/shopConfirmTerms",
                         new PropertyExistsDelegateTask("", "/modules/shop/dialogs/shopConfirmTerms", "label", null,
                                 new SetPropertyTask(RepositoryConstants.CONFIG, "/modules/shop/dialogs/shopConfirmTerms", "label", "dialog.shopConfirmTerms.label"))))
+                .addTask(new NodeExistsDelegateTask("Configure availability in /modules/shop/apps/shoppingCarts/subApps/browser/actionbar/sections/folders node if not exists", "/modules/shop/apps/shoppingCarts/subApps/browser/actionbar/sections/folders/availability", null,
+                        new PartialBootstrapTask("", "/mgnl-bootstrap/shop/config.modules.shop.apps.xml", "/apps/shoppingCarts/subApps/browser/actionbar/sections/folders/availability")))
+                .addTask(new NodeExistsDelegateTask("Configure section multiple in /modules/shop/apps/shoppingCarts/subApps/browser/actionbar/sections node if not exists", "/modules/shop/apps/shoppingCarts/subApps/browser/actionbar/sections/multiple", null,
+                        new PartialBootstrapTask("", "/mgnl-bootstrap/shop/config.modules.shop.apps.xml", "/apps/shoppingCarts/subApps/browser/actionbar/sections/multiple")))
         );
     }
 

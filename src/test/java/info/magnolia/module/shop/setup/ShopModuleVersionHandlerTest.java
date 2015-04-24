@@ -533,6 +533,8 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         assertThat(config.getNode("/modules/shop/templates/components/features/form/shopConfirmTerms"), hasProperty("extends", "/modules/form/templates/components/formEdit"));
         assertThat(config.getNode("/modules/shop/templates/components/features/form/shopConfirmTerms"), hasProperty("i18nBasename", "info.magnolia.module.shop.messages"));
         assertThat(config.getNode("/modules/shop/dialogs/shopConfirmTerms"), hasProperty("label", "dialog.shopConfirmTerms.label"));
+        assertThat(config.getNode("/modules/shop/apps/shoppingCarts/subApps/browser/actionbar/sections/multiple"), hasProperty("label", "shoppingCarts.browser.actionbar.sections.multiple.label"));
+        assertThat(config.getNode("/modules/shop/apps/shoppingCarts/subApps/browser/actionbar/sections/folders/availability/nodeTypes"), hasProperty("folder", "mgnl:folder"));
 
     }
 
