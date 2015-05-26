@@ -51,6 +51,7 @@ import info.magnolia.module.delta.ArrayDelegateTask;
 import info.magnolia.module.delta.BootstrapSingleModuleResource;
 import info.magnolia.module.delta.BootstrapSingleResource;
 import info.magnolia.module.delta.CheckAndModifyPropertyValueTask;
+import info.magnolia.module.delta.CheckOrCreatePropertyTask;
 import info.magnolia.module.delta.DeltaBuilder;
 import info.magnolia.module.delta.IsAuthorInstanceDelegateTask;
 import info.magnolia.module.delta.IsInstallSamplesTask;
@@ -514,6 +515,7 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                         new PartialBootstrapTask("", "/mgnl-bootstrap/shop/config.modules.shop.apps.xml", "/apps/shoppingCarts/subApps/browser/actionbar/sections/folders/availability")))
                 .addTask(new NodeExistsDelegateTask("Configure section multiple in /modules/shop/apps/shoppingCarts/subApps/browser/actionbar/sections node if not exists", "/modules/shop/apps/shoppingCarts/subApps/browser/actionbar/sections/multiple", null,
                         new PartialBootstrapTask("", "/mgnl-bootstrap/shop/config.modules.shop.apps.xml", "/apps/shoppingCarts/subApps/browser/actionbar/sections/multiple")))
+                .addTask(new CheckOrCreatePropertyTask("Configure supplier company as mandatory property.", "/modules/shop/dialogs/createSupplier/form/tabs/address/fields/company", "required", "true"))
         );
     }
 

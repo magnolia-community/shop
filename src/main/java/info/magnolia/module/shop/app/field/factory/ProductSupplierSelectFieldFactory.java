@@ -83,7 +83,7 @@ public class ProductSupplierSelectFieldFactory extends SelectFieldFactory<Produc
                 while(iter.hasNext()) {
                     Node supplier = iter.nextNode();
                     SelectFieldOptionDefinition fieldDefinition = new SelectFieldOptionDefinition();
-                    fieldDefinition.setLabel(PropertyUtil.getString(supplier, "company", "") + " " + PropertyUtil.getString(supplier, "city", ""));
+                    fieldDefinition.setLabel(supplier.getName() + '(' + PropertyUtil.getString(supplier, "company", "N/A") + "@" + PropertyUtil.getString(supplier, "city", "N/A") + ')');
                     fieldDefinition.setValue(supplier.getIdentifier());
                     res.add(fieldDefinition);
                 }
