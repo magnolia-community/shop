@@ -134,14 +134,15 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                                                 addNode("fields", NodeTypes.ContentNode.NAME).then(
                                                         addNode("categories", NodeTypes.ContentNode.NAME).then(
                                                                 addNode("field", NodeTypes.ContentNode.NAME).then(
-                                                                        addNode("identifierToPathConverter", NodeTypes.ContentNode.NAME).then(
-                                                                                addProperty("class", "info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter")),
+                                                                        //addNode("identifierToPathConverter", NodeTypes.ContentNode.NAME).then(
+                                                                                //addProperty("class", "info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter")),
                                                                         addProperty("appName", "categories"),
                                                                         addProperty("buttonSelectNewLabel", "field.link.select.new"),
                                                                         addProperty("buttonSelectOtherLabel", "field.link.select.another"),
                                                                         addProperty("class", "info.magnolia.ui.form.field.definition.LinkFieldDefinition"),
                                                                         addProperty("fieldEditable", "true"),
-                                                                        addProperty("targetWorkspace", "category")),
+                                                                        addProperty("targetWorkspace", "category"),
+                                                                        addProperty("targetPropertyToPopulate", "displayName")),
                                                                 addProperty("buttonSelectAddLabel", "field.link.select.add"),
                                                                 addProperty("class", "info.magnolia.ui.form.field.definition.MultiValueFieldDefinition"),
                                                                 addProperty("identifier", "true"),
@@ -516,6 +517,8 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                 .addTask(new NodeExistsDelegateTask("Configure section multiple in /modules/shop/apps/shoppingCarts/subApps/browser/actionbar/sections node if not exists", "/modules/shop/apps/shoppingCarts/subApps/browser/actionbar/sections/multiple", null,
                         new PartialBootstrapTask("", "/mgnl-bootstrap/shop/config.modules.shop.apps.xml", "/apps/shoppingCarts/subApps/browser/actionbar/sections/multiple")))
                 .addTask(new CheckOrCreatePropertyTask("Configure supplier company as mandatory property.", "/modules/shop/dialogs/createSupplier/form/tabs/address/fields/company", "required", "true"))
+                .addTask(new CheckOrCreatePropertyTask("Escape product categories names on the product detail dialog.", "/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/categories/fields/categories/field", "targetPropertyToPopulate", "displayName"))
+                .addTask(new RemoveNodeTask("Escape product categories names on the product detail dialog.", "/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/categories/fields/categories/field/identifierToPathConverter"))
         );
     }
 
@@ -579,18 +582,20 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                         getNode("modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/categories/fields").then(
                                 addNode("categories", NodeTypes.ContentNode.NAME).then(
                                         addNode("field", NodeTypes.ContentNode.NAME).then(
-                                                addNode("identifierToPathConverter", NodeTypes.ContentNode.NAME).then(
-                                                        addProperty("class", "info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter")),
+                                                //addNode("identifierToPathConverter", NodeTypes.ContentNode.NAME).then(
+                                                        //addProperty("class", "info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter")),
                                                 addProperty("appName", "categories"),
                                                 addProperty("buttonSelectNewLabel", "field.link.select.new"),
                                                 addProperty("buttonSelectOtherLabel", "field.link.select.another"),
                                                 addProperty("class", "info.magnolia.ui.form.field.definition.LinkFieldDefinition"),
                                                 addProperty("fieldEditable", "true"),
-                                                addProperty("targetWorkspace", "category")),
+                                                addProperty("targetWorkspace", "category"),
+                                                addProperty("targetPropertyToPopulate", "displayName")),
                                         addProperty("buttonSelectAddLabel", "field.link.select.add"),
                                         addProperty("class", "info.magnolia.ui.form.field.definition.MultiValueFieldDefinition"),
                                         addProperty("identifier", "true"),
-                                        addProperty("transformerClass", "info.magnolia.ui.form.field.transformer.multi.MultiValueSubChildrenNodeTransformer"))))));
+                                        addProperty("transformerClass", "info.magnolia.ui.form.field.transformer.multi.MultiValueSubChildrenNodeTransformer")
+                                    )))));
 
         installTasks.add(new IsModuleInstalledOrRegistered("Add Keyword extras paragraph",
                 "Adds an autogenerated keyword paragraph in the extras area of ProductCategory template.", "categorization",
