@@ -33,17 +33,10 @@
  */
 package info.magnolia.module.shop.templates;
 
-import info.magnolia.cms.security.AccessDeniedException;
 import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.dam.templating.functions.DamTemplatingFunctions;
-import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
-import info.magnolia.module.shop.ShopRepositoryConstants;
-import info.magnolia.module.shop.beans.CartItemOption;
-import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
-import info.magnolia.module.shop.beans.ShoppingCart;
-import info.magnolia.module.shop.beans.ShoppingCartItem;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.module.templatingkit.templates.pages.STKPage;
@@ -51,12 +44,8 @@ import info.magnolia.module.templatingkit.templates.pages.STKPageModel;
 import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.templating.functions.TemplatingFunctions;
 
-import java.util.HashMap;
-import java.util.Iterator;
 
 import javax.jcr.Node;
-import javax.jcr.PathNotFoundException;
-import javax.jcr.RepositoryException;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -79,22 +68,24 @@ public class ShopSingletonParagraphTemplateModel extends STKPageModel<STKPage> {
 
     @Override
     public String execute() {
-        MgnlContext.setAttribute(ShopUtil.ATTRIBUTE_SHOPNAME, getCurrentShopName(),
+        String shopName = getCurrentShopName();
+        MgnlContext.setAttribute(ShopUtil.ATTRIBUTE_SHOPNAME, shopName,
                 Context.SESSION_SCOPE);
-        ShopUtil.setShoppingCartInSession();
+        ShopUtil.setShoppingCartInSession(shopName);
         String command = MgnlContext.getParameter("command");
 
         if (StringUtils.isNotEmpty(command)) {
             if (StringUtils.equals(command, "addToCart")) {
-                addToCart();
+                ShopUtil.addToCart();
                 return "";
             } else if (StringUtils.equals(command, "add")
                     || StringUtils.equals(command, "subtract") || StringUtils.equals(command, "removeall")) {
                 String productUUID = MgnlContext.getParameter("product");
-                updateItemQuantity(productUUID, command);
+                ShopUtil.updateItemQuantity(productUUID, command, shopName);
             }
         }
 
+        log.debug("Command " + command + " called");
         return super.execute();
     }
 
@@ -112,99 +103,25 @@ public class ShopSingletonParagraphTemplateModel extends STKPageModel<STKPage> {
         // initialize new cart
         MgnlContext.getWebContext().getRequest().getSession().removeAttribute(
         "shoppingCart");
-        ShopUtil.setShoppingCartInSession();
+        ShopUtil.setShoppingCartInSession(getCurrentShopName());
     }
 
-    protected void addToCart() {
-        String quantityString = MgnlContext.getParameter("quantity");
-        int quantity = 1;
-        try {
-            quantity = (new Integer(quantityString)).intValue();
-            if (quantity <= 0) {
-                quantity = 1;
-            }
-        } catch (NumberFormatException nfe) {
-            log.info("quantity = 0, will be set to 1");
-        }
-        // get all options
-        Iterator<String> keysIter = MgnlContext.getParameters().keySet().iterator();
-        HashMap<String, CartItemOption> options = new HashMap<String, CartItemOption>();
-        String currKey, optionUUID;
-        Node optionNode = null, optionSetNode;
-        CartItemOption cio;
-        while (keysIter.hasNext()) {
-            currKey = keysIter.next();
-            if (currKey.startsWith("option_")) {
-                optionUUID = MgnlContext.getParameter(currKey);
-                try {
-                    optionNode = NodeUtil.getNodeByIdentifier(ShopRepositoryConstants.SHOP_PRODUCTS, optionUUID);
-                } catch (RepositoryException ex) {
-                    log.error("could not get current option", ex);
-                }
-                if (optionNode != null) {
-                    try {
-                        optionNode = ShopUtil.wrapWithI18n(optionNode);
-                        optionSetNode = optionNode.getParent();
-                        cio = new CartItemOption();
-                        cio.setOptionSetUUID(optionSetNode.getIdentifier());
-                        cio.setTitle(PropertyUtil.getString(optionSetNode, "title"));
-                        cio.setValueTitle(PropertyUtil.getString(optionNode, "title"));
-                        cio.setValueName(optionNode.getName());
-                        cio.setValueUUID(optionNode.getIdentifier());
-                        options.put(currKey, cio);
-                    } catch (PathNotFoundException ex) {
-                        log.error("could not get parent of " + NodeUtil.getPathIfPossible(optionNode), ex);
-                    } catch (AccessDeniedException ex) {
-                        log.error("could not get parent of " + NodeUtil.getPathIfPossible(optionNode), ex);
-                    } catch (RepositoryException ex) {
-                        log.error("could not get parent of " + NodeUtil.getPathIfPossible(optionNode), ex);
-                    }
-                }
-            }
-        }
-        String product = MgnlContext.getParameter("product");
-        if (StringUtils.isBlank(product)) {
-            log.error("Cannot add item to cart because no \"product\" parameter was found in the request");
-        } else {
-            ShoppingCart cart = ShopUtil.getShoppingCart();
-            int success = cart.addToShoppingCart(product, quantity, options);
-            if (success <= 0) {
-                log.error("Cannot add item to cart because no product for "
-                        + product + " could be found");
-
-            }
-        }
+    /**
+     * @deprecated Use {@link ShopUtil#addToCart(String shopName)}
+     */
+    @Deprecated
+    public void addToCart() {
+        ShopUtil.addToCart(getCurrentShopName());
     }
-
+    
+    /**
+     * Updates the quantity of a product in the cart. Attention: This only works for products with no options!
+     * @param productUUID The uuid of the product for which the quantity needs to be changed.
+     * @param command The operator (add, subtract, removeall)
+     * @deprecated Use {@link ShopUtil#updateItemQuantity(String productUUID, String command, String shopName)
+     */
+    @Deprecated
     protected void updateItemQuantity(String productUUID, String command) {
-        ShoppingCart shoppingCart = ShopUtil.getShoppingCart();
-        int indexOfProductInCart = -1;
-        // first try to determine the item by looking for an "item" parameter (index of item)
-        if (MgnlContext.getParameter("item") != null) {
-            try {
-                indexOfProductInCart = (new Integer(MgnlContext.getParameter("item"))).intValue();
-            } catch (NumberFormatException nfe) {
-                // log error?
-            }
-        }
-        // if no item index was provided, try to get the item by its product uuid.
-        if (indexOfProductInCart < 0) {
-            indexOfProductInCart = ((DefaultShoppingCartImpl) shoppingCart).indexOfProduct(productUUID);
-        }
-        if (indexOfProductInCart >= 0 && indexOfProductInCart < shoppingCart.getCartItemsCount()) {
-            ShoppingCartItem shoppingCartItem = shoppingCart.getCartItems().get(indexOfProductInCart);
-            int quantity = shoppingCartItem.getQuantity();
-
-            if (command.equals("add")) {
-                shoppingCartItem.setQuantity(++quantity);
-            } else if (command.equals("subtract") || command.equals("removeall")) {
-                if (quantity <= 1 || command.equals("removeall")) {
-                    shoppingCart.getCartItems().remove(indexOfProductInCart);
-                } else {
-                    shoppingCartItem.setQuantity(--quantity);
-                } // quantity <=1
-
-            } // else command
-        } // else product on cart
+        ShopUtil.updateItemQuantity(productUUID, command, getCurrentShopName());
     }
 }

@@ -87,7 +87,7 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
     }
 
     public ShoppingCart getShoppingCart() {
-        return ShopUtil.getShoppingCart();
+        return ShopUtil.getShoppingCart(ShopUtil.getShopName());
     }
 
     @Override

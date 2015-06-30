@@ -919,6 +919,9 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     }
 
     public BigDecimal getShippingCostExclTaxBigDecimal() {
+        if (shippingCost == null) {
+            return new BigDecimal(0);
+        }
         if (!getShippingCostTaxIncluded()) {
             return shippingCost;
         } else if (getShippingCostTaxRate() != null) {

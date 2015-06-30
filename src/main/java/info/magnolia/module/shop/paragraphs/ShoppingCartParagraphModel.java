@@ -75,18 +75,24 @@ public class ShoppingCartParagraphModel extends ShopParagraphModel {
         return "";
     }
 
+    /**
+     * @param identifier UUID of the node
+     * @return ContentMap of the node or null
+     */
+    @Deprecated
     public ContentMap getContentByIdentifier(String identifier) {
+        ContentMap cm = null;
         try {
-            contentMap = new ContentMap(NodeUtil.getNodeByIdentifier(ShopRepositoryConstants.SHOP_PRODUCTS, identifier));
+            cm = new ContentMap(NodeUtil.getNodeByIdentifier(ShopRepositoryConstants.SHOP_PRODUCTS, identifier));
         } catch (RepositoryException e) {
             log.error("Can't find Option with uuid"+identifier, e);
         }
-        return contentMap;
+        return cm;
     }
 
 
     public String getCommandLink(String command, String productUUID, int index) {
-        return new LinkImpl(MgnlContext.getAggregationState().getMainContent().getJCRNode() , templatingFunctions).getHref()
+        return new LinkImpl(MgnlContext.getAggregationState().getMainContentNode() , templatingFunctions).getHref()
         + "?command=" + command + "&product=" + productUUID + "&item=" + index;
     }
 

@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2010-2015 Magnolia International
+ * This file Copyright (c) 2013-2015 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -51,18 +51,23 @@ import info.magnolia.jcr.wrapper.I18nNodeWrapper;
 import info.magnolia.module.shop.ShopConfiguration;
 import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.shop.accessors.ShopAccessor;
+import info.magnolia.module.shop.beans.CartItemOption;
 import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
 import info.magnolia.module.shop.beans.ShoppingCart;
+import info.magnolia.module.shop.beans.ShoppingCartItem;
 import info.magnolia.module.templatingkit.templates.category.TemplateCategoryUtil;
 import info.magnolia.repository.RepositoryConstants;
 import java.math.BigDecimal;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
 import javax.jcr.Node;
+import javax.jcr.NodeIterator;
 import javax.jcr.PathNotFoundException;
 import javax.jcr.RepositoryException;
 
@@ -78,7 +83,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class ShopUtil {
 
-    private static Logger log = LoggerFactory.getLogger(ShopUtil.class);
+    private static final Logger log = LoggerFactory.getLogger(ShopUtil.class);
     public static String ATTRIBUTE_SHOPNAME = "shopName";
     public static String ATTRIBUTE_SHOPPINGCART = "shoppingCart";
     public static String SHOP_TEMPLATE_NAME = "shopHome";
@@ -92,9 +97,11 @@ public final class ShopUtil {
 
     /**
      * Gets the shop current node.
+     *
+     * @return shop home page
      */
     public static Node getShopRoot() {
-        Node currContent = MgnlContext.getAggregationState().getMainContent().getJCRNode();
+        Node currContent = MgnlContext.getAggregationState().getMainContentNode();
         try {
             while (currContent.getDepth() >= 0) {
                 String subCategory = TemplateCategoryUtil.getTemplateSubCategory(currContent);
@@ -113,12 +120,17 @@ public final class ShopUtil {
         return null;
     }
 
-    public static Content getShopRootByShopName(String shopName) {
+    public static Node getShopRootByShopName(String shopName) {
 
-        Collection<Content> shops = QueryUtil.query(RepositoryConstants.WEBSITE, "select * from mgnl:content where currentShop='"
-                + shopName + "'");
-        if (!shops.isEmpty()) {
-            return shops.iterator().next();
+        NodeIterator shops = null;
+        try {
+            shops = QueryUtil.search(RepositoryConstants.WEBSITE, "select * from mgnl:content where currentShop='"
+                    + shopName + "'", "sql", "mgnl:content");
+        } catch (RepositoryException e) {
+            e.printStackTrace();
+        }
+        if (shops != null && !shops.hasNext()) {
+            return shops.nextNode();
         }
         log.error("No shop found with name " + shopName);
         return null;
@@ -131,12 +143,18 @@ public final class ShopUtil {
         return msg;
     }
 
+    /**
+     * @deprecated Use {@link #setShoppingCartInSession(String shopName)}
+     */
+    @Deprecated
     public static void setShoppingCartInSession() {
         String shopName = getShopName();
+        setShoppingCartInSession(shopName);
+    }
 
+    public static void setShoppingCartInSession(String shopName) {
         if (StringUtils.isNotEmpty(shopName)) {
-
-            DefaultShoppingCartImpl cart = (DefaultShoppingCartImpl) getShoppingCart();
+            DefaultShoppingCartImpl cart = (DefaultShoppingCartImpl) getShoppingCart(shopName);
             ShopConfiguration shopConfiguration = null;
             try {
                 shopConfiguration = new ShopAccessor(getShopName()).getShopConfiguration();
@@ -147,7 +165,7 @@ public final class ShopUtil {
 
                 try {
                     cart = shopConfiguration.getCartClass();
-                    MgnlContext.setAttribute(ATTRIBUTE_SHOPPINGCART, cart, Context.SESSION_SCOPE);
+                    MgnlContext.setAttribute(shopName + "_" + ATTRIBUTE_SHOPPINGCART, cart, Context.SESSION_SCOPE);
                 } catch (Exception e) {
                     log.error("Error in shop " + getShopName(), e);
                 }
@@ -175,28 +193,46 @@ public final class ShopUtil {
         return shopName;
     }
 
-    public static String getShopName(Content dataNode) {
+    public static String getShopName(Node dataNode) {
         if (dataNode != null) {
             try {
                 // shop name is name of node @ level 2
                 // @TODO: Make sure it's a data node
-                Content level2Node = dataNode.getAncestor(2);
+                Node level2Node = (Node) dataNode.getAncestor(2);
                 if (level2Node != null) {
                     return level2Node.getName();
                 }
             } catch (PathNotFoundException ex) {
-                log.error("Could not get level 2 node of node " + dataNode.getHandle(), ex);
+                log.error("Could not get level 2 node of node " + dataNode, ex);
             } catch (AccessDeniedException ex) {
-                log.error("Could not get level 2 node of node " + dataNode.getHandle(), ex);
+                log.error("Could not get level 2 node of node " + dataNode, ex);
             } catch (RepositoryException ex) {
-                log.error("Could not get level 2 node of node " + dataNode.getHandle(), ex);
+                log.error("Could not get level 2 node of node " + dataNode, ex);
             }
         }
         return null;
     }
 
+    /**
+     *
+     * @return 
+     * @deprecated Use {@link #getShoppingCart(String shopName)}
+     */
+    @Deprecated
     public static ShoppingCart getShoppingCart() {
         return (ShoppingCart) MgnlContext.getAttribute(ATTRIBUTE_SHOPPINGCART);
+    }
+
+    /**
+     *
+     * @param shopName
+     * @return Returns the current users shopping cart for the named shop.
+     */
+    public static ShoppingCart getShoppingCart(String shopName) {
+        if (StringUtils.isBlank(shopName)) {
+            return null;
+        }
+        return (ShoppingCart) MgnlContext.getAttribute(shopName + "_" + ATTRIBUTE_SHOPPINGCART);
     }
 
     public static Collection<Node> transformIntoI18nContentList(Collection<Node> contentList) {
@@ -474,4 +510,117 @@ public final class ShopUtil {
         return new BigDecimal("0");
     }
 
+    public static HashMap<String, CartItemOption> getOptionsConfiguration() {
+        Iterator<String> keysIter = MgnlContext.getParameters().keySet().iterator();
+        HashMap<String, CartItemOption> options = new HashMap<String, CartItemOption>();
+        String currKey;
+        String optionUUID;
+        Node optionNode = null;
+        Node optionSetNode;
+        CartItemOption cio;
+        while (keysIter.hasNext()) {
+            currKey = keysIter.next();
+            if (currKey.startsWith("option_")) {
+                optionUUID = MgnlContext.getParameter(currKey);
+                try {
+                    optionNode = NodeUtil.getNodeByIdentifier(ShopRepositoryConstants.SHOP_PRODUCTS, optionUUID);
+                } catch (RepositoryException ex) {
+                    log.error("could not get current option", ex);
+                }
+                if (optionNode != null) {
+                    try {
+                        optionNode = ShopUtil.wrapWithI18n(optionNode);
+                        optionSetNode = optionNode.getParent();
+                        cio = new CartItemOption();
+                        cio.setOptionSetUUID(optionSetNode.getIdentifier());
+                        cio.setTitle(PropertyUtil.getString(optionSetNode, "title"));
+                        cio.setValueTitle(PropertyUtil.getString(optionNode, "title"));
+                        cio.setValueName(optionNode.getName());
+                        cio.setValueUUID(optionNode.getIdentifier());
+                        options.put(currKey, cio);
+                    } catch (PathNotFoundException ex) {
+                        log.error("could not get parent of " + NodeUtil.getPathIfPossible(optionNode), ex);
+                    } catch (AccessDeniedException ex) {
+                        log.error("could not get parent of " + NodeUtil.getPathIfPossible(optionNode), ex);
+                    } catch (RepositoryException ex) {
+                        log.error("could not get parent of " + NodeUtil.getPathIfPossible(optionNode), ex);
+                    }
+                }
+            }
+        }
+        return options;
+    }
+
+    public static void addToCart() {
+        String shopName = getShopName();
+        addToCart(shopName);
+    }
+
+    public static void addToCart(String shopName) {
+        String quantityString = MgnlContext.getParameter("quantity");
+        int quantity = 1;
+        try {
+            quantity = new Integer(quantityString);
+            if (quantity <= 0) {
+                quantity = 1;
+            }
+        } catch (NumberFormatException nfe) {
+            log.info("quantity = 0, will be set to 1");
+        }
+        HashMap<String, CartItemOption> options = ShopUtil.getOptionsConfiguration();
+        String product = MgnlContext.getParameter("product");
+        if (StringUtils.isBlank(product)) {
+            log.error("Cannot add item to cart because no \"product\" parameter was found in the request");
+        } else {
+            ShoppingCart cart = ShopUtil.getShoppingCart(shopName);
+            int success = cart.addToShoppingCart(product, quantity, options);
+            if (success <= 0) {
+                log.error("Cannot add item to cart because no product for " + product + " could be found");
+            }
+        }
+    }
+
+    /**
+     *
+     * @param productUUID
+     * @param command
+     * @deprecated Use {@link #updateItemQuantity(String productUUID, String command, String shopName)}
+     */
+    @Deprecated
+    public static void updateItemQuantity(String productUUID, String command) {
+        String shopName = getShopName();
+        updateItemQuantity(productUUID, command, shopName);
+    }
+
+    public static void updateItemQuantity(String productUUID, String command, String shopName) {
+        ShoppingCart shoppingCart = ShopUtil.getShoppingCart(shopName);
+        int indexOfProductInCart = -1;
+        // first try to determine the item by looking for an "item" parameter (index of item)
+        if (MgnlContext.getParameter("item") != null) {
+            try {
+                indexOfProductInCart = (new Integer(MgnlContext.getParameter("item"))).intValue();
+            } catch (NumberFormatException nfe) {
+                // log error?
+            }
+        }
+        // if no item index was provided, try to get the item by its product uuid.
+        if (indexOfProductInCart < 0) {
+            indexOfProductInCart = ((DefaultShoppingCartImpl) shoppingCart).indexOfProduct(productUUID);
+        }
+        if (indexOfProductInCart >= 0 && indexOfProductInCart < shoppingCart.getCartItemsCount()) {
+            ShoppingCartItem shoppingCartItem = shoppingCart.getCartItems().get(indexOfProductInCart);
+            int quantity = shoppingCartItem.getQuantity();
+
+            if (command.equals("add")) {
+                shoppingCartItem.setQuantity(++quantity);
+            } else if (command.equals("subtract") || command.equals("removeall")) {
+                if (quantity <= 1 || command.equals("removeall")) {
+                    shoppingCart.getCartItems().remove(indexOfProductInCart);
+                } else {
+                    shoppingCartItem.setQuantity(--quantity);
+                } // quantity <=1
+
+            } // else command
+        } // else product on cart
+    }
 }

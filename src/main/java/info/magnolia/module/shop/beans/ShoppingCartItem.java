@@ -53,6 +53,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ch.fastforward.magnolia.ocm.beans.OCMBean;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  * Default shopping cart item bean containing all the product info. The item
@@ -83,6 +84,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
     private BigDecimal unitWidth;
     private BigDecimal unitDepth;
     private String shoppingCartUUID;
+    // Do NOT create accessor methods for the cart attribute as this would lead to infinite loops when marshalling the cart!
     private DefaultShoppingCartImpl cart;
     private String productTitle;
     private String productSubTitle;
@@ -96,7 +98,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
 
     public ShoppingCartItem(DefaultShoppingCartImpl cart, Node product, int quantity, Node productPrice) {
         super();
-        this.setCart(cart);
+        this.cart = cart;
         this.setProduct(product);
         this.setQuantity(quantity);
         try {
@@ -115,7 +117,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
 
     public ShoppingCartItem(DefaultShoppingCartImpl cart, String productUUID, int quantity, double unitPrice) {
         super();
-        this.setCart(cart);
+        this.cart = cart;
         Node product = null;
         try {
             product = ShopUtil.wrapWithI18n(NodeUtil.getNodeByIdentifier(ShopRepositoryConstants.SHOP_PRODUCTS, productUUID));
@@ -128,6 +130,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
         this.setUnitPrice(unitPrice);
     }
 
+    @JsonIgnore
     public Node getProduct() {
         if (StringUtils.isNotBlank(productUUID)) {
             try {
@@ -139,6 +142,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
         return null;
     }
 
+    @JsonIgnore
     public void setProduct(Node product) {
         if (product == null) {
             return;
@@ -202,7 +206,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
      * @return unit price minus tax for prices incl. tax or unit price for prices excl. tax.
      */
     public double getUnitPriceExclTax() {
-        if (getCart().getTaxIncluded()) {
+        if (cart.getTaxIncluded()) {
             // substrat tax
             BigDecimal oneHundred = new BigDecimal("100");
             BigDecimal taxFactor = oneHundred.divide(getItemTaxRate().add(oneHundred), 10, RoundingMode.HALF_UP);
@@ -248,13 +252,13 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
         this.shoppingCartUUID = shoppingCartUUID;
     }
 
-    public DefaultShoppingCartImpl getCart() {
-        return cart;
-    }
-
-    public void setCart(DefaultShoppingCartImpl cart) {
-        this.cart = cart;
-    }
+//    public DefaultShoppingCartImpl getCart() {
+//        return cart;
+//    }
+//
+//    public void setCart(DefaultShoppingCartImpl cart) {
+//        this.cart = cart;
+//    }
 
     public String getProductTitle() {
         return productTitle;
@@ -305,7 +309,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
         BigDecimal total = getItemTotalBigDecimal();
         if (total != null && getItemTaxRate() != null) {
             BigDecimal oneHundred = new BigDecimal("100");
-            if (getCart().getTaxIncluded()) {
+            if (cart.getTaxIncluded()) {
                 // total = price including tax
                 BigDecimal taxFactor = oneHundred.divide(getItemTaxRate().add(oneHundred), 10, RoundingMode.HALF_UP);
                 return total.subtract(total.multiply(taxFactor));
@@ -332,7 +336,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
         BigDecimal tax = getItemTaxBigDecimal();
         if (total != null) {
             if (tax != null) {
-                if (getCart().getTaxIncluded()) {
+                if (cart.getTaxIncluded()) {
                     return total.subtract(tax);
                 }
             }
@@ -354,7 +358,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
         BigDecimal tax = getItemTaxBigDecimal();
         if (total != null) {
             if (tax != null) {
-                if (!getCart().getTaxIncluded()) {
+                if (!cart.getTaxIncluded()) {
                     return total.add(tax);
                 }
             }
