@@ -69,7 +69,7 @@ public class ProductCategoriesFieldFactory extends OptionGroupFieldFactory {
 
     @Override
     public List<SelectFieldOptionDefinition> getSelectFieldOptionDefinition() {
-        List<SelectFieldOptionDefinition> res = new ArrayList<SelectFieldOptionDefinition>();
+        List<SelectFieldOptionDefinition> res = new ArrayList<>();
         if (item instanceof JcrNodeAdapter) {
             Node productNode = ((JcrNodeAdapter) item).getJcrItem();
             try {
@@ -90,15 +90,15 @@ public class ProductCategoriesFieldFactory extends OptionGroupFieldFactory {
     }
 
     private List<Node> getShopAssociatedCategories(String shopName) {
-        List<Node> categories = new ArrayList<Node>();
+        List<Node> categories = new ArrayList<>();
         if (StringUtils.isBlank(shopName)) {
             return categories;
         }
         try {
             ProductCategoriesFieldDefinition definition = (ProductCategoriesFieldDefinition) this.definition;
-            Content shop = ShopUtil.getShopRootByShopName(shopName);
+            Node shop = ShopUtil.getShopRootByShopName(shopName);
             if (shop != null) {
-                categories = TemplateCategoryUtil.getContentListByTemplateCategorySubCategory(shop.getJCRNode(), definition.getCategory(), definition.getSubcategory());
+                categories = TemplateCategoryUtil.getContentListByTemplateCategorySubCategory(shop, definition.getCategory(), definition.getSubcategory());
             } else {
                 log.warn("No shop found with name " + shopName);
             }
