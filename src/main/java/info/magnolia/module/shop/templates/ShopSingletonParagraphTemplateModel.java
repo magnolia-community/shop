@@ -124,4 +124,9 @@ public class ShopSingletonParagraphTemplateModel extends STKPageModel<STKPage> {
     protected void updateItemQuantity(String productUUID, String command) {
         ShopUtil.updateItemQuantity(productUUID, command, getCurrentShopName());
     }
+
+    public void resetShoppingCart() {
+        MgnlContext.removeAttribute(ShopUtil.getShopName() + "_" + ShopUtil.ATTRIBUTE_SHOPPINGCART, Context.SESSION_SCOPE);
+    }
+
 }
