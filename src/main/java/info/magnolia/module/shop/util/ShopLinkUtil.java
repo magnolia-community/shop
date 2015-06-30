@@ -93,8 +93,7 @@ public class ShopLinkUtil {
     throws RepositoryException {
         if (product != null) {
             Node detailPage = ShopUtil.getContentByTemplateCategorySubCategory(
-                    siteRoot, "feature", "product-detail");
-
+                    ShopUtil.getShopRoot(), "feature", "product-detail");
             String selector = createProductSelector(product);
             return ShopLinkUtil.createLinkFromContentWithSelectors(functions, detailPage, selector);
         }

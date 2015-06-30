@@ -59,13 +59,15 @@ public class ShopAccessor extends DefaultCustomDataAccessor {
         if (shopNode != null) {
             try {
                 ShopConfiguration shopConfiguration = new ShopConfiguration();
-                shopConfiguration.setCartBeanType(PropertyUtil.getString(shopNode, "cartBeanType"));
+
+//                shopConfiguration.setCartBeanType(PropertyUtil.getString(shopNode, "cartBeanType"));
                 shopConfiguration.setCartClassQualifiedName(PropertyUtil.getString(shopNode, "cartClassQualifiedName"));
-                shopConfiguration.setCartSessionVariable(PropertyUtil.getString(shopNode, "cartSessionVariable"));
+//                shopConfiguration.setCartSessionVariable(PropertyUtil.getString(shopNode, "cartSessionVariable"));
                 shopConfiguration.setDefaultPriceCategoryName(PropertyUtil.getString(shopNode, "defaultPriceCategoryName"));
                 shopConfiguration.setName(PropertyUtil.getString(shopNode, "name"));
                 shopConfiguration.setPriceCategoryManagerClassQualifiedName(PropertyUtil.getString(shopNode, "priceCategoryManagerClassQualifiedName"));
                 shopConfiguration.setSavedCartUUIDSessionVariable(PropertyUtil.getString(shopNode, "savedCartUUIDSessionVariable"));
+                shopConfiguration.setCartHierarchyStrategyClass(PropertyUtil.getString(shopNode, "cartHierarchyStrategyClass"));
                 return shopConfiguration;
             } catch (Exception e) {
                 log.error("Cant read shop configuration for " + getName(), e);

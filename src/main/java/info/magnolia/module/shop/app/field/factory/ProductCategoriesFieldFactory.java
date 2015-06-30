@@ -33,7 +33,6 @@
  */
 package info.magnolia.module.shop.app.field.factory;
 
-import info.magnolia.cms.core.Content;
 import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.module.shop.app.field.definition.ProductCategoriesFieldDefinition;
 import info.magnolia.module.shop.util.ShopUtil;

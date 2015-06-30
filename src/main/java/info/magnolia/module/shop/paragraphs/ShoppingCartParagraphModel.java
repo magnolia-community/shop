@@ -59,7 +59,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ShoppingCartParagraphModel extends ShopParagraphModel {
 
-    private static Logger log = LoggerFactory.getLogger(ShoppingCartParagraphModel.class);
+    private static final Logger log = LoggerFactory.getLogger(ShoppingCartParagraphModel.class);
 
     public ShoppingCartParagraphModel(Node content,
             TemplateDefinition definition, RenderingModel<?> parent,
@@ -96,11 +96,18 @@ public class ShoppingCartParagraphModel extends ShopParagraphModel {
         + "?command=" + command + "&product=" + productUUID + "&item=" + index;
     }
 
+    /*
+     * TODO: check if this is still in use somewhere...
+    */
     public String getCheckoutFormLink() {
         try {
             Node formPage = ShopUtil.getContentByTemplateCategorySubCategory(
+                    ShopUtil.getShopRoot(), "feature", "checkoutform");
+            if (formPage == null) {
+                formPage = ShopUtil.getContentByTemplateCategorySubCategory(
                     getSiteRoot(), "feature", "checkoutform");
-            return new LinkImpl(formPage, templatingFunctions).getHref();
+            }
+            return templatingFunctions.link(formPage);
         } catch (Exception e) {
             log.error("Cant find checkout form page", e);
         }

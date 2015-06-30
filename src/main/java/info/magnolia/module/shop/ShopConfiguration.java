@@ -35,6 +35,8 @@ package info.magnolia.module.shop;
 
 import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
 import info.magnolia.module.shop.exceptions.ShopConfigurationException;
+import info.magnolia.module.shop.processors.FlatHierarchyStrategy;
+import info.magnolia.module.shop.processors.HierarchyStrategy;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.objectfactory.Classes;
 
@@ -46,12 +48,13 @@ import info.magnolia.objectfactory.Classes;
 public class ShopConfiguration {
 
     private String name;
-    private String cartBeanType;
-    private String cartSessionVariable;
+//    private String cartBeanType;
+//    private String cartSessionVariable;
     private String defaultPriceCategoryName;
     private String savedCartUUIDSessionVariable;
     private String priceCategoryManagerClassQualifiedName;
     private String cartClassQualifiedName;
+    private String cartHierarchyStrategyClass = FlatHierarchyStrategy.class.getCanonicalName();
 
     public String getName() {
         return name;
@@ -61,21 +64,21 @@ public class ShopConfiguration {
         this.name = name;
     }
 
-    public String getCartBeanType() {
-        return cartBeanType;
-    }
+//    public String getCartBeanType() {
+//        return cartBeanType;
+//    }
+//
+//    public void setCartBeanType(String cartBeanType) {
+//        this.cartBeanType = cartBeanType;
+//    }
 
-    public void setCartBeanType(String cartBeanType) {
-        this.cartBeanType = cartBeanType;
-    }
-
-    public String getCartSessionVariable() {
-        return cartSessionVariable;
-    }
-
-    public void setCartSessionVariable(String cartSessionVariable) {
-        this.cartSessionVariable = cartSessionVariable;
-    }
+//    public String getCartSessionVariable() {
+//        return cartSessionVariable;
+//    }
+//
+//    public void setCartSessionVariable(String cartSessionVariable) {
+//        this.cartSessionVariable = cartSessionVariable;
+//    }
 
     public String getDefaultPriceCategoryName() {
         return defaultPriceCategoryName;
@@ -129,4 +132,19 @@ public class ShopConfiguration {
         }
     }
 
+    public String getCartHierarchyStrategyClass() {
+        return cartHierarchyStrategyClass;
+    }
+
+    public void setCartHierarchyStrategyClass(String cartHierarchyStrategyClass) {
+        this.cartHierarchyStrategyClass = cartHierarchyStrategyClass;
+    }
+
+    public HierarchyStrategy getHierarchyStrategy() throws ShopConfigurationException {
+        try {
+            return Classes.quietNewInstance(cartHierarchyStrategyClass);
+        } catch (Exception e) {
+            throw new ShopConfigurationException("Unable to instantiate cart hierarchy strategy for class " + cartHierarchyStrategyClass);
+        }
+    }
 }

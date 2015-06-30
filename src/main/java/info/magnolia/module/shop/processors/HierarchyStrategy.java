@@ -33,41 +33,9 @@
  */
 package info.magnolia.module.shop.processors;
 
-import java.util.Map;
-
-import javax.jcr.Node;
-
-import info.magnolia.context.MgnlContext;
-import info.magnolia.module.form.processors.FormProcessorFailedException;
-import info.magnolia.module.form.processors.SendConfirmationEMailProcessor;
-import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
-import info.magnolia.module.shop.util.ShopUtil;
-
 /**
- * Default processor to send email to the webshop admin.
- * @author tmiyar
- *
+ * Created by will on 30.06.15.
  */
-public class SendShopConfirmationEmailProcessor extends SendConfirmationEMailProcessor   {
-
-    @Override
-    public void internalProcess(Node content, Map<String, Object> parameters)
-            throws FormProcessorFailedException {
-        try {
-            //add current shopping cart to the parameters map
-            String cartId = (String) MgnlContext.getAttribute("cartId");
-            DefaultShoppingCartImpl cart = (DefaultShoppingCartImpl) ShopUtil.getShoppingCart();
-            if (cart == null) {
-                throw new FormProcessorFailedException("cart.not.found");
-                
-            }
-            
-            parameters.put("cart",cart);
-            parameters.put("cartId",cartId);
-            super.internalProcess(content, parameters);
-        } catch (Exception e) {
-            throw new FormProcessorFailedException("Error while proccessing your shopping cart");
-        }
-    }
-    
+public interface HierarchyStrategy {
+    public String getCartParentPath(String shopName);
 }

@@ -64,7 +64,7 @@ public class FormStepConfirmOrderParagraphModel extends SubStepFormModel {
     }
 
     public ShoppingCart getShoppingCart() {
-        return ShopUtil.getShoppingCart();
+        return ShopUtil.getShoppingCart(ShopUtil.getShopName());
     }
 
     public String getCurrencyTitle() {

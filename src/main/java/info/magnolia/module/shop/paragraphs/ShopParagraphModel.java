@@ -47,7 +47,6 @@ import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.module.templatingkit.STKModule;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
-import info.magnolia.module.templatingkit.navigation.LinkImpl;
 import info.magnolia.module.templatingkit.templates.components.AbstractItemListModel;
 import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.rendering.template.TemplateDefinition;
@@ -209,11 +208,14 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
      * category-subcategory.
      */
     public String getShoppingCartLink() {
-        Node shoppingCartPage;
         try {
-            shoppingCartPage = ShopUtil.getContentByTemplateCategorySubCategory(
-                    siteRoot, "feature", "shopping-cart");
-            return new LinkImpl(shoppingCartPage, templatingFunctions).getHref();
+            Node shoppingCartPage = ShopUtil.getContentByTemplateCategorySubCategory(
+                    ShopUtil.getShopRoot(), "feature", "shopping-cart");
+            if (shoppingCartPage == null) {
+                shoppingCartPage = ShopUtil.getContentByTemplateCategorySubCategory(
+                        getSiteRoot(), "feature", "shopping-cart");
+            }
+            return templatingFunctions.link(shoppingCartPage);
         } catch (Exception e) {
             log.error("Cant get shopping cart page", e);
         }

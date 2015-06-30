@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2012-2015 Magnolia International
+ * This file Copyright (c) 2010-2015 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -31,39 +31,31 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.paragraphs;
+package info.magnolia.module.shop.processors;
 
-import info.magnolia.module.form.templates.components.FormModel;
-import info.magnolia.module.shop.beans.ShoppingCart;
-import info.magnolia.module.shop.util.ShopUtil;
-import info.magnolia.rendering.template.RenderableDefinition;
-import info.magnolia.rendering.model.RenderingModel;
-import info.magnolia.objectfactory.Components;
-import info.magnolia.templating.functions.TemplatingFunctions;
-import javax.jcr.Node;
+import info.magnolia.context.MgnlContext;
+
+import java.util.GregorianCalendar;
 
 /**
- * The ShopFormModel only makes sure that a {@link ShopStartStepFormEngine} is 
- * being used. This form engine will look in the cart for a form token if none
- * was found otherwise. That way users can continue shopping without loosing
- * already entered checkout form data.
- *
- * @author uscheidegger@fastforward.ch
+ * Created by will on 30.06.15.
  */
-public class ShopFormModel extends FormModel {
-
-    public ShopFormModel(Node content, RenderableDefinition definition, RenderingModel<?> parent, TemplatingFunctions functions) {
-
-        super(content, definition, parent, functions);
-    }
-
+public class UsernameHierarchyStrategy extends FlatHierarchyStrategy {
     @Override
-    protected ShopStartStepFormEngine createFormEngine() {
-        return Components.newInstance(ShopStartStepFormEngine.class, content, definition);
-    }
+    public String getCartParentPath(String shopName) {
+        String parentPath = super.getCartParentPath(shopName);
+        String username = MgnlContext.getUser().getName();
+        GregorianCalendar now = new GregorianCalendar();
+        if (username.equals("anonymous") || username.length() == 1) {
+            // user "anonymous" is on top level
+            parentPath += "/" + username;
+        } else {
+            parentPath += "/" + username.substring(0,1);
+            parentPath += "/" + username.substring(0,2);
+            parentPath += "/" + username;
+        }
 
-    public ShoppingCart getShoppingCart() {
-        return ShopUtil.getShoppingCart(ShopUtil.getShopName());
+        return parentPath;
     }
 
 }

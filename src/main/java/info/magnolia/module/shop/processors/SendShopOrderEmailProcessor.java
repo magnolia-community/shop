@@ -66,9 +66,6 @@ public class SendShopOrderEmailProcessor extends SendContactEMailProcessor{
             parameters.put("cartId",cartId);
             super.internalProcess(content, parameters);
         } catch (Exception e) {
-            //initialize new cart
-            MgnlContext.getWebContext().getRequest().getSession().removeAttribute("shoppingCart");
-            ShopUtil.setShoppingCartInSession();
             throw new FormProcessorFailedException("Error while proccessing your shopping cart");
         }
     }

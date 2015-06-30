@@ -99,12 +99,12 @@ public class ShopSingletonParagraphTemplateModel extends STKPageModel<STKPage> {
         return currentShopName;
     }
 
-    public void resetShoppingCart() {
+/*    public void resetShoppingCart() {
         // initialize new cart
         MgnlContext.getWebContext().getRequest().getSession().removeAttribute(
         "shoppingCart");
         ShopUtil.setShoppingCartInSession(getCurrentShopName());
-    }
+    }*/
 
     /**
      * @deprecated Use {@link ShopUtil#addToCart(String shopName)}
