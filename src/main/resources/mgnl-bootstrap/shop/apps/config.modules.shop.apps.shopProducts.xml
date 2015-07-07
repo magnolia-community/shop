@@ -8688,7 +8688,7 @@
                     <sv:value>2013-04-08T17:27:31.381+02:00</sv:value>
                   </sv:property>
                   <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-                    <sv:value>2015-07-07T11:14:14.345+02:00</sv:value>
+                    <sv:value>2015-07-07T14:39:20.976+02:00</sv:value>
                   </sv:property>
                   <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
                     <sv:value>superuser</sv:value>
@@ -8710,6 +8710,9 @@
                   <sv:property sv:name="class" sv:type="String">
                     <sv:value>info.magnolia.ui.form.field.definition.TextFieldDefinition</sv:value>
                   </sv:property>
+                  <sv:property sv:name="i18n" sv:type="Boolean">
+                    <sv:value>true</sv:value>
+                  </sv:property>
                   <sv:property sv:name="jcr:createdBy" sv:type="String">
                     <sv:value>admin</sv:value>
                   </sv:property>
@@ -8723,7 +8726,7 @@
                     <sv:value>2013-04-08T17:27:31.381+02:00</sv:value>
                   </sv:property>
                   <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-                    <sv:value>2015-07-07T11:14:21.754+02:00</sv:value>
+                    <sv:value>2015-07-07T14:39:41.887+02:00</sv:value>
                   </sv:property>
                   <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
                     <sv:value>superuser</sv:value>
@@ -8748,6 +8751,9 @@
                   <sv:property sv:name="class" sv:type="String">
                     <sv:value>info.magnolia.ui.form.field.definition.TextFieldDefinition</sv:value>
                   </sv:property>
+                  <sv:property sv:name="i18n" sv:type="Boolean">
+                    <sv:value>true</sv:value>
+                  </sv:property>
                   <sv:property sv:name="jcr:createdBy" sv:type="String">
                     <sv:value>admin</sv:value>
                   </sv:property>
@@ -8767,7 +8773,7 @@
                     <sv:value>superuser</sv:value>
                   </sv:property>
                   <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-                    <sv:value>2015-07-07T11:14:30.353+02:00</sv:value>
+                    <sv:value>2015-07-07T14:39:56.829+02:00</sv:value>
                   </sv:property>
                   <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
                     <sv:value>superuser</sv:value>
