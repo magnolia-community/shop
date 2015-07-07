@@ -131,27 +131,31 @@ public class ShopSaveAndGenerateStructureAction extends SaveDialogAction {
         // shopping carts app
         Node shoppingCartsNode = appsNode.addNode(node.getName() + "ShoppingCarts", NodeTypes.ContentNode.NAME);
         shoppingCartsNode.setProperty("extends", "../shoppingCarts");
-        shoppingCartsNode.addNode("subApps", NodeTypes.Folder.NAME).addNode("browser", NodeTypes.ContentNode.NAME).addNode("contentConnector", NodeTypes.ContentNode.NAME).setProperty("rootPath", "/" + node.getName());
+        shoppingCartsNode.addNode("subApps", NodeTypes.ContentNode.NAME).addNode("browser", NodeTypes.ContentNode.NAME).addNode("contentConnector", NodeTypes.ContentNode.NAME).setProperty("rootPath", "/" + node.getName());
         shoppingCartsNode.setProperty("label", "shop.shoppingCarts.label");
 
         // products app
         Node productsNode = appsNode.addNode(node.getName() + "Products", NodeTypes.ContentNode.NAME);
         productsNode.setProperty("extends", "../shopProducts");
-        Node productsSubAppsNode = productsNode.addNode("subApps", NodeTypes.Folder.NAME);
-        productsSubAppsNode.addNode("browser", NodeTypes.ContentNode.NAME).addNode("contentConnector", NodeTypes.ContentNode.NAME).setProperty("rootPath", "/" + node.getName());
+        Node productsSubAppsNode = productsNode.addNode("subApps", NodeTypes.ContentNode.NAME);
+        Node browserSubAppNode = productsSubAppsNode.addNode("browser", NodeTypes.ContentNode.NAME);
+        browserSubAppNode.addNode("contentConnector", NodeTypes.ContentNode.NAME).setProperty("rootPath", "/" + node.getName());
+        Node actionsNode = browserSubAppNode.addNode("actions", NodeTypes.ContentNode.NAME);
+        actionsNode.addNode("addProduct", NodeTypes.ContentNode.NAME).setProperty("appName", node.getName() + "Products");
+        actionsNode.addNode("editProduct", NodeTypes.ContentNode.NAME).setProperty("appName", node.getName() + "Products");
         productsSubAppsNode.addNode("detail", NodeTypes.ContentNode.NAME).addNode("contentConnector", NodeTypes.ContentNode.NAME).setProperty("rootPath", "/" + node.getName());
         productsNode.setProperty("label", "shop.shopProducts.label");
 
         // shop suppliers app
         Node suppliersNode = appsNode.addNode(node.getName() + "Suppliers", NodeTypes.ContentNode.NAME);
         suppliersNode.setProperty("extends", "../shopSuppliers");
-        suppliersNode.addNode("subApps", NodeTypes.Folder.NAME).addNode("browser", NodeTypes.ContentNode.NAME).addNode("contentConnector", NodeTypes.ContentNode.NAME).setProperty("rootPath", "/" + node.getName());
+        suppliersNode.addNode("subApps", NodeTypes.ContentNode.NAME).addNode("browser", NodeTypes.ContentNode.NAME).addNode("contentConnector", NodeTypes.ContentNode.NAME).setProperty("rootPath", "/" + node.getName());
         suppliersNode.setProperty("label", "shop.shopSuppliers.label");
 
         // shop app
         Node shopNode = appsNode.addNode(node.getName(), NodeTypes.ContentNode.NAME);
         shopNode.setProperty("extends", "../shop");
-        shopNode.addNode("subApps", NodeTypes.Folder.NAME).addNode("browser", NodeTypes.ContentNode.NAME).addNode("contentConnector", NodeTypes.ContentNode.NAME).setProperty("rootPath", "/" + node.getName());
+        shopNode.addNode("subApps", NodeTypes.ContentNode.NAME).addNode("browser", NodeTypes.ContentNode.NAME).addNode("contentConnector", NodeTypes.ContentNode.NAME).setProperty("rootPath", "/" + node.getName());
 
         appsNode.getSession().save();
     }

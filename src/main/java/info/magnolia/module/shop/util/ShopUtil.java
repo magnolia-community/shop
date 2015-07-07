@@ -129,7 +129,7 @@ public final class ShopUtil {
         } catch (RepositoryException e) {
             e.printStackTrace();
         }
-        if (shops != null && !shops.hasNext()) {
+        if (shops != null && shops.hasNext()) {
             return shops.nextNode();
         }
         log.error("No shop found with name " + shopName);
