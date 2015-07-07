@@ -39,6 +39,7 @@ import info.magnolia.module.shop.processors.FlatHierarchyStrategy;
 import info.magnolia.module.shop.processors.HierarchyStrategy;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.objectfactory.Classes;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Configuration class for each shop.
@@ -146,7 +147,11 @@ public class ShopConfiguration {
     }
 
     public void setCartHierarchyStrategyClass(String cartHierarchyStrategyClass) {
-        this.cartHierarchyStrategyClass = cartHierarchyStrategyClass;
+        if (StringUtils.isBlank(cartHierarchyStrategyClass)) {
+            this.cartHierarchyStrategyClass = FlatHierarchyStrategy.class.getCanonicalName();
+        } else {
+            this.cartHierarchyStrategyClass = cartHierarchyStrategyClass;
+        }
     }
 
     public HierarchyStrategy getHierarchyStrategy() throws ShopConfigurationException {
