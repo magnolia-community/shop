@@ -48,8 +48,7 @@ import info.magnolia.objectfactory.Classes;
 public class ShopConfiguration {
 
     private String name;
-//    private String cartBeanType;
-//    private String cartSessionVariable;
+    private String cartBeanType;
     private String defaultPriceCategoryName;
     private String savedCartUUIDSessionVariable;
     private String priceCategoryManagerClassQualifiedName;
@@ -64,21 +63,23 @@ public class ShopConfiguration {
         this.name = name;
     }
 
-//    public String getCartBeanType() {
-//        return cartBeanType;
-//    }
-//
-//    public void setCartBeanType(String cartBeanType) {
-//        this.cartBeanType = cartBeanType;
-//    }
+    /**
+     * @return The name of the cart bean
+     * @deprecated Deprecated since v2.2.3 - not used anywhere
+     */
+    @Deprecated
+    public String getCartBeanType() {
+        return cartBeanType;
+    }
 
-//    public String getCartSessionVariable() {
-//        return cartSessionVariable;
-//    }
-//
-//    public void setCartSessionVariable(String cartSessionVariable) {
-//        this.cartSessionVariable = cartSessionVariable;
-//    }
+    /**
+     * @param cartBeanType
+     * @deprecated Deprecated since v2.2.3 - not used anywhere
+     */
+    @Deprecated
+    public void setCartBeanType(String cartBeanType) {
+        this.cartBeanType = cartBeanType;
+    }
 
     public String getDefaultPriceCategoryName() {
         return defaultPriceCategoryName;
@@ -88,10 +89,18 @@ public class ShopConfiguration {
         this.defaultPriceCategoryName = defaultPriceCategoryKey;
     }
 
+    /**
+     * @return A name of a session variable containing the saved cart's uuid - but it is not set anywhere
+     * @deprecated Deprecated since v2.2.3 - not used anywhere
+     */
     public String getSavedCartUUIDSessionVariable() {
         return savedCartUUIDSessionVariable;
     }
 
+    /**
+     * @param savedCartUUIDSessionVariable
+     * @deprecated Deprecated since v2.2.3 - not used anywhere
+     */
     public void setSavedCartUUIDSessionVariable(
             String savedCartUUIDSessionVariable) {
         this.savedCartUUIDSessionVariable = savedCartUUIDSessionVariable;

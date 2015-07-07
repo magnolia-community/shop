@@ -82,6 +82,7 @@ import info.magnolia.ui.dialog.setup.DialogMigrationTask;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.jcr.ImportUUIDBehavior;
 
 /**
  * This class is used to handle installation and updates of your module.
@@ -114,17 +115,16 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                 .addTask(new BootstrapSingleResource("Install apps", "Install apps.", "/mgnl-bootstrap/shop/config.modules.shop.apps.xml"))
                 .addTask(new BootstrapSingleResource("Install field types", "Install field types.", "/mgnl-bootstrap/shop/config.modules.shop.fieldTypes.xml"))
                 .addTask(new ArrayDelegateTask("Install dialogs", "Install new dialogs.",
-                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/config.modules.shop.dialogs.xml", "/dialogs/createShop"),
-                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/config.modules.shop.dialogs.xml", "/dialogs/createCurrency"),
-                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/config.modules.shop.dialogs.xml", "/dialogs/createTaxCategory"),
-                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/config.modules.shop.dialogs.xml", "/dialogs/createPriceCategory"),
-                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/config.modules.shop.dialogs.xml", "/dialogs/createShopProductOptions"),
-                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/config.modules.shop.dialogs.xml", "/dialogs/createShopProductOption"),
-                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/config.modules.shop.dialogs.xml", "/dialogs/createShippingOption"),
-                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/config.modules.shop.dialogs.xml", "/dialogs/createCountry"),
-                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/config.modules.shop.dialogs.xml", "/dialogs/createSupplier"),
-                        new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/config.modules.shop.dialogs.xml", "/dialogs/editShop")
-
+                        new BootstrapSingleModuleResource("dialogs/config.modules.shop.dialogs.createShop.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING),
+                        new BootstrapSingleModuleResource("dialogs/config.modules.shop.dialogs.createCurrency.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING),
+                        new BootstrapSingleModuleResource("dialogs/config.modules.shop.dialogs.createTaxCategory.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING),
+                        new BootstrapSingleModuleResource("dialogs/config.modules.shop.dialogs.createPriceCategory.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING),
+                        new BootstrapSingleModuleResource("dialogs/config.modules.shop.dialogs.createShopProductOptions.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING),
+                        new BootstrapSingleModuleResource("dialogs/config.modules.shop.dialogs.createShopProductOption.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING),
+                        new BootstrapSingleModuleResource("dialogs/config.modules.shop.dialogs.createShippingOption.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING),
+                        new BootstrapSingleModuleResource("dialogs/config.modules.shop.dialogs.createCountry.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING),
+                        new BootstrapSingleModuleResource("dialogs/config.modules.shop.dialogs.createSupplier.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING),
+                        new BootstrapSingleModuleResource("dialogs/config.modules.shop.dialogs.editShop.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING)
                 ))
                 .addTask(new IsModuleInstalledOrRegistered("Keywords for product Categories",
                         "Adds control to product categories dialog for asigning keywords.", "categorization",

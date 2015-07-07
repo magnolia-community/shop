@@ -287,7 +287,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     }
 
     /**
-     * @deprecated Use {@link #getTermsAccepted()}
+     * @deprecated Deprecateded since at least v2.2 - Use {@link #getTermsAccepted()}
      * @return
      */
     @Deprecated
@@ -296,7 +296,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     }
 
     /**
-     * @deprecated Use {@link #setTermsAccepted()}
+     * @deprecated Deprecateded since at least v2.2 - Use {@link #setTermsAccepted(Boolean)}.
      * @return
      */
     @Deprecated
