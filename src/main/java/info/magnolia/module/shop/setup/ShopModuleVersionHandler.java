@@ -52,6 +52,7 @@ import info.magnolia.module.delta.BootstrapSingleModuleResource;
 import info.magnolia.module.delta.BootstrapSingleResource;
 import info.magnolia.module.delta.CheckAndModifyPropertyValueTask;
 import info.magnolia.module.delta.CheckOrCreatePropertyTask;
+import info.magnolia.module.delta.CreateNodePathTask;
 import info.magnolia.module.delta.DeltaBuilder;
 import info.magnolia.module.delta.IsAuthorInstanceDelegateTask;
 import info.magnolia.module.delta.IsInstallSamplesTask;
@@ -75,6 +76,7 @@ import info.magnolia.module.inplacetemplating.setup.TemplatesInstallTask;
 import info.magnolia.module.resources.setup.InstallResourcesTask;
 import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.shop.app.field.definition.PriceCategoriesSelectFieldDefinition;
+import info.magnolia.module.shop.components.CheckDisableFieldsModel;
 import info.magnolia.module.templatingkit.resources.STKResourceModel;
 import info.magnolia.repository.RepositoryConstants;
 import info.magnolia.ui.contentapp.setup.for5_3.ContentAppMigrationTask;
@@ -552,6 +554,9 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
         tasks.add(new BootstrapSingleModuleResource("Updating suppliers app", "Fixing labels", "apps/config.modules.shop.apps.shopSuppliers.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING));
         tasks.add(new BootstrapSingleModuleResource("Updating shopping carts app", "Fixing labels", "apps/config.modules.shop.apps.shoppingCarts.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING));
 
+        tasks.add(new CreateNodePathTask("Refactor package info.magnolia.module.shop.paragraphs to info.magnolia.module.shop.components.", "/modules/shop/templates/components/features/form/shopCheckDisableFields", NodeTypes.Content.NAME));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, "/modules/shop/templates/components/features/form/shopCheckDisableFields", "modelClass", CheckDisableFieldsModel.class.getName()));
+        
         return tasks;
     }
 

@@ -31,7 +31,7 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.paragraphs;
+package info.magnolia.module.shop.components;
 
 import info.magnolia.module.form.templates.components.AbstractFormModel;
 import info.magnolia.module.form.templates.components.FormFieldModel;

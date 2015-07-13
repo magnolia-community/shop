@@ -57,6 +57,7 @@ import info.magnolia.module.data.DataModule;
 import info.magnolia.module.model.Version;
 import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.shop.app.field.definition.PriceCategoriesSelectFieldDefinition;
+import info.magnolia.module.shop.components.CheckDisableFieldsModel;
 import info.magnolia.objectfactory.Components;
 import info.magnolia.repository.RepositoryConstants;
 import info.magnolia.test.ComponentsTestUtil;
@@ -703,6 +704,17 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         assertThat(config.getNode("/modules/shop/commands/shop/activate"), hasProperty("class", "info.magnolia.module.activation.commands.ActivationCommand"));
         assertThat(config.getNode("/modules/shop/commands/shop"), not(hasNode("deactivate")));
 
+    }
+    
+    @Test
+    public void testUpdateTo230() throws Exception {
+        // GIVEN
+
+        // WHEN
+        executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("2.2.0"));
+        
+        // THEN
+        assertThat(config.getNode("/modules/shop/templates/components/features/form/shopCheckDisableFields"), hasProperty("modelClass", CheckDisableFieldsModel.class.getName()));
     }
 
 }
