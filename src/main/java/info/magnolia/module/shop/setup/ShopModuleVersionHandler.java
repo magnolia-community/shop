@@ -74,6 +74,7 @@ import info.magnolia.module.form.setup.ChangeValidationToMultiValuedPropertyTask
 import info.magnolia.module.inplacetemplating.setup.TemplatesInstallTask;
 import info.magnolia.module.resources.setup.InstallResourcesTask;
 import info.magnolia.module.shop.ShopRepositoryConstants;
+import info.magnolia.module.shop.app.field.definition.PriceCategoriesSelectFieldDefinition;
 import info.magnolia.module.templatingkit.resources.STKResourceModel;
 import info.magnolia.repository.RepositoryConstants;
 import info.magnolia.ui.contentapp.setup.for5_3.ContentAppMigrationTask;
@@ -82,6 +83,7 @@ import info.magnolia.ui.dialog.setup.DialogMigrationTask;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import javax.jcr.ImportUUIDBehavior;
 
 /**
@@ -220,7 +222,7 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                                 new BootstrapSingleResource("Bootstrap shopSuppliers", "", "/mgnl-bootstrap-samples/shop/shopSuppliers.sampleShop.xml"))))
                 .addTask(new ArrayDelegateTask("Add default price category select field.",
                         new PartialBootstrapTask("", "", "/mgnl-bootstrap/shop/config.modules.shop.fieldTypes.xml", "/fieldTypes/priceCategorySelect"),
-                        new SetPropertyTask(RepositoryConstants.CONFIG, "/modules/shop/dialogs/createShop/form/tabs/system/fields/defaultPriceCategoryName", "class", "info.magnolia.module.shop.app.field.definition.PriceCategoriesSelectFieldDefinition")
+                        new SetPropertyTask(RepositoryConstants.CONFIG, "/modules/shop/dialogs/createShop/form/tabs/system/fields/defaultPriceCategoryName", "class", PriceCategoriesSelectFieldDefinition.class.getName())
                 ))
                 .addTask(new ArrayDelegateTask("Migrate old configuration",
                         new PartialBootstrapTask("", "", "/mgnl-bootstrap-samples/shop/config.modules.shop.apps.sampleShopProducts.xml", "/sampleShopProducts/subApps/"),
@@ -529,7 +531,7 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                         .addTask(new RemoveNodeTask("Escape product categories names on the product detail dialog.", "/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/categories/fields/categories/field/identifierToPathConverter"))
         );
 
-        register(DeltaBuilder.update("2.1.0", "").addTasks(getTasksFor_2_3_0()));
+        register(DeltaBuilder.update("2.3.0", "").addTasks(getTasksFor_2_3_0()));
     }
 
     private List<Task> getTasksFor_2_3_0() {
