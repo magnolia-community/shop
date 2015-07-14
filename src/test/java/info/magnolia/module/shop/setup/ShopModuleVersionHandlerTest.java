@@ -50,6 +50,7 @@ import info.magnolia.cms.security.SystemUserManager;
 import info.magnolia.cms.security.UserManager;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.context.SystemContext;
+import info.magnolia.jcr.util.NodeTypes;
 import info.magnolia.module.InstallContext;
 import info.magnolia.module.ModuleVersionHandler;
 import info.magnolia.module.ModuleVersionHandlerTestCase;
@@ -237,11 +238,7 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
 
     }
     
-    /* -----------------------------------------------------------------------------------------------------------------
-     * User made some changes which affect this.
-     * I am sorry that I cannot make this work so I rem it temporary at this moment for higher priority implementation.
-     * FIXME TODO need help!!!
-     * -----------------------------------------------------------------------------------------------------------------
+
     @Test
     public void testShoppingCartsHaveFolderNodeTypeWithNamePropertyValueMgnlFolderAfterUpgrade() throws Exception {
         // GIVEN
@@ -266,7 +263,7 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("2.1.0"));
 
         // THEN
-        assertEquals(config.getNode("/modules/shop/apps/shoppingCarts/subApps/browser/contentConnector/nodeTypes/folderNodeType").getProperty("name").getString(), "testValue");
+        assertEquals(config.getNode("/modules/shop/apps/shoppingCarts/subApps/browser/contentConnector/nodeTypes/folderNodeType").getProperty("name").getString(), "mgnl:folder");
     }
     
     @Test
@@ -359,10 +356,10 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
 
         // THEN
         assertFalse(config.propertyExists("/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/product/fields/image/label"));
-        assertFalse(config.propertyExists("/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/weightSize/fields/weightUnit/options/kg/label"));
-        assertFalse(config.propertyExists("/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/weightSize/fields/weightUnit/options/lbs/label"));
-        assertFalse(config.propertyExists("/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/weightSize/fields/sizeUnit/options/cm/label"));
-        assertFalse(config.propertyExists("/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/weightSize/fields/sizeUnit/options/in/label"));
+        assertTrue(config.propertyExists("/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/weightSize/fields/weightUnit/options/kg/label"));
+        assertTrue(config.propertyExists("/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/weightSize/fields/weightUnit/options/lbs/label"));
+        assertTrue(config.propertyExists("/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/weightSize/fields/sizeUnit/options/cm/label"));
+        assertTrue(config.propertyExists("/modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/weightSize/fields/sizeUnit/options/in/label"));
         assertFalse(config.propertyExists("/modules/shop/dialogs/createPriceCategory/form/tabs/main/fields/taxIncluded/options/including/label"));
         assertFalse(config.propertyExists("/modules/shop/dialogs/createPriceCategory/form/tabs/main/fields/taxIncluded/options/excluding/label"));
         assertFalse(config.propertyExists("/modules/shop/dialogs/createShippingOption/form/tabs/main/fields/taxIncluded/options/including/label"));
@@ -436,7 +433,7 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         assertThat(config.getNode("/modules/shop/apps/shopSuppliers/subApps/browser/actions/deactivate"), not(hasProperty("icon")));
 
     }
-    */
+
     
     @Test
     public void testPropertiesAreSetAfterUpgradeTo22() throws Exception {
@@ -508,7 +505,7 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         assertEquals("shop.templates.components.features.shopFormStepConfirmOrder.title", config.getProperty("/modules/shop/templates/components/features/shopFormStepConfirmOrder/title").getString());
         assertEquals("shop.templates.components.features.shopProductKeywordResult.description", config.getProperty("/modules/shop/templates/components/features/shopProductKeywordResult/description").getString());
         assertEquals("info.magnolia.module.shop.messages", config.getProperty("/modules/shop/templates/components/features/shopForm/i18nBasename").getString());
-        assertThat(config.getNode("/modules/shop/templates/components/features/form/shopCheckDisableFields"), hasProperty("modelClass", "info.magnolia.module.shop.paragraphs.CheckDisableFieldsModel"));
+        assertThat(config.getNode("/modules/shop/templates/components/features/form/shopCheckDisableFields"), hasProperty("modelClass", CheckDisableFieldsModel.class.getName()));
         assertThat(config.getNode("/modules/shop/templates/pages/shopHome/areas/sectionHeader"), hasProperty("editable", "true"));
         assertThat(config.getNode("/modules/shop/templates/pages/shopHome/areas/main/areas/intro"), hasProperty("dialog", "standard-templating-kit:pages/section/stkSectionIntro"));
         assertThat(config.getNode("/modules/shop/templates/pages/shopShoppingCart/areas/main/areas/intro"), hasProperty("dialog", "standard-templating-kit:pages/section/stkSectionIntro"));

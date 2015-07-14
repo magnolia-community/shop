@@ -537,7 +537,7 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
     }
 
     private List<Task> getTasksFor_2_3_0() {
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<Task>();
         tasks.add(new BootstrapSingleModuleResource("Updating create shop dialog", "Removing deprecated fields", "dialogs/config.modules.shop.dialogs.createShop.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING));
         tasks.add(new BootstrapSingleModuleResource("Updating edit shop dialog", "Removing deprecated fields", "dialogs/config.modules.shop.dialogs.editShop.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING));
         tasks.add(new BootstrapSingleModuleResource("Updating country dialog", "Enabling localization for selected fields", "dialogs/config.modules.shop.dialogs.createCountry.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING));

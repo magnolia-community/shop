@@ -134,11 +134,32 @@
       <supertype>mgnl:content</supertype>
     </supertypes>
   </nodeType>
+    <nodeType name="shopProductCategory" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
+    <supertypes>
+      <supertype>mgnl:content</supertype>
+    </supertypes>
+  </nodeType>
+  
+  
+
+   <nodeType name="shopCart" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
+    <supertypes>
+      <supertype>mgnl:content</supertype>
+    </supertypes>
+  </nodeType>
   <nodeType name="shopProductOption" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
     <supertypes>
       <supertype>mgnl:content</supertype>
     </supertypes>
   </nodeType>
+  <nodeType name="shopCartItem" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
+    <supertypes>
+      <supertype>mgnl:content</supertype>
+    </supertypes>
+  </nodeType>
+    
+  
+  
 
   <nodeType name="shopSupplier" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
     <supertypes>

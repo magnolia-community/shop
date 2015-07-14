@@ -68,7 +68,7 @@ public class ProductCategoriesFieldFactory extends OptionGroupFieldFactory {
 
     @Override
     public List<SelectFieldOptionDefinition> getSelectFieldOptionDefinition() {
-        List<SelectFieldOptionDefinition> res = new ArrayList<>();
+        List<SelectFieldOptionDefinition> res = new ArrayList<SelectFieldOptionDefinition>();
         if (item instanceof JcrNodeAdapter) {
             Node productNode = ((JcrNodeAdapter) item).getJcrItem();
             try {
@@ -89,7 +89,7 @@ public class ProductCategoriesFieldFactory extends OptionGroupFieldFactory {
     }
 
     private List<Node> getShopAssociatedCategories(String shopName) {
-        List<Node> categories = new ArrayList<>();
+        List<Node> categories = new ArrayList<Node>();
         if (StringUtils.isBlank(shopName)) {
             return categories;
         }
