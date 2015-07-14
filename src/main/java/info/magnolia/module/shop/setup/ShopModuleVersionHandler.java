@@ -77,6 +77,7 @@ import info.magnolia.module.resources.setup.InstallResourcesTask;
 import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.shop.app.field.definition.PriceCategoriesSelectFieldDefinition;
 import info.magnolia.module.shop.components.CheckDisableFieldsModel;
+import info.magnolia.module.shop.components.FormStepConfirmOrderParagraphModel;
 import info.magnolia.module.templatingkit.resources.STKResourceModel;
 import info.magnolia.repository.RepositoryConstants;
 import info.magnolia.ui.contentapp.setup.for5_3.ContentAppMigrationTask;
@@ -554,8 +555,7 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
         tasks.add(new BootstrapSingleModuleResource("Updating suppliers app", "Fixing labels", "apps/config.modules.shop.apps.shopSuppliers.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING));
         tasks.add(new BootstrapSingleModuleResource("Updating shopping carts app", "Fixing labels", "apps/config.modules.shop.apps.shoppingCarts.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING));
 
-        tasks.add(new CreateNodePathTask("Refactor package info.magnolia.module.shop.paragraphs to info.magnolia.module.shop.components.", "/modules/shop/templates/components/features/form/shopCheckDisableFields", NodeTypes.Content.NAME));
-        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, "/modules/shop/templates/components/features/form/shopCheckDisableFields", "modelClass", CheckDisableFieldsModel.class.getName()));
+        tasks.addAll(getExtraTasksFor_2_3_0());
         
         return tasks;
     }
@@ -660,6 +660,27 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                         new BootstrapSingleResource("", "", "/mgnl-bootstrap/shop_default/config.modules.shop.commands.xml"))
         ));
 
+        installTasks.addAll(getExtraTasksFor_2_3_0());
+        
         return installTasks;
+    }
+    
+    public static final String V_2_3_0_NODEPATH_SHOPCHECKDISABLEFIELDS = "/modules/shop/templates/components/features/form/shopCheckDisableFields";
+    public static final String V_2_3_0_NODEPATH_SHOPFORMSTEP = "/modules/shop/templates/components/features/shopFormStep";
+    public static final String V_2_3_0_NODEPATH_SHOPFORMSTEPCONFIRMORDER = "/modules/shop/templates/components/features/shopFormStepConfirmOrder";
+    
+    
+    private List<Task> getExtraTasksFor_2_3_0() {
+        ArrayList<Task> tasks = new ArrayList<Task>();
+        
+        tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPCHECKDISABLEFIELDS, NodeTypes.Content.NAME));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPCHECKDISABLEFIELDS, "modelClass", CheckDisableFieldsModel.class.getName()));
+        
+        tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPFORMSTEP, NodeTypes.Content.NAME));
+        tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPFORMSTEPCONFIRMORDER, NodeTypes.Content.NAME));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPFORMSTEP, "modelClass", FormStepConfirmOrderParagraphModel.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPFORMSTEPCONFIRMORDER, "modelClass", FormStepConfirmOrderParagraphModel.class.getName()));
+        
+        return tasks;
     }
 }

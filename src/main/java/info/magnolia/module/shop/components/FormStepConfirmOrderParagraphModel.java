@@ -31,8 +31,7 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.paragraphs;
-
+package info.magnolia.module.shop.components;
 
 import info.magnolia.module.form.templates.components.SubStepFormModel;
 import info.magnolia.module.shop.beans.ShoppingCart;
@@ -49,15 +48,11 @@ import javax.jcr.RepositoryException;
 
 /**
  * Checkout step paragraph. Need to get the current shopping cart.
- * @author tmiyar
- *
  */
 public class FormStepConfirmOrderParagraphModel extends SubStepFormModel {
     private Node siteRoot = null;
 
-    public FormStepConfirmOrderParagraphModel(Node content,
-            RenderableDefinition definition, RenderingModel<?> parent,
-            TemplatingFunctions functions) {
+    public FormStepConfirmOrderParagraphModel(Node content, RenderableDefinition definition, RenderingModel<?> parent, TemplatingFunctions functions) {
         super(content, definition, parent, functions);
         siteRoot = Components.getComponent(STKTemplatingFunctions.class).siteRoot(content);
 

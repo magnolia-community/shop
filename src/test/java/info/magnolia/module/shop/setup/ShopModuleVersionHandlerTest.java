@@ -59,6 +59,7 @@ import info.magnolia.module.model.Version;
 import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.shop.app.field.definition.PriceCategoriesSelectFieldDefinition;
 import info.magnolia.module.shop.components.CheckDisableFieldsModel;
+import info.magnolia.module.shop.components.FormStepConfirmOrderParagraphModel;
 import info.magnolia.objectfactory.Components;
 import info.magnolia.repository.RepositoryConstants;
 import info.magnolia.test.ComponentsTestUtil;
@@ -715,7 +716,10 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("2.2.0"));
         
         // THEN
-        assertThat(config.getNode("/modules/shop/templates/components/features/form/shopCheckDisableFields"), hasProperty("modelClass", CheckDisableFieldsModel.class.getName()));
+        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPCHECKDISABLEFIELDS), hasProperty("modelClass", CheckDisableFieldsModel.class.getName()));
+        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPFORMSTEP), hasProperty("modelClass", FormStepConfirmOrderParagraphModel.class.getName()));
+        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPFORMSTEPCONFIRMORDER), hasProperty("modelClass", FormStepConfirmOrderParagraphModel.class.getName()));
+
     }
 
 }
