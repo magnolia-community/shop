@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2008-2015 Magnolia International
+ * This file Copyright (c) 2010-2015 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -31,34 +31,36 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.paragraphs;
+package info.magnolia.module.shop.components;
 
-import info.magnolia.cms.core.Content;
-import info.magnolia.cms.util.QueryUtil;
-import info.magnolia.module.form.templates.components.FormFieldModel;
+import info.magnolia.module.form.templates.components.SubStepFormModel;
+import info.magnolia.module.shop.beans.ShoppingCart;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.rendering.template.RenderableDefinition;
 import info.magnolia.templating.functions.TemplatingFunctions;
 
-import java.util.Collection;
-
 import javax.jcr.Node;
 
 /**
- * Form element to select the a country from a list of countries taken from the shop configuration.
- * 
- * @param <RD> RenderableDefinition
- * @author Will Scheidegger
+ * Checkout step paragraph. Need to get the current shopping cart.
  */
-public class CountrySelectionParagraphModel<RD extends RenderableDefinition> extends FormFieldModel<RD> {
+public class CheckoutStepParagraphModel extends SubStepFormModel {
 
-    public CountrySelectionParagraphModel(Node content, RD definition, RenderingModel<?> parent, TemplatingFunctions functions) {
+    public CheckoutStepParagraphModel(Node content, RenderableDefinition definition, RenderingModel<?> parent, TemplatingFunctions functions) {
         super(content, definition, parent, functions);
     }
 
-    public Collection<Content> getCountries() {
-        String queryString = "/jcr:root/shops/" + ShopUtil.getShopName() + "/countries//element(*,shopCountry)";
-        return QueryUtil.query("data", queryString, "xpath", "shopCountry");
+    public ShoppingCart getShoppingCart() {
+        return ShopUtil.getShoppingCart(ShopUtil.getShopName());
     }
+
+    public String getCurrencyTitle() {
+        return ShopUtil.getCurrencyTitle();
+    }
+
+    public String getCurrencyFormatting() {
+        return ShopUtil.getCurrencyFormatting();
+    }
+
 }
