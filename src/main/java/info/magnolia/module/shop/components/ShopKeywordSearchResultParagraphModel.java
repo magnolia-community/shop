@@ -31,12 +31,13 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.paragraphs;
+package info.magnolia.module.shop.components;
 
 import info.magnolia.cms.util.SelectorUtil;
 import info.magnolia.jcr.util.SessionUtil;
 import info.magnolia.module.categorization.CategorizationModule;
 import info.magnolia.module.shop.accessors.ShopProductAccessor;
+import info.magnolia.module.shop.paragraphs.ShopParagraphModel;
 import info.magnolia.module.templatingkit.STKModule;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.rendering.model.RenderingModel;
@@ -54,28 +55,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Displays the result for keyword search, keywords are assigned to products
- * EE version only.
- *
- * @author tmiyar
- *
+ * Displays the result for keyword search, keywords are assigned to products EE version only.
  */
 public class ShopKeywordSearchResultParagraphModel extends ShopParagraphModel {
 
-    private static Logger log = LoggerFactory
-            .getLogger(ShopKeywordSearchResultParagraphModel.class);
+    private static Logger log = LoggerFactory.getLogger(ShopKeywordSearchResultParagraphModel.class);
 
-    public ShopKeywordSearchResultParagraphModel(Node content,
-            TemplateDefinition definition, RenderingModel<?> parent,
-            STKTemplatingFunctions stkFunctions,
-            TemplatingFunctions templatingFunctions, STKModule stkModule) {
+    public ShopKeywordSearchResultParagraphModel(Node content, TemplateDefinition definition, RenderingModel<?> parent, STKTemplatingFunctions stkFunctions, TemplatingFunctions templatingFunctions, STKModule stkModule) {
         super(content, definition, parent, stkFunctions, templatingFunctions, stkModule);
     }
 
     @Override
     protected List<Node> search() throws RepositoryException {
         String tagName = SelectorUtil.getSelector(0);
-        if(StringUtils.isNotEmpty(tagName)) {
+        if (StringUtils.isNotEmpty(tagName)) {
             try {
                 String workspace = StringUtils.defaultString((String) definition.getParameters().get("workspace"), CategorizationModule.CATEGORIZATION_WORKSPACE);
                 Node tagNode = SessionUtil.getNode(workspace, tagName);
@@ -86,6 +79,5 @@ public class ShopKeywordSearchResultParagraphModel extends ShopParagraphModel {
         }
         return new ArrayList<Node>();
     }
-
 
 }
