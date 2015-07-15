@@ -61,6 +61,7 @@ import info.magnolia.module.shop.app.field.definition.PriceCategoriesSelectField
 import info.magnolia.module.shop.components.CheckDisableFieldsModel;
 import info.magnolia.module.shop.components.FormStepConfirmOrderParagraphModel;
 import info.magnolia.module.shop.components.ProductSearchParagraphModel;
+import info.magnolia.module.shop.components.ProductTeaserModel;
 import info.magnolia.objectfactory.Components;
 import info.magnolia.repository.RepositoryConstants;
 import info.magnolia.test.ComponentsTestUtil;
@@ -721,6 +722,8 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPFORMSTEP), hasProperty("modelClass", FormStepConfirmOrderParagraphModel.class.getName()));
         assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPFORMSTEPCONFIRMORDER), hasProperty("modelClass", FormStepConfirmOrderParagraphModel.class.getName()));
         assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPEXTRASPRODUCTSEARCH), hasProperty("modelClass", ProductSearchParagraphModel.class.getName()));
+        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPPRODUCTTEASER), hasProperty("modelClass", ProductTeaserModel.class.getName()));
+        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPEXTRASPRODUCT), hasProperty("modelClass", ProductTeaserModel.class.getName()));
 
     }
 

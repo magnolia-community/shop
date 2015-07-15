@@ -44,6 +44,7 @@ import info.magnolia.context.MgnlContext;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.wrapper.I18nNodeWrapper;
 import info.magnolia.module.shop.ShopRepositoryConstants;
+import info.magnolia.module.shop.components.ProductTeaserModel;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.module.templatingkit.templates.pages.STKPage;
 import info.magnolia.registry.RegistrationException;

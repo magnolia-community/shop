@@ -31,7 +31,7 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.paragraphs;
+package info.magnolia.module.shop.components;
 
 import info.magnolia.dam.templating.functions.DamTemplatingFunctions;
 import info.magnolia.jcr.util.ContentMap;
