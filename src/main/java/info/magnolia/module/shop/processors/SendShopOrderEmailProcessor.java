@@ -56,7 +56,7 @@ public class SendShopOrderEmailProcessor extends SendContactEMailProcessor{
         try {
             //add current shopping cart to the parameters map
             String cartId = (String) MgnlContext.getAttribute("cartId");
-            DefaultShoppingCartImpl cart = (DefaultShoppingCartImpl) ShopUtil.getShoppingCart();
+            DefaultShoppingCartImpl cart = (DefaultShoppingCartImpl) ShopUtil.getLastShoppingCart(ShopUtil.getShopName());
             if (cart == null) {
                 throw new FormProcessorFailedException("cart.not.found");
                 

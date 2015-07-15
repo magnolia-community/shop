@@ -108,8 +108,6 @@ public class SaveAndConfirmFormProcessor extends AbstractFormProcessor {
             if (StringUtils.isBlank(cart.getUuid())) {
                 // Cart has not been saved before (this would most likely be the standard case)
                 // Set the parent path according to the shop configuration
-
-
                 String parentPath = "/" + shopName;
                 if (shopConfiguration != null) {
                     parentPath = shopConfiguration.getHierarchyStrategy().getCartParentPath(shopName);
@@ -122,11 +120,16 @@ public class SaveAndConfirmFormProcessor extends AbstractFormProcessor {
                 // @TODO: did ocm set the uuid and path? If not: How can we do that efficiently?
                 log.debug("UUID of newly inserted shopping cart: " + cart.getUuid());
                 log.debug("Path of newly inserted shopping cart: " + cart.getPath());
+            } else {
+                // @TODO: Should we handle the "update" case as well?
             }
+            // MSHOP-194: resetting the shopping cart here instead of in the confirmation template.
+            ShopUtil.resetShoppingCart(shopName);
         } catch (Exception e) {
             //initialize new cart
-            MgnlContext.removeAttribute(shopName + "_" + ShopUtil.ATTRIBUTE_SHOPPINGCART);
-            ShopUtil.setShoppingCartInSession(shopName);
+            // when a exception occurs, why would we want to reset the shopping cart?!
+//            MgnlContext.removeAttribute(shopName + "_" + ShopUtil.ATTRIBUTE_SHOPPINGCART);
+//            ShopUtil.setShoppingCartInSession(shopName);
             throw new FormProcessorFailedException("Error while proccessing your shopping cart");
         }
 
