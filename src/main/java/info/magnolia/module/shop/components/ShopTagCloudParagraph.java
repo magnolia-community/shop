@@ -31,7 +31,7 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.paragraphs;
+package info.magnolia.module.shop.components;
 
 import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.context.MgnlContext;
@@ -57,48 +57,43 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Displays the tags assigned to productcategories by using categorization module.
- * Only for enterprise users.
- * @author tmiyar
+ * Displays the tags assigned to productcategories by using categorization module. Only for enterprise users.
+ * 
  * @param <RD>
- *
  */
 public class ShopTagCloudParagraph<RD extends TemplateDefinition> extends AbstractSTKTemplateModel<TemplateDefinition> {
 
-    private static Logger log = LoggerFactory
-            .getLogger(ShopTagCloudParagraph.class);
+    private static Logger log = LoggerFactory.getLogger(ShopTagCloudParagraph.class);
     private Node siteRoot = null;
 
-    public ShopTagCloudParagraph(Node content, TemplateDefinition definition,
-            RenderingModel<?> parent, STKTemplatingFunctions stkFunctions,
-            TemplatingFunctions templatingFunctions) {
+    public ShopTagCloudParagraph(Node content, TemplateDefinition definition, RenderingModel<?> parent, STKTemplatingFunctions stkFunctions, TemplatingFunctions templatingFunctions) {
         super(content, definition, parent, stkFunctions, templatingFunctions);
         siteRoot = stkFunctions.siteRoot(content);
     }
 
     public List<Node> getTagCloud() {
 
-      NodeIterator nodeIterator=null;
-      List<Node> nodeList = new ArrayList<Node>();
-    try {
-        nodeIterator = QueryUtil.search("category", "select * from [mgnl:category]", "JCR-SQL2", "mgnl:category");
-    } catch (LoginException e) {
-        log.error("Cant log to jcr", e);
-    } catch (RepositoryException e) {
-        log.error("Cant read categories", e);
-    }
-      if (nodeIterator != null) {
-          while(nodeIterator.hasNext()) {
-              nodeList.add(nodeIterator.nextNode());
-          }
-          return (List<Node>) ShopUtil.transformIntoI18nContentList(nodeList);
-      }
-      return null;
+        NodeIterator nodeIterator = null;
+        List<Node> nodeList = new ArrayList<Node>();
+        try {
+            nodeIterator = QueryUtil.search("category", "select * from [mgnl:category]", "JCR-SQL2", "mgnl:category");
+        } catch (LoginException e) {
+            log.error("Cant log to jcr", e);
+        } catch (RepositoryException e) {
+            log.error("Cant read categories", e);
+        }
+        if (nodeIterator != null) {
+            while (nodeIterator.hasNext()) {
+                nodeList.add(nodeIterator.nextNode());
+            }
+            return (List<Node>) ShopUtil.transformIntoI18nContentList(nodeList);
+        }
+        return null;
 
     }
 
     public int getNumberOfItemsCategorizedWith(String categoryUUID) {
-      return ShopProductAccessor.getProductsByProductCategory(categoryUUID).size();
+        return ShopProductAccessor.getProductsByProductCategory(categoryUUID).size();
     }
 
     public int getNumberOfItemsTaggedWith(String tagUUID) {
@@ -113,19 +108,18 @@ public class ShopTagCloudParagraph<RD extends TemplateDefinition> extends Abstra
         String link = "";
         String productKeywordResultPage = ShopLinkUtil.getProductKeywordLink(templatingFunctions, siteRoot);
         String replacement = "~" + tagName;
-        if(StringUtils.isNotEmpty(tagDisplayName)) {
-            replacement += "~" + tagDisplayName ;
+        if (StringUtils.isNotEmpty(tagDisplayName)) {
+            replacement += "~" + tagDisplayName;
         }
         replacement += "~";
         String extension = "." + MgnlContext.getAggregationState().getExtension();
         replacement += extension;
-        if(productKeywordResultPage != null) {
+        if (productKeywordResultPage != null) {
             link = productKeywordResultPage.replace(extension, replacement);
         }
 
         return link;
 
     }
-
 
 }

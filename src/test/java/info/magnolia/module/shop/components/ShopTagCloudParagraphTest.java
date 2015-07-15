@@ -40,7 +40,6 @@ import static org.mockito.Mockito.*;
 import info.magnolia.cms.i18n.DefaultI18nContentSupport;
 import info.magnolia.cms.i18n.I18nContentSupport;
 import info.magnolia.context.MgnlContext;
-import info.magnolia.module.shop.paragraphs.ShopTagCloudParagraph;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.test.ComponentsTestUtil;
 import info.magnolia.test.MgnlTestCase;
@@ -74,22 +73,23 @@ public class ShopTagCloudParagraphTest extends MgnlTestCase {
         ctx.addSession("category", session);
         MgnlContext.setInstance(ctx);
         ComponentsTestUtil.setInstance(I18nContentSupport.class, new DefaultI18nContentSupport());
-
         rootNode = (MockNode) session.getRootNode();
-        when(stkFunctions.siteRoot((Node)anyObject())).thenReturn(rootNode);
+        when(stkFunctions.siteRoot((Node) anyObject())).thenReturn(rootNode);
     }
+
     @Test
     public void getProductTest() throws RepositoryException {
-        //GIVEN
+        // GIVEN
         final String itemType = "mgnl:category";
         rootNode.addNode("item1", itemType);
         rootNode.addNode("item2", "someOtherItemType");
         rootNode.addNode("item3", itemType);
-
         ShopTagCloudParagraph paragraph = new ShopTagCloudParagraph(null, null, null, stkFunctions, null);
-        //WHEN
+        
+        // WHEN
         List<Node> list = paragraph.getTagCloud();
-        //THEN
+        
+        // THEN
         assertEquals(2, list.size());
     }
 }

@@ -66,6 +66,7 @@ import info.magnolia.module.shop.components.ShopFormModel;
 import info.magnolia.module.shop.components.ShopKeywordSearchResultParagraphModel;
 import info.magnolia.module.shop.components.ShopParagraphModel;
 import info.magnolia.module.shop.components.ShopProductSearchResultParagraphModel;
+import info.magnolia.module.shop.components.ShopTagCloudParagraph;
 import info.magnolia.module.shop.components.ShoppingCartParagraphModel;
 import info.magnolia.objectfactory.Components;
 import info.magnolia.repository.RepositoryConstants;
@@ -738,6 +739,7 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPEXTRASCART), hasProperty("modelClass", ShoppingCartParagraphModel.class.getName()));
         assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPSHOPPINGCART), hasProperty("modelClass", ShoppingCartParagraphModel.class.getName()));
         assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPPRODUCTSEARCHRESULT), hasProperty("modelClass", ShopProductSearchResultParagraphModel.class.getName()));
+        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPEXTRASTAGCLOUD), hasProperty("modelClass", ShopTagCloudParagraph.class.getName()));
 
     }
 

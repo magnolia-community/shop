@@ -84,6 +84,7 @@ import info.magnolia.module.shop.components.ShopFormModel;
 import info.magnolia.module.shop.components.ShopKeywordSearchResultParagraphModel;
 import info.magnolia.module.shop.components.ShopParagraphModel;
 import info.magnolia.module.shop.components.ShopProductSearchResultParagraphModel;
+import info.magnolia.module.shop.components.ShopTagCloudParagraph;
 import info.magnolia.module.shop.components.ShoppingCartParagraphModel;
 import info.magnolia.module.templatingkit.resources.STKResourceModel;
 import info.magnolia.repository.RepositoryConstants;
@@ -687,6 +688,7 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
     public static final String V_2_3_0_NODEPATH_SHOPEXTRASCART = "/modules/shop/templates/components/extras/shopExtrasCart";
     public static final String V_2_3_0_NODEPATH_SHOPSHOPPINGCART = "/modules/shop/templates/components/features/shopShoppingCart";
     public static final String V_2_3_0_NODEPATH_SHOPPRODUCTSEARCHRESULT = "/modules/shop/templates/components/features/shopProductSearchResult";
+    public static final String V_2_3_0_NODEPATH_SHOPEXTRASTAGCLOUD = "/modules/shop/templates/components/extras/shopExtrasTagCloud";
     
     private List<Task> getExtraTasksFor_2_3_0() {
         ArrayList<Task> tasks = new ArrayList<Task>();
@@ -708,6 +710,7 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
         tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPEXTRASCART, NodeTypes.Content.NAME));
         tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPSHOPPINGCART, NodeTypes.Content.NAME));
         tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPPRODUCTSEARCHRESULT, NodeTypes.Content.NAME));
+        tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPEXTRASTAGCLOUD, NodeTypes.Content.NAME));
         
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPFORMSTEP, "modelClass", FormStepConfirmOrderParagraphModel.class.getName()));
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPFORMSTEPCONFIRMORDER, "modelClass", FormStepConfirmOrderParagraphModel.class.getName()));
@@ -723,6 +726,7 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPEXTRASCART, "modelClass", ShoppingCartParagraphModel.class.getName()));
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPSHOPPINGCART, "modelClass", ShoppingCartParagraphModel.class.getName()));
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPPRODUCTSEARCHRESULT, "modelClass", ShopProductSearchResultParagraphModel.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPEXTRASTAGCLOUD, "modelClass", ShopTagCloudParagraph.class.getName()));
         
         return tasks;
     }
