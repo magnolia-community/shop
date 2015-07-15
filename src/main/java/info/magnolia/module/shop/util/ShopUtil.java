@@ -86,7 +86,7 @@ public final class ShopUtil {
     private static final Logger log = LoggerFactory.getLogger(ShopUtil.class);
     public static String ATTRIBUTE_SHOPNAME = "shopName";
     public static String ATTRIBUTE_SHOPPINGCART = "shoppingCart";
-    public static String ATTRIBUTE_LAST_SHOPPINGCART = "lastShoppingCart";
+    public static String ATTRIBUTE_PREVIOUS_SHOPPINGCART = "lastShoppingCart";
     public static String SHOP_TEMPLATE_NAME = "shopHome";
     public static String I18N_BASENAME = "info.magnolia.module.shop.messages";
     public static final BigDecimal HUNDRED = new BigDecimal("100");
@@ -242,11 +242,11 @@ public final class ShopUtil {
      * {@link info.magnolia.module.shop.processors.SaveAndConfirmFormProcessor}. So this is useful for all features
      * occurring after the cart was saved (e.g. sending confirmation mails, displaying a confirmation page...)
      */
-    public static ShoppingCart getLastShoppingCart(String shopName) {
+    public static ShoppingCart getPreviousShoppingCart(String shopName) {
         if (StringUtils.isBlank(shopName)) {
             return null;
         }
-        return (ShoppingCart) MgnlContext.getAttribute(shopName + "_" + ATTRIBUTE_LAST_SHOPPINGCART);
+        return (ShoppingCart) MgnlContext.getAttribute(shopName + "_" + ATTRIBUTE_PREVIOUS_SHOPPINGCART);
     }
 
     public static Collection<Node> transformIntoI18nContentList(Collection<Node> contentList) {
@@ -643,7 +643,7 @@ public final class ShopUtil {
         // @TODO: Should we check if the order has been completed before we move it?
         ShoppingCart lastCart = (ShoppingCart) MgnlContext.getAttribute(shopName + "_" + ATTRIBUTE_SHOPPINGCART);
         if (lastCart != null) {
-            MgnlContext.setAttribute(shopName + "_" + ATTRIBUTE_LAST_SHOPPINGCART, lastCart, Context.SESSION_SCOPE);
+            MgnlContext.setAttribute(shopName + "_" + ATTRIBUTE_PREVIOUS_SHOPPINGCART, lastCart, Context.SESSION_SCOPE);
         }
         // clear old cart
         MgnlContext.removeAttribute(shopName + "_" + ATTRIBUTE_SHOPPINGCART, Context.SESSION_SCOPE);

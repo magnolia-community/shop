@@ -33,7 +33,6 @@
  */
 package info.magnolia.module.shop.processors;
 
-import info.magnolia.context.MgnlContext;
 import info.magnolia.module.form.processors.FormProcessorFailedException;
 import info.magnolia.module.form.processors.SendContactEMailProcessor;
 import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
@@ -55,15 +54,14 @@ public class SendShopOrderEmailProcessor extends SendContactEMailProcessor{
             throws FormProcessorFailedException {
         try {
             //add current shopping cart to the parameters map
-            String cartId = (String) MgnlContext.getAttribute("cartId");
-            DefaultShoppingCartImpl cart = (DefaultShoppingCartImpl) ShopUtil.getLastShoppingCart(ShopUtil.getShopName());
+            DefaultShoppingCartImpl cart = (DefaultShoppingCartImpl) ShopUtil.getPreviousShoppingCart(ShopUtil.getShopName());
             if (cart == null) {
                 throw new FormProcessorFailedException("cart.not.found");
                 
             }
-            
+
             parameters.put("cart",cart);
-            parameters.put("cartId",cartId);
+            parameters.put("cartId",cart.getName());
             super.internalProcess(content, parameters);
         } catch (Exception e) {
             throw new FormProcessorFailedException("Error while proccessing your shopping cart");

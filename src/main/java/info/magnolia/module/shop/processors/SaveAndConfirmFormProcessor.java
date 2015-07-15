@@ -115,7 +115,6 @@ public class SaveAndConfirmFormProcessor extends AbstractFormProcessor {
                 cart.setParentPath(parentPath);
                 ocm.insert(cart);
                 ocm.save();
-                MgnlContext.setAttribute("cartId", cart.getName(), Context.SESSION_SCOPE);
 
                 // @TODO: did ocm set the uuid and path? If not: How can we do that efficiently?
                 log.debug("UUID of newly inserted shopping cart: " + cart.getUuid());

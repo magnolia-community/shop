@@ -1,16 +1,13 @@
-
+[#assign previousCart = model.previousShoppingCart /]
 [#-------------- RENDERING PART --------------]
 
-[#assign pageModel = model.root!]
-${pageModel.resetShoppingCart()}
 
-[#-- Rendering: Shopping Cart --]
 
 
 <div >
     <${def.headingLevel}>${i18n['confirmationPage.title']!}</${def.headingLevel}>
-	[#if ctx.cartId?has_content]
-      <p>${i18n.get('confirmationPage.text', [ctx.cartId])}</p>
+	[#if previousCart?has_content]
+      <p>${i18n.get('confirmationPage.text', [previousCart.name])}</p>
     [/#if]
     
 </div>
