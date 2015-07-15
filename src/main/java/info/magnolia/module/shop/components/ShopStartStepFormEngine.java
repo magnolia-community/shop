@@ -31,7 +31,7 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.paragraphs;
+package info.magnolia.module.shop.components;
 
 import info.magnolia.module.form.engine.FormStateTokenMissingException;
 import info.magnolia.module.form.templates.components.FormParagraph;
@@ -46,20 +46,20 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * This form engine also looks in the shopping cart for a form token, before it
- * creates a new one. That way, shoppers can continue shopping without loosing 
+ * creates a new one. That way, shoppers can continue shopping without loosing
  * already entered data in the checkout form.
+ * 
  * @author will
  */
 public class ShopStartStepFormEngine extends StartStepFormEngine {
 
-    public ShopStartStepFormEngine(Node configurationNode, FormParagraph configurationParagraph,RenderingContext context) {
+    public ShopStartStepFormEngine(Node configurationNode, FormParagraph configurationParagraph, RenderingContext context) {
         super(configurationNode, configurationParagraph, context);
     }
 
     /**
      * Finds the token from a requests parameter, shopping cart, or engine since this
-     * is the first step engine creates a new form state if the form is being
-     * submitted.
+     * is the first step engine creates a new form state if the form is being submitted.
      */
     @Override
     protected String getFormStateToken() throws FormStateTokenMissingException {

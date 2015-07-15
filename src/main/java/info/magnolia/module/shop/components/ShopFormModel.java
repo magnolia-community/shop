@@ -35,7 +35,6 @@ package info.magnolia.module.shop.components;
 
 import info.magnolia.module.form.templates.components.FormModel;
 import info.magnolia.module.shop.beans.ShoppingCart;
-import info.magnolia.module.shop.paragraphs.ShopStartStepFormEngine;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.objectfactory.Components;
 import info.magnolia.rendering.model.RenderingModel;
