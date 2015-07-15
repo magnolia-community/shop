@@ -49,11 +49,11 @@ import javax.jcr.RepositoryException;
 import javax.jcr.ValueFormatException;
 
 import org.apache.commons.lang.StringUtils;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ch.fastforward.magnolia.ocm.beans.OCMBean;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  * Default shopping cart item bean containing all the product info. The item

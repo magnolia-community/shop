@@ -39,6 +39,7 @@ import info.magnolia.module.shop.processors.FlatHierarchyStrategy;
 import info.magnolia.module.shop.processors.HierarchyStrategy;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.objectfactory.Classes;
+
 import org.apache.commons.lang.StringUtils;
 
 /**

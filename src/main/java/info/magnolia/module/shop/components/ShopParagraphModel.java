@@ -31,7 +31,7 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.paragraphs;
+package info.magnolia.module.shop.components;
 
 import info.magnolia.cms.core.MgnlNodeType;
 import info.magnolia.cms.util.SelectorUtil;
@@ -68,19 +68,14 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Shop paragraph model, used on productdetail and productlist paragraphs.
- * 
- * @author tmiyar
  */
 public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition> {
 
-    private static Logger log = LoggerFactory
-            .getLogger(ShopParagraphModel.class);
+    private static Logger log = LoggerFactory.getLogger(ShopParagraphModel.class);
     private Node siteRoot = null;
     protected static final String[] ALLOWED_IMAGE_TYPES = new String[] { "gif", "jpg", "jpeg", "png" };
 
-    public ShopParagraphModel(Node content, TemplateDefinition definition,
-            RenderingModel<?> parent, STKTemplatingFunctions stkFunctions,
-            TemplatingFunctions templatingFunctions, STKModule stkModule) {
+    public ShopParagraphModel(Node content, TemplateDefinition definition, RenderingModel<?> parent, STKTemplatingFunctions stkFunctions, TemplatingFunctions templatingFunctions, STKModule stkModule) {
         super(content, definition, parent, stkFunctions, templatingFunctions);
         this.siteRoot = stkFunctions.siteRoot(content);
     }
@@ -98,38 +93,31 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
      * Gets product selected from the url, using selector.
      */
     public Node getProduct() {
-
-        Node product;
         try {
             String productId = SelectorUtil.getSelector(2);
             if (StringUtils.isNotEmpty(productId)) {
-                product = new ShopProductAccessor(productId).getNode();
-                return product;
+                return new ShopProductAccessor(productId).getNode();
             }
         } catch (Exception e) {
-            // item not found
+            log.info("item not found", e);
         }
-
         return null;
     }
 
     public TemplateProductPriceBean getProductPriceBean(Node product) {
-        ShopConfiguration shopConfiguration;
         try {
-            shopConfiguration = new ShopAccessor(ShopUtil.getShopName()).getShopConfiguration();
+            ShopConfiguration shopConfiguration = new ShopAccessor(ShopUtil.getShopName()).getShopConfiguration();
 
             Node priceCategory = ShopUtil.getShopPriceCategory(shopConfiguration);
 
-            Node currency = ShopUtil.getCurrencyByUUID(PropertyUtil.getString(
-                    priceCategory, "currencyUUID"));
+            Node currency = ShopUtil.getCurrencyByUUID(PropertyUtil.getString(priceCategory, "currencyUUID"));
             Node tax = getTaxByUUID(PropertyUtil.getString(product, "taxCategoryUUID"));
 
             TemplateProductPriceBean bean = new TemplateProductPriceBean();
             bean.setFormatting(PropertyUtil.getString(currency, "formatting"));
             bean.setPrice(getProductPriceByCategory(product, priceCategory.getIdentifier()));
             bean.setCurrency(PropertyUtil.getString(currency, "title"));
-            boolean taxIncluded = PropertyUtil.getBoolean(priceCategory,
-                    "taxIncluded", false);
+            boolean taxIncluded = PropertyUtil.getBoolean(priceCategory, "taxIncluded", false);
             if (taxIncluded) {
                 bean.setTaxIncluded(ShopUtil.getMessages().get("tax.included"));
             } else {
@@ -182,16 +170,14 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
         return null;
     }
 
-    protected Double getProductPriceByCategory(Node product,
-            String priceCategoryUUID) throws ValueFormatException, RepositoryException {
+    protected Double getProductPriceByCategory(Node product, String priceCategoryUUID) throws ValueFormatException, RepositoryException {
         Node pricesNode = product.getNode("prices");
         if (pricesNode.hasNodes()) {
             for (NodeIterator iterator = pricesNode.getNodes(); iterator.hasNext();) {
                 Node priceNode = (Node) iterator.next();
                 if (!priceNode.isNodeType(MgnlNodeType.NT_METADATA)) {
                     Node price = ShopUtil.wrapWithI18n(priceNode);
-                    if (price.hasProperty("priceCategoryUUID") && PropertyUtil.getString(price, "priceCategoryUUID").equals(
-                            priceCategoryUUID)) {
+                    if (price.hasProperty("priceCategoryUUID") && PropertyUtil.getString(price, "priceCategoryUUID").equals(priceCategoryUUID)) {
                         Property productPrice = PropertyUtil.getPropertyOrNull(price, "price");
                         if (productPrice != null) {
                             return productPrice.getDouble();
@@ -204,16 +190,13 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
     }
 
     /**
-     * returns the link to the shopping cart page based on template
-     * category-subcategory.
+     * returns the link to the shopping cart page based on template category-subcategory.
      */
     public String getShoppingCartLink() {
         try {
-            Node shoppingCartPage = ShopUtil.getContentByTemplateCategorySubCategory(
-                    ShopUtil.getShopRoot(), "feature", "shopping-cart");
+            Node shoppingCartPage = ShopUtil.getContentByTemplateCategorySubCategory(ShopUtil.getShopRoot(), "feature", "shopping-cart");
             if (shoppingCartPage == null) {
-                shoppingCartPage = ShopUtil.getContentByTemplateCategorySubCategory(
-                        getSiteRoot(), "feature", "shopping-cart");
+                shoppingCartPage = ShopUtil.getContentByTemplateCategorySubCategory(getSiteRoot(), "feature", "shopping-cart");
             }
             return templatingFunctions.link(shoppingCartPage);
         } catch (Exception e) {

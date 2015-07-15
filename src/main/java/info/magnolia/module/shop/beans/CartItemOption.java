@@ -33,8 +33,9 @@
  */
 package info.magnolia.module.shop.beans;
 
-import ch.fastforward.magnolia.ocm.beans.OCMBean;
 import java.io.Serializable;
+
+import ch.fastforward.magnolia.ocm.beans.OCMBean;
 
 /**
  * Product option bean.

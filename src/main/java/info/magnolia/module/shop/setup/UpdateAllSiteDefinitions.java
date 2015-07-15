@@ -39,8 +39,9 @@ import info.magnolia.module.InstallContext;
 import info.magnolia.module.delta.AbstractRepositoryTask;
 import info.magnolia.module.delta.TaskExecutionException;
 
-import javax.jcr.RepositoryException;
 import java.util.Collection;
+
+import javax.jcr.RepositoryException;
 
 
 /**

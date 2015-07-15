@@ -33,8 +33,8 @@
  */
 package info.magnolia.module.shop.util;
 
-import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.cms.core.Path;
+import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.module.templatingkit.templates.category.TemplateCategoryUtil;
 import info.magnolia.templating.functions.TemplatingFunctions;
 

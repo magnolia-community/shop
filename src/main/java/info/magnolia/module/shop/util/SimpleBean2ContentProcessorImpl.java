@@ -42,6 +42,7 @@ import info.magnolia.cms.util.NodeDataUtil;
 import info.magnolia.content2bean.Bean2ContentProcessor;
 import info.magnolia.content2bean.Bean2ContentTransformer;
 import info.magnolia.content2bean.Content2BeanException;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Calendar;
@@ -51,8 +52,10 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
 import javax.jcr.PathNotFoundException;
 import javax.jcr.RepositoryException;
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

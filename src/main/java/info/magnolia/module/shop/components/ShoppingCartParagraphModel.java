@@ -31,7 +31,7 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.paragraphs;
+package info.magnolia.module.shop.components;
 
 import info.magnolia.context.MgnlContext;
 import info.magnolia.jcr.util.ContentMap;
@@ -53,21 +53,14 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Shopping cart paragraph.
- *
- * @author tmiyar
- *
  */
 public class ShoppingCartParagraphModel extends ShopParagraphModel {
 
     private static final Logger log = LoggerFactory.getLogger(ShoppingCartParagraphModel.class);
 
-    public ShoppingCartParagraphModel(Node content,
-            TemplateDefinition definition, RenderingModel<?> parent,
-            STKTemplatingFunctions stkFunctions,
-            TemplatingFunctions templatingFunctions, STKModule stkModule) {
+    public ShoppingCartParagraphModel(Node content, TemplateDefinition definition, RenderingModel<?> parent, STKTemplatingFunctions stkFunctions, TemplatingFunctions templatingFunctions, STKModule stkModule) {
         super(content, definition, parent, stkFunctions, templatingFunctions, stkModule);
     }
-
 
     @Override
     public String execute() {
@@ -85,27 +78,23 @@ public class ShoppingCartParagraphModel extends ShopParagraphModel {
         try {
             cm = new ContentMap(NodeUtil.getNodeByIdentifier(ShopRepositoryConstants.SHOP_PRODUCTS, identifier));
         } catch (RepositoryException e) {
-            log.error("Can't find Option with uuid"+identifier, e);
+            log.error("Can't find Option with uuid" + identifier, e);
         }
         return cm;
     }
 
-
     public String getCommandLink(String command, String productUUID, int index) {
-        return new LinkImpl(MgnlContext.getAggregationState().getMainContentNode() , templatingFunctions).getHref()
-        + "?command=" + command + "&product=" + productUUID + "&item=" + index;
+        return new LinkImpl(MgnlContext.getAggregationState().getMainContentNode(), templatingFunctions).getHref() + "?command=" + command + "&product=" + productUUID + "&item=" + index;
     }
 
     /*
      * TODO: check if this is still in use somewhere...
-    */
+     */
     public String getCheckoutFormLink() {
         try {
-            Node formPage = ShopUtil.getContentByTemplateCategorySubCategory(
-                    ShopUtil.getShopRoot(), "feature", "checkoutform");
+            Node formPage = ShopUtil.getContentByTemplateCategorySubCategory(ShopUtil.getShopRoot(), "feature", "checkoutform");
             if (formPage == null) {
-                formPage = ShopUtil.getContentByTemplateCategorySubCategory(
-                    getSiteRoot(), "feature", "checkoutform");
+                formPage = ShopUtil.getContentByTemplateCategorySubCategory(getSiteRoot(), "feature", "checkoutform");
             }
             return templatingFunctions.link(formPage);
         } catch (Exception e) {

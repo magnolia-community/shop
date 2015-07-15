@@ -31,7 +31,7 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.paragraphs;
+package info.magnolia.module.shop.components;
 
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.shop.accessors.ShopProductAccessor;
@@ -47,20 +47,13 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Displays the result for product search.
  */
 public class ShopProductSearchResultParagraphModel extends ShopParagraphModel {
 
-    private static Logger log = LoggerFactory.getLogger(ShopProductSearchResultParagraphModel.class);
-
-    public ShopProductSearchResultParagraphModel(Node content,
-                                                 TemplateDefinition definition, RenderingModel<?> parent,
-                                                 STKTemplatingFunctions stkFunctions,
-                                                 TemplatingFunctions templatingFunctions, STKModule stkModule) {
+    public ShopProductSearchResultParagraphModel(Node content, TemplateDefinition definition, RenderingModel<?> parent, STKTemplatingFunctions stkFunctions, TemplatingFunctions templatingFunctions, STKModule stkModule) {
         super(content, definition, parent, stkFunctions, templatingFunctions, stkModule);
     }
 

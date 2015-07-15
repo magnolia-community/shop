@@ -33,15 +33,15 @@
  */
 package info.magnolia.module.shop.processors;
 
-import java.util.Map;
-
-import javax.jcr.Node;
-
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.form.processors.FormProcessorFailedException;
 import info.magnolia.module.form.processors.SendContactEMailProcessor;
 import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
 import info.magnolia.module.shop.util.ShopUtil;
+
+import java.util.Map;
+
+import javax.jcr.Node;
 
 /**
  * Default processor to send an email to customer with all the data from his order.

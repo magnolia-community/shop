@@ -82,6 +82,9 @@ import info.magnolia.module.shop.components.ProductSearchParagraphModel;
 import info.magnolia.module.shop.components.ProductTeaserModel;
 import info.magnolia.module.shop.components.ShopFormModel;
 import info.magnolia.module.shop.components.ShopKeywordSearchResultParagraphModel;
+import info.magnolia.module.shop.components.ShopParagraphModel;
+import info.magnolia.module.shop.components.ShopProductSearchResultParagraphModel;
+import info.magnolia.module.shop.components.ShoppingCartParagraphModel;
 import info.magnolia.module.templatingkit.resources.STKResourceModel;
 import info.magnolia.repository.RepositoryConstants;
 import info.magnolia.ui.contentapp.setup.for5_3.ContentAppMigrationTask;
@@ -677,6 +680,13 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
     public static final String V_2_3_0_NODEPATH_SHOPEXTRASPRODUCT = "/modules/shop/templates/components/extras/shopExtrasProduct";
     public static final String V_2_3_0_NODEPATH_SHOPFORM = "/modules/shop/templates/components/features/shopForm";
     public static final String V_2_3_0_NODEPATH_SHOPPRODUCTKEYWORDRESULT = "/modules/shop/templates/components/features/shopProductKeywordResult";
+    public static final String V_2_3_0_NODEPATH_SHOPPRODUCTCATEGORY = "/modules/shop/templates/components/features/shopProductCategory";
+    public static final String V_2_3_0_NODEPATH_SHOPPRODUCTDETAIL = "/modules/shop/templates/components/features/shopProductDetail";
+    public static final String V_2_3_0_NODEPATH_SHOPPRODUCTLIST = "/modules/shop/templates/components/features/shopProductList";
+    public static final String V_2_3_0_NODEPATH_SHOPCONFIRMATIONPAGE = "/modules/shop/templates/components/features/shopConfirmationPage";
+    public static final String V_2_3_0_NODEPATH_SHOPEXTRASCART = "/modules/shop/templates/components/extras/shopExtrasCart";
+    public static final String V_2_3_0_NODEPATH_SHOPSHOPPINGCART = "/modules/shop/templates/components/features/shopShoppingCart";
+    public static final String V_2_3_0_NODEPATH_SHOPPRODUCTSEARCHRESULT = "/modules/shop/templates/components/features/shopProductSearchResult";
     
     private List<Task> getExtraTasksFor_2_3_0() {
         ArrayList<Task> tasks = new ArrayList<Task>();
@@ -691,6 +701,13 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
         tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPEXTRASPRODUCT, NodeTypes.Content.NAME));
         tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPFORM, NodeTypes.Content.NAME));
         tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPPRODUCTKEYWORDRESULT, NodeTypes.Content.NAME));
+        tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPPRODUCTCATEGORY, NodeTypes.Content.NAME));
+        tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPPRODUCTDETAIL, NodeTypes.Content.NAME));
+        tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPPRODUCTLIST, NodeTypes.Content.NAME));
+        tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPCONFIRMATIONPAGE, NodeTypes.Content.NAME));
+        tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPEXTRASCART, NodeTypes.Content.NAME));
+        tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPSHOPPINGCART, NodeTypes.Content.NAME));
+        tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPPRODUCTSEARCHRESULT, NodeTypes.Content.NAME));
         
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPFORMSTEP, "modelClass", FormStepConfirmOrderParagraphModel.class.getName()));
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPFORMSTEPCONFIRMORDER, "modelClass", FormStepConfirmOrderParagraphModel.class.getName()));
@@ -699,6 +716,13 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPEXTRASPRODUCT, "modelClass", ProductTeaserModel.class.getName()));
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPFORM, "modelClass", ShopFormModel.class.getName()));
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPPRODUCTKEYWORDRESULT, "modelClass", ShopKeywordSearchResultParagraphModel.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPPRODUCTCATEGORY, "modelClass", ShopParagraphModel.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPPRODUCTDETAIL, "modelClass", ShopParagraphModel.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPPRODUCTLIST, "modelClass", ShopParagraphModel.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPCONFIRMATIONPAGE, "modelClass", ShopParagraphModel.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPEXTRASCART, "modelClass", ShoppingCartParagraphModel.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPSHOPPINGCART, "modelClass", ShoppingCartParagraphModel.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPPRODUCTSEARCHRESULT, "modelClass", ShopProductSearchResultParagraphModel.class.getName()));
         
         return tasks;
     }

@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2013-2015 Magnolia International
+ * This file Copyright (c) 2010-2015 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -31,24 +31,22 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.paragraphs;
+package info.magnolia.module.shop.components;
 
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.anyObject;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+import info.magnolia.cms.core.AggregationState;
 import info.magnolia.cms.i18n.DefaultI18nContentSupport;
 import info.magnolia.cms.i18n.I18nContentSupport;
 import info.magnolia.content2bean.Content2BeanException;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.jcr.util.NodeUtil;
-import info.magnolia.jcr.wrapper.I18nNodeWrapper;
 import info.magnolia.module.shop.ShopRepositoryConstants;
-import info.magnolia.module.shop.components.ProductTeaserModel;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.module.templatingkit.templates.pages.STKPage;
 import info.magnolia.registry.RegistrationException;
-import info.magnolia.rendering.template.registry.TemplateDefinitionRegistry;
+import info.magnolia.templating.functions.TemplatingFunctions;
 import info.magnolia.test.ComponentsTestUtil;
 import info.magnolia.test.mock.MockWebContext;
 import info.magnolia.test.mock.jcr.MockNode;
@@ -56,59 +54,88 @@ import info.magnolia.test.mock.jcr.MockSession;
 import info.magnolia.test.mock.jcr.NodeTestUtil;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Tests for ProductTeaserModel.
+ * Test case.
+ * @author tmiyar
+ *
  */
-public class ProductTeaserModelTest {
+public class ShopParagraphModelTest {
 
-    private MockNode product;
-    private final String propertiesStr = "product.properties";
-    private MockSession session;
-    private final STKTemplatingFunctions stkFunctions = mock(STKTemplatingFunctions.class);
+    private MockNode root;
+    private String propertiesStr = "product.properties";
 
     @Before
     public void setUp() throws RepositoryException, Content2BeanException, IOException, RegistrationException {
-
         MockWebContext ctx = new MockWebContext();
-        TemplateDefinitionRegistry registry = mock(TemplateDefinitionRegistry.class);
-        Collection definitions = new ArrayList();
-        STKPage page = new STKPage();
-        page.setCategory("feature");
-        page.setSubcategory("product-detail");
-        definitions.add(page);
-
+        Node mainContent = mock(Node.class);
+        when(mainContent.getIdentifier()).thenReturn("123");
+        ctx.getAggregationState().setMainContentNode(mainContent);
         ComponentsTestUtil.setInstance(MockWebContext.class, ctx);
         ComponentsTestUtil.setInstance(I18nContentSupport.class, new DefaultI18nContentSupport());
-        ComponentsTestUtil.setInstance(TemplateDefinitionRegistry.class, registry);
         MgnlContext.setInstance(ctx);
-        session = new MockSession(ShopRepositoryConstants.SHOP_PRODUCTS);
+        MockSession session = new MockSession(ShopRepositoryConstants.SHOP_PRODUCTS);
         ctx.addSession(ShopRepositoryConstants.SHOP_PRODUCTS, session);
-        product = (MockNode) session.getRootNode();
+        root = (MockNode) session.getRootNode();
 
-        NodeTestUtil.createSubnodes(product, getClass().getResourceAsStream(propertiesStr));
-
-        when(stkFunctions.siteRoot((Node)anyObject())).thenReturn(product);
-        when(registry.getTemplateDefinitions()).thenReturn(definitions);
+        NodeTestUtil.createSubnodes(root, getClass().getResourceAsStream(propertiesStr));
 
     }
     @Test
-    public void getProductTest() throws RepositoryException {
+    public void getProductPriceByCategoryTest() throws RepositoryException {
         //GIVEN
         Node productNode = NodeUtil.getNodeByIdentifier(ShopRepositoryConstants.SHOP_PRODUCTS, "productid");
-        productNode.setProperty("productUUID", product.getIdentifier());
-        ProductTeaserModel model = new ProductTeaserModel(productNode, null, null, stkFunctions, null, null, null);
         //WHEN
-        Node product = model.getProduct();
+        ShopParagraphModel model = new ShopParagraphModel(productNode, new STKPage(), null, mock(STKTemplatingFunctions.class), mock(TemplatingFunctions.class), null);
         //THEN
-        assertTrue(NodeUtil.isWrappedWith(product, I18nNodeWrapper.class));
+        assertNotNull(model.getProductPriceByCategory(productNode, "pricecat2"));
     }
+
+    @Test
+    public void getProductPriceByCategoryNullTest() throws RepositoryException {
+        //GIVEN
+        Node productNode = NodeUtil.getNodeByIdentifier(ShopRepositoryConstants.SHOP_PRODUCTS, "productid");
+        //WHEN
+        ShopParagraphModel model = new ShopParagraphModel(productNode, new STKPage(), null, mock(STKTemplatingFunctions.class), mock(TemplatingFunctions.class), null);
+        //THEN
+        assertNull(model.getProductPriceByCategory(productNode, "xxx"));
+    }
+
+    @Test
+    public void testGetItemsWillNotFailOnNPE() throws RepositoryException {
+        // GIVEN
+        final Node content = mock(Node.class);
+        final STKPage definition = new STKPage();
+        final TemplatingFunctions templatingFunctions = mock(TemplatingFunctions.class);
+        final STKTemplatingFunctions stkFunctions = new STKTemplatingFunctions(templatingFunctions, null, null, null, null, null);
+
+        when(templatingFunctions.page(content)).thenReturn(content);
+
+        final ShopParagraphModel model = new ShopParagraphModel(content, definition, null, stkFunctions, templatingFunctions, null);
+
+        AggregationState state = MgnlContext.getAggregationState();
+        System.out.println("Atate:" + state);
+        System.out.println("CN: " + state.getMainContentNode());
+        // WHEN
+        model.getItems();
+
+        // THEN
+        // no exception
+
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        ComponentsTestUtil.clear();
+        MgnlContext.setInstance(null);
+    }
+
+
 }

@@ -31,7 +31,7 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.paragraphs;
+package info.magnolia.module.shop.components;
 
 import static junit.framework.Assert.assertNull;
 import static org.mockito.Mockito.mock;

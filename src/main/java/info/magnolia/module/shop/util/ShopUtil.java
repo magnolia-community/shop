@@ -57,8 +57,8 @@ import info.magnolia.module.shop.beans.ShoppingCart;
 import info.magnolia.module.shop.beans.ShoppingCartItem;
 import info.magnolia.module.templatingkit.templates.category.TemplateCategoryUtil;
 import info.magnolia.repository.RepositoryConstants;
-import java.math.BigDecimal;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;

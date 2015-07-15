@@ -33,14 +33,14 @@
  */
 package info.magnolia.module.shop.components;
 
-import javax.jcr.Node;
-
 import info.magnolia.module.shop.util.ShopLinkUtil;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.module.templatingkit.templates.AbstractSTKTemplateModel;
 import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.rendering.template.TemplateDefinition;
 import info.magnolia.templating.functions.TemplatingFunctions;
+
+import javax.jcr.Node;
 
 /**
  * Performs search on products.

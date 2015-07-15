@@ -31,18 +31,19 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.paragraphs;
+package info.magnolia.module.shop.components;
 
-import java.util.Locale;
-
-import org.junit.After;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import info.magnolia.context.MgnlContext;
 import info.magnolia.test.ComponentsTestUtil;
 import info.magnolia.test.mock.MockContext;
 import info.magnolia.test.mock.MockWebContext;
-import static org.junit.Assert.*;
+
+import java.util.Locale;
+
+import org.junit.After;
+import org.junit.Test;
 
 /**
  * Test case.

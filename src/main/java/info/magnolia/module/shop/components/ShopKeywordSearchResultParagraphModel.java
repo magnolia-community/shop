@@ -37,7 +37,6 @@ import info.magnolia.cms.util.SelectorUtil;
 import info.magnolia.jcr.util.SessionUtil;
 import info.magnolia.module.categorization.CategorizationModule;
 import info.magnolia.module.shop.accessors.ShopProductAccessor;
-import info.magnolia.module.shop.paragraphs.ShopParagraphModel;
 import info.magnolia.module.templatingkit.STKModule;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.rendering.model.RenderingModel;

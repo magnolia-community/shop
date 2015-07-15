@@ -31,7 +31,7 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.paragraphs;
+package info.magnolia.module.shop.components;
 
 import info.magnolia.context.MgnlContext;
 
@@ -40,26 +40,21 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Bean with all the price info.
- *
- * @author tmiyar
- *
  */
 public class TemplateProductPriceBean {
 
     private static Logger log = LoggerFactory.getLogger(TemplateProductPriceBean.class);
+    
     private double price;
     private String tax;
     private String taxIncluded;
     private String currency;
     private String formatting;
-
-
 
     public String getPrice() {
         try {
@@ -68,11 +63,12 @@ public class TemplateProductPriceBean {
                 try {
                     locale = MgnlContext.getAggregationState().getLocale();
                 } catch (IllegalStateException e) {
-                    //nothing, will get the default context locale
+                    log.debug("nothing, will get the default context locale", e);
                 }
 
                 NumberFormat formatter = NumberFormat.getNumberInstance(locale);
-                DecimalFormat df = (DecimalFormat)formatter; df.applyPattern(this.getFormatting());
+                DecimalFormat df = (DecimalFormat) formatter;
+                df.applyPattern(this.getFormatting());
                 return df.format(price);
             }
         } catch (Exception e) {
@@ -116,6 +112,5 @@ public class TemplateProductPriceBean {
     public void setFormatting(String formatting) {
         this.formatting = formatting;
     }
-
 
 }

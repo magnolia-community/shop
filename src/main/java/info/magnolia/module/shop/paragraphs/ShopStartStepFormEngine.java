@@ -33,14 +33,14 @@
  */
 package info.magnolia.module.shop.paragraphs;
 
-import javax.jcr.Node;
-
 import info.magnolia.module.form.engine.FormStateTokenMissingException;
 import info.magnolia.module.form.templates.components.FormParagraph;
 import info.magnolia.module.form.templates.components.multistep.StartStepFormEngine;
 import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.rendering.context.RenderingContext;
+
+import javax.jcr.Node;
 
 import org.apache.commons.lang.StringUtils;
 

@@ -44,7 +44,6 @@ import info.magnolia.module.templatingkit.templates.pages.STKPageModel;
 import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.templating.functions.TemplatingFunctions;
 
-
 import javax.jcr.Node;
 
 import org.apache.commons.lang.StringUtils;

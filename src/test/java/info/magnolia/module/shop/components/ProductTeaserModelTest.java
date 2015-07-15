@@ -31,64 +31,83 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.paragraphs;
+package info.magnolia.module.shop.components;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.*;
 
 import info.magnolia.cms.i18n.DefaultI18nContentSupport;
 import info.magnolia.cms.i18n.I18nContentSupport;
+import info.magnolia.content2bean.Content2BeanException;
 import info.magnolia.context.MgnlContext;
+import info.magnolia.jcr.util.NodeUtil;
+import info.magnolia.jcr.wrapper.I18nNodeWrapper;
+import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
+import info.magnolia.module.templatingkit.templates.pages.STKPage;
+import info.magnolia.registry.RegistrationException;
+import info.magnolia.rendering.template.registry.TemplateDefinitionRegistry;
 import info.magnolia.test.ComponentsTestUtil;
-import info.magnolia.test.MgnlTestCase;
 import info.magnolia.test.mock.MockWebContext;
 import info.magnolia.test.mock.jcr.MockNode;
 import info.magnolia.test.mock.jcr.MockSession;
+import info.magnolia.test.mock.jcr.NodeTestUtil;
 
-import java.util.List;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
-import javax.jcr.Session;
 
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Tests for ShopTagCloudParagraph.
+ * Tests for ProductTeaserModel.
  */
-public class ShopTagCloudParagraphTest extends MgnlTestCase {
+public class ProductTeaserModelTest {
 
-    private MockNode rootNode;
+    private MockNode product;
+    private final String propertiesStr = "product.properties";
+    private MockSession session;
     private final STKTemplatingFunctions stkFunctions = mock(STKTemplatingFunctions.class);
 
-    @Override
     @Before
-    public void setUp() throws Exception {
-        super.setUp();
-        MockWebContext ctx = new MockWebContext();
-        Session session = new MockSession("category");
-        ctx.addSession("category", session);
-        MgnlContext.setInstance(ctx);
-        ComponentsTestUtil.setInstance(I18nContentSupport.class, new DefaultI18nContentSupport());
+    public void setUp() throws RepositoryException, Content2BeanException, IOException, RegistrationException {
 
-        rootNode = (MockNode) session.getRootNode();
-        when(stkFunctions.siteRoot((Node)anyObject())).thenReturn(rootNode);
+        MockWebContext ctx = new MockWebContext();
+        TemplateDefinitionRegistry registry = mock(TemplateDefinitionRegistry.class);
+        Collection definitions = new ArrayList();
+        STKPage page = new STKPage();
+        page.setCategory("feature");
+        page.setSubcategory("product-detail");
+        definitions.add(page);
+
+        ComponentsTestUtil.setInstance(MockWebContext.class, ctx);
+        ComponentsTestUtil.setInstance(I18nContentSupport.class, new DefaultI18nContentSupport());
+        ComponentsTestUtil.setInstance(TemplateDefinitionRegistry.class, registry);
+        MgnlContext.setInstance(ctx);
+        session = new MockSession(ShopRepositoryConstants.SHOP_PRODUCTS);
+        ctx.addSession(ShopRepositoryConstants.SHOP_PRODUCTS, session);
+        product = (MockNode) session.getRootNode();
+
+        NodeTestUtil.createSubnodes(product, getClass().getResourceAsStream(propertiesStr));
+
+        when(stkFunctions.siteRoot((Node)anyObject())).thenReturn(product);
+        when(registry.getTemplateDefinitions()).thenReturn(definitions);
+
     }
     @Test
     public void getProductTest() throws RepositoryException {
         //GIVEN
-        final String itemType = "mgnl:category";
-        rootNode.addNode("item1", itemType);
-        rootNode.addNode("item2", "someOtherItemType");
-        rootNode.addNode("item3", itemType);
-
-        ShopTagCloudParagraph paragraph = new ShopTagCloudParagraph(null, null, null, stkFunctions, null);
+        Node productNode = NodeUtil.getNodeByIdentifier(ShopRepositoryConstants.SHOP_PRODUCTS, "productid");
+        productNode.setProperty("productUUID", product.getIdentifier());
+        ProductTeaserModel model = new ProductTeaserModel(productNode, null, null, stkFunctions, null, null, null);
         //WHEN
-        List<Node> list = paragraph.getTagCloud();
+        Node product = model.getProduct();
         //THEN
-        assertEquals(2, list.size());
+        assertTrue(NodeUtil.isWrappedWith(product, I18nNodeWrapper.class));
     }
 }

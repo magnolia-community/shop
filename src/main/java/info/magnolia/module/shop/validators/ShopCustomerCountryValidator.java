@@ -36,6 +36,7 @@ package info.magnolia.module.shop.validators;
 import info.magnolia.module.form.validators.Validator;
 import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
 import info.magnolia.module.shop.util.ShopUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
