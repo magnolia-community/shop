@@ -80,6 +80,7 @@ import info.magnolia.module.shop.components.CheckDisableFieldsModel;
 import info.magnolia.module.shop.components.FormStepConfirmOrderParagraphModel;
 import info.magnolia.module.shop.components.ProductSearchParagraphModel;
 import info.magnolia.module.shop.components.ProductTeaserModel;
+import info.magnolia.module.shop.components.ShopFormModel;
 import info.magnolia.module.templatingkit.resources.STKResourceModel;
 import info.magnolia.repository.RepositoryConstants;
 import info.magnolia.ui.contentapp.setup.for5_3.ContentAppMigrationTask;
@@ -673,6 +674,7 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
     public static final String V_2_3_0_NODEPATH_SHOPEXTRASPRODUCTSEARCH = "/modules/shop/templates/components/extras/shopExtrasProductSearch";
     public static final String V_2_3_0_NODEPATH_SHOPPRODUCTTEASER =  "/modules/shop/templates/components/teasers/shopProductTeaser";
     public static final String V_2_3_0_NODEPATH_SHOPEXTRASPRODUCT = "/modules/shop/templates/components/extras/shopExtrasProduct";
+    public static final String V_2_3_0_NODEPATH_SHOPFORM = "/modules/shop/templates/components/features/shopForm";
     
     private List<Task> getExtraTasksFor_2_3_0() {
         ArrayList<Task> tasks = new ArrayList<Task>();
@@ -685,12 +687,14 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
         tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPEXTRASPRODUCTSEARCH, NodeTypes.Content.NAME));
         tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPPRODUCTTEASER, NodeTypes.Content.NAME));
         tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPEXTRASPRODUCT, NodeTypes.Content.NAME));
+        tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPFORM, NodeTypes.Content.NAME));
         
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPFORMSTEP, "modelClass", FormStepConfirmOrderParagraphModel.class.getName()));
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPFORMSTEPCONFIRMORDER, "modelClass", FormStepConfirmOrderParagraphModel.class.getName()));
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPEXTRASPRODUCTSEARCH, "modelClass", ProductSearchParagraphModel.class.getName()));
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPPRODUCTTEASER, "modelClass", ProductTeaserModel.class.getName()));
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPEXTRASPRODUCT, "modelClass", ProductTeaserModel.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPFORM, "modelClass", ShopFormModel.class.getName()));
         
         return tasks;
     }

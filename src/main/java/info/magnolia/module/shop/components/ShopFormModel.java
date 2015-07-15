@@ -31,15 +31,17 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.paragraphs;
+package info.magnolia.module.shop.components;
 
 import info.magnolia.module.form.templates.components.FormModel;
 import info.magnolia.module.shop.beans.ShoppingCart;
+import info.magnolia.module.shop.paragraphs.ShopStartStepFormEngine;
 import info.magnolia.module.shop.util.ShopUtil;
-import info.magnolia.rendering.template.RenderableDefinition;
-import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.objectfactory.Components;
+import info.magnolia.rendering.model.RenderingModel;
+import info.magnolia.rendering.template.RenderableDefinition;
 import info.magnolia.templating.functions.TemplatingFunctions;
+
 import javax.jcr.Node;
 
 /**
