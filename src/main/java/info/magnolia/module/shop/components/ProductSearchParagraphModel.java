@@ -31,7 +31,7 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.paragraphs;
+package info.magnolia.module.shop.components;
 
 import javax.jcr.Node;
 
@@ -44,27 +44,19 @@ import info.magnolia.templating.functions.TemplatingFunctions;
 
 /**
  * Performs search on products.
- * @author tmiyar
  * @param <RD>
- *
  */
 public class ProductSearchParagraphModel<RD extends TemplateDefinition> extends AbstractSTKTemplateModel<TemplateDefinition> {
 
     private Node siteRoot = null;
 
-    public ProductSearchParagraphModel(Node content,
-            TemplateDefinition definition, RenderingModel<?> parent,
-            STKTemplatingFunctions stkFunctions,
-            TemplatingFunctions templatingFunctions) {
+    public ProductSearchParagraphModel(Node content, TemplateDefinition definition, RenderingModel<?> parent, STKTemplatingFunctions stkFunctions, TemplatingFunctions templatingFunctions) {
         super(content, definition, parent, stkFunctions, templatingFunctions);
-
         siteRoot = stkFunctions.siteRoot(content);
-
     }
 
     public String getProductListLink() {
         return ShopLinkUtil.getProductListSearchLink(templatingFunctions, siteRoot);
     }
-
 
 }

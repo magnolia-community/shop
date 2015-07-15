@@ -78,6 +78,7 @@ import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.shop.app.field.definition.PriceCategoriesSelectFieldDefinition;
 import info.magnolia.module.shop.components.CheckDisableFieldsModel;
 import info.magnolia.module.shop.components.FormStepConfirmOrderParagraphModel;
+import info.magnolia.module.shop.components.ProductSearchParagraphModel;
 import info.magnolia.module.templatingkit.resources.STKResourceModel;
 import info.magnolia.repository.RepositoryConstants;
 import info.magnolia.ui.contentapp.setup.for5_3.ContentAppMigrationTask;
@@ -668,7 +669,7 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
     public static final String V_2_3_0_NODEPATH_SHOPCHECKDISABLEFIELDS = "/modules/shop/templates/components/features/form/shopCheckDisableFields";
     public static final String V_2_3_0_NODEPATH_SHOPFORMSTEP = "/modules/shop/templates/components/features/shopFormStep";
     public static final String V_2_3_0_NODEPATH_SHOPFORMSTEPCONFIRMORDER = "/modules/shop/templates/components/features/shopFormStepConfirmOrder";
-    
+    public static final String V_2_3_0_NODEPATH_SHOPEXTRASPRODUCTSEARCH = "/modules/shop/templates/components/extras/shopExtrasProductSearch";
     
     private List<Task> getExtraTasksFor_2_3_0() {
         ArrayList<Task> tasks = new ArrayList<Task>();
@@ -678,8 +679,11 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
         
         tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPFORMSTEP, NodeTypes.Content.NAME));
         tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPFORMSTEPCONFIRMORDER, NodeTypes.Content.NAME));
+        tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPEXTRASPRODUCTSEARCH, NodeTypes.Content.NAME));
+        
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPFORMSTEP, "modelClass", FormStepConfirmOrderParagraphModel.class.getName()));
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPFORMSTEPCONFIRMORDER, "modelClass", FormStepConfirmOrderParagraphModel.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPEXTRASPRODUCTSEARCH, "modelClass", ProductSearchParagraphModel.class.getName()));
         
         return tasks;
     }
