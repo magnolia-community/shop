@@ -712,21 +712,23 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
         tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPPRODUCTSEARCHRESULT, NodeTypes.Content.NAME));
         tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPEXTRASTAGCLOUD, NodeTypes.Content.NAME));
         
-        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPFORMSTEP, "modelClass", FormStepConfirmOrderParagraphModel.class.getName()));
-        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPFORMSTEPCONFIRMORDER, "modelClass", FormStepConfirmOrderParagraphModel.class.getName()));
-        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPEXTRASPRODUCTSEARCH, "modelClass", ProductSearchParagraphModel.class.getName()));
-        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPPRODUCTTEASER, "modelClass", ProductTeaserModel.class.getName()));
-        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPEXTRASPRODUCT, "modelClass", ProductTeaserModel.class.getName()));
-        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPFORM, "modelClass", ShopFormModel.class.getName()));
-        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPPRODUCTKEYWORDRESULT, "modelClass", ShopKeywordSearchResultParagraphModel.class.getName()));
-        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPPRODUCTCATEGORY, "modelClass", ShopParagraphModel.class.getName()));
-        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPPRODUCTDETAIL, "modelClass", ShopParagraphModel.class.getName()));
-        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPPRODUCTLIST, "modelClass", ShopParagraphModel.class.getName()));
-        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPCONFIRMATIONPAGE, "modelClass", ShopParagraphModel.class.getName()));
-        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPEXTRASCART, "modelClass", ShoppingCartParagraphModel.class.getName()));
-        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPSHOPPINGCART, "modelClass", ShoppingCartParagraphModel.class.getName()));
-        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPPRODUCTSEARCHRESULT, "modelClass", ShopProductSearchResultParagraphModel.class.getName()));
-        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPEXTRASTAGCLOUD, "modelClass", ShopTagCloudParagraph.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPFORMSTEP, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, FormStepConfirmOrderParagraphModel.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPFORMSTEPCONFIRMORDER, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, FormStepConfirmOrderParagraphModel.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPEXTRASPRODUCTSEARCH, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ProductSearchParagraphModel.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPPRODUCTTEASER, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ProductTeaserModel.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPEXTRASPRODUCT, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ProductTeaserModel.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPFORM, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShopFormModel.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPPRODUCTKEYWORDRESULT, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShopKeywordSearchResultParagraphModel.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPPRODUCTCATEGORY, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShopParagraphModel.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPPRODUCTDETAIL, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShopParagraphModel.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPPRODUCTLIST, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShopParagraphModel.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPCONFIRMATIONPAGE, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShopParagraphModel.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPEXTRASCART, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShoppingCartParagraphModel.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPSHOPPINGCART, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShoppingCartParagraphModel.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPPRODUCTSEARCHRESULT, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShopProductSearchResultParagraphModel.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPEXTRASTAGCLOUD, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShopTagCloudParagraph.class.getName()));
+        
+        tasks.add(new RefactorPackageNameTask());
         
         return tasks;
     }

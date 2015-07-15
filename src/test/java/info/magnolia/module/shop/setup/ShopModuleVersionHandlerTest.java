@@ -77,6 +77,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
 import org.junit.Before;
@@ -724,23 +725,45 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("2.2.0"));
         
         // THEN
-        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPCHECKDISABLEFIELDS), hasProperty("modelClass", CheckDisableFieldsModel.class.getName()));
-        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPFORMSTEP), hasProperty("modelClass", FormStepConfirmOrderParagraphModel.class.getName()));
-        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPFORMSTEPCONFIRMORDER), hasProperty("modelClass", FormStepConfirmOrderParagraphModel.class.getName()));
-        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPEXTRASPRODUCTSEARCH), hasProperty("modelClass", ProductSearchParagraphModel.class.getName()));
-        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPPRODUCTTEASER), hasProperty("modelClass", ProductTeaserModel.class.getName()));
-        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPEXTRASPRODUCT), hasProperty("modelClass", ProductTeaserModel.class.getName()));
-        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPFORM), hasProperty("modelClass", ShopFormModel.class.getName()));
-        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPPRODUCTKEYWORDRESULT), hasProperty("modelClass", ShopKeywordSearchResultParagraphModel.class.getName()));
-        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPPRODUCTCATEGORY), hasProperty("modelClass", ShopParagraphModel.class.getName()));
-        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPPRODUCTDETAIL), hasProperty("modelClass", ShopParagraphModel.class.getName()));
-        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPPRODUCTLIST), hasProperty("modelClass", ShopParagraphModel.class.getName()));
-        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPCONFIRMATIONPAGE), hasProperty("modelClass", ShopParagraphModel.class.getName()));
-        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPEXTRASCART), hasProperty("modelClass", ShoppingCartParagraphModel.class.getName()));
-        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPSHOPPINGCART), hasProperty("modelClass", ShoppingCartParagraphModel.class.getName()));
-        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPPRODUCTSEARCHRESULT), hasProperty("modelClass", ShopProductSearchResultParagraphModel.class.getName()));
-        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPEXTRASTAGCLOUD), hasProperty("modelClass", ShopTagCloudParagraph.class.getName()));
+        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPCHECKDISABLEFIELDS), hasProperty(RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, CheckDisableFieldsModel.class.getName()));
+        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPFORMSTEP), hasProperty(RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, FormStepConfirmOrderParagraphModel.class.getName()));
+        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPFORMSTEPCONFIRMORDER), hasProperty(RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, FormStepConfirmOrderParagraphModel.class.getName()));
+        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPEXTRASPRODUCTSEARCH), hasProperty(RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ProductSearchParagraphModel.class.getName()));
+        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPPRODUCTTEASER), hasProperty(RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ProductTeaserModel.class.getName()));
+        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPEXTRASPRODUCT), hasProperty(RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ProductTeaserModel.class.getName()));
+        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPFORM), hasProperty(RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShopFormModel.class.getName()));
+        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPPRODUCTKEYWORDRESULT), hasProperty(RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShopKeywordSearchResultParagraphModel.class.getName()));
+        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPPRODUCTCATEGORY), hasProperty(RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShopParagraphModel.class.getName()));
+        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPPRODUCTDETAIL), hasProperty(RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShopParagraphModel.class.getName()));
+        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPPRODUCTLIST), hasProperty(RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShopParagraphModel.class.getName()));
+        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPCONFIRMATIONPAGE), hasProperty(RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShopParagraphModel.class.getName()));
+        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPEXTRASCART), hasProperty(RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShoppingCartParagraphModel.class.getName()));
+        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPSHOPPINGCART), hasProperty(RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShoppingCartParagraphModel.class.getName()));
+        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPPRODUCTSEARCHRESULT), hasProperty(RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShopProductSearchResultParagraphModel.class.getName()));
+        assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPEXTRASTAGCLOUD), hasProperty(RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShopTagCloudParagraph.class.getName()));
 
+    }
+    
+    /**
+     * Test method for {@link info.magnolia.module.shop.setup.RefactorPackageNameTask#doExecute(info.magnolia.module.InstallContext)}.
+     */
+    @Test
+    public void testDoExecuteInstallContext() throws Exception {
+        // GIVEN
+        String testPath = "/modules/shop/templates/components/features/testComponent";
+        String testClassName = "TestClass";
+        setupConfigNode(testPath);
+        setupConfigProperty(testPath, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, RefactorPackageNameTask.OLD_PACKAGE_PATH + testClassName);
+        
+        // WHEN
+        executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("2.2.0"));
+        
+        // THEN
+        assertStringProperty(testPath, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, RefactorPackageNameTask.NEW_PACKAGE_PATH + testClassName);
+    }
+    
+    private boolean assertStringProperty(String nodePath, String propertyName, String expectedValue) throws RepositoryException {
+        return expectedValue.equals(config.getProperty(nodePath + '/' + propertyName).getString());
     }
 
 }
