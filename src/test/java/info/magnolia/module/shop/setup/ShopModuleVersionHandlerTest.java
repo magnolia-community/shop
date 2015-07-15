@@ -720,6 +720,10 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
     @Test
     public void testUpdateTo230() throws Exception {
         // GIVEN
+        String testPath = "/modules/shop/templates/components/features/testComponent";
+        String testClassName = "TestClass";
+        setupConfigNode(testPath);
+        setupConfigProperty(testPath, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, RefactorPackageNameTask.OLD_PACKAGE_PATH + testClassName);
 
         // WHEN
         executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("2.2.0"));
@@ -742,26 +746,11 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPPRODUCTSEARCHRESULT), hasProperty(RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShopProductSearchResultParagraphModel.class.getName()));
         assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPEXTRASTAGCLOUD), hasProperty(RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShopTagCloudParagraph.class.getName()));
 
-    }
-    
-    /**
-     * Test method for {@link info.magnolia.module.shop.setup.RefactorPackageNameTask#doExecute(info.magnolia.module.InstallContext)}.
-     */
-    @Test
-    public void testDoExecuteInstallContext() throws Exception {
-        // GIVEN
-        String testPath = "/modules/shop/templates/components/features/testComponent";
-        String testClassName = "TestClass";
-        setupConfigNode(testPath);
-        setupConfigProperty(testPath, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, RefactorPackageNameTask.OLD_PACKAGE_PATH + testClassName);
-        
-        // WHEN
-        executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("2.2.0"));
-        
-        // THEN
+        //Test method for {@link info.magnolia.module.shop.setup.RefactorPackageNameTask#doExecute(info.magnolia.module.InstallContext)}.
         assertStringProperty(testPath, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, RefactorPackageNameTask.NEW_PACKAGE_PATH + testClassName);
+
     }
-    
+
     private boolean assertStringProperty(String nodePath, String propertyName, String expectedValue) throws RepositoryException {
         return expectedValue.equals(config.getProperty(nodePath + '/' + propertyName).getString());
     }
