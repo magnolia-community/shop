@@ -35,7 +35,6 @@ package info.magnolia.module.shop.beans;
 
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.i18n.I18nContentWrapper;
-import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.cms.util.NodeDataUtil;
 import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.jcr.util.NodeUtil;
@@ -52,6 +51,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import javax.jcr.Node;
+import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
 
 import org.apache.commons.lang.StringUtils;
@@ -503,27 +503,31 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     public void setShippingAddressCountry(String shippingAddressCountry) {
         this.shippingAddressCountry = shippingAddressCountry;
         // reset shippingOptionUUID
-        if (shippingAddressCountry == null) {
-            setShippingOptionUUID(null);
-        } else {
-            Collection<Content> shippingOptions = ShopUtil.getShippingOptions();
-            if (shippingOptions.isEmpty()) {
+        try {
+            if (shippingAddressCountry == null) {
                 setShippingOptionUUID(null);
             } else {
-                setShippingOptionUUID(shippingOptions.iterator().next().getUUID());
+                NodeIterator shippingOptions = ShopUtil.getShippingOptions();
+                if (!shippingOptions.hasNext()) {
+                    setShippingOptionUUID(null);
+                } else {
+                    setShippingOptionUUID(shippingOptions.nextNode().getIdentifier());
+                }
             }
-        }
-        // set taxFree
-        if (StringUtils.isNotBlank(shippingAddressCountry)) {
-            // get country
-            String queryString = "/jcr:root/shops/" + ShopUtil.getShopName() + "/countries/element(*,shopCountry)[@name='" + shippingAddressCountry + "']";
-            Collection<Content> matching = QueryUtil.query("data", queryString, "xpath", "shopCountry");
-            if (!matching.isEmpty()) {
-                Content country = matching.iterator().next();
-                setTaxFree(!NodeDataUtil.getBoolean(country, "liableToVAT", true));
+            // set taxFree
+            if (StringUtils.isNotBlank(shippingAddressCountry)) {
+                // get country
+                String queryString = "/jcr:root/shops/" + ShopUtil.getShopName() + "/countries/element(*,shopCountry)[@name='" + shippingAddressCountry + "']";
+                Collection<Content> matching = QueryUtil.query("data", queryString, "xpath", "shopCountry");
+                if (!matching.isEmpty()) {
+                    Content country = matching.iterator().next();
+                    setTaxFree(!NodeDataUtil.getBoolean(country, "liableToVAT", true));
+                }
+            } else {
+                setTaxFree(false);
             }
-        } else {
-            setTaxFree(false);
+        } catch (RepositoryException e) {
+            log.info(e.getMessage(), e);
         }
     }
 
@@ -1079,20 +1083,18 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
         return shippingOptionUUID;
     }
 
-    /**
-     * @param shippingOptionUUID the shippingOptionUUID to set
-     */
-    public void setShippingOptionUUID(String shippingOptionUUID) {
+    public void setShippingOptionUUID(String shippingOptionUUID) throws RepositoryException {
         this.shippingOptionUUID = shippingOptionUUID;
         if (StringUtils.isNotBlank(shippingOptionUUID)) {
-            Content shippingOption = ContentUtil.getContentByUUID("data", shippingOptionUUID);
+            //Content shippingOption = ContentUtil.getContentByUUID("data", shippingOptionUUID);
+            Node shippingOption = NodeUtil.getNodeByIdentifier("data", shippingOptionUUID);
             if (shippingOption != null) {
                 setShippingCostBigDecimal(ShopUtil.getShippingPriceForOptionBigDecimal(shippingOption, this));
-                setShippingCostTaxIncluded(NodeDataUtil.getBoolean(shippingOption, "taxIncluded", false));
-                setShippingOptionTitle(NodeDataUtil.getString(shippingOption, "title"));
-                Content shippingOptionTaxCategory = ContentUtil.getContentByUUID("data", NodeDataUtil.getString(shippingOption, "taxCategoryUUID"));
-                if (shippingOptionTaxCategory != null && shippingOptionTaxCategory.getNodeData("tax").isExist()) {
-                    setShippingCostTaxRate(new BigDecimal("" + shippingOptionTaxCategory.getNodeData("tax").getDouble()));
+                setShippingCostTaxIncluded(PropertyUtil.getBoolean(shippingOption, "taxIncluded", false));
+                setShippingOptionTitle(PropertyUtil.getString(shippingOption, "title"));
+                Node shippingOptionTaxCategory = NodeUtil.getNodeByIdentifier("data", PropertyUtil.getString(shippingOption, "taxCategoryUUID"));
+                if (shippingOptionTaxCategory != null && shippingOptionTaxCategory.hasProperty("tax")) {
+                    setShippingCostTaxRate(new BigDecimal("" + shippingOptionTaxCategory.getProperty("tax").getDouble()));
                 }
                 return;
             }

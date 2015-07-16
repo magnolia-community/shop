@@ -33,14 +33,10 @@
  */
 package info.magnolia.module.shop.util;
 
-import info.magnolia.cms.core.Content;
-import info.magnolia.cms.core.NodeData;
 import info.magnolia.cms.i18n.I18nContentSupportFactory;
 import info.magnolia.cms.i18n.Messages;
 import info.magnolia.cms.i18n.MessagesManager;
 import info.magnolia.cms.security.AccessDeniedException;
-import info.magnolia.cms.util.ContentUtil;
-import info.magnolia.cms.util.NodeDataUtil;
 import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
@@ -69,6 +65,8 @@ import java.util.Locale;
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
 import javax.jcr.PathNotFoundException;
+import javax.jcr.Property;
+import javax.jcr.PropertyIterator;
 import javax.jcr.RepositoryException;
 
 import org.apache.commons.lang.StringUtils;
@@ -360,42 +358,39 @@ public final class ShopUtil {
         return NodeUtil.isWrappedWith(node, HTMLEscapingNodeWrapper.class) ? node : new HTMLEscapingNodeWrapper(node, linebreaks);
     }
 
-    public static Collection<Content> getShippingOptions() {
+    public static NodeIterator getShippingOptions() throws RepositoryException {
         // There must be goods to ship, i.e. no "digital" goods etc., i.e. the
         // total weight of the shopping cart must be > 0
-        DefaultShoppingCartImpl cart = (DefaultShoppingCartImpl) getShoppingCart();
+        DefaultShoppingCartImpl cart = (DefaultShoppingCartImpl) getShoppingCart(getShopName());
         if (cart.getTotalWeight() > 0) {
             // There must be a shipping country set
             if (StringUtils.isNotBlank(cart.getShippingAddressCountry())) {
                 // The country must exist in the shop definition
-                String queryString = "/jcr:root/shops/" + ShopUtil.getShopName() + "/countries//element(*,shopCountry)[@name='"
-                        + cart.getShippingAddressCountry() + "']";
-                Collection<Content> matching = QueryUtil.query("data", queryString, "xpath", "shopCountry");
-                if (matching.isEmpty()) {
-                    log.debug("Shipping country \"" + cart.getShippingAddressCountry()
-                            + "\" does not exist in the shop configuration");
-                } else if (matching.size() > 1) {
-                    log.error("More than one country with the name \"" + cart.getShippingAddressCountry()
-                            + "\" exist in the shop configuration");
+                String queryString = "/jcr:root/shops/" + ShopUtil.getShopName() + "/countries//element(*,shopCountry)[@name='" + cart.getShippingAddressCountry() + "']";
+                NodeIterator matching = QueryUtil.search("data", queryString, javax.jcr.query.Query.XPATH, "shopCountry");
+                if (!matching.hasNext()) {
+                    log.debug("Shipping country \"" + cart.getShippingAddressCountry() + "\" does not exist in the shop configuration");
+                } else if (matching.getSize() > 1) {
+                    log.error("More than one country with the name \"" + cart.getShippingAddressCountry() + "\" exist in the shop configuration");
                 } else {
-                    Content shippingCountry = matching.iterator().next();
-                    Content shippingOptionsNode = ContentUtil.getContent(shippingCountry, "shippingOptions");
+                    Node shippingCountry = matching.nextNode();
+                    Node shippingOptionsNode = shippingCountry.getNode("shippingOptions");
                     if (shippingOptionsNode != null) {
-                        Collection<NodeData> shippingOptionUUIDs = shippingOptionsNode.getNodeDataCollection();
+                        PropertyIterator shippingOptionUUIDs = shippingOptionsNode.getProperties();
                         // There must be at least 1 shipping option for this country
-                        if (shippingOptionUUIDs.isEmpty()) {
+                        if (!shippingOptionUUIDs.hasNext()) {
                             log.debug("No shipping options selected for the country \"" + cart.getShippingAddressCountry() + "\"");
                         } else {
                             // At least one of these options must exist
                             queryString = "/jcr:root//*[";
-                            for (NodeData nd : shippingOptionUUIDs) {
+                            while (shippingOptionUUIDs.hasNext()) {
+                                Property nd = shippingOptionUUIDs.nextProperty();
                                 queryString += "@jcr:uuid = '" + nd.getString() + "' or ";
                             }
                             queryString = StringUtils.substringBeforeLast(queryString, " or ") + "]";
-                            matching = QueryUtil.query("data", queryString, "xpath", "shopShippingOption");
-                            if (matching.isEmpty()) {
-                                log.error("None of the shipping options selected for country \"" + cart.getShippingAddressCountry()
-                                        + "\" exists anymore.");
+                            matching = QueryUtil.search("data", queryString, javax.jcr.query.Query.XPATH, "shopShippingOption");
+                            if (!matching.hasNext()) {
+                                log.error("None of the shipping options selected for country \"" + cart.getShippingAddressCountry() + "\" exists anymore.");
                             } else {
                                 return matching;
                             }
@@ -410,7 +405,7 @@ public final class ShopUtil {
         } else {
             log.debug("No goods to ship (total weight of cart is not > 0.");
         }
-        return new ArrayList();
+        return null;
     }
 
     /**
@@ -420,39 +415,43 @@ public final class ShopUtil {
      * @param shippingOption
      * @return shipping price for the weight of the cart or null
      */
-    public static BigDecimal getShippingPriceForOptionBigDecimal(Content shippingOption, DefaultShoppingCartImpl cart) {
+    public static BigDecimal getShippingPriceForOptionBigDecimal(Node shippingOption, DefaultShoppingCartImpl cart) {
         if (shippingOption != null) {
-            // loop over all prices and find the one with the closest max weight
-            // TODO: Fix grid dialog to respect the "type" attribute. At the moment all values
-            // are being stored as Strings. Therefore "order by @maxWeight ascending" will not
-            // give us the desired result (hence the complicated selection of the correct price
-            // below).
-            String queryString = "/jcr:root//*[@jcr:uuid='" + shippingOption.getUUID()
-                    + "']/prices/*[@price and @maxWeight] order by @maxWeight ascending";
-            Collection<Content> matching = QueryUtil.query("data", queryString, "xpath", "mgnl:contentNode");
-            if (matching.isEmpty()) {
-                log.debug("No prices found in shipping option " + shippingOption.getHandle());
-            } else {
-                Content matchingPrice = null;
-                NodeData priceND, maxWeightND;
-                double maxWeight = 1000;
-                for (Content priceNode : matching) {
-                    priceND = priceNode.getNodeData("price");
-                    maxWeightND = priceNode.getNodeData("maxWeight");
-                    if (maxWeightND.isExist() && priceND.isExist() && maxWeightND.getDouble() > cart.getTotalWeight()) {
-                        if (maxWeightND.getDouble() < maxWeight) {
-                            // this one is closer to the cart weight
-                            // TODO: Too complicated but necessary (see not above)
-                            matchingPrice = priceNode;
-                            maxWeight = maxWeightND.getDouble();
+            try {
+                // loop over all prices and find the one with the closest max weight
+                // TODO: Fix grid dialog to respect the "type" attribute. At the moment all values
+                // are being stored as Strings. Therefore "order by @maxWeight ascending" will not
+                // give us the desired result (hence the complicated selection of the correct price
+                // below).
+                String queryString = "/jcr:root//*[@jcr:uuid='" + shippingOption.getIdentifier() + "']/prices/*[@price and @maxWeight] order by @maxWeight ascending";
+                NodeIterator matching = QueryUtil.search("data", queryString, javax.jcr.query.Query.XPATH, "mgnl:contentNode");
+                if (!matching.hasNext()) {
+                    log.debug("No prices found in shipping option " + shippingOption.getPath());
+                } else {
+                    Node matchingPrice = null;
+                    Property maxWeightND;
+                    double maxWeight = 1000;
+                    while (matching.hasNext()) {
+                        Node priceNode = matching.nextNode();
+                        maxWeightND = priceNode.getProperty("maxWeight");
+                        if (priceNode.hasProperty("maxWeight") && priceNode.hasProperty("price") && maxWeightND.getDouble() > cart.getTotalWeight()) {
+                            if (maxWeightND.getDouble() < maxWeight) {
+                                // this one is closer to the cart weight
+                                // TODO: Too complicated but necessary (see not above)
+                                matchingPrice = priceNode;
+                                maxWeight = maxWeightND.getDouble();
+                            }
                         }
                     }
+                    if (matchingPrice != null) {
+                        return new BigDecimal(matchingPrice.getProperty("price").getString());
+                    } else {
+                        log.debug("No matching prices found in shipping option " + shippingOption.getPath());
+                    }
                 }
-                if (matchingPrice != null) {
-                    return new BigDecimal(matchingPrice.getNodeData("price").getString());
-                } else {
-                    log.debug("No matching prices found in shipping option " + shippingOption.getHandle());
-                }
+            } catch (RepositoryException e) {
+                log.debug(e.getMessage(), e);
+                return null;
             }
         }
         return null;
@@ -463,36 +462,41 @@ public final class ShopUtil {
      * @param shippingOption
      * @return
      */
-    public static double getShippingPriceForOption(Content shippingOption, DefaultShoppingCartImpl cart) {
-        BigDecimal price = getShippingPriceForOptionBigDecimal(shippingOption, cart);
-        if (price != null) {
-            String taxCategoryUUID = NodeDataUtil.getString(shippingOption, "taxCategoryUUID");
-            if (StringUtils.isNotBlank(taxCategoryUUID)) {
-                Content taxCategory = ContentUtil.getContentByUUID("data", taxCategoryUUID);
-                if (taxCategory != null) {
-                    if (taxCategory.getNodeData("tax").isExist()) {
-                        double rate = taxCategory.getNodeData("tax").getDouble();
-                        BigDecimal rateBD = new BigDecimal("" + rate);
-                        boolean taxIncluded = NodeDataUtil.getBoolean(shippingOption, "taxIncluded", true);
-
-                        if (cart.getTaxFree() && !taxIncluded) {
-                            // tax not included but has to be payed by seller
-                            // -> charge it to buyer -> add it
-                            price = getPriceIncludingTax(price, rateBD);
-                        } else if (cart.getTaxIncluded() && !taxIncluded) {
-                            // prices in cart are including tax, shipping price
-                            // however is not -> add it
-                            price = getPriceIncludingTax(price, rateBD);
-                        } else if (!cart.getTaxIncluded() && taxIncluded) {
-                            // prices in cart are excluding tax, shipping price
-                            // however is including tax -> substract it
-                            price = getPriceExcludingTax(price, rateBD);
+    public static double getShippingPriceForOption(Node shippingOption, DefaultShoppingCartImpl cart) {
+        try {
+            BigDecimal price = getShippingPriceForOptionBigDecimal(shippingOption, cart);
+            if (price != null) {
+                String taxCategoryUUID = PropertyUtil.getString(shippingOption, "taxCategoryUUID");
+                if (StringUtils.isNotBlank(taxCategoryUUID)) {
+                    Node taxCategory = NodeUtil.getNodeByIdentifier("data", taxCategoryUUID);
+                    if (taxCategory != null) {
+                        if (taxCategory.hasProperty("tax")) {
+                            double rate = taxCategory.getProperty("tax").getDouble();
+                            BigDecimal rateBD = new BigDecimal("" + rate);
+                            boolean taxIncluded = PropertyUtil.getBoolean(shippingOption, "taxIncluded", true);
+    
+                            if (cart.getTaxFree() && !taxIncluded) {
+                                // tax not included but has to be payed by seller
+                                // -> charge it to buyer -> add it
+                                price = getPriceIncludingTax(price, rateBD);
+                            } else if (cart.getTaxIncluded() && !taxIncluded) {
+                                // prices in cart are including tax, shipping price
+                                // however is not -> add it
+                                price = getPriceIncludingTax(price, rateBD);
+                            } else if (!cart.getTaxIncluded() && taxIncluded) {
+                                // prices in cart are excluding tax, shipping price
+                                // however is including tax -> substract it
+                                price = getPriceExcludingTax(price, rateBD);
+                            }
                         }
                     }
                 }
+                return price.doubleValue();
+            } else {
+                return 0;
             }
-            return price.doubleValue();
-        } else {
+        } catch (RepositoryException e) {
+            log.debug(e.getMessage(), e);
             return 0;
         }
     }

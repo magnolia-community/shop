@@ -80,6 +80,7 @@ import java.util.Map;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -752,7 +753,7 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
     }
 
     private boolean assertStringProperty(String nodePath, String propertyName, String expectedValue) throws RepositoryException {
-        return expectedValue.equals(config.getProperty(nodePath + '/' + propertyName).getString());
+        return StringUtils.equals(expectedValue, (config.getProperty(nodePath + '/' + propertyName).getString()));
     }
 
 }
