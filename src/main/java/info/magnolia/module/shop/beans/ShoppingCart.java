@@ -44,15 +44,17 @@ public interface ShoppingCart {
     public int addToShoppingCart(String productUUID, int quantity, Map<String, CartItemOption> options);
     public int addToShoppingCart(String productUUID, int quantity);
 
+    public void updateItemByName(String name, int quantity);
+
     /**
      * Removes item for provided product from cart.
      *
      * @param productUUID
-     * @deprecated Deprecated since v.2.3.0. Use {@link #removeFromShoppingCart(int)}
+     * @deprecated Deprecated since v.2.3.0. Use {@link #removeItemByName(String)}
      */
     @Deprecated
     public void removeFromShoppingCart(String productUUID);
-    public void removeFromShoppingCart(int itemIndex);
+    public void removeItemByName(String itemName);
 
     public ArrayList<ShoppingCartItem> getCartItems();
 
@@ -63,4 +65,13 @@ public interface ShoppingCart {
     public void setLanguage(String language);
 
     public void updateCartData(Map<String, Object> parameters );
+
+    /**
+     * Returns the next available item name. As shopping cart items are not saved before the cart is being processed,
+     * there is no id to identify them within the cart. addToShoppingCart() will now get the next available id and
+     * assign it to the new item. The id will be used as the item's "name".
+     *
+     * @return Next available item name.
+     */
+    public String getNextItemName();
 }

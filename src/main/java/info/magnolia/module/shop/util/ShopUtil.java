@@ -587,10 +587,16 @@ public final class ShopUtil {
         }
     }
 
+
+    public static void updateItemQuantity(String shopName, int quantity, String itemName) {
+        ShoppingCart cart = getShoppingCart(shopName);
+        cart.updateItemByName(itemName, quantity);
+    }
+
     /**
      * @param productUUID
      * @param command
-     * @deprecated Use {@link #updateItemQuantity(String productUUID, String command, String shopName)}
+     * @deprecated Deprecated since v.2.3.0. Use {@link #updateItemQuantity(String shopName, int quantity, String itemName)}
      */
     @Deprecated
     public static void updateItemQuantity(String productUUID, String command) {
@@ -598,20 +604,13 @@ public final class ShopUtil {
         updateItemQuantity(productUUID, command, shopName);
     }
 
-    public static void updateItemQuantity(String shopName, int quantity, int itemIndex) {
-        ShoppingCart cart = getShoppingCart(shopName);
-        if (cart != null && itemIndex >= 0 && itemIndex < cart.getCartItemsCount()) {
-            ShoppingCartItem shoppingCartItem = cart.getCartItems().get(itemIndex);
-            if (quantity <= 0) {
-                // remove from cart
-                cart.getCartItems().remove(shoppingCartItem);
-            } else {
-                // update quantity
-                shoppingCartItem.setQuantity(quantity);
-            }
-        }
-    }
-
+    /**
+     *
+     * @param productUUID
+     * @param command
+     * @deprecated Use {@link #updateItemQuantity(String productUUID, String command, String shopName)}
+     */
+    @Deprecated
     public static void updateItemQuantity(String productUUID, String command, String shopName) {
         ShoppingCart shoppingCart = ShopUtil.getShoppingCart(shopName);
         int indexOfProductInCart = -1;

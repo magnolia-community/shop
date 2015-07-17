@@ -77,6 +77,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     private String paymentID;
     private String userIP;
     private final ArrayList<ShoppingCartItem> cartItems;
+    private int nextAvailableItemID = 0;
     private String priceCategoryUUID;
     private String shippingOptionUUID;
     private String shippingOptionTitle;
@@ -184,7 +185,8 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
                             price = priceNode.getProperty("price").getDouble();
                         }
                     }
-                    this.getCartItems().add(new ShoppingCartItem(this, productUUID, quantity, price, options));
+                    ShoppingCartItem newItem = new ShoppingCartItem(this, productUUID, quantity, price, options);
+                    this.getCartItems().add(newItem);
                 } catch (RepositoryException e) {
                     log.info(e.getMessage(), e);
                 }
@@ -194,24 +196,42 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
         return quantityAdded;
     }
 
+    @Override
+    public void updateItemByName(String name, int quantity) {
+        int itemIndex = indexOfItem(name);
+        if (itemIndex >= 0) {
+            ShoppingCartItem shoppingCartItem = getCartItems().get(itemIndex);
+            if (quantity <= 0) {
+                // remove from cart
+                getCartItems().remove(shoppingCartItem);
+            } else {
+                // update quantity
+                shoppingCartItem.setQuantity(quantity);
+            }
+        }
+    }
+    
     /**
      * Removes the cart item containing the product with the passed in UUID.
      * 
      * @param productUUID
      * @todo When multiple items with the same product should be allowed this will
      * not work anymore.
-     * @deprecated Deprecated since v.2.0.3. Use {@link #removeFromShoppingCart(int)}
+     * @deprecated Deprecated since v.2.0.3. Use {@link #removeItemByName(String)}
      */
     @Deprecated
     @Override
     public void removeFromShoppingCart(String productUUID) {
-        int indexOfProductInCart = indexOfProduct(productUUID);
-        removeFromShoppingCart(indexOfProductInCart);
+        int itemIndex = indexOfProduct(productUUID);
+        if (itemIndex >= 0) {
+            getCartItems().remove(itemIndex);
+        }
     }
 
     @Override
-    public void removeFromShoppingCart(int itemIndex) {
-        if (itemIndex >= 0 && itemIndex < getCartItemsCount()) {
+    public void removeItemByName(String itemName) {
+        int itemIndex = indexOfItem(itemName);
+        if (itemIndex >= 0) {
             getCartItems().remove(itemIndex);
         }
     }
@@ -231,6 +251,19 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
             if (currentCartItem.getProductUUID().equals(productUUID)) {
                 // the product matches -> check the options
                 if (currentCartItem.isOptionsMatching(options)) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    public int indexOfItem(String itemName) {
+        ShoppingCartItem currentCartItem;
+        if (StringUtils.isNotBlank(itemName)) {
+            for (int i = 0; i < cartItems.size(); i++) {
+                currentCartItem = cartItems.get(i);
+                if (itemName.equals(currentCartItem.getName())) {
                     return i;
                 }
             }
@@ -1306,6 +1339,12 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
         setItemTaxTotalFinal(ShopUtil.roundUpTo2Decimal(getItemTaxTotal()));
         setGrossTotalExclTaxFinal(ShopUtil.roundUpTo2Decimal(getGrossItemsTotalExclTax()));
         setGrossTotalInclTaxFinal(ShopUtil.roundUpTo2Decimal(getGrossItemsTotalInclTax()));
+    }
+
+    @Override
+    public String getNextItemName() {
+        nextAvailableItemID++;
+        return "" + nextAvailableItemID;
     }
 
 }

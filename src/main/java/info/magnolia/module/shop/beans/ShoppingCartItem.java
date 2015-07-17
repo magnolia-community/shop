@@ -99,6 +99,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
     public ShoppingCartItem(DefaultShoppingCartImpl cart, Node product, int quantity, Node productPrice) {
         super();
         this.cart = cart;
+        this.setName(cart.getNextItemName());
         this.setProduct(product);
         this.setQuantity(quantity);
         try {
@@ -118,6 +119,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
     public ShoppingCartItem(DefaultShoppingCartImpl cart, String productUUID, int quantity, double unitPrice) {
         super();
         this.cart = cart;
+        this.setName(cart.getNextItemName());
         Node product = null;
         try {
             product = ShopUtil.wrapWithI18n(NodeUtil.getNodeByIdentifier(ShopRepositoryConstants.SHOP_PRODUCTS, productUUID));

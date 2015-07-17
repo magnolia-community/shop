@@ -58,6 +58,7 @@ public class ShoppingCartItemTest extends RepositoryTestCase {
 
     private Node product = mock(Node.class);
     DefaultI18nContentSupport i18n = mock(DefaultI18nContentSupport.class);
+    private DefaultShoppingCartImpl cart;
 
     @Override
     @Before
@@ -74,13 +75,14 @@ public class ShoppingCartItemTest extends RepositoryTestCase {
         product.setProperty("productDescription1", "someDescription");
         product.setProperty("productDescription2", "someDescription2");
 
+        cart = new DefaultShoppingCartImpl();
         MgnlContext.setInstance(ctx);
     }
 
     @Test
     public void isProductLocalizedTest() throws Exception {
         //GIVEN
-        ShoppingCartItem item = new ShoppingCartItem(null, product.getIdentifier(), 0, 0);
+        ShoppingCartItem item = new ShoppingCartItem(cart, product.getIdentifier(), 0, 0);
 
         //WHEN
         item.getProductTitle();
@@ -94,7 +96,7 @@ public class ShoppingCartItemTest extends RepositoryTestCase {
     @Test
     public void getProductPriceTest() throws Exception {
         // GIVEN
-        ShoppingCartItem item = new ShoppingCartItem(null, product.getIdentifier(), 0, 0);
+        ShoppingCartItem item = new ShoppingCartItem(cart, product.getIdentifier(), 0, 0);
         DefaultShoppingCartImpl cart = new DefaultShoppingCartImpl();
         cart.addCartItem(item);
 
@@ -107,7 +109,7 @@ public class ShoppingCartItemTest extends RepositoryTestCase {
     @Test
     public void getProductNotThereAnymoreDuringDeserializationTest() throws Exception {
         // WHEN
-        ShoppingCartItem item = new ShoppingCartItem(null, "some-id-that-doesn't-exist", 0, 0);
+        ShoppingCartItem item = new ShoppingCartItem(cart, "some-id-that-doesn't-exist", 0, 0);
 
         // THEN - no exception occurs
     }
