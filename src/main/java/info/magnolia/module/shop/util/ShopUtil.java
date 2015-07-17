@@ -75,9 +75,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Paragraphs util class.
- *
- * @author tmiyar
- *
  */
 public final class ShopUtil {
 
@@ -653,6 +650,23 @@ public final class ShopUtil {
         MgnlContext.removeAttribute(shopName + "_" + ATTRIBUTE_SHOPPINGCART, Context.SESSION_SCOPE);
         // initialize new cart
         ShopUtil.setShoppingCartInSession(shopName);
+    }
+    
+    public static Collection<Node> xpathQuery(String workspace, String xpath, String returnType, boolean wrapWithI18n) {
+        List<Node> result = new ArrayList<Node>();
+        try {
+            NodeIterator ni = QueryUtil.search(workspace, xpath, javax.jcr.query.Query.XPATH, returnType);
+            while (ni.hasNext()) {
+                if (wrapWithI18n) {
+                    result.add(wrapWithI18n(ni.nextNode()));
+                } else {
+                    result.add(ni.nextNode());
+                }
+            }
+        } catch (RepositoryException e) {
+            log.info(e.getMessage(), e);
+        }
+        return result;
     }
 
 }

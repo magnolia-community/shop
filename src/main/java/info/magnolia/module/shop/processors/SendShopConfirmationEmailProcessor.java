@@ -57,9 +57,7 @@ public class SendShopConfirmationEmailProcessor extends SendConfirmationEMailPro
             DefaultShoppingCartImpl cart = (DefaultShoppingCartImpl) ShopUtil.getPreviousShoppingCart(ShopUtil.getShopName());
             if (cart == null) {
                 throw new FormProcessorFailedException("cart.not.found");
-                
             }
-            
             parameters.put("cart",cart);
             parameters.put("cartId",cart.getName());
             super.internalProcess(content, parameters);

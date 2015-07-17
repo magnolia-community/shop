@@ -33,9 +33,6 @@
  */
 package info.magnolia.module.shop.beans;
 
-import info.magnolia.cms.core.Content;
-import info.magnolia.cms.i18n.I18nContentWrapper;
-import info.magnolia.cms.util.NodeDataUtil;
 import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
@@ -45,7 +42,6 @@ import info.magnolia.module.shop.util.ShopUtil;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
@@ -176,16 +172,19 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
                 existingCartItem.setQuantity(existingCartItem.getQuantity() + quantity);
             } else {
                 double price = 0.0;
-                String queryString = "//*[@jcr:uuid='" + productUUID
-                        + "']/prices/element(*,mgnl:contentNode)[@priceCategoryUUID = '" + this.getPriceCategoryUUID() + "']";
-                Collection<Content> matching = QueryUtil.query(ShopRepositoryConstants.SHOP_PRODUCTS, queryString, "xpath", "mgnl:contentNode");
-                if (!matching.isEmpty()) {
-                    Content priceNode = new I18nContentWrapper(matching.iterator().next());
-                    if (priceNode.getNodeData("price").isExist()) {
-                        price = priceNode.getNodeData("price").getDouble();
+                String queryString = "//*[@jcr:uuid='" + productUUID + "']/prices/element(*,mgnl:contentNode)[@priceCategoryUUID = '" + this.getPriceCategoryUUID() + "']";
+                try {
+                    NodeIterator matching = QueryUtil.search(ShopRepositoryConstants.SHOP_PRODUCTS, queryString, javax.jcr.query.Query.XPATH, "mgnl:contentNode");
+                    if (matching.hasNext()) {
+                        Node priceNode = matching.nextNode();
+                        if (priceNode.hasProperty("price")) {
+                            price = priceNode.getProperty("price").getDouble();
+                        }
                     }
+                    this.getCartItems().add(new ShoppingCartItem(this, productUUID, quantity, price, options));
+                } catch (RepositoryException e) {
+                    log.info(e.getMessage(), e);
                 }
-                this.getCartItems().add(new ShoppingCartItem(this, productUUID, quantity, price, options));
             }
             quantityAdded = quantity;
         }
@@ -518,10 +517,10 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
             if (StringUtils.isNotBlank(shippingAddressCountry)) {
                 // get country
                 String queryString = "/jcr:root/shops/" + ShopUtil.getShopName() + "/countries/element(*,shopCountry)[@name='" + shippingAddressCountry + "']";
-                Collection<Content> matching = QueryUtil.query("data", queryString, "xpath", "shopCountry");
-                if (!matching.isEmpty()) {
-                    Content country = matching.iterator().next();
-                    setTaxFree(!NodeDataUtil.getBoolean(country, "liableToVAT", true));
+                NodeIterator matching = QueryUtil.search("data", queryString, javax.jcr.query.Query.XPATH, "shopCountry");
+                if (matching.hasNext()) {
+                    Node country = ShopUtil.wrapWithI18n(matching.nextNode());
+                    setTaxFree(!PropertyUtil.getBoolean(country, "liableToVAT", true));
                 }
             } else {
                 setTaxFree(false);

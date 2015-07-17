@@ -33,14 +33,13 @@
  */
 package info.magnolia.module.shop.accessors;
 
-import info.magnolia.cms.core.Content;
 import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.shop.util.ShopUtil;
 
-import java.util.Collection;
-
 import javax.jcr.Node;
+import javax.jcr.NodeIterator;
+import javax.jcr.RepositoryException;
 
 import org.apache.jackrabbit.util.ISO9075;
 import org.slf4j.Logger;
@@ -48,8 +47,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * CustomData interface implementation.
- * @author tmiyar
- *
  */
 public abstract class DefaultCustomDataAccessor implements CustomDataAccessor {
 
@@ -72,11 +69,15 @@ public abstract class DefaultCustomDataAccessor implements CustomDataAccessor {
             rootPath = "";
         }
         String xpath = "/jcr:root" + rootPath + "//" + ISO9075.encode(name);
-        Collection<Content> nodeCollection = QueryUtil.query(workspace, xpath, "xpath", nodeType);
-
-        if(!nodeCollection.isEmpty()) {
-            Node node = nodeCollection.iterator().next().getJCRNode();
-            return ShopUtil.wrapWithI18n(node);
+        NodeIterator nodeCollection;
+        try {
+            nodeCollection = QueryUtil.search(workspace, xpath, javax.jcr.query.Query.XPATH, nodeType);
+            if(nodeCollection.hasNext()) {
+                Node node = nodeCollection.nextNode();
+                return ShopUtil.wrapWithI18n(node);
+            }
+        } catch (RepositoryException e) {
+            log.error(name + " of type " + nodeType + " not found in path " + rootPath, e);
         }
         log.error(name + " of type " + nodeType + " not found in path " + rootPath);
         return null;

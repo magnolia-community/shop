@@ -33,40 +33,37 @@
  */
 package info.magnolia.module.shop.util;
 
-import info.magnolia.cms.core.Content;
+import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.module.templatingkit.navigation.Link;
 import info.magnolia.templating.functions.TemplatingFunctions;
 
-import org.apache.commons.lang.StringUtils;
+import javax.jcr.Node;
 
 /**
- * Gets the propert link for shop navigation items.
- * @author tmiyar
- *
+ * Gets the proper link for shop navigation items.
  */
 public class ShopLinkImpl implements Link {
-    private Content node;
+    private Node node;
     private TemplatingFunctions functions;
 
-    public ShopLinkImpl(TemplatingFunctions functions, Content node) {
+    public ShopLinkImpl(TemplatingFunctions functions, Node node) {
         this.node = node;
         this.functions = functions;
     }
 
     @Override
     public String getTitle(){
-        return StringUtils.defaultIfEmpty(node.getTitle(), node.getName());
+        return PropertyUtil.getString(node, "title", PropertyUtil.getString(node, "name"));
     }
 
     @Override
     public String getNavigationTitle(){
-        String navigationTitle = node.getNodeData("navigationTitle").getString();
-        return StringUtils.defaultIfEmpty(StringUtils.defaultIfEmpty(navigationTitle, node.getTitle()), node.getName());
+        return PropertyUtil.getString(node, "navigationTitle", getTitle());
     }
 
     @Override
     public String getHref(){
-        return ShopLinkUtil.getProductCategoryLink(functions, node.getJCRNode());
+        return ShopLinkUtil.getProductCategoryLink(functions, node);
     }
 
 }

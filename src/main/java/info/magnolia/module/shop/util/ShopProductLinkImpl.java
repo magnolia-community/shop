@@ -33,9 +33,8 @@
  */
 package info.magnolia.module.shop.util;
 
-import info.magnolia.cms.core.Content;
-import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.context.MgnlContext;
+import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.module.templatingkit.navigation.Link;
 import info.magnolia.module.templatingkit.templates.category.TemplateCategory;
 import info.magnolia.module.templatingkit.templates.category.TemplateCategoryUtil;
@@ -44,7 +43,6 @@ import info.magnolia.templating.functions.TemplatingFunctions;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,30 +64,29 @@ public class ShopProductLinkImpl implements Link {
 
     @Override
     public String getTitle() {
-        return StringUtils.defaultIfEmpty(ContentUtil.asContent(node).getTitle(), ContentUtil.asContent(node).getName());
+        return PropertyUtil.getString(node, "title", PropertyUtil.getString(node, "name"));
     }
 
     @Override
     public String getNavigationTitle() {
-        String navigationTitle = ContentUtil.asContent(node).getNodeData("navigationTitle").getString();
-        return StringUtils.defaultIfEmpty(StringUtils.defaultIfEmpty(navigationTitle, ContentUtil.asContent(node).getTitle()), ContentUtil.asContent(node).getName());
+        return PropertyUtil.getString(node, "navigationTitle", getTitle());
     }
 
     @Override
     public String getHref() {
-        Content currentPage = MgnlContext.getAggregationState().getMainContent();
-        Content siteRoot = null;
+        Node currentPage = MgnlContext.getAggregationState().getMainContentNode();
+        Node siteRoot = null;
         try {
             siteRoot = TemplateCategoryUtil.findParentWithTemplateCategory(currentPage, TemplateCategory.HOME);
             if (siteRoot == null) {
-                siteRoot = currentPage.getAncestor(0);
+                siteRoot = (Node) currentPage.getAncestor(0);
             }
         } catch (RepositoryException ex) {
             log.error("Could not get site root", ex);
         }
 
         try {
-            return ShopLinkUtil.getProductDetailPageLink(functions, node, MgnlContext.getAggregationState().getMainContent().getJCRNode(), null);
+            return ShopLinkUtil.getProductDetailPageLink(functions, node, MgnlContext.getAggregationState().getMainContentNode(), null);
         } catch (RepositoryException ex) {
             log.error("Failed to create product detail page link.", ex);
             return "";

@@ -33,8 +33,6 @@
  */
 package info.magnolia.module.shop.components;
 
-import info.magnolia.cms.core.Content;
-import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.module.form.templates.components.FormFieldModel;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.rendering.model.RenderingModel;
@@ -57,8 +55,7 @@ public class CountrySelectionParagraphModel<RD extends RenderableDefinition> ext
         super(content, definition, parent, functions);
     }
 
-    public Collection<Content> getCountries() {
-        String queryString = "/jcr:root/shops/" + ShopUtil.getShopName() + "/countries//element(*,shopCountry)";
-        return QueryUtil.query("data", queryString, "xpath", "shopCountry");
+    public Collection<Node> getCountries() {
+        return ShopUtil.xpathQuery("data", "/jcr:root/shops/" + ShopUtil.getShopName() + "/countries//element(*,shopCountry)", "shopCountry", false);
     }
 }

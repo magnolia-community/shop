@@ -33,7 +33,6 @@
  */
 package info.magnolia.module.shop.processors;
 
-import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.context.SystemContext;
 import info.magnolia.module.form.processors.AbstractFormProcessor;
@@ -66,8 +65,6 @@ import ch.fastforward.magnolia.ocm.ext.MgnlObjectConverterImpl;
 
 /**
  * Saves the shoppingcart into data module using ocm.
- * @author tmiyar
- *
  */
 public class SaveAndConfirmFormProcessor extends AbstractFormProcessor {
     private static Logger log = LoggerFactory.getLogger(SaveAndConfirmFormProcessor.class);

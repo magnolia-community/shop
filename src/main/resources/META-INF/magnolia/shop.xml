@@ -7,15 +7,15 @@
   <class>info.magnolia.module.shop.ShopModule</class>
   <versionHandler>info.magnolia.module.shop.setup.ShopModuleVersionHandler</versionHandler>
   <version>${project.version}</version>
-  <components>
-      <id>main</id>
+<!--   <components>
+    <id>main</id>
     <component>
       <type>info.magnolia.module.shop.util.SimpleBean2ContentProcessorImpl</type>
       <implementation>info.magnolia.module.shop.util.SimpleBean2ContentProcessorImpl</implementation>
       <scope>singleton</scope>
       <lazy>true</lazy>
-  </component>
-</components>
+    </component>
+  </components> -->
   <dependencies>
     <dependency>
       <name>core</name>
