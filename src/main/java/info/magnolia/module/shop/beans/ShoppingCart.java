@@ -41,26 +41,26 @@ import java.util.Map;
  * @author will
  */
 public interface ShoppingCart {
-	public int addToShoppingCart(String productUUID, int quantity, Map<String, CartItemOption> options);
-	public int addToShoppingCart(String productUUID, int quantity);
+    public int addToShoppingCart(String productUUID, int quantity, Map<String, CartItemOption> options);
+    public int addToShoppingCart(String productUUID, int quantity);
 
-	/**
-	 * Removes item for provided product from cart.
-	 *
-	 * @param productUUID
-	 * @deprecated Deprecated since v.2.3.0. Use {@link #removeFromShoppingCart(int)}
-	 */
-	@Deprecated
-	public void removeFromShoppingCart(String productUUID);
-	public void removeFromShoppingCart(int itemIndex);
+    /**
+     * Removes item for provided product from cart.
+     *
+     * @param productUUID
+     * @deprecated Deprecated since v.2.3.0. Use {@link #removeFromShoppingCart(int)}
+     */
+    @Deprecated
+    public void removeFromShoppingCart(String productUUID);
+    public void removeFromShoppingCart(int itemIndex);
 
-	public ArrayList<ShoppingCartItem> getCartItems();
+    public ArrayList<ShoppingCartItem> getCartItems();
 
-	public int getCartItemsCount();
+    public int getCartItemsCount();
 
-	public String getLanguage();
+    public String getLanguage();
 
-	public void setLanguage(String language);
+    public void setLanguage(String language);
 
-	public void updateCartData(Map<String, Object> parameters );
+    public void updateCartData(Map<String, Object> parameters );
 }
