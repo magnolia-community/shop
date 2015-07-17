@@ -39,11 +39,7 @@ import info.magnolia.module.shop.util.ShopUtil;
 import javax.jcr.Node;
 
 /**
- * Implement this class to get the category price used by i.e. user selected
- * shop
- *
- * @author tmiyar
- *
+ * Implement this class to get the category price used by i.e. user selected shop.
  */
 public class DefaultPriceCategoryManagerImpl implements PriceCategoryManager {
     private String defaultPriceCategory;
