@@ -40,6 +40,7 @@ import info.magnolia.module.form.processors.FormProcessorFailedException;
 import info.magnolia.module.shop.ShopConfiguration;
 import info.magnolia.module.shop.accessors.ShopAccessor;
 import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
+import info.magnolia.module.shop.beans.ShoppingCart;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.objectfactory.Components;
 
@@ -130,41 +131,9 @@ public class SaveAndConfirmFormProcessor extends AbstractFormProcessor {
         }
 
     }
-    protected void loadCustomerData(DefaultShoppingCartImpl cart, Map<String, Object> parameters ) {
-        //billing address
-        cart.setBillingAddressCompany((String) parameters.get("billingAddressCompany"));
-        cart.setBillingAddressCompany2((String) parameters.get("billingAddressCompany2"));
-        cart.setBillingAddressFirstname((String) parameters.get("billingAddressFirstname"));
-        cart.setBillingAddressLastname((String) parameters.get("billingAddressLastname"));
-        cart.setBillingAddressSex((String) parameters.get("billingAddressSex"));
-        cart.setBillingAddressTitle((String) parameters.get("billingAddressTitle"));
-        cart.setBillingAddressStreet((String) parameters.get("billingAddressStreet"));
-        cart.setBillingAddressStreet2((String) parameters.get("billingAddressStreet2"));
-        cart.setBillingAddressZip((String) parameters.get("billingAddressZip"));
-        cart.setBillingAddressCity((String) parameters.get("billingAddressCity"));
-        cart.setBillingAddressState((String) parameters.get("billingAddressState"));
-        cart.setBillingAddressCountry((String) parameters.get("billingAddressCountry"));
-        cart.setBillingAddressPhone((String) parameters.get("billingAddressPhone"));
-        cart.setBillingAddressMobile((String) parameters.get("billingAddressMobile"));
-        cart.setBillingAddressMail((String) parameters.get("billingAddressMail"));
-        //shipping address
-        if(StringUtils.isEmpty((String) parameters.get("shippingSameAsBilling"))) {
-            cart.setShippingAddressCompany((String) parameters.get("shippingAddressCompany"));
-            cart.setShippingAddressCompany2((String) parameters.get("shippingAddressCompany2"));
-            cart.setShippingAddressFirstname((String) parameters.get("shippingAddressFirstname"));
-            cart.setShippingAddressLastname((String) parameters.get("shippingAddressLastname"));
-            cart.setShippingAddressSex((String) parameters.get("shippingAddressSex"));
-            cart.setShippingAddressTitle((String) parameters.get("shippingAddressTitle"));
-            cart.setShippingAddressStreet((String) parameters.get("shippingAddressStreet"));
-            cart.setShippingAddressStreet2((String) parameters.get("shippingAddressStreet2"));
-            cart.setShippingAddressZip((String) parameters.get("shippingAddressZip"));
-            cart.setShippingAddressCity((String) parameters.get("shippingAddressCity"));
-            cart.setShippingAddressState((String) parameters.get("shippingAddressState"));
-            cart.setShippingAddressCountry((String) parameters.get("shippingAddressCountry"));
-            cart.setShippingAddressPhone((String) parameters.get("shippingAddressPhone"));
-            cart.setShippingAddressMobile((String) parameters.get("shippingAddressMobile"));
-            cart.setShippingAddressMail((String) parameters.get("shippingAddressMail"));
-        }
+
+    protected void loadCustomerData(ShoppingCart cart, Map<String, Object> parameters ) {
+        cart.updateCartData(parameters);
     }
 
 }

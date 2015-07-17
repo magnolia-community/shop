@@ -33,14 +33,8 @@
  */
 package info.magnolia.module.shop.components;
 
-import info.magnolia.cms.core.MgnlNodeType;
 import info.magnolia.cms.util.SelectorUtil;
 import info.magnolia.context.MgnlContext;
-import info.magnolia.jcr.util.NodeUtil;
-import info.magnolia.jcr.util.PropertyUtil;
-import info.magnolia.module.shop.ShopConfiguration;
-import info.magnolia.module.shop.ShopRepositoryConstants;
-import info.magnolia.module.shop.accessors.ShopAccessor;
 import info.magnolia.module.shop.accessors.ShopProductAccessor;
 import info.magnolia.module.shop.beans.ShoppingCart;
 import info.magnolia.module.shop.util.ShopLinkUtil;
@@ -57,8 +51,6 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.jcr.Node;
-import javax.jcr.NodeIterator;
-import javax.jcr.Property;
 import javax.jcr.RepositoryException;
 import javax.jcr.ValueFormatException;
 
@@ -109,30 +101,7 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
     }
 
     public TemplateProductPriceBean getProductPriceBean(Node product) {
-        try {
-            ShopConfiguration shopConfiguration = new ShopAccessor(ShopUtil.getShopName()).getShopConfiguration();
-
-            Node priceCategory = ShopUtil.getShopPriceCategory(shopConfiguration);
-
-            Node currency = ShopUtil.getCurrencyByUUID(PropertyUtil.getString(priceCategory, "currencyUUID"));
-            Node tax = getTaxByUUID(PropertyUtil.getString(product, "taxCategoryUUID"));
-
-            TemplateProductPriceBean bean = new TemplateProductPriceBean();
-            bean.setFormatting(PropertyUtil.getString(currency, "formatting"));
-            bean.setPrice(getProductPriceByCategory(product, priceCategory.getIdentifier()));
-            bean.setCurrency(PropertyUtil.getString(currency, "title"));
-            boolean taxIncluded = PropertyUtil.getBoolean(priceCategory, "taxIncluded", false);
-            if (taxIncluded) {
-                bean.setTaxIncluded(ShopUtil.getMessages().get("tax.included"));
-            } else {
-                bean.setTaxIncluded(ShopUtil.getMessages().get("tax.no.included"));
-            }
-
-            bean.setTax(PropertyUtil.getString(tax, "tax"));
-            return bean;
-        } catch (Exception e) {
-            return new TemplateProductPriceBean();
-        }
+        return ShopUtil.getProductPriceBean(product);
     }
 
     public Collection<Node> getOptionSets(Node product) {
@@ -166,31 +135,11 @@ public class ShopParagraphModel extends AbstractItemListModel<TemplateDefinition
     }
 
     public Node getTaxByUUID(String uuid) {
-        try {
-            return ShopUtil.wrapWithI18n(NodeUtil.getNodeByIdentifier(ShopRepositoryConstants.SHOPS, uuid));
-        } catch (RepositoryException e) {
-            log.error("Cant get tax category " + uuid, e);
-        }
-        return null;
+        return ShopUtil.getTaxByUUID(uuid);
     }
 
     protected Double getProductPriceByCategory(Node product, String priceCategoryUUID) throws ValueFormatException, RepositoryException {
-        Node pricesNode = product.getNode("prices");
-        if (pricesNode.hasNodes()) {
-            for (NodeIterator iterator = pricesNode.getNodes(); iterator.hasNext();) {
-                Node priceNode = (Node) iterator.next();
-                if (!priceNode.isNodeType(MgnlNodeType.NT_METADATA)) {
-                    Node price = ShopUtil.wrapWithI18n(priceNode);
-                    if (price.hasProperty("priceCategoryUUID") && PropertyUtil.getString(price, "priceCategoryUUID").equals(priceCategoryUUID)) {
-                        Property productPrice = PropertyUtil.getPropertyOrNull(price, "price");
-                        if (productPrice != null) {
-                            return productPrice.getDouble();
-                        }
-                    }
-                }
-            }
-        }
-        return null;
+        return ShopUtil.getProductPriceByCategory(product, priceCategoryUUID);
     }
 
     /**

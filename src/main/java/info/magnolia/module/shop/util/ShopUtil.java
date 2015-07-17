@@ -51,6 +51,7 @@ import info.magnolia.module.shop.beans.CartItemOption;
 import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
 import info.magnolia.module.shop.beans.ShoppingCart;
 import info.magnolia.module.shop.beans.ShoppingCartItem;
+import info.magnolia.module.shop.components.TemplateProductPriceBean;
 import info.magnolia.module.templatingkit.templates.category.TemplateCategoryUtil;
 import info.magnolia.repository.RepositoryConstants;
 
@@ -68,6 +69,7 @@ import javax.jcr.PathNotFoundException;
 import javax.jcr.Property;
 import javax.jcr.PropertyIterator;
 import javax.jcr.RepositoryException;
+import javax.jcr.ValueFormatException;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -153,9 +155,9 @@ public final class ShopUtil {
             DefaultShoppingCartImpl cart = (DefaultShoppingCartImpl) getShoppingCart(shopName);
             ShopConfiguration shopConfiguration = null;
             try {
-                shopConfiguration = new ShopAccessor(getShopName()).getShopConfiguration();
+                shopConfiguration = new ShopAccessor(shopName).getShopConfiguration();
             } catch (Exception e) {
-                log.error("cant get shop configuration for " + getShopName());
+                log.error("cant get shop configuration for " + shopName);
             }
             if (cart == null && shopConfiguration != null) {
 
@@ -163,7 +165,7 @@ public final class ShopUtil {
                     cart = shopConfiguration.getCartClass();
                     MgnlContext.setAttribute(shopName + "_" + ATTRIBUTE_SHOPPINGCART, cart, Context.SESSION_SCOPE);
                 } catch (Exception e) {
-                    log.error("Error in shop " + getShopName(), e);
+                    log.error("Error in shop " + shopName, e);
                 }
             }
         }
@@ -607,6 +609,20 @@ public final class ShopUtil {
         updateItemQuantity(productUUID, command, shopName);
     }
 
+    public static void updateItemQuantity(String shopName, int quantity, int itemIndex) {
+        ShoppingCart cart = getShoppingCart(shopName);
+        if (cart != null && itemIndex >= 0 && itemIndex < cart.getCartItemsCount()) {
+            ShoppingCartItem shoppingCartItem = cart.getCartItems().get(itemIndex);
+            if (quantity <= 0) {
+                // remove from cart
+                cart.getCartItems().remove(shoppingCartItem);
+            } else {
+                // update quantity
+                shoppingCartItem.setQuantity(quantity);
+            }
+        }
+    }
+
     public static void updateItemQuantity(String productUUID, String command, String shopName) {
         ShoppingCart shoppingCart = ShopUtil.getShoppingCart(shopName);
         int indexOfProductInCart = -1;
@@ -668,5 +684,66 @@ public final class ShopUtil {
         }
         return result;
     }
+
+    public static TemplateProductPriceBean getProductPriceBean(Node product) {
+        return getProductPriceBean(product, ShopUtil.getShopName());
+    }
+
+    public static TemplateProductPriceBean getProductPriceBean(Node product, String shopName) {
+        try {
+            ShopConfiguration shopConfiguration = new ShopAccessor(shopName).getShopConfiguration();
+
+            Node priceCategory = getShopPriceCategory(shopConfiguration);
+
+            Node currency = getCurrencyByUUID(PropertyUtil.getString(priceCategory, "currencyUUID"));
+            Node tax = getTaxByUUID(PropertyUtil.getString(product, "taxCategoryUUID"));
+
+            TemplateProductPriceBean bean = new TemplateProductPriceBean();
+            bean.setFormatting(PropertyUtil.getString(currency, "formatting"));
+            bean.setPrice(getProductPriceByCategory(product, priceCategory.getIdentifier()));
+            bean.setCurrency(PropertyUtil.getString(currency, "title"));
+            boolean taxIncluded = PropertyUtil.getBoolean(priceCategory, "taxIncluded", false);
+            if (taxIncluded) {
+                bean.setTaxIncluded(getMessages().get("tax.included"));
+            } else {
+                bean.setTaxIncluded(getMessages().get("tax.no.included"));
+            }
+
+            bean.setTax(PropertyUtil.getString(tax, "tax"));
+            return bean;
+        } catch (Exception e) {
+            return new TemplateProductPriceBean();
+        }
+    }
+
+    public static Node getTaxByUUID(String uuid) {
+        try {
+            return wrapWithI18n(NodeUtil.getNodeByIdentifier(ShopRepositoryConstants.SHOPS, uuid));
+        } catch (RepositoryException e) {
+            log.error("Cant get tax category " + uuid, e);
+        }
+        return null;
+    }
+
+    public static Double getProductPriceByCategory(Node product, String priceCategoryUUID) throws ValueFormatException, RepositoryException {
+        // TODO: wouldn't that be better with a query?
+        Node pricesNode = product.getNode("prices");
+        if (pricesNode.hasNodes()) {
+            for (NodeIterator iterator = pricesNode.getNodes(); iterator.hasNext();) {
+                Node priceNode = (Node) iterator.next();
+                if (!priceNode.isNodeType("mgnl:metaData")) {
+                    Node price = ShopUtil.wrapWithI18n(priceNode);
+                    if (price.hasProperty("priceCategoryUUID") && PropertyUtil.getString(price, "priceCategoryUUID").equals(priceCategoryUUID)) {
+                        Property productPrice = PropertyUtil.getPropertyOrNull(price, "price");
+                        if (productPrice != null) {
+                            return productPrice.getDouble();
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
 
 }

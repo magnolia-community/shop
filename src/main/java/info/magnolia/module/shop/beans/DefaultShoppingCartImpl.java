@@ -150,7 +150,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     }
 
     /**
-     * Addes a product to the cart. If there is already a cart item for this
+     * Adds a product to the cart. If there is already a cart item for this
      * product the items quantity will be increased
      * 
      * @param productUUID
@@ -197,12 +197,19 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
      * @param productUUID
      * @todo When multiple items with the same product should be allowed this will
      * not work anymore.
+     * @deprecated Deprecated since v.2.0.3. Use {@link #removeFromShoppingCart(int)}
      */
+    @Deprecated
     @Override
     public void removeFromShoppingCart(String productUUID) {
         int indexOfProductInCart = indexOfProduct(productUUID);
-        if (indexOfProductInCart >= 0) {
-            getCartItems().remove(indexOfProductInCart);
+        removeFromShoppingCart(indexOfProductInCart);
+    }
+
+    @Override
+    public void removeFromShoppingCart(int itemIndex) {
+        if (itemIndex >= 0 && itemIndex < getCartItemsCount()) {
+            getCartItems().remove(itemIndex);
         }
     }
 
@@ -1208,4 +1215,66 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     public void setFormStateToken(String formStateToken) {
         this.formStateToken = formStateToken;
     }
+
+    /**
+     * Updates the general shopping cart data with the data provided. For security reasons only selected attributes
+     * are updated with this method (address, terms, but nothing concerning the items, order date etc.)
+     * @param parameters New data to be filled in.
+     */
+    public void updateCartData(Map<String, Object> parameters ) {
+        // TODO: Find an easy way to keep this safe AND get rid of the boiler plate code
+        //billing address
+        setBillingAddressCompany((String) parameters.get("billingAddressCompany"));
+        setBillingAddressCompany2((String) parameters.get("billingAddressCompany2"));
+        setBillingAddressFirstname((String) parameters.get("billingAddressFirstname"));
+        setBillingAddressLastname((String) parameters.get("billingAddressLastname"));
+        setBillingAddressSex((String) parameters.get("billingAddressSex"));
+        setBillingAddressTitle((String) parameters.get("billingAddressTitle"));
+        setBillingAddressStreet((String) parameters.get("billingAddressStreet"));
+        setBillingAddressStreet2((String) parameters.get("billingAddressStreet2"));
+        setBillingAddressZip((String) parameters.get("billingAddressZip"));
+        setBillingAddressCity((String) parameters.get("billingAddressCity"));
+        setBillingAddressState((String) parameters.get("billingAddressState"));
+        setBillingAddressCountry((String) parameters.get("billingAddressCountry"));
+        setBillingAddressPhone((String) parameters.get("billingAddressPhone"));
+        setBillingAddressMobile((String) parameters.get("billingAddressMobile"));
+        setBillingAddressMail((String) parameters.get("billingAddressMail"));
+        //shipping address
+        if(StringUtils.isEmpty((String) parameters.get("shippingSameAsBilling"))) {
+            setShippingAddressCompany((String) parameters.get("shippingAddressCompany"));
+            setShippingAddressCompany2((String) parameters.get("shippingAddressCompany2"));
+            setShippingAddressFirstname((String) parameters.get("shippingAddressFirstname"));
+            setShippingAddressLastname((String) parameters.get("shippingAddressLastname"));
+            setShippingAddressSex((String) parameters.get("shippingAddressSex"));
+            setShippingAddressTitle((String) parameters.get("shippingAddressTitle"));
+            setShippingAddressStreet((String) parameters.get("shippingAddressStreet"));
+            setShippingAddressStreet2((String) parameters.get("shippingAddressStreet2"));
+            setShippingAddressZip((String) parameters.get("shippingAddressZip"));
+            setShippingAddressCity((String) parameters.get("shippingAddressCity"));
+            setShippingAddressState((String) parameters.get("shippingAddressState"));
+            setShippingAddressCountry((String) parameters.get("shippingAddressCountry"));
+            setShippingAddressPhone((String) parameters.get("shippingAddressPhone"));
+            setShippingAddressMobile((String) parameters.get("shippingAddressMobile"));
+            setShippingAddressMail((String) parameters.get("shippingAddressMail"));
+        }
+        setOrderAddressCompany((String) parameters.get("orderAddressCompany"));
+        setOrderAddressCompany2((String) parameters.get("orderAddressCompany2"));
+        setOrderAddressFirstname((String) parameters.get("orderAddressFirstname"));
+        setOrderAddressLastname((String) parameters.get("orderAddressLastname"));
+        setOrderAddressSex((String) parameters.get("orderAddressSex"));
+        setOrderAddressTitle((String) parameters.get("orderAddressTitle"));
+        setOrderAddressStreet((String) parameters.get("orderAddressStreet"));
+        setOrderAddressStreet2((String) parameters.get("orderAddressStreet2"));
+        setOrderAddressZip((String) parameters.get("orderAddressZip"));
+        setOrderAddressCity((String) parameters.get("orderAddressCity"));
+        setOrderAddressState((String) parameters.get("orderAddressState"));
+        setOrderAddressCountry((String) parameters.get("orderAddressCountry"));
+        setOrderAddressPhone((String) parameters.get("orderAddressPhone"));
+        setOrderAddressMobile((String) parameters.get("orderAddressMobile"));
+        setOrderAddressMail((String) parameters.get("orderAddressMail"));
+        if (parameters.containsKey("termsAccepted") && parameters.get("termsAccepted").toString().equalsIgnoreCase("true")) {
+            setTermsAccepted(true);
+        }
+    }
+
 }
