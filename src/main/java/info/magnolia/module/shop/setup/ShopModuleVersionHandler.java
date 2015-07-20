@@ -75,6 +75,7 @@ import info.magnolia.module.form.setup.ChangeValidationToMultiValuedPropertyTask
 import info.magnolia.module.inplacetemplating.setup.TemplatesInstallTask;
 import info.magnolia.module.resources.setup.InstallResourcesTask;
 import info.magnolia.module.shop.ShopRepositoryConstants;
+import info.magnolia.module.shop.app.action.GenerateInvoicePdfActionDefinition;
 import info.magnolia.module.shop.app.field.definition.PriceCategoriesSelectFieldDefinition;
 import info.magnolia.module.shop.components.CheckDisableFieldsModel;
 import info.magnolia.module.shop.components.FormStepConfirmOrderParagraphModel;
@@ -690,6 +691,9 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
     public static final String V_2_3_0_NODEPATH_SHOPPRODUCTSEARCHRESULT = "/modules/shop/templates/components/features/shopProductSearchResult";
     public static final String V_2_3_0_NODEPATH_SHOPEXTRASTAGCLOUD = "/modules/shop/templates/components/extras/shopExtrasTagCloud";
     
+    public static final String V_2_3_0_NODEPATH_ACTIONBAR_GENERATEINVOICEPDF = "/modules/shop/apps/shoppingCarts/subApps/browser/actionbar/sections/nodes/groups/invoiceActions/items/generateInvoicePdf";
+    public static final String V_2_3_0_NODEPATH_ACTION_GENERATEINVOICEPDF = "/modules/shop/apps/shoppingCarts/subApps/browser/actions/generateInvoicePdf";
+    
     private List<Task> getExtraTasksFor_2_3_0() {
         ArrayList<Task> tasks = new ArrayList<Task>();
         
@@ -712,6 +716,12 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
         tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPPRODUCTSEARCHRESULT, NodeTypes.Content.NAME));
         tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPEXTRASTAGCLOUD, NodeTypes.Content.NAME));
         
+        tasks.add(new CreateNodePathTask("Implement generate invoice.", V_2_3_0_NODEPATH_ACTIONBAR_GENERATEINVOICEPDF, NodeTypes.ContentNode.NAME));
+        tasks.add(new CreateNodePathTask("Implement generate invoice.", V_2_3_0_NODEPATH_ACTION_GENERATEINVOICEPDF, NodeTypes.ContentNode.NAME));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_ACTION_GENERATEINVOICEPDF, "class", GenerateInvoicePdfActionDefinition.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_ACTION_GENERATEINVOICEPDF, "icon", "icon-export"));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_ACTION_GENERATEINVOICEPDF, "label", "Generate Invoice PDF"));
+        
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPFORMSTEP, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, FormStepConfirmOrderParagraphModel.class.getName()));
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPFORMSTEPCONFIRMORDER, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, FormStepConfirmOrderParagraphModel.class.getName()));
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPEXTRASPRODUCTSEARCH, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ProductSearchParagraphModel.class.getName()));
@@ -727,6 +737,7 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPSHOPPINGCART, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShoppingCartParagraphModel.class.getName()));
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPPRODUCTSEARCHRESULT, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShopProductSearchResultParagraphModel.class.getName()));
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPEXTRASTAGCLOUD, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShopTagCloudParagraph.class.getName()));
+        
         
         tasks.add(new RefactorPackageNameTask());
         

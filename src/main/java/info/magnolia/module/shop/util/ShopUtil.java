@@ -55,6 +55,9 @@ import info.magnolia.module.shop.components.TemplateProductPriceBean;
 import info.magnolia.module.templatingkit.templates.category.TemplateCategoryUtil;
 import info.magnolia.repository.RepositoryConstants;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -74,6 +77,11 @@ import javax.jcr.ValueFormatException;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.tool.xml.XMLWorkerHelper;
 
 /**
  * Paragraphs util class.
@@ -745,5 +753,13 @@ public final class ShopUtil {
         return null;
     }
 
+    public static void generatePdfInvoice() throws DocumentException, IOException {
+        Document document = new Document();
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("pdf.pdf"));
+        document.open();
+        XMLWorkerHelper.getInstance().parseXHtml(writer, document, new FileInputStream("invoice.html"));
+        document.close();
+        log.debug("PDF generated!");
+    }
 
 }
