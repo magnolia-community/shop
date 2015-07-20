@@ -3752,7 +3752,7 @@
         <sv:value>superuser</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-        <sv:value>2012-05-28T10:35:07.992+02:00</sv:value>
+        <sv:value>2015-07-20T14:58:30.071+07:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
         <sv:value>superuser</sv:value>
@@ -4496,7 +4496,7 @@
           <sv:value>superuser</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-          <sv:value>2012-05-28T10:35:07.992+02:00</sv:value>
+          <sv:value>2015-07-20T14:58:30.071+07:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
           <sv:value>superuser</sv:value>
@@ -4518,22 +4518,22 @@
             <sv:value xsi:type="xs:base64Binary">VGhhbmsgeW91IGZvciB5b3VyIG9yZGVyOg0KDQpZb3VyIG9yZGVyIG51bWJlciBpczogJHtjYXJ0SWR9DQoNCkNoZWNrIHRoZSBkZXRhaWxzIGJlbG93Og0KDQoNCkJpbGxpbmcgYWRkcmVzczoNClsjaWYgYmlsbGluZ0FkZHJlc3NDb21wYW55P2hhc19jb250ZW50XQ0KICAgQ29tcGFueTogJHtiaWxsaW5nQWRkcmVzc0NvbXBhbnl9DQpbLyNpZl0NCiAgIE5hbWU6ICR7YmlsbGluZ0FkZHJlc3NGaXJzdG5hbWV9ICR7YmlsbGluZ0FkZHJlc3NMYXN0bmFtZX0NCiAgIEFkZHJlc3M6ICR7YmlsbGluZ0FkZHJlc3NTdHJlZXR9LCAke2JpbGxpbmdBZGRyZXNzWmlwfSwgJHtiaWxsaW5nQWRkcmVzc0NpdHl9DQogICBQaG9uZTogJHtiaWxsaW5nQWRkcmVzc1Bob25lfQ0KICAgRW1haWw6ICR7YmlsbGluZ0FkZHJlc3NNYWlsfQ0KDQoNClByb2R1Y3RzOg0KWyNsaXN0IGNhcnQuZ2V0Q2FydEl0ZW1zKCkgYXMgcHJvZHVjdF0NCgkgICAgCQ0KUHJvZHVjdCBOYW1lOiAke3Byb2R1Y3QucHJvZHVjdFRpdGxlfQ0KCSAgICAJUXVhbnRpdHk6ICR7cHJvZHVjdC5xdWFudGl0eX0NCgkgICAgCVVuaXQgUHJpY2U6ICR7cHJvZHVjdC51bml0UHJpY2U/c3RyaW5nKCIwLjAwIil9DQoJICAgIAlUb3RhbDogJHtwcm9kdWN0Lml0ZW1Ub3RhbD9zdHJpbmcoIjAuMDAiKX0NClsvI2xpc3RdDQoNClN1YnRvdGFsOiAke2NhcnQuZ3Jvc3NUb3RhbEV4Y2xUYXg/c3RyaW5nKCIwLjAwIil9DQpWYXQ6ICR7Y2FydC5pdGVtVGF4VG90YWw/c3RyaW5nKCIwLjAwIil9DQpUb3RhbDogJHtjYXJ0Lmdyb3NzVG90YWxJbmNsVGF4P3N0cmluZygiMC4wMCIpfQ==</sv:value>
           </sv:property>
           <sv:property sv:name="confirmMailFrom" sv:type="String">
-            <sv:value>teresa.miyar@magnolia-cms.com</sv:value>
+            <sv:value>contact@magnolia-cms.com</sv:value>
           </sv:property>
           <sv:property sv:name="confirmMailSubject" sv:type="String">
             <sv:value>Order ${cartId}</sv:value>
           </sv:property>
           <sv:property sv:name="confirmMailTo" sv:type="String">
-            <sv:value>teresa.miyar@magnolia-cms.com</sv:value>
+            <sv:value>contact@magnolia-cms.com</sv:value>
           </sv:property>
           <sv:property sv:name="contactMailFrom" sv:type="String">
-            <sv:value>teresa.miyar@magnolia-cms.com</sv:value>
+            <sv:value>contact@magnolia-cms.com</sv:value>
           </sv:property>
           <sv:property sv:name="contactMailSubject" sv:type="String">
             <sv:value>Your order confirmation</sv:value>
           </sv:property>
           <sv:property sv:name="contactMailTo" sv:type="String">
-            <sv:value>teresa.miyar@magnolia-cms.com</sv:value>
+            <sv:value>contact@magnolia-cms.com</sv:value>
           </sv:property>
           <sv:property sv:name="contentType" sv:type="String">
             <sv:value>text</sv:value>
@@ -4572,7 +4572,7 @@
             <sv:value>superuser</sv:value>
           </sv:property>
           <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-            <sv:value>2012-05-28T10:35:07.991+02:00</sv:value>
+            <sv:value>2015-07-20T14:58:30.071+07:00</sv:value>
           </sv:property>
           <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
             <sv:value>superuser</sv:value>
