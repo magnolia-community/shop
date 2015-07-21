@@ -36,17 +36,20 @@ package info.magnolia.module.shop.app.action;
 import info.magnolia.event.EventBus;
 import info.magnolia.freemarker.FreemarkerHelper;
 import info.magnolia.jcr.util.PropertyUtil;
+import info.magnolia.jcr.util.SessionUtil;
+import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.ui.api.event.AdmincentralEventBus;
 import info.magnolia.ui.framework.action.AbstractRepositoryAction;
 import info.magnolia.ui.vaadin.integration.jcr.JcrItemAdapter;
 
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
@@ -60,6 +63,7 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,6 +77,7 @@ import freemarker.template.TemplateException;
 public class GenerateInvoicePdfAction extends AbstractRepositoryAction<GenerateInvoicePdfActionDefinition> {
 
     private static final Logger LOG = LoggerFactory.getLogger(GenerateInvoicePdfAction.class);
+    public static final String CONFIGURED_INVOICE_TEMPLATE_PROPERTY_NAME = "invoiceTemplate";
 
     private FreemarkerHelper freemarkerHelper;
 
@@ -89,13 +94,19 @@ public class GenerateInvoicePdfAction extends AbstractRepositoryAction<GenerateI
             Node parentNode = node.getParent();
             if (parentNode.getParent().isSame(node.getSession().getRootNode())) {
                 try {
-                    String inputFtl = "/Volumes/RamDisk/git/shop/src/main/resources/info/magnolia/module/shop/invoice.html";
+                    String inputFtlStr = PropertyUtil.getString(SessionUtil.getNode(ShopRepositoryConstants.SHOPS, parentNode.getPath()), CONFIGURED_INVOICE_TEMPLATE_PROPERTY_NAME);
+                    if (StringUtils.isBlank(inputFtlStr)) return;
+                    BufferedReader br = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(inputFtlStr.getBytes())));
+                    Map<String, Object> inputModel = new HashMap<String, Object>();
+                    inputModel.put("shoppingCart", node);
+                    inputModel.put("PropertyUtil", new PropertyUtil());
+                    ByteArrayOutputStream baos = ftl2pdf(br, inputModel);
                     File outputPdf = File.createTempFile("invoice-" + System.currentTimeMillis(), ".pdf");
                     outputPdf.deleteOnExit();
-                    Map<String, Object> input = new HashMap<String, Object>();
-                    input.put("shoppingCart", node);
-                    input.put("PropertyUtil", new PropertyUtil());
-                    ftl2pdf(inputFtl, input, outputPdf.getAbsolutePath());
+                    OutputStream out = new BufferedOutputStream(new FileOutputStream(outputPdf));
+                    baos.writeTo(out);
+                    out.flush();
+                    out.close();
                     LOG.info("Processed data from {} to pdf {}.", node.getPath(), outputPdf.getPath());
                 } catch (Exception e) {
                     LOG.error(e.getMessage(), e);
@@ -115,14 +126,5 @@ public class GenerateInvoicePdfAction extends AbstractRepositoryAction<GenerateI
         ShopUtil.generatePdfInvoice(new ByteArrayInputStream(baos.toByteArray()), result);
         result.flush();
         return result;
-    }
-    
-    public void ftl2pdf(String ftlFileName, Map<String, Object> model, String pdfFileName) throws IOException, TemplateException, DocumentException {
-        FileReader inputFtl = new FileReader(ftlFileName);
-        ByteArrayOutputStream baos = ftl2pdf(inputFtl, model);
-        OutputStream out = new BufferedOutputStream(new FileOutputStream(pdfFileName));
-        baos.writeTo(out);
-        out.flush();
-        out.close();
     }
 }

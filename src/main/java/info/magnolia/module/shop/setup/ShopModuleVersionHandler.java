@@ -102,6 +102,8 @@ import javax.jcr.ImportUUIDBehavior;
  * This class is used to handle installation and updates of your module.
  */
 public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
+    
+    InstallContext installContext;
 
     public ShopModuleVersionHandler() {
 
@@ -545,6 +547,13 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
 
         register(DeltaBuilder.update("2.3.0", "").addTasks(getTasksFor_2_3_0()));
     }
+    
+    
+    @Override
+    protected List<Task> getBasicInstallTasks(InstallContext installContext) {
+        this.installContext = installContext;
+        return super.getBasicInstallTasks(installContext);
+    }
 
     private List<Task> getTasksFor_2_3_0() {
         ArrayList<Task> tasks = new ArrayList<Task>();
@@ -692,9 +701,6 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
     public static final String V_2_3_0_NODEPATH_SHOPPRODUCTSEARCHRESULT = "/modules/shop/templates/components/features/shopProductSearchResult";
     public static final String V_2_3_0_NODEPATH_SHOPEXTRASTAGCLOUD = "/modules/shop/templates/components/extras/shopExtrasTagCloud";
     
-    public static final String V_2_3_0_NODEPATH_ACTIONBAR_GENERATEINVOICEPDF = "/modules/shop/apps/shoppingCarts/subApps/browser/actionbar/sections/nodes/groups/invoiceActions/items/generateInvoicePdf";
-    public static final String V_2_3_0_NODEPATH_ACTION_GENERATEINVOICEPDF = "/modules/shop/apps/shoppingCarts/subApps/browser/actions/generateInvoicePdf";
-    
     private List<Task> getExtraTasksFor_2_3_0() {
         ArrayList<Task> tasks = new ArrayList<Task>();
         
@@ -717,12 +723,6 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
         tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPPRODUCTSEARCHRESULT, NodeTypes.Content.NAME));
         tasks.add(new CreateNodePathTask("Refactor package '..paragraphs' to '..components'.", V_2_3_0_NODEPATH_SHOPEXTRASTAGCLOUD, NodeTypes.Content.NAME));
         
-        tasks.add(new CreateNodePathTask("Implement generate invoice.", V_2_3_0_NODEPATH_ACTIONBAR_GENERATEINVOICEPDF, NodeTypes.ContentNode.NAME));
-        tasks.add(new CreateNodePathTask("Implement generate invoice.", V_2_3_0_NODEPATH_ACTION_GENERATEINVOICEPDF, NodeTypes.ContentNode.NAME));
-        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_ACTION_GENERATEINVOICEPDF, "class", GenerateInvoicePdfActionDefinition.class.getName()));
-        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_ACTION_GENERATEINVOICEPDF, "icon", "icon-export"));
-        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_ACTION_GENERATEINVOICEPDF, "label", "Generate Invoice PDF"));
-        
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPFORMSTEP, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, FormStepConfirmOrderParagraphModel.class.getName()));
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPFORMSTEPCONFIRMORDER, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, FormStepConfirmOrderParagraphModel.class.getName()));
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPEXTRASPRODUCTSEARCH, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ProductSearchParagraphModel.class.getName()));
@@ -739,9 +739,48 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPPRODUCTSEARCHRESULT, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShopProductSearchResultParagraphModel.class.getName()));
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_SHOPEXTRASTAGCLOUD, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShopTagCloudParagraph.class.getName()));
         
-        
         tasks.add(new RefactorPackageNameTask());
+        
+        tasks.addAll(getExtraTasksFor_2_3_0_invoice());
         
         return tasks;
     }
+    
+    public static final String V_2_3_0_NODEPATH_ACTIONBAR_GENERATEINVOICEPDF = "/modules/shop/apps/shoppingCarts/subApps/browser/actionbar/sections/nodes/groups/invoiceActions/items/generateInvoicePdf";
+    public static final String V_2_3_0_NODEPATH_ACTION_GENERATEINVOICEPDF = "/modules/shop/apps/shoppingCarts/subApps/browser/actions/generateInvoicePdf";
+    
+    public static final String V_2_3_0_NODEPATH_DIALOG_TABINVOICE = "/modules/shop/dialogs/editShop/form/tabs/tabInvoice";
+    public static final String V_2_3_0_NODEPATH_DIALOG_INVOICEMAILTO = "/modules/shop/dialogs/editShop/form/tabs/tabInvoice/fields/invoiceMailTo";
+    public static final String V_2_3_0_NODEPATH_DIALOG_INVOICEMAILSUBJECT = "/modules/shop/dialogs/editShop/form/tabs/tabInvoice/fields/invoiceMailSubject";
+    public static final String V_2_3_0_NODEPATH_DIALOG_INVOICETEMPLATE = "/modules/shop/dialogs/editShop/form/tabs/tabInvoice/fields/invoiceTemplate";
+
+    private List<Task> getExtraTasksFor_2_3_0_invoice() {
+        ArrayList<Task> tasks = new ArrayList<Task>();
+        tasks.add(new CreateNodePathTask("Implement generate invoice.", V_2_3_0_NODEPATH_ACTIONBAR_GENERATEINVOICEPDF, NodeTypes.ContentNode.NAME));
+        tasks.add(new CreateNodePathTask("Implement generate invoice.", V_2_3_0_NODEPATH_ACTION_GENERATEINVOICEPDF, NodeTypes.ContentNode.NAME));
+        
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_ACTION_GENERATEINVOICEPDF, "class", GenerateInvoicePdfActionDefinition.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_ACTION_GENERATEINVOICEPDF, "icon", "icon-export"));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_ACTION_GENERATEINVOICEPDF, "label", "Generate Invoice PDF"));
+
+        tasks.add(new CreateNodePathTask("Implement generate invoice.", V_2_3_0_NODEPATH_DIALOG_TABINVOICE, NodeTypes.ContentNode.NAME));
+        tasks.add(new CreateNodePathTask("Implement generate invoice.", V_2_3_0_NODEPATH_DIALOG_INVOICEMAILTO, NodeTypes.ContentNode.NAME));
+        tasks.add(new CreateNodePathTask("Implement generate invoice.", V_2_3_0_NODEPATH_DIALOG_INVOICEMAILSUBJECT, NodeTypes.ContentNode.NAME));
+        tasks.add(new CreateNodePathTask("Implement generate invoice.", V_2_3_0_NODEPATH_DIALOG_INVOICETEMPLATE, NodeTypes.ContentNode.NAME));
+
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_DIALOG_TABINVOICE, "label", "Invoice template"));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_DIALOG_INVOICEMAILTO, "class", "info.magnolia.ui.form.field.definition.TextFieldDefinition"));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_DIALOG_INVOICEMAILTO, "label", "Mail to"));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_DIALOG_INVOICEMAILSUBJECT, "class", "info.magnolia.ui.form.field.definition.TextFieldDefinition"));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_DIALOG_INVOICEMAILSUBJECT, "label", "Mail subject"));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_DIALOG_INVOICETEMPLATE, "class", "info.magnolia.ui.form.field.definition.BasicTextCodeFieldDefinition"));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_DIALOG_INVOICETEMPLATE, "label", "Invoice template"));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_DIALOG_INVOICETEMPLATE, "boxType", "1Col"));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_DIALOG_INVOICETEMPLATE, "description", "Freemarker template for invoice PDF"));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_DIALOG_INVOICETEMPLATE, "language", "html"));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_DIALOG_INVOICETEMPLATE, "source", "true"));
+
+        return tasks;
+    }
+
 }

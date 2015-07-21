@@ -37,7 +37,11 @@ import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.module.InstallContext;
 import info.magnolia.module.delta.AbstractRepositoryTask;
 import info.magnolia.module.delta.TaskExecutionException;
+import info.magnolia.module.shop.ShopRepositoryConstants;
+import info.magnolia.module.shop.app.action.GenerateInvoicePdfAction;
 import info.magnolia.repository.RepositoryConstants;
+
+import java.io.IOException;
 
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
@@ -46,16 +50,20 @@ import javax.jcr.Session;
 import javax.jcr.query.Query;
 import javax.jcr.query.QueryManager;
 
+import org.apache.commons.io.IOUtils;
+
 /**
  * RefactorPackageNameTask class specific for updating to 2.3.0. This migration task scan all component definitions, search for modelClass references to '..paragraphs' package then update it with '..components' name.
  */
 public class RefactorPackageNameTask extends AbstractRepositoryTask {
-    
+
     public static final String SQL2 = "select * from [nt:base] where %s like '%s%%'";
     public static final String MODEL_CLASS_PROPERTY_NAME = "modelClass";
     public static final String OLD_PACKAGE_PATH = "info.magnolia.module.shop.paragraphs.";
     public static final String NEW_PACKAGE_PATH = "info.magnolia.module.shop.components.";
-    
+
+    public static final String V_2_3_0_INVOICE_RESOURCE_PATH = "/info/magnolia/module/shop/invoice.html";
+
     public RefactorPackageNameTask() {
         super("Refactor package '..paragraphs' to '..components'.", "Task specific for updating to 2.3.0.");
     }
@@ -72,6 +80,19 @@ public class RefactorPackageNameTask extends AbstractRepositoryTask {
             PropertyUtil.setProperty(node, MODEL_CLASS_PROPERTY_NAME, oldClassPath.replace(OLD_PACKAGE_PATH, NEW_PACKAGE_PATH));
         }
         session.save();
+
+        Session shopsSession = installContext.getJCRSession(ShopRepositoryConstants.SHOPS);
+        NodeIterator shopNi = shopsSession.getRootNode().getNodes();
+        try {
+            String ftlTemplate = IOUtils.toString(this.getClass().getResourceAsStream(V_2_3_0_INVOICE_RESOURCE_PATH));
+            while (shopNi.hasNext()) {
+                Node shop = shopNi.nextNode();
+                shop.setProperty(GenerateInvoicePdfAction.CONFIGURED_INVOICE_TEMPLATE_PROPERTY_NAME, ftlTemplate);
+            }
+            shopsSession.save();
+        } catch (IOException e) {
+            log.error(e.getMessage(), e);
+        }
     }
 
 }
