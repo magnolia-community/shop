@@ -746,7 +746,12 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPSHOPPINGCART), hasProperty(RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShoppingCartParagraphModel.class.getName()));
         assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPPRODUCTSEARCHRESULT), hasProperty(RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShopProductSearchResultParagraphModel.class.getName()));
         assertThat(config.getNode(ShopModuleVersionHandler.V_2_3_0_NODEPATH_SHOPEXTRASTAGCLOUD), hasProperty(RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, ShopTagCloudParagraph.class.getName()));
-
+        assertTrue(config.itemExists("/modules/shop/dialogs/editShop/form/tabs/main/fields/email"));
+        assertThat(config.getNode("/modules/shop/dialogs/editShop/form/tabs/main/fields/email"), hasProperty("class", "info.magnolia.ui.form.field.definition.TextFieldDefinition"));
+        assertTrue(config.itemExists("/modules/shop/dialogs/editShop/form/tabs/main/fields/email/validators/email"));
+        assertThat(config.getNode("/modules/shop/dialogs/editShop/form/tabs/main/fields/email/validators/email"), hasProperty("class", "info.magnolia.ui.form.validator.definition.EmailValidatorDefinition"));
+        assertThat(config.getNode("/modules/shop/dialogs/editShop/form/tabs/main/fields/email/validators/email"), hasProperty("errorMessage", "validation.message.non.valid.email"));
+        
         //Test method for {@link info.magnolia.module.shop.setup.RefactorPackageNameTask#doExecute(info.magnolia.module.InstallContext)}.
         assertStringProperty(testPath, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, RefactorPackageNameTask.NEW_PACKAGE_PATH + testClassName);
 
