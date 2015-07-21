@@ -13,17 +13,17 @@
     </div>
   </div>
   <p>
-    <span style="color: #84C7FD; font-weight: bold;">INVOICE</span> #Number <span style="color: gray;"> for your shopping.</span>
+    <span style="color: #84C7FD; font-weight: bold;">INVOICE</span> #${shoppingCart.name} <span style="color: gray;"> for your shopping on ${PropertyUtil.getString(shoppingCart, 'orderDate')}.</span>
   </p>
   <table style="padding-left: 60px;">
     <tr>
       <td width="300px;"><h4>From: <span style="color: #84C7FD; font-weight: bold;">Magnolia International Ltd.</span></h4></td>
-      <td width="300px;" style="padding-left: 60px;"><h4>To: <span style="color: #84C7FD; font-weight: bold;">Magnolia International Ltd.</span></h4></td>
+      <td width="300px;" style="padding-left: 60px;"><h4>To: <span style="color: #84C7FD; font-weight: bold;">${PropertyUtil.getString(shoppingCart, 'shippingName')}</span></h4></td>
     </tr>
     <tr><td></td><td></td></tr>
-    <tr><td>Address: St Johanns-Vorstadt 38</td><td style="padding-left: 60px;">Address: St Johanns-Vorstadt 38</td></tr>
-    <tr><td>More: 4056 Basel - Switzerland</td><td style="padding-left: 60px;">More: 4056 Basel - Switzerland</td></tr>
-    <tr><td>Office: +41 61 228 90 00</td><td style="padding-left: 60px;">Office: +41 61 228 90 00</td></tr>
+    <tr><td>Address: St Johanns-Vorstadt 38</td><td style="padding-left: 60px;">Address: ${PropertyUtil.getString(shoppingCart, 'shopAddress')}</td></tr>
+    <tr><td>More: 4056 Basel - Switzerland</td><td style="padding-left: 60px;">More: ${PropertyUtil.getString(shoppingCart, 'city')}</td></tr>
+    <tr><td>Email: contact@magnolia-cms.com</td><td style="padding-left: 60px;">Email: ${PropertyUtil.getString(shoppingCart, 'shippingEmail')}</td></tr>
     <tr><td></td><td></td></tr>
   </table>
   <br />  
@@ -32,43 +32,38 @@
       <th style="text-align: center; background-color: #84C7FD; color: #fff; width: 120px; padding: 4px;">Product</th>
       <th style="text-align: center; background-color: #84C7FD; color: #fff; width: 240px; padding: 4px;">Description</th>
       <th style="text-align: center; background-color: #84C7FD; color: #fff; width: 60px;  padding: 4px;">Qty</th>
-      <th style="text-align: center; background-color: #84C7FD; color: #fff; width: 90px;  padding: 4px;">Price</th>
+      <th style="text-align: center; background-color: #84C7FD; color: #fff; width: 90px;  padding: 4px;">Tax</th>
       <th style="text-align: center; background-color: #84C7FD; color: #fff; width: 90px;  padding: 4px;">Subtotal</th>
     </tr>
+    [#list shoppingCart.getNode('cartItems').getNodes() as cartItem]
     <tr>
-      <td style="text-align: left;  border: 1px solid; padding: 4px;">iText - Java HTML to PDF</td>
-      <td style="text-align: left;  border: 1px solid; padding: 4px;">http://hmkcode.com/itext-html-to-pdf-using-java</td>
-      <td style="text-align: right; border: 1px solid; padding: 4px;">1</td>
-      <td style="text-align: right; border: 1px solid; padding: 4px;">$10</td>
-      <td style="text-align: right; border: 1px solid; padding: 4px;">$10</td>
+      <td style="text-align: left;  border: 1px solid; padding: 4px;">${PropertyUtil.getString(cartItem,'productTitle')}</td>
+      <td style="text-align: left;  border: 1px solid; padding: 4px;">${PropertyUtil.getString(cartItem,'productSubTitle')}</td>
+      <td style="text-align: right; border: 1px solid; padding: 4px;">${PropertyUtil.getString(cartItem,'quantity')}</td>
+      <td style="text-align: right; border: 1px solid; padding: 4px;">${PropertyUtil.getString(cartItem,'itemTax')}</td>
+      <td style="text-align: right; border: 1px solid; padding: 4px;">${PropertyUtil.getString(cartItem,'itemTotal')}</td>
     </tr>
-    <tr>
-      <td style="text-align: left;  border: 1px solid; padding: 4px;">Magnolia CMS - software service</td>
-      <td style="text-align: left;  border: 1px solid; padding: 4px;">http://www.magnolia-cms.com</td>
-      <td style="text-align: right; border: 1px solid; padding: 4px;">1</td>
-      <td style="text-align: right; border: 1px solid; padding: 4px;">$100</td>
-      <td style="text-align: right; border: 1px solid; padding: 4px;">$100</td>
-    </tr>
+    [/#list]
     <tr>
       <td style="text-align: left;  padding: 4px;"></td>
       <td style="text-align: left;  padding: 4px;"></td>
       <td style="text-align: right; padding: 4px;"></td>
       <td style="text-align: right; padding: 4px;">Sub Total :</td>
-      <td style="text-align: right; padding: 4px;">$110</td>
+      <td style="text-align: right; padding: 4px;">${PropertyUtil.getString(shoppingCart, 'grossTotalExclTax')!"0.00"}</td>
     </tr>
     <tr>
       <td style="text-align: left;  padding: 4px;"></td>
       <td style="text-align: left;  padding: 4px;"></td>
       <td style="text-align: right; padding: 4px;"></td>
-      <td style="text-align: right; padding: 4px;">Tax :</td>
-      <td style="text-align: right; padding: 4px;">10%</td>
+      <td style="text-align: right; padding: 4px;">Tax (%) :</td>
+      <td style="text-align: right; padding: 4px;">${PropertyUtil.getString(shoppingCart, 'itemTaxTotal')!"0.00"} %</td>
     </tr>
     <tr>
       <td style="text-align: left;  padding: 4px;"></td>
       <td style="text-align: left;  padding: 4px;"></td>
       <td style="text-align: right; padding: 4px;"></td>
       <td style="text-align: right; padding: 4px;">Total :</td>
-      <td style="text-align: right; padding: 4px;">$121</td>
+      <td style="text-align: right; padding: 4px;">${PropertyUtil.getString(shoppingCart, 'grossTotalInclTax')!"0.00"}</td>
     </tr>
   </table>
   <div class="panel panel-info">
@@ -78,6 +73,7 @@
     <div class="panel-body">
       <p>
         Email : contact@magnolia-cms.com <br /> <br /> 
+        Office: +41 61 228 90 00 <br /> <br /> 
         Fax : +41 61 228 90 01 <br /> <br /> 
         Twitter : <a href="https://twitter.com/magnolia_cms">@magnolia_cms</a>
       </p>
