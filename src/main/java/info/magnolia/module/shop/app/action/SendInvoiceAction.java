@@ -41,9 +41,11 @@ import info.magnolia.module.mail.templates.MailAttachment;
 import info.magnolia.module.mail.templates.MgnlEmail;
 import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.shop.util.ShopUtil;
+import info.magnolia.ui.api.context.UiContext;
 import info.magnolia.ui.api.event.AdmincentralEventBus;
 import info.magnolia.ui.framework.action.AbstractRepositoryAction;
 import info.magnolia.ui.vaadin.integration.jcr.JcrItemAdapter;
+import info.magnolia.ui.vaadin.overlay.MessageStyleTypeEnum;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -71,12 +73,13 @@ public class SendInvoiceAction extends AbstractRepositoryAction<SendInvoiceActio
     public static final String INVOICE_MAIL_SUBJECT_PROP_NAME = "invoiceMailSubject";
     public static final String INVOICE_BILLING_ADDRESS_MAIL_PROP_NAME = "billingAddressMail";
     
-    
+    private UiContext uiContext;
     private MailModule mailModule;
 
-    public SendInvoiceAction(SendInvoiceActionDefinition definition, JcrItemAdapter item, @Named(AdmincentralEventBus.NAME) EventBus eventBus, MailModule mailModule) {
+    public SendInvoiceAction(SendInvoiceActionDefinition definition, JcrItemAdapter item, @Named(AdmincentralEventBus.NAME) EventBus eventBus, MailModule mailModule, UiContext uiContext) {
         super(definition, item, eventBus);
         this.mailModule = mailModule;
+        this.uiContext = uiContext;
     }
 
     @Override
@@ -103,6 +106,8 @@ public class SendInvoiceAction extends AbstractRepositoryAction<SendInvoiceActio
             email.setSubject(PropertyUtil.getString(shopNode, INVOICE_MAIL_SUBJECT_PROP_NAME, StringUtils.EMPTY));
             email.setBody(null);
             mailModule.getHandler().sendMail(email);
+            
+            uiContext.openNotification(MessageStyleTypeEnum.INFO, true, "Customer invoice #" + node.getName() + "sent!");
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
             throw new RepositoryException(e);
