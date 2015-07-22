@@ -753,8 +753,6 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         assertThat(config.getNode("/modules/shop/dialogs/editShop/form/tabs/main/fields/email/validators/email"), hasProperty("errorMessage", "validation.message.non.valid.email"));
         assertTrue(config.itemExists("/modules/shop/templates/components/features/shopForm/formProcessors/sendNotifiedEMail"));
         assertThat(config.getNode("/modules/shop/templates/components/features/shopForm/formProcessors/sendNotifiedEMail"), hasProperty("class", "info.magnolia.module.shop.processors.SendShopNotifiedEmailProcessor"));
-        assertTrue(config.itemExists("/modules/shop/templates/components/features/shopForm/formProcessors/sendNotifiedEMail/parameters"));
-        assertThat(config.getNode("/modules/shop/templates/components/features/shopForm/formProcessors/sendNotifiedEMail/parameters"), hasProperty("shopName", "sampleShop"));
         
         //Test method for {@link info.magnolia.module.shop.setup.RefactorPackageNameTask#doExecute(info.magnolia.module.InstallContext)}.
         assertStringProperty(testPath, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, RefactorPackageNameTask.NEW_PACKAGE_PATH + testClassName);

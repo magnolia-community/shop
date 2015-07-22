@@ -66,8 +66,6 @@ public class SendShopNotifiedEmailProcessor extends AbstractEMailFormProcessor {
 
     private static Logger log = LoggerFactory.getLogger(SendShopNotifiedEmailProcessor.class);
 
-    private Map<String, Object> parameters;
-
     @Inject
     private MessagesManager manager;
 
@@ -101,8 +99,7 @@ public class SendShopNotifiedEmailProcessor extends AbstractEMailFormProcessor {
     private void sendNotifiedEmail(String subject, String body, Map<String, Object> params) throws FormProcessorFailedException {
         try {
             Session shopsSession = MgnlContext.getJCRSession(ShopRepositoryConstants.SHOPS);
-            String shopName = (String) parameters.get("shopName");
-            String to = PropertyUtil.getString(shopsSession.getRootNode().getNode(shopName), "email", StringUtils.EMPTY);
+            String to = PropertyUtil.getString(shopsSession.getRootNode().getNode(ShopUtil.getShopName()), "email", StringUtils.EMPTY);
             sendMail(body, StringUtils.EMPTY, subject, to, "text/html", params);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -116,13 +113,5 @@ public class SendShopNotifiedEmailProcessor extends AbstractEMailFormProcessor {
         message.setMessage(body);
         message.setType(MessageType.INFO);
         manager.sendLocalMessage(message);
-    }
-
-    public Map<String, Object> getParameters() {
-        return parameters;
-    }
-
-    public void setParameters(Map<String, Object> parameters) {
-        this.parameters = parameters;
     }
 }
