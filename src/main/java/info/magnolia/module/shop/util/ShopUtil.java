@@ -33,6 +33,8 @@
  */
 package info.magnolia.module.shop.util;
 
+import freemarker.template.TemplateException;
+
 import info.magnolia.cms.i18n.I18nContentSupportFactory;
 import info.magnolia.cms.i18n.Messages;
 import info.magnolia.cms.i18n.MessagesManager;
@@ -71,6 +73,7 @@ import java.io.Writer;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -85,19 +88,16 @@ import javax.jcr.PropertyIterator;
 import javax.jcr.RepositoryException;
 import javax.jcr.ValueFormatException;
 
+import org.allcolor.yahp.converter.CYaHPConverter;
+import org.allcolor.yahp.converter.IHtmlToPdfTransformer;
+import org.allcolor.yahp.converter.IHtmlToPdfTransformer.CConvertException;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.tool.xml.XMLWorkerHelper;
 import com.vaadin.server.Page;
 import com.vaadin.server.StreamResource;
-
-import freemarker.template.TemplateException;
 
 /**
  * Paragraphs util class.
@@ -147,8 +147,7 @@ public final class ShopUtil {
 
         NodeIterator shops = null;
         try {
-            shops = QueryUtil.search(RepositoryConstants.WEBSITE, "select * from mgnl:content where currentShop='"
-                    + shopName + "'", "sql", "mgnl:content");
+            shops = QueryUtil.search(RepositoryConstants.WEBSITE, "select * from mgnl:content where currentShop='" + shopName + "'", "sql", "mgnl:content");
         } catch (RepositoryException e) {
             e.printStackTrace();
         }
@@ -161,8 +160,7 @@ public final class ShopUtil {
 
     public static Messages getMessages() {
         Locale currentLocale = I18nContentSupportFactory.getI18nSupport().getLocale();
-        final Messages msg = MessagesManager.getMessages(
-                I18N_BASENAME, currentLocale);
+        final Messages msg = MessagesManager.getMessages(I18N_BASENAME, currentLocale);
         return msg;
     }
 
@@ -237,8 +235,7 @@ public final class ShopUtil {
     }
 
     /**
-     *
-     * @return 
+     * @return
      * @deprecated Use {@link #getShoppingCart(String shopName)}
      */
     @Deprecated
@@ -247,7 +244,6 @@ public final class ShopUtil {
     }
 
     /**
-     *
      * @param shopName
      * @return Returns the current users shopping cart for the named shop.
      */
@@ -260,8 +256,7 @@ public final class ShopUtil {
 
     /**
      * @param shopName
-     * @return Returns the last (i.e. previous) shopping cart. The shopping cart gets reset in the
-     * {@link info.magnolia.module.shop.processors.SaveAndConfirmFormProcessor}. So this is useful for all features
+     * @return Returns the last (i.e. previous) shopping cart. The shopping cart gets reset in the {@link info.magnolia.module.shop.processors.SaveAndConfirmFormProcessor}. So this is useful for all features
      * occurring after the cart was saved (e.g. sending confirmation mails, displaying a confirmation page...)
      */
     public static ShoppingCart getPreviousShoppingCart(String shopName) {
@@ -289,12 +284,11 @@ public final class ShopUtil {
 
             if (shopConfiguration != null) {
                 Node priceCategory = getShopPriceCategory(shopConfiguration);
-                Node currency = getCurrencyByUUID(PropertyUtil.getString(priceCategory,
-                        "currencyUUID"));
+                Node currency = getCurrencyByUUID(PropertyUtil.getString(priceCategory, "currencyUUID"));
                 return PropertyUtil.getString(currency, "title");
             }
         } catch (Exception e) {
-            //nothing
+            // nothing
         }
         return "";
     }
@@ -307,12 +301,11 @@ public final class ShopUtil {
 
             if (shopConfiguration != null) {
                 Node priceCategory = getShopPriceCategory(shopConfiguration);
-                Node currency = getCurrencyByUUID(PropertyUtil.getString(priceCategory,
-                        "currencyUUID"));
+                Node currency = getCurrencyByUUID(PropertyUtil.getString(priceCategory, "currencyUUID"));
                 return PropertyUtil.getString(currency, "formatting");
             }
         } catch (Exception e) {
-            //nothing
+            // nothing
         }
         return "";
     }
@@ -482,7 +475,6 @@ public final class ShopUtil {
     }
 
     /**
-     *
      * @param shippingOption
      * @return
      */
@@ -498,7 +490,7 @@ public final class ShopUtil {
                             double rate = taxCategory.getProperty("tax").getDouble();
                             BigDecimal rateBD = new BigDecimal("" + rate);
                             boolean taxIncluded = PropertyUtil.getBoolean(shippingOption, "taxIncluded", true);
-    
+
                             if (cart.getTaxFree() && !taxIncluded) {
                                 // tax not included but has to be payed by seller
                                 // -> charge it to buyer -> add it
@@ -526,16 +518,14 @@ public final class ShopUtil {
     }
 
     public static BigDecimal getPriceExcludingTax(BigDecimal priceIncludingTax, BigDecimal taxRate) {
-        if (priceIncludingTax != null && priceIncludingTax.doubleValue() >= 0 && taxRate != null
-                && taxRate.doubleValue() >= 0) {
+        if (priceIncludingTax != null && priceIncludingTax.doubleValue() >= 0 && taxRate != null && taxRate.doubleValue() >= 0) {
             return priceIncludingTax.divide(HUNDRED.add(taxRate), 10, BigDecimal.ROUND_HALF_UP).multiply(HUNDRED);
         }
         return priceIncludingTax;
     }
 
     public static BigDecimal getPriceIncludingTax(BigDecimal priceExcludingTax, BigDecimal taxRate) {
-        if (priceExcludingTax != null && priceExcludingTax.doubleValue() >= 0 && taxRate != null
-                && taxRate.doubleValue() >= 0) {
+        if (priceExcludingTax != null && priceExcludingTax.doubleValue() >= 0 && taxRate != null && taxRate.doubleValue() >= 0) {
             return priceExcludingTax.multiply(ONE.add(taxRate.divide(HUNDRED)));
         }
         return priceExcludingTax;
@@ -623,7 +613,6 @@ public final class ShopUtil {
     }
 
     /**
-     *
      * @param productUUID
      * @param command
      * @deprecated Use {@link #updateItemQuantity(String productUUID, String command, String shopName)}
@@ -692,7 +681,7 @@ public final class ShopUtil {
         // initialize new cart
         ShopUtil.setShoppingCartInSession(shopName);
     }
-    
+
     public static Collection<Node> xpathQuery(String workspace, String xpath, String returnType, boolean wrapWithI18n) {
         List<Node> result = new ArrayList<Node>();
         try {
@@ -770,27 +759,27 @@ public final class ShopUtil {
         return null;
     }
 
-    public static void generatePdfInvoice(InputStream htmlStream, OutputStream pdfStream) throws DocumentException, IOException {
-        Document document = new Document();
-        PdfWriter writer = PdfWriter.getInstance(document, pdfStream);
-        document.open();
-        XMLWorkerHelper.getInstance().parseXHtml(writer, document, htmlStream);
-        document.close();
-    }
-    
-    public static ByteArrayOutputStream ftl2pdf(Reader inputFtl, Map<String, Object> model) throws TemplateException, IOException, DocumentException {
+    public static ByteArrayOutputStream html2pdf(String htmlContents, Map<String, Object> inputModel) throws CConvertException, IOException, TemplateException {
+        // Render content
+        Reader bufferedReader = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(htmlContents.getBytes())));
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Writer writer = new OutputStreamWriter(baos);
-        FreemarkerHelper.getInstance().render(inputFtl, model, writer);//TODO: use IOC
+        FreemarkerHelper.getInstance().render(bufferedReader, inputModel, writer);// TODO: use IOC
         writer.flush();
         writer.close();
+        // Convert to pdf
+        CYaHPConverter converter = new CYaHPConverter();
         ByteArrayOutputStream result = new ByteArrayOutputStream();
-        generatePdfInvoice(new ByteArrayInputStream(baos.toByteArray()), result);
+        Map<String, String> properties = new HashMap<String, String>();
+        properties.put(IHtmlToPdfTransformer.PDF_RENDERER_CLASS, IHtmlToPdfTransformer.FLYINGSAUCER_PDF_RENDERER);
+        converter.convertToPdf(baos.toString(), IHtmlToPdfTransformer.A4P, Collections.EMPTY_LIST, "file:///temp/html/", result, properties);
+        baos.close();
         result.flush();
+        result.close();
         return result;
     }
-    
-    public static ByteArrayOutputStream processInvoiceNodeToPdf(Node node) throws TemplateException, IOException, DocumentException, RepositoryException {
+
+    public static ByteArrayOutputStream processInvoiceNodeToPdf(Node node) throws TemplateException, IOException, RepositoryException, CConvertException {
         Node parentNode = node.getParent();
         if (parentNode.getParent().isSame(node.getSession().getRootNode())) {
             String inputFtlStr = PropertyUtil.getString(SessionUtil.getNode(ShopRepositoryConstants.SHOPS, parentNode.getPath()), CONFIGURED_INVOICE_TEMPLATE_PROPERTY_NAME);
@@ -798,19 +787,20 @@ public final class ShopUtil {
                 Map<String, Object> inputModel = new HashMap<String, Object>();
                 inputModel.put("shoppingCart", node);
                 inputModel.put("PropertyUtil", new PropertyUtil());
-                ByteArrayOutputStream baos = ShopUtil.ftl2pdf(new BufferedReader(new InputStreamReader(new ByteArrayInputStream(inputFtlStr.getBytes()))), inputModel);
+                ByteArrayOutputStream baos = html2pdf(inputFtlStr, inputModel);
                 log.debug("Processed data from {} to pdf.", node.getPath());
                 return baos;
             }
         }
         return null;
     }
-    
+
     /**
      * Extracted from info.magnolia.ui.framework.action.ExportAction.openFileInBlankWindow(String, String) with some modifications.
      */
     public static void streamOutFileToNewWindow(final ByteArrayOutputStream baos, String mimeType, String fileType) throws IOException {
-        if (baos == null) return;
+        if (baos == null)
+            return;
         StreamResource.StreamSource source = new StreamResource.StreamSource() {
             @Override
             public InputStream getStream() {
@@ -830,12 +820,13 @@ public final class ShopUtil {
         resource.setMIMEType(mimeType);
         Page.getCurrent().open(resource, "Download file", true);
     }
-    
+
     public static File pdfToTempFile(final ByteArrayOutputStream baos) throws IOException {
-        if (baos == null) return null;
+        if (baos == null)
+            return null;
         File outputPdf = File.createTempFile("invoice-" + System.currentTimeMillis(), ".pdf");
         outputPdf.deleteOnExit();
-        OutputStream outputStream = new FileOutputStream(outputPdf); 
+        OutputStream outputStream = new FileOutputStream(outputPdf);
         baos.writeTo(outputStream);
         baos.flush();
         outputStream.flush();
@@ -843,5 +834,5 @@ public final class ShopUtil {
         baos.close();
         return outputPdf;
     }
-    
+
 }
