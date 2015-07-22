@@ -14,7 +14,7 @@
   </div>
   <p>
     <span style="color: #84C7FD; font-weight: bold;">INVOICE</span> #${shoppingCart.name} 
-    <span style="color: gray;"> for your shopping on ${PropertyUtil.getString(shoppingCart, 'orderDate')}.</span>
+    <span style="color: gray;"> for your shopping on ${PropertyUtil.getDate(shoppingCart, 'orderDate')?string["dd-MM-yyyy"]}.</span>
   </p>
   <table style="padding-left: 20px;">
     <tr>
