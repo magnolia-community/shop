@@ -43,14 +43,12 @@ import info.magnolia.ui.api.event.AdmincentralEventBus;
 import info.magnolia.ui.framework.action.AbstractRepositoryAction;
 import info.magnolia.ui.vaadin.integration.jcr.JcrItemAdapter;
 
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
@@ -68,6 +66,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.itextpdf.text.DocumentException;
+import com.vaadin.server.Page;
+import com.vaadin.server.StreamResource;
 
 import freemarker.template.TemplateException;
 
@@ -90,32 +90,56 @@ public class GenerateInvoicePdfAction extends AbstractRepositoryAction<GenerateI
     protected void onExecute(JcrItemAdapter item) throws RepositoryException {
         Item jcrItem = item.getJcrItem();
         if (jcrItem.isNode()) {
-            Node node = (Node) jcrItem;
-            Node parentNode = node.getParent();
-            if (parentNode.getParent().isSame(node.getSession().getRootNode())) {
-                try {
-                    String inputFtlStr = PropertyUtil.getString(SessionUtil.getNode(ShopRepositoryConstants.SHOPS, parentNode.getPath()), CONFIGURED_INVOICE_TEMPLATE_PROPERTY_NAME);
-                    if (StringUtils.isBlank(inputFtlStr)) return;
-                    BufferedReader br = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(inputFtlStr.getBytes())));
-                    Map<String, Object> inputModel = new HashMap<String, Object>();
-                    inputModel.put("shoppingCart", node);
-                    inputModel.put("PropertyUtil", new PropertyUtil());
-                    ByteArrayOutputStream baos = ftl2pdf(br, inputModel);
-                    File outputPdf = File.createTempFile("invoice-" + System.currentTimeMillis(), ".pdf");
-                    outputPdf.deleteOnExit();
-                    OutputStream out = new BufferedOutputStream(new FileOutputStream(outputPdf));
-                    baos.writeTo(out);
-                    out.flush();
-                    out.close();
-                    LOG.info("Processed data from {} to pdf {}.", node.getPath(), outputPdf.getPath());
-                } catch (Exception e) {
-                    LOG.error(e.getMessage(), e);
-                    throw new RepositoryException(e);
-                }
+            try {
+                onPostExecute(processInvoiceNodeToPdf((Node) jcrItem));
+            } catch (Exception e) {
+                LOG.error(e.getMessage(), e);
+                throw new RepositoryException(e);
             }
         }
     }
-    
+
+    public ByteArrayOutputStream processInvoiceNodeToPdf(Node node) throws TemplateException, IOException, DocumentException, RepositoryException {
+        Node parentNode = node.getParent();
+        if (parentNode.getParent().isSame(node.getSession().getRootNode())) {
+            String inputFtlStr = PropertyUtil.getString(SessionUtil.getNode(ShopRepositoryConstants.SHOPS, parentNode.getPath()), CONFIGURED_INVOICE_TEMPLATE_PROPERTY_NAME);
+            if (StringUtils.isNotBlank(inputFtlStr)) {
+                Map<String, Object> inputModel = new HashMap<String, Object>();
+                inputModel.put("shoppingCart", node);
+                inputModel.put("PropertyUtil", new PropertyUtil());
+                ByteArrayOutputStream baos = ftl2pdf(new BufferedReader(new InputStreamReader(new ByteArrayInputStream(inputFtlStr.getBytes()))), inputModel);
+                LOG.debug("Processed data from {} to pdf.", node.getPath());
+                return baos;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Extracted from info.magnolia.ui.framework.action.ExportAction.openFileInBlankWindow(String, String) with some modifications.
+     */
+    protected void onPostExecute(final ByteArrayOutputStream baos) throws IOException {
+        if (baos == null) return;
+        StreamResource.StreamSource source = new StreamResource.StreamSource() {
+            @Override
+            public InputStream getStream() {
+                return new ByteArrayInputStream(baos.toByteArray());
+            }
+        };
+        File outputPdf = File.createTempFile("invoice-" + System.currentTimeMillis(), ".pdf");
+        outputPdf.deleteOnExit();
+        String fileName = outputPdf.getName();
+        StreamResource resource = new StreamResource(source, fileName);
+        // Accessing the DownloadStream via getStream() will set its cacheTime to whatever is set in the parent
+        // StreamResource. By default it is set to 1000 * 60 * 60 * 24, thus we have to override it beforehand.
+        // A negative value or zero will disable caching of this stream.
+        resource.setCacheTime(-1);
+        resource.getStream().setParameter("Content-Disposition", "attachment; filename=" + fileName + "\";");
+        resource.getStream().setParameter("Content-Type", "application/force-download;");
+        resource.setMIMEType("application/pdf");
+        Page.getCurrent().open(resource, "Customer invoice", true);
+    }
+
     public ByteArrayOutputStream ftl2pdf(Reader inputFtl, Map<String, Object> model) throws TemplateException, IOException, DocumentException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Writer writer = new OutputStreamWriter(baos);
