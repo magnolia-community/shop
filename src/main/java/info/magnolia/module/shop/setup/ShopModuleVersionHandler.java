@@ -573,6 +573,7 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
         tasks.add(new BootstrapSingleModuleResource("Updating suppliers app", "Fixing labels", "apps/config.modules.shop.apps.shopSuppliers.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING));
         tasks.add(new BootstrapSingleModuleResource("Updating shopping carts app", "Fixing labels", "apps/config.modules.shop.apps.shoppingCarts.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING));
         tasks.add(new BootstrapSingleModuleResource("Updating shops app", "Add a email address field ", "dialogs/config.modules.shop.dialogs.editShop.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING));
+        tasks.add(new BootstrapSingleModuleResource("Updating shop form processor", "Add a shop notified processor", "paragraphs/config.modules.shop.templates.components.features.shopForm.formProcessors.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING));
         
         tasks.addAll(getExtraTasksFor_2_3_0());
         
