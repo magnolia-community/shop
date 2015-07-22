@@ -107,7 +107,7 @@ public class SendInvoiceAction extends AbstractRepositoryAction<SendInvoiceActio
             email.setBody(null);
             mailModule.getHandler().sendMail(email);
             
-            uiContext.openNotification(MessageStyleTypeEnum.INFO, true, "Customer invoice #" + node.getName() + "sent!");
+            uiContext.openNotification(MessageStyleTypeEnum.INFO, true, "Customer invoice #" + node.getName() + " sent!");
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
             throw new RepositoryException(e);
