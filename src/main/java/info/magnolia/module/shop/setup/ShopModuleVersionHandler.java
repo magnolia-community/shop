@@ -76,6 +76,7 @@ import info.magnolia.module.inplacetemplating.setup.TemplatesInstallTask;
 import info.magnolia.module.resources.setup.InstallResourcesTask;
 import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.shop.app.action.GenerateInvoicePdfActionDefinition;
+import info.magnolia.module.shop.app.action.SendInvoiceActionDefinition;
 import info.magnolia.module.shop.app.field.definition.PriceCategoriesSelectFieldDefinition;
 import info.magnolia.module.shop.components.CheckDisableFieldsModel;
 import info.magnolia.module.shop.components.FormStepConfirmOrderParagraphModel;
@@ -748,7 +749,10 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
     }
     
     public static final String V_2_3_0_NODEPATH_ACTIONBAR_GENERATEINVOICEPDF = "/modules/shop/apps/shoppingCarts/subApps/browser/actionbar/sections/nodes/groups/invoiceActions/items/generateInvoicePdf";
+    public static final String V_2_3_0_NODEPATH_ACTIONBAR_SENDINVOICE = "/modules/shop/apps/shoppingCarts/subApps/browser/actionbar/sections/nodes/groups/invoiceActions/items/sendInvoice";
     public static final String V_2_3_0_NODEPATH_ACTION_GENERATEINVOICEPDF = "/modules/shop/apps/shoppingCarts/subApps/browser/actions/generateInvoicePdf";
+    public static final String V_2_3_0_NODEPATH_ACTION_SENDINVOICE = "/modules/shop/apps/shoppingCarts/subApps/browser/actions/sendInvoice";
+    
     
     public static final String V_2_3_0_NODEPATH_DIALOG_TABINVOICE = "/modules/shop/dialogs/editShop/form/tabs/tabInvoice";
     public static final String V_2_3_0_NODEPATH_DIALOG_INVOICEMAILTO = "/modules/shop/dialogs/editShop/form/tabs/tabInvoice/fields/invoiceMailTo";
@@ -758,12 +762,18 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
     private List<Task> getExtraTasksFor_2_3_0_invoice() {
         ArrayList<Task> tasks = new ArrayList<Task>();
         tasks.add(new CreateNodePathTask("Implement generate invoice.", V_2_3_0_NODEPATH_ACTIONBAR_GENERATEINVOICEPDF, NodeTypes.ContentNode.NAME));
-        tasks.add(new CreateNodePathTask("Implement generate invoice.", V_2_3_0_NODEPATH_ACTION_GENERATEINVOICEPDF, NodeTypes.ContentNode.NAME));
+        tasks.add(new CreateNodePathTask("Implement generate invoice.", V_2_3_0_NODEPATH_ACTIONBAR_SENDINVOICE, NodeTypes.ContentNode.NAME));
         
+        tasks.add(new CreateNodePathTask("Implement generate invoice.", V_2_3_0_NODEPATH_ACTION_GENERATEINVOICEPDF, NodeTypes.ContentNode.NAME));
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_ACTION_GENERATEINVOICEPDF, "class", GenerateInvoicePdfActionDefinition.class.getName()));
-        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_ACTION_GENERATEINVOICEPDF, "icon", "icon-export"));
-        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_ACTION_GENERATEINVOICEPDF, "label", "Generate Invoice PDF"));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_ACTION_GENERATEINVOICEPDF, "icon", "icon-download"));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_ACTION_GENERATEINVOICEPDF, "label", "Generate invoice PDF"));
 
+        tasks.add(new CreateNodePathTask("Implement generate invoice.", V_2_3_0_NODEPATH_ACTION_SENDINVOICE, NodeTypes.ContentNode.NAME));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_ACTION_SENDINVOICE, "class", SendInvoiceActionDefinition.class.getName()));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_ACTION_SENDINVOICE, "icon", "icon-share"));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_ACTION_SENDINVOICE, "label", "Send invoice"));
+        
         tasks.add(new CreateNodePathTask("Implement generate invoice.", V_2_3_0_NODEPATH_DIALOG_TABINVOICE, NodeTypes.ContentNode.NAME));
         tasks.add(new CreateNodePathTask("Implement generate invoice.", V_2_3_0_NODEPATH_DIALOG_INVOICEMAILTO, NodeTypes.ContentNode.NAME));
         tasks.add(new CreateNodePathTask("Implement generate invoice.", V_2_3_0_NODEPATH_DIALOG_INVOICEMAILSUBJECT, NodeTypes.ContentNode.NAME));
@@ -771,9 +781,9 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
 
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_DIALOG_TABINVOICE, "label", "Invoice template"));
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_DIALOG_INVOICEMAILTO, "class", "info.magnolia.ui.form.field.definition.TextFieldDefinition"));
-        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_DIALOG_INVOICEMAILTO, "label", "Mail to"));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_DIALOG_INVOICEMAILTO, "label", "Invoice mail to"));
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_DIALOG_INVOICEMAILSUBJECT, "class", "info.magnolia.ui.form.field.definition.TextFieldDefinition"));
-        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_DIALOG_INVOICEMAILSUBJECT, "label", "Mail subject"));
+        tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_DIALOG_INVOICEMAILSUBJECT, "label", "Invoice email subject"));
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_DIALOG_INVOICETEMPLATE, "class", "info.magnolia.ui.form.field.definition.BasicTextCodeFieldDefinition"));
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_DIALOG_INVOICETEMPLATE, "label", "Invoice template"));
         tasks.add(new SetPropertyTask(RepositoryConstants.CONFIG, V_2_3_0_NODEPATH_DIALOG_INVOICETEMPLATE, "boxType", "1Col"));

@@ -33,42 +33,25 @@
  */
 package info.magnolia.module.shop.app.action;
 
-import info.magnolia.event.EventBus;
-import info.magnolia.module.shop.util.ShopUtil;
-import info.magnolia.ui.api.event.AdmincentralEventBus;
-import info.magnolia.ui.framework.action.AbstractRepositoryAction;
-import info.magnolia.ui.vaadin.integration.jcr.JcrItemAdapter;
-
-import javax.inject.Named;
-import javax.jcr.Item;
-import javax.jcr.Node;
-import javax.jcr.RepositoryException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import info.magnolia.jcr.util.NodeTypes;
+import info.magnolia.ui.api.action.ConfiguredActionDefinition;
 
 /**
- * Generate invoice PDF action class.
+ * Send invoice with PDF attachment action definition class.
  */
-public class GenerateInvoicePdfAction extends AbstractRepositoryAction<GenerateInvoicePdfActionDefinition> {
+public class SendInvoiceActionDefinition extends ConfiguredActionDefinition {
 
-    private static final Logger LOG = LoggerFactory.getLogger(GenerateInvoicePdfAction.class);
+    private String nodeType = NodeTypes.ContentNode.NAME;
 
-    public GenerateInvoicePdfAction(GenerateInvoicePdfActionDefinition definition, JcrItemAdapter item, @Named(AdmincentralEventBus.NAME) EventBus eventBus) {
-        super(definition, item, eventBus);
+    public SendInvoiceActionDefinition() {
+        setImplementationClass(SendInvoiceAction.class);
     }
 
-    @Override
-    protected void onExecute(JcrItemAdapter item) throws RepositoryException {
-        Item jcrItem = item.getJcrItem();
-        if (jcrItem.isNode()) {
-            try {
-                ShopUtil.streamOutFileToNewWindow(ShopUtil.processInvoiceNodeToPdf((Node) jcrItem), "application/pdf", ".pdf");
-            } catch (Exception e) {
-                LOG.error(e.getMessage(), e);
-                throw new RepositoryException(e);
-            }
-        }
+    public String getNodeType() {
+        return nodeType;
     }
 
+    public void setNodeType(String nodeType) {
+        this.nodeType = nodeType;
+    }
 }

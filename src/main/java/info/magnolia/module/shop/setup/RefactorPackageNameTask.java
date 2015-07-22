@@ -40,7 +40,7 @@ import info.magnolia.module.delta.AbstractRepositoryTask;
 import info.magnolia.module.delta.TaskExecutionException;
 import info.magnolia.module.shop.ShopNodeTypes;
 import info.magnolia.module.shop.ShopRepositoryConstants;
-import info.magnolia.module.shop.app.action.GenerateInvoicePdfAction;
+import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.repository.RepositoryConstants;
 
 import java.io.IOException;
@@ -87,7 +87,7 @@ public class RefactorPackageNameTask extends AbstractRepositoryTask {
         try {
             String ftlTemplate = IOUtils.toString(this.getClass().getResourceAsStream(V_2_3_0_INVOICE_RESOURCE_PATH));
             for (Node shop : NodeUtil.getNodes(shopsSession.getRootNode(), ShopNodeTypes.SHOP)) {
-                PropertyUtil.setProperty(shop, GenerateInvoicePdfAction.CONFIGURED_INVOICE_TEMPLATE_PROPERTY_NAME, ftlTemplate);
+                PropertyUtil.setProperty(shop, ShopUtil.CONFIGURED_INVOICE_TEMPLATE_PROPERTY_NAME, ftlTemplate);
             }
             shopsSession.save();
         } catch (IOException e) {
