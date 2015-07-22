@@ -33,10 +33,12 @@
  */
 package info.magnolia.module.shop.setup;
 
+import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.module.InstallContext;
 import info.magnolia.module.delta.AbstractRepositoryTask;
 import info.magnolia.module.delta.TaskExecutionException;
+import info.magnolia.module.shop.ShopNodeTypes;
 import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.shop.app.action.GenerateInvoicePdfAction;
 import info.magnolia.repository.RepositoryConstants;
@@ -82,12 +84,10 @@ public class RefactorPackageNameTask extends AbstractRepositoryTask {
         session.save();
 
         Session shopsSession = installContext.getJCRSession(ShopRepositoryConstants.SHOPS);
-        NodeIterator shopNi = shopsSession.getRootNode().getNodes();
         try {
             String ftlTemplate = IOUtils.toString(this.getClass().getResourceAsStream(V_2_3_0_INVOICE_RESOURCE_PATH));
-            while (shopNi.hasNext()) {
-                Node shop = shopNi.nextNode();
-                shop.setProperty(GenerateInvoicePdfAction.CONFIGURED_INVOICE_TEMPLATE_PROPERTY_NAME, ftlTemplate);
+            for (Node shop : NodeUtil.getNodes(shopsSession.getRootNode(), ShopNodeTypes.SHOP)) {
+                PropertyUtil.setProperty(shop, GenerateInvoicePdfAction.CONFIGURED_INVOICE_TEMPLATE_PROPERTY_NAME, ftlTemplate);
             }
             shopsSession.save();
         } catch (IOException e) {
