@@ -33,8 +33,6 @@
  */
 package info.magnolia.module.shop.util;
 
-import freemarker.template.TemplateException;
-
 import info.magnolia.cms.i18n.I18nContentSupportFactory;
 import info.magnolia.cms.i18n.Messages;
 import info.magnolia.cms.i18n.MessagesManager;
@@ -42,10 +40,8 @@ import info.magnolia.cms.security.AccessDeniedException;
 import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
-import info.magnolia.freemarker.FreemarkerHelper;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
-import info.magnolia.jcr.util.SessionUtil;
 import info.magnolia.jcr.wrapper.HTMLEscapingNodeWrapper;
 import info.magnolia.jcr.wrapper.I18nNodeWrapper;
 import info.magnolia.module.shop.ShopConfiguration;
@@ -59,26 +55,13 @@ import info.magnolia.module.shop.components.TemplateProductPriceBean;
 import info.magnolia.module.templatingkit.templates.category.TemplateCategoryUtil;
 import info.magnolia.repository.RepositoryConstants;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.io.Writer;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
@@ -88,16 +71,9 @@ import javax.jcr.PropertyIterator;
 import javax.jcr.RepositoryException;
 import javax.jcr.ValueFormatException;
 
-import org.allcolor.yahp.converter.CYaHPConverter;
-import org.allcolor.yahp.converter.IHtmlToPdfTransformer;
-import org.allcolor.yahp.converter.IHtmlToPdfTransformer.CConvertException;
-import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.vaadin.server.Page;
-import com.vaadin.server.StreamResource;
 
 /**
  * Paragraphs util class.
@@ -113,7 +89,6 @@ public final class ShopUtil {
     public static final BigDecimal HUNDRED = new BigDecimal("100");
     public static final BigDecimal ONE = new BigDecimal("1");
     public static final BigDecimal ZERO = new BigDecimal("0");
-    public static final String CONFIGURED_INVOICE_TEMPLATE_PROPERTY_NAME = "invoiceTemplate";
 
     private ShopUtil() {
     }
@@ -758,81 +733,4 @@ public final class ShopUtil {
         }
         return null;
     }
-
-    public static ByteArrayOutputStream html2pdf(String htmlContents, Map<String, Object> inputModel) throws CConvertException, IOException, TemplateException {
-        // Render content
-        Reader bufferedReader = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(htmlContents.getBytes())));
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        Writer writer = new OutputStreamWriter(baos);
-        FreemarkerHelper.getInstance().render(bufferedReader, inputModel, writer);// TODO: use IOC
-        writer.flush();
-        writer.close();
-        // Convert to pdf
-        CYaHPConverter converter = new CYaHPConverter();
-        ByteArrayOutputStream result = new ByteArrayOutputStream();
-        Map<String, String> properties = new HashMap<String, String>();
-        properties.put(IHtmlToPdfTransformer.PDF_RENDERER_CLASS, IHtmlToPdfTransformer.FLYINGSAUCER_PDF_RENDERER);
-        converter.convertToPdf(baos.toString(), IHtmlToPdfTransformer.A4P, Collections.EMPTY_LIST, "file:///temp/html/", result, properties);
-        baos.close();
-        result.flush();
-        result.close();
-        return result;
-    }
-
-    public static ByteArrayOutputStream processInvoiceNodeToPdf(Node node) throws TemplateException, IOException, RepositoryException, CConvertException {
-        Node parentNode = node.getParent();
-        if (parentNode.getParent().isSame(node.getSession().getRootNode())) {
-            String inputFtlStr = PropertyUtil.getString(SessionUtil.getNode(ShopRepositoryConstants.SHOPS, parentNode.getPath()), CONFIGURED_INVOICE_TEMPLATE_PROPERTY_NAME);
-            if (StringUtils.isNotBlank(inputFtlStr)) {
-                Map<String, Object> inputModel = new HashMap<String, Object>();
-                inputModel.put("shoppingCart", node);
-                inputModel.put("PropertyUtil", new PropertyUtil());
-                ByteArrayOutputStream baos = html2pdf(inputFtlStr, inputModel);
-                log.debug("Processed data from {} to pdf.", node.getPath());
-                return baos;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Extracted from info.magnolia.ui.framework.action.ExportAction.openFileInBlankWindow(String, String) with some modifications.
-     */
-    public static void streamOutFileToNewWindow(final ByteArrayOutputStream baos, String mimeType, String fileType) throws IOException {
-        if (baos == null)
-            return;
-        StreamResource.StreamSource source = new StreamResource.StreamSource() {
-            @Override
-            public InputStream getStream() {
-                return new ByteArrayInputStream(baos.toByteArray());
-            }
-        };
-        File outputPdf = File.createTempFile("file-" + System.currentTimeMillis(), fileType);
-        outputPdf.deleteOnExit();
-        String fileName = outputPdf.getName();
-        StreamResource resource = new StreamResource(source, fileName);
-        // Accessing the DownloadStream via getStream() will set its cacheTime to whatever is set in the parent
-        // StreamResource. By default it is set to 1000 * 60 * 60 * 24, thus we have to override it beforehand.
-        // A negative value or zero will disable caching of this stream.
-        resource.setCacheTime(-1);
-        resource.getStream().setParameter("Content-Disposition", "attachment; filename=\"" + fileName + "\";");
-        resource.getStream().setParameter("Content-Type", "application/force-download;");
-        resource.setMIMEType(mimeType);
-        Page.getCurrent().open(resource, "Download file", true);
-    }
-
-    public static File pdfToTempFile(final ByteArrayOutputStream baos) throws IOException {
-        if (baos == null)
-            return null;
-        File outputPdf = File.createTempFile("invoice-" + System.currentTimeMillis(), ".pdf");
-        outputPdf.deleteOnExit();
-        OutputStream outputStream = new FileOutputStream(outputPdf);
-        baos.writeTo(outputStream);
-        baos.flush();
-        outputStream.flush();
-        outputStream.close();
-        baos.close();
-        return outputPdf;
-    }
-
 }

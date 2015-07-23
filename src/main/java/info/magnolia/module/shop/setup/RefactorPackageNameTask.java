@@ -41,10 +41,11 @@ import info.magnolia.module.delta.TaskExecutionException;
 import info.magnolia.module.shop.ShopNodeTypes;
 import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.shop.app.action.SendInvoiceAction;
-import info.magnolia.module.shop.util.ShopUtil;
+import info.magnolia.module.shop.service.FtlToPdfService;
 import info.magnolia.repository.RepositoryConstants;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
@@ -85,15 +86,25 @@ public class RefactorPackageNameTask extends AbstractRepositoryTask {
         session.save();
 
         Session shopsSession = installContext.getJCRSession(ShopRepositoryConstants.SHOPS);
+        InputStream is = null;
         try {
-            String ftlTemplate = IOUtils.toString(this.getClass().getResourceAsStream(V_2_3_0_INVOICE_RESOURCE_PATH));
+            is = this.getClass().getResourceAsStream(V_2_3_0_INVOICE_RESOURCE_PATH);
+            String ftlTemplate = IOUtils.toString(is);
             for (Node shop : NodeUtil.getNodes(shopsSession.getRootNode(), ShopNodeTypes.SHOP)) {
-                PropertyUtil.setProperty(shop, ShopUtil.CONFIGURED_INVOICE_TEMPLATE_PROPERTY_NAME, ftlTemplate);
+                PropertyUtil.setProperty(shop, FtlToPdfService.CONFIGURED_INVOICE_TEMPLATE_PROPERTY_NAME, ftlTemplate);
                 PropertyUtil.setProperty(shop, SendInvoiceAction.INVOICE_MAIL_SUBJECT_PROP_NAME, "Magnolia Module Shop invoice to customer");
             }
             shopsSession.save();
         } catch (IOException e) {
             log.error(e.getMessage(), e);
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    log.error("Resource cannot be closed!", e);
+                }
+            }
         }
     }
 

@@ -34,7 +34,8 @@
 package info.magnolia.module.shop.app.action;
 
 import info.magnolia.event.EventBus;
-import info.magnolia.module.shop.util.ShopUtil;
+import info.magnolia.module.shop.service.ResourceFinalizer;
+import info.magnolia.module.shop.service.YahpFtlToPdfService;
 import info.magnolia.ui.api.event.AdmincentralEventBus;
 import info.magnolia.ui.framework.action.AbstractRepositoryAction;
 import info.magnolia.ui.vaadin.integration.jcr.JcrItemAdapter;
@@ -44,6 +45,7 @@ import javax.jcr.Item;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 
+import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,20 +55,27 @@ import org.slf4j.LoggerFactory;
 public class GenerateInvoicePdfAction extends AbstractRepositoryAction<GenerateInvoicePdfActionDefinition> {
 
     private static final Logger LOG = LoggerFactory.getLogger(GenerateInvoicePdfAction.class);
+    private YahpFtlToPdfService yahpHtmlToPdfService;
+    private ResourceFinalizer resourceFinalizer;
 
-    public GenerateInvoicePdfAction(GenerateInvoicePdfActionDefinition definition, JcrItemAdapter item, @Named(AdmincentralEventBus.NAME) EventBus eventBus) {
+    public GenerateInvoicePdfAction(GenerateInvoicePdfActionDefinition definition, JcrItemAdapter item, @Named(AdmincentralEventBus.NAME) EventBus eventBus, YahpFtlToPdfService yahpHtmlToPdfService, ResourceFinalizer resourceFinalizer) {
         super(definition, item, eventBus);
+        this.resourceFinalizer = resourceFinalizer;
     }
 
     @Override
     protected void onExecute(JcrItemAdapter item) throws RepositoryException {
         Item jcrItem = item.getJcrItem();
         if (jcrItem.isNode()) {
+            ByteArrayOutputStream baos = null;
             try {
-                ShopUtil.streamOutFileToNewWindow(ShopUtil.processInvoiceNodeToPdf((Node) jcrItem), "application/pdf", ".pdf");
+                baos = yahpHtmlToPdfService.processInvoiceNodeToPdf((Node) jcrItem);
+                yahpHtmlToPdfService.outputStreamToNewWindow(baos, "application/pdf", ".pdf");
             } catch (Exception e) {
                 LOG.error(e.getMessage(), e);
                 throw new RepositoryException(e);
+            } finally {
+                resourceFinalizer.finalizeResources(baos);
             }
         }
     }

@@ -40,7 +40,8 @@ import info.magnolia.module.mail.MailModule;
 import info.magnolia.module.mail.templates.MailAttachment;
 import info.magnolia.module.mail.templates.MgnlEmail;
 import info.magnolia.module.shop.ShopRepositoryConstants;
-import info.magnolia.module.shop.util.ShopUtil;
+import info.magnolia.module.shop.service.ResourceFinalizer;
+import info.magnolia.module.shop.service.YahpFtlToPdfService;
 import info.magnolia.ui.api.context.UiContext;
 import info.magnolia.ui.api.event.AdmincentralEventBus;
 import info.magnolia.ui.framework.action.AbstractRepositoryAction;
@@ -59,6 +60,7 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
+import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,11 +77,15 @@ public class SendInvoiceAction extends AbstractRepositoryAction<SendInvoiceActio
     
     private UiContext uiContext;
     private MailModule mailModule;
+    private YahpFtlToPdfService yahpHtmlToPdfService;
+    private ResourceFinalizer resourceFinalizer;
 
-    public SendInvoiceAction(SendInvoiceActionDefinition definition, JcrItemAdapter item, @Named(AdmincentralEventBus.NAME) EventBus eventBus, MailModule mailModule, UiContext uiContext) {
+    public SendInvoiceAction(SendInvoiceActionDefinition definition, JcrItemAdapter item, @Named(AdmincentralEventBus.NAME) EventBus eventBus, MailModule mailModule, UiContext uiContext, YahpFtlToPdfService yahpHtmlToPdfService, ResourceFinalizer resourceFinalizer) {
         super(definition, item, eventBus);
         this.mailModule = mailModule;
         this.uiContext = uiContext;
+        this.yahpHtmlToPdfService = yahpHtmlToPdfService;
+        this.resourceFinalizer = resourceFinalizer;
     }
 
     @Override
@@ -92,10 +98,11 @@ public class SendInvoiceAction extends AbstractRepositoryAction<SendInvoiceActio
         
         Session shopsSession = MgnlContext.getJCRSession(ShopRepositoryConstants.SHOPS);
         Node shopNode = shopsSession.getRootNode().getNode(parentNode.getName());
-        
+        ByteArrayOutputStream baos = null;
         try {
             List<MailAttachment> attachments = new ArrayList<MailAttachment>();
-            File pdfFile = ShopUtil.pdfToTempFile(ShopUtil.processInvoiceNodeToPdf(node));
+            baos = yahpHtmlToPdfService.processInvoiceNodeToPdf(node);
+            File pdfFile = yahpHtmlToPdfService.outputStreamToTempFile(baos);
             MailAttachment pdfAttachment = new MailAttachment(pdfFile, pdfFile.getName(), "customer invoice", "attachment");
             attachments.add(0, pdfAttachment);
             Map<String, Object> parameters = new HashMap<String, Object>();
@@ -111,6 +118,8 @@ public class SendInvoiceAction extends AbstractRepositoryAction<SendInvoiceActio
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
             throw new RepositoryException(e);
+        } finally {
+            resourceFinalizer.finalizeResources(baos);
         }
     }
 
