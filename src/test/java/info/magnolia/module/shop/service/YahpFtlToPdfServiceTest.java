@@ -1,7 +1,40 @@
+/**
+ * This file Copyright (c) 2013-2015 Magnolia International
+ * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
+ *
+ *
+ * This file is dual-licensed under both the Magnolia
+ * Network Agreement and the GNU General Public License.
+ * You may elect to use one or the other of these licenses.
+ *
+ * This file is distributed in the hope that it will be
+ * useful, but AS-IS and WITHOUT ANY WARRANTY; without even the
+ * implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE, TITLE, or NONINFRINGEMENT.
+ * Redistribution, except as permitted by whichever of the GPL
+ * or MNA you select, is prohibited.
+ *
+ * 1. For the GPL license (GPL), you can redistribute and/or
+ * modify this file under the terms of the GNU General
+ * Public License, Version 3, as published by the Free Software
+ * Foundation.  You should have received a copy of the GNU
+ * General Public License, Version 3 along with this program;
+ * if not, write to the Free Software Foundation, Inc., 51
+ * Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
+ *
+ * 2. For the Magnolia Network Agreement (MNA), this file
+ * and the accompanying materials are made available under the
+ * terms of the MNA which accompanies this distribution, and
+ * is available at http://www.magnolia-cms.com/mna.html
+ *
+ * Any modifications to this file must keep this entire header
+ * intact.
+ *
+ */
 package info.magnolia.module.shop.service;
 
-import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import info.magnolia.context.MgnlContext;
 import info.magnolia.freemarker.FreemarkerHelper;
@@ -25,75 +58,105 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.jcr.Node;
+import javax.jcr.Property;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
+/**
+ * Test class of YahpFtlToPdfService.
+ */
 public class YahpFtlToPdfServiceTest extends RepositoryTestCase {
 
     public static final String TEST_SHOP_NAME = "testShop";
     public static final String TEST_SHOPPING_CART_NUMBER = "178";
-    
-    Session shoppingCartSession;
+
+    Session shoppingCartsSession;
     Node testShoppingCartShopNode;
     Node testShoppingCartNode;
     Node cartItem_0;
     Node cartItem_1;
-    
+
     YahpFtlToPdfService yahpFtlToPdfService;
+
     FreemarkerHelper freemarkerHelper;
     ResourceFinalizer resourceFinalizer;
     PropertyUtil propertyUtil;
-    
-    
-    
+
+    Session shopsSession;
+    Node shopNode;
+
+    String ftlStr;
+
     @Override
     @Before
     public void setUp() throws Exception {
         super.setUp();
         MockWebContext ctx = new MockWebContext();
-        shoppingCartSession = new MockSession(ShopRepositoryConstants.SHOPPING_CARTS);
-        ctx.addSession(ShopRepositoryConstants.SHOPPING_CARTS, shoppingCartSession);
-        testShoppingCartShopNode = NodeUtil.createPath(shoppingCartSession.getRootNode(), '/' + TEST_SHOP_NAME, NodeTypes.Folder.NAME);
-        testShoppingCartNode = NodeUtil.createPath(testShoppingCartShopNode,  '/' + TEST_SHOPPING_CART_NUMBER, NodeTypes.ContentNode.NAME);
+
+        shoppingCartsSession = new MockSession(ShopRepositoryConstants.SHOPPING_CARTS);
+        ctx.addSession(ShopRepositoryConstants.SHOPPING_CARTS, shoppingCartsSession);
+        testShoppingCartShopNode = NodeUtil.createPath(shoppingCartsSession.getRootNode(), '/' + TEST_SHOP_NAME, NodeTypes.Folder.NAME);
+        testShoppingCartNode = NodeUtil.createPath(testShoppingCartShopNode, '/' + TEST_SHOPPING_CART_NUMBER, NodeTypes.ContentNode.NAME);
+
+        shopsSession = new MockSession(ShopRepositoryConstants.SHOPS);
+        ctx.addSession(ShopRepositoryConstants.SHOPS, shopsSession);
+        shopNode = NodeUtil.createPath(shopsSession.getRootNode(), '/' + TEST_SHOP_NAME, NodeTypes.ContentNode.NAME);// ShopNodeTypes.SHOP
+
         ctx.setAttribute(TEST_SHOP_NAME + "_" + ShopUtil.ATTRIBUTE_SHOPPINGCART, new DefaultShoppingCartImpl(), MockWebContext.SESSION_SCOPE);
-        
+
         NodeUtil.createPath(testShoppingCartNode, "/cartItems/0/options", NodeTypes.ContentNode.NAME);
         NodeUtil.createPath(testShoppingCartNode, "/cartItems/1/options", NodeTypes.ContentNode.NAME);
-        
+
         cartItem_0 = testShoppingCartNode.getNode("/cartItems/0");
         cartItem_1 = testShoppingCartNode.getNode("/cartItems/1");
-        
+
         freemarkerHelper = new FreemarkerHelper();
         resourceFinalizer = new ResourceFinalizer();
         yahpFtlToPdfService = new YahpFtlToPdfService(freemarkerHelper, resourceFinalizer);
         propertyUtil = new PropertyUtil();
-        
+
         ctx.setLocale(Locale.ENGLISH);
         MgnlContext.getInstance().setLocale(Locale.ENGLISH);
     }
 
     @Test
     public void testFtl2pdf() throws IOException, RepositoryException {
+        // GIVEN
         testCreateCartItem();
         InputStream is = this.getClass().getResourceAsStream(RefactorPackageNameTask.V_2_3_0_INVOICE_RESOURCE_PATH);
-        String ftlStr = IOUtils.toString(is);
+        ftlStr = IOUtils.toString(is);
         Map<String, Object> dataModel = new HashMap<String, Object>();
         dataModel.put("shoppingCart", testShoppingCartNode);
         dataModel.put("PropertyUtil", propertyUtil);
+
+        // WHEN
         ByteArrayOutputStream baos = yahpFtlToPdfService.ftl2pdf(ftlStr, dataModel);
+
+        // THEN
         assertNotNull(baos);
+
         is.close();
         baos.close();
     }
 
+    @Ignore
     @Test
-    public void testProcessInvoiceNodeToPdf() {
-        fail("Not yet implemented");
+    public void testProcessInvoiceNodeToPdf() throws RepositoryException, IOException {
+        // GIVEN
+        testCreateCartItem();
+        testCreateShopNodeWithConfiguredTemplate();
+
+        // WHEN
+        ByteArrayOutputStream baos = yahpFtlToPdfService.processInvoiceNodeToPdf(testShoppingCartNode);
+
+        // THEN
+        assertNotNull(baos);
     }
 
     @Test(expected = NullPointerException.class)
@@ -103,10 +166,10 @@ public class YahpFtlToPdfServiceTest extends RepositoryTestCase {
         String fileType = "pdf";
         ByteArrayOutputStream baos = mock(ByteArrayOutputStream.class);
         when(baos.toByteArray()).thenReturn(null);
-        
+
         // WHEN
         yahpFtlToPdfService.outputStreamToNewWindow(baos, mimeType, fileType);
-        
+
         // THEN
         // Throw NullPointerException
     }
@@ -114,26 +177,26 @@ public class YahpFtlToPdfServiceTest extends RepositoryTestCase {
     @Test
     public void testOutputStreamToTempFile_IfByteArrayNull_ReturnNull() {
         // GIVEN
-        
+
         // WHEN
         File actual = yahpFtlToPdfService.outputStreamToTempFile(null);
-        
+
         // THEN
         assertNull(actual);
     }
-    
+
     @Test
     public void testOutputStreamToTempFile_IfHaveByteArray_ReturnNull() {
         // GIVEN
         ByteArrayOutputStream baos = new ByteArrayOutputStream(100);
-        
+
         // WHEN
         File actual = yahpFtlToPdfService.outputStreamToTempFile(baos);
-        
+
         // THEN
         assertNotNull(actual);
     }
-    
+
     @Test
     public void testCreateCartItem() throws RepositoryException {
         assertNotNull(testShoppingCartNode.setProperty("billingAddressFirstname", "trung.luu"));
@@ -148,7 +211,7 @@ public class YahpFtlToPdfServiceTest extends RepositoryTestCase {
         assertNotNull(testShoppingCartNode.setProperty("shippingCostTaxIncluded", false));
         assertNotNull(testShoppingCartNode.setProperty("taxIncluded", false));
         assertNotNull(testShoppingCartNode.setProperty("userIP", "0:0:0:0:0:0:0:1:52925"));
-        
+
         assertNotNull(cartItem_0.setProperty("itemTax", "1.52"));
         assertNotNull(cartItem_0.setProperty("itemTotal", "20"));
         assertNotNull(cartItem_0.setProperty("ocm_classname", ShoppingCartItem.class.getName()));
@@ -156,7 +219,7 @@ public class YahpFtlToPdfServiceTest extends RepositoryTestCase {
         assertNotNull(cartItem_0.setProperty("productTitle", "Smokin' Seventeen: A Stephanie Plum Novel"));
         assertNotNull(cartItem_0.setProperty("productUUID", "f1e6596e-6415-4e72-88b7-6f9afcfb9430"));
         assertNotNull(cartItem_0.setProperty("quantity", 2L));
-        
+
         assertNotNull(cartItem_1.setProperty("itemTax", "0.793"));
         assertNotNull(cartItem_1.setProperty("itemTotal", "10.44"));
         assertNotNull(cartItem_1.setProperty("ocm_classname", ShoppingCartItem.class.getName()));
@@ -164,6 +227,17 @@ public class YahpFtlToPdfServiceTest extends RepositoryTestCase {
         assertNotNull(cartItem_1.setProperty("productTitle", "Adele"));
         assertNotNull(cartItem_1.setProperty("productUUID", "3e3d1ba0-41d3-4c80-a318-e01eba293ca7"));
         assertNotNull(cartItem_1.setProperty("quantity", 1L));
+    }
+
+    @Test
+    public void testCreateShopNodeWithConfiguredTemplate() throws IOException, RepositoryException {
+        // GIVEN
+        InputStream is = this.getClass().getResourceAsStream(RefactorPackageNameTask.V_2_3_0_INVOICE_RESOURCE_PATH);
+        ftlStr = IOUtils.toString(is);
+        // WHEN
+        Property ftlProp = shopNode.setProperty(FtlToPdfService.CONFIGURED_INVOICE_TEMPLATE_PROPERTY_NAME, ftlStr);
+        // THEN
+        assertNotNull(ftlProp);
     }
 
 }
