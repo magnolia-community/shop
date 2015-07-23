@@ -41,8 +41,8 @@
       <td style="text-align: left;  border: 1px solid; padding: 4px;">${PropertyUtil.getString(cartItem,'productTitle')}</td>
       <td style="text-align: left;  border: 1px solid; padding: 4px;">${PropertyUtil.getString(cartItem,'productSubTitle')!} <br/> ${PropertyUtil.getString(cartItem,'productDescription')!}</td>
       <td style="text-align: right; border: 1px solid; padding: 4px;">${PropertyUtil.getString(cartItem,'quantity')}</td>
-      <td style="text-align: right; border: 1px solid; padding: 4px;">${PropertyUtil.getString(cartItem,'itemTax')}</td>
-      <td style="text-align: right; border: 1px solid; padding: 4px;">${PropertyUtil.getString(cartItem,'itemTotal')}</td>
+      <td style="text-align: right; border: 1px solid; padding: 4px;">${PropertyUtil.getLong(cartItem,'itemTax')?string("0.00")}</td>
+      <td style="text-align: right; border: 1px solid; padding: 4px;">${PropertyUtil.getLong(cartItem,'itemTotal')?string("0.00")}</td>
     </tr>
     [/#list]
     <tr>

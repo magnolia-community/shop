@@ -108,16 +108,14 @@ public class YahpFtlToPdfService implements FtlToPdfService {
             return result;
         } catch (TemplateException e) {
             LOG.error(e.getMessage(), e);
-            return null;
         } catch (IOException e) {
             LOG.error(e.getMessage(), e);
-            return null;
         } catch (CConvertException e) {
             LOG.error(e.getMessage(), e);
-            return null;
         } finally {
             resourceFinalizer.finalizeResources(bufferedReader, bais, writer, baos);
         }
+        return null;
     }
 
     @Override
