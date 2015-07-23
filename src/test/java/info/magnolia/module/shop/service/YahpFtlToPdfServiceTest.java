@@ -1,5 +1,6 @@
 package info.magnolia.module.shop.service;
 
+import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
 import info.magnolia.context.MgnlContext;
@@ -16,6 +17,7 @@ import info.magnolia.test.RepositoryTestCase;
 import info.magnolia.test.mock.MockWebContext;
 import info.magnolia.test.mock.jcr.MockSession;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -94,14 +96,42 @@ public class YahpFtlToPdfServiceTest extends RepositoryTestCase {
         fail("Not yet implemented");
     }
 
-    @Test
-    public void testOutputStreamToNewWindow() {
-        //fail("Not yet implemented");
+    @Test(expected = NullPointerException.class)
+    public void testOutputStreamToNewWindow_IfByteArrayNull_ReturnNullPointer() {
+        // GIVEN
+        String mimeType = "application/pdf";
+        String fileType = "pdf";
+        ByteArrayOutputStream baos = mock(ByteArrayOutputStream.class);
+        when(baos.toByteArray()).thenReturn(null);
+        
+        // WHEN
+        yahpFtlToPdfService.outputStreamToNewWindow(baos, mimeType, fileType);
+        
+        // THEN
+        // Throw NullPointerException
     }
 
     @Test
-    public void testOutputStreamToTempFile() {
-        //fail("Not yet implemented");
+    public void testOutputStreamToTempFile_IfByteArrayNull_ReturnNull() {
+        // GIVEN
+        
+        // WHEN
+        File actual = yahpFtlToPdfService.outputStreamToTempFile(null);
+        
+        // THEN
+        assertNull(actual);
+    }
+    
+    @Test
+    public void testOutputStreamToTempFile_IfHaveByteArray_ReturnNull() {
+        // GIVEN
+        ByteArrayOutputStream baos = new ByteArrayOutputStream(100);
+        
+        // WHEN
+        File actual = yahpFtlToPdfService.outputStreamToTempFile(baos);
+        
+        // THEN
+        assertNotNull(actual);
     }
     
     @Test
