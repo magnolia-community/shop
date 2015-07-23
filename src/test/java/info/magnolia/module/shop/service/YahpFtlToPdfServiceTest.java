@@ -53,6 +53,7 @@ import info.magnolia.test.mock.jcr.MockSession;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -199,29 +200,29 @@ public class YahpFtlToPdfServiceTest extends RepositoryTestCase {
 
     @Test
     public void testCreateCartItem() throws RepositoryException {
-        assertNotNull(testShoppingCartNode.setProperty("billingAddressFirstname", "trung.luu"));
-        assertNotNull(testShoppingCartNode.setProperty("billingAddressMail", "trung.luu@pyramid-consulting.com"));
-        assertNotNull(testShoppingCartNode.setProperty("billingAddressStreet", "364 Cong Hoa, Tan Binh district, Ho Chi Minh city, Vietnam"));
-        assertNotNull(testShoppingCartNode.setProperty("grossTotalExclTax", "30.44"));
-        assertNotNull(testShoppingCartNode.setProperty("grossTotalInclTax", "32.75"));
-        assertNotNull(testShoppingCartNode.setProperty("itemTaxTotal", "2.31"));
+        assertNotNull(testShoppingCartNode.setProperty("billingAddressFirstname", "abc"));
+        assertNotNull(testShoppingCartNode.setProperty("billingAddressMail", "aaa@bbb.com"));
+        assertNotNull(testShoppingCartNode.setProperty("billingAddressStreet", "abc abc abc"));
+        assertNotNull(testShoppingCartNode.setProperty("grossTotalExclTax", Double.parseDouble("30.44")));
+        assertNotNull(testShoppingCartNode.setProperty("grossTotalInclTax", Double.parseDouble("32.75")));
+        assertNotNull(testShoppingCartNode.setProperty("itemTaxTotal", Double.parseDouble("2.31")));
         assertNotNull(testShoppingCartNode.setProperty("name", "178"));
         assertNotNull(testShoppingCartNode.setProperty("ocm_classname", DefaultShoppingCartImpl.class.getName()));
-        assertNotNull(testShoppingCartNode.setProperty("orderDate", "Jul 23, 2015 4:10:22 PM"));
+        assertNotNull(testShoppingCartNode.setProperty("orderDate", Calendar.getInstance()));
         assertNotNull(testShoppingCartNode.setProperty("shippingCostTaxIncluded", false));
         assertNotNull(testShoppingCartNode.setProperty("taxIncluded", false));
         assertNotNull(testShoppingCartNode.setProperty("userIP", "0:0:0:0:0:0:0:1:52925"));
 
-        assertNotNull(cartItem_0.setProperty("itemTax", "1.52"));
-        assertNotNull(cartItem_0.setProperty("itemTotal", "20"));
+        assertNotNull(cartItem_0.setProperty("itemTax", Double.parseDouble("1.52")));
+        assertNotNull(cartItem_0.setProperty("itemTotal", Double.parseDouble("20")));
         assertNotNull(cartItem_0.setProperty("ocm_classname", ShoppingCartItem.class.getName()));
         assertNotNull(cartItem_0.setProperty("productSubTitle", "Dead bodies are showing up in shallow graves on the empty construction lot of Vincent Plum Bail Bonds. No one is sure who the killer is, or why the victims have been offed, but what is clear is that Stephanie’s name is on the killer’s list."));
         assertNotNull(cartItem_0.setProperty("productTitle", "Smokin' Seventeen: A Stephanie Plum Novel"));
         assertNotNull(cartItem_0.setProperty("productUUID", "f1e6596e-6415-4e72-88b7-6f9afcfb9430"));
         assertNotNull(cartItem_0.setProperty("quantity", 2L));
 
-        assertNotNull(cartItem_1.setProperty("itemTax", "0.793"));
-        assertNotNull(cartItem_1.setProperty("itemTotal", "10.44"));
+        assertNotNull(cartItem_1.setProperty("itemTax", Double.parseDouble("0.793")));
+        assertNotNull(cartItem_1.setProperty("itemTotal", Double.parseDouble("10.44")));
         assertNotNull(cartItem_1.setProperty("ocm_classname", ShoppingCartItem.class.getName()));
         assertNotNull(cartItem_1.setProperty("productSubTitle", "Adele"));
         assertNotNull(cartItem_1.setProperty("productTitle", "Adele"));
