@@ -49,20 +49,25 @@ import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.inject.Inject;
+
 /**
  * Generate invoice PDF action class.
  */
 public class GenerateInvoicePdfAction extends AbstractRepositoryAction<GenerateInvoicePdfActionDefinition> {
 
     private static final Logger LOG = LoggerFactory.getLogger(GenerateInvoicePdfAction.class);
+    
+    @Inject
     private YahpFtlToPdfService yahpHtmlToPdfService;
+    
+    @Inject
     private ResourceFinalizer resourceFinalizer;
-
-    public GenerateInvoicePdfAction(GenerateInvoicePdfActionDefinition definition, JcrItemAdapter item, @Named(AdmincentralEventBus.NAME) EventBus eventBus, YahpFtlToPdfService yahpHtmlToPdfService, ResourceFinalizer resourceFinalizer) {
+    
+    public GenerateInvoicePdfAction(GenerateInvoicePdfActionDefinition definition, JcrItemAdapter item, @Named(AdmincentralEventBus.NAME) EventBus eventBus) {
         super(definition, item, eventBus);
-        this.resourceFinalizer = resourceFinalizer;
     }
-
+    
     @Override
     protected void onExecute(JcrItemAdapter item) throws RepositoryException {
         Item jcrItem = item.getJcrItem();
@@ -79,5 +84,5 @@ public class GenerateInvoicePdfAction extends AbstractRepositoryAction<GenerateI
             }
         }
     }
-
+    
 }

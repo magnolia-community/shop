@@ -65,6 +65,8 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.inject.Inject;
+
 /**
  * Send invoice with PDF attachment action class.
  */
@@ -75,17 +77,20 @@ public class SendInvoiceAction extends AbstractRepositoryAction<SendInvoiceActio
     public static final String INVOICE_MAIL_SUBJECT_PROP_NAME = "invoiceMailSubject";
     public static final String INVOICE_BILLING_ADDRESS_MAIL_PROP_NAME = "billingAddressMail";
     
+    @Inject
     private UiContext uiContext;
+
+    @Inject
     private MailModule mailModule;
+
+    @Inject
     private YahpFtlToPdfService yahpHtmlToPdfService;
+
+    @Inject
     private ResourceFinalizer resourceFinalizer;
 
-    public SendInvoiceAction(SendInvoiceActionDefinition definition, JcrItemAdapter item, @Named(AdmincentralEventBus.NAME) EventBus eventBus, MailModule mailModule, UiContext uiContext, YahpFtlToPdfService yahpHtmlToPdfService, ResourceFinalizer resourceFinalizer) {
+    public SendInvoiceAction(SendInvoiceActionDefinition definition, JcrItemAdapter item, @Named(AdmincentralEventBus.NAME) EventBus eventBus) {
         super(definition, item, eventBus);
-        this.mailModule = mailModule;
-        this.uiContext = uiContext;
-        this.yahpHtmlToPdfService = yahpHtmlToPdfService;
-        this.resourceFinalizer = resourceFinalizer;
     }
 
     @Override
