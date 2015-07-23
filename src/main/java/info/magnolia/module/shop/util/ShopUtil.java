@@ -733,4 +733,8 @@ public final class ShopUtil {
         }
         return null;
     }
+    
+    public static Double roundUpTo2Decimal(Double value) {
+        return Math.round(value * 100.0) / 100.0;
+    }
 }

@@ -128,6 +128,9 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     private String billingAddressPhone;
     private String billingAddressMobile;
     private String billingAddressMail;
+    private Double grossTotalExclTaxFinal;
+    private Double itemTaxTotalFinal;
+    private Double grossTotalInclTaxFinal;
     private Boolean termsAccepted;
     private Double cartDiscountRate;
     private Boolean taxIncluded = false;
@@ -707,6 +710,30 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
         this.billingAddressMail = billingAddressMail;
     }
 
+    public Double getGrossTotalExclTaxFinal() {
+        return grossTotalExclTaxFinal;
+    }
+
+    public void setGrossTotalExclTaxFinal(Double grossTotalExclTaxFinal) {
+        this.grossTotalExclTaxFinal = grossTotalExclTaxFinal;
+    }
+
+    public Double getItemTaxTotalFinal() {
+        return itemTaxTotalFinal;
+    }
+
+    public void setItemTaxTotalFinal(Double itemTaxTotalFinal) {
+        this.itemTaxTotalFinal = itemTaxTotalFinal;
+    }
+
+    public Double getGrossTotalInclTaxFinal() {
+        return grossTotalInclTaxFinal;
+    }
+
+    public void setGrossTotalInclTaxFinal(Double grossTotalInclTaxFinal) {
+        this.grossTotalInclTaxFinal = grossTotalInclTaxFinal;
+    }
+
     public Double getCartDiscountRate() {
         return cartDiscountRate;
     }
@@ -1275,6 +1302,10 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
         if (parameters.containsKey("termsAccepted") && parameters.get("termsAccepted").toString().equalsIgnoreCase("true")) {
             setTermsAccepted(true);
         }
+        // sub, tax and total 
+        setItemTaxTotalFinal(ShopUtil.roundUpTo2Decimal(getItemTaxTotal()));
+        setGrossTotalExclTaxFinal(ShopUtil.roundUpTo2Decimal(getGrossItemsTotalExclTax()));
+        setGrossTotalInclTaxFinal(ShopUtil.roundUpTo2Decimal(getGrossItemsTotalInclTax()));
     }
 
 }

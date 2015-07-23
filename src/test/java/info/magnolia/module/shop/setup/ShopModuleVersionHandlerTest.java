@@ -753,6 +753,18 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         assertThat(config.getNode("/modules/shop/dialogs/editShop/form/tabs/main/fields/email/validators/email"), hasProperty("errorMessage", "validation.message.non.valid.email"));
         assertTrue(config.itemExists("/modules/shop/templates/components/features/shopForm/formProcessors/sendNotifiedEMail"));
         assertThat(config.getNode("/modules/shop/templates/components/features/shopForm/formProcessors/sendNotifiedEMail"), hasProperty("class", "info.magnolia.module.shop.processors.SendShopNotifiedEmailProcessor"));
+        assertTrue(config.itemExists("/modules/ocm/config/classDescriptors/defaultShoppingCart/fieldDescriptors/grossTotalExclTax"));
+        assertThat(config.getNode("/modules/ocm/config/classDescriptors/defaultShoppingCart/fieldDescriptors/grossTotalExclTax"), hasProperty("class", "org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor"));
+        assertThat(config.getNode("/modules/ocm/config/classDescriptors/defaultShoppingCart/fieldDescriptors/grossTotalExclTax"), hasProperty("fieldName", "grossTotalExclTaxFinal"));
+        assertThat(config.getNode("/modules/ocm/config/classDescriptors/defaultShoppingCart/fieldDescriptors/grossTotalExclTax"), hasProperty("jcrName", "grossTotalExclTax"));
+        assertTrue(config.itemExists("/modules/ocm/config/classDescriptors/defaultShoppingCart/fieldDescriptors/grossTotalExclTax"));
+        assertThat(config.getNode("/modules/ocm/config/classDescriptors/defaultShoppingCart/fieldDescriptors/itemTaxTotal"), hasProperty("class", "org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor"));
+        assertThat(config.getNode("/modules/ocm/config/classDescriptors/defaultShoppingCart/fieldDescriptors/itemTaxTotal"), hasProperty("fieldName", "itemTaxTotalFinal"));
+        assertThat(config.getNode("/modules/ocm/config/classDescriptors/defaultShoppingCart/fieldDescriptors/itemTaxTotal"), hasProperty("jcrName", "itemTaxTotal"));
+        assertTrue(config.itemExists("/modules/ocm/config/classDescriptors/defaultShoppingCart/fieldDescriptors/grossTotalInclTax"));
+        assertThat(config.getNode("/modules/ocm/config/classDescriptors/defaultShoppingCart/fieldDescriptors/grossTotalInclTax"), hasProperty("class", "org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor"));
+        assertThat(config.getNode("/modules/ocm/config/classDescriptors/defaultShoppingCart/fieldDescriptors/grossTotalInclTax"), hasProperty("fieldName", "grossTotalInclTaxFinal"));
+        assertThat(config.getNode("/modules/ocm/config/classDescriptors/defaultShoppingCart/fieldDescriptors/grossTotalInclTax"), hasProperty("jcrName", "grossTotalInclTax"));
         
         //Test method for {@link info.magnolia.module.shop.setup.RefactorPackageNameTask#doExecute(info.magnolia.module.InstallContext)}.
         assertStringProperty(testPath, RefactorPackageNameTask.MODEL_CLASS_PROPERTY_NAME, RefactorPackageNameTask.NEW_PACKAGE_PATH + testClassName);

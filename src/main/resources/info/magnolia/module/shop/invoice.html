@@ -39,7 +39,7 @@
     [#list shoppingCart.getNode('cartItems').getNodes() as cartItem]
     <tr>
       <td style="text-align: left;  border: 1px solid; padding: 4px;">${PropertyUtil.getString(cartItem,'productTitle')}</td>
-      <td style="text-align: left;  border: 1px solid; padding: 4px;">${PropertyUtil.getString(cartItem,'productSubTitle')} <br/> ${PropertyUtil.getString(cartItem,'productDescription')}</td>
+      <td style="text-align: left;  border: 1px solid; padding: 4px;">${PropertyUtil.getString(cartItem,'productSubTitle')!} <br/> ${PropertyUtil.getString(cartItem,'productDescription')!}</td>
       <td style="text-align: right; border: 1px solid; padding: 4px;">${PropertyUtil.getString(cartItem,'quantity')}</td>
       <td style="text-align: right; border: 1px solid; padding: 4px;">${PropertyUtil.getString(cartItem,'itemTax')}</td>
       <td style="text-align: right; border: 1px solid; padding: 4px;">${PropertyUtil.getString(cartItem,'itemTotal')}</td>

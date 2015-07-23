@@ -3179,6 +3179,102 @@
         </sv:property>
       </sv:node>
     </sv:node>
+    <sv:node sv:name="grossTotalExclTax">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>4714845f-6b41-4589-8c86-759ef67d8899</sv:value>
+      </sv:property>
+      <sv:property sv:name="class" sv:type="String">
+        <sv:value>org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor</sv:value>
+      </sv:property>
+      <sv:property sv:name="fieldName" sv:type="String">
+        <sv:value>grossTotalExclTaxFinal</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:createdBy" sv:type="String">
+        <sv:value>admin</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcrName" sv:type="String">
+        <sv:value>grossTotalExclTax</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:created" sv:type="Date">
+        <sv:value>2015-07-23T11:36:48.750+07:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:createdBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+        <sv:value>2015-07-23T13:35:49.249+07:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+    </sv:node>
+    <sv:node sv:name="itemTaxTotal">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>59cc0b65-392b-47f3-befd-5d264ea6c022</sv:value>
+      </sv:property>
+      <sv:property sv:name="class" sv:type="String">
+        <sv:value>org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor</sv:value>
+      </sv:property>
+      <sv:property sv:name="fieldName" sv:type="String">
+        <sv:value>itemTaxTotalFinal</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:createdBy" sv:type="String">
+        <sv:value>admin</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcrName" sv:type="String">
+        <sv:value>itemTaxTotal</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:created" sv:type="Date">
+        <sv:value>2015-07-23T13:34:33.381+07:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:createdBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+        <sv:value>2015-07-23T13:36:09.355+07:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+    </sv:node>
+    <sv:node sv:name="grossTotalInclTax">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>7d249c0f-15cd-4dcd-b635-4e856b0d0d0a</sv:value>
+      </sv:property>
+      <sv:property sv:name="class" sv:type="String">
+        <sv:value>org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor</sv:value>
+      </sv:property>
+      <sv:property sv:name="fieldName" sv:type="String">
+        <sv:value>grossTotalInclTaxFinal</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:createdBy" sv:type="String">
+        <sv:value>admin</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcrName" sv:type="String">
+        <sv:value>grossTotalInclTax</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:created" sv:type="Date">
+        <sv:value>2015-07-23T13:34:34.107+07:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:createdBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+        <sv:value>2015-07-23T13:36:24.357+07:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+    </sv:node>
   </sv:node>
   <sv:node sv:name="beanDescriptors">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
