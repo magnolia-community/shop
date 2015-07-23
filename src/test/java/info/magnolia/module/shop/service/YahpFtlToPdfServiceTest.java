@@ -48,7 +48,6 @@ import info.magnolia.module.shop.setup.RefactorPackageNameTask;
 import info.magnolia.module.shop.util.ShopUtil;
 import info.magnolia.test.RepositoryTestCase;
 import info.magnolia.test.mock.MockWebContext;
-import info.magnolia.test.mock.jcr.MockSession;
 
 import java.io.File;
 import java.io.IOException;
@@ -66,7 +65,6 @@ import javax.jcr.Session;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -100,12 +98,12 @@ public class YahpFtlToPdfServiceTest extends RepositoryTestCase {
         super.setUp();
         MockWebContext ctx = new MockWebContext();
 
-        shoppingCartsSession = new MockSession(ShopRepositoryConstants.SHOPPING_CARTS);
+        shoppingCartsSession = MgnlContext.getJCRSession(ShopRepositoryConstants.SHOPPING_CARTS);
         ctx.addSession(ShopRepositoryConstants.SHOPPING_CARTS, shoppingCartsSession);
         testShoppingCartShopNode = NodeUtil.createPath(shoppingCartsSession.getRootNode(), '/' + TEST_SHOP_NAME, NodeTypes.Folder.NAME);
         testShoppingCartNode = NodeUtil.createPath(testShoppingCartShopNode, '/' + TEST_SHOPPING_CART_NUMBER, NodeTypes.ContentNode.NAME);
 
-        shopsSession = new MockSession(ShopRepositoryConstants.SHOPS);
+        shopsSession = MgnlContext.getJCRSession(ShopRepositoryConstants.SHOPS);
         ctx.addSession(ShopRepositoryConstants.SHOPS, shopsSession);
         shopNode = NodeUtil.createPath(shopsSession.getRootNode(), '/' + TEST_SHOP_NAME, NodeTypes.ContentNode.NAME);// ShopNodeTypes.SHOP
 
@@ -114,8 +112,8 @@ public class YahpFtlToPdfServiceTest extends RepositoryTestCase {
         NodeUtil.createPath(testShoppingCartNode, "/cartItems/0/options", NodeTypes.ContentNode.NAME);
         NodeUtil.createPath(testShoppingCartNode, "/cartItems/1/options", NodeTypes.ContentNode.NAME);
 
-        cartItem_0 = testShoppingCartNode.getNode("/cartItems/0");
-        cartItem_1 = testShoppingCartNode.getNode("/cartItems/1");
+        cartItem_0 = testShoppingCartNode.getNode("cartItems/0");
+        cartItem_1 = testShoppingCartNode.getNode("cartItems/1");
 
         freemarkerHelper = new FreemarkerHelper();
         resourceFinalizer = new ResourceFinalizer();
@@ -146,7 +144,6 @@ public class YahpFtlToPdfServiceTest extends RepositoryTestCase {
         baos.close();
     }
 
-    @Ignore
     @Test
     public void testProcessInvoiceNodeToPdf() throws RepositoryException, IOException {
         // GIVEN
