@@ -37,7 +37,6 @@ import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.module.shop.ShopRepositoryConstants;
-import info.magnolia.module.shop.accessors.ShopProductAccessor;
 import info.magnolia.module.shop.util.ShopUtil;
 
 import java.io.Serializable;
