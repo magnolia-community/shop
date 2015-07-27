@@ -210,7 +210,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
             }
         }
     }
-    
+
     /**
      * Removes the cart item containing the product with the passed in UUID.
      * 

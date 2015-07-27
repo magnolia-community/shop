@@ -33,23 +33,23 @@
  */
 package info.magnolia.module.shop.processors;
 
-import info.magnolia.context.MgnlContext;
+import ch.fastforward.magnolia.ocm.atomictypeconverter.MgnlAtomicTypeConverterProvider;
+import ch.fastforward.magnolia.ocm.beans.OCMBean;
+import ch.fastforward.magnolia.ocm.ext.MgnlConfigMapperImpl;
+import ch.fastforward.magnolia.ocm.ext.MgnlObjectConverterImpl;
 import info.magnolia.context.SystemContext;
 import info.magnolia.module.form.processors.AbstractFormProcessor;
 import info.magnolia.module.form.processors.FormProcessorFailedException;
 import info.magnolia.module.shop.ShopConfiguration;
 import info.magnolia.module.shop.accessors.ShopAccessor;
-import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
 import info.magnolia.module.shop.beans.ShoppingCart;
 import info.magnolia.module.shop.util.ShopUtil;
-import info.magnolia.objectfactory.Components;
 
-import java.util.Date;
 import java.util.Map;
 
 import javax.jcr.Node;
-import javax.servlet.http.HttpServletRequest;
 
+import info.magnolia.objectfactory.Components;
 import org.apache.commons.lang.StringUtils;
 import org.apache.jackrabbit.ocm.manager.ObjectContentManager;
 import org.apache.jackrabbit.ocm.manager.atomictypeconverter.impl.DefaultAtomicTypeConverterProvider;
@@ -59,10 +59,6 @@ import org.apache.jackrabbit.ocm.manager.objectconverter.impl.ProxyManagerImpl;
 import org.apache.jackrabbit.ocm.mapper.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import ch.fastforward.magnolia.ocm.atomictypeconverter.MgnlAtomicTypeConverterProvider;
-import ch.fastforward.magnolia.ocm.ext.MgnlConfigMapperImpl;
-import ch.fastforward.magnolia.ocm.ext.MgnlObjectConverterImpl;
 
 /**
  * Saves the shoppingcart into data module using ocm.
@@ -79,20 +75,17 @@ public class SaveAndConfirmFormProcessor extends AbstractFormProcessor {
             shopConfiguration = new ShopAccessor(shopName).getShopConfiguration();
         } catch (Exception e) {
             log.error("cant get shop configuration for " + shopName);
+            throw new FormProcessorFailedException("configuration.not.found");
         }
 
+        ShoppingCart cart = ShopUtil.getShoppingCart(shopName);
+        if (cart == null) {
+            log.error("Shopping cart could not be found!");
+            throw new FormProcessorFailedException("cart.not.found");
+        }
+        cart.updateCartData(parameters);
 
         try {
-            DefaultShoppingCartImpl cart = (DefaultShoppingCartImpl) ShopUtil.getShoppingCart(shopName);
-            if (cart == null) {
-                log.error("Shopping cart could not be found!");
-                throw new FormProcessorFailedException("cart.not.found");
-            }
-            loadCustomerData(cart, parameters);
-            HttpServletRequest request = MgnlContext.getWebContext().getRequest();
-            cart.setOrderDate(new Date());
-            cart.setUserIP(request.getRemoteAddr() + ":" + request.getRemotePort());
-
             // NEW: Save via OCM
             Mapper mapper = new MgnlConfigMapperImpl();
             RequestObjectCacheImpl requestObjectCache = new RequestObjectCacheImpl();
@@ -103,20 +96,16 @@ public class SaveAndConfirmFormProcessor extends AbstractFormProcessor {
             ((ObjectContentManagerImpl) ocm).setObjectConverter(oc);
             ((ObjectContentManagerImpl) ocm).setRequestObjectCache(requestObjectCache);
 
-            if (StringUtils.isBlank(cart.getUuid())) {
+            if (StringUtils.isBlank(((OCMBean) cart).getUuid())) {
                 // Cart has not been saved before (this would most likely be the standard case)
                 // Set the parent path according to the shop configuration
                 String parentPath = "/" + shopName;
                 if (shopConfiguration != null) {
                     parentPath = shopConfiguration.getHierarchyStrategy().getCartParentPath(shopName);
                 }
-                cart.setParentPath(parentPath);
+                ((OCMBean) cart).setParentPath(parentPath);
                 ocm.insert(cart);
                 ocm.save();
-
-                // @TODO: did ocm set the uuid and path? If not: How can we do that efficiently?
-                log.debug("UUID of newly inserted shopping cart: " + cart.getUuid());
-                log.debug("Path of newly inserted shopping cart: " + cart.getPath());
             } else {
                 // @TODO: Should we handle the "update" case as well?
             }
@@ -130,10 +119,6 @@ public class SaveAndConfirmFormProcessor extends AbstractFormProcessor {
             throw new FormProcessorFailedException("Error while proccessing your shopping cart");
         }
 
-    }
-
-    protected void loadCustomerData(ShoppingCart cart, Map<String, Object> parameters ) {
-        cart.updateCartData(parameters);
     }
 
 }
