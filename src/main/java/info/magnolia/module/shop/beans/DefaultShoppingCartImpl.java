@@ -37,6 +37,7 @@ import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.module.shop.ShopRepositoryConstants;
+import info.magnolia.module.shop.accessors.ShopProductAccessor;
 import info.magnolia.module.shop.util.ShopUtil;
 
 import java.io.Serializable;
@@ -169,30 +170,51 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     @Override
     public int addToShoppingCart(String productUUID, int quantity, Map<String, CartItemOption> options) {
         int quantityAdded = 0;
-        if (productUUID != null) {
-            int indexOfProductInCart = indexOfProduct(productUUID, options);
-            if (indexOfProductInCart >= 0) {
-                ShoppingCartItem existingCartItem = getCartItems().get(indexOfProductInCart);
-                existingCartItem.setQuantity(existingCartItem.getQuantity() + quantity);
-            } else {
-                double price = 0.0;
-                String queryString = "//*[@jcr:uuid='" + productUUID + "']/prices/element(*,mgnl:contentNode)[@priceCategoryUUID = '" + this.getPriceCategoryUUID() + "']";
-                try {
-                    NodeIterator matching = QueryUtil.search(ShopRepositoryConstants.SHOP_PRODUCTS, queryString, javax.jcr.query.Query.XPATH, "mgnl:contentNode");
-                    if (matching.hasNext()) {
-                        Node priceNode = matching.nextNode();
-                        if (priceNode.hasProperty("price")) {
-                            price = priceNode.getProperty("price").getDouble();
-                        }
-                    }
-                    ShoppingCartItem newItem = new ShoppingCartItem(this, productUUID, quantity, price, options);
-                    this.getCartItems().add(newItem);
-                } catch (RepositoryException e) {
-                    log.info(e.getMessage(), e);
-                }
-            }
-            quantityAdded = quantity;
+        if (StringUtils.isBlank(productUUID)) {
+            return 0;
         }
+        Node product = null;
+        try {
+            product = ShopUtil.wrapWithI18n(NodeUtil.getNodeByIdentifier(ShopRepositoryConstants.SHOP_PRODUCTS, productUUID));
+        } catch (Exception e) {
+            log.error("Could not get product with uuid " + productUUID, e);
+        }
+        if (product == null) {
+            return 0;
+        }
+        // check the maxQuantityPerOrder
+        int maxQuantityPerOrder = ShopUtil.getMaxQuantityPerOrder(productUUID);
+        int indexOfProductInCart = indexOfProduct(productUUID, options);
+        if (indexOfProductInCart >= 0) {
+            ShoppingCartItem existingCartItem = getCartItems().get(indexOfProductInCart);
+            if (maxQuantityPerOrder > 0 && maxQuantityPerOrder < quantity + existingCartItem.getQuantity()) {
+                // set to max allowed
+                existingCartItem.setQuantity(maxQuantityPerOrder);
+            } else {
+                existingCartItem.setQuantity(existingCartItem.getQuantity() + quantity);
+            }
+        } else {
+            double price = 0.0;
+            String queryString = "//*[@jcr:uuid='" + productUUID + "']/prices/element(*,mgnl:contentNode)[@priceCategoryUUID = '" + this.getPriceCategoryUUID() + "']";
+            try {
+                NodeIterator matching = QueryUtil.search(ShopRepositoryConstants.SHOP_PRODUCTS, queryString, javax.jcr.query.Query.XPATH, "mgnl:contentNode");
+                if (matching.hasNext()) {
+                    Node priceNode = matching.nextNode();
+                    if (priceNode.hasProperty("price")) {
+                        price = priceNode.getProperty("price").getDouble();
+                    }
+                }
+                if (maxQuantityPerOrder > 0 && maxQuantityPerOrder < quantity) {
+                    // set to max allowed
+                    quantity = maxQuantityPerOrder;
+                }
+                ShoppingCartItem newItem = new ShoppingCartItem(this, productUUID, quantity, price, options);
+                this.getCartItems().add(newItem);
+            } catch (RepositoryException e) {
+                log.info(e.getMessage(), e);
+            }
+        }
+        quantityAdded = quantity;
         return quantityAdded;
     }
 
@@ -205,6 +227,12 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
                 // remove from cart
                 getCartItems().remove(shoppingCartItem);
             } else {
+                // check maxQuantityPerOrder first!
+                int maxQuantityPerOrder = ShopUtil.getMaxQuantityPerOrder(shoppingCartItem.getProductUUID());
+                if (maxQuantityPerOrder > 0 && quantity > maxQuantityPerOrder) {
+                    // set the quantity to the max allowed
+                    quantity = maxQuantityPerOrder;
+                }
                 // update quantity
                 shoppingCartItem.setQuantity(quantity);
             }

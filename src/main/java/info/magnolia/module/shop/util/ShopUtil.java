@@ -47,10 +47,7 @@ import info.magnolia.jcr.wrapper.I18nNodeWrapper;
 import info.magnolia.module.shop.ShopConfiguration;
 import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.shop.accessors.ShopAccessor;
-import info.magnolia.module.shop.beans.CartItemOption;
-import info.magnolia.module.shop.beans.DefaultShoppingCartImpl;
-import info.magnolia.module.shop.beans.ShoppingCart;
-import info.magnolia.module.shop.beans.ShoppingCartItem;
+import info.magnolia.module.shop.beans.*;
 import info.magnolia.module.shop.components.TemplateProductPriceBean;
 import info.magnolia.module.templatingkit.templates.category.TemplateCategoryUtil;
 import info.magnolia.repository.RepositoryConstants;
@@ -631,12 +628,15 @@ public final class ShopUtil {
             int quantity = shoppingCartItem.getQuantity();
 
             if (command.equals("add")) {
-                shoppingCartItem.setQuantity(++quantity);
+                //
+//                shoppingCartItem.setQuantity(++quantity);
+                shoppingCart.updateItemByName(shoppingCartItem.getName(), ++quantity);
             } else if (command.equals("subtract") || command.equals("removeall")) {
                 if (quantity <= 1 || command.equals("removeall")) {
                     shoppingCart.getCartItems().remove(indexOfProductInCart);
                 } else {
-                    shoppingCartItem.setQuantity(--quantity);
+//                    shoppingCartItem.setQuantity(--quantity);
+                    shoppingCart.updateItemByName(shoppingCartItem.getName(), --quantity);
                 } // quantity <=1
 
             } // else command
@@ -735,5 +735,30 @@ public final class ShopUtil {
     
     public static Double roundUpTo2Decimal(Double value) {
         return Math.round(value * 100.0) / 100.0;
+    }
+
+    public static int getMaxQuantityPerOrder(String productUUID) {
+        Node product = null;
+        try {
+            product = NodeUtil.getNodeByIdentifier(ShopRepositoryConstants.SHOP_PRODUCTS, productUUID);
+        } catch (Exception e) {
+            log.error("Could not get product with uuid " + productUUID, e);
+        }
+        if (product == null) {
+            return 0;
+        }
+        // check the maxQuantityPerOrder
+        Long maxQuantityPerOrder = null;
+        try {
+            if (product.hasProperty(Product.MAX_QUANTITYPER_ORDER_PROPERTY)) {
+                maxQuantityPerOrder = PropertyUtil.getLong(product, Product.MAX_QUANTITYPER_ORDER_PROPERTY);
+            }
+        } catch (RepositoryException e) {
+            log.error("Could not get " + Product.MAX_QUANTITYPER_ORDER_PROPERTY + " from product " + productUUID, e);
+        }
+        if (maxQuantityPerOrder != null) {
+            return maxQuantityPerOrder.intValue();
+        }
+        return 0;
     }
 }

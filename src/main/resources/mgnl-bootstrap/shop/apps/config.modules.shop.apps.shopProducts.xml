@@ -8831,10 +8831,57 @@
                     <sv:value>superuser</sv:value>
                   </sv:property>
                   <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-                    <sv:value>2015-07-07T11:14:44.754+02:00</sv:value>
+                    <sv:value>2015-07-27T12:59:50.214+02:00</sv:value>
                   </sv:property>
                   <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
                     <sv:value>superuser</sv:value>
+                  </sv:property>
+                </sv:node>
+                <sv:node sv:name="maxQuantityPerOrder">
+                  <sv:property sv:name="jcr:primaryType" sv:type="Name">
+                    <sv:value>mgnl:contentNode</sv:value>
+                  </sv:property>
+                  <sv:property sv:name="jcr:mixinTypes" sv:type="Name" sv:multiple="true">
+                    <sv:value>mix:lockable</sv:value>
+                  </sv:property>
+                  <sv:property sv:name="jcr:uuid" sv:type="String">
+                    <sv:value>90a637c4-fd6d-4db6-914d-d1dacd2ced2c</sv:value>
+                  </sv:property>
+                  <sv:property sv:name="class" sv:type="String">
+                    <sv:value>info.magnolia.ui.form.field.definition.TextFieldDefinition</sv:value>
+                  </sv:property>
+                  <sv:property sv:name="description" sv:type="String">
+                    <sv:value>shopProducts.product.maxQuantityPerOrder.description</sv:value>
+                  </sv:property>
+                  <sv:property sv:name="jcr:createdBy" sv:type="String">
+                    <sv:value>admin</sv:value>
+                  </sv:property>
+                  <sv:property sv:name="label" sv:type="String">
+                    <sv:value>shopProducts.product.maxQuantityPerOrder.label</sv:value>
+                  </sv:property>
+                  <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
+                    <sv:value>false</sv:value>
+                  </sv:property>
+                  <sv:property sv:name="mgnl:created" sv:type="Date">
+                    <sv:value>2015-07-27T12:59:33.037+02:00</sv:value>
+                  </sv:property>
+                  <sv:property sv:name="mgnl:createdBy" sv:type="String">
+                    <sv:value>superuser</sv:value>
+                  </sv:property>
+                  <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
+                    <sv:value>2015-07-27T12:59:33.040+02:00</sv:value>
+                  </sv:property>
+                  <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
+                    <sv:value>superuser</sv:value>
+                  </sv:property>
+                  <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+                    <sv:value>2015-07-27T13:23:31.704+02:00</sv:value>
+                  </sv:property>
+                  <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+                    <sv:value>superuser</sv:value>
+                  </sv:property>
+                  <sv:property sv:name="type" sv:type="String">
+                    <sv:value>Long</sv:value>
                   </sv:property>
                 </sv:node>
               </sv:node>
@@ -8920,6 +8967,85 @@
                   <sv:property sv:name="sortOptions" sv:type="Boolean">
                     <sv:value>false</sv:value>
                   </sv:property>
+                </sv:node>
+                <sv:node sv:name="categories">
+                  <sv:property sv:name="jcr:primaryType" sv:type="Name">
+                    <sv:value>mgnl:contentNode</sv:value>
+                  </sv:property>
+                  <sv:property sv:name="jcr:uuid" sv:type="String">
+                    <sv:value>40a81f2a-74d0-48c5-a093-0809b9cd272f</sv:value>
+                  </sv:property>
+                  <sv:property sv:name="buttonSelectAddLabel" sv:type="String">
+                    <sv:value>field.link.select.add</sv:value>
+                  </sv:property>
+                  <sv:property sv:name="class" sv:type="String">
+                    <sv:value>info.magnolia.ui.form.field.definition.MultiValueFieldDefinition</sv:value>
+                  </sv:property>
+                  <sv:property sv:name="identifier" sv:type="String">
+                    <sv:value>true</sv:value>
+                  </sv:property>
+                  <sv:property sv:name="jcr:createdBy" sv:type="String">
+                    <sv:value>admin</sv:value>
+                  </sv:property>
+                  <sv:property sv:name="mgnl:created" sv:type="Date">
+                    <sv:value>2015-07-15T11:53:41.239+02:00</sv:value>
+                  </sv:property>
+                  <sv:property sv:name="mgnl:createdBy" sv:type="String">
+                    <sv:value>superuser</sv:value>
+                  </sv:property>
+                  <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+                    <sv:value>2015-07-15T11:53:41.239+02:00</sv:value>
+                  </sv:property>
+                  <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+                    <sv:value>superuser</sv:value>
+                  </sv:property>
+                  <sv:property sv:name="transformerClass" sv:type="String">
+                    <sv:value>info.magnolia.ui.form.field.transformer.multi.MultiValueSubChildrenNodeTransformer</sv:value>
+                  </sv:property>
+                  <sv:node sv:name="field">
+                    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+                      <sv:value>mgnl:contentNode</sv:value>
+                    </sv:property>
+                    <sv:property sv:name="jcr:uuid" sv:type="String">
+                      <sv:value>1b844f7a-f7e3-4007-b14f-8bb448395dcd</sv:value>
+                    </sv:property>
+                    <sv:property sv:name="appName" sv:type="String">
+                      <sv:value>categories</sv:value>
+                    </sv:property>
+                    <sv:property sv:name="buttonSelectNewLabel" sv:type="String">
+                      <sv:value>field.link.select.new</sv:value>
+                    </sv:property>
+                    <sv:property sv:name="buttonSelectOtherLabel" sv:type="String">
+                      <sv:value>field.link.select.another</sv:value>
+                    </sv:property>
+                    <sv:property sv:name="class" sv:type="String">
+                      <sv:value>info.magnolia.ui.form.field.definition.LinkFieldDefinition</sv:value>
+                    </sv:property>
+                    <sv:property sv:name="fieldEditable" sv:type="String">
+                      <sv:value>true</sv:value>
+                    </sv:property>
+                    <sv:property sv:name="jcr:createdBy" sv:type="String">
+                      <sv:value>admin</sv:value>
+                    </sv:property>
+                    <sv:property sv:name="mgnl:created" sv:type="Date">
+                      <sv:value>2015-07-15T11:53:41.240+02:00</sv:value>
+                    </sv:property>
+                    <sv:property sv:name="mgnl:createdBy" sv:type="String">
+                      <sv:value>superuser</sv:value>
+                    </sv:property>
+                    <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+                      <sv:value>2015-07-15T11:53:41.240+02:00</sv:value>
+                    </sv:property>
+                    <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+                      <sv:value>superuser</sv:value>
+                    </sv:property>
+                    <sv:property sv:name="targetPropertyToPopulate" sv:type="String">
+                      <sv:value>displayName</sv:value>
+                    </sv:property>
+                    <sv:property sv:name="targetWorkspace" sv:type="String">
+                      <sv:value>category</sv:value>
+                    </sv:property>
+                  </sv:node>
                 </sv:node>
               </sv:node>
             </sv:node>
