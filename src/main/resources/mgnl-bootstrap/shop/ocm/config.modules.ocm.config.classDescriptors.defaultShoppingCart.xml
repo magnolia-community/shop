@@ -22,37 +22,11 @@
     <sv:value>mgnl:contentNode</sv:value>
   </sv:property>
   <sv:property sv:name="nextBeanID" sv:type="Long">
-    <sv:value>176</sv:value>
+    <sv:value>219</sv:value>
   </sv:property>
   <sv:property sv:name="parentJcrType" sv:type="String">
     <sv:value>mgnl:folder</sv:value>
   </sv:property>
-  <sv:node sv:name="MetaData">
-    <sv:property sv:name="jcr:primaryType" sv:type="Name">
-      <sv:value>mgnl:metaData</sv:value>
-    </sv:property>
-    <sv:property sv:name="jcr:createdBy" sv:type="String">
-      <sv:value>admin</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-      <sv:value>false</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:activatorid" sv:type="String">
-      <sv:value>superuser</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:authorid" sv:type="String">
-      <sv:value>superuser</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-      <sv:value>2010-06-27T10:59:29.151+02:00</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:lastaction" sv:type="Date">
-      <sv:value>2010-08-24T07:38:51.181+02:00</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-      <sv:value>2012-08-07T09:40:19.111+02:00</sv:value>
-    </sv:property>
-  </sv:node>
   <sv:node sv:name="fieldDescriptors">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>mgnl:contentNode</sv:value>
@@ -457,32 +431,29 @@
       <sv:property sv:name="jcrName" sv:type="String">
         <sv:value>paymentType</sv:value>
       </sv:property>
-      <sv:node sv:name="MetaData">
-        <sv:property sv:name="jcr:primaryType" sv:type="Name">
-          <sv:value>mgnl:metaData</sv:value>
-        </sv:property>
-        <sv:property sv:name="jcr:createdBy" sv:type="String">
-          <sv:value>admin</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:activated" sv:type="Boolean">
-          <sv:value>false</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:activatorid" sv:type="String">
-          <sv:value>superuser</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:authorid" sv:type="String">
-          <sv:value>superuser</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:creationdate" sv:type="Date">
-          <sv:value>2010-06-27T11:03:03.250+02:00</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:lastaction" sv:type="Date">
-          <sv:value>2010-08-24T07:38:51.472+02:00</sv:value>
-        </sv:property>
-        <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
-          <sv:value>2012-05-09T08:48:54.137+02:00</sv:value>
-        </sv:property>
-      </sv:node>
+    </sv:node>
+    <sv:node sv:name="customerNumber">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:mixinTypes" sv:type="Name" sv:multiple="true">
+        <sv:value>mix:lockable</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>6647de56-7474-46b8-afda-195aa23ed0f5</sv:value>
+      </sv:property>
+      <sv:property sv:name="class" sv:type="String">
+        <sv:value>org.apache.jackrabbit.ocm.mapper.model.FieldDescriptor</sv:value>
+      </sv:property>
+      <sv:property sv:name="fieldName" sv:type="String">
+        <sv:value>customerNumber</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:createdBy" sv:type="String">
+        <sv:value>admin</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcrName" sv:type="String">
+        <sv:value>customerNumber</sv:value>
+      </sv:property>
     </sv:node>
     <sv:node sv:name="paymentID">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -3205,7 +3176,7 @@
         <sv:value>superuser</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-        <sv:value>2015-07-23T13:35:49.249+07:00</sv:value>
+        <sv:value>2011-04-25T14:50:35.335+02:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
         <sv:value>superuser</sv:value>
@@ -3389,7 +3360,7 @@
       <sv:property sv:name="jcrType" sv:type="String">
         <sv:value>mgnl:contentNode</sv:value>
       </sv:property>
-      <sv:property sv:name="proxy" sv:type="Boolean">
+      <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
         <sv:value>false</sv:value>
       </sv:property>
       <sv:node sv:name="MetaData">

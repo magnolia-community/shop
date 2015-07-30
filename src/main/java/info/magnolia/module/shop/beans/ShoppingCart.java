@@ -41,6 +41,19 @@ import java.util.Map;
  * @author will
  */
 public interface ShoppingCart {
+
+    /**
+     * @return Returns the customer number of the cart owner.
+     */
+    public String getCustomerNumber();
+
+    /**
+     * Sets the customer identification in the cart. In most cases this will be the username. However one could use
+     * any value for this, e.g. if one customer has multiple user accounts.
+     * @param customerNumber
+     */
+    public void setCustomerNumber(String customerNumber);
+
     public int addToShoppingCart(String productUUID, int quantity, Map<String, CartItemOption> options);
     public int addToShoppingCart(String productUUID, int quantity);
 

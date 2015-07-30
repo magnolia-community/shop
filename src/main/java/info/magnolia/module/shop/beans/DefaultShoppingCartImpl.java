@@ -76,6 +76,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     private String paymentType;
     private String paymentID;
     private String userIP;
+    private String customerNumber;
     private final ArrayList<ShoppingCartItem> cartItems;
     private int nextAvailableItemID = 0;
     private String priceCategoryUUID;
@@ -1374,4 +1375,13 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
         return "" + nextAvailableItemID;
     }
 
+    @Override
+    public String getCustomerNumber() {
+        return customerNumber;
+    }
+
+    @Override
+    public void setCustomerNumber(String customerNumber) {
+        this.customerNumber = customerNumber;
+    }
 }

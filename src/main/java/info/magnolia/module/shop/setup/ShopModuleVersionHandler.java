@@ -576,7 +576,35 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
         tasks.add(new BootstrapSingleModuleResource("Updating shops app", "Add a email address field ", "dialogs/config.modules.shop.dialogs.editShop.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING));
         tasks.add(new BootstrapSingleModuleResource("Updating shop form processor", "Add a shop notified processor", "paragraphs/config.modules.shop.templates.components.features.shopForm.formProcessors.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING));
         tasks.add(new BootstrapSingleModuleResource("Updating ocm config", "Add sub, tax and total field", "ocm/config.modules.ocm.config.classDescriptors.defaultShoppingCart.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING));
-        
+        tasks.add(new NodeExistsDelegateTask("Add customerNumber property",
+                "Add \"customerNumber\" to DefaultShoppingCartImpl ocm class descriptor node if it does not exist",
+                "config",
+                "/modules/ocm/config/classDescriptors/defaultShoppingCart/fieldDescriptors/customerNumber",
+                null,
+                new PartialBootstrapTask("",
+                        "/mgnl-bootstrap/shop/ocm/config.modules.ocm.config.classDescriptors.defaultShoppingCart.xml",
+                        "/modules/ocm/config/classDescriptors/defaultShoppingCart/fieldDescriptors/customerNumber")));
+        tasks.add(new NodeExistsDelegateTask(
+                "Setting cart node type",
+                "Changing node type for cart from mgnl:contentNode to shopCart",
+                "config", "/modules/ocm/config/classDescriptors/defaultShoppingCart",
+                new SetPropertyTask(
+                        "Setting cart node type",
+                        "config",
+                        "/modules/ocm/config/classDescriptors/defaultShoppingCart",
+                        "jcrType",
+                        "shopCart")));
+        tasks.add(new NodeExistsDelegateTask(
+                "Setting cart item node type",
+                "Changing node type for cart item from mgnl:contentNode to shopCartItem",
+                "config",
+                "/modules/ocm/config/classDescriptors/defaultShoppingCartItem",
+                new SetPropertyTask(
+                        "Setting cart item option node type",
+                        "config",
+                        "/modules/ocm/config/classDescriptors/defaultShoppingCartItem",
+                        "jcrType",
+                        "shopCartItem")));
         tasks.addAll(getExtraTasksFor_2_3_0());
         
         return tasks;

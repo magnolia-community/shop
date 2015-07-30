@@ -33,6 +33,9 @@
  */
 package info.magnolia.module.shop.util;
 
+import ch.fastforward.magnolia.ocm.atomictypeconverter.MgnlAtomicTypeConverterProvider;
+import ch.fastforward.magnolia.ocm.ext.MgnlConfigMapperImpl;
+import ch.fastforward.magnolia.ocm.ext.MgnlObjectConverterImpl;
 import info.magnolia.cms.i18n.I18nContentSupportFactory;
 import info.magnolia.cms.i18n.Messages;
 import info.magnolia.cms.i18n.MessagesManager;
@@ -40,6 +43,7 @@ import info.magnolia.cms.security.AccessDeniedException;
 import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
+import info.magnolia.context.SystemContext;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.jcr.wrapper.HTMLEscapingNodeWrapper;
@@ -54,6 +58,7 @@ import info.magnolia.module.shop.beans.ShoppingCart;
 import info.magnolia.module.shop.beans.ShoppingCartItem;
 import info.magnolia.module.shop.components.TemplateProductPriceBean;
 import info.magnolia.module.templatingkit.templates.category.TemplateCategoryUtil;
+import info.magnolia.objectfactory.Components;
 import info.magnolia.repository.RepositoryConstants;
 
 import java.math.BigDecimal;
@@ -73,6 +78,12 @@ import javax.jcr.RepositoryException;
 import javax.jcr.ValueFormatException;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.jackrabbit.ocm.manager.ObjectContentManager;
+import org.apache.jackrabbit.ocm.manager.atomictypeconverter.impl.DefaultAtomicTypeConverterProvider;
+import org.apache.jackrabbit.ocm.manager.cache.impl.RequestObjectCacheImpl;
+import org.apache.jackrabbit.ocm.manager.impl.ObjectContentManagerImpl;
+import org.apache.jackrabbit.ocm.manager.objectconverter.impl.ProxyManagerImpl;
+import org.apache.jackrabbit.ocm.mapper.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -764,5 +775,22 @@ public final class ShopUtil {
             return maxQuantityPerOrder.intValue();
         }
         return 0;
+    }
+
+    public static Collection<ShoppingCart> getOrdersByCustomerNumber(String shopName, String customerNumber) throws RepositoryException {
+        if (StringUtils.isBlank(shopName) || StringUtils.isBlank(customerNumber)) {
+            return null;
+        }
+        Mapper mapper = new MgnlConfigMapperImpl();
+        RequestObjectCacheImpl requestObjectCache = new RequestObjectCacheImpl();
+        DefaultAtomicTypeConverterProvider converterProvider = new MgnlAtomicTypeConverterProvider();
+        MgnlObjectConverterImpl oc = new MgnlObjectConverterImpl(mapper, converterProvider, new ProxyManagerImpl(), requestObjectCache);
+
+        ObjectContentManager ocm = new ObjectContentManagerImpl(Components.getComponent(SystemContext.class).getJCRSession("shoppingCarts"), mapper);
+        ((ObjectContentManagerImpl) ocm).setObjectConverter(oc);
+        ((ObjectContentManagerImpl) ocm).setRequestObjectCache(requestObjectCache);
+
+        String query = "/jcr:root/" + shopName + "//element(*,shoppingCart)[@customerNumber='"+ customerNumber +"']";
+        return ocm.getObjects(query, "xpath");
     }
 }
