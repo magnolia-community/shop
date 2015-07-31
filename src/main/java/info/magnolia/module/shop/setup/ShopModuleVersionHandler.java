@@ -586,7 +586,7 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                         "/modules/ocm/config/classDescriptors/defaultShoppingCart/fieldDescriptors/customerNumber")));
         tasks.add(new NodeExistsDelegateTask(
                 "Setting cart node type",
-                "Changing node type for cart from mgnl:contentNode to shopCart",
+                "Changing node type for future carts from mgnl:contentNode to shopCart",
                 "config", "/modules/ocm/config/classDescriptors/defaultShoppingCart",
                 new SetPropertyTask(
                         "Setting cart node type",
@@ -596,7 +596,7 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                         "shopCart")));
         tasks.add(new NodeExistsDelegateTask(
                 "Setting cart item node type",
-                "Changing node type for cart item from mgnl:contentNode to shopCartItem",
+                "Changing node type for future cart items from mgnl:contentNode to shopCartItem",
                 "config",
                 "/modules/ocm/config/classDescriptors/defaultShoppingCartItem",
                 new SetPropertyTask(
@@ -605,6 +605,7 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                         "/modules/ocm/config/classDescriptors/defaultShoppingCartItem",
                         "jcrType",
                         "shopCartItem")));
+        tasks.add(new ChangeCartNodeTypesTask("Updating existing cart node types", "Setting node type of existing carts to \"shopCart\" and the node type of cart items to \"shopCartItem\""));
         tasks.addAll(getExtraTasksFor_2_3_0());
         
         return tasks;
@@ -664,7 +665,7 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                                 addNode("shopShoppingCart", NodeTypes.ContentNode.NAME).then(
                                         addProperty("id", "shop:pages/shopShoppingCart"))))));
 
-        installTasks.add(new IsModuleInstalledOrRegistered("Keywords for product Categories",
+/*        installTasks.add(new IsModuleInstalledOrRegistered("Keywords for product Categories",
                 "Adds control to product categories dialog for assigning keywords.", "categorization",
                 new NodeBuilderTask("", "", ErrorHandling.strict, "config",
                         getNode("modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs/categories/fields").then(
@@ -683,7 +684,28 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                                         addProperty("class", "info.magnolia.ui.form.field.definition.MultiValueFieldDefinition"),
                                         addProperty("identifier", "true"),
                                         addProperty("transformerClass", "info.magnolia.ui.form.field.transformer.multi.MultiValueSubChildrenNodeTransformer")
-                                )))));
+                                )))));*/
+        installTasks.add(new IsModuleInstalledOrRegistered("Keywords for product Categories",
+                "Adds control to product categories dialog for asigning keywords.", "categorization",
+                new NodeBuilderTask("", "", ErrorHandling.strict, "config",
+                        getNode("modules/shop/apps/shopProducts/subApps/detail/editor/form/tabs").then(
+                                addNode("tags", NodeTypes.ContentNode.NAME).then(
+                                        addNode("fields", NodeTypes.ContentNode.NAME).then(
+                                                addNode("categories", NodeTypes.ContentNode.NAME).then(
+                                                        addNode("field", NodeTypes.ContentNode.NAME).then(
+                                                                //addNode("identifierToPathConverter", NodeTypes.ContentNode.NAME).then(
+                                                                //addProperty("class", "info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter")),
+                                                                addProperty("appName", "categories"),
+                                                                addProperty("buttonSelectNewLabel", "field.link.select.new"),
+                                                                addProperty("buttonSelectOtherLabel", "field.link.select.another"),
+                                                                addProperty("class", "info.magnolia.ui.form.field.definition.LinkFieldDefinition"),
+                                                                addProperty("fieldEditable", "true"),
+                                                                addProperty("targetWorkspace", "category"),
+                                                                addProperty("targetPropertyToPopulate", "displayName")),
+                                                        addProperty("buttonSelectAddLabel", "field.link.select.add"),
+                                                        addProperty("class", "info.magnolia.ui.form.field.definition.MultiValueFieldDefinition"),
+                                                        addProperty("identifier", "true"),
+                                                        addProperty("transformerClass", "info.magnolia.ui.form.field.transformer.multi.MultiValueSubChildrenNodeTransformer"))))))));
 
         installTasks.add(new IsModuleInstalledOrRegistered("Add Keyword extras paragraph",
                 "Adds an autogenerated keyword paragraph in the extras area of ProductCategory template.", "categorization",

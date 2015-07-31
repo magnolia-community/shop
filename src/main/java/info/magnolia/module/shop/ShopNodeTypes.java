@@ -40,6 +40,10 @@ public class ShopNodeTypes {
 
     public static final String SHOP = "shop";
 
+    public static final String SHOP_CART = "shopCart";
+
+    public static final String SHOP_CART_ITEM = "shopCartItem";
+
     public static final String SHIPPING_OPTION = "shopShippingOption";
 
     public static final String SHOP_SUPPLIER = "shopSupplier";
