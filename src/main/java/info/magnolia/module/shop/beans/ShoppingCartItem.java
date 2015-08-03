@@ -91,13 +91,17 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
     private String productDescription;
     private Map<String,CartItemOption> options;
 
+    public ShoppingCartItem() {
+        super();
+    }
+
     public ShoppingCartItem(DefaultShoppingCartImpl cart, Node product, int quantity, Node productPrice, Map<String,CartItemOption> options) {
         this(cart, product, quantity, productPrice);
         this.setOptions(options);
     }
 
     public ShoppingCartItem(DefaultShoppingCartImpl cart, Node product, int quantity, Node productPrice) {
-        super();
+        this();
         this.cart = cart;
         this.setName(cart.getNextItemName());
         this.setProduct(product);
@@ -198,7 +202,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
         this.quantity = quantity;
     }
 
-    public double getUnitPrice() {
+    public Double getUnitPrice() {
         return unitPrice.doubleValue();
     }
 
@@ -208,7 +212,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
      * @return unit price minus tax for prices incl. tax or unit price for prices excl. tax.
      */
     public double getUnitPriceExclTax() {
-        if (cart.getTaxIncluded()) {
+        if (cart != null && cart.getTaxIncluded()) {
             // substrat tax
             BigDecimal oneHundred = new BigDecimal("100");
             BigDecimal taxFactor = oneHundred.divide(getItemTaxRate().add(oneHundred), 10, RoundingMode.HALF_UP);
@@ -219,8 +223,12 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
         }
     }
 
-    public void setUnitPrice(double unitPrice) {
-        this.unitPrice = new BigDecimal("" + unitPrice);
+    public void setUnitPrice(Double unitPrice) {
+        if (unitPrice != null) {
+            this.unitPrice = new BigDecimal("" + unitPrice);
+        } else {
+            this.unitPrice = new BigDecimal("0");
+        }
     }
 
     public void setProductPrice(Node productPrice) throws ValueFormatException, RepositoryException {
@@ -244,6 +252,10 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
 
     public String getProductUUID() {
         return productUUID;
+    }
+
+    public void setProductUUID(String uuid) {
+        this.productUUID = uuid;
     }
 
     public String getShoppingCartUUID() {
@@ -295,6 +307,10 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
         }
     }
 
+    public void setItemTotal(double itemTotal) {
+
+    }
+
     public BigDecimal getItemTotalBigDecimal() {
         if (unitPrice != null) {
             BigDecimal total = unitPrice.multiply(new BigDecimal("" + quantity));
@@ -311,7 +327,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
         BigDecimal total = getItemTotalBigDecimal();
         if (total != null && getItemTaxRate() != null) {
             BigDecimal oneHundred = new BigDecimal("100");
-            if (cart.getTaxIncluded()) {
+            if (cart != null && cart.getTaxIncluded()) {
                 // total = price including tax
                 BigDecimal taxFactor = oneHundred.divide(getItemTaxRate().add(oneHundred), 10, RoundingMode.HALF_UP);
                 return total.subtract(total.multiply(taxFactor));
@@ -333,12 +349,15 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
         }
     }
 
+    public void setItemTax(double tax) {
+    }
+
     public BigDecimal getItemTotalExclTaxBigDecimal() {
         BigDecimal total = getItemTotalBigDecimal();
         BigDecimal tax = getItemTaxBigDecimal();
         if (total != null) {
             if (tax != null) {
-                if (cart.getTaxIncluded()) {
+                if (cart != null && cart.getTaxIncluded()) {
                     return total.subtract(tax);
                 }
             }
@@ -360,7 +379,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
         BigDecimal tax = getItemTaxBigDecimal();
         if (total != null) {
             if (tax != null) {
-                if (!cart.getTaxIncluded()) {
+                if (cart != null && !cart.getTaxIncluded()) {
                     return total.add(tax);
                 }
             }
