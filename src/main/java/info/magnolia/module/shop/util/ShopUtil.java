@@ -49,6 +49,7 @@ import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.jcr.wrapper.HTMLEscapingNodeWrapper;
 import info.magnolia.jcr.wrapper.I18nNodeWrapper;
 import info.magnolia.module.shop.ShopConfiguration;
+import info.magnolia.module.shop.ShopNodeTypes;
 import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.module.shop.accessors.ShopAccessor;
 import info.magnolia.module.shop.beans.CartItemOption;
@@ -790,7 +791,7 @@ public final class ShopUtil {
         ((ObjectContentManagerImpl) ocm).setObjectConverter(oc);
         ((ObjectContentManagerImpl) ocm).setRequestObjectCache(requestObjectCache);
 
-        String query = "/jcr:root/" + shopName + "//element(*,shoppingCart)[@customerNumber='"+ customerNumber +"']";
+        String query = "/jcr:root/" + shopName + "//element(*," + ShopNodeTypes.SHOP_CART + ")[@customerNumber='"+ customerNumber +"']";
         return ocm.getObjects(query, "xpath");
     }
 }

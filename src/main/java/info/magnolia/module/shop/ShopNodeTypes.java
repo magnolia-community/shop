@@ -40,6 +40,8 @@ public class ShopNodeTypes {
 
     public static final String SHOP = "shop";
 
+    public static final String SHOP_PRODUCT = "shopProduct";
+
     public static final String SHOP_CART = "shopCart";
 
     public static final String SHOP_CART_ITEM = "shopCartItem";
