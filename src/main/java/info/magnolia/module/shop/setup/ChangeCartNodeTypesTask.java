@@ -34,7 +34,6 @@
 package info.magnolia.module.shop.setup;
 
 import info.magnolia.cms.util.QueryUtil;
-import info.magnolia.jcr.util.NodeTypes;
 import info.magnolia.module.InstallContext;
 import info.magnolia.module.delta.QueryTask;
 import info.magnolia.module.delta.TaskExecutionException;
