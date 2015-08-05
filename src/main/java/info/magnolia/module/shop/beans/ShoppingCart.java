@@ -33,6 +33,10 @@
  */
 package info.magnolia.module.shop.beans;
 
+import info.magnolia.module.shop.ShopConfiguration;
+import info.magnolia.module.shop.exceptions.ShopConfigurationException;
+
+import javax.jcr.RepositoryException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -87,4 +91,10 @@ public interface ShoppingCart {
      * @return Next available item name.
      */
     public String getNextItemName();
+
+    public void onPreSave(ShopConfiguration shopConfiguration);
+
+    public void onSave(ShopConfiguration shopConfiguration) throws RepositoryException, ShopConfigurationException;
+
+    public void onPostSave(ShopConfiguration shopConfiguration);
 }

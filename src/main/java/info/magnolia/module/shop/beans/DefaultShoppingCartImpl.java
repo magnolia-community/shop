@@ -33,10 +33,17 @@
  */
 package info.magnolia.module.shop.beans;
 
+import ch.fastforward.magnolia.ocm.atomictypeconverter.MgnlAtomicTypeConverterProvider;
+import ch.fastforward.magnolia.ocm.ext.MgnlConfigMapperImpl;
+import ch.fastforward.magnolia.ocm.ext.MgnlObjectConverterImpl;
 import info.magnolia.cms.util.QueryUtil;
+import info.magnolia.context.MgnlContext;
+import info.magnolia.context.SystemContext;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
+import info.magnolia.module.shop.ShopConfiguration;
 import info.magnolia.module.shop.ShopRepositoryConstants;
+import info.magnolia.module.shop.exceptions.ShopConfigurationException;
 import info.magnolia.module.shop.util.ShopUtil;
 
 import java.io.Serializable;
@@ -49,8 +56,16 @@ import java.util.Map;
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
+import javax.servlet.http.HttpServletRequest;
 
+import info.magnolia.objectfactory.Components;
 import org.apache.commons.lang.StringUtils;
+import org.apache.jackrabbit.ocm.manager.ObjectContentManager;
+import org.apache.jackrabbit.ocm.manager.atomictypeconverter.impl.DefaultAtomicTypeConverterProvider;
+import org.apache.jackrabbit.ocm.manager.cache.impl.RequestObjectCacheImpl;
+import org.apache.jackrabbit.ocm.manager.impl.ObjectContentManagerImpl;
+import org.apache.jackrabbit.ocm.manager.objectconverter.impl.ProxyManagerImpl;
+import org.apache.jackrabbit.ocm.mapper.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -1375,8 +1390,47 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
 
     @Override
     public String getNextItemName() {
-        nextAvailableItemID++;
-        return "" + nextAvailableItemID;
+        return "" + nextAvailableItemID++;
+    }
+
+    @Override
+    public void onPreSave(ShopConfiguration shopConfiguration) {
+        HttpServletRequest request = MgnlContext.getWebContext().getRequest();
+        this.setOrderDate(new Date());
+        this.setUserIP(request.getRemoteAddr() + ":" + request.getRemotePort());
+    }
+
+    @Override
+    public void onSave(ShopConfiguration shopConfiguration) throws RepositoryException, ShopConfigurationException {
+        // NEW: Save via OCM
+        Mapper mapper = new MgnlConfigMapperImpl();
+        RequestObjectCacheImpl requestObjectCache = new RequestObjectCacheImpl();
+        DefaultAtomicTypeConverterProvider converterProvider = new MgnlAtomicTypeConverterProvider();
+        MgnlObjectConverterImpl oc = new MgnlObjectConverterImpl(mapper, converterProvider, new ProxyManagerImpl(), requestObjectCache);
+
+        ObjectContentManager ocm = new ObjectContentManagerImpl(Components.getComponent(SystemContext.class).getJCRSession("shoppingCarts"), mapper);
+        ((ObjectContentManagerImpl) ocm).setObjectConverter(oc);
+        ((ObjectContentManagerImpl) ocm).setRequestObjectCache(requestObjectCache);
+
+        if (StringUtils.isBlank(this.getUuid())) {
+            // Cart has not been saved before (this would most likely be the standard case)
+            // Set the parent path according to the shop configuration
+            String parentPath = "/" + shopConfiguration.getName();
+            if (shopConfiguration != null) {
+                parentPath = shopConfiguration.getHierarchyStrategy().getCartParentPath(shopConfiguration.getName());
+            }
+            this.setParentPath(parentPath);
+            ocm.insert(this);
+            ocm.save();
+        } else {
+            // @TODO: Should we handle the "update" case as well?
+        }
+    }
+
+    @Override
+    public void onPostSave(ShopConfiguration shopConfiguration) {
+        // MSHOP-194: resetting the shopping cart here instead of in the confirmation template.
+        ShopUtil.resetShoppingCart(shopConfiguration.getName());
     }
 
     @Override

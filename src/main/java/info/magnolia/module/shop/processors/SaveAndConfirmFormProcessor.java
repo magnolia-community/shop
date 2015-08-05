@@ -33,32 +33,19 @@
  */
 package info.magnolia.module.shop.processors;
 
-import ch.fastforward.magnolia.ocm.atomictypeconverter.MgnlAtomicTypeConverterProvider;
-import ch.fastforward.magnolia.ocm.beans.OCMBean;
-import ch.fastforward.magnolia.ocm.ext.MgnlConfigMapperImpl;
-import ch.fastforward.magnolia.ocm.ext.MgnlObjectConverterImpl;
-import info.magnolia.context.SystemContext;
 import info.magnolia.module.form.processors.AbstractFormProcessor;
 import info.magnolia.module.form.processors.FormProcessorFailedException;
 import info.magnolia.module.shop.ShopConfiguration;
 import info.magnolia.module.shop.accessors.ShopAccessor;
 import info.magnolia.module.shop.beans.ShoppingCart;
+import info.magnolia.module.shop.exceptions.ShopConfigurationException;
 import info.magnolia.module.shop.util.ShopUtil;
-
-import java.util.Map;
-
-import javax.jcr.Node;
-
-import info.magnolia.objectfactory.Components;
-import org.apache.commons.lang.StringUtils;
-import org.apache.jackrabbit.ocm.manager.ObjectContentManager;
-import org.apache.jackrabbit.ocm.manager.atomictypeconverter.impl.DefaultAtomicTypeConverterProvider;
-import org.apache.jackrabbit.ocm.manager.cache.impl.RequestObjectCacheImpl;
-import org.apache.jackrabbit.ocm.manager.impl.ObjectContentManagerImpl;
-import org.apache.jackrabbit.ocm.manager.objectconverter.impl.ProxyManagerImpl;
-import org.apache.jackrabbit.ocm.mapper.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.jcr.Node;
+import javax.jcr.RepositoryException;
+import java.util.Map;
 
 /**
  * Saves the shoppingcart into data module using ocm.
@@ -85,7 +72,7 @@ public class SaveAndConfirmFormProcessor extends AbstractFormProcessor {
         }
         cart.updateCartData(parameters);
 
-        try {
+/*        try {
             // NEW: Save via OCM
             Mapper mapper = new MgnlConfigMapperImpl();
             RequestObjectCacheImpl requestObjectCache = new RequestObjectCacheImpl();
@@ -117,7 +104,18 @@ public class SaveAndConfirmFormProcessor extends AbstractFormProcessor {
 //            MgnlContext.removeAttribute(shopName + "_" + ShopUtil.ATTRIBUTE_SHOPPINGCART);
 //            ShopUtil.setShoppingCartInSession(shopName);
             throw new FormProcessorFailedException("Error while proccessing your shopping cart");
+        }*/
+        cart.onPreSave(shopConfiguration);
+        try {
+            cart.onSave(shopConfiguration);
+        } catch (RepositoryException e) {
+            log.error("Could not save cart", e);
+            throw new FormProcessorFailedException("Error while proccessing your shopping cart");
+        } catch (ShopConfigurationException e) {
+            log.error("Could not save cart", e);
+            throw new FormProcessorFailedException("Error while proccessing your shopping cart");
         }
+        cart.onPostSave(shopConfiguration);
 
     }
 
