@@ -203,7 +203,10 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
     }
 
     public Double getUnitPrice() {
-        return unitPrice.doubleValue();
+        if (unitPrice != null) {
+            return unitPrice.doubleValue();
+        }
+        return Double.valueOf(0);
     }
 
     /**
@@ -319,7 +322,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
             }
             return total;
         } else {
-            return null;
+            return BigDecimal.ZERO;
         }
     }
 
@@ -337,7 +340,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
                 return total.multiply(taxFactor).subtract(total);
             }
         }
-        return null;
+        return BigDecimal.ZERO;
     }
 
     public double getItemTax() {
@@ -363,7 +366,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
             }
             return total;
         }
-        return null;
+        return BigDecimal.ZERO;
     }
 
     public double getItemTotalExclTax() {
@@ -385,7 +388,7 @@ public class ShoppingCartItem extends OCMBean implements Serializable {
             }
             return total;
         }
-        return null;
+        return BigDecimal.ZERO;
     }
 
     public double getItemTotalInclTax() {
