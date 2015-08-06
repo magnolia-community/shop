@@ -575,7 +575,10 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
         tasks.add(new BootstrapSingleModuleResource("Updating shopping carts app", "Fixing labels", "apps/config.modules.shop.apps.shoppingCarts.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING));
         tasks.add(new BootstrapSingleModuleResource("Updating shops app", "Add a email address field ", "dialogs/config.modules.shop.dialogs.editShop.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING));
         tasks.add(new BootstrapSingleModuleResource("Updating shop form processor", "Add a shop notified processor", "paragraphs/config.modules.shop.templates.components.features.shopForm.formProcessors.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING));
-        tasks.add(new BootstrapSingleModuleResource("Updating ocm config", "Add sub, tax and total field", "ocm/config.modules.ocm.config.classDescriptors.defaultShoppingCart.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING));
+        // completely replace the defaultShoppingCartItem class descriptor (if customizations have been introduced by
+        // shop integrators they should be in class descriptors extending the defaultShoppingCartItem)
+        tasks.add(new BootstrapSingleModuleResource("Updating ocm config of cart item", "Adding additional fields and setting the node type", "ocm/config.modules.ocm.config.classDescriptors.defaultShoppingCartItem.xml", ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING));
+        // do NOT completely replace the defaultShoppingCart class descriptor as this will set back the nextBeanID
         tasks.add(new NodeExistsDelegateTask("Add customerNumber property",
                 "Add \"customerNumber\" to DefaultShoppingCartImpl ocm class descriptor node if it does not exist",
                 "config",
@@ -583,7 +586,31 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                 null,
                 new PartialBootstrapTask("",
                         "/mgnl-bootstrap/shop/ocm/config.modules.ocm.config.classDescriptors.defaultShoppingCart.xml",
-                        "/modules/ocm/config/classDescriptors/defaultShoppingCart/fieldDescriptors/customerNumber")));
+                        "/defaultShoppingCart/fieldDescriptors/customerNumber")));
+        tasks.add(new NodeExistsDelegateTask("Add grossTotalExclTax property",
+                "Add \"grossTotalExclTax\" to DefaultShoppingCartImpl ocm class descriptor node if it does not exist",
+                "config",
+                "/modules/ocm/config/classDescriptors/defaultShoppingCart/fieldDescriptors/grossTotalExclTax",
+                null,
+                new PartialBootstrapTask("",
+                        "/mgnl-bootstrap/shop/ocm/config.modules.ocm.config.classDescriptors.defaultShoppingCart.xml",
+                        "/defaultShoppingCart/fieldDescriptors/grossTotalExclTax")));
+        tasks.add(new NodeExistsDelegateTask("Add itemTaxTotal property",
+                "Add \"itemTaxTotal\" to DefaultShoppingCartImpl ocm class descriptor node if it does not exist",
+                "config",
+                "/modules/ocm/config/classDescriptors/defaultShoppingCart/fieldDescriptors/itemTaxTotal",
+                null,
+                new PartialBootstrapTask("",
+                        "/mgnl-bootstrap/shop/ocm/config.modules.ocm.config.classDescriptors.defaultShoppingCart.xml",
+                        "/defaultShoppingCart/fieldDescriptors/itemTaxTotal")));
+        tasks.add(new NodeExistsDelegateTask("Add grossTotalInclTax property",
+                "Add \"grossTotalInclTax\" to DefaultShoppingCartImpl ocm class descriptor node if it does not exist",
+                "config",
+                "/modules/ocm/config/classDescriptors/defaultShoppingCart/fieldDescriptors/grossTotalInclTax",
+                null,
+                new PartialBootstrapTask("",
+                        "/mgnl-bootstrap/shop/ocm/config.modules.ocm.config.classDescriptors.defaultShoppingCart.xml",
+                        "/defaultShoppingCart/fieldDescriptors/grossTotalInclTax")));
         tasks.add(new NodeExistsDelegateTask(
                 "Setting cart node type",
                 "Changing node type for future carts from mgnl:contentNode to shopCart",
@@ -594,17 +621,6 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                         "/modules/ocm/config/classDescriptors/defaultShoppingCart",
                         "jcrType",
                         "shopCart")));
-        tasks.add(new NodeExistsDelegateTask(
-                "Setting cart item node type",
-                "Changing node type for future cart items from mgnl:contentNode to shopCartItem",
-                "config",
-                "/modules/ocm/config/classDescriptors/defaultShoppingCartItem",
-                new SetPropertyTask(
-                        "Setting cart item option node type",
-                        "config",
-                        "/modules/ocm/config/classDescriptors/defaultShoppingCartItem",
-                        "jcrType",
-                        "shopCartItem")));
         tasks.add(new ChangeCartNodeTypesTask("Updating existing cart node types", "Setting node type of existing carts to \"shopCart\" and the node type of cart items to \"shopCartItem\""));
         tasks.addAll(getExtraTasksFor_2_3_0());
         
