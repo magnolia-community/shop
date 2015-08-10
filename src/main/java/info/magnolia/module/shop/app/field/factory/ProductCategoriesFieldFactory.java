@@ -78,7 +78,7 @@ public class ProductCategoriesFieldFactory extends OptionGroupFieldFactory {
 
                 for (Node category : shopCategories) {
                     SelectFieldOptionDefinition field = new SelectFieldOptionDefinition();
-                    field.setLabel(PropertyUtil.getString(category, "title", category.getName()));
+                    field.setLabel(PropertyUtil.getString(category, "title"));
                     field.setValue(category.getIdentifier());
                     res.add(field);
                 }
