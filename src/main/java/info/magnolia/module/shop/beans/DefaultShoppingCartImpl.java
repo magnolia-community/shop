@@ -1347,7 +1347,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
         setBillingAddressMobile((String) parameters.get("billingAddressMobile"));
         setBillingAddressMail((String) parameters.get("billingAddressMail"));
         //shipping address
-        if(StringUtils.isEmpty((String) parameters.get("shippingSameAsBilling"))) {
+        if(!getBoolean(parameters, "shippingSameAsBilling", false)) {
             setShippingAddressCompany((String) parameters.get("shippingAddressCompany"));
             setShippingAddressCompany2((String) parameters.get("shippingAddressCompany2"));
             setShippingAddressFirstname((String) parameters.get("shippingAddressFirstname"));
@@ -1379,13 +1379,20 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
         setOrderAddressPhone((String) parameters.get("orderAddressPhone"));
         setOrderAddressMobile((String) parameters.get("orderAddressMobile"));
         setOrderAddressMail((String) parameters.get("orderAddressMail"));
-        if (parameters.containsKey("termsAccepted") && parameters.get("termsAccepted").toString().equalsIgnoreCase("true")) {
+        if (getBoolean(parameters, "termsAccepted", false)) {
             setTermsAccepted(true);
         }
         // sub, tax and total 
         setItemTaxTotalFinal(ShopUtil.roundUpTo2Decimal(getItemTaxTotal()));
         setGrossTotalExclTaxFinal(ShopUtil.roundUpTo2Decimal(getGrossItemsTotalExclTax()));
         setGrossTotalInclTaxFinal(ShopUtil.roundUpTo2Decimal(getGrossItemsTotalInclTax()));
+    }
+
+    private boolean getBoolean(Map map, String propertyName, boolean defaultValue) {
+        if (map.get(propertyName) != null) {
+            return ("" + map.get(propertyName)).toLowerCase().equals("true");
+        }
+        return defaultValue;
     }
 
     @Override
