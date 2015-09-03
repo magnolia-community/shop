@@ -75,7 +75,7 @@ import ch.fastforward.magnolia.ocm.beans.OCMNumberedBean;
  * A default shopping cart implementation with order, billing and shipping
  * addresses allowing only one cart item per product (i.e. when adding the same
  * product multiple times, the quantity of the cart item will be increased).
- * 
+ *
  * @author will
  */
 public class DefaultShoppingCartImpl extends OCMNumberedBean implements ShoppingCart, Serializable {
@@ -173,7 +173,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     /**
      * Adds a product to the cart. If there is already a cart item for this
      * product the items quantity will be increased
-     * 
+     *
      * @param productUUID
      * @param quantity
      * @return
@@ -257,7 +257,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
 
     /**
      * Removes the cart item containing the product with the passed in UUID.
-     * 
+     *
      * @param productUUID
      * @todo When multiple items with the same product should be allowed this will
      * not work anymore.
@@ -955,7 +955,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
 
     /**
      * Sums up the cart items tax and applies the discount rate if there is any.
-     * 
+     *
      * @return
      */
     public BigDecimal getItemTaxTotalBigDecimal() {
@@ -1075,7 +1075,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     /**
      * Setter method for the shipping cost. Be aware that shipping cost is
      * usually set by setShippingOptionUUID().
-     * 
+     *
      * @param shippingCost the shippingCost to set
      */
     public void setShippingCostBigDecimal(BigDecimal shippingCost) {
