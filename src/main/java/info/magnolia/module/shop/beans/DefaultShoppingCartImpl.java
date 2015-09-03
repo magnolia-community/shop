@@ -115,6 +115,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     private String orderAddressPhone;
     private String orderAddressMobile;
     private String orderAddressMail;
+    private Boolean shippingSameAsBilling = false;
     private String shippingAddressCompany;
     private String shippingAddressCompany2;
     private String shippingAddressFirstname;
@@ -1346,8 +1347,14 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
         setBillingAddressPhone((String) parameters.get("billingAddressPhone"));
         setBillingAddressMobile((String) parameters.get("billingAddressMobile"));
         setBillingAddressMail((String) parameters.get("billingAddressMail"));
+        if (parameters.get("shippingSameAsBilling") != null) {
+            // to handle both boolean, Boolean and String (lower and uppercase) parameters:
+            setShippingSameAsBilling(new Boolean(parameters.get("shippingSameAsBilling").toString().toLowerCase()));
+        } else {
+            setShippingSameAsBilling(Boolean.FALSE);
+        }
         //shipping address
-        if(!getBoolean(parameters, "shippingSameAsBilling", false)) {
+        if(!getShippingSameAsBilling()) {
             setShippingAddressCompany((String) parameters.get("shippingAddressCompany"));
             setShippingAddressCompany2((String) parameters.get("shippingAddressCompany2"));
             setShippingAddressFirstname((String) parameters.get("shippingAddressFirstname"));
@@ -1363,6 +1370,22 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
             setShippingAddressPhone((String) parameters.get("shippingAddressPhone"));
             setShippingAddressMobile((String) parameters.get("shippingAddressMobile"));
             setShippingAddressMail((String) parameters.get("shippingAddressMail"));
+        } else {
+            setShippingAddressCompany((String) parameters.get("billingAddressCompany"));
+            setShippingAddressCompany2((String) parameters.get("billingAddressCompany2"));
+            setShippingAddressFirstname((String) parameters.get("billingAddressFirstname"));
+            setShippingAddressLastname((String) parameters.get("billingAddressLastname"));
+            setShippingAddressSex((String) parameters.get("billingAddressSex"));
+            setShippingAddressTitle((String) parameters.get("billingAddressTitle"));
+            setShippingAddressStreet((String) parameters.get("billingAddressStreet"));
+            setShippingAddressStreet2((String) parameters.get("billingAddressStreet2"));
+            setShippingAddressZip((String) parameters.get("billingAddressZip"));
+            setShippingAddressCity((String) parameters.get("billingAddressCity"));
+            setShippingAddressState((String) parameters.get("billingAddressState"));
+            setShippingAddressCountry((String) parameters.get("billingAddressCountry"));
+            setShippingAddressPhone((String) parameters.get("billingAddressPhone"));
+            setShippingAddressMobile((String) parameters.get("billingAddressMobile"));
+            setShippingAddressMail((String) parameters.get("billingAddressMail"));
         }
         setOrderAddressCompany((String) parameters.get("orderAddressCompany"));
         setOrderAddressCompany2((String) parameters.get("orderAddressCompany2"));
@@ -1448,5 +1471,13 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     @Override
     public void setCustomerNumber(String customerNumber) {
         this.customerNumber = customerNumber;
+    }
+
+    public Boolean getShippingSameAsBilling() {
+        return shippingSameAsBilling;
+    }
+
+    public void setShippingSameAsBilling(Boolean shippingSameAsBilling) {
+        this.shippingSameAsBilling = shippingSameAsBilling;
     }
 }
