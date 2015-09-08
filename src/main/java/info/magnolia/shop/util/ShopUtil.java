@@ -52,7 +52,6 @@ import info.magnolia.shop.ShopConfiguration;
 import info.magnolia.shop.ShopNodeTypes;
 import info.magnolia.shop.ShopRepositoryConstants;
 import info.magnolia.shop.accessors.ShopAccessor;
-import info.magnolia.shop.beans.*;
 import info.magnolia.objectfactory.Components;
 import info.magnolia.repository.RepositoryConstants;
 
@@ -72,6 +71,12 @@ import javax.jcr.PropertyIterator;
 import javax.jcr.RepositoryException;
 import javax.jcr.ValueFormatException;
 
+import info.magnolia.shop.beans.CartItemOption;
+import info.magnolia.shop.beans.DefaultShoppingCartImpl;
+import info.magnolia.shop.beans.LimitedProduct;
+import info.magnolia.shop.beans.ProductPrice;
+import info.magnolia.shop.beans.ShoppingCart;
+import info.magnolia.shop.beans.ShoppingCartItem;
 import org.apache.commons.lang.StringUtils;
 import org.apache.jackrabbit.ocm.manager.ObjectContentManager;
 import org.apache.jackrabbit.ocm.manager.atomictypeconverter.impl.DefaultAtomicTypeConverterProvider;

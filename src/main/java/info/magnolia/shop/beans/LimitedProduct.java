@@ -33,9 +33,6 @@
  */
 package info.magnolia.shop.beans;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * Interface for the shop product.
  */

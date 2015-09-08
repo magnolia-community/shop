@@ -38,7 +38,6 @@ import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.templating.functions.TemplatingFunctions;
 
 import javax.jcr.Node;
-import javax.jcr.RepositoryException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
