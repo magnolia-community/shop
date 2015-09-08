@@ -4709,7 +4709,7 @@
                   <sv:value>5a9a895b-469b-4078-ae48-92988bb5cb31</sv:value>
                 </sv:property>
                 <sv:property sv:name="class" sv:type="String">
-                  <sv:value>info.magnolia.module.shop.app.products.column.ProductNameColumnDefinition</sv:value>
+                  <sv:value>info.magnolia.shop.app.products.column.ProductNameColumnDefinition</sv:value>
                 </sv:property>
                 <sv:property sv:name="editable" sv:type="String">
                   <sv:value>true</sv:value>
@@ -4718,7 +4718,7 @@
                   <sv:value>2.0</sv:value>
                 </sv:property>
                 <sv:property sv:name="formatterClass" sv:type="String">
-                  <sv:value>info.magnolia.module.shop.app.products.column.ProductNameColumnFormatter</sv:value>
+                  <sv:value>info.magnolia.shop.app.products.column.ProductNameColumnFormatter</sv:value>
                 </sv:property>
                 <sv:property sv:name="jcr:createdBy" sv:type="String">
                   <sv:value>admin</sv:value>

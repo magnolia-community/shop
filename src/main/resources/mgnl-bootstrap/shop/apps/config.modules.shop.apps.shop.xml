@@ -1289,7 +1289,7 @@
             <sv:value>0c97d19a-5ee6-4f5e-93fc-129fbd14e517</sv:value>
           </sv:property>
           <sv:property sv:name="class" sv:type="String">
-            <sv:value>info.magnolia.module.shop.dialog.action.NodeTypeBasedOpenEditDialogActionDefinition</sv:value>
+            <sv:value>info.magnolia.shop.dialog.action.NodeTypeBasedOpenEditDialogActionDefinition</sv:value>
           </sv:property>
           <sv:property sv:name="icon" sv:type="String">
             <sv:value>icon-edit</sv:value>

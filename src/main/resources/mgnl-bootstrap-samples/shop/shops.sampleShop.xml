@@ -13,7 +13,7 @@
     <sv:value>sampleShopCart</sv:value>
   </sv:property>
   <sv:property sv:name="cartClassQualifiedName" sv:type="String">
-    <sv:value>info.magnolia.module.shop.beans.DefaultShoppingCartImpl</sv:value>
+    <sv:value>info.magnolia.shop.beans.DefaultShoppingCartImpl</sv:value>
   </sv:property>
   <sv:property sv:name="cartSessionVariable" sv:type="String">
     <sv:value>shoppingCart</sv:value>
@@ -28,7 +28,7 @@
     <sv:value>sampleShop</sv:value>
   </sv:property>
   <sv:property sv:name="priceCategoryManagerClassQualifiedName" sv:type="String">
-    <sv:value>info.magnolia.module.shop.DefaultPriceCategoryManagerImpl</sv:value>
+    <sv:value>info.magnolia.shop.DefaultPriceCategoryManagerImpl</sv:value>
   </sv:property>
   <sv:property sv:name="title" sv:type="String">
     <sv:value>Sample Shop</sv:value>

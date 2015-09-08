@@ -29,10 +29,10 @@
       <sv:value>5bc40316-008b-486f-9e33-0114c46dfb75</sv:value>
     </sv:property>
     <sv:property sv:name="definitionClass" sv:type="String">
-      <sv:value>info.magnolia.module.shop.app.field.definition.TaxCategoriesSelectFieldDefinition</sv:value>
+      <sv:value>info.magnolia.shop.app.field.definition.TaxCategoriesSelectFieldDefinition</sv:value>
     </sv:property>
     <sv:property sv:name="factoryClass" sv:type="String">
-      <sv:value>info.magnolia.module.shop.app.field.factory.TaxCategoriesSelectFieldFactory</sv:value>
+      <sv:value>info.magnolia.shop.app.field.factory.TaxCategoriesSelectFieldFactory</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:createdBy" sv:type="String">
       <sv:value>admin</sv:value>
@@ -58,13 +58,13 @@
       <sv:value>91a49ab2-b639-41fc-9a96-f6ccb75fe380</sv:value>
     </sv:property>
     <sv:property sv:name="definitionClass" sv:type="String">
-      <sv:value>info.magnolia.module.shop.app.field.definition.PriceCategoryFieldDefinition</sv:value>
+      <sv:value>info.magnolia.shop.app.field.definition.PriceCategoryFieldDefinition</sv:value>
     </sv:property>
     <sv:property sv:name="factoryClass" sv:type="String">
-      <sv:value>info.magnolia.module.shop.app.field.factory.PriceCategoryFieldFactory</sv:value>
+      <sv:value>info.magnolia.shop.app.field.factory.PriceCategoryFieldFactory</sv:value>
     </sv:property>
     <sv:property sv:name="fieldClass" sv:type="String">
-      <sv:value>info.magnolia.module.shop.app.field.PriceCategoryField</sv:value>
+      <sv:value>info.magnolia.shop.app.field.PriceCategoryField</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:createdBy" sv:type="String">
       <sv:value>admin</sv:value>
@@ -90,10 +90,10 @@
       <sv:value>82234133-d6da-4b2e-ac7e-455357b3a786</sv:value>
     </sv:property>
     <sv:property sv:name="definitionClass" sv:type="String">
-      <sv:value>info.magnolia.module.shop.app.field.definition.ProductCategoriesFieldDefinition</sv:value>
+      <sv:value>info.magnolia.shop.app.field.definition.ProductCategoriesFieldDefinition</sv:value>
     </sv:property>
     <sv:property sv:name="factoryClass" sv:type="String">
-      <sv:value>info.magnolia.module.shop.app.field.factory.ProductCategoriesFieldFactory</sv:value>
+      <sv:value>info.magnolia.shop.app.field.factory.ProductCategoriesFieldFactory</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:createdBy" sv:type="String">
       <sv:value>admin</sv:value>
@@ -128,10 +128,10 @@
       <sv:value>b3ab54e1-1db2-480a-bdcb-deb849eca7da</sv:value>
     </sv:property>
     <sv:property sv:name="definitionClass" sv:type="String">
-      <sv:value>info.magnolia.module.shop.app.field.definition.CurrencySelectFieldDefinition</sv:value>
+      <sv:value>info.magnolia.shop.app.field.definition.CurrencySelectFieldDefinition</sv:value>
     </sv:property>
     <sv:property sv:name="factoryClass" sv:type="String">
-      <sv:value>info.magnolia.module.shop.app.field.factory.CurrencySelectFieldFactory</sv:value>
+      <sv:value>info.magnolia.shop.app.field.factory.CurrencySelectFieldFactory</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:createdBy" sv:type="String">
       <sv:value>admin</sv:value>
@@ -157,10 +157,10 @@
       <sv:value>3029231c-f879-422b-a245-cdeb71771a64</sv:value>
     </sv:property>
     <sv:property sv:name="definitionClass" sv:type="String">
-      <sv:value>info.magnolia.module.shop.app.field.definition.CountryShippingOptionsFieldDefinition</sv:value>
+      <sv:value>info.magnolia.shop.app.field.definition.CountryShippingOptionsFieldDefinition</sv:value>
     </sv:property>
     <sv:property sv:name="factoryClass" sv:type="String">
-      <sv:value>info.magnolia.module.shop.app.field.factory.CountryShippingOptionsFieldFactory</sv:value>
+      <sv:value>info.magnolia.shop.app.field.factory.CountryShippingOptionsFieldFactory</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:createdBy" sv:type="String">
       <sv:value>admin</sv:value>
@@ -195,10 +195,10 @@
       <sv:value>be184269-76e3-4d0a-a654-398eef1cffd5</sv:value>
     </sv:property>
     <sv:property sv:name="definitionClass" sv:type="String">
-      <sv:value>info.magnolia.module.shop.app.field.definition.ProductSupplierSelectFieldDefinition</sv:value>
+      <sv:value>info.magnolia.shop.app.field.definition.ProductSupplierSelectFieldDefinition</sv:value>
     </sv:property>
     <sv:property sv:name="factoryClass" sv:type="String">
-      <sv:value>info.magnolia.module.shop.app.field.factory.ProductSupplierSelectFieldFactory</sv:value>
+      <sv:value>info.magnolia.shop.app.field.factory.ProductSupplierSelectFieldFactory</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:createdBy" sv:type="String">
       <sv:value>admin</sv:value>
@@ -224,10 +224,10 @@
       <sv:value>fe74527c-f8e9-47a8-a41f-f008f5539a5e</sv:value>
     </sv:property>
     <sv:property sv:name="definitionClass" sv:type="String">
-      <sv:value>info.magnolia.module.shop.app.field.definition.PriceCategoriesSelectFieldDefinition</sv:value>
+      <sv:value>info.magnolia.shop.app.field.definition.PriceCategoriesSelectFieldDefinition</sv:value>
     </sv:property>
     <sv:property sv:name="factoryClass" sv:type="String">
-      <sv:value>info.magnolia.module.shop.app.field.factory.PriceCategoriesSelectFieldFactory</sv:value>
+      <sv:value>info.magnolia.shop.app.field.factory.PriceCategoriesSelectFieldFactory</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:createdBy" sv:type="String">
       <sv:value>admin</sv:value>

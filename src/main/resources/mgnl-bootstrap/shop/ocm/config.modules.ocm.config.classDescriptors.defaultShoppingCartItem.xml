@@ -13,7 +13,7 @@
     <sv:value>org.apache.jackrabbit.ocm.mapper.model.ClassDescriptor</sv:value>
   </sv:property>
   <sv:property sv:name="className" sv:type="String">
-    <sv:value>info.magnolia.module.shop.beans.ShoppingCartItem</sv:value>
+    <sv:value>info.magnolia.shop.beans.ShoppingCartItem</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:createdBy" sv:type="String">
     <sv:value>admin</sv:value>
@@ -567,7 +567,7 @@
         <sv:value>ch.fastforward.magnolia.ocm.ext.MgnlDefaultCollectionConverterImpl</sv:value>
       </sv:property>
       <sv:property sv:name="elementClassName" sv:type="String">
-        <sv:value>info.magnolia.module.shop.beans.CartItemOption</sv:value>
+        <sv:value>info.magnolia.shop.beans.CartItemOption</sv:value>
       </sv:property>
       <sv:property sv:name="fieldName" sv:type="String">
         <sv:value>options</sv:value>

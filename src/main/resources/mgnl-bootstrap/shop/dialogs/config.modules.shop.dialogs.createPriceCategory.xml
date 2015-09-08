@@ -75,7 +75,7 @@
         <sv:value>info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition</sv:value>
       </sv:property>
       <sv:property sv:name="implementationClass" sv:type="String">
-        <sv:value>info.magnolia.module.shop.dialog.action.ShopSaveDialogAction</sv:value>
+        <sv:value>info.magnolia.shop.dialog.action.ShopSaveDialogAction</sv:value>
       </sv:property>
       <sv:property sv:name="jcr:createdBy" sv:type="String">
         <sv:value>admin</sv:value>
@@ -283,7 +283,7 @@
               <sv:value>3248e333-297e-4561-9f99-dce593c50117</sv:value>
             </sv:property>
             <sv:property sv:name="class" sv:type="String">
-              <sv:value>info.magnolia.module.shop.app.field.definition.CurrencySelectFieldDefinition</sv:value>
+              <sv:value>info.magnolia.shop.app.field.definition.CurrencySelectFieldDefinition</sv:value>
             </sv:property>
             <sv:property sv:name="jcr:createdBy" sv:type="String">
               <sv:value>admin</sv:value>

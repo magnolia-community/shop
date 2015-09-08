@@ -154,7 +154,7 @@
                 <sv:value>3328981f-4b1d-4fe1-913c-bbed93fbf32a</sv:value>
               </sv:property>
               <sv:property sv:name="class" sv:type="String">
-                <sv:value>info.magnolia.module.shop.app.field.definition.AvailableShopsSelectFieldDefinition</sv:value>
+                <sv:value>info.magnolia.shop.app.field.definition.AvailableShopsSelectFieldDefinition</sv:value>
               </sv:property>
               <sv:property sv:name="defaultValue" sv:type="String">
                 <sv:value>sampleShop</sv:value>

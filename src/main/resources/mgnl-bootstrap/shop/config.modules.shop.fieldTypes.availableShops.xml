@@ -7,10 +7,10 @@
     <sv:value>36e81233-a54b-428a-9039-cdd68757cde8</sv:value>
   </sv:property>
   <sv:property sv:name="definitionClass" sv:type="String">
-    <sv:value>info.magnolia.module.shop.app.field.definition.AvailableShopsSelectFieldDefinition</sv:value>
+    <sv:value>info.magnolia.shop.app.field.definition.AvailableShopsSelectFieldDefinition</sv:value>
   </sv:property>
   <sv:property sv:name="factoryClass" sv:type="String">
-    <sv:value>info.magnolia.module.shop.app.field.AvailableShopsSelectFieldFactory</sv:value>
+    <sv:value>info.magnolia.shop.app.field.AvailableShopsSelectFieldFactory</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:createdBy" sv:type="String">
     <sv:value>admin</sv:value>

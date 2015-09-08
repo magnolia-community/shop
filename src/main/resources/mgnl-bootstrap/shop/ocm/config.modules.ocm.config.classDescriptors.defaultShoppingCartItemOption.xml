@@ -13,7 +13,7 @@
     <sv:value>org.apache.jackrabbit.ocm.mapper.model.ClassDescriptor</sv:value>
   </sv:property>
   <sv:property sv:name="className" sv:type="String">
-    <sv:value>info.magnolia.module.shop.beans.CartItemOption</sv:value>
+    <sv:value>info.magnolia.shop.beans.CartItemOption</sv:value>
   </sv:property>
   <sv:property sv:name="jcrType" sv:type="String">
     <sv:value>mgnl:contentNode</sv:value>

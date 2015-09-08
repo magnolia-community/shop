@@ -407,7 +407,7 @@
             <sv:value>79395e11-4509-4e1a-91db-298d46771419</sv:value>
           </sv:property>
           <sv:property sv:name="class" sv:type="String">
-            <sv:value>info.magnolia.module.shop.dialog.action.ShopMarkNodeAsDeletedActionDefinition</sv:value>
+            <sv:value>info.magnolia.shop.dialog.action.ShopMarkNodeAsDeletedActionDefinition</sv:value>
           </sv:property>
           <sv:property sv:name="command" sv:type="String">
             <sv:value>markAsDeleted</sv:value>

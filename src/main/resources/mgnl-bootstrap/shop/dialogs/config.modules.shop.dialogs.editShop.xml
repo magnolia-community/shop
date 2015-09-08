@@ -294,7 +294,7 @@
               <sv:value>9e1984a8-a58b-4be9-a56e-c4da4a84b62d</sv:value>
             </sv:property>
             <sv:property sv:name="class" sv:type="String">
-              <sv:value>info.magnolia.module.shop.app.field.definition.PriceCategoriesSelectFieldDefinition</sv:value>
+              <sv:value>info.magnolia.shop.app.field.definition.PriceCategoriesSelectFieldDefinition</sv:value>
             </sv:property>
             <sv:property sv:name="jcr:createdBy" sv:type="String">
               <sv:value>admin</sv:value>

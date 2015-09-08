@@ -317,7 +317,7 @@
             <sv:value>827f1da0-e89c-4191-995f-ffbbea35a385</sv:value>
           </sv:property>
           <sv:property sv:name="class" sv:type="String">
-            <sv:value>info.magnolia.module.shop.app.action.GenerateInvoicePdfActionDefinition</sv:value>
+            <sv:value>info.magnolia.shop.app.action.GenerateInvoicePdfActionDefinition</sv:value>
           </sv:property>
           <sv:property sv:name="icon" sv:type="String">
             <sv:value>icon-download</sv:value>
@@ -352,7 +352,7 @@
             <sv:value>5adbc418-ec07-4193-936d-481ab8e59472</sv:value>
           </sv:property>
           <sv:property sv:name="class" sv:type="String">
-            <sv:value>info.magnolia.module.shop.app.action.SendInvoiceActionDefinition</sv:value>
+            <sv:value>info.magnolia.shop.app.action.SendInvoiceActionDefinition</sv:value>
           </sv:property>
           <sv:property sv:name="icon" sv:type="String">
             <sv:value>icon-share</sv:value>

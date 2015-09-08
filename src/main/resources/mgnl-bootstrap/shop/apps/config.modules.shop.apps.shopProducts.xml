@@ -7992,7 +7992,7 @@
                   <sv:value>fc28e58c-8df0-4b11-839d-0b71f2c1ca2d</sv:value>
                 </sv:property>
                 <sv:property sv:name="class" sv:type="String">
-                  <sv:value>info.magnolia.module.shop.app.products.column.ProductNameColumnDefinition</sv:value>
+                  <sv:value>info.magnolia.shop.app.products.column.ProductNameColumnDefinition</sv:value>
                 </sv:property>
                 <sv:property sv:name="editable" sv:type="String">
                   <sv:value>true</sv:value>
@@ -8001,7 +8001,7 @@
                   <sv:value>2.0</sv:value>
                 </sv:property>
                 <sv:property sv:name="formatterClass" sv:type="String">
-                  <sv:value>info.magnolia.module.shop.app.products.column.ProductNameColumnFormatter</sv:value>
+                  <sv:value>info.magnolia.shop.app.products.column.ProductNameColumnFormatter</sv:value>
                 </sv:property>
                 <sv:property sv:name="jcr:createdBy" sv:type="String">
                   <sv:value>admin</sv:value>
@@ -8816,7 +8816,7 @@
                     <sv:value>41fa5030-0afc-4792-9c78-a97f9e4d8da1</sv:value>
                   </sv:property>
                   <sv:property sv:name="class" sv:type="String">
-                    <sv:value>info.magnolia.module.shop.app.field.definition.ProductSupplierSelectFieldDefinition</sv:value>
+                    <sv:value>info.magnolia.shop.app.field.definition.ProductSupplierSelectFieldDefinition</sv:value>
                   </sv:property>
                   <sv:property sv:name="jcr:createdBy" sv:type="String">
                     <sv:value>admin</sv:value>
@@ -8941,7 +8941,7 @@
                     <sv:value>cd4f9920-4b60-4dd0-a7c0-9ccfcb995c73</sv:value>
                   </sv:property>
                   <sv:property sv:name="class" sv:type="String">
-                    <sv:value>info.magnolia.module.shop.app.field.definition.PriceCategoryFieldDefinition</sv:value>
+                    <sv:value>info.magnolia.shop.app.field.definition.PriceCategoryFieldDefinition</sv:value>
                   </sv:property>
                   <sv:property sv:name="jcr:createdBy" sv:type="String">
                     <sv:value>admin</sv:value>
@@ -8970,7 +8970,7 @@
                     <sv:value>bdfe72b6-fecd-4f61-9eb5-f73282a93a1b</sv:value>
                   </sv:property>
                   <sv:property sv:name="class" sv:type="String">
-                    <sv:value>info.magnolia.module.shop.app.field.definition.TaxCategoriesSelectFieldDefinition</sv:value>
+                    <sv:value>info.magnolia.shop.app.field.definition.TaxCategoriesSelectFieldDefinition</sv:value>
                   </sv:property>
                   <sv:property sv:name="jcr:createdBy" sv:type="String">
                     <sv:value>admin</sv:value>
