@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>info.magnolia.maven.poms-forge</groupId>
-        <artifactId>magnolia-parent-pom-forge</artifactId>
-        <version>30</version>
+        <groupId>info.magnolia.shop</groupId>
+        <artifactId>magnolia-shop</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <groupId>info.magnolia.shop</groupId>
-    <artifactId>magnolia-shop</artifactId>
-    <packaging>pom</packaging>
-    <version>3.0.0-SNAPSHOT</version>
-    <name>Magnolia Simple Shop</name>
+    <artifactId>magnolia-module-shop</artifactId>
+    <packaging>jar</packaging>
+    <name>Magnolia Simple Shop Module</name>
 
     <properties>
         <javaVersion>1.7</javaVersion>
         <magnoliaVersion>5.4.1</magnoliaVersion>
         <magnoliaUiVersion>5.4.1</magnoliaUiVersion>
-        <magnoliaRestVersion>1.1</magnoliaRestVersion>
-        <magnoliaOcmVersion>1.3.0</magnoliaOcmVersion>
-        <magnoliaDamVersion>2.1.1</magnoliaDamVersion>
+        <!--    <stkVersion>2.8</stkVersion>-->
         <yahpVersion>1.3</yahpVersion>
 
         <!-- dual licensed : -->
@@ -46,7 +45,6 @@
         <url>http://git.magnolia-cms.com/gitweb/?p=forge/shop.git</url>
         <tag>HEAD</tag>
     </scm>
-    <dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>info.magnolia</groupId>
@@ -276,9 +274,45 @@
             <version>${yahpVersion}</version>
         </dependency>
     </dependencies>
-    </dependencyManagement>
-    <modules>
-    	<module>magnolia-module-shop</module>
-    	<module>magnolia-shop-rest-services</module>
-    </modules>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <!-- This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>info.magnolia</groupId>
+                                        <artifactId>
+                                            maven-setproperty-plugin
+                                        </artifactId>
+                                        <versionRange>
+                                            [1.1.1,)
+                                        </versionRange>
+                                        <goals>
+                                            <goal>set-property</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore/>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>

@@ -1,9 +1,9 @@
 
 # /
-/target
+target/
 /docroot
 /*.log
-/*.iml
+*.iml
 /*.ipr
 /*.iws
 /.idea
