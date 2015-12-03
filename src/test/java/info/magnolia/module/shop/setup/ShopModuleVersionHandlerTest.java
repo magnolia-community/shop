@@ -657,6 +657,20 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
     }
 
     @Test
+    public void testFeedGeneratorIsAddedAfterUpgradeTo221() throws Exception {
+        // GIVEN
+        this.setupConfigNode("/modules/rssaggregator/virtualURIMapping");
+        this.setupConfigNode("/modules/rssaggregator/config/feedGenerators");
+
+        // WHEN
+        executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("2.2.0"));
+
+        // THEN
+        assertThat(config.getNode("/modules/rssaggregator/virtualURIMapping"), hasNode("shopFeeds"));
+        assertThat(config.getNode("/modules/rssaggregator/config/feedGenerators"), hasNode("shop"));
+    }
+
+    @Test
     public void testCleanInstallIfWorkflowIsInstalled() throws Exception {
         // GIVEN
         ComponentsTestUtil.setInstance(ActivationManager.class, mock(ActivationManager.class));
