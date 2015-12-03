@@ -515,6 +515,11 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                 .addTask(new NodeExistsDelegateTask("Configure section multiple in /modules/shop/apps/shoppingCarts/subApps/browser/actionbar/sections node if not exists", "/modules/shop/apps/shoppingCarts/subApps/browser/actionbar/sections/multiple", null,
                         new PartialBootstrapTask("", "/mgnl-bootstrap/shop/config.modules.shop.apps.xml", "/apps/shoppingCarts/subApps/browser/actionbar/sections/multiple")))
         );
+        register(DeltaBuilder.update("2.2.1", "")
+                .addTask(new BootstrapSingleResource("Config", "RssAggregator feedGenerators", "/mgnl-bootstrap/shop/config.modules.rssaggregator.config.feedGenerators.shop.xml"))
+                .addTask(new BootstrapSingleResource("Boostrap new virtualURIMapping", "Boostraps new virtualURIMapping for shopFeeds into rssaggregator module.",
+                        "/mgnl-bootstrap/shop/config.modules.rssaggregator.virtualURIMapping.shopFeeds.xml"))
+        );
     }
 
     @Override
