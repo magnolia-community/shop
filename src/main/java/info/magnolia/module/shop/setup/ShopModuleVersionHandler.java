@@ -32,7 +32,6 @@
  *
  */
 package info.magnolia.module.shop.setup;
-
 import static info.magnolia.jcr.nodebuilder.Ops.*;
 
 import info.magnolia.cms.security.Permission;
@@ -516,9 +515,15 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                         new PartialBootstrapTask("", "/mgnl-bootstrap/shop/config.modules.shop.apps.xml", "/apps/shoppingCarts/subApps/browser/actionbar/sections/multiple")))
         );
         register(DeltaBuilder.update("2.2.1", "")
-                .addTask(new BootstrapSingleResource("Config", "RssAggregator feedGenerators", "/mgnl-bootstrap/shop/config.modules.rssaggregator.config.feedGenerators.shop.xml"))
-                .addTask(new BootstrapSingleResource("Boostrap new virtualURIMapping", "Boostraps new virtualURIMapping for shopFeeds into rssaggregator module.",
-                        "/mgnl-bootstrap/shop/config.modules.rssaggregator.virtualURIMapping.shopFeeds.xml"))
+                .addTask(new ArrayDelegateTask("RSS product feed generator",
+                        new BootstrapSingleResource("Config", "", "/mgnl-bootstrap/shop/config.modules.rssaggregator.config.feedGenerators.shop.xml"),
+                        new BootstrapSingleResource("Boostrap new virtualURIMapping", "",
+                                "/mgnl-bootstrap/shop/config.modules.rssaggregator.virtualURIMapping.shopFeeds.xml")))
+                .addTask(new ArrayDelegateTask("Sklik product feed generator",
+                        new BootstrapSingleResource("Config", "", "/mgnl-bootstrap/shop/config.modules.rssaggregator.config.feedGenerators.shopSklik.xml"),
+                        new BootstrapSingleResource("Boostrap new virtualURIMapping", "",
+                                "/mgnl-bootstrap/shop/config.modules.rssaggregator.virtualURIMapping.sklikFeeds.xml")))
+
         );
     }
 
