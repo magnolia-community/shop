@@ -57,6 +57,7 @@ public class SklikModuleGenerator implements ModuleGenerator {
         addIfNotBlank(element, myModule.getProductName(), SklikModule.PRODUCT_NAME);
         addIfNotBlank(element, myModule.getDescription(), SklikModule.DESCRIPTION);
         addIfNotBlank(element, myModule.getUrl(), SklikModule.URL);
+        addIfNotBlank(element, myModule.getImageUrl(), SklikModule.IMGURL);
         addIfNotNull(element, myModule.getPriceVat(), SklikModule.PRICE_VAT);
         addIfNotNull(element, myModule.getDeliveryDate(), SklikModule.DELIVERY_DATE);
     }

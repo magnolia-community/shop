@@ -49,6 +49,7 @@ public interface SklikModule extends Module, CopyFrom {
     String URL = "URL";
     String PRICE_VAT = "PRICE_VAT";
     String DELIVERY_DATE = "DELIVERY_DATE";
+    String IMGURL = "IMGURL";
 
     String getProductName();
 
@@ -69,4 +70,8 @@ public interface SklikModule extends Module, CopyFrom {
     String getDeliveryDate();
 
     void setDeliveryDate(final String deliveryDate);
+
+    String getImageUrl();
+
+    void setImageUrl(final String imageUrl);
 }
