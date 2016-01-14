@@ -45,6 +45,7 @@ public class SklikModuleImpl extends ModuleImpl implements SklikModule {
     private String url = "";
     private String priceVat = "0.0";
     private String deliveryDate = "1";
+    private String imageUrl = "";
 
 
     public SklikModuleImpl() {
@@ -62,6 +63,7 @@ public class SklikModuleImpl extends ModuleImpl implements SklikModule {
         setUrl(otherModule.getUrl());
         setPriceVat(otherModule.getPriceVat());
         setDeliveryDate(otherModule.getDeliveryDate());
+        setImageUrl(otherModule.getImageUrl());
     }
 
     @Override
@@ -117,5 +119,15 @@ public class SklikModuleImpl extends ModuleImpl implements SklikModule {
     @Override
     public void setDeliveryDate(String deliveryDate) {
         this.deliveryDate = deliveryDate;
+    }
+
+    @Override
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    @Override
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
