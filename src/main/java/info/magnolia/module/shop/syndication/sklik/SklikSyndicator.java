@@ -33,9 +33,12 @@
  */
 package info.magnolia.module.shop.syndication.sklik;
 
-import static info.magnolia.module.rssaggregator.RSSAggregator.DEFAULT_CONTENT_TYPE;
-import static info.magnolia.module.rssaggregator.RSSAggregator.DEFAULT_ENCODING;
+import static info.magnolia.module.rssaggregator.RSSAggregator.*;
+
 import info.magnolia.cms.core.Content;
+import info.magnolia.context.WebContext;
+import info.magnolia.dam.api.Asset;
+import info.magnolia.dam.templating.functions.DamTemplatingFunctions;
 import info.magnolia.i18nsystem.SimpleTranslator;
 import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.link.LinkUtil;
@@ -57,9 +60,11 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Provider;
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -148,14 +153,17 @@ public class SklikSyndicator extends AbstractSyndFeedGenerator implements Clonea
 
     private static class FeedEntryMapper implements ContentMapper<SyndEntry> {
 
-        private SklikSyndicator syndicator;
-
+        private final SklikSyndicator syndicator;
         private final SimpleTranslator i18n;
+        private final DamTemplatingFunctions damTemplatingFunctions;
+        private final Provider<WebContext> webContextProvider;
 
         @Inject
-        public FeedEntryMapper(final SklikSyndicator syndicator, final SimpleTranslator i18n) {
+        public FeedEntryMapper(final SklikSyndicator syndicator, final DamTemplatingFunctions damTemplatingFunctions, final SimpleTranslator i18n, Provider<WebContext> webContextProvider) {
             this.syndicator = syndicator;
             this.i18n = i18n;
+            this.damTemplatingFunctions = damTemplatingFunctions;
+            this.webContextProvider = webContextProvider;
         }
 
         @Override
@@ -168,7 +176,7 @@ public class SklikSyndicator extends AbstractSyndFeedGenerator implements Clonea
             String absoluteLink = LinkUtil.createExternalLink(detailPage);
             String selector = ShopLinkUtil.createProductSelector(content);
             String extension = StringUtils.substringAfterLast(absoluteLink, ".");
-            if(StringUtils.isNotEmpty(selector)) {
+            if (StringUtils.isNotEmpty(selector)) {
                 selector = "~" + selector + "~";
             }
             String absoluteLinkWithSelector = StringUtils.substringBeforeLast(absoluteLink, extension) + selector + "." + extension;
@@ -187,7 +195,7 @@ public class SklikSyndicator extends AbstractSyndFeedGenerator implements Clonea
             String priceCategoryUUID = syndicator.getPriceCategoryNode().getIdentifier();
             if (content.hasNode(ShopProductConstants.NODE_PRICES)) {
                 NodeIterator prices = content.getNode(ShopProductConstants.NODE_PRICES).getNodes();
-                while (prices.hasNext()) { 
+                while (prices.hasNext()) {
                     Node price = prices.nextNode();
                     if (priceCategoryUUID.equals(price.getProperty(ShopProductConstants.PROPERTY_PRICES_CATEGORY).getString())) {
                         if (price.hasProperty(ShopProductConstants.PROPERTY_PRICES_PRICE)) {
@@ -197,8 +205,19 @@ public class SklikSyndicator extends AbstractSyndFeedGenerator implements Clonea
                 }
             }
 
-            entry.getModules().add(sklikData);
+            // image
+            if (content.hasProperty(ShopProductConstants.PROPERTY_IMAGE)) {
+                Asset imageAsset = damTemplatingFunctions.getAsset(content.getProperty(ShopProductConstants.PROPERTY_IMAGE).getString());
+                String link = imageAsset.getLink();
+                if (!LinkUtil.isExternalLinkOrAnchor(link)) {
+                    HttpServletRequest request = webContextProvider.get().getRequest();
+                    String domain = StringUtils.substringBefore(request.getRequestURL().toString(), request.getRequestURI());
+                    link = domain + link;
+                }
+                sklikData.setImageUrl(link);
+            }
 
+            entry.getModules().add(sklikData);
             return entry;
         }
 
