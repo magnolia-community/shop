@@ -9,14 +9,21 @@
   <groupId>info.magnolia.shop</groupId>
   <artifactId>magnolia-module-shop</artifactId>
   <packaging>jar</packaging>
-  <version>2.2.1-SNAPSHOT</version>
+  <version>2.3-SNAPSHOT</version>
   <name>Magnolia Simple Shop Module</name>
 
   <properties>
-    <javaVersion>1.6</javaVersion>
-    <magnoliaVersion>5.3.8</magnoliaVersion>
-    <magnoliaUiVersion>5.3.8</magnoliaUiVersion>
-    <stkVersion>2.8</stkVersion>
+    <javaVersion>1.7</javaVersion>
+    <magnoliaVersion>5.4</magnoliaVersion>
+    <magnoliaUiVersion>5.4</magnoliaUiVersion>
+    <stkVersion>2.9</stkVersion>
+    <damVersion>2.1</damVersion>
+    <ocmVersion>1.3.0</ocmVersion>
+    <formVersion>2.3</formVersion>
+    <categorizationVersion>2.4</categorizationVersion>
+    <rssAggVersion>2.4</rssAggVersion>
+    <siteVersion>1.0</siteVersion>
+    <resourcesVersion>2.4</resourcesVersion>
 
     <!-- dual licensed : -->
     <checkstyleHeader>magnolia-build-resources/license-header-dual.regex</checkstyleHeader>
@@ -44,117 +51,185 @@
     <tag>HEAD</tag>
   </scm>
   <dependencies>
+
+    <!-- MAIN -->
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-core</artifactId>
       <version>${magnoliaVersion}</version>
       <scope>provided</scope>
     </dependency>
+
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-templating</artifactId>
       <version>${magnoliaVersion}</version>
       <scope>provided</scope>
     </dependency>
+
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-rendering</artifactId>
+      <version>${magnoliaVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-i18n</artifactId>
+      <version>${magnoliaVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- UI -->
+    <dependency>
+      <groupId>info.magnolia.ui</groupId>
+      <artifactId>magnolia-ui-api</artifactId>
+      <version>${magnoliaUiVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+
     <dependency>
       <groupId>info.magnolia.ui</groupId>
       <artifactId>magnolia-ui-dialog</artifactId>
       <version>${magnoliaUiVersion}</version>
       <scope>provided</scope>
     </dependency>
+
     <dependency>
       <groupId>info.magnolia.ui</groupId>
       <artifactId>magnolia-ui-contentapp</artifactId>
       <version>${magnoliaUiVersion}</version>
       <scope>provided</scope>
     </dependency>
+
     <dependency>
-      <groupId>info.magnolia.dam</groupId>
-      <artifactId>magnolia-dam</artifactId>
-      <version>2.0</version>
+      <groupId>info.magnolia.ui</groupId>
+      <artifactId>magnolia-ui-admincentral</artifactId>
+      <version>${magnoliaUiVersion}</version>
       <scope>provided</scope>
     </dependency>
+
+    <dependency>
+      <groupId>info.magnolia.ui</groupId>
+      <artifactId>magnolia-ui-workbench</artifactId>
+      <version>${magnoliaUiVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>info.magnolia.ui</groupId>
+      <artifactId>magnolia-ui-form</artifactId>
+      <version>${magnoliaUiVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>info.magnolia.ui</groupId>
+      <artifactId>magnolia-ui-framework</artifactId>
+      <version>${magnoliaUiVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>info.magnolia.ui</groupId>
+      <artifactId>magnolia-ui-vaadin-integration</artifactId>
+      <version>${magnoliaUiVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- INPLACE TEMPLATING -->
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-module-inplace-templating</artifactId>
+      <version>2.4</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- DAM -->
+    <dependency>
+      <groupId>info.magnolia.dam</groupId>
+      <artifactId>magnolia-dam-api</artifactId>
+      <version>${damVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>info.magnolia.dam</groupId>
+      <artifactId>magnolia-dam-app</artifactId>
+      <version>${damVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>info.magnolia.dam</groupId>
+      <artifactId>magnolia-dam-templating</artifactId>
+      <version>${damVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- CATEGORIZATION -->
+    <dependency>
+      <groupId>info.magnolia.categorization</groupId>
+      <artifactId>magnolia-categorization</artifactId>
+      <version>${categorizationVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- RSS -->
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-module-rssaggregator</artifactId>
+      <version>${rssAggVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- OCM -->
     <dependency>
       <groupId>ch.fastforward</groupId>
       <artifactId>magnolia-module-ocm</artifactId>
-      <version>1.2.1-SNAPSHOT</version>
+      <version>${ocmVersion}</version>
     </dependency>
-    <dependency>
-      <groupId>asm</groupId>
-      <artifactId>asm</artifactId>
-      <version>3.3</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>cglib</groupId>
-      <artifactId>cglib</artifactId>
-      <version>2.2</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-module-mail</artifactId>
-      <version>5.0</version>
-      <scope>provided</scope>
-    </dependency>
+
+    <!-- FORM -->
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-form</artifactId>
-      <version>2.2.6</version>
+      <version>${formVersion}</version>
       <scope>provided</scope>
     </dependency>
+
+    <!-- STK -->
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-standard-templating-kit</artifactId>
       <version>${stkVersion}</version>
       <scope>provided</scope>
     </dependency>
+
+    <!-- SITE -->
     <dependency>
-      <groupId>commons-beanutils</groupId>
-      <artifactId>commons-beanutils</artifactId>
-      <version>1.8.3</version>
-      <scope>provided</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>commons-logging</groupId>
-          <artifactId>commons-logging</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>commons-collections</groupId>
-      <artifactId>commons-collections</artifactId>
-      <version>3.2.1</version>
+      <groupId>info.magnolia.site</groupId>
+      <artifactId>magnolia-site</artifactId>
+      <version>${siteVersion}</version>
       <scope>provided</scope>
     </dependency>
+
+    <!-- RESOURCES -->
     <dependency>
-      <groupId>commons-lang</groupId>
-      <artifactId>commons-lang</artifactId>
-      <version>2.4</version>
+      <groupId>info.magnolia.resources</groupId>
+      <artifactId>magnolia-resources</artifactId>
+      <version>${resourcesVersion}</version>
       <scope>provided</scope>
     </dependency>
+    
+    <!-- OTHER -->
     <dependency>
       <groupId>org.apache</groupId>
       <artifactId>jackrabbit-ocm</artifactId>
       <version>2.0.0</version>
-      <type>jar</type>
+      <scope>provided</scope>
       <exclusions>
-        <exclusion>
-          <groupId>commons-beanutils</groupId>
-          <artifactId>commons-beanutils</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>commons-collections</groupId>
-          <artifactId>commons-collections</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>commons-digester</groupId>
-          <artifactId>commons-digester</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>commons-lang</groupId>
-          <artifactId>commons-lang</artifactId>
-        </exclusion>
         <exclusion>
           <groupId>commons-logging</groupId>
           <artifactId>commons-logging</artifactId>
@@ -165,30 +240,15 @@
         </exclusion>
       </exclusions>
     </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-module-categorization</artifactId>
-      <version>2.3</version>
-      <scope>provided</scope>
-    </dependency>
+
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
       <version>2.5</version>
       <scope>provided</scope>
     </dependency>
-    <dependency>
-      <groupId>commons-digester</groupId>
-      <artifactId>commons-digester</artifactId>
-      <version>1.8.1</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>commons-logging</groupId>
-          <artifactId>commons-logging</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
+
+    <!-- TEST -->
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-core</artifactId>
@@ -196,49 +256,30 @@
       <type>test-jar</type>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest-core</artifactId>
-      <version>1.3</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest-library</artifactId>
-      <version>1.3</version>
-      <scope>test</scope>
-    </dependency>
+
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
       <version>1.8.5</version>
       <scope>test</scope>
     </dependency>
+
     <dependency>
-      <groupId>org.easymock</groupId>
-      <artifactId>easymock</artifactId>
-      <version>2.5</version>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-core</artifactId>
+      <version>1.3</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>com.mockrunner</groupId>
-      <artifactId>mockrunner</artifactId>
-      <version>0.3.1</version>
-      <scope>test</scope>
-    </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit-dep</artifactId>
       <version>4.10</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>1.7.5</version>
-      <scope>provided</scope>
-    </dependency>
+
   </dependencies>
+
   <build>
     <plugins>
       <plugin>
@@ -246,38 +287,6 @@
         <artifactId>maven-assembly-plugin</artifactId>
       </plugin>
     </plugins>
-    <pluginManagement>
-      <plugins>
-        <!-- This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
-        <plugin>
-          <groupId>org.eclipse.m2e</groupId>
-          <artifactId>lifecycle-mapping</artifactId>
-          <version>1.0.0</version>
-          <configuration>
-            <lifecycleMappingMetadata>
-              <pluginExecutions>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>info.magnolia</groupId>
-                    <artifactId>
-                      maven-setproperty-plugin
-                    </artifactId>
-                    <versionRange>
-                      [1.1.1,)
-                    </versionRange>
-                    <goals>
-                      <goal>set-property</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <ignore />
-                  </action>
-                </pluginExecution>
-              </pluginExecutions>
-            </lifecycleMappingMetadata>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
   </build>
+
 </project>

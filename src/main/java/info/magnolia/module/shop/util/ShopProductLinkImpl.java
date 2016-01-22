@@ -33,12 +33,9 @@
  */
 package info.magnolia.module.shop.util;
 
-import info.magnolia.cms.core.Content;
 import info.magnolia.cms.util.ContentUtil;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.templatingkit.navigation.Link;
-import info.magnolia.module.templatingkit.templates.category.TemplateCategory;
-import info.magnolia.module.templatingkit.templates.category.TemplateCategoryUtil;
 import info.magnolia.templating.functions.TemplatingFunctions;
 
 import javax.jcr.Node;
@@ -77,19 +74,8 @@ public class ShopProductLinkImpl implements Link {
 
     @Override
     public String getHref() {
-        Content currentPage = MgnlContext.getAggregationState().getMainContent();
-        Content siteRoot = null;
         try {
-            siteRoot = TemplateCategoryUtil.findParentWithTemplateCategory(currentPage, TemplateCategory.HOME);
-            if (siteRoot == null) {
-                siteRoot = currentPage.getAncestor(0);
-            }
-        } catch (RepositoryException ex) {
-            log.error("Could not get site root", ex);
-        }
-
-        try {
-            return ShopLinkUtil.getProductDetailPageLink(functions, node, MgnlContext.getAggregationState().getMainContent().getJCRNode(), null);
+            return ShopLinkUtil.getProductDetailPageLink(functions, node, MgnlContext.getAggregationState().getMainContentNode(), null);
         } catch (RepositoryException ex) {
             log.error("Failed to create product detail page link.", ex);
             return "";

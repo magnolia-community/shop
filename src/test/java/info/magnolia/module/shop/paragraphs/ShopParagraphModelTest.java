@@ -43,6 +43,7 @@ import info.magnolia.content2bean.Content2BeanException;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.module.shop.ShopRepositoryConstants;
+import info.magnolia.module.site.SiteManager;
 import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
 import info.magnolia.module.templatingkit.templates.pages.STKPage;
 import info.magnolia.registry.RegistrationException;
@@ -114,7 +115,7 @@ public class ShopParagraphModelTest {
         final Node content = mock(Node.class);
         final STKPage definition = new STKPage();
         final TemplatingFunctions templatingFunctions = mock(TemplatingFunctions.class);
-        final STKTemplatingFunctions stkFunctions = new STKTemplatingFunctions(templatingFunctions, null, null, null, null, null);
+        final STKTemplatingFunctions stkFunctions = new STKTemplatingFunctions(templatingFunctions, null, null, (SiteManager) null, null, null);
 
         when(templatingFunctions.page(content)).thenReturn(content);
 
