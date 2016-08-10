@@ -32,6 +32,7 @@
  *
  */
 package info.magnolia.module.shop.setup;
+
 import static info.magnolia.jcr.nodebuilder.Ops.*;
 
 import info.magnolia.cms.security.Permission;
@@ -64,6 +65,7 @@ import info.magnolia.module.delta.PropertyExistsDelegateTask;
 import info.magnolia.module.delta.RemoveNodeTask;
 import info.magnolia.module.delta.RemoveNodesTask;
 import info.magnolia.module.delta.RemovePermissionTask;
+import info.magnolia.module.delta.RemovePropertiesTask;
 import info.magnolia.module.delta.RemovePropertyTask;
 import info.magnolia.module.delta.SetPropertyTask;
 import info.magnolia.module.delta.Task;
@@ -524,6 +526,15 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                         new BootstrapSingleResource("Boostrap new virtualURIMapping", "",
                                 "/mgnl-bootstrap/shop/config.modules.rssaggregator.virtualURIMapping.sklikFeeds.xml")))
 
+        );
+        register(DeltaBuilder.update("2.3", "")
+            .addTask(new RemovePropertiesTask("Remove obsolete class properties from template definitions", RepositoryConstants.CONFIG, Arrays.asList(
+                    "/modules/shop/templates/pages/shopHome/areas/extras/class",
+                    "/modules/shop/templates/pages/shopProductDetail/areas/extras/class",
+                    "/modules/shop/templates/pages/shopProductCategory/areas/extras/class",
+                    "/modules/shop/templates/pages/shopProductSearchResult/areas/extras/class",
+                    "/modules/shop/templates/pages/shopProductKeywordResult/areas/extras/class"),
+                    false))
         );
     }
 
