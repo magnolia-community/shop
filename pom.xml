@@ -4,7 +4,7 @@
   <parent>
     <groupId>info.magnolia.maven.poms-forge</groupId>
     <artifactId>magnolia-parent-pom-forge</artifactId>
-    <version>30</version>
+    <version>31</version>
   </parent>
   <groupId>info.magnolia.shop</groupId>
   <artifactId>magnolia-module-shop</artifactId>
@@ -45,9 +45,9 @@
     <url>http://jira.magnolia-cms.com/browse/MSHOP</url>
   </issueManagement>
   <scm>
-    <connection>scm:git:http://git.magnolia-cms.com/forge/shop.git</connection>
-    <developerConnection>scm:git:https://git.magnolia-cms.com/forge/shop.git</developerConnection>
-    <url>http://git.magnolia-cms.com/gitweb/?p=forge/shop.git</url>
+    <connection>scm:git:ssh://git@git.magnolia-cms.com/forge/shop</connection>
+    <developerConnection>scm:git:ssh://git@git.magnolia-cms.com/forge/shop</developerConnection>
+    <url>https://git.magnolia-cms.com/projects/FORGE/repos/shop</url>
     <tag>HEAD</tag>
   </scm>
   <dependencies>
