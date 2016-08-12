@@ -178,11 +178,11 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                         ),
                         new TemplatesInstallTask("/shop/.*\\.ftl", true)
                 ))
-                .addTask(new ValueOfPropertyDelegateTask("Configure i18nBasename property in /modules/shop/templates/pages/shopCheckoutForm node",  "/modules/shop/templates/pages/shopCheckoutForm", "i18nBasename", "info.magnolia.module.templatingkit.messages", false,
+                .addTask(new ValueOfPropertyDelegateTask("Configure i18nBasename property in /modules/shop/templates/pages/shopCheckoutForm node", "/modules/shop/templates/pages/shopCheckoutForm", "i18nBasename", "info.magnolia.module.templatingkit.messages", false,
                         new SetPropertyTask("", RepositoryConstants.CONFIG, "/modules/shop/templates/pages/shopCheckoutForm", "i18nBasename", "info.magnolia.module.shop.messages")))
-                .addTask(new ValueOfPropertyDelegateTask("Configure i18nBasename property in /modules/shop/templates/pages/shopFormStep node",  "/modules/shop/templates/pages/shopFormStep", "i18nBasename", "info.magnolia.module.templatingkit.messages", false,
+                .addTask(new ValueOfPropertyDelegateTask("Configure i18nBasename property in /modules/shop/templates/pages/shopFormStep node", "/modules/shop/templates/pages/shopFormStep", "i18nBasename", "info.magnolia.module.templatingkit.messages", false,
                         new SetPropertyTask("", RepositoryConstants.CONFIG, "/modules/shop/templates/pages/shopFormStep", "i18nBasename", "info.magnolia.module.shop.messages")))
-                .addTask(new ValueOfPropertyDelegateTask("Configure i18nBasename property in /modules/shop/templates/pages/shopFormStepConfirmOrder node",  "/modules/shop/templates/pages/shopFormStepConfirmOrder", "i18nBasename", "info.magnolia.module.templatingkit.messages", false,
+                .addTask(new ValueOfPropertyDelegateTask("Configure i18nBasename property in /modules/shop/templates/pages/shopFormStepConfirmOrder node", "/modules/shop/templates/pages/shopFormStepConfirmOrder", "i18nBasename", "info.magnolia.module.templatingkit.messages", false,
                         new SetPropertyTask("", RepositoryConstants.CONFIG, "/modules/shop/templates/pages/shopFormStepConfirmOrder", "i18nBasename", "info.magnolia.module.shop.messages")))
                 .addTask(new NodeExistsDelegateTask("Configure i18nBasename property in /modules/shop/templates/components/features/form/shopConfirmTerms node", "/modules/shop/templates/components/features/form/shopConfirmTerms",
                         new PropertyExistsDelegateTask("", "/modules/shop/templates/components/features/form/shopConfirmTerms", "i18nBasename", null,
@@ -528,13 +528,41 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
 
         );
         register(DeltaBuilder.update("2.3", "")
-            .addTask(new RemovePropertiesTask("Remove obsolete class properties from template definitions", RepositoryConstants.CONFIG, Arrays.asList(
-                    "/modules/shop/templates/pages/shopHome/areas/extras/class",
-                    "/modules/shop/templates/pages/shopProductDetail/areas/extras/class",
-                    "/modules/shop/templates/pages/shopProductCategory/areas/extras/class",
-                    "/modules/shop/templates/pages/shopProductSearchResult/areas/extras/class",
-                    "/modules/shop/templates/pages/shopProductKeywordResult/areas/extras/class"),
-                    false))
+                .addTask(new RemovePropertiesTask("Remove obsolete class properties from template definitions", RepositoryConstants.CONFIG, Arrays.asList(
+                        "/modules/shop/templates/pages/shopHome/areas/extras/class",
+                        "/modules/shop/templates/pages/shopProductDetail/areas/extras/class",
+                        "/modules/shop/templates/pages/shopProductCategory/areas/extras/class",
+                        "/modules/shop/templates/pages/shopProductSearchResult/areas/extras/class",
+                        "/modules/shop/templates/pages/shopProductKeywordResult/areas/extras/class"),
+                        false))
+                .addTask(new ArrayDelegateTask("Migrate component property name to id in page template available components where needed.",
+                        new RemovePropertiesTask("Remove obsolete name property from page template availability definitions", RepositoryConstants.CONFIG, Arrays.asList(
+                                "/modules/shop/templates/pages/shopProductCategory/areas/extras/areas/extras1/availableComponents/shopTagCloudExtras/name",
+                                "/modules/shop/templates/pages/shopProductSearchResult/areas/extras/areas/extras1/availableComponents/shopTagCloudExtras/name",
+                                "/modules/shop/templates/pages/shopProductSearchResult/areas/extras/areas/extras2/availableComponents/shopTagCloudExtras/name",
+                                "/modules/shop/templates/pages/shopProductKeywordResult/areas/extras/areas/extras1/availableComponents/shopTagCloudExtras/name",
+                                "/modules/shop/templates/pages/shopProductKeywordResult/areas/extras/areas/extras2/availableComponents/shopTagCloudExtras/name"),
+                                false),
+                        new NodeExistsDelegateTask("", "/modules/shop/templates/pages/shopProductCategory/areas/extras/areas/extras1/availableComponents/shopTagCloudExtras",
+                                new NewPropertyTask("Add property id shopProductCategory availableComponents shopTagCloudExtras if not exist.",
+                                        "/modules/shop/templates/pages/shopProductCategory/areas/extras/areas/extras1/availableComponents/shopTagCloudExtras",
+                                        "id", "shop:components/extras/shopExtrasTagCloud")),
+                        new NodeExistsDelegateTask("", "/modules/shop/templates/pages/shopProductSearchResult/areas/extras/areas/extras1/availableComponents/shopTagCloudExtras",
+                                new NewPropertyTask("Add property id shopProductSearchResult availableComponents shopTagCloudExtras if not exist.",
+                                        "/modules/shop/templates/pages/shopProductSearchResult/areas/extras/areas/extras1/availableComponents/shopTagCloudExtras",
+                                        "id", "shop:components/extras/shopExtrasTagCloud")),
+                        new NodeExistsDelegateTask("", "/modules/shop/templates/pages/shopProductSearchResult/areas/extras/areas/extras2/availableComponents/shopTagCloudExtras",
+                                new NewPropertyTask("Add property id shopProductSearchResult availableComponents shopTagCloudExtras if not exist.",
+                                        "/modules/shop/templates/pages/shopProductSearchResult/areas/extras/areas/extras2/availableComponents/shopTagCloudExtras",
+                                        "id", "shop:components/extras/shopExtrasTagCloud")),
+                        new NodeExistsDelegateTask("", "/modules/shop/templates/pages/shopProductKeywordResult/areas/extras/areas/extras1/availableComponents/shopTagCloudExtras",
+                                new NewPropertyTask("Add property id shopProductKeywordResult availableComponents shopTagCloudExtras if not exist.",
+                                        "/modules/shop/templates/pages/shopProductKeywordResult/areas/extras/areas/extras1/availableComponents/shopTagCloudExtras",
+                                        "id", "shop:components/extras/shopExtrasTagCloud")),
+                        new NodeExistsDelegateTask("", "/modules/shop/templates/pages/shopProductKeywordResult/areas/extras/areas/extras2/availableComponents/shopTagCloudExtras",
+                                new NewPropertyTask("Add property id shopProductKeywordResult availableComponents shopTagCloudExtras if not exist.",
+                                        "/modules/shop/templates/pages/shopProductKeywordResult/areas/extras/areas/extras2/availableComponents/shopTagCloudExtras",
+                                        "id", "shop:components/extras/shopExtrasTagCloud"))))
         );
     }
 
@@ -629,11 +657,11 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
 
         installTasks.add(new IsModuleInstalledOrRegistered("Bootstrap actions and commands if workflow module is installed or is not installed.", "workflow",
                 new ArrayDelegateTask("Bootstrap actions and commands if workflow module is installed.",
-                        new BootstrapSingleResource("","","/mgnl-bootstrap/shop_workflow/config.modules.shop.apps.shop.subApps.browser.actions.xml"),
-                        new BootstrapSingleResource("","","/mgnl-bootstrap/shop_workflow/config.modules.shop.commands.xml")),
+                        new BootstrapSingleResource("", "", "/mgnl-bootstrap/shop_workflow/config.modules.shop.apps.shop.subApps.browser.actions.xml"),
+                        new BootstrapSingleResource("", "", "/mgnl-bootstrap/shop_workflow/config.modules.shop.commands.xml")),
                 new ArrayDelegateTask("Bootstrap actions and commands if workflow module is not installed.",
-                        new BootstrapSingleResource("","","/mgnl-bootstrap/shop_default/config.modules.shop.apps.shop.subApps.browser.actions.xml"),
-                        new BootstrapSingleResource("","","/mgnl-bootstrap/shop_default/config.modules.shop.commands.xml"))
+                        new BootstrapSingleResource("", "", "/mgnl-bootstrap/shop_default/config.modules.shop.apps.shop.subApps.browser.actions.xml"),
+                        new BootstrapSingleResource("", "", "/mgnl-bootstrap/shop_default/config.modules.shop.commands.xml"))
         ));
 
         return installTasks;
