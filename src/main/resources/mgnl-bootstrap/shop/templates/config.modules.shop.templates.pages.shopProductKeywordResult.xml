@@ -305,8 +305,8 @@
               <sv:property sv:name="jcr:createdBy" sv:type="String">
                 <sv:value>admin</sv:value>
               </sv:property>
-              <sv:property sv:name="name" sv:type="String">
-                <sv:value>shopTagCloudExtras</sv:value>
+              <sv:property sv:name="id" sv:type="String">
+                <sv:value>shop:components/extras/shopExtrasTagCloud</sv:value>
               </sv:property>
               <sv:node sv:name="MetaData">
                 <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -593,8 +593,8 @@
               <sv:property sv:name="jcr:createdBy" sv:type="String">
                 <sv:value>admin</sv:value>
               </sv:property>
-              <sv:property sv:name="name" sv:type="String">
-                <sv:value>shopTagCloudExtras</sv:value>
+              <sv:property sv:name="id" sv:type="String">
+                <sv:value>shop:components/extras/shopExtrasTagCloud</sv:value>
               </sv:property>
               <sv:node sv:name="MetaData">
                 <sv:property sv:name="jcr:primaryType" sv:type="Name">

@@ -735,4 +735,32 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         }
     }
 
+    @Test
+    public void updateTo23RemoveObsoleteNamePropertyFromTemplatesAndAddIdProperty() throws Exception {
+        // GIVEN
+        Session session = MgnlContext.getJCRSession(RepositoryConstants.CONFIG);
+        String[] paths = new String[]{
+                "/modules/shop/templates/pages/shopProductCategory/areas/extras/areas/extras1/availableComponents/shopTagCloudExtras",
+                "/modules/shop/templates/pages/shopProductSearchResult/areas/extras/areas/extras1/availableComponents/shopTagCloudExtras",
+                "/modules/shop/templates/pages/shopProductSearchResult/areas/extras/areas/extras2/availableComponents/shopTagCloudExtras",
+                "/modules/shop/templates/pages/shopProductKeywordResult/areas/extras/areas/extras1/availableComponents/shopTagCloudExtras",
+                "/modules/shop/templates/pages/shopProductKeywordResult/areas/extras/areas/extras2/availableComponents/shopTagCloudExtras"
+        };
+        for (String path : paths) {
+            setupConfigProperty(path, "name", "shopTagCloudExtras");
+        }
+
+        // WHEN
+        executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("2.2"));
+
+        // THEN
+        for (String path : paths) {
+            assertFalse(session.propertyExists(path + "/name"));
+        }
+
+        for (String path : paths) {
+            assertThat(session.getNode(path), hasProperty("id", "shop:components/extras/shopExtrasTagCloud"));
+        }
+    }
+
 }
