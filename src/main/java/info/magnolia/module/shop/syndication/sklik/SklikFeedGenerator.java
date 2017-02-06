@@ -35,15 +35,15 @@ package info.magnolia.module.shop.syndication.sklik;
 
 import java.util.List;
 
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.Namespace;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.Namespace;
 
-import com.sun.syndication.feed.WireFeed;
-import com.sun.syndication.feed.rss.Channel;
-import com.sun.syndication.feed.rss.Item;
-import com.sun.syndication.io.FeedException;
-import com.sun.syndication.io.impl.BaseWireFeedGenerator;
+import com.rometools.rome.feed.WireFeed;
+import com.rometools.rome.feed.rss.Channel;
+import com.rometools.rome.feed.rss.Item;
+import com.rometools.rome.io.FeedException;
+import com.rometools.rome.io.impl.BaseWireFeedGenerator;
 
 /**
  * ROME wire feed generator for Sklik 1.0.

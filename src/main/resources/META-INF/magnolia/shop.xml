@@ -19,52 +19,52 @@
   <dependencies>
     <dependency>
       <name>core</name>
-      <version>5.4/*</version>
+      <version>${magnoliaVersion}/*</version>
     </dependency>
     <dependency>
       <name>ui-framework</name>
-      <version>5.4/*</version>
+      <version>${magnoliaUiVersion}/*</version>
     </dependency>
     <dependency>
       <name>standard-templating-kit</name>
-      <version>2.9/*</version>
+      <version>${stkVersion}/*</version>
     </dependency>
     <dependency>
       <name>demo-project</name>
-      <version>2.9/*</version>
+      <version>${stkVersion}/*</version>
       <optional>true</optional>
     </dependency>
     <dependency>
       <name>theme-pop</name>
-      <version>2.9/*</version>
+      <version>${stkVersion}/*</version>
     </dependency>
     <dependency>
       <name>dam</name>
-      <version>2.1/*</version>
+      <version>${damVersion}/*</version>
     </dependency>
     <dependency>
       <name>resources</name>
-      <version>2.4/*</version>
+      <version>${resourcesVersion}/*</version>
     </dependency>
     <dependency>
       <name>form</name>
-      <version>2.3/*</version>
+      <version>${formVersion}/*</version>
     </dependency>
     <dependency>
       <name>categorization</name>
-      <version>2.4/*</version>
+      <version>${categorizationVersion}/*</version>
     </dependency>
     <dependency>
       <name>ocm</name>
-      <version>1.3/*</version>
+      <version>${ocmVersion}/*</version>
     </dependency>
     <dependency>
       <name>rssaggregator</name>
-      <version>2.4/*</version>
+      <version>${rssAggVersion}/*</version>
     </dependency>
     <dependency>
       <name>site</name>
-      <version>1.0/*</version>
+      <version>${siteVersion}/*</version>
     </dependency>
   </dependencies>
 

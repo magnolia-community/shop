@@ -87,7 +87,7 @@ public class ShopMarkNodeAsDeletedAction extends MarkNodeAsDeletedAction {
     protected void onPreExecute() throws Exception {
         super.onPreExecute();
 
-        Node item = (Node) jcrItem;
+        Node item = (Node) getCurrentItem().getJcrItem();
         String shopName = item.getName();
         String sql = "select * from [mgnl:page] where [mgnl:template] = 'shop:pages/shopHome'";
         NodeIterator iter = QueryUtil.search("website", sql);

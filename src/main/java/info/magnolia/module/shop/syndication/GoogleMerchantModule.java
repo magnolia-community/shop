@@ -33,8 +33,9 @@
  */
 package info.magnolia.module.shop.syndication;
 
-import com.sun.syndication.feed.CopyFrom;
-import com.sun.syndication.feed.module.Module;
+
+import com.rometools.rome.feed.CopyFrom;
+import com.rometools.rome.feed.module.Module;
 
 /**
  * ROME module adding Google Merchant tags into feed.

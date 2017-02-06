@@ -33,7 +33,8 @@
  */
 package info.magnolia.module.shop.syndication;
 
-import com.sun.syndication.feed.module.ModuleImpl;
+import com.rometools.rome.feed.CopyFrom;
+import com.rometools.rome.feed.module.ModuleImpl;
 
 /**
  * ROME module implementation of @GoogleMerchantModule.
@@ -92,11 +93,11 @@ public class GoogleMerchantModuleImpl extends ModuleImpl implements GoogleMercha
     }
 
     @Override
-    public void copyFrom(final Object other) {
-        if (!(other instanceof GoogleMerchantModule)) {
-            throw new IllegalArgumentException("Expected other to be of class " + GoogleMerchantModule.class.getSimpleName() + " but was " + other.getClass().getSimpleName());
+    public void copyFrom(CopyFrom obj) {
+        if (!(obj instanceof GoogleMerchantModule)) {
+            throw new IllegalArgumentException("Expected other to be of class " + GoogleMerchantModule.class.getSimpleName() + " but was " + obj.getClass().getSimpleName());
         }
-        final GoogleMerchantModule otherModule = (GoogleMerchantModule) other;
+        final GoogleMerchantModule otherModule = (GoogleMerchantModule) obj;
         setId(otherModule.getId());
         setImageLink(otherModule.getImageLink());
         setPrice(otherModule.getPrice());
@@ -104,7 +105,7 @@ public class GoogleMerchantModuleImpl extends ModuleImpl implements GoogleMercha
     }
 
     @Override
-    public Class<?> getInterface() {
+    public Class<? extends CopyFrom> getInterface() {
         return GoogleMerchantModule.class;
     }
 

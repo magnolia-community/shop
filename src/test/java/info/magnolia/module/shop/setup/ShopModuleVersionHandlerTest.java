@@ -54,7 +54,6 @@ import info.magnolia.jcr.util.NodeTypes;
 import info.magnolia.module.InstallContext;
 import info.magnolia.module.ModuleVersionHandler;
 import info.magnolia.module.ModuleVersionHandlerTestCase;
-import info.magnolia.module.data.DataModule;
 import info.magnolia.module.model.Version;
 import info.magnolia.module.shop.ShopRepositoryConstants;
 import info.magnolia.objectfactory.Components;
@@ -185,7 +184,7 @@ public class ShopModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
         RoleManager roleManager = new MgnlRoleManager();
         securitySupportImpl.setRoleManager(roleManager);
         Role shopUserBase = roleManager.createRole("shop-user-base");
-        roleManager.addPermission(shopUserBase, DataModule.WORKSPACE, "/", Permission.READ);
+        roleManager.addPermission(shopUserBase, "data", "/", Permission.READ);
         roleManager.addPermission(shopUserBase, "dms", "/", Permission.READ);
 
         setupConfigProperty("/modules/shop/templates/pages/shopCheckoutForm", "i18nBasename", "info.magnolia.module.templatingkit.messages");
