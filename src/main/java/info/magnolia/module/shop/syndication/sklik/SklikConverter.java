@@ -33,7 +33,8 @@
  */
 package info.magnolia.module.shop.syndication.sklik;
 
-import com.sun.syndication.feed.synd.impl.ConverterForRSS090;
+
+import com.rometools.rome.feed.synd.impl.ConverterForRSS090;
 
 /**
  * ROME converter for Sklik feeds.

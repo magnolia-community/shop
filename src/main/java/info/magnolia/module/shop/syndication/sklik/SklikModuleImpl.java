@@ -33,7 +33,8 @@
  */
 package info.magnolia.module.shop.syndication.sklik;
 
-import com.sun.syndication.feed.module.ModuleImpl;
+import com.rometools.rome.feed.CopyFrom;
+import com.rometools.rome.feed.module.ModuleImpl;
 
 /**
  * ROME module implementation of @SklikModule.
@@ -53,7 +54,7 @@ public class SklikModuleImpl extends ModuleImpl implements SklikModule {
     }
 
     @Override
-    public void copyFrom(final Object other) {
+    public void copyFrom(final CopyFrom other) {
         if (!(other instanceof SklikModule)) {
             throw new IllegalArgumentException("Expected other to be of class " + SklikModule.class.getName() + " but was " + other.getClass().getName());
         }
@@ -67,7 +68,7 @@ public class SklikModuleImpl extends ModuleImpl implements SklikModule {
     }
 
     @Override
-    public Class<?> getInterface() {
+    public Class<? extends CopyFrom> getInterface() {
         return SklikModule.class;
     }
 

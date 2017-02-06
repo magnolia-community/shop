@@ -34,13 +34,14 @@
 package info.magnolia.module.shop.syndication;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+
 import info.magnolia.cms.beans.config.ServerConfiguration;
 import info.magnolia.cms.i18n.DefaultMessagesManager;
 import info.magnolia.cms.i18n.MessagesManager;
 import info.magnolia.content2bean.Content2BeanException;
 import info.magnolia.context.MgnlContext;
+import info.magnolia.event.EventBus;
 import info.magnolia.i18nsystem.LocaleProvider;
 import info.magnolia.i18nsystem.SimpleTranslator;
 import info.magnolia.i18nsystem.TranslationServiceImpl;
@@ -63,8 +64,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.sun.syndication.feed.synd.SyndFeed;
-import com.sun.syndication.feed.synd.SyndFeedImpl;
+import com.rometools.rome.feed.synd.SyndFeed;
+import com.rometools.rome.feed.synd.SyndFeedImpl;
 
 /**
  * Tests for {@link info.magnolia.module.shop.syndication.ShopSyndicator}.
@@ -87,7 +88,7 @@ public class ShopSyndicatorTest {
         LocaleProvider lp = mock(LocaleProvider.class);
         when(lp.getLocale()).thenReturn(Locale.ENGLISH);
         serverConfiguration = mock(ServerConfiguration.class);
-        SimpleTranslator i18n = new SimpleTranslator(new TranslationServiceImpl(), lp);
+        SimpleTranslator i18n = new SimpleTranslator(new TranslationServiceImpl(null, null, null, mock(EventBus.class)), lp);
 
         MgnlContext.setInstance(ctx);
 
