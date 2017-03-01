@@ -215,8 +215,10 @@ public class ShopSyndicator extends AbstractSyndFeedGenerator implements Cloneab
             if (content.hasProperty(ShopProductConstants.PROPERTY_IMAGE)) {
                 try {
                     Asset imageAsset = damTemplatingFunctions.getAsset(content.getProperty(ShopProductConstants.PROPERTY_IMAGE).getString());
-                    Link imageAssetLink = LinkUtil.createLinkInstance("dam", imageAsset.getItemKey().getAssetId());
-                    merchantData.setImageLink(LinkTransformerManager.getInstance().getCompleteUrl().transform(imageAssetLink));
+                    if (imageAsset != null) {
+                        Link imageAssetLink = LinkUtil.createLinkInstance("dam", imageAsset.getItemKey().getAssetId());
+                        merchantData.setImageLink(LinkTransformerManager.getInstance().getCompleteUrl().transform(imageAssetLink));
+                    }
                 } catch (LinkException e) {
                     log.debug("Couldn't create external link to asset with key " + content.getProperty(ShopProductConstants.PROPERTY_IMAGE).getString());
                 }
