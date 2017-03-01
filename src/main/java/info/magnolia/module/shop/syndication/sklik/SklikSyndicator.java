@@ -208,13 +208,15 @@ public class SklikSyndicator extends AbstractSyndFeedGenerator implements Clonea
             // image
             if (content.hasProperty(ShopProductConstants.PROPERTY_IMAGE)) {
                 Asset imageAsset = damTemplatingFunctions.getAsset(content.getProperty(ShopProductConstants.PROPERTY_IMAGE).getString());
-                String link = imageAsset.getLink();
-                if (!LinkUtil.isExternalLinkOrAnchor(link)) {
-                    HttpServletRequest request = webContextProvider.get().getRequest();
-                    String domain = StringUtils.substringBefore(request.getRequestURL().toString(), request.getRequestURI());
-                    link = domain + link;
+                if (imageAsset != null) {
+                    String link = imageAsset.getLink();
+                    if (!LinkUtil.isExternalLinkOrAnchor(link)) {
+                        HttpServletRequest request = webContextProvider.get().getRequest();
+                        String domain = StringUtils.substringBefore(request.getRequestURL().toString(), request.getRequestURI());
+                        link = domain + link;
+                    }
+                    sklikData.setImageUrl(link);
                 }
-                sklikData.setImageUrl(link);
             }
 
             entry.getModules().add(sklikData);
