@@ -33,26 +33,23 @@
  */
 package info.magnolia.shop.app.field.factory;
 
+import com.vaadin.v7.data.Item;
 import info.magnolia.jcr.util.PropertyUtil;
+import info.magnolia.objectfactory.ComponentProvider;
 import info.magnolia.shop.app.field.definition.ProductCategoriesFieldDefinition;
 import info.magnolia.shop.util.ShopUtil;
-import info.magnolia.objectfactory.ComponentProvider;
 import info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition;
 import info.magnolia.ui.form.field.definition.SelectFieldOptionDefinition;
 import info.magnolia.ui.form.field.factory.OptionGroupFieldFactory;
 import info.magnolia.ui.vaadin.integration.jcr.JcrNodeAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.jcr.Node;
-import javax.jcr.RepositoryException;
-
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.vaadin.data.Item;
+import javax.jcr.Node;
+import javax.jcr.RepositoryException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Factory class for ProductCategoriesField.

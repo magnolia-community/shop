@@ -33,13 +33,14 @@
  */
 package info.magnolia.shop.dialog.action;
 
+import com.vaadin.v7.data.Item;
 import info.magnolia.cms.core.Path;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.jcr.util.NodeTypes;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
-import info.magnolia.shop.ShopRepositoryConstants;
 import info.magnolia.repository.RepositoryConstants;
+import info.magnolia.shop.ShopRepositoryConstants;
 import info.magnolia.ui.admincentral.dialog.action.SaveDialogAction;
 import info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition;
 import info.magnolia.ui.api.action.ActionExecutionException;
@@ -47,15 +48,12 @@ import info.magnolia.ui.form.EditorCallback;
 import info.magnolia.ui.form.EditorValidator;
 import info.magnolia.ui.vaadin.integration.jcr.JcrNewNodeAdapter;
 import info.magnolia.ui.vaadin.integration.jcr.JcrNodeAdapter;
-
-import javax.jcr.Node;
-import javax.jcr.RepositoryException;
-
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.vaadin.data.Item;
+import javax.jcr.Node;
+import javax.jcr.RepositoryException;
 
 /**
  * Save action that generates whole shop structure when new shop is saved.

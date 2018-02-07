@@ -42,9 +42,9 @@ import info.magnolia.ui.form.field.factory.AbstractFieldFactory;
 import info.magnolia.ui.form.field.factory.FieldFactoryFactory;
 
 import com.google.inject.Inject;
-import com.vaadin.data.Item;
-import com.vaadin.data.util.PropertysetItem;
-import com.vaadin.ui.Field;
+import com.vaadin.v7.data.Item;
+import com.vaadin.v7.data.util.PropertysetItem;
+import com.vaadin.v7.ui.Field;
 
 /**
  * Factory class for {@link PriceCategoryField}.

@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2013-2015 Magnolia International
+ * This file Copyright (c) 2010-2015 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -33,14 +33,19 @@
  */
 package info.magnolia.shop.app.field;
 
+import com.vaadin.ui.Component;
+import com.vaadin.ui.GridLayout;
+import com.vaadin.v7.data.Item;
+import com.vaadin.v7.data.util.PropertysetItem;
+import com.vaadin.v7.ui.Field;
 import info.magnolia.cms.i18n.I18nContentSupport;
 import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.i18nsystem.SimpleTranslator;
 import info.magnolia.jcr.util.PropertyUtil;
+import info.magnolia.objectfactory.ComponentProvider;
 import info.magnolia.shop.ShopRepositoryConstants;
 import info.magnolia.shop.app.field.definition.PriceCategoryFieldDefinition;
-import info.magnolia.objectfactory.ComponentProvider;
 import info.magnolia.ui.form.field.AbstractCustomMultiField;
 import info.magnolia.ui.form.field.StaticField;
 import info.magnolia.ui.form.field.definition.ConfiguredFieldDefinition;
@@ -50,30 +55,23 @@ import info.magnolia.ui.form.field.factory.FieldFactoryFactory;
 import info.magnolia.ui.vaadin.integration.NullItem;
 import info.magnolia.ui.vaadin.integration.jcr.DefaultProperty;
 import info.magnolia.ui.vaadin.integration.jcr.JcrNodeAdapter;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
 import javax.jcr.query.Query;
-
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.vaadin.data.Item;
-import com.vaadin.data.util.PropertysetItem;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.Field;
-import com.vaadin.ui.GridLayout;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Field for price categories.
  */
-public class PriceCategoryField extends AbstractCustomMultiField<PriceCategoryFieldDefinition, PropertysetItem> {
+public class PriceCategoryField
+        extends AbstractCustomMultiField<PriceCategoryFieldDefinition, PropertysetItem> {
 
     private GridLayout root;
     private SimpleTranslator i18n;

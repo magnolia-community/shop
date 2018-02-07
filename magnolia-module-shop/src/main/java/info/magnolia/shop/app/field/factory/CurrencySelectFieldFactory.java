@@ -33,6 +33,7 @@
  */
 package info.magnolia.shop.app.field.factory;
 
+import com.vaadin.v7.data.Item;
 import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.shop.ShopRepositoryConstants;
@@ -40,20 +41,16 @@ import info.magnolia.shop.app.field.definition.CurrencySelectFieldDefinition;
 import info.magnolia.ui.form.field.definition.SelectFieldOptionDefinition;
 import info.magnolia.ui.form.field.factory.SelectFieldFactory;
 import info.magnolia.ui.vaadin.integration.jcr.JcrNodeAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
 import javax.jcr.query.Query;
-
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.vaadin.data.Item;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Factory class for currency select field.

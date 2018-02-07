@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2013-2015 Magnolia International
+ * This file Copyright (c) 2010-2015 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -33,24 +33,23 @@
  */
 package info.magnolia.shop.app.products.column;
 
+import com.vaadin.v7.ui.Table;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.ui.workbench.column.AbstractColumnFormatter;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.jcr.Item;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.vaadin.ui.Table;
-
 /**
  * Column formatter for product name.
  */
-public class ProductNameColumnFormatter extends AbstractColumnFormatter<ProductNameColumnDefinition> {
+public class ProductNameColumnFormatter
+        extends AbstractColumnFormatter<ProductNameColumnDefinition> {
 
     private static final Logger log = LoggerFactory.getLogger(ProductNameColumnFormatter.class);
 
@@ -76,5 +75,4 @@ public class ProductNameColumnFormatter extends AbstractColumnFormatter<ProductN
         }
         return StringUtils.EMPTY;
     }
-
 }

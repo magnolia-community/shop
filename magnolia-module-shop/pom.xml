@@ -8,43 +8,9 @@
         <version>3.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <groupId>info.magnolia.shop</groupId>
     <artifactId>magnolia-module-shop</artifactId>
-    <packaging>jar</packaging>
     <name>Magnolia Simple Shop Module</name>
 
-    <properties>
-        <javaVersion>1.7</javaVersion>
-        <magnoliaVersion>5.4.1</magnoliaVersion>
-        <magnoliaUiVersion>5.4.1</magnoliaUiVersion>
-        <!--    <stkVersion>2.8</stkVersion>-->
-        <yahpVersion>1.3</yahpVersion>
-
-        <!-- dual licensed : -->
-        <checkstyleHeader>magnolia-build-resources/license-header-dual.regex</checkstyleHeader>
-        <magnoliaBuildToolsArtifactId>magnolia-build-resources-dual-licensed</magnoliaBuildToolsArtifactId>
-        <magnoliaLicenseStyle>dual</magnoliaLicenseStyle>
-    </properties>
-    <licenses>
-        <license>
-            <name>GPLv3</name>
-            <url>http://www.gnu.org/licenses/gpl-3.0.txt</url>
-        </license>
-        <license>
-            <name>Magnolia Network Agreement</name>
-            <url>http://www.magnolia-cms.com/mna.html</url>
-        </license>
-    </licenses>
-    <issueManagement>
-        <system>Jira</system>
-        <url>http://jira.magnolia-cms.com/browse/MSHOP</url>
-    </issueManagement>
-    <scm>
-        <connection>scm:git:http://git.magnolia-cms.com/forge/shop.git</connection>
-        <developerConnection>scm:git:https://git.magnolia-cms.com/forge/shop.git</developerConnection>
-        <url>http://git.magnolia-cms.com/gitweb/?p=forge/shop.git</url>
-        <tag>HEAD</tag>
-    </scm>
     <dependencies>
         <dependency>
             <groupId>info.magnolia</groupId>
@@ -72,84 +38,49 @@
         </dependency>
         <dependency>
             <groupId>info.magnolia.dam</groupId>
-            <artifactId>magnolia-dam</artifactId>
-            <version>2.1.1</version>
+            <artifactId>magnolia-dam-core</artifactId>
+            <version>${magnoliaDamVersion}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>info.magnolia.site</groupId>
-            <artifactId>magnolia-site</artifactId>
-            <version>1.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>info.magnolia.templating</groupId>
-            <artifactId>magnolia-templating-essentials-models</artifactId>
-            <version>0.5</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.fastforward</groupId>
-            <artifactId>magnolia-module-ocm</artifactId>
-            <version>1.3.0</version>
-        </dependency>
-        <dependency>
-            <groupId>asm</groupId>
-            <artifactId>asm</artifactId>
-            <version>3.3</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>cglib</groupId>
-            <artifactId>cglib</artifactId>
-            <version>2.2</version>
+            <groupId>info.magnolia.ui</groupId>
+            <artifactId>magnolia-ui-admincentral</artifactId>
+            <version>${magnoliaVersion}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>info.magnolia</groupId>
             <artifactId>magnolia-module-mail</artifactId>
-            <version>5.3</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>info.magnolia</groupId>
             <artifactId>magnolia-module-form</artifactId>
-            <version>2.3</version>
-            <scope>provided</scope>
-        </dependency>
-        <!--    <dependency>
-              <groupId>info.magnolia</groupId>
-              <artifactId>magnolia-module-standard-templating-kit</artifactId>
-              <version>${stkVersion}</version>
-              <scope>provided</scope>
-            </dependency>-->
-        <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-            <version>1.8.3</version>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>commons-collections</groupId>
-            <artifactId>commons-collections</artifactId>
-            <version>3.2.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>2.4</version>
+            <groupId>info.magnolia.categorization</groupId>
+            <artifactId>magnolia-categorization</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.fastforward</groupId>
+            <artifactId>magnolia-module-ocm</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.maven-play-plugin.org.allcolor.yahp</groupId>
+            <artifactId>yahp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+            <version>1.9.12</version>
         </dependency>
         <dependency>
             <groupId>org.apache</groupId>
             <artifactId>jackrabbit-ocm</artifactId>
             <version>2.0.0</version>
-            <type>jar</type>
+            <scope>provided</scope>
             <exclusions>
                 <exclusion>
                     <groupId>commons-beanutils</groupId>
@@ -178,29 +109,12 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>info.magnolia</groupId>
-            <artifactId>magnolia-module-categorization</artifactId>
-            <version>2.4.1</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>commons-digester</groupId>
-            <artifactId>commons-digester</artifactId>
-            <version>1.8.1</version>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+
+        <!--Test-->
         <dependency>
             <groupId>info.magnolia</groupId>
             <artifactId>magnolia-core</artifactId>
@@ -226,93 +140,12 @@
             <version>1.8.5</version>
             <scope>test</scope>
         </dependency>
-        <!--    <dependency>
-              <groupId>org.easymock</groupId>
-              <artifactId>easymock</artifactId>
-              <version>2.5</version>
-              <scope>test</scope>
-            </dependency>
-            <dependency>
-              <groupId>com.mockrunner</groupId>
-              <artifactId>mockrunner</artifactId>
-              <version>0.3.1</version>
-              <scope>test</scope>
-            </dependency>-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit-dep</artifactId>
             <version>4.10</version>
             <scope>test</scope>
         </dependency>
-        <!--    <dependency>
-              <groupId>org.slf4j</groupId>
-              <artifactId>slf4j-api</artifactId>
-              <version>1.7.5</version>
-              <scope>provided</scope>
-            </dependency>-->
-        <!--    <dependency>
-              <groupId>com.fasterxml.jackson.core</groupId>
-              <artifactId>jackson-annotations</artifactId>
-              <version>2.1.5</version>
-              <type>jar</type>
-            </dependency>-->
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-core-asl</artifactId>
-            <version>1.9.12</version>
-            <type>jar</type>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.code.maven-play-plugin.org.allcolor.yahp</groupId>
-            <artifactId>yahp</artifactId>
-            <version>${yahpVersion}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.maven-play-plugin.org.allcolor.yahp</groupId>
-            <artifactId>yahp-internal</artifactId>
-            <version>${yahpVersion}</version>
-        </dependency>
     </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-            </plugin>
-        </plugins>
-        <pluginManagement>
-            <plugins>
-                <!-- This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
-                <plugin>
-                    <groupId>org.eclipse.m2e</groupId>
-                    <artifactId>lifecycle-mapping</artifactId>
-                    <version>1.0.0</version>
-                    <configuration>
-                        <lifecycleMappingMetadata>
-                            <pluginExecutions>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>info.magnolia</groupId>
-                                        <artifactId>
-                                            maven-setproperty-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [1.1.1,)
-                                        </versionRange>
-                                        <goals>
-                                            <goal>set-property</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore/>
-                                    </action>
-                                </pluginExecution>
-                            </pluginExecutions>
-                        </lifecycleMappingMetadata>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
+
 </project>

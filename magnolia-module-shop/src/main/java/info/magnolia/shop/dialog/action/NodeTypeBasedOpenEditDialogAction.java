@@ -33,6 +33,7 @@
  */
 package info.magnolia.shop.dialog.action;
 
+import com.vaadin.v7.data.Item;
 import info.magnolia.event.EventBus;
 import info.magnolia.i18nsystem.SimpleTranslator;
 import info.magnolia.ui.api.action.ActionExecutionException;
@@ -46,8 +47,6 @@ import info.magnolia.ui.vaadin.integration.jcr.JcrItemAdapter;
 import javax.inject.Named;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
-
-import com.vaadin.data.Item;
 
 /**
  * Action that opens edit dialog based on node type. If dialog isn't defined parent class action is executed.

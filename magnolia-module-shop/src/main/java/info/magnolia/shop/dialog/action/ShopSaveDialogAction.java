@@ -33,6 +33,7 @@
  */
 package info.magnolia.shop.dialog.action;
 
+import com.vaadin.v7.data.Item;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.ui.admincentral.dialog.action.SaveDialogAction;
@@ -41,14 +42,11 @@ import info.magnolia.ui.api.action.ActionExecutionException;
 import info.magnolia.ui.form.EditorCallback;
 import info.magnolia.ui.form.EditorValidator;
 import info.magnolia.ui.vaadin.integration.jcr.JcrNodeAdapter;
-
-import javax.jcr.Node;
-import javax.jcr.RepositoryException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.vaadin.data.Item;
+import javax.jcr.Node;
+import javax.jcr.RepositoryException;
 
 /**
  * Save action for shop.

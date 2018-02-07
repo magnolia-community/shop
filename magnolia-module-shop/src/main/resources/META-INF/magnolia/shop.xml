@@ -5,13 +5,17 @@
     <displayName>${project.name}</displayName>
     <description>${project.description}</description>
     <class>info.magnolia.shop.ShopModule</class>
-    <!--  <versionHandler>info.magnolia.shop.setup.ShopModuleVersionHandler</versionHandler>-->
+    <versionHandler>info.magnolia.shop.setup.ShopModuleVersionHandler</versionHandler>
     <version>${project.version}</version>
 
     <dependencies>
         <dependency>
             <name>core</name>
             <version>5.4.1/*</version>
+        </dependency>
+        <dependency>
+            <name>publishing-core</name>
+            <version>1.0.1/*</version>
         </dependency>
         <dependency>
             <name>ui-framework</name>
@@ -21,14 +25,6 @@
             <name>dam</name>
             <version>2.1.1/*</version>
         </dependency>
-<!--        <dependency>
-            <name>form</name>
-            <version>2.2.6/*</version>
-        </dependency>
-        <dependency>
-            <name>ocm</name>
-            <version>1.2/*</version>
-        </dependency>-->
         <dependency>
             <name>site</name>
             <version>1.0.1/*</version>

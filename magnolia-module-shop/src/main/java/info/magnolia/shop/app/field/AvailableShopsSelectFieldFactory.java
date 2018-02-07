@@ -33,16 +33,14 @@
  */
 package info.magnolia.shop.app.field;
 
+import com.vaadin.v7.data.Item;
 import info.magnolia.jcr.util.NodeTypes;
 import info.magnolia.shop.app.field.definition.AvailableShopsSelectFieldDefinition;
 import info.magnolia.ui.form.field.factory.SelectFieldFactory;
+import org.apache.jackrabbit.commons.predicate.Predicate;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
-
-import org.apache.jackrabbit.commons.predicate.Predicate;
-
-import com.vaadin.data.Item;
 
 /**
  * Factory class.

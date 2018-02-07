@@ -33,6 +33,8 @@
  */
 package info.magnolia.shop.app.field.definition.transformer;
 
+import com.vaadin.v7.data.Item;
+import com.vaadin.v7.data.util.PropertysetItem;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.jcr.predicate.AbstractPredicate;
 import info.magnolia.jcr.util.NodeTypes;
@@ -44,17 +46,12 @@ import info.magnolia.ui.form.field.transformer.basic.BasicTransformer;
 import info.magnolia.ui.vaadin.integration.jcr.DefaultProperty;
 import info.magnolia.ui.vaadin.integration.jcr.JcrNewNodeAdapter;
 import info.magnolia.ui.vaadin.integration.jcr.JcrNodeAdapter;
-
-import java.util.List;
-
-import javax.jcr.Node;
-import javax.jcr.RepositoryException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.vaadin.data.Item;
-import com.vaadin.data.util.PropertysetItem;
+import javax.jcr.Node;
+import javax.jcr.RepositoryException;
+import java.util.List;
 
 /**
  * Transformer for price categories. Entries are stored like this:<br/>

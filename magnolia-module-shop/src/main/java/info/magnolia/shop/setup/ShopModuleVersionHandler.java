@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2015 Magnolia International
+ * This file Copyright (c) 2010-2015 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -31,47 +31,34 @@
  * intact.
  *
  */
-package info.magnolia.module.shop.syndication.sklik;
+package info.magnolia.shop.setup;
 
-import com.rometools.rome.feed.CopyFrom;
-import com.rometools.rome.feed.module.Module;
+import info.magnolia.module.DefaultModuleVersionHandler;
+import info.magnolia.module.InstallContext;
+import info.magnolia.module.delta.BootstrapSingleModuleResource;
+import info.magnolia.module.delta.Task;
+
+import javax.jcr.ImportUUIDBehavior;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * ROME module specifying Sklik tags.
+ * Shop version handler.
  */
-public interface SklikModule extends Module, CopyFrom {
+public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
 
-    // namespace URI
-    String URI = "http://www.zbozi.cz/ns/offer/1.0";
+    public ShopModuleVersionHandler() {
+        super();
+    }
 
-    String PRODUCT_NAME = "PRODUCTNAME";
-    String DESCRIPTION = "DESCRIPTION";
-    String URL = "URL";
-    String PRICE_VAT = "PRICE_VAT";
-    String DELIVERY_DATE = "DELIVERY_DATE";
-    String IMGURL = "IMGURL";
-
-    String getProductName();
-
-    void setProductName(final String productName);
-
-    String getDescription();
-
-    void setDescription(final String description);
-
-    String getUrl();
-
-    void setUrl(final String url);
-
-    String getPriceVat();
-
-    void setPriceVat(final String priceVat);
-
-    String getDeliveryDate();
-
-    void setDeliveryDate(final String deliveryDate);
-
-    String getImageUrl();
-
-    void setImageUrl(final String imageUrl);
+    @Override
+    protected List<Task> getExtraInstallTasks(InstallContext installContext) {
+        final List<Task> installTasks = new ArrayList<>();
+        installTasks.add(new BootstrapSingleModuleResource(
+                "Bootsrap", "Shop module receiver workspaces",
+                "config.modules.publishing-core.config.receivers.magnoliaPublic8080.workspaces.xml",
+                ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING
+        ));
+        return installTasks;
+    }
 }

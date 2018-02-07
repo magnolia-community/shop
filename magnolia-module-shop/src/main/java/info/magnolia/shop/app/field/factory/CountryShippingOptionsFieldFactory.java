@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2013-2015 Magnolia International
+ * This file Copyright (c) 2010-2015 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -33,34 +33,32 @@
  */
 package info.magnolia.shop.app.field.factory;
 
+import com.vaadin.v7.data.Item;
 import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.jcr.util.PropertyUtil;
+import info.magnolia.objectfactory.ComponentProvider;
 import info.magnolia.shop.ShopNodeTypes;
 import info.magnolia.shop.ShopRepositoryConstants;
-import info.magnolia.objectfactory.ComponentProvider;
 import info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition;
 import info.magnolia.ui.form.field.definition.SelectFieldOptionDefinition;
 import info.magnolia.ui.form.field.factory.OptionGroupFieldFactory;
 import info.magnolia.ui.vaadin.integration.jcr.JcrNodeAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
 import javax.jcr.query.Query;
-
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.vaadin.data.Item;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Field factory for loading country shipping options.
  */
-public class CountryShippingOptionsFieldFactory extends OptionGroupFieldFactory {
+public class CountryShippingOptionsFieldFactory
+        extends OptionGroupFieldFactory {
 
     private Item relatedFieldItem;
 
@@ -70,7 +68,6 @@ public class CountryShippingOptionsFieldFactory extends OptionGroupFieldFactory 
         super(definition, relatedFieldItem, componentProvider);
         this.relatedFieldItem = relatedFieldItem;
     }
-
 
     @Override
     public List<SelectFieldOptionDefinition> getSelectFieldOptionDefinition() {

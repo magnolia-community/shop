@@ -33,6 +33,7 @@
  */
 package info.magnolia.shop.app.field.definition.transformer;
 
+import com.vaadin.v7.data.Item;
 import info.magnolia.jcr.util.NodeTypes;
 import info.magnolia.jcr.wrapper.JCRMgnlPropertiesFilteringNodeWrapper;
 import info.magnolia.ui.form.field.definition.ConfiguredFieldDefinition;
@@ -40,19 +41,15 @@ import info.magnolia.ui.form.field.transformer.basic.BasicTransformer;
 import info.magnolia.ui.vaadin.integration.jcr.DefaultProperty;
 import info.magnolia.ui.vaadin.integration.jcr.JcrNewNodeAdapter;
 import info.magnolia.ui.vaadin.integration.jcr.JcrNodeAdapter;
-
-import java.util.HashSet;
-import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
 import javax.jcr.Property;
 import javax.jcr.PropertyIterator;
 import javax.jcr.RepositoryException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.vaadin.data.Item;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Transformer for product categories. Categories are saved like this:
