@@ -1,0 +1,23 @@
+actions:
+  commit:
+    implementationClass: info.magnolia.shop.dialog.action.ShopSaveDialogAction
+    class: info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition
+  cancel:
+    class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition
+form:
+  tabs:
+    - name: main
+      fields:
+        - name: name
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: title
+          i18n: true
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: liableToVAT
+          type: Boolean
+          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+    - name: shipping
+      fields:
+        - name: shippingOptions
+          multiselect: true
+          class: info.magnolia.shop.app.field.definition.CountryShippingOptionsFieldDefinition

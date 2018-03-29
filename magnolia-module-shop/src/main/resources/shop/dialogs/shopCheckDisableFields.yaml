@@ -1,0 +1,34 @@
+actions:
+  commit:
+    class: info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition
+  cancel:
+    class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition
+form:
+  tabs:
+    - name: tabMain
+      fields:
+        - name: controlName
+          type: String
+          rows: 1
+          required: true
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: legend
+          type: String
+          i18n: true
+          rows: 1
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: mandatory
+          selected: false
+          type: Boolean
+          defaultValue: false
+          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+        - name: controlLabel
+          type: String
+          rows: 1
+          i18n: true
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: controlValue
+          type: String
+          rows: 1
+          i18n: true
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition

@@ -1,0 +1,37 @@
+actions:
+  commit:
+    implementationClass: info.magnolia.shop.dialog.action.ShopSaveDialogAction
+    class: info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition
+  cancel:
+    class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition
+form:
+  tabs:
+    - name: main
+      fields:
+        - name: name
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: title
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: taxCategoryUUID
+          class: info.magnolia.shop.app.field.definition.TaxCategoriesSelectFieldDefinition
+        - name: taxIncluded
+          multiSelect: false
+          type: Boolean
+          class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+          options:
+            - name: including
+              selected: true
+              value: true
+            - name: excluding
+              value: false
+        - name: prices
+          transformerClass: info.magnolia.ui.form.field.transformer.multi.MultiValueSubChildrenNodePropertiesTransformer
+          class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
+          field:
+            transformerClass: info.magnolia.ui.form.field.transformer.composite.NoOpCompositeTransformer
+            class: info.magnolia.ui.form.field.definition.CompositeFieldDefinition
+            fields:
+              - name: maxWeight
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: price
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition

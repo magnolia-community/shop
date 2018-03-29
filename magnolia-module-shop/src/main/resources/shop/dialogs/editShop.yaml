@@ -1,0 +1,40 @@
+actions:
+  commit:
+    implementationClass: info.magnolia.shop.dialog.action.ShopSaveAndGenerateStructureAction
+    class: info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition
+  cancel:
+    class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition
+form:
+  tabs:
+    - name: main
+      fields:
+        - name: name
+          readOnly: true
+          required: true
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: title
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: email
+          required: true
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          validators:
+            - name: email
+              errorMessage: validation.message.non.valid.email
+              class: info.magnolia.ui.form.validator.definition.EmailValidatorDefinition
+    - name: system
+      fields:
+        - name: priceCategoryManagerClassQualifiedName
+          defaultValue: info.magnolia.shop.DefaultPriceCategoryManagerImpl
+          required: true
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: cartClassQualifiedName
+          defaultValue: info.magnolia.shop.beans.DefaultShoppingCartImpl
+          required: true
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: cartHierarchyStrategyClass
+          defaultValue: info.magnolia.shop.processors.FlatHierarchyStrategy
+          description: Select a class to manage the cart hierarchy. The class must implement info.magnolia.shop.processors.HierarchyStrategy. If no strategy class is provided, then a flat hierarchy will be applied.
+          label: Cart hierarchy class
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: defaultPriceCategoryName
+          class: info.magnolia.shop.app.field.definition.PriceCategoriesSelectFieldDefinition

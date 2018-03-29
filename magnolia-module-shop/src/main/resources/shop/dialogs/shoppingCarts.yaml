@@ -1,0 +1,137 @@
+actions:
+  commit:
+    class: info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition
+  cancel:
+    class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition
+form:
+  tabs:
+    - name: mainTab
+      fields:
+        - name: name
+          readOnly: true
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: customerReference
+          type: String
+          targetWorkspace: website
+          path:
+          appName: pages
+          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          identifierToPathConverter:
+            class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
+        - name: priceCategoryReference
+          type: String
+          targetWorkspace: website
+          path:
+          appName: pages
+          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          identifierToPathConverter:
+            class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
+        - name: shippingAndHandling
+          type: Double
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: taxRateShippingAndHandling
+          type: Double
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: dateOrdered
+          time: false
+          type: Date
+          class: info.magnolia.ui.form.field.definition.DateFieldDefinition
+        - name: datePayed
+          time: false
+          type: Date
+          class: info.magnolia.ui.form.field.definition.DateFieldDefinition
+        - name: dateShipped
+          time: false
+          type: Date
+          class: info.magnolia.ui.form.field.definition.DateFieldDefinition
+        - name: trackingNumber
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: currency
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+    - name: billingAddress
+      fields:
+        - name: billingAddressLastname
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: billingAddressFirstname
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: billingAddressCompany
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: billingAddressStreet
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: billingAddressStreet2
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: billingAddressCity
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: billingAddressZip
+          width: 60px
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: billingAddressState
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: billingAddressCountry
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: billingAddressPhone
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: billingAddressFax
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: billingAddressEmail
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+    - name: shippingAddress
+      fields:
+        - name: shippingAddressSameAsBilling
+          type: Boolean
+          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+        - name: shippingAddressLastname
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: shippingAddressFirstname
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: shippingAddressCompany
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: shippingAddressStreet
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: shippingAddressStreet2
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: shippingAddressCity
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: shippingAddressZip
+          width: 60px
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: shippingAddressState
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: shippingAddressCountry
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: shippingAddressPhone
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: shippingAddressFax
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: shippingAddressEmail
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+    - name: orderAddress
+      fields:
+        - name: orderSameAsBilling
+          type: Boolean
+          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+        - name: orderAddressLastname
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: orderAddressFirstname
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: orderAddressCompany
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: orderAddressStreet
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: orderAddressStreet2
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: orderAddressCity
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: orderAddressZip
+          width: 60px
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: orderAddressState
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: orderAddressCountry
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: orderAddressPhone
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: orderAddressFax
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: orderAddressEmail
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition

@@ -1,0 +1,46 @@
+label: dialog.shopConfirmTerms.label
+actions:
+  commit:
+    class: info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition
+  cancel:
+    class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition
+form:
+  tabs:
+    - name: tabMain
+      fields:
+        - name: title
+          type: String
+          i18n: true
+          rows: 1
+          required: false
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: controlName
+          type: String
+          rows: 1
+          required: false
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: checkboxLabel
+          type: String
+          rows: 1
+          i18n: true
+          required: true
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: mandatory
+          selected: true
+          defaultValue: true
+          type: Boolean
+          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+        - name: termsDocumentUUID
+          targetWorkspace: dam
+          appName: assets
+          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          identifierToPathConverter:
+            class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+          contentPreviewDefinition:
+            contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
+        - name: termsPageUUID
+          targetWorkspace: website
+          appName: pages
+          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          identifierToPathConverter:
+            class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter

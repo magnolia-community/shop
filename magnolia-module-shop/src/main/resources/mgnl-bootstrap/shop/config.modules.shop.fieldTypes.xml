@@ -1,32 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sv:node sv:name="fieldTypes" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<sv:node xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" sv:name="fieldTypes">
   <sv:property sv:name="jcr:primaryType" sv:type="Name">
     <sv:value>mgnl:content</sv:value>
-  </sv:property>
-  <sv:property sv:name="jcr:uuid" sv:type="String">
-    <sv:value>4abef98a-084a-4db2-b860-df0b47faa372</sv:value>
-  </sv:property>
-  <sv:property sv:name="jcr:createdBy" sv:type="String">
-    <sv:value>admin</sv:value>
-  </sv:property>
-  <sv:property sv:name="mgnl:created" sv:type="Date">
-    <sv:value>2013-09-12T11:00:27.665+02:00</sv:value>
-  </sv:property>
-  <sv:property sv:name="mgnl:createdBy" sv:type="String">
-    <sv:value>superuser</sv:value>
-  </sv:property>
-  <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-    <sv:value>2013-09-12T11:00:36.056+02:00</sv:value>
-  </sv:property>
-  <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
-    <sv:value>superuser</sv:value>
   </sv:property>
   <sv:node sv:name="taxCategorySelect">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>mgnl:contentNode</sv:value>
-    </sv:property>
-    <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>5bc40316-008b-486f-9e33-0114c46dfb75</sv:value>
     </sv:property>
     <sv:property sv:name="definitionClass" sv:type="String">
       <sv:value>info.magnolia.shop.app.field.definition.TaxCategoriesSelectFieldDefinition</sv:value>
@@ -34,28 +13,10 @@
     <sv:property sv:name="factoryClass" sv:type="String">
       <sv:value>info.magnolia.shop.app.field.factory.TaxCategoriesSelectFieldFactory</sv:value>
     </sv:property>
-    <sv:property sv:name="jcr:createdBy" sv:type="String">
-      <sv:value>admin</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:created" sv:type="Date">
-      <sv:value>2013-09-12T11:00:46.047+02:00</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:createdBy" sv:type="String">
-      <sv:value>superuser</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-      <sv:value>2013-09-12T16:18:59.202+02:00</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
-      <sv:value>superuser</sv:value>
-    </sv:property>
   </sv:node>
   <sv:node sv:name="priceCategory">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>mgnl:contentNode</sv:value>
-    </sv:property>
-    <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>91a49ab2-b639-41fc-9a96-f6ccb75fe380</sv:value>
     </sv:property>
     <sv:property sv:name="definitionClass" sv:type="String">
       <sv:value>info.magnolia.shop.app.field.definition.PriceCategoryFieldDefinition</sv:value>
@@ -66,28 +27,10 @@
     <sv:property sv:name="fieldClass" sv:type="String">
       <sv:value>info.magnolia.shop.app.field.PriceCategoryField</sv:value>
     </sv:property>
-    <sv:property sv:name="jcr:createdBy" sv:type="String">
-      <sv:value>admin</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:created" sv:type="Date">
-      <sv:value>2013-09-12T14:29:42.025+02:00</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:createdBy" sv:type="String">
-      <sv:value>superuser</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-      <sv:value>2013-09-12T16:18:43.844+02:00</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
-      <sv:value>superuser</sv:value>
-    </sv:property>
   </sv:node>
   <sv:node sv:name="productCategory">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>mgnl:contentNode</sv:value>
-    </sv:property>
-    <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>82234133-d6da-4b2e-ac7e-455357b3a786</sv:value>
     </sv:property>
     <sv:property sv:name="definitionClass" sv:type="String">
       <sv:value>info.magnolia.shop.app.field.definition.ProductCategoriesFieldDefinition</sv:value>
@@ -95,37 +38,10 @@
     <sv:property sv:name="factoryClass" sv:type="String">
       <sv:value>info.magnolia.shop.app.field.factory.ProductCategoriesFieldFactory</sv:value>
     </sv:property>
-    <sv:property sv:name="jcr:createdBy" sv:type="String">
-      <sv:value>admin</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
-      <sv:value>false</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:created" sv:type="Date">
-      <sv:value>2013-09-12T14:29:42.025+02:00</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:createdBy" sv:type="String">
-      <sv:value>superuser</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
-      <sv:value>2013-09-12T16:08:18.430+02:00</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
-      <sv:value>superuser</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-      <sv:value>2013-10-23T10:11:39.753+02:00</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
-      <sv:value>superuser</sv:value>
-    </sv:property>
   </sv:node>
   <sv:node sv:name="currencySelect">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>mgnl:contentNode</sv:value>
-    </sv:property>
-    <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>b3ab54e1-1db2-480a-bdcb-deb849eca7da</sv:value>
     </sv:property>
     <sv:property sv:name="definitionClass" sv:type="String">
       <sv:value>info.magnolia.shop.app.field.definition.CurrencySelectFieldDefinition</sv:value>
@@ -133,28 +49,10 @@
     <sv:property sv:name="factoryClass" sv:type="String">
       <sv:value>info.magnolia.shop.app.field.factory.CurrencySelectFieldFactory</sv:value>
     </sv:property>
-    <sv:property sv:name="jcr:createdBy" sv:type="String">
-      <sv:value>admin</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:created" sv:type="Date">
-      <sv:value>2013-09-13T12:46:44.485+02:00</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:createdBy" sv:type="String">
-      <sv:value>superuser</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-      <sv:value>2013-09-13T15:37:27.698+02:00</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
-      <sv:value>superuser</sv:value>
-    </sv:property>
   </sv:node>
   <sv:node sv:name="shippingOptions">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>mgnl:contentNode</sv:value>
-    </sv:property>
-    <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>3029231c-f879-422b-a245-cdeb71771a64</sv:value>
     </sv:property>
     <sv:property sv:name="definitionClass" sv:type="String">
       <sv:value>info.magnolia.shop.app.field.definition.CountryShippingOptionsFieldDefinition</sv:value>
@@ -162,37 +60,10 @@
     <sv:property sv:name="factoryClass" sv:type="String">
       <sv:value>info.magnolia.shop.app.field.factory.CountryShippingOptionsFieldFactory</sv:value>
     </sv:property>
-    <sv:property sv:name="jcr:createdBy" sv:type="String">
-      <sv:value>admin</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
-      <sv:value>false</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:created" sv:type="Date">
-      <sv:value>2013-09-13T12:46:44.485+02:00</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:createdBy" sv:type="String">
-      <sv:value>superuser</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
-      <sv:value>2013-10-29T15:48:37.448+01:00</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
-      <sv:value>superuser</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-      <sv:value>2013-10-29T15:49:26.477+01:00</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
-      <sv:value>superuser</sv:value>
-    </sv:property>
   </sv:node>
   <sv:node sv:name="productSupplier">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>mgnl:contentNode</sv:value>
-    </sv:property>
-    <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>be184269-76e3-4d0a-a654-398eef1cffd5</sv:value>
     </sv:property>
     <sv:property sv:name="definitionClass" sv:type="String">
       <sv:value>info.magnolia.shop.app.field.definition.ProductSupplierSelectFieldDefinition</sv:value>
@@ -200,28 +71,10 @@
     <sv:property sv:name="factoryClass" sv:type="String">
       <sv:value>info.magnolia.shop.app.field.factory.ProductSupplierSelectFieldFactory</sv:value>
     </sv:property>
-    <sv:property sv:name="jcr:createdBy" sv:type="String">
-      <sv:value>admin</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:created" sv:type="Date">
-      <sv:value>2013-10-20T15:40:50.403+02:00</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:createdBy" sv:type="String">
-      <sv:value>superuser</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-      <sv:value>2013-10-20T15:40:50.403+02:00</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
-      <sv:value>superuser</sv:value>
-    </sv:property>
   </sv:node>
   <sv:node sv:name="priceCategorySelect">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>mgnl:contentNode</sv:value>
-    </sv:property>
-    <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>fe74527c-f8e9-47a8-a41f-f008f5539a5e</sv:value>
     </sv:property>
     <sv:property sv:name="definitionClass" sv:type="String">
       <sv:value>info.magnolia.shop.app.field.definition.PriceCategoriesSelectFieldDefinition</sv:value>
@@ -229,29 +82,17 @@
     <sv:property sv:name="factoryClass" sv:type="String">
       <sv:value>info.magnolia.shop.app.field.factory.PriceCategoriesSelectFieldFactory</sv:value>
     </sv:property>
-    <sv:property sv:name="jcr:createdBy" sv:type="String">
-      <sv:value>admin</sv:value>
+  </sv:node>
+  <sv:node sv:name="availableShops">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>mgnl:contentNode</sv:value>
     </sv:property>
-    <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
-      <sv:value>false</sv:value>
+    <sv:property sv:name="definitionClass" sv:type="String">
+      <sv:value>info.magnolia.shop.app.field.definition.AvailableShopsSelectFieldDefinition</sv:value>
     </sv:property>
-    <sv:property sv:name="mgnl:created" sv:type="Date">
-      <sv:value>2014-12-01T13:35:02.129+01:00</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:createdBy" sv:type="String">
-      <sv:value>superuser</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
-      <sv:value>2014-12-01T13:35:02.130+01:00</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
-      <sv:value>superuser</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-      <sv:value>2014-12-01T13:41:05.066+01:00</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
-      <sv:value>superuser</sv:value>
+    <sv:property sv:name="factoryClass" sv:type="String">
+      <sv:value>info.magnolia.shop.app.field.AvailableShopsSelectFieldFactory</sv:value>
     </sv:property>
   </sv:node>
 </sv:node>
+

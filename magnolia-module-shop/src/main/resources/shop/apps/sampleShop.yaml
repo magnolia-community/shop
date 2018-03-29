@@ -1,0 +1,938 @@
+appClass: info.magnolia.ui.contentapp.ContentApp
+icon: icon-configuration-app
+label: shop.app.label
+class: info.magnolia.ui.api.app.registry.ConfiguredAppDescriptor
+subApps:
+  browser:
+    label: shop.browser.label
+    subAppClass: info.magnolia.ui.contentapp.browser.BrowserSubApp
+    class: info.magnolia.ui.contentapp.browser.BrowserSubAppDescriptor
+    actions:
+      addCurrency:
+        dialogName: shop:createCurrency
+        icon: icon-add-item
+        label: shop.browser.actions.addCurrency.label
+        nodeType: shopCurrency
+        class: info.magnolia.ui.framework.action.OpenCreateDialogActionDefinition
+        availability:
+          root: false
+          nodeTypes:
+            currency: shopCurrencies
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      addPriceCategory:
+        dialogName: shop:createPriceCategory
+        icon: icon-add-item
+        label: shop.browser.actions.addPriceCategory.label
+        nodeType: shopPriceCategory
+        class: info.magnolia.ui.framework.action.OpenCreateDialogActionDefinition
+        availability:
+          root: false
+          nodeTypes:
+            priceCategory: shopPriceCategories
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      addTaxCategory:
+        dialogName: shop:createTaxCategory
+        icon: icon-add-item
+        label: shop.browser.actions.addTaxCategory.label
+        nodeType: shopTaxCategory
+        class: info.magnolia.ui.framework.action.OpenCreateDialogActionDefinition
+        availability:
+          root: false
+          nodeTypes:
+            taxCategory: shopTaxCategories
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      addShippingOption:
+        dialogName: shop:createShippingOption
+        icon: icon-add-item
+        label: shop.browser.actions.addShippingOption.label
+        nodeType: shopShippingOption
+        class: info.magnolia.ui.framework.action.OpenCreateDialogActionDefinition
+        availability:
+          root: false
+          nodeTypes:
+            shippingOptions: shopShippingOptions
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      addCountry:
+        dialogName: shop:createCountry
+        icon: icon-add-item
+        label: shop.browser.actions.addCountry.label
+        nodeType: shopCountry
+        class: info.magnolia.ui.framework.action.OpenCreateDialogActionDefinition
+        availability:
+          root: false
+          nodeTypes:
+            countries: shopCountries
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      addCurrencies:
+        icon: icon-add-item
+        label: shop.browser.actions.addCurrencies.label
+        nodeType: shopCurrencies
+        class: info.magnolia.ui.framework.action.AddNodeActionDefinition
+        availability:
+          root: true
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      addPriceCategories:
+        icon: icon-add-item
+        label: shop.browser.actions.addPriceCategories.label
+        nodeType: shopPriceCategories
+        class: info.magnolia.ui.framework.action.AddNodeActionDefinition
+        availability:
+          root: true
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      addTaxCategories:
+        icon: icon-add-item
+        label: shop.browser.actions.addTaxCategories.label
+        nodeType: shopTaxCategories
+        class: info.magnolia.ui.framework.action.AddNodeActionDefinition
+        availability:
+          root: true
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      addShippingOptions:
+        icon: icon-add-item
+        label: shop.browser.actions.addShippingOptions.label
+        nodeType: shopShippingOptions
+        class: info.magnolia.ui.framework.action.AddNodeActionDefinition
+        availability:
+          root: true
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      addCountries:
+        icon: icon-add-item
+        label: shop.browser.actions.addCountries.label
+        nodeType: shopCountries
+        class: info.magnolia.ui.framework.action.AddNodeActionDefinition
+        availability:
+          root: true
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      edit:
+        icon: icon-edit
+        label: shop.browser.actions.edit.label
+        class: info.magnolia.shop.dialog.action.NodeTypeBasedOpenEditDialogActionDefinition
+        availability:
+          nodeTypes:
+            countries: shopCountries
+            country: shopCountry
+            currencies: shopCurrencies
+            currency: shopCurrency
+            priceCategories: shopPriceCategories
+            priceCategory: shopPriceCategory
+            shippingOption: shopShippingOption
+            shippingOptions: shopShippingOptions
+            taxCategories: shopTaxCategories
+            taxCategory: shopTaxCategory
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+        mappings:
+          shopCountries: ui-framework:rename
+          shopCountry: shop:createCountry
+          shopCurrencies: ui-framework:rename
+          shopCurrency: shop:createCurrency
+          shopPriceCategories: ui-framework:rename
+          shopPriceCategory: shop:createPriceCategory
+          shopShippingOption: shop:createShippingOption
+          shopShippingOptions: ui-framework:rename
+          shopTaxCategories: ui-framework:rename
+          shopTaxCategory: shop:createTaxCategory
+      import:
+        dialogName: ui-admincentral:import
+        icon: icon-import
+        name: import
+        class: info.magnolia.ui.framework.action.OpenCreateDialogActionDefinition
+        availability:
+          root: true
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      export:
+        command: export
+        icon: icon-export
+        class: info.magnolia.ui.framework.action.ExportActionDefinition
+        availability:
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      delete:
+        command: markAsDeleted
+        class: info.magnolia.ui.framework.action.MarkNodeAsDeletedActionDefinition
+      confirmDelete:
+        cancelLabel: shop.browser.actions.confirmDelete.cancelLabel
+        confirmationHeader: shop.browser.actions.confirmDelete.confirmationHeader
+        confirmationMessage: shop.browser.actions.confirmDelete.confirmationMessage
+        icon: icon-delete
+        label: shop.browser.actions.confirmDelete.label
+        proceedLabel: shop.browser.actions.confirmDelete.proceedLabel
+        successActionName: delete
+        class: info.magnolia.ui.framework.action.ConfirmationActionDefinition
+        availability:
+          multiple: true
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      activateDeletion:
+        asynchronous: true
+        catalog: shop
+        command: activate
+        icon: icon-publish
+        label: shop.browser.actions.activateDeletion.label
+        recursive: true
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        availability:
+          writePermissionRequired: true
+          rules:
+            - name: IsDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
+      restorePreviousVersion:
+        catalog: shop
+        command: restorePreviousVersion
+        icon: icon-undo
+        class: info.magnolia.ui.contentapp.browser.action.RestoreItemPreviousVersionActionDefinition
+        availability:
+          multiple: true
+          writePermissionRequired: true
+          rules:
+            - name: IsDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
+      activate:
+        asynchronous: true
+        catalog: shop
+        command: activate
+        icon: icon-publish
+        recursive: true
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        availability:
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+            - name: IsPublishableRule
+              implementationClass: info.magnolia.ui.framework.availability.IsPublishableRule
+      deactivate:
+        command: deactivate
+        icon: icon-unpublish
+        class: info.magnolia.ui.framework.action.DeactivationActionDefinition
+        availability:
+          writePermissionRequired: true
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+            - name: IsPublishedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsPublishedRule
+    actionbar:
+      defaultAction: edit
+      sections:
+        - name: shop
+          label: shop.browser.actionbar.sections.shop.label
+          root: true
+          groups:
+            - name: addActions
+              items:
+                - name: addCurrencies
+                - name: addTaxCategories
+                - name: addPriceCategories
+                - name: addShippingOptions
+                - name: addCountries
+                - name: confirmDelete
+            - name: activationActions
+              items:
+                - name: activate
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: import
+                - name: export
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodes: false
+            root: true
+            rules:
+              - name: IsNotDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+        - name: currencies
+          label: shop.browser.actionbar.sections.currencies.label
+          root: false
+          groups:
+            - name: addActions
+              items:
+                - name: addCurrency
+                - name: confirmDelete
+            - name: editActions
+              items:
+                - name: edit
+            - name: activationActions
+              items:
+                - name: activate
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: import
+                - name: export
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodeTypes:
+              currencies: shopCurrencies
+            rules:
+              - name: IsNotDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+        - name: taxCategories
+          label: shop.browser.actionbar.sections.taxCategories.label
+          root: false
+          groups:
+            - name: addActions
+              items:
+                - name: addTaxCategory
+                - name: confirmDelete
+            - name: editActions
+              items:
+                - name: edit
+            - name: activationActions
+              items:
+                - name: activate
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: import
+                - name: export
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodeTypes:
+              taxCategories: shopTaxCategories
+            rules:
+              - name: IsNotDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+        - name: priceCategories
+          label: shop.browser.actionbar.sections.priceCategories.label
+          root: false
+          groups:
+            - name: addActions
+              items:
+                - name: addPriceCategory
+                - name: confirmDelete
+            - name: editActions
+              items:
+                - name: edit
+            - name: activationActions
+              items:
+                - name: activate
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: import
+                - name: export
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodeTypes:
+              priceCategories: shopPriceCategories
+            rules:
+              - name: IsNotDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+        - name: shippingOptions
+          label: shop.browser.actionbar.sections.shippingOptions.label
+          root: false
+          groups:
+            - name: addActions
+              items:
+                - name: addShippingOption
+                - name: confirmDelete
+            - name: editActions
+              items:
+                - name: edit
+            - name: activationActions
+              items:
+                - name: activate
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: import
+                - name: export
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodeTypes:
+              shippingOptions: shopShippingOptions
+            rules:
+              - name: IsNotDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+        - name: countries
+          label: shop.browser.actionbar.sections.countries.label
+          root: false
+          groups:
+            - name: addActions
+              items:
+                - name: addCountry
+                - name: confirmDelete
+            - name: editActions
+              items:
+                - name: edit
+            - name: activationActions
+              items:
+                - name: activate
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: import
+                - name: export
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodeTypes:
+              countries: shopCountries
+            rules:
+              - name: IsNotDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+        - name: currency
+          label: shop.browser.actionbar.sections.currency.label
+          root: false
+          groups:
+            - name: addActions
+              items:
+                - name: confirmDelete
+            - name: editActions
+              items:
+                - name: edit
+            - name: activationActions
+              items:
+                - name: activate
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: export
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodeTypes:
+              currency: shopCurrency
+            rules:
+              - name: IsNotDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+        - name: taxCategory
+          label: shop.browser.actionbar.sections.taxCategory.label
+          root: false
+          groups:
+            - name: addActions
+              items:
+                - name: confirmDelete
+            - name: editActions
+              items:
+                - name: edit
+            - name: activationActions
+              items:
+                - name: activate
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: export
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodeTypes:
+              taxCategory: shopTaxCategory
+            rules:
+              - name: IsNotDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+        - name: priceCategory
+          label: shop.browser.actionbar.sections.priceCategory.label
+          root: false
+          groups:
+            - name: addActions
+              items:
+                - name: confirmDelete
+            - name: editActions
+              items:
+                - name: edit
+            - name: activationActions
+              items:
+                - name: activate
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: export
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodeTypes:
+              priceCategory: shopPriceCategory
+            rules:
+              - name: IsNotDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+        - name: shippingOption
+          label: shop.browser.actionbar.sections.shippingOption.label
+          root: false
+          groups:
+            - name: addActions
+              items:
+                - name: confirmDelete
+            - name: editActions
+              items:
+                - name: edit
+            - name: activationActions
+              items:
+                - name: activate
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: export
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodeTypes:
+              shippingOption: shopShippingOption
+            rules:
+              - name: IsNotDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+        - name: country
+          label: shop.browser.actionbar.sections.country.label
+          root: false
+          groups:
+            - name: addActions
+              items:
+                - name: confirmDelete
+            - name: editActions
+              items:
+                - name: edit
+            - name: activationActions
+              items:
+                - name: activate
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: export
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodeTypes:
+              country: shopCountry
+            rules:
+              - name: IsNotDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+        - name: root
+          label: shop.browser.actionbar.sections.root.label
+          root: true
+        - name: deletedCountries
+          label: shops.browser.actionbar.sections.deletedCountries.label
+          root: false
+          groups:
+            - name: addActions
+              items:
+                - name: addCountry
+                - name: confirmDelete
+            - name: editActions
+              items:
+                - name: edit
+            - name: activationActions
+              items:
+                - name: activateDeletion
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: import
+                - name: export
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodeTypes:
+              countries: shopCountries
+            rules:
+              - name: IsDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
+        - name: deletedCountry
+          label: shops.browser.actionbar.sections.deletedCountry.label
+          root: false
+          groups:
+            - name: addActions
+              items:
+                - name: confirmDelete
+            - name: editActions
+              items:
+                - name: edit
+            - name: activationActions
+              items:
+                - name: activateDeletion
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: export
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodeTypes:
+              country: shopCountry
+            rules:
+              - name: IsDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
+        - name: deletedCurrencies
+          label: shops.browser.actionbar.sections.deletedCurrencies.label
+          root: false
+          groups:
+            - name: addActions
+              items:
+                - name: addCurrency
+                - name: confirmDelete
+            - name: editActions
+              items:
+                - name: edit
+            - name: activationActions
+              items:
+                - name: activateDeletion
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: import
+                - name: export
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodeTypes:
+              currencies: shopCurrencies
+            rules:
+              - name: IsDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
+        - name: deletedCurrency
+          label: shops.browser.actionbar.sections.deletedCurrency.label
+          root: false
+          groups:
+            - name: addActions
+              items:
+                - name: confirmDelete
+            - name: editActions
+              items:
+                - name: edit
+            - name: activationActions
+              items:
+                - name: activateDeletion
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: export
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodeTypes:
+              currency: shopCurrency
+            rules:
+              - name: IsDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
+        - name: deletedPriceCategories
+          label: shops.browser.actionbar.sections.deletedPriceCategories.label
+          root: false
+          groups:
+            - name: addActions
+              items:
+                - name: addPriceCategory
+                - name: confirmDelete
+            - name: editActions
+              items:
+                - name: edit
+            - name: activationActions
+              items:
+                - name: activateDeletion
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: import
+                - name: export
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodeTypes:
+              priceCategories: shopPriceCategories
+            rules:
+              - name: IsDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
+        - name: deletedPriceCategory
+          label: shops.browser.actionbar.sections.deletedPriceCategory.label
+          root: false
+          groups:
+            - name: addActions
+              items:
+                - name: confirmDelete
+            - name: editActions
+              items:
+                - name: edit
+            - name: activationActions
+              items:
+                - name: activateDeletion
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: export
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodeTypes:
+              priceCategory: shopPriceCategory
+            rules:
+              - name: IsDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
+        - name: deletedShippingOption
+          label: shops.browser.actionbar.sections.deletedShippingOption.label
+          root: false
+          groups:
+            - name: addActions
+              items:
+                - name: confirmDelete
+            - name: editActions
+              items:
+                - name: edit
+            - name: activationActions
+              items:
+                - name: activateDeletion
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: export
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodeTypes:
+              shippingOption: shopShippingOption
+            rules:
+              - name: IsDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
+        - name: deletedShippingOptions
+          label: shops.browser.actionbar.sections.deletedShippingOptions.label
+          root: false
+          groups:
+            - name: addActions
+              items:
+                - name: addShippingOption
+                - name: confirmDelete
+            - name: editActions
+              items:
+                - name: edit
+            - name: activationActions
+              items:
+                - name: activateDeletion
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: import
+                - name: export
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodeTypes:
+              shippingOptions: shopShippingOptions
+            rules:
+              - name: IsDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
+        - name: deletedShop
+          label: shops.browser.actionbar.sections.deletedShop.label
+          root: true
+          groups:
+            - name: addActions
+              items:
+                - name: addCurrencies
+                - name: addTaxCategories
+                - name: addPriceCategories
+                - name: addShippingOptions
+                - name: addCountries
+                - name: confirmDelete
+            - name: activationActions
+              items:
+                - name: activateDeletion
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: import
+                - name: export
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodes: true
+            root: true
+            rules:
+              - name: IsDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
+            nodeTypes:
+              primaryType: shop
+        - name: deletedTaxCategories
+          label: shops.browser.actionbar.sections.deletedTaxCategories.label
+          root: false
+          groups:
+            - name: addActions
+              items:
+                - name: addTaxCategory
+                - name: confirmDelete
+            - name: editActions
+              items:
+                - name: edit
+            - name: activationActions
+              items:
+                - name: activateDeletion
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: import
+                - name: export
+                - name: restorePreviousVersion
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodeTypes:
+              taxCategories: shopTaxCategories
+            rules:
+              - name: IsDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
+        - name: deletedTaxCategory
+          label: shops.browser.actionbar.sections.deletedTaxCategory.label
+          root: false
+          groups:
+            - name: addActions
+              items:
+                - name: confirmDelete
+            - name: editActions
+              items:
+                - name: edit
+            - name: activationActions
+              items:
+                - name: activateDeletion
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: export
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodeTypes:
+              taxCategory: shopTaxCategory
+            rules:
+              - name: IsDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
+    workbench:
+      contentViews:
+        - name: tree
+          class: info.magnolia.ui.workbench.tree.TreePresenterDefinition
+          columns:
+            - name: productId
+              editable: true
+              expandRatio: 2.0
+              label: shop.browser.views.treeview.productId.label
+              propertyName: jcrName
+              sortable: true
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: name
+              editable: true
+              expandRatio: 2.0
+              propertyName: title
+              sortable: true
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: path
+              enabled: false
+              expandRatio: 2
+              formatterClass: info.magnolia.ui.workbench.column.PathColumnFormatter
+              class: info.magnolia.ui.workbench.column.definition.MetaDataColumnDefinition
+            - name: status
+              displayInChooseDialog: false
+              formatterClass: info.magnolia.ui.workbench.column.StatusColumnFormatter
+              width: 46
+              class: info.magnolia.ui.workbench.column.definition.StatusColumnDefinition
+            - name: moddate
+              displayInChooseDialog: false
+              formatterClass: info.magnolia.ui.workbench.column.DateColumnFormatter
+              propertyName: mgnl:lastModified
+              sortable: true
+              width: 160
+              class: info.magnolia.ui.workbench.column.definition.MetaDataColumnDefinition
+        - name: list
+          class: info.magnolia.ui.workbench.list.ListPresenterDefinition
+          columns:
+            - name: productId
+              editable: true
+              expandRatio: 2.0
+              label: shop.browser.views.treeview.productId.label
+              propertyName: jcrName
+              sortable: true
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: name
+              editable: true
+              expandRatio: 2.0
+              propertyName: title
+              sortable: true
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: path
+              expandRatio: 2
+              formatterClass: info.magnolia.ui.workbench.column.PathColumnFormatter
+              class: info.magnolia.ui.workbench.column.definition.MetaDataColumnDefinition
+            - name: status
+              displayInChooseDialog: false
+              formatterClass: info.magnolia.ui.workbench.column.StatusColumnFormatter
+              width: 46
+              class: info.magnolia.ui.workbench.column.definition.StatusColumnDefinition
+            - name: moddate
+              displayInChooseDialog: false
+              formatterClass: info.magnolia.ui.workbench.column.DateColumnFormatter
+              propertyName: mgnl:lastModified
+              sortable: true
+              width: 160
+              class: info.magnolia.ui.workbench.column.definition.MetaDataColumnDefinition
+    contentConnector:
+      defaultOrder: jcrName
+      includeProperties: false
+      rootPath: /sampleShop
+      workspace: shops
+      nodeTypes:
+        - icon: icon-node-content
+          name: shopTaxCategories
+        - icon: icon-node-content
+          name: shopTaxCategory
+        - icon: icon-node-content
+          name: shopCurrencies
+        - icon: icon-node-content
+          name: shopCurrency
+        - icon: icon-node-content
+          name: shopPriceCategories
+        - icon: icon-node-content
+          name: shopPriceCategory
+        - icon: icon-node-content
+          name: shopShippingOptions
+        - icon: icon-node-content
+          name: shopShippingOption
+        - icon: icon-node-content
+          name: shopCountries
+        - icon: icon-node-content
+          name: shopCountry

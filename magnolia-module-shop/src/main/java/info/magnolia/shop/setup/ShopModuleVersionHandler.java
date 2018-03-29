@@ -33,10 +33,15 @@
  */
 package info.magnolia.shop.setup;
 
+import info.magnolia.init.MagnoliaConfigurationProperties;
 import info.magnolia.module.DefaultModuleVersionHandler;
 import info.magnolia.module.InstallContext;
-import info.magnolia.module.delta.BootstrapSingleModuleResource;
+import info.magnolia.module.delta.BootstrapSingleResource;
+import info.magnolia.module.delta.Delta;
+import info.magnolia.module.delta.DeltaBuilder;
+import info.magnolia.module.delta.RemoveNodeTask;
 import info.magnolia.module.delta.Task;
+import info.magnolia.objectfactory.Components;
 
 import javax.jcr.ImportUUIDBehavior;
 import java.util.ArrayList;
@@ -47,18 +52,48 @@ import java.util.List;
  */
 public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
 
+    private final MagnoliaConfigurationProperties properties = Components.getComponent(MagnoliaConfigurationProperties.class);
+    private static final String MAGNOLIA_BOOTSTRAP_SAMPLES = "magnolia.bootstrap.samples";
+
     public ShopModuleVersionHandler() {
-        super();
+        register(deltaFor301());
+    }
+
+    private Delta deltaFor301() {
+        DeltaBuilder builder = DeltaBuilder.update("3.0.1", "Bootstrap tasks for shop 3.0.1");
+
+        addFileBootstrapTasks(builder, new String[] {
+                "/mgnl-bootstrap/shop/config.modules.shop.fieldTypes.xml",
+                "/mgnl-bootstrap/shop/ocm/config.modules.ocm.config.classDescriptors.defaultShoppingCart.xml",
+                "/mgnl-bootstrap/shop/ocm/config.modules.ocm.config.classDescriptors.defaultShoppingCartItem.xml",
+                "/mgnl-bootstrap/shop/ocm/config.modules.ocm.config.classDescriptors.defaultShoppingCartItemOption.xml",
+                "/mgnl-bootstrap/shop_default/config.modules.shop.apps.shop.subApps.browser.actions.xml",
+                "/mgnl-bootstrap/shop_workflow/config.modules.shop.apps.shop.subApps.browser.actions.xml"
+        });
+
+        if (properties.hasProperty(MAGNOLIA_BOOTSTRAP_SAMPLES) && properties.getProperty(MAGNOLIA_BOOTSTRAP_SAMPLES).equalsIgnoreCase("true")) {
+            addFileBootstrapTasks(builder, new String[] {
+                    "/mgnl-bootstrap-samples/shop/shops.sampleShop.xml"
+            });
+        }
+
+        builder.addTask(new RemoveNodeTask("Removing legacy node", "/modules/publishing-core/config/receivers/magnoliaPublic8080/workspaces.xml"));
+        builder.addTask(new RemoveNodeTask("Removing legacy node", "/modules/shop/apps"));
+        builder.addTask(new RemoveNodeTask("Removing legacy node", "/modules/shop/dialogs"));
+        return builder;
     }
 
     @Override
     protected List<Task> getExtraInstallTasks(InstallContext installContext) {
         final List<Task> installTasks = new ArrayList<>();
-        installTasks.add(new BootstrapSingleModuleResource(
-                "Bootsrap", "Shop module receiver workspaces",
-                "config.modules.publishing-core.config.receivers.magnoliaPublic8080.workspaces.xml",
-                ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING
-        ));
         return installTasks;
+    }
+
+    private void addFileBootstrapTasks(DeltaBuilder builder, String[] files) {
+        for (String file : files) {
+            BootstrapSingleResource task = new BootstrapSingleResource("Bootstrap file",
+                    "Imports an updated configuration XML file", file, ImportUUIDBehavior.IMPORT_UUID_COLLISION_REPLACE_EXISTING);
+            builder.addTask(task);
+        }
     }
 }

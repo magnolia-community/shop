@@ -1,0 +1,626 @@
+label: shopProducts.app.label
+icon: icon-assets-app
+appClass: info.magnolia.ui.contentapp.ContentApp
+class: info.magnolia.ui.api.app.registry.ConfiguredAppDescriptor
+subApps:
+  browser:
+    label: shopProducts.browser.label
+    subAppClass: info.magnolia.ui.contentapp.browser.BrowserSubApp
+    class: info.magnolia.ui.contentapp.browser.BrowserSubAppDescriptor
+    actions:
+      addProduct:
+        subAppId: detail
+        label: shopProducts.browser.actions.addProduct.label
+        icon: icon-add-item
+        nodeType: shopProduct
+        appName: shopProducts
+        class: info.magnolia.ui.contentapp.detail.action.CreateItemActionDefinition
+        availability:
+          root: true
+          nodeTypes:
+            folder: mgnl:folder
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      editProduct:
+        subAppId: detail
+        label: shopProducts.browser.actions.editProduct.label
+        icon: icon-edit
+        appName: shopProducts
+        class: info.magnolia.ui.contentapp.detail.action.EditItemActionDefinition
+        availability:
+          nodeTypes:
+            shopProduct: shopProduct
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      delete:
+        command: markAsDeleted
+        icon: icon-delete
+        class: info.magnolia.ui.framework.action.MarkNodeAsDeletedActionDefinition
+      addFolder:
+        label: shopProducts.browser.actions.addFolder.label
+        icon: icon-add-folder
+        nodeType: mgnl:folder
+        class: info.magnolia.ui.framework.action.AddNodeActionDefinition
+        availability:
+          root: true
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      editFolder:
+        label: shopProducts.browser.actions.editFolder.label
+        icon: icon-edit
+        dialogName: ui-framework:folder
+        class: info.magnolia.ui.framework.action.OpenEditDialogActionDefinition
+        availability:
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      export:
+        command: export
+        icon: icon-export
+        class: info.magnolia.ui.framework.action.ExportActionDefinition
+        availability:
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      import:
+        icon: icon-import
+        dialogName: ui-admincentral:import
+        name: import
+        class: info.magnolia.ui.framework.action.OpenCreateDialogActionDefinition
+        availability:
+          root: true
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      confirmDelete:
+        label: shop.browser.actions.confirmDelete.label
+        confirmationHeader: shop.browser.actions.confirmDelete.confirmationHeader
+        proceedLabel: shop.browser.actions.confirmDelete.proceedLabel
+        successActionName: delete
+        icon: icon-delete
+        confirmationMessage: shop.browser.actions.confirmDelete.confirmationMessage
+        cancelLabel: shop.browser.actions.confirmDelete.cancelLabel
+        class: info.magnolia.ui.framework.action.ConfirmationActionDefinition
+        availability:
+          multiple: true
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      addShopProductOption:
+        label: shopProducts.browser.actions.addShopProductOption.label
+        dialogName: shop:createShopProductOption
+        icon: icon-add-item
+        nodeType: shopProductOption
+        class: info.magnolia.ui.framework.action.OpenCreateDialogActionDefinition
+        availability:
+          root: false
+          nodeTypes:
+            product: shopProductOptions
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      addShopProductOptions:
+        label: shopProducts.browser.actions.addShopProductOptions.label
+        dialogName: shop:createShopProductOptions
+        icon: icon-add-item
+        nodeType: shopProductOptions
+        class: info.magnolia.ui.framework.action.OpenCreateDialogActionDefinition
+        availability:
+          root: false
+          nodeTypes:
+            folder: shopProduct
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      editShopProductOption:
+        label: shopProducts.browser.actions.editShopProductOption.label
+        icon: icon-edit
+        dialogName: shop:createShopProductOption
+        nodeType: shopProductOption
+        class: info.magnolia.ui.framework.action.OpenEditDialogActionDefinition
+        availability:
+          nodeTypes:
+            shopProductOption: shopProductOption
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      editShopProductOptions:
+        label: shopProducts.browser.actions.editShopProductOptions.label
+        icon: icon-edit
+        dialogName: shop:createShopProductOptions
+        nodeType: shopProductOptions
+        class: info.magnolia.ui.framework.action.OpenEditDialogActionDefinition
+        availability:
+          nodeTypes:
+            shopProductOptions: shopProductOptions
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      activate:
+        asynchronous: true
+        catalog: shop
+        command: activate
+        icon: icon-publish
+        recursive: true
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        availability:
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+            - name: IsPublishableRule
+              implementationClass: info.magnolia.ui.framework.availability.IsPublishableRule
+      deactivate:
+        command: deactivate
+        icon: icon-unpublish
+        class: info.magnolia.ui.framework.action.DeactivationActionDefinition
+        availability:
+          writePermissionRequired: true
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+            - name: IsPublishedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsPublishedRule
+      activateDeletion:
+        asynchronous: true
+        catalog: shop
+        command: activate
+        icon: icon-publish
+        label: shop.browser.actions.activateDeletion.label
+        recursive: true
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        availability:
+          writePermissionRequired: true
+          rules:
+            - name: IsDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
+      restorePreviousVersion:
+        command: restorePreviousVersion
+        icon: icon-undo
+        catalog: shop
+        class: info.magnolia.ui.contentapp.browser.action.RestoreItemPreviousVersionActionDefinition
+        availability:
+          multiple: true
+          writePermissionRequired: true
+          rules:
+            - name: IsDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
+    actionbar:
+      defaultAction: editProduct
+      sections:
+        - name: root
+          label: shopProducts.browser.actionbar.sections.root.label
+          groups:
+            - name: addActions
+              items:
+                - name: addProduct
+                - name: addFolder
+          availability:
+            nodes: false
+            root: true
+        - name: shopProduct
+          label: shopProducts.browser.actionbar.sections.shopProduct.label
+          groups:
+            - name: addActions
+              items:
+                - name: addShopProductOptions
+                - name: confirmDelete
+            - name: editActions
+              items:
+                - name: editProduct
+            - name: activationActions
+              items:
+                - name: activate
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: export
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodeTypes:
+              shop-product: shopProduct
+            rules:
+              - name: IsNotDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+        - name: shopProductOption
+          label: shopProducts.browser.actionbar.sections.shopProductOption.label
+          groups:
+            - name: addActions
+              items:
+                - name: confirmDelete
+            - name: editActions
+              items:
+                - name: editShopProductOption
+            - name: activationActions
+              items:
+                - name: activate
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: export
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodeTypes:
+              shopProductOption: shopProductOption
+            rules:
+              - name: IsNotDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+        - name: shopProductOptions
+          label: shopProducts.browser.actionbar.sections.shopProductOptions.label
+          groups:
+            - name: addActions
+              items:
+                - name: addShopProductOption
+                - name: confirmDelete
+            - name: editActions
+              items:
+                - name: editShopProductOptions
+            - name: activationActions
+              items:
+                - name: activate
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: export
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodeTypes:
+              shopProductOptions: shopProductOptions
+            rules:
+              - name: IsNotDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+        - name: folder
+          label: shopProducts.browser.actionbar.sections.folder.label
+          groups:
+            - name: addActions
+              items:
+                - name: addProduct
+                - name: addFolder
+                - name: confirmDelete
+            - name: editActions
+              items:
+                - name: editFolder
+            - name: activationActions
+              items:
+                - name: activate
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: export
+                - name: import
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodeTypes:
+              folder: mgnl:folder
+            rules:
+              - name: IsNotDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+        - name: deletedFolder
+          label: shopProducts.browser.actionbar.sections.deletedFolder.label
+          groups:
+            - name: addActions
+              items:
+                - name: addProduct
+                - name: addFolder
+                - name: confirmDelete
+            - name: editActions
+              items:
+                - name: editFolder
+            - name: activationActions
+              items:
+                - name: activateDeletion
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: export
+                - name: import
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodeTypes:
+              folder: mgnl:folder
+            rules:
+              - name: IsDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
+        - name: deletedShopProduct
+          label: shopProducts.browser.actionbar.sections.deletedShopProduct.label
+          groups:
+            - name: addActions
+              items:
+                - name: addShopProductOptions
+                - name: confirmDelete
+            - name: editActions
+              items:
+                - name: editProduct
+            - name: activationActions
+              items:
+                - name: activateDeletion
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: export
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodeTypes:
+              shop-product: shopProduct
+            rules:
+              - name: IsDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
+        - name: deletedShopProductOption
+          label: shopProducts.browser.actionbar.sections.deletedShopProductOption.label
+          groups:
+            - name: addActions
+              items:
+                - name: confirmDelete
+            - name: editActions
+              items:
+                - name: editShopProductOption
+            - name: activationActions
+              items:
+                - name: activateDeletion
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: export
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodeTypes:
+              shopProductOption: shopProductOption
+            rules:
+              - name: IsDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
+        - name: deletedShopProductOptions
+          label: shopProducts.browser.actionbar.sections.deletedShopProductOptions.label
+          groups:
+            - name: addActions
+              items:
+                - name: addShopProductOption
+                - name: confirmDelete
+            - name: editActions
+              items:
+                - name: editShopProductOptions
+            - name: activationActions
+              items:
+                - name: activateDeletion
+                - name: deactivate
+            - name: importExportActions
+              items:
+                - name: export
+            - name: previousVersionActions
+              items:
+                - name: restorePreviousVersion
+          availability:
+            nodeTypes:
+              shopProductOptions: shopProductOptions
+            rules:
+              - name: IsDeletedRule
+                implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
+    workbench:
+      editable: false
+      contentViews:
+        - name: tree
+          class: info.magnolia.ui.workbench.tree.TreePresenterDefinition
+          columns:
+            - name: productId
+              editable: true
+              expandRatio: 2.0
+              label: shopProducts.browser.views.treeview.productId.label
+              propertyName: jcrName
+              sortable: true
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: name
+              editable: true
+              expandRatio: 2.0
+              formatterClass: info.magnolia.shop.app.products.column.ProductNameColumnFormatter
+              sortable: true
+              class: info.magnolia.shop.app.products.column.ProductNameColumnDefinition
+            - name: path
+              enabled: false
+              expandRatio: 2
+              formatterClass: info.magnolia.ui.workbench.column.PathColumnFormatter
+              class: info.magnolia.ui.workbench.column.definition.MetaDataColumnDefinition
+            - name: status
+              displayInChooseDialog: false
+              formatterClass: info.magnolia.ui.workbench.column.StatusColumnFormatter
+              width: 46
+              class: info.magnolia.ui.workbench.column.definition.StatusColumnDefinition
+            - name: moddate
+              displayInChooseDialog: false
+              formatterClass: info.magnolia.ui.workbench.column.DateColumnFormatter
+              propertyName: mgnl:lastModified
+              sortable: true
+              width: 160
+              class: info.magnolia.ui.workbench.column.definition.MetaDataColumnDefinition
+        - name: list
+          class: info.magnolia.ui.workbench.list.ListPresenterDefinition
+          columns:
+            - name: productId
+              label: shopProducts.browser.views.treeview.productId.label
+              editable: true
+              sortable: true
+              expandRatio: 2.0
+              propertyName: jcrName
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: name
+              editable: true
+              sortable: true
+              expandRatio: 2.0
+              formatterClass: info.magnolia.shop.app.products.column.ProductNameColumnFormatter
+              class: info.magnolia.shop.app.products.column.ProductNameColumnDefinition
+            - name: path
+              expandRatio: 2
+              formatterClass: info.magnolia.ui.workbench.column.PathColumnFormatter
+              class: info.magnolia.ui.workbench.column.definition.MetaDataColumnDefinition
+            - name: status
+              width: 46
+              displayInChooseDialog: false
+              formatterClass: info.magnolia.ui.workbench.column.StatusColumnFormatter
+              class: info.magnolia.ui.workbench.column.definition.StatusColumnDefinition
+            - name: moddate
+              width: 160
+              sortable: true
+              displayInChooseDialog: false
+              formatterClass: info.magnolia.ui.workbench.column.DateColumnFormatter
+              propertyName: mgnl:lastModified
+              class: info.magnolia.ui.workbench.column.definition.MetaDataColumnDefinition
+        - name: search
+          class: info.magnolia.ui.workbench.search.SearchPresenterDefinition
+          columns:
+            - name: productId
+              editable: true
+              expandRatio: 2.0
+              label: shopProducts.browser.views.treeview.productId.label
+              propertyName: jcrName
+              sortable: true
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: name
+              editable: true
+              expandRatio: 2.0
+              formatterClass: info.magnolia.shop.app.products.column.ProductNameColumnFormatter
+              sortable: true
+              class: info.magnolia.shop.app.products.column.ProductNameColumnDefinition
+            - name: path
+              expandRatio: 2
+              formatterClass: info.magnolia.ui.workbench.column.PathColumnFormatter
+              class: info.magnolia.ui.workbench.column.definition.MetaDataColumnDefinition
+            - name: status
+              displayInChooseDialog: false
+              formatterClass: info.magnolia.ui.workbench.column.StatusColumnFormatter
+              width: 46
+              class: info.magnolia.ui.workbench.column.definition.StatusColumnDefinition
+            - name: moddate
+              displayInChooseDialog: false
+              formatterClass: info.magnolia.ui.workbench.column.DateColumnFormatter
+              propertyName: mgnl:lastModified
+              sortable: true
+              width: 160
+              class: info.magnolia.ui.workbench.column.definition.MetaDataColumnDefinition
+    contentConnector:
+      includeProperties: false
+      workspace: shopProducts
+      rootPath: /
+      defaultOrder: jcrName
+      nodeTypes:
+        - icon: icon-node-content
+          name: shopProduct
+        - icon: icon-folder-l
+          name: mgnl:folder
+        - icon: icon-node-content
+          name: shopProductOption
+        - icon: icon-node-content
+          name: shopProductOptions
+  detail:
+    subAppClass: info.magnolia.ui.contentapp.detail.DetailSubApp
+    class: info.magnolia.ui.contentapp.detail.DetailSubAppDescriptor
+    editor:
+      nodeType:
+        icon: icon-node-content
+        name: shopProduct
+      actions:
+        - name: commit
+        - name: cancel
+      form:
+        tabs:
+          - name: product
+            label: shopProducts.product.label
+            fields:
+              - name: name
+                label: shopProducts.product.name.label
+                required: true
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: title
+                label: shopProducts.product.title.label
+                i18n: true
+                required: true
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: productDescription1
+                label: shopProducts.product.productDescription1.label
+                rows: 4
+                i18n: true
+                required: true
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: productDescription2
+                label: shopProducts.product.productDescription2.label
+                i18n: true
+                rows: 4
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: image
+              - name: supplierUUID
+                label: shopProducts.product.supplierUUID.label
+                class: info.magnolia.shop.app.field.definition.ProductSupplierSelectFieldDefinition
+              - name: maxQuantityPerOrder
+                label: shopProducts.product.maxQuantityPerOrder.label
+                description: shopProducts.product.maxQuantityPerOrder.description
+                type: Long
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          - name: pricing
+            label: shopProducts.pricing.label
+            fields:
+              - name: prices
+                label: shopProducts.pricing.prices.label
+                class: info.magnolia.shop.app.field.definition.PriceCategoryFieldDefinition
+              - name: taxCategoryUUID
+                label: shopProducts.pricing.taxCategoryUUID.label
+                class: info.magnolia.shop.app.field.definition.TaxCategoriesSelectFieldDefinition
+          - name: weightSize
+            label: shopProducts.weightSize.label
+            fields:
+              - name: weight
+                label: shopProducts.weightSize.weight.label
+                type: Double
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: weightUnit
+                label: shopProducts.weightSize.weightUnit.label
+                class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
+                options:
+                  - name: kg
+                    label: shopProducts.weightSize.weightUnit.options.kg
+                    value: kg
+                  - name: lbs
+                    label: shopProducts.weightSize.weightUnit.options.lbs
+                    value: lbs
+              - name: height
+                label: shopProducts.weightSize.height.label
+                type: Double
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: width
+                label: shopProducts.weightSize.width.label
+                type: Double
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: depth
+                label: shopProducts.weightSize.depth.label
+                type: Double
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: sizeUnit
+                label: shopProducts.weightSize.sizeUnit.label
+                class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
+                options:
+                  - name: cm
+                    label: shopProducts.weightSize.sizeUnit.options.cm
+                    value: cm
+                  - name: in
+                    label: shopProducts.weightSize.sizeUnit.options.in
+                    value: in
+    actions:
+      commit:
+        implementationClass: info.magnolia.ui.form.action.SaveFormAction
+        class: info.magnolia.ui.form.action.SaveFormActionDefinition
+      cancel:
+        class: info.magnolia.ui.form.action.CancelFormActionDefinition
+    contentConnector:
+      workspace: shopProducts

@@ -1,0 +1,29 @@
+actions:
+  commit:
+    class: info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition
+  cancel:
+    class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition
+form:
+  tabs:
+    - name: tabTeaser
+      fields:
+        - name: productUUID
+          type: String
+          targetWorkspace: shopProducts
+          path: /
+          appName: shopProducts
+          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          identifierToPathConverter:
+            class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
+        - name: hideTeaserImage
+    - name: tabTeaserOverwrite
+      fields:
+        - name: teaserTitle
+          i18n: true
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: teaserAbstract
+          description: dialogs.paragraphs.extras.stkExtrasInternalPage.tabTeaserOverwrite.teaserAbstract.description
+          rows: 5
+          i18n: true
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: teaserImg

@@ -1,0 +1,61 @@
+actions:
+  commit:
+    implementationClass: info.magnolia.shop.dialog.action.ShopSaveDialogAction
+    class: info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition
+  cancel:
+    class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition
+form:
+  tabs:
+    - name: main
+      fields:
+        - name: name
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: url
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: description
+          i18n: true
+          class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+    - name: address
+      fields:
+        - name: company
+          i18n: true
+          required: true
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: company2
+          i18n: true
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: address
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: address2
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: city
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: zip
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: state
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: country
+          i18n: true
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: phone
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: email
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+    - name: logo
+      fields:
+        - name: logoUUID_bak
+          targetWorkspace: dam
+          appName: assets
+          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          identifierToPathConverter:
+            class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+          contentPreviewDefinition:
+            contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
+        - name: logoUUID
+          controlType: shopDam
+          value: Field not yet supported
+          class: info.magnolia.ui.form.field.definition.StaticFieldDefinition
+        - name: terms
+          controlType: shopDam
+          value: Field not yet supported
+          class: info.magnolia.ui.form.field.definition.StaticFieldDefinition

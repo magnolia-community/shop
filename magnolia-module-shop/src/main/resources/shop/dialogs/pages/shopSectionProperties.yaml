@@ -1,0 +1,23 @@
+actions:
+  commit:
+    class: info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition
+  cancel:
+    class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition
+form:
+  tabs:
+    - name: tabShop
+      fields:
+        - name: currentShop
+          defaultValue: sampleShop
+          repository: shops
+          type: String
+          path: /
+          class: info.magnolia.shop.app.field.definition.AvailableShopsSelectFieldDefinition
+    - name: tabMain
+      fields:
+        - name: hideInNav
+        - name: windowTitle
+          i18n: true
+        - name: navigationTitle
+          i18n: true
+    - name: tabMetaData
