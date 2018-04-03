@@ -4,7 +4,7 @@
     <parent>
         <groupId>info.magnolia.shop</groupId>
         <artifactId>magnolia-shop</artifactId>
-        <version>3.0.2</version>
+        <version>3.0.3-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>magnolia-module-shop</artifactId>
