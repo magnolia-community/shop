@@ -43,9 +43,8 @@
             <artifactId>magnolia-module-ocm</artifactId>
         </dependency>
         <dependency>
-            <groupId>info.magnolia.shop</groupId>
-            <artifactId>magnolia-module-shop</artifactId>
-            <version>${project.version}</version>
+            <groupId>info.magnolia.rest</groupId>
+            <artifactId>magnolia-rest-content-delivery</artifactId>
         </dependency>
         <dependency>
             <groupId>info.magnolia.rest</groupId>
@@ -58,6 +57,13 @@
         <dependency>
             <groupId>info.magnolia.rest</groupId>
             <artifactId>magnolia-rest-tools</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>info.magnolia.shop</groupId>
+            <artifactId>magnolia-module-shop</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- TEST -->

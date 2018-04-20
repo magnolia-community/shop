@@ -35,9 +35,9 @@ package info.magnolia.shop.rest.beans;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.wordnik.swagger.annotations.ApiModel;
-import com.wordnik.swagger.annotations.ApiModelProperty;
 import info.magnolia.shop.beans.DefaultShoppingCartImpl;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Bean representation for the shopping cart without cart items.

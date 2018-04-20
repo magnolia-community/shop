@@ -33,11 +33,6 @@
  */
 package info.magnolia.shop.rest.service.v1;
 
-import com.wordnik.swagger.annotations.Api;
-import com.wordnik.swagger.annotations.ApiOperation;
-import com.wordnik.swagger.annotations.ApiParam;
-import com.wordnik.swagger.annotations.ApiResponse;
-import com.wordnik.swagger.annotations.ApiResponses;
 import info.magnolia.cms.security.User;
 import info.magnolia.cms.util.QueryUtil;
 import info.magnolia.commands.CommandsManager;
@@ -60,8 +55,13 @@ import info.magnolia.shop.rest.beans.QuantityInfo;
 import info.magnolia.shop.rest.beans.ShoppingCartWithItems;
 import info.magnolia.shop.rest.service.ShopEndpointDefinition;
 import info.magnolia.shop.util.ShopUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.util.ISO9075;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
