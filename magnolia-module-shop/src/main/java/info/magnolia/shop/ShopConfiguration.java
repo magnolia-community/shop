@@ -40,7 +40,7 @@ import info.magnolia.shop.processors.HierarchyStrategy;
 import info.magnolia.shop.util.ShopUtil;
 import info.magnolia.objectfactory.Classes;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Configuration class for each shop.

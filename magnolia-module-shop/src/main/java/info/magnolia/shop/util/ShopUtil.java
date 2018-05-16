@@ -77,7 +77,7 @@ import info.magnolia.shop.beans.LimitedProduct;
 import info.magnolia.shop.beans.ProductPrice;
 import info.magnolia.shop.beans.ShoppingCart;
 import info.magnolia.shop.beans.ShoppingCartItem;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.ocm.manager.ObjectContentManager;
 import org.apache.jackrabbit.ocm.manager.atomictypeconverter.impl.DefaultAtomicTypeConverterProvider;
 import org.apache.jackrabbit.ocm.manager.cache.impl.RequestObjectCacheImpl;

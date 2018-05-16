@@ -48,7 +48,7 @@ import javax.jcr.query.InvalidQueryException;
 
 import org.apache.commons.collections.IteratorUtils;
 import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.lucene.queryParser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

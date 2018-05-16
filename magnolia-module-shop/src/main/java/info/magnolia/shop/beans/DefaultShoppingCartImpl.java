@@ -59,7 +59,7 @@ import javax.jcr.RepositoryException;
 import javax.servlet.http.HttpServletRequest;
 
 import info.magnolia.objectfactory.Components;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.ocm.manager.ObjectContentManager;
 import org.apache.jackrabbit.ocm.manager.atomictypeconverter.impl.DefaultAtomicTypeConverterProvider;
 import org.apache.jackrabbit.ocm.manager.cache.impl.RequestObjectCacheImpl;

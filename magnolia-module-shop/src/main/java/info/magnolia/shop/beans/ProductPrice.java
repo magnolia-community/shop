@@ -34,7 +34,7 @@
 package info.magnolia.shop.beans;
 
 import info.magnolia.context.MgnlContext;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

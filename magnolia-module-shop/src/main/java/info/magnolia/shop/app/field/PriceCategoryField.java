@@ -55,7 +55,7 @@ import info.magnolia.ui.form.field.factory.FieldFactoryFactory;
 import info.magnolia.ui.vaadin.integration.NullItem;
 import info.magnolia.ui.vaadin.integration.jcr.DefaultProperty;
 import info.magnolia.ui.vaadin.integration.jcr.JcrNodeAdapter;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

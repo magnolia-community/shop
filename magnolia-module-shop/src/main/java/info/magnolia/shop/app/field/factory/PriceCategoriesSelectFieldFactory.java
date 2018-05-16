@@ -41,7 +41,7 @@ import info.magnolia.shop.app.field.definition.PriceCategoriesSelectFieldDefinit
 import info.magnolia.ui.form.field.definition.SelectFieldOptionDefinition;
 import info.magnolia.ui.form.field.factory.SelectFieldFactory;
 import info.magnolia.ui.vaadin.integration.jcr.JcrNodeAdapter;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
