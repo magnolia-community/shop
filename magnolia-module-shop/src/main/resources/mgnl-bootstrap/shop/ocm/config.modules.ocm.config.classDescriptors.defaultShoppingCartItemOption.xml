@@ -10,7 +10,7 @@
     <sv:value>1c8bb98a-ae4b-4b61-91c5-c1278c0c4137</sv:value>
   </sv:property>
   <sv:property sv:name="class" sv:type="String">
-    <sv:value>org.apache.jackrabbit.ocm.mapper.model.ClassDescriptor</sv:value>
+    <sv:value>ch.fastforward.magnolia.ocm.beans.ProxyClassDescriptor</sv:value>
   </sv:property>
   <sv:property sv:name="className" sv:type="String">
     <sv:value>info.magnolia.shop.beans.CartItemOption</sv:value>

@@ -33,6 +33,7 @@
  */
 package info.magnolia.shop.util;
 
+import ch.fastforward.magnolia.ocm.OcmModule;
 import ch.fastforward.magnolia.ocm.atomictypeconverter.MgnlAtomicTypeConverterProvider;
 import ch.fastforward.magnolia.ocm.ext.MgnlConfigMapperImpl;
 import ch.fastforward.magnolia.ocm.ext.MgnlObjectConverterImpl;
@@ -749,7 +750,7 @@ public final class ShopUtil {
         }
         return null;
     }
-    
+
     public static Double roundUpTo2Decimal(Double value) {
         return Math.round(value * 100.0) / 100.0;
     }
@@ -783,7 +784,7 @@ public final class ShopUtil {
         if (StringUtils.isBlank(shopName) || StringUtils.isBlank(customerNumber)) {
             return null;
         }
-        Mapper mapper = new MgnlConfigMapperImpl();
+        Mapper mapper = new MgnlConfigMapperImpl(Components.getComponent(OcmModule.class));
         RequestObjectCacheImpl requestObjectCache = new RequestObjectCacheImpl();
         DefaultAtomicTypeConverterProvider converterProvider = new MgnlAtomicTypeConverterProvider();
         MgnlObjectConverterImpl oc = new MgnlObjectConverterImpl(mapper, converterProvider, new ProxyManagerImpl(), requestObjectCache);

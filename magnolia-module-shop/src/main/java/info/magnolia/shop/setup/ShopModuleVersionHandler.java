@@ -40,7 +40,9 @@ import info.magnolia.module.delta.BootstrapSingleResource;
 import info.magnolia.module.delta.Delta;
 import info.magnolia.module.delta.DeltaBuilder;
 import info.magnolia.module.delta.RemoveNodeTask;
+import info.magnolia.module.delta.SetPropertyTask;
 import info.magnolia.module.delta.Task;
+import info.magnolia.module.delta.ValueOfPropertyDelegateTask;
 import info.magnolia.objectfactory.Components;
 
 import javax.jcr.ImportUUIDBehavior;
@@ -57,6 +59,46 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
 
     public ShopModuleVersionHandler() {
         register(deltaFor301());
+        register(deltaFor4_0_0());
+    }
+
+    private Delta deltaFor4_0_0() {
+        DeltaBuilder builder = DeltaBuilder.update("4.0.0", "Bootstrap tasks for shop 4.0.0");
+
+        builder.addTask(new ValueOfPropertyDelegateTask(
+                "Check if defaultShoppingCart node uses ClassDescriptor",
+                "config/modules/ocm/config/classDescriptors/defaultShoppingCart",
+                "class",
+                "org.apache.jackrabbit.ocm.mapper.model.ClassDescriptor",
+                false,
+                new SetPropertyTask("Change ClassDescriptor to ProxyClassDescriptor",
+                        "config/modules/ocm/config/classDescrpitors/psShoppingCart",
+                        "class",
+                        "ch.fastforward.magnolia.ocm.beans.ProxyClassDescriptor")
+        ));
+        builder.addTask(new ValueOfPropertyDelegateTask(
+                "Check if defaultShoppingCartItem node uses ClassDescriptor",
+                "config/modules/ocm/config/classDescriptors/defaultShoppingCartItem",
+                "class",
+                "org.apache.jackrabbit.ocm.mapper.model.ClassDescriptor",
+                false,
+                new SetPropertyTask("Change ClassDescriptor to ProxyClassDescriptor",
+                        "config/modules/ocm/config/classDescrpitors/psShoppingCart",
+                        "class",
+                        "ch.fastforward.magnolia.ocm.beans.ProxyClassDescriptor")
+        ));
+        builder.addTask(new ValueOfPropertyDelegateTask(
+                "Check if defaultShoppingCartItemOption node uses ClassDescriptor",
+                "config/modules/ocm/config/classDescriptors/defaultShoppingCartItemOption",
+                "class",
+                "org.apache.jackrabbit.ocm.mapper.model.ClassDescriptor",
+                false,
+                new SetPropertyTask("Change ClassDescriptor to ProxyClassDescriptor",
+                        "config/modules/ocm/config/classDescrpitors/psShoppingCart",
+                        "class",
+                        "ch.fastforward.magnolia.ocm.beans.ProxyClassDescriptor")
+        ));
+        return builder;
     }
 
     private Delta deltaFor301() {

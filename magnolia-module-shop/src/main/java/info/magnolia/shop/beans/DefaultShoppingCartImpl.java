@@ -33,6 +33,7 @@
  */
 package info.magnolia.shop.beans;
 
+import ch.fastforward.magnolia.ocm.OcmModule;
 import ch.fastforward.magnolia.ocm.atomictypeconverter.MgnlAtomicTypeConverterProvider;
 import ch.fastforward.magnolia.ocm.ext.MgnlConfigMapperImpl;
 import ch.fastforward.magnolia.ocm.ext.MgnlObjectConverterImpl;
@@ -75,7 +76,7 @@ import ch.fastforward.magnolia.ocm.beans.OCMNumberedBean;
  * A default shopping cart implementation with order, billing and shipping
  * addresses allowing only one cart item per product (i.e. when adding the same
  * product multiple times, the quantity of the cart item will be increased).
- * 
+ *
  * @author will
  */
 public class DefaultShoppingCartImpl extends OCMNumberedBean implements ShoppingCart, Serializable {
@@ -172,7 +173,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     /**
      * Adds a product to the cart. If there is already a cart item for this
      * product the items quantity will be increased
-     * 
+     *
      * @param productUUID
      * @param quantity
      * @return
@@ -256,7 +257,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
 
     /**
      * Removes the cart item containing the product with the passed in UUID.
-     * 
+     *
      * @param productUUID
      * @todo When multiple items with the same product should be allowed this will
      * not work anymore.
@@ -954,7 +955,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
 
     /**
      * Sums up the cart items tax and applies the discount rate if there is any.
-     * 
+     *
      * @return
      */
     public BigDecimal getItemTaxTotalBigDecimal() {
@@ -1074,7 +1075,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     /**
      * Setter method for the shipping cost. Be aware that shipping cost is
      * usually set by setShippingOptionUUID().
-     * 
+     *
      * @param shippingCost the shippingCost to set
      */
     public void setShippingCostBigDecimal(BigDecimal shippingCost) {
@@ -1382,7 +1383,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
         if (getBoolean(parameters, "termsAccepted", false)) {
             setTermsAccepted(true);
         }
-        // sub, tax and total 
+        // sub, tax and total
         setItemTaxTotalFinal(ShopUtil.roundUpTo2Decimal(getItemTaxTotal()));
         setGrossTotalExclTaxFinal(ShopUtil.roundUpTo2Decimal(getGrossItemsTotalExclTax()));
         setGrossTotalInclTaxFinal(ShopUtil.roundUpTo2Decimal(getGrossItemsTotalInclTax()));
@@ -1410,7 +1411,7 @@ public class DefaultShoppingCartImpl extends OCMNumberedBean implements Shopping
     @Override
     public void onSave(ShopConfiguration shopConfiguration) throws RepositoryException, ShopConfigurationException {
         // NEW: Save via OCM
-        Mapper mapper = new MgnlConfigMapperImpl();
+        Mapper mapper = new MgnlConfigMapperImpl(Components.getComponent(OcmModule.class));
         RequestObjectCacheImpl requestObjectCache = new RequestObjectCacheImpl();
         DefaultAtomicTypeConverterProvider converterProvider = new MgnlAtomicTypeConverterProvider();
         MgnlObjectConverterImpl oc = new MgnlObjectConverterImpl(mapper, converterProvider, new ProxyManagerImpl(), requestObjectCache);

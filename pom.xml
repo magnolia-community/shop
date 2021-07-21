@@ -10,7 +10,7 @@
     <groupId>info.magnolia.shop</groupId>
     <artifactId>magnolia-shop</artifactId>
     <packaging>pom</packaging>
-    <version>3.0.7-SNAPSHOT</version>
+    <version>4.0.0-SNAPSHOT</version>
     <name>Magnolia Simple Shop</name>
 
     <properties>
@@ -18,7 +18,7 @@
         <magnoliaVersion>6.2.10</magnoliaVersion>
         <magnoliaUiVersion>6.2.10</magnoliaUiVersion>
         <magnoliaRestVersion>2.1</magnoliaRestVersion>
-        <magnoliaOcmVersion>1.3.0</magnoliaOcmVersion>
+        <magnoliaOcmVersion>1.5.0</magnoliaOcmVersion>
         <magnoliaDamVersion>3.0.8</magnoliaDamVersion>
         <yahpVersion>1.3</yahpVersion>
 
