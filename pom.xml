@@ -5,7 +5,7 @@
     <parent>
         <groupId>info.magnolia.maven.poms-forge</groupId>
         <artifactId>magnolia-parent-pom-forge</artifactId>
-        <version>34</version>
+        <version>36</version>
     </parent>
     <groupId>info.magnolia.shop</groupId>
     <artifactId>magnolia-shop</artifactId>
@@ -14,12 +14,12 @@
     <name>Magnolia Simple Shop</name>
 
     <properties>
-        <javaVersion>1.7</javaVersion>
-        <magnoliaVersion>5.6</magnoliaVersion>
-        <magnoliaUiVersion>5.6</magnoliaUiVersion>
+        <javaVersion>1.8</javaVersion>
+        <magnoliaVersion>6.2.10</magnoliaVersion>
+        <magnoliaUiVersion>6.2.10</magnoliaUiVersion>
         <magnoliaRestVersion>2.1</magnoliaRestVersion>
         <magnoliaOcmVersion>1.3.0</magnoliaOcmVersion>
-        <magnoliaDamVersion>2.3</magnoliaDamVersion>
+        <magnoliaDamVersion>3.0.8</magnoliaDamVersion>
         <yahpVersion>1.3</yahpVersion>
 
         <!-- dual licensed : -->
@@ -45,10 +45,10 @@
     </issueManagement>
 
     <scm>
-      <connection>scm:git:ssh://git@git.magnolia-cms.com/forge/shop</connection>
-      <developerConnection>scm:git:ssh://git@git.magnolia-cms.com/forge/shop</developerConnection>
-      <url>https://git.magnolia-cms.com/projects/FORGE/repos/shop</url>
-      <tag>HEAD</tag>
+        <connection>scm:git:ssh://git@git.magnolia-cms.com/forge/shop</connection>
+        <developerConnection>scm:git:ssh://git@git.magnolia-cms.com/forge/shop</developerConnection>
+        <url>https://git.magnolia-cms.com/projects/FORGE/repos/shop</url>
+        <tag>HEAD</tag>
     </scm>
 
     <dependencyManagement>
@@ -78,6 +78,12 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
+                <groupId>info.magnolia.ui</groupId>
+                <artifactId>magnolia-ui-framework-jcr</artifactId>
+                <version>${magnoliaUiVersion}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
                 <groupId>info.magnolia.dam</groupId>
                 <artifactId>magnolia-dam-core</artifactId>
                 <version>${magnoliaDamVersion}</version>
@@ -96,7 +102,7 @@
             <dependency>
                 <groupId>ch.fastforward</groupId>
                 <artifactId>magnolia-module-ocm</artifactId>
-                <version>1.3.0</version>
+                <version>${magnoliaOcmVersion}</version>
             </dependency>
             <dependency>
                 <groupId>asm</groupId>
@@ -113,13 +119,13 @@
             <dependency>
                 <groupId>info.magnolia</groupId>
                 <artifactId>magnolia-module-mail</artifactId>
-                <version>5.3</version>
+                <version>5.5.7</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>info.magnolia</groupId>
                 <artifactId>magnolia-module-form</artifactId>
-                <version>2.3</version>
+                <version>2.7.3</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -180,7 +186,7 @@
             <dependency>
                 <groupId>info.magnolia.categorization</groupId>
                 <artifactId>magnolia-categorization</artifactId>
-                <version>2.6</version>
+                <version>2.8</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>

@@ -14,31 +14,31 @@
         <dependency>
             <groupId>info.magnolia</groupId>
             <artifactId>magnolia-core</artifactId>
-            <version>${magnoliaVersion}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>info.magnolia</groupId>
             <artifactId>magnolia-templating</artifactId>
-            <version>${magnoliaVersion}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>info.magnolia.ui</groupId>
             <artifactId>magnolia-ui-dialog</artifactId>
-            <version>${magnoliaUiVersion}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>info.magnolia.ui</groupId>
             <artifactId>magnolia-ui-contentapp</artifactId>
-            <version>${magnoliaUiVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>info.magnolia.ui</groupId>
+            <artifactId>magnolia-ui-framework-jcr</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>info.magnolia.dam</groupId>
             <artifactId>magnolia-dam-core</artifactId>
-            <version>${magnoliaDamVersion}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

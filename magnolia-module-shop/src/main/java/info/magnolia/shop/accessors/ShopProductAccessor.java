@@ -47,7 +47,6 @@ import javax.jcr.RepositoryException;
 import javax.jcr.query.InvalidQueryException;
 
 import org.apache.commons.collections.IteratorUtils;
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.lucene.queryParser.ParseException;
 import org.slf4j.Logger;
@@ -154,7 +153,7 @@ public class ShopProductAccessor extends DefaultCustomDataAccessor {
     }
 
     public static String escapeSql(final String input) {
-        String output = StringEscapeUtils.escapeSql(input); // escape '
+        String output = StringUtils.isEmpty(input) ? null : StringUtils.replace(input, "'", "''"); // escape '
         output = output.replace("\\", "\\\\"); // escape \ first!
         output = output.replace("-", "\\-").replace("\"", "\\\""); // escape the rest of the SQL characters (-,")
         return output;

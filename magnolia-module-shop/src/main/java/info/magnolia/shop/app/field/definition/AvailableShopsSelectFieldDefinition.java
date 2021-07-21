@@ -37,7 +37,18 @@ import info.magnolia.ui.form.field.definition.SelectFieldDefinition;
 
 /**
  * Definiton class.
+ *
+ * @deprecated As of 4.0.0. Replace with the usage of the linkField with the jcrNodeToNameConverter.
+ *             e.g.
+ *             $type: linkField
+ *             converterClass: info.magnolia.ui.editor.converter.JcrNodeToNameConverter
+ *             datasource:
+ *               $type: jcrDatasource
+ *               workspace: shops
+ *               allowedNodeTypes:
+ *                 - shop
  */
+@Deprecated
 public class AvailableShopsSelectFieldDefinition extends SelectFieldDefinition {
 
 }
