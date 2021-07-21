@@ -84,10 +84,14 @@ public class ShopLinkUtil {
     public static String createLinkFromContentWithSelectors(TemplatingFunctions functions, Node currentPage, String selector) {
         String link = functions.link(currentPage);
         String extension = StringUtils.substringAfterLast(link, ".");
-        if(StringUtils.isNotEmpty(selector)) {
+        if (StringUtils.isNotEmpty(extension)) {
+            extension = "." + extension;
+        }
+        if (StringUtils.isNotEmpty(selector)) {
             selector = "~" + selector + "~";
         }
-        return StringUtils.substringBeforeLast(link, extension) + selector + "." + extension;
+
+        return StringUtils.substringBeforeLast(link, extension) + selector + extension;
     }
 
     public static String getProductDetailPageLink(TemplatingFunctions functions, Node product, Node siteRoot)
