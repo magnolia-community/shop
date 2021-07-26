@@ -44,6 +44,22 @@
         <url>http://jira.magnolia-cms.com/browse/MSHOP</url>
     </issueManagement>
 
+
+    <distributionManagement>
+        <repository>
+            <id>magnolia.forge.releases</id>
+            <url>https://nexus.magnolia-cms.com/content/repositories/magnolia.forge.releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>magnolia.forge.snapshots</id>
+            <url>https://nexus.magnolia-cms.com/content/repositories/magnolia.forge.snapshots</url>
+        </snapshotRepository>
+        <site>
+            <id>magnolia.forge.sites</id>
+            <url>dav:https://nexus.magnolia-cms.com/content/sites/magnolia.forge.sites/${artifactId}/${project.version}</url>
+        </site>
+    </distributionManagement>
+
     <scm>
         <connection>scm:git:ssh://git@git.magnolia-cms.com/forge/shop</connection>
         <developerConnection>scm:git:ssh://git@git.magnolia-cms.com/forge/shop</developerConnection>
