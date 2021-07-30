@@ -61,9 +61,9 @@
     </distributionManagement>
 
     <scm>
-        <connection>scm:git:ssh://git@git.magnolia-cms.com/forge/shop</connection>
-        <developerConnection>scm:git:ssh://git@git.magnolia-cms.com/forge/shop</developerConnection>
-        <url>https://git.magnolia-cms.com/projects/FORGE/repos/shop</url>
+        <connection>scm:git:git@github.com:magnolia-community/shop.git</connection>
+        <developerConnection>scm:git:git@github.com:magnolia-community/shop.git</developerConnection>
+        <url>https://github.com/magnolia-community/shop</url>
         <tag>HEAD</tag>
     </scm>
 
