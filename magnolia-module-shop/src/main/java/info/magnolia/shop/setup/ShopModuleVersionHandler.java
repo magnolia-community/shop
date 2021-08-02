@@ -60,11 +60,11 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
 
     public ShopModuleVersionHandler() {
         register(deltaFor301());
-        register(deltaFor4_0_2());
+        register(deltaFor4_0_3());
     }
 
-    private Delta deltaFor4_0_2() {
-        DeltaBuilder builder = DeltaBuilder.update("4.0.2", "Bootstrap tasks for shop 4.0.2");
+    private Delta deltaFor4_0_3() {
+        DeltaBuilder builder = DeltaBuilder.update("4.0.3", "Bootstrap tasks for shop 4.0.3");
 
         builder.addTask(new ValueOfPropertyDelegateTask(
                 "Check if defaultShoppingCart node uses ClassDescriptor",
@@ -74,7 +74,7 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                 false,
                 new SetPropertyTask("Change ClassDescriptor to ProxyClassDescriptor",
                         RepositoryConstants.CONFIG,
-                        "/modules/ocm/config/classDescriptors/psShoppingCart",
+                        "/modules/ocm/config/classDescriptors/defaultShoppingCart",
                         "class",
                         "ch.fastforward.magnolia.ocm.beans.ProxyClassDescriptor")
         ));
@@ -86,7 +86,7 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                 false,
                 new SetPropertyTask("Change ClassDescriptor to ProxyClassDescriptor",
                         RepositoryConstants.CONFIG,
-                        "/modules/ocm/config/classDescriptors/psShoppingCart",
+                        "/modules/ocm/config/classDescriptors/defaultShoppingCartItem",
                         "class",
                         "ch.fastforward.magnolia.ocm.beans.ProxyClassDescriptor")
         ));
@@ -96,7 +96,7 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                 "class",
                 "org.apache.jackrabbit.ocm.mapper.model.ClassDescriptor",
                 false,
-                new SetPropertyTask("Change ClassDescriptor to ProxyClassDescriptor",
+                new SetPropertyTask("Change ClassDescriptor to defaultShoppingCartItemOption",
                         RepositoryConstants.CONFIG,
                         "/modules/ocm/config/classDescriptors/psShoppingCart",
                         "class",
