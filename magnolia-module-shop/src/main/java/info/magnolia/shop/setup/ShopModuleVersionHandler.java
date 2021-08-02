@@ -60,11 +60,11 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
 
     public ShopModuleVersionHandler() {
         register(deltaFor301());
-        register(deltaFor4_0_3());
+        register(deltaFor4_0_5());
     }
 
-    private Delta deltaFor4_0_3() {
-        DeltaBuilder builder = DeltaBuilder.update("4.0.3", "Bootstrap tasks for shop 4.0.3");
+    private Delta deltaFor4_0_5() {
+        DeltaBuilder builder = DeltaBuilder.update("4.0.5", "Bootstrap tasks for shop 4.0.5");
 
         builder.addTask(new ValueOfPropertyDelegateTask(
                 "Check if defaultShoppingCart node uses ClassDescriptor",
