@@ -60,11 +60,11 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
 
     public ShopModuleVersionHandler() {
         register(deltaFor301());
-        register(deltaFor4_0_1());
+        register(deltaFor4_0_2());
     }
 
-    private Delta deltaFor4_0_1() {
-        DeltaBuilder builder = DeltaBuilder.update("4.0.1", "Bootstrap tasks for shop 4.0.1");
+    private Delta deltaFor4_0_2() {
+        DeltaBuilder builder = DeltaBuilder.update("4.0.2", "Bootstrap tasks for shop 4.0.2");
 
         builder.addTask(new ValueOfPropertyDelegateTask(
                 "Check if defaultShoppingCart node uses ClassDescriptor",
@@ -74,7 +74,7 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                 false,
                 new SetPropertyTask("Change ClassDescriptor to ProxyClassDescriptor",
                         RepositoryConstants.CONFIG,
-                        "/modules/ocm/config/classDescrpitors/psShoppingCart",
+                        "/modules/ocm/config/classDescriptors/psShoppingCart",
                         "class",
                         "ch.fastforward.magnolia.ocm.beans.ProxyClassDescriptor")
         ));
@@ -86,7 +86,7 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                 false,
                 new SetPropertyTask("Change ClassDescriptor to ProxyClassDescriptor",
                         RepositoryConstants.CONFIG,
-                        "/modules/ocm/config/classDescrpitors/psShoppingCart",
+                        "/modules/ocm/config/classDescriptors/psShoppingCart",
                         "class",
                         "ch.fastforward.magnolia.ocm.beans.ProxyClassDescriptor")
         ));
@@ -98,7 +98,7 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                 false,
                 new SetPropertyTask("Change ClassDescriptor to ProxyClassDescriptor",
                         RepositoryConstants.CONFIG,
-                        "/modules/ocm/config/classDescrpitors/psShoppingCart",
+                        "/modules/ocm/config/classDescriptors/psShoppingCart",
                         "class",
                         "ch.fastforward.magnolia.ocm.beans.ProxyClassDescriptor")
         ));
