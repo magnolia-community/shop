@@ -96,9 +96,9 @@ public class ShopModuleVersionHandler extends DefaultModuleVersionHandler {
                 "class",
                 "org.apache.jackrabbit.ocm.mapper.model.ClassDescriptor",
                 false,
-                new SetPropertyTask("Change ClassDescriptor to defaultShoppingCartItemOption",
+                new SetPropertyTask("Change ClassDescriptor to ProxyClassDescriptor",
                         RepositoryConstants.CONFIG,
-                        "/modules/ocm/config/classDescriptors/psShoppingCart",
+                        "/modules/ocm/config/classDescriptors/defaultShoppingCartItemOption",
                         "class",
                         "ch.fastforward.magnolia.ocm.beans.ProxyClassDescriptor")
         ));
