@@ -44,6 +44,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 /**
  * Util class for creating shop links.
  * @author tmiyar
@@ -59,13 +61,14 @@ public class ShopLinkUtil {
 
     public static String getProductListSearchLink(TemplatingFunctions functions, Node siteRoot) {
         String link = "";
-        // TODO: fix 4 MTE
-//        try {
-//            Node productSearchResultPage = TemplateCategoryUtil.getNearestContentByTemplateCategorySubCategory(siteRoot, "feature", "product-search-result", ShopUtil.getShopRoot());
-//            link = functions.link(productSearchResultPage);
-//        } catch (RepositoryException e) {
-//            log.error("Product search result link not found");
-//        }
+        try {
+            List<Node> matching = functions.contentListByTemplateType(siteRoot, "feature", "product-search-result", 1, null, null);
+            if (matching != null && matching.size() > 0) {
+                link = functions.link(matching.get(0));
+            }
+        } catch (RepositoryException e) {
+            log.error("Could not get content for template type \"feature\" and subtype \"product-search-result\"", e);
+        }
         return link;
     }
 
