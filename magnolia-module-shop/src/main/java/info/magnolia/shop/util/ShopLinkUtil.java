@@ -74,13 +74,14 @@ public class ShopLinkUtil {
 
     public static String getProductKeywordLink(TemplatingFunctions functions, Node siteRoot) {
         String link = "";
-        // TODO: fix 4 MTE
-//        try {
-//            Node productKeywordResultPage = TemplateCategoryUtil.getNearestContentByTemplateCategorySubCategory(siteRoot, "feature", "keyword-search-result", ShopUtil.getShopRoot());
-//            link = functions.link(productKeywordResultPage);
-//        } catch (RepositoryException e) {
-//            log.error("Product keyword search result link not found");
-//        }
+        try {
+            List<Node> matching = functions.contentListByTemplateType(siteRoot, "feature", "keyword-search-result", 1, null, null);
+            if (matching != null && matching.size() > 0) {
+                link = functions.link(matching.get(0));
+            }
+        } catch (RepositoryException e) {
+            log.error("Could not get content for template type \"feature\" and subtype \"keyword-search-result\"", e);
+        }
         return link;
     }
 
