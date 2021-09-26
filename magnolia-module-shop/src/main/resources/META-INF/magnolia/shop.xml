@@ -29,6 +29,10 @@
             <name>site</name>
             <version>1.0.1/*</version>
         </dependency>
+        <dependency>
+            <name>ocm</name>
+            <version>1.5.0/*</version>
+        </dependency>
     </dependencies>
     <repositories>
         <repository>
