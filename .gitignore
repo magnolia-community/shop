@@ -13,3 +13,4 @@ target/
 /.checkstyle
 /src/main/resources/rebel.xml
 .DS_Store
+release.properties
