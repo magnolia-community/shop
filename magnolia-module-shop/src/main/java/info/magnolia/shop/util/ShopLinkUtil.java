@@ -55,29 +55,25 @@ public class ShopLinkUtil {
 
     private static final Logger log = LoggerFactory.getLogger(ShopLinkUtil.class);
 
-    public static String getProductCategoryLink(TemplatingFunctions functions, Node category) {
-        return functions.link(category);
+    public static String getProductCategoryLink(TemplatingFunctions cmsfn, Node category) {
+        return cmsfn.link(category);
     }
 
-    public static String getProductListSearchLink(TemplatingFunctions functions, Node siteRoot) {
-        String link = "";
-        try {
-            List<Node> matching = functions.contentListByTemplateType(siteRoot, "feature", "product-search-result", 1, null, null);
-            if (matching != null && matching.size() > 0) {
-                link = functions.link(matching.get(0));
-            }
-        } catch (RepositoryException e) {
-            log.error("Could not get content for template type \"feature\" and subtype \"product-search-result\"", e);
+    public static String getProductListSearchLink(TemplatingFunctions cmsfn, Node siteRoot) {
+        Node matching = ShopUtil.getContentByTemplateTypeSubType(siteRoot, "feature", "product-search-result", cmsfn);
+        if (matching != null) {
+            return cmsfn.link(matching);
+        } else {
+            return "";
         }
-        return link;
     }
 
-    public static String getProductKeywordLink(TemplatingFunctions functions, Node siteRoot) {
+    public static String getProductKeywordLink(TemplatingFunctions cmsfn, Node siteRoot) {
         String link = "";
         try {
-            List<Node> matching = functions.contentListByTemplateType(siteRoot, "feature", "keyword-search-result", 1, null, null);
+            List<Node> matching = cmsfn.contentListByTemplateType(siteRoot, "feature", "keyword-search-result", 1, null, null);
             if (matching != null && matching.size() > 0) {
-                link = functions.link(matching.get(0));
+                link = cmsfn.link(matching.get(0));
             }
         } catch (RepositoryException e) {
             log.error("Could not get content for template type \"feature\" and subtype \"keyword-search-result\"", e);
@@ -85,8 +81,8 @@ public class ShopLinkUtil {
         return link;
     }
 
-    public static String createLinkFromContentWithSelectors(TemplatingFunctions functions, Node currentPage, String selector) {
-        String link = functions.link(currentPage);
+    public static String createLinkFromContentWithSelectors(TemplatingFunctions cmsfn, Node currentPage, String selector) {
+        String link = cmsfn.link(currentPage);
         String extension = StringUtils.substringAfterLast(link, ".");
         if (StringUtils.isNotEmpty(extension)) {
             extension = "." + extension;
@@ -98,32 +94,32 @@ public class ShopLinkUtil {
         return StringUtils.substringBeforeLast(link, extension) + selector + extension;
     }
 
-    public static String getProductDetailPageLink(TemplatingFunctions functions, Node product, Node siteRoot)
+    public static String getProductDetailPageLink(TemplatingFunctions cmsfn, Node product, Node siteRoot)
     throws RepositoryException {
         if (product != null) {
-            Node detailPage = ShopUtil.getContentByTemplateCategorySubCategory(
-                    ShopUtil.getShopRoot(), "feature", "product-detail");
+            Node detailPage = ShopUtil.getContentByTemplateTypeSubType(
+                    ShopUtil.getShopRoot(cmsfn), "feature", "product-detail", cmsfn);
             String selector = createProductSelector(product);
-            return ShopLinkUtil.createLinkFromContentWithSelectors(functions, detailPage, selector);
+            return ShopLinkUtil.createLinkFromContentWithSelectors(cmsfn, detailPage, selector);
         }
         return "";
     }
 
-    public static String getProductDetailPageLink(TemplatingFunctions functions, Node product, Node currentPage, Node siteRoot)
+    public static String getProductDetailPageLink(TemplatingFunctions cmsfn, Node product, Node currentPage, Node siteRoot)
     throws RepositoryException {
         if (product != null) {
             // first check if there is a product detail page underneath the current
             // page (which should be a product category page). This will make the
             // current product category to stay highlighted in the navigation.
-            Node detailPage = ShopUtil.getContentByTemplateCategorySubCategory(currentPage, "feature", "product-detail");
+            Node detailPage = ShopUtil.getContentByTemplateTypeSubType(currentPage, "feature", "product-detail", cmsfn);
             if (detailPage == null) {
                 // if no detail page was found search the whole site for a "generic"
                 // detail page.
-                detailPage = ShopUtil.getContentByTemplateCategorySubCategory(siteRoot, "feature", "product-detail");
+                detailPage = ShopUtil.getContentByTemplateTypeSubType(siteRoot, "feature", "product-detail", cmsfn);
             }
 
             String selector = createProductSelector(product);
-            return ShopLinkUtil.createLinkFromContentWithSelectors(functions, detailPage, selector);
+            return ShopLinkUtil.createLinkFromContentWithSelectors(cmsfn, detailPage, selector);
         }
         return "";
     }

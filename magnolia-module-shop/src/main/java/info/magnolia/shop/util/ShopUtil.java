@@ -78,6 +78,7 @@ import info.magnolia.shop.beans.LimitedProduct;
 import info.magnolia.shop.beans.ProductPrice;
 import info.magnolia.shop.beans.ShoppingCart;
 import info.magnolia.shop.beans.ShoppingCartItem;
+import info.magnolia.templating.functions.TemplatingFunctions;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.ocm.manager.ObjectContentManager;
 import org.apache.jackrabbit.ocm.manager.atomictypeconverter.impl.DefaultAtomicTypeConverterProvider;
@@ -111,24 +112,23 @@ public final class ShopUtil {
      *
      * @return shop home page
      */
-    public static Node getShopRoot() {
+    public static Node getShopRoot(TemplatingFunctions cmsfn) {
         Node currContent = MgnlContext.getAggregationState().getMainContentNode();
-        // TODO: Fix 4 MTE
-//        try {
-//            while (currContent.getDepth() >= 0) {
-//                String subCategory = TemplateCategoryUtil.getTemplateSubCategory(currContent);
-//                if (subCategory != null && subCategory.equals("shopHome")) {
-//                    return currContent;
-//                } else {
-//                    currContent = currContent.getParent();
-//                }
-//            }
-//        } catch (PathNotFoundException ex) {
-//            log.error("Path not found!", ex);
-//        } catch (RepositoryException ex) {
-//            log.error("Repository exception", ex);
-//        }
-//        log.error("No template found with subcategory shopHome");
+        try {
+            while (currContent.getDepth() >= 0) {
+                String subType = cmsfn.templateSubtype(currContent);
+                if (subType != null && subType.equals("shopHome")) {
+                    return currContent;
+                } else {
+                    currContent = currContent.getParent();
+                }
+            }
+        } catch (PathNotFoundException ex) {
+            log.error("Path not found!", ex);
+        } catch (RepositoryException ex) {
+            log.error("Repository exception", ex);
+        }
+        log.error("No template found with subtype shopHome");
         return null;
     }
 
@@ -229,7 +229,7 @@ public final class ShopUtil {
      */
     @Deprecated
     public static ShoppingCart getShoppingCart() {
-        return (ShoppingCart) MgnlContext.getAttribute(ATTRIBUTE_SHOPPINGCART);
+        return MgnlContext.getAttribute(ATTRIBUTE_SHOPPINGCART);
     }
 
     /**
@@ -240,7 +240,7 @@ public final class ShopUtil {
         if (StringUtils.isBlank(shopName)) {
             return null;
         }
-        return (ShoppingCart) MgnlContext.getAttribute(shopName + "_" + ATTRIBUTE_SHOPPINGCART);
+        return MgnlContext.getAttribute(shopName + "_" + ATTRIBUTE_SHOPPINGCART);
     }
 
     /**
@@ -252,7 +252,7 @@ public final class ShopUtil {
         if (StringUtils.isBlank(shopName)) {
             return null;
         }
-        return (ShoppingCart) MgnlContext.getAttribute(shopName + "_" + ATTRIBUTE_PREVIOUS_SHOPPINGCART);
+        return MgnlContext.getAttribute(shopName + "_" + ATTRIBUTE_PREVIOUS_SHOPPINGCART);
     }
 
     public static Collection<Node> transformIntoI18nContentList(Collection<Node> contentList) {
@@ -336,18 +336,15 @@ public final class ShopUtil {
         return getPath(true, strings);
     }
 
-    public static Node getContentByTemplateCategorySubCategory(Node siteRoot, String category, String subCategory) {
-
-        // TODO: Fix 4 MTE
-//        try {
-//            List<Node> nodes = TemplateCategoryUtil.getContentListByTemplateCategorySubCategory(siteRoot, category, subCategory);
-//            if (nodes.size() > 0) {
-//                return nodes.get(0);
-//            }
-//        } catch (RepositoryException e) {
-//            log.error("no template found with category=" + category + " and subcategory=" + subCategory);
-//        }
-
+    public static Node getContentByTemplateTypeSubType(Node siteRoot, String type, String subType, TemplatingFunctions cmsfn) {
+        try {
+            List<Node> matching = cmsfn.contentListByTemplateType(siteRoot, type, subType);
+            if (!matching.isEmpty()) {
+                return matching.get(0);
+            }
+        } catch (RepositoryException e) {
+            log.error("Could not get content for type " + type + " and sub-type " + subType, e);
+        }
         return null;
     }
 
