@@ -1,0 +1,7 @@
+!inherit:ui-framework-jcr:chooser
+  actions:
+    choose:
+      class: info.magnolia.shop.dialog.action.ConfigurableChooseActionDefinition
+      availability:
+        nodeTypes:
+          - mgnl:category

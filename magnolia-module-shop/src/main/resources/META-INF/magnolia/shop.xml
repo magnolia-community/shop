@@ -33,6 +33,14 @@
             <name>ocm</name>
             <version>1.5.0/*</version>
         </dependency>
+        <dependency>
+            <name>categorization</name>
+            <version>2.8.0/*</version>
+        </dependency>
+        <dependency>
+            <name>ui-framework-jcr</name>
+            <version>6.2.11/*</version>
+        </dependency>
     </dependencies>
     <repositories>
         <repository>

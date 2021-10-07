@@ -1,0 +1,56 @@
+datasource:
+  workspace: shopProducts
+  autoCreate: true
+model:
+  nodeType: shopProduct
+  properties:
+    - name: title
+      i18n: true
+      required: true
+    - name: productDescription1
+      i18n: true
+      required: true
+    - name: productDescription2
+      i18n: true
+    - name: image
+      type: asset
+    - name: supplierUUID
+      type: reference:shopSupplier
+    - name: maxQuantityPerOrder
+      type: Long
+    - name: prices
+      type: shopProductPrice
+    - name: taxCategoryUUID
+    - name: productCategoryUUIDs
+      multiple: true
+    - name: weight
+      type: Double
+    - name: weightUnit
+      options:
+        kg:
+          value: kg
+          label: shopProducts.weightUnit.options.kg
+        lbs:
+          value: lbs
+          label: shopProducts.weightUnit.options.lbs
+    - name: height
+      type: Double
+    - name: width
+      type: Double
+    - name: depth
+      type: Double
+    - name: sizeUnit
+      options:
+        kg:
+          value: cm
+          label: shopProducts.sizeUnit.options.cm
+        lbs:
+          value: in
+          label: shopProducts.sizeUnit.options.in
+    - name: terms
+  subModels:
+    - name: shopProductPrice
+      properties:
+        - name: priceCategoryUUID
+        - name: price
+          type: Double
