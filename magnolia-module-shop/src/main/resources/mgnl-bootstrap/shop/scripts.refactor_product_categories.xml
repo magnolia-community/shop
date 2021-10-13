@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><sv:node xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" sv:name="refactor_product_categories"><sv:property sv:name="jcr:primaryType" sv:type="Name"><sv:value>mgnl:content</sv:value></sv:property><sv:property sv:name="jcr:uuid" sv:type="String"><sv:value>6caf91d7-b857-45ee-9564-e38898198dcd</sv:value></sv:property><sv:property sv:name="mgnl:created" sv:type="Date"><sv:value>2021-10-12T21:06:30.676+02:00</sv:value></sv:property><sv:property sv:name="mgnl:createdBy" sv:type="String"><sv:value>superuser</sv:value></sv:property><sv:property sv:name="mgnl:lastModified" sv:type="Date"><sv:value>2021-10-12T21:30:51.311+02:00</sv:value></sv:property><sv:property sv:name="mgnl:lastModifiedBy" sv:type="String"><sv:value>superuser</sv:value></sv:property><sv:property sv:name="script" sv:type="Boolean"><sv:value>true</sv:value></sv:property><sv:property sv:name="text" sv:type="String"><sv:value>def query = "SELECT * FROM [shopProduct] AS p";
+
+def productsIter = QueryUtil.search("shopProducts", query, "JCR-SQL2", "shopProduct");
+for (product in productsIter) {
+    if (product.hasNode("productCategoryUUIDs")) {
+        println("needs refactoring: " + product);
+        if (product.hasProperty("productCategoryUUIDs")) {
+            println("PROBLEM!");
+        } else {
+            def prodCatNode = product.getNode("productCategoryUUIDs");
+            def list = new ArrayList();
+            def prodCatProperties = prodCatNode.getProperties();
+            for (property in prodCatProperties) {
+                if (property.getName().startsWith("mgnl:") || property.getName().startsWith("jcr:")) {
+                    // skip!
+                } else {
+                    list.add(property.getString());
+                }
+            }
+            println(list.size() + " categories");
+            product.setProperty("productCategoryUUIDs", list.toArray(new String[0]));
+            prodCatNode.remove();
+        }
+    } else {
+        println("no refactoring needed: " + product);
+    }
+}
+MgnlContext.getJCRSession("shopProducts").save();</sv:value></sv:property></sv:node>
