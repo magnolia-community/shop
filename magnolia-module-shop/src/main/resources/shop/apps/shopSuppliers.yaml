@@ -5,6 +5,11 @@ icon: icon-companies
 subApps:
   detail:
     form:
+      properties:
+        logo:
+          $type: damLinkField
+        terms:
+          $type: damLinkField
       layout:
         $type: tabbedLayout
         tabs:
