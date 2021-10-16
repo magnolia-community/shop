@@ -10,7 +10,7 @@
     <groupId>info.magnolia.shop</groupId>
     <artifactId>magnolia-shop</artifactId>
     <packaging>pom</packaging>
-    <version>4.1.4</version>
+    <version>4.1.5-SNAPSHOT</version>
     <name>Magnolia Simple Shop</name>
 
     <properties>
